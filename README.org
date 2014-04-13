@@ -1,0 +1,4 @@
+* Futurismo
+Futurismo執筆用の実験リポジトリです。そのうち削除するかも。
+
+- http://futurismo.biz
