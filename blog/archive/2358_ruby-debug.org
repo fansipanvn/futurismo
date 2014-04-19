@@ -1,0 +1,132 @@
+#+BLOG: Futurismo
+#+POSTID: 2358
+#+DATE: [2014-03-29 土 13:02]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Emacs
+#+TAGS: Ruby   
+#+DESCRIPTION:Emacsでrubydbを利用してステップ実行する
+#+TITLE: Emacsでrubydbを利用してステップ実行する
+
+#+BEGIN_HTML
+<a href="https://picasaweb.google.com/lh/photo/Tu2VEkVYqYsV04cIb3i5qTyD6hjDXGH6XyE6iLrzolo?feat=embedwebsite"><img alt="" src="https://lh3.googleusercontent.com/-Zf4rF4KLaKQ/UvpByiJqSvI/AAAAAAAABCA/lvJgohfEmdo/s800/ruby1.png" width="256" height="256" /></a>
+#+END_HTML
+
+* ruby-debugについて
+Rubyには、debugというデバッカが標準ライブラリとしてついている。
+
+- [[http://docs.ruby-lang.org/ja/2.1.0/library/debug.html][library debug]]
+
+これをつかうと、gdbのようなステップ実行ができる。
+
+** 使い方
+コンソールから以下のように入力する。
+
+#+BEGIN_HTML
+<pre><code>ruby -rdebug [filename]
+</code></pre>
+#+END_HTML
+
+(rdb:1)というコンソールが現れて、入力待ちになる。操作方法は以下のとおり。
+
+ステップ実行関連のコマンドは以下。ほぼgdbですね。
+
+#+BEGIN_HTML
+<pre><code>  
+  b[reak] [file:|class:][line|method]
+  b[reak] [class.][line|method]   set breakpoint to some position
+
+  wat[ch] [expression]       set watchpoint to some expression
+
+  b[reak]                    list breakpoints
+
+  del[ete][ nnn]             delete some or all breakpoints
+
+  c[ont]                     run until program ends or hit breakpoint
+  s[tep][ nnn]               step (into methods) one line or till line nnn
+  n[ext][ nnn]               go over one line or till line nnn
+  l[ist][ (-|nn-mm)]         list program, - lists backwards
+
+
+  q[uit]                     exit from debugger
+  r[estart]                  restart program
+</code></pre>
+#+END_HTML
+
+個人的には、このへんの値参照が役立ちそう。
+
+#+BEGIN_HTML
+<pre><code>
+  v[ar] g[lobal]             show global variables
+  v[ar] l[ocal]              show local variables
+  v[ar] i[nstance] [object]  show instance variables of object
+  v[ar] c[onst] [object]     show constants of object
+</code></pre>
+#+END_HTML
+
+あとは、watchコマンドとdispコマンドを組み合わせたのがよさそう。
+
+- http://d.hatena.ne.jp/takihiro/20100404/1270370312
+
+* Emacsといっしょにつかう
+Emacsようのelispをつかうと、実行中のステップがEmacsから見ることができる。
+
+elispはRubyのソースコードのmiscディレクトリのなかにある。
+
+- [[https://www.ruby-lang.org/ja/downloads/][ダウンロード]]
+
+rubydb3x.elとrubydb2x.eclが入っているけれど，rubydx2x.elは19.2x以前向けなので，3xを使用する。
+
+rubydb3x.elをロードパスが通った場所において、init.elに以下を追加。
+
+#+BEGIN_HTML
+<pre><code>(autoload 'rubydb "rubydb3x" "run rubydb on program file in buffer" t)
+</code></pre>
+#+END_HTML
+
+これで、M-x rubydbをおすとデバッガが起動する。
+
+** ヘルプコマンドから抜きだし
+
+#+BEGIN_HTML
+<pre><code>Commands
+  b[reak] [file:|class:][line|method]
+  b[reak] [class.][line|method]
+                             set breakpoint to some position
+  wat[ch] [expression]       set watchpoint to some expression
+  cat[ch] ([exception]|off)  set catchpoint to an exception
+  b[reak]                    list breakpoints
+  cat[ch]                    show catchpoint
+  del[ete][ nnn]             delete some or all breakpoints
+  disp[lay] [expression]     add expression into display expression list
+  undisp[lay][ nnn]          delete one particular or all display expressions
+  c[ont]                     run until program ends or hit breakpoint
+  s[tep][ nnn]               step (into methods) one line or till line nnn
+  n[ext][ nnn]               go over one line or till line nnn
+  w[here]                    display frames
+  f[rame]                    alias for where
+  l[ist][ (-|nn-mm)]         list program, - lists backwards
+                             nn-mm lists given lines
+  up[ nn]                    move to higher frame
+  down[ nn]                  move to lower frame
+  fin[ish]                   return to outer frame
+  tr[ace] (on|off)           set trace mode of current thread
+  tr[ace] (on|off) all       set trace mode of all threads
+  q[uit]                     exit from debugger
+  v[ar] g[lobal]             show global variables
+  v[ar] l[ocal]              show local variables
+  v[ar] i[nstance] [object]  show instance variables of object
+  v[ar] c[onst] [object]     show constants of object
+  m[ethod] i[nstance] [obj]  show methods of object
+  m[ethod] [class|module]    show instance methods of class or module
+  th[read] l[ist]            list all threads
+  th[read] c[ur[rent]]       show current thread
+  th[read] [sw[itch]] [nnn]  switch thread context to nnn
+  th[read] stop [nnn]        stop thread nnn
+  th[read] resume [nnn]      resume thread nnn
+  pp expression              evaluate expression and pretty_print its value
+  p expression               evaluate expression and print its value
+  r[estart]                  restart program
+  h[elp]                     print this help
+</code></pre>
+#+END_HTML
+

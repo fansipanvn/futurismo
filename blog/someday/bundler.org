@@ -1,0 +1,20 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Uncategorized, Hello
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: Bundlerで管理するRuby開発環境
+#+BEGIN_HTML
+<a href="https://picasaweb.google.com/lh/photo/Tu2VEkVYqYsV04cIb3i5qTyD6hjDXGH6XyE6iLrzolo?feat=embedwebsite"><img alt="" src="https://lh3.googleusercontent.com/-Zf4rF4KLaKQ/UvpByiJqSvI/AAAAAAAABCA/lvJgohfEmdo/s800/ruby1.png" width="256" height="256" /></a>
+#+END_HTML
+
+*** はじめに
+
+Rubyに関係するツールについてまとめてきたけれども、雑然としてきたのでbundlerをつかって整理してみる。
+
+以下の記事で書いたツールをbundlerでまとめてみる。
+
+- [[http://futurismo.biz/en/archives/2213][EmacsでRubyの開発環境をさらにめちゃガチャパワーアップしたまとめ | Futurismo]]
+- [[http://futurismo.biz/en/archives/2266][EmacsでRSpec環境をめちゃガチャパワーアップしたまとめ | Futurismo]]
+
+*** bundlerについて
+Bundlerは、gemを管理するためのツール。

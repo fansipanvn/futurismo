@@ -1,0 +1,34 @@
+
+
+
+- PyQt5:       http://www.riverbankcomputing.co.uk/software/pyqt/intro
+- Python-Xlib: https://pypi.python.org/pypi/python-xlib
+
+
+
+
+- Python-EPC:  https://github.com/tkf/python-epc
+
+PyQt5のインストール。
+
+sipなるものをまず入れる。
+
+#+BEGIN_HTML
+<pre><code>
+cd /tmp
+hg clone http://www.riverbankcomputing.com/hg/sip
+cd sip
+python setup.py prepare
+python configure.py
+make
+make install
+</code></pre>
+#+END_HTML
+
+
+
+Python-Xlibは apt-get経由で。
+
+Python-EPCは el-getで入れた。
+
+ダウンロードは el-getで入れた。

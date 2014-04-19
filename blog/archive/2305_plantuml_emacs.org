@@ -1,0 +1,68 @@
+#+BLOG: Futurismo
+#+POSTID: 2305
+#+DATE: [2014-03-08 土 10:00]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: UML
+#+DESCRIPTION: EmacsからPlantUMLを便利につかう方法
+#+TITLE: EmacsからPlantUMLを便利につかう方法
+EmacsからPlantUMLをつかう方法を調べた。
+
+手順はここにある。
+
+- [[http://plantuml.sourceforge.net/emacs.html][PlantUML]]
+
+いかんせん、わかりにくかったので、自分でも作業メモを残そうと思う。
+
+* ob-plantuml.el
+Emacs内でplantumlをコンパイルするには、ob-plantuml.elをつかう。
+
+これは、24.1以降のバージョンだとbuild-inされているのでとくにインストールは不要。
+
+以下のサイトを参考に、init.elに以下を記述。
+
+- [[http://d.hatena.ne.jp/a_bicky/20121016/1350347857][Emacs から PlantUML を使ってみた - あらびき日記]]
+
+#+begin_src emacs-lisp
+(setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
+(defun org-mode-init ()
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   (add-to-list 'org-babel-load-languages '(plantuml . t))))
+(add-hook 'org-mode-hook 'org-mode-init)
+#+end_src
+
+* 使用例
+org-modeで書いているドキュメントの中で以下のようなコードを書く。
+
+C-c, C-e h oで Org文書をHTML変換する。
+このときに、plantumlからUML図の生成も行われる。
+
+** Code
+#+BEGIN_HTML
+<pre><code>
+#+BEGIN_SRC plantuml :file sample.png :cmdline -charset UTF-8
+  Alice -> Bob: Authentication Request
+  Bob --> Alice: Authentication Response
+#+END_SRC
+</code></pre>
+#+END_HTML
+
+** 図
+#+BEGIN_SRC plantuml :file sample.png :cmdline -charset UTF-8
+  Alice -> Bob: Authentication Request
+  Bob --> Alice: Authentication Response
+#+END_SRC
+
+* plantuml-mode.el
+plantumlを書くためのモードもあります。package.elからインストールした。
+
+#+begin_src emacs-lisp
+(require 'plantuml-mode)
+(add-to-list 'auto-mode-alist '("\\.puml$" . plantuml-mode))
+(add-to-list 'auto-mode-alist '("\\.plantuml$" . plantuml-mode))
+#+end_src
+
+最近は、ブログの記事をorg-modeで書いているので、これでブログ執筆が便利になった。
+
+- [[http://zhangweize.wordpress.com/2010/08/25/creating-uml-images-by-using-plantuml-and-org-babel-in-emacs/][Creating uml images by using plantuml and org-babel in emacs | zwz's Blog]]

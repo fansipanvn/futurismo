@@ -1,0 +1,107 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: RSpec, Ruby
+#+DESCRIPTION: RSpecのモックについて調べてみた
+#+TITLE: RSpecのモックについて調べてみた
+
+#+BEGIN_HTML
+<a href="https://picasaweb.google.com/lh/photo/Tu2VEkVYqYsV04cIb3i5qTyD6hjDXGH6XyE6iLrzolo?feat=embedwebsite"><img alt="" src="https://lh3.googleusercontent.com/-Zf4rF4KLaKQ/UvpByiJqSvI/AAAAAAAABCA/lvJgohfEmdo/s800/ruby1.png" width="256" height="256" /></a>
+#+END_HTML
+
+今日は、RSpecにおけるモックオブジェクト技法について調べてみました。
+
+* モックオブジェクト技法とは
+モックオブジェクト技法とは、
+
+- オブジェクト同士のコラボレーションに注目したテスト方法。
+- オブジェクトの状態よりも、オブジェクト同士のやりとりに注目する。
+- インターフェースのテスト、シーケンス図のテストに注力した技法。
+
+詳しくは、この本がいい。
+
+#+BEGIN_HTML
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E5%AE%9F%E8%B7%B5%E3%83%86%E3%82%B9%E3%83%88%E9%A7%86%E5%8B%95%E9%96%8B%E7%99%BA-%E3%83%86%E3%82%B9%E3%83%88%E3%81%AB%E5%B0%8E%E3%81%8B%E3%82%8C%E3%81%A6%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E3%82%92%E8%82%B2%E3%81%A6%E3%82%8B-Object-Oriented-SELECTION/dp/4798124583%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798124583' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/61vSRgWto0L._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E5%AE%9F%E8%B7%B5%E3%83%86%E3%82%B9%E3%83%88%E9%A7%86%E5%8B%95%E9%96%8B%E7%99%BA-%E3%83%86%E3%82%B9%E3%83%88%E3%81%AB%E5%B0%8E%E3%81%8B%E3%82%8C%E3%81%A6%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E3%82%92%E8%82%B2%E3%81%A6%E3%82%8B-Object-Oriented-SELECTION/dp/4798124583%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798124583' rel='nofollow' target='_blank'>実践テスト駆動開発 テストに導かれてオブジェクト指向ソフトウェアを育てる (Object Oriented SELECTION)</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 14.03.29</div><div class='amazlink-detail'>Steve Freeman<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E5%AE%9F%E8%B7%B5%E3%83%86%E3%82%B9%E3%83%88%E9%A7%86%E5%8B%95%E9%96%8B%E7%99%BA-%E3%83%86%E3%82%B9%E3%83%88%E3%81%AB%E5%B0%8E%E3%81%8B%E3%82%8C%E3%81%A6%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E3%82%92%E8%82%B2%E3%81%A6%E3%82%8B-Object-Oriented-SELECTION/dp/4798124583%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798124583' rel='nofollow' target='_blank'>Amazon</a></div></div></div></div></div>
+#+END_HTML
+
+* RSpecにおけるテストダブル
+基本は以下。double()メソッドでテストダブルオブジェクトを生成。
+
+テストダブルとは、本物のオブジェクトの代役をするオブジェクト。
+映画の俳優のスタントマン。
+
+大抵の場合は、テスト対象のオブジェクトの引数としてオブジェクトが渡される。
+
+#+BEGIN_HTML
+<pre><code>
+   real_foo = Foo.new
+   double_foo = double('foo')
+
+   # real_fooをつかわないで、double_fooを渡す
+   hoge = Hoge.new(double_foo)
+</code></pre>
+#+END_HTML
+
+記法には2種類ある。
+
+- should記法 should_recieve ...
+- expect記法 allow/expect
+
+expect記法の方が、より英語らしく感じる。文脈に応じて使い分ける。
+
+** スタブ
+スタブメソッドを指定すると、
+テストダブルオブジェクトのメソッドから好きな値を戻り値として得ることができる。
+
+#+BEGIN_HTML
+<pre><code>
+   allow(double_foo).to receive(:call).and_return("Hello")
+   double_foo.stub(:call).and_return("Hello")
+</code></pre>
+#+END_HTML
+
+** モック
+スタブに検証機能をつけたものをモックという。検証機能とは、
+
+- 期待された引数で呼ばれたか？
+- 期待された回数呼ばれたか？
+- 期待された順番で呼ばれたか？
+
+などなどを検証する。この機能が、モックオブジェクト技法。
+オブジェクト同士のやりとりに注力したテストがかける。
+
+期待された値で呼ばれたかは、with()メソッドで検証する。
+
+#+BEGIN_HTML
+<pre><code>
+   expect(double_foo).to recieve(:call).and_return("Hello")
+   double_foo.should_recieve(:call).and_return("Hello")
+</code></pre>
+#+END_HTML
+
+** リファレンスとか
+機能が細かいので、詳しくは以下のリンクを参照。
+
+- [[https://relishapp.com/rspec/rspec-mocks/v/3-0/docs][RSpec Mocks 3.0 - RSpec Mocks - RSpec - Relish]]
+
+自分は、この書籍を見ながら勉強している。
+
+#+BEGIN_HTML
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/RSpec-Book-Professional-Ruby-Series/dp/4798121932%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798121932' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/51-3T735zLL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/RSpec-Book-Professional-Ruby-Series/dp/4798121932%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798121932' rel='nofollow' target='_blank'>The RSpec Book (Professional Ruby Series)</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 14.03.29</div><div class='amazlink-detail'>David Chelimsky<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/RSpec-Book-Professional-Ruby-Series/dp/4798121932%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798121932' rel='nofollow' target='_blank'>Amazon</a></div></div></div></div></div>
+#+END_HTML
+
+* 実装例
+以前書いたステートパターンの実装に対してテストコードを書いてみました。
+
+- [[http://futurismo.biz/archives/2315][Rubyでステートマシンを実装してみる | Futurismo]]
+
+#+BEGIN_HTML
+<script src="https://gist.github.com/tsu-nera/9853933.js"></script>
+#+END_HTML
+
+* その他所感
+Mock系のツールは、GoogleMockとJMockをつかったことがあるけれども、
+RSpecの記法はとてもシンプルなので、気に入った。
+
+JavaやC++だと、いちいちインタフェースを定義しないといけない。
+
+Rubyでは、それがないのが素敵だ。
