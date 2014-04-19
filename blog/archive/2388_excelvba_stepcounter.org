@@ -1,0 +1,196 @@
+#+BLOG: Futurismo
+#+POSTID: 2388
+#+DATE: [2014-04-13 日 02:07]
+
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Windows
+#+TAGS: VBA, Excel
+#+DESCRIPTION: ExcelVBAのステップ数をカウントする
+#+TITLE: ExcelVBAのステップ数をカウントする
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/Windows_7_Vertical_Logo_Web.jpg"/>
+#+END_HTML
+
+Excel VBAのステップ数を数えるツールを探そうとおもったけれども、勉強のために自作してみる。
+
+[toc]
+
+* ステップ数を数える方法について
+ソースコードから以下の情報を得たい。
+
+- 全体のステップ数
+- 実行ステップ数
+- コメント行
+- 空白行
+
+こんな出力結果を得たい。
+
+#+BEGIN_HTML
+<pre><code>
+--------------------------
+  FileName    Exxecute
+--------------------------
+ hogehoge.cls       10
+ hugahuga.bas       10
+--------------------------
+ Sum                20
+--------------------------
+</code></pre>
+#+END_HTML
+
+サンプルを探してみた。以下のサイトのコードが良さそうだ。
+
+- [[http://www.cpearson.com/excel/vbe.aspx][Programming In The VBA Editor]]
+
+* テンプレートエンジンをつかってみる
+** テンプレートエンジンについて
+テンプレートエンジンとは、データとテンプレートからドキュメントを作成するもの。
+
+- [[http://ja.wikipedia.org/wiki/%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%B3][テンプレートエンジン - Wikipedia]]
+
+VBAで利用できるテンプレートエンジンは、「Mini Templator」が唯一の選択肢のようだ。
+
+** Mini Templatorについて
+Mini TemplatorはHTML用のテンプレートエンジン。
+VBAだけではなくて、Java, PHPでもつかえる模様。オープンソース。
+
+- [[http://www.source-code.biz/MiniTemplator/][MiniTemplator - A compact template engine for HTML files]]
+
+上記サイトからVBA用のファイル一式をダウンロード。
+なかにあるMiniTemplator.clsをインポートする。
+
+- MiniTemplator_vbasic.zip
+  - MiniTemplator.cls
+
+ドキュメントは以下。
+
+- [[http://www.source-code.biz/MiniTemplator/vbasic/MiniTemplator.htm][MiniTemplator Class API Documentation]]
+
+** Mini Templatorのつかいかた
+
+キホンは以下の4ステップ
+
+1. テンプレートエンジン生成
+#+BEGIN_HTML
+<pre><code>  Dim templator As New MiniTemplator
+</code></pre>
+#+END_HTML
+
+2. テンプレート読み込み
+#+BEGIN_HTML
+<pre><code> templator.ReadTemplateFromFile STEPCOUNTE_TEMPLATE_PATH
+</code></pre>
+#+END_HTML
+
+3. データ入力
+3.1 変数代入
+3.2 ブロック代入
+#+BEGIN_HTML
+<pre><code>    templator.SetVariable "filename", vbcComp.Name
+    templator.SetVariable "execute", vbcLine
+    templator.SetBlock "file"</code></pre>
+#+END_HTML
+
+4. データを文字列 or ファイルに出力
+#+BEGIN_HTML
+<pre><code>  Debug.Print templator.GenerateOutputToString</code></pre>
+#+END_HTML
+
+** テンプレートを用意
+こんな感じでテンプレート用意。
+
+#+BEGIN_HTML
+<pre><code>-------------------------
+ FileName}    Execute
+-------------------------
+<!-- $BeginBlock file --> ${filename}    ${execute}
+<!-- $EndBlock file -->-------------------------
+<!-- $BeginBlock sum --> Sum    ${execute}
+<!-- $EndBlock sum -->-------------------------
+</code></pre>
+#+END_HTML
+
+** コード
+#+BEGIN_HTML<script src="https://gist.github.com/tsu-nera/10543620.js"></script>
+#+END_HTML
+
+
+** 出力結果
+ずれずれ・・・もともとがHTMLようなので、フォーマット出力なんて考えてないようだ。
+
+テキスト出力はつらい。
+
+#+BEGIN_HTML
+<pre><code>-------------------------
+ FileName}    Execute
+-------------------------
+ ThisWorkbook    39
+ Sheet2    0
+ Calc    3
+ Calc_spec    11
+ FileManager_spec    47
+ InlineRunner    112
+ MiniTemplator    608
+ SpecDefinition    62
+ SpecExpectation    164
+ SpecRunner    4
+ SpecSuite    42
+ StepCounter    64
+ FileManager    129
+-------------------------
+ Sum    1285
+-------------------------
+</code></pre>
+#+END_HTML
+
+* printf的なものはないかな
+C言語でのprintfにあたる機能がVBAにないものか、と探したらあった。
+
+- [[http://www.1stdegree.co.jp/blog/yokomaku/?p=103][横のマーク - EXCELのVBAでsprintf]]
+
+このツールが良さそうだ。
+
+- [[http://www.freevbcode.com/ShowCode.asp?ID=5014][FreeVBCode code snippet: PrintF and Related Functions in VB]]
+
+上記からダウンロードして、PrintF.basをインポート。
+
+使い方も、C言語のprintfと同じ。
+
+** コード
+#+BEGIN_HTML
+<pre><code><script src="https://gist.github.com/tsu-nera/10545912.js"></script>
+</code></pre>
+#+END_HTML
+
+** 出力結果
+完璧、素晴らしい。
+
+#+BEGIN_HTML
+<pre><code>-----------------------
+ FileName      Execute 
+-----------------------
+ ThisWorkbook       39 
+ Sheet2              0 
+ Calc                3 
+ Calc_spec          11 
+ FileManager_spec   47 
+ InlineRunner      112 
+ MiniTemplator     608 
+ mdlPrintF         282 
+ SpecDefinition     62 
+ SpecExpectation   164 
+ SpecRunner          4 
+ SpecSuite          42 
+ StepCounter        51 
+ FileManager       129 
+-----------------------
+ Sum              1554 
+-----------------------
+</code></pre>
+#+END_HTML
+
+** Special Thanks
+- [[http://d.hatena.ne.jp/lam_bda/20081124/1227502941][会社でRuby使用禁止になったのなら、VBAでテンプレートエンジンを使えばいいじゃない - ランバダ]]
+- [[http://wasuke.shioya.jp.net/?p=344][MiniTemplator VBAで使えるテンプレートエンジン - わすけのブログわすけのブログ]]
+- [[http://www.1stdegree.co.jp/blog/yokomaku/?p=103][横のマーク - EXCELのVBAでsprintf]]

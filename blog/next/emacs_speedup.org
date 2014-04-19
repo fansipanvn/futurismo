@@ -1,0 +1,135 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Emacs
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: Emacs高速化起動にむけたカイゼンのとりくみ
+Emacsの起動を早くしたい。Cygwin環境におけるEmacsの起動時間が異常。
+
+* 現状分析
+
+** 起動時間の把握
+M-x emacs-init-time という関数を実行すると、起動にかかる時間がわかる。
+
+# とりあえず、現状は、145.4 seconds。2分以上かかってるよ！
+
+起動毎に時間がまちまちなのだが、200s以上毎回かかる。3分以上！これは異常！
+
+# ** init logの確認
+# elispの管理には init-loader.elを利用してる。
+
+# init logを確認すると、各処理における読み込み時間がわかる。
+
+# #+BEGIN_HTML
+# <pre><code>loaded /home/TSUNEMICHI/.emacs.d/inits/00_package_manager.el. 68.446915
+# loaded /home/TSUNEMICHI/.emacs.d/inits/01_global.el. 9.7045551
+# loaded /home/TSUNEMICHI/.emacs.d/inits/02_custom.el. 0.9560546
+# loaded /home/TSUNEMICHI/.emacs.d/inits/31_ruby.el. 0.9340534
+# loaded /home/TSUNEMICHI/.emacs.d/inits/32_c_cpp.el. 0.5230299
+# loaded /home/TSUNEMICHI/.emacs.d/inits/33_minorlang.el. 5.6733245
+# loaded /home/TSUNEMICHI/.emacs.d/inits/40_anything_helm.el. 32.4538563
+# loaded /home/TSUNEMICHI/.emacs.d/inits/50_org-mode.el. 1.6160923999999999
+# loaded /home/TSUNEMICHI/.emacs.d/inits/60_utility.el. 0.6890394
+# loaded /home/TSUNEMICHI/.emacs.d/inits/90_color.el. 1.4970857
+# </code></pre>
+# #+END_HTML
+
+** esupをつかう
+esupを利用すると、詳細な起動時間がわかる。
+
+* すでに実施済みカイゼン
+** emacsclientをつかう
+これはつかう、というよりもすでにつかっている。というより、これをつかわないと話にならない。
+
+- [[http://futurismo.biz/archives/1273][ストレス社会を乗り切るために！cygwinとemacsの起動が遅い場合の高速化２選(emacsclient) | Futurismo]]
+
+* カイゼン
+** X Windows環境での起動カイゼン
+よくワカってないけど、コンナおまじないがあるらしい。
+
+- [[http://ubuntuforums.org/showthread.php?t=183638][emacs slow startup]]
+
+#+BEGIN_HTML
+<pre><code>(modify-frame-parameters nil '((wait-for-wm . nil)))
+</code></pre>
+#+END_HTML
+
+140.9 -> 129.6 
+
+10秒カイゼン！
+
+** バイトコンパイルをする
+パッケージ管理にはel-getを利用してる。そして、elispの管理にはinit-loaderを使っている。
+
+el-getで取得したものは自動的にバイトコンパイルされるのだが、盲点があった。それが
+
+1. el-get自体
+2. init-loader自体
+3. inits配下の設定ファイル
+
+1,2については、el-getでいままで管理していなかった。
+これらをel-get配下で管理するようにしていた。
+
+さらに、inits配下の設定ファイルについては編集するたびにバイトコンパイルするようにした。
+
+[[http://fukuyama.co/emacsd][肥大化した.emacs.dを管理するために私が使っているelisp - Web学び]]を参考にして、以下をinit.elに記述。
+
+#+BEGIN_HTML
+<pre><code>
+;;; 設定ファイルのあるフォルダを指定
+(setq inits_dir (expand-file-name "~/.emacs.d/inits/"))
+(init-loader-load inits_dir)
+
+;; initsフォルダのみ、保存時に自動コンパイルして即反映させる
+;; http://fukuyama.co/emacsd
+(defun auto-save-byte-compile-file ()
+  "Do `byte-compile-file' and reload setting immediately, When elisp file saved only in inits folder."
+  (interactive)
+  (when (or (equal default-directory inits_dir)
+	    (equal default-directory (abbreviate-file-name inits_dir)))
+    (byte-compile-file buffer-file-name t)
+    ))
+(add-hook 'emacs-lisp-mode-hook
+	  (lambda ()
+	    (add-hook 'after-save-hook 'auto-save-byte-compile-file nil t)))
+</code></pre>
+#+END_HTML
+
+また、以下を評価して一括バイトコンパイル。
+
+#+BEGIN_HTML
+<pre><code>(byte-recompile-directory "~/.emacs.d/inits" t)
+</code></pre>
+#+END_HTML
+
+init-loaderで自動バイトコンパイル機能があるようだ。
+
+#+BEGIN_HTML
+<pre><code>(setq init-loader-byte-compile t)
+</code></pre>
+#+END_HTML
+
+有効にしたが、イマイチ使い方がよくわからない。
+
+** auto-loadをつかう
+** eval-after-loadつかう
+** lazyloadをつかう
+
+- [[http://d.hatena.ne.jp/pogin/20121230/1356880875][Emacsの起動時間を短縮する方法 #Emacs #AdventCalendar - プログラムとかののblog]]
+
+
+** idle-require.elをつかう
+- [[http://sheephead.homelinux.org/2010/11/12/6288/][idle-require.elでEmacsの起動を高速にする | sheephead]]
+
+- [[http://nschum.de/src/emacs/idle-require/][idle-require]]
+
+** setup.elをつかう
+
+- [[http://www.emacswiki.org/emacs/setup.el][EmacsWiki: setup.el]]
+
+129.6  -> 238.2 seconds
+
+えっ増えた！
+
+* Special Thanks
+- [[http://sheephead.homelinux.org/2010/11/12/6288/][idle-require.elでEmacsの起動を高速にする | sheephead]]
+- [[https://gist.github.com/zk-phi/9935048][setup.el で安全・爆速な init.el を書く]]

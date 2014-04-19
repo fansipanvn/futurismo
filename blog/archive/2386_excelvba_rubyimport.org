@@ -1,0 +1,78 @@
+#+BLOG: Futurismo
+#+POSTID: 2386
+#+DATE: [2014-04-12 土 21:37]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY:  Windows
+#+TAGS: VBA, Excel
+#+DESCRIPTION:
+#+TITLE: ExcelVBAのコードをimport/exportする
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/Windows_7_Vertical_Logo_Web.jpg"/>
+#+END_HTML
+
+Excel VBAの最大の課題が、保守性。
+Excelの中にコードが縛られている。このコードを外に出すと、
+
+- バージョン管理ができる
+- VimやEmacsなどのエディタで開発できる
+- テスト駆動開発できる
+
+などなど。
+
+レガシーなExcelVBAもバージョン管理、テスト、自動化という
+現代ソフトウェア開発の三種の神器に従って開発ができる。
+
+調べてみると、同じようなことを考えている人たちがいた。
+
+- [[http://rsh.csh.sh/text-scripting-vba/][vi で書こう VBA — Text Scripting on VBA]]
+- [[http://aki2o.hatenablog.jp/entry/2014/01/09/VBA%E3%81%AE%E3%82%BD%E3%83%BC%E3%82%B9%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86%E3%81%99%E3%82%8B%E3%81%AE%E3%82%92%E6%94%AF%E6%8F%B4][VBAのソースファイルをバージョン管理するのを支援するvba-porter.xlaを作りました - 死ぬまでの暇潰し]]
+
+これらの方法を利用してもいいのだが、
+現在VBA絶賛勉強中のため、自分の学習も兼ねて、
+VBAのコードをExcel内からimort/exportするコードを書いてみた。
+
+* 苦労した点とか
+** Rubyの win32oleがつかえなかった
+はじめはRubyでやっちゃえと思ったけど、どうもwin32oleではメソッドがみつからなかった。
+
+** Excel Objectについて
+標準モジュール、クラスモジュールはImpot/Exportができるのだが、
+ThisWorkbookやSheetなどのExcel Objectはそれができない。
+これらは、行の削除と挿入で対応した。
+
+#+BEGIN_HTML
+<pre><code>Private Sub InsertLines(myFile As String)
+  Dim myFSO As New FileSystemObject
+  Dim myBaseName As String: myBaseName = myFSO.GetBaseName(myFile)
+  
+  With ThisWorkbook.VBProject.VBComponents(myBaseName).CodeModule
+    .DeleteLines StartLine:=1, count:=.CountOfLines
+    .AddFromFile myFile
+    
+    ' Delete header lines
+    .DeleteLines StartLine:=1, count:=4
+  End With
+
+  Set myFSO = Nothing
+End Sub
+</code></pre>
+#+END_HTML
+
+** 自分で自分をリロードできない
+VBAで書くと、自分自身のコードをimport/exportすることができない。
+
+なので、ThisWorkbookとFileManagerという二種類のファイルに処理を分けて
+2段階でインポートすることにした。
+
+** Environment
+- Windows 7 64bit
+- Excel 2010
+
+#+BEGIN_HTML
+<script src="https://gist.github.com/tsu-nera/10532548.js"></script>
+#+END_HTML
+
+* 最後に
+このベージの解説が素晴らしい。本当に、Special Thanks.
+
+- [[http://rsh.csh.sh/text-scripting-vba/][vi で書こう VBA — Text Scripting on VBA]]

@@ -1,0 +1,96 @@
+#+BLOG: Futurismo
+#+POSTID: 2395
+#+DATE: [2014-04-13 日 15:51]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Windows
+#+TAGS: Excel, VBA
+#+DESCRIPTION:　ExcelVBA統合BDD開発環境を構築したメモです
+#+TITLE: ExcelVBA統合BDD開発環境をrakeでまとめてみた
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/Windows_7_Vertical_Logo_Web.jpg"/>
+#+END_HTML
+
+ExcelVBAで統合BDD開発環境を構築したメモです。
+
+この記事は以下の記事の続きです。
+
+- [[http://futurismo.biz/archives/2379][EmacsでのExcel VBA開発環境を構築 | Futurismo]]
+- [[http://futurismo.biz/archives/2382][Excel VBAで テスト駆動開発してみる | Futurismo]]
+- [[http://futurismo.biz/archives/2386][ExcelVBAのコードをimport/exportする | Futurismo]]
+- [[http://futurismo.biz/archives/2388][ExcelVBAのステップ数をカウントする | Futurismo]]
+
+* 機能
+開発環境というところが指す意味は、
+rakeをつかってVBA開発で役立つ機能をまとめたということです。
+
+以下のような機能が実装済み。
+
+#+BEGIN_HTML
+<pre><code>
+rake clean    # Remove any temporary products.
+rake clobber  # Remove any generated file.
+rake export   # export all files to specified dir
+rake hide     # Hide Excel
+rake import   # import All Modules
+rake open     # Open or Connect Excel File
+rake release  # Make releasee excel file
+rake save     # Save Excel File
+rake show     # Show Excel
+rake spec     # Run All Tests
+rake step     # Count Steps in Project
+rake vbe      # Open Visual Basic Editor for Application
+</code></pre>
+#+END_HTML
+
+** rakeからExcelマクロを実行する
+ruby の win32oleを利用して、Excelのマクロを実行するところがこのツールのキモ。
+
+#+BEGIN_HTML
+<pre><code>@book.run("ShowTotalCodeLinesInProject")
+</code></pre>
+#+END_HTML
+
+こんな感じで、runメソッドをつかって実行する。
+
+** BDD実行エンジン
+実は、VB Lite Unitが会社の環境では使えなかった。おそらく、Excelが64bit版なことが原因。
+ということで、代替手段を探したところ、コンナツールを発見。
+
+- [[https://github.com/timhall/Excel-TDD][timhall/Excel-TDD]]
+
+記法がRSpecに似ていて、しかも純VBAで書かれている。これを採用。
+
+これと、VBAコードの import/export機能の組み合わせによって
+
+1) Emacsで編集
+2) rake spec -> Excelにコードがインポートされてテスト実行
+3) イミディエイトウィンドウで結果を確認。
+4) バグってたらデバッガでステップ実行とか
+5) テストが成功したら、rake exportしてgitにcommit
+
+というTDDサイクルを回すことができるようになった。
+
+Excelを起動していない状態で rake specを実行すると、
+メモリ不足でテストが実行できないというバグがある。（というより解消方法がわからない）
+rake openしたあとに、一旦 rake saveをすることで回避できる。
+
+** フォルダ構造
+src/spec/helperの3つに分けた。
+
+生産物はsrcにいれる。テストコードは specフォルダに入れる。helperはお助けツール。
+
+specの命名規則はxxx_specとする。
+ファイル名が_specかどうかでテストコードを判定しているので。
+本当はもっと設定ファイルとかで設定させたいけど、そのうち。
+
+* コード
+
+- https://github.com/tsu-nera/ExcelVBA_BDD_Sample
+
+** Environment
+- Windows 7 64bit
+- Excel 2010
+
+ツールバーから 参照設定を選択肢、以下を追加する必要あり。
+
+- Microsoft Visual Basic for Application Extention

@@ -1,0 +1,75 @@
+#+BLOG: Futurismo
+#+POSTID: 2372
+#+DATE: [2014-04-05 土 15:02]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: git
+#+TAGS: git
+#+DESCRIPTION: proxy配下でgitを利用する方法について調べてみました
+#+TITLE: Proxy配下でgitを利用する方法、ほか
+
+掲題のとおり、proxy配下でgitを利用する方法について調べてみました。
+
+[toc]
+
+* 設定方法
+
+結論からいうと、以下のコマンドを叩く。
+
+#+BEGIN_HTML
+<pre><code>git config --global http.proxy http://proxy.example.com:8080
+</code></pre>
+#+END_HTML
+
+これによって、~/.gitconfigファイルに以下の行が追加される。
+
+#+BEGIN_HTML
+<pre><code>[http]
+proxy = http://proxy.example.com:8080
+</code></pre>
+#+END_HTML
+
+* 認証付きプロキシの場合
+場合によっては、ユーザ名とパスワードが必要。以下のように打ち込む。
+
+#+BEGIN_HTML
+<pre><code>git config --global http.proxy http://(ユーザ名):(パスワード)@proxy.example.com:8080
+</code></pre>
+#+END_HTML
+
+ユーザ名とパスワードを.gitconfigに書きたくない場合は、別ファイルに記述を独立させて、読みこむ。
+
+#+BEGIN_HTML
+<pre><code>[include]
+ path = ~/dotfiles/.gitconfig.local
+</code></pre>
+#+END_HTML
+
+* SSLエラー回避
+error: SSL certificate problem, verify that the CA cert is OK. Details:みたいなエラーがでで失敗するときは、
+SSLを無向にしてやる。.gitconfigに以下を追加。
+
+
+#+BEGIN_HTML
+<pre><code>[http]
+sslVerify = false
+</code></pre>
+#+END_HTML
+
+* gitsubmoduleをプロキシ配下で実行
+git submoduleはgitプロトコルで実行されるので、プロキシ配下だと失敗することがある。
+
+以下を実行することで、gitプロトコルではなくて、httpプロトコルでアクセスする。
+
+#+BEGIN_HTML
+<pre><code>$ git config --global url.http://github.com/.insteadOf git://github.com/
+</code></pre>
+#+END_HTML
+
+* corkscrewを利用
+git プロトコルのURLをごまかす方法として、corkscrewというツールをつかう方法もある。
+
+自分は、これを利用している。参考リンクのみ張っておきます。
+
+- [[http://tkuchiki.hatenablog.com/entry/2013/08/03/160445][tinyproxy で proxy 経由の git clone を行う設定 - tkuchikiの日記]]
+- [[http://sho.tdiary.net/20090323.html][git学習フラグが立ってしまった。またはCorkscrewでgitのproxy越え, さくらインターネットにSubversionを入れたメモ - ただのにっき(2009-03-23)]]
+- [[http://d.hatena.ne.jp/bs-android/20091117/1258442532][Proxyが存在するネットワーク上でのgit使用 - Android(アンドロイド)情報-ブリリアントサービス]]

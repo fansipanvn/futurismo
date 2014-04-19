@@ -1,0 +1,151 @@
+#+BLOG: Futurismo
+#+POSTID: 2379
+#+DATE: [2014-04-05 土 20:33]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Emacs, Windows
+#+TAGS: VBA
+#+DESCRIPTION:EmacsでのVBA開発環境を構築メモです
+#+TITLE: EmacsでのExcel VBA開発環境を構築
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+Excel VBAなどの開発環境は、たいていVisual Basic Editorです。
+
+しかし、なんでもEmacs上でやらないと病気になってしまう、
+もやしな人間たちにとってはEmacsでVBAが書きたいところ。
+
+というわけで、無謀にもEmacsでVBAの開発がでいないものか、調べてみました。
+
+[toc]
+
+* visual-basic-mode.el
+visual-basic-mode.elというものを見つけました。
+
+- [[http://www.emacswiki.org/cgi-bin/wiki/visual-basic-mode.el][EmacsWiki: visual-basic-mode.el]]
+
+emacswikiからダウンロードして、ロードパスの通った場所に配置します。init.elにも以下を記述。
+
+#+BEGIN_HTML
+<pre><code> (autoload 'visual-basic-mode "visual-basic-mode" "Visual Basic mode." t)
+ (setq auto-mode-alist (append '(("\\.\\(frm\\|bas\\|cls\\)$" .
+                                 visual-basic-mode)) auto-mode-alist))
+</code></pre>
+#+END_HTML
+
+VBAのファイルがハイライト表示される。
+
+* text-scripting-vba
+Excel VBAのコードのインポート・アウトポートを簡単にできる。そうすると、
+
+- ViやEmacsでコードがかける
+- バージョン管理ができる
+- TDDでコーディングができる
+
+と、いろいろなメリットがある。
+
+本サイトは、以下。
+
+- [[http://rsh.csh.sh/text-scripting-vba/define/text-vba.html][vi で書こう VBA (実践編) — Text Scripting on VBA]]
+- [[http://rsh.csh.sh/text-scripting-vba/define/resource-catalog/text-scripting-vba/quick-start.html#text-scripting-vba-quickstart][Quick Start: Text Scripting VBA — Text Scripting on VBA]]
+
+** 使い方
+xlsm拡張子のExcelデータを新規作成。test.xlsm
+
+開発タブからVBE起動(Alt+F11でも）。
+開発タブはデフォルトで隠されているので、表示されていなければオプションから表示させる。
+
+ツールバーのファイル -> インポートを選択。
+以下から落としてきたThisWorkbook.clsをインポート。
+
+- [[https://github.com/tcsh/text-scripting-vba][tcsh/text-scripting-vba]]
+
+ちなみに、文字コードがUTF-8なので、Shift-Jisに変換したほうがよい。変換方法は以下。
+
+- [[http://futurismo.biz/archives/1331][Cygwinにnkfをインストールして文字化け攻略する！ | Futurismo]]
+
+#+BEGIN_HTML
+<pre><code>nkf -s ThisWorkbook.cls > ThisWorkbook_sjis.cls
+</code></pre>
+#+END_HTML
+
+ExportThisNotebokとReloadModuleのマクロが追加される。
+
+標準Moduleに追加されるので、その内容をThisWorkBookに切り取り・貼り付けをする。
+
+** コードを書く
+サンプルとしてコンナコードを書く。./src/hello.bas
+
+#+BEGIN_HTML
+<pre><code>Sub Hello()
+  MsgBox ("Hello VBA")
+End Sub
+</code></pre>
+#+END_HTML
+
+libdef.txtを作成。ここに読みこむソースのパスを相対パスで記述。
+
+#+BEGIN_HTML
+<pre><code>./src/hello.bas
+</code></pre>
+#+END_HTML
+
+マクロ(F5 or Alt+F8)のReloadModuleを実行すると、
+先ほど作成したhello.basが取り込まれる。
+
+こんなふうにすれば、Emacsで編集して取り込んでテストということが可能。
+
+* VB Lite Unit
+VBAで TDDを実施するためのツールとして、VB Lite Unitがある。
+
+- [[http://vb-lite-unit.sourceforge.net/][VB Lite Unit Home Page]]
+
+詳しくは過去記事参照。
+
+- [[http://futurismo.biz/archives/43][VBA で TDDできるか調べてみた | Futurismo]]
+- [[http://futurismo.biz/archives/59][VB Lite Unitでの記法まとめ | Futurismo]]
+
+* vbasense.el
+vbasenseなるものは、オムニ補間ができるとのこと。Special Thanks.
+
+- [[http://aki2o.hatenablog.jp/entry/2014/01/10/Emacs%E3%82%92Visual_Basic_Editor%E4%B8%A6%E3%81%BF%E3%81%AEVBA%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%81%AB%E3%81%99%E3%82%8Bvbasense.el%E3%82%92%E4%BD%9C%E3%82%8A%E3%81%BE%E3%81%97%E3%81%9F][EmacsをVisual Basic Editor並みのVBA開発環境にするvbasense.elを作りました - 死ぬまでの暇潰し]]
+
+el-getからインストールします。init.elにも以下を追加。
+
+#+BEGIN_HTML
+<pre><code>(require 'vbasense)
+
+;; キーバインド
+(setq vbasense-popup-help-key "C-:")
+(setq vbasense-jump-to-definition-key "C->")
+
+;; 必要に応じて適宜カスタマイズして下さい。以下のS式を評価することで項目についての情報が得られます。
+;; (customize-group "vbasense")
+
+;; 推奨設定を行う
+(vbasense-config-default)
+</code></pre>
+#+END_HTML
+
+M-x vbasense-load-libraryを実行したときに、
+[VBASense] Not yet regist TLBINF32.DLLというエラーがでることがある。
+
+ただし、自分の環境ではどうも動かし方がわかりませんでした。
+TLBINF32.DLLの登録方法がわからずに導入は挫折、残念。 
+
+windows7 64bitだと、ダメなのかな？
+
+#+BEGIN_HTML
+<pre><code>C:\Windows\SysWOW64>regsvr32.exe TLBINF32.DLL
+</code></pre>
+#+END_HTML
+
+vbasense-tli-filesに自分の環境のパスを変更しても、うまくパスをみつけてくれない。
+chkTLI.vbsをNop応答にして、だましで少しつかってみる
+
+* Excelenium
+この記事とはまったく関係ないけれども、このツールがとてもおもしろそうなので、memo。
+
+ExcelとSeleniumを組合せたもので、Excelのテスト仕様書からSeleniumを実行できる。しかも、OSSとか。
+
+- [[http://d.hatena.ne.jp/language_and_engineering/20090524/p1]["Excelenium"（エクセレニウム）で，快適な自動回帰テストを　　（Seleniumのテストスクリプトとテスト仕様書を自動生成） - 主に言語とシステム開発に関して]]

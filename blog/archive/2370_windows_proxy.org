@@ -1,0 +1,157 @@
+#+BLOG: Futurismo
+#+POSTID: 2370
+#+DATE: [2014-04-05 土 14:38]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Windows
+#+TAGS:
+#+DESCRIPTION: SquidをつかってWindows環境化でプロキシサーバを立ててみた
+#+TITLE: SquidをつかってWindows環境化でプロキシサーバを立ててみる 
+わけあってプロキシサーバを立ててみたくなったので、
+Windows環境でプロキシサーバをたてる方法について調べてみた。
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/Windows_7_Vertical_Logo_Web.jpg"/>
+#+END_HTML
+
+* Squidをつかう
+フリーソフトのSquidを利用する。Squidはマルチプラットフォームなプロキシサーバソフト。
+
+- [[http://ja.wikipedia.org/wiki/Squid_(%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2)][Suid (ソフトウェア) - Wikipedia]]
+
+以下から、windows用のプログラムをダウンロードしてくる。
+
+- [[http://www.acmeconsulting.it/SquidNT/][Acme Consulting -Società di Consulenza e Formazione Informatica - Torino]]
+
+解凍したものを、C:\squidに配置。
+
+* 設定ファイルの設定
+
+etc配下にある以下をリネーム。
+- mime.conf.default -> mime.conf
+- squid.conf.default -> squid.conf
+
+600行目あたりに、acl （任意の名前） src （IPアドレス)/（サブネットマスク）を追加。
+
+入力するIPアドレスは コマンドプロンプトから ipconfigコマンドで調べることができる。
+
+#+BEGIN_HTML
+<pre><code>
+#Recommended minimum configuration:
+acl all src all
+acl manager proto cache_object
+acl localhost src 127.0.0.1/32
+acl to_localhost dst 127.0.0.0/8 0.0.0.0/32 
+# 以下を追加
+acl net localsrc 192.168.1.0/255.255.255.0 
+</code></pre>
+#+END_HTML
+
+650行目あたりで定義したネットワーク指定をアクセス許可。
+
+ここではhttp_access に localnetを追加。
+
+#+BEGIN_HTML
+<pre><code># Only allow cachemgr access from localhost
+http_access allow manager localhost localnet
+http_access deny manager
+</code></pre>
+#+END_HTML
+
+
+1100行目あたりでプロキシ用ボートを8080に設定。
+
+#+BEGIN_HTML
+<pre><code># Squid normally listens to port 3128
+# http_port 3128
+http_port 8080
+</code></pre>
+#+END_HTML
+
+* コマンドプロンプトでの操作。
+まずは、管理者権限でコマンドプロンプトを起動する。
+
+** キャッシュエリア作成
+C:\squid\sbinで以下のコマンドを実行。
+
+#+BEGIN_HTML
+<pre><code>C:\squid\sbin>squid -z
+2014/04/04 21:39:46| Creating Swap Directories
+</code></pre>
+#+END_HTML
+
+** サービスの起動
+以下のコマンドで、Windowsの管理のサービスに追加して起動。
+#+BEGIN_HTML
+<pre><code>C:\squid\sbin>squid -i
+C:\squid\sbin>net start squid 
+</code></pre>
+#+END_HTML
+
+停止はnet stop squid。サービスから外すには以下。
+
+#+BEGIN_HTML
+<pre><code>C:\squid\sbin>squid -ｒ
+</code></pre>
+#+END_HTML
+
+* たとえばInternet Exploreの設定
+IEにプロキシ経由でネットにアクセスするように設定。
+
+[接続] > [LANの設定] > [プロキシサーバ]と移動して、入力欄に自分のIPアドレスとポート番号を入れる。
+
+ここでは、192.168.100.101と8080.
+
+* BASIC認証をかける
+squidのダウンロードページにおいてある、NCSAsupport.zipをおとして解凍する。
+
+- [[http://squid.acmeconsulting.it/index.html][Acme Consulting -Società di Consulenza e Formazione Informatica - Torino]]
+
+なかに、htpasswd.exe があるので、C:\squid\etcにコピー。以下を実行してpasswdファィルを作成。
+
+#+BEGIN_HTML
+<pre><code>C:\squid\etc>htpasswd.exe -c passwd tsu-nera
+Adding password for tsu-nera.
+New password:**************
+Re-type new password:**************
+</code></pre>
+#+END_HTML
+
+passwd生成用のWebサービスもあるようだ。
+
+- [[http://phpspot.net/php/pghtpasswd%E7%94%A8%E3%83%91%E3%82%B9%E4%BD%9C%E6%88%90%E3%83%84%E3%83%BC%E3%83%AB.html][htpasswd用パス作成ツール - phpspot]]
+
+C:\squid\etc\squid.confの288行目あたりをコメントアウト。認証用プログラムとパスワードファイルを指定する。
+
+#+BEGIN_HTML
+<pre><code>auth_param basic program C:/squid/libexec/ncsa_auth.exe C:/squid/exc/passwd 
+auth_param basic children 5
+auth_param basic realm Squid proxy-caching web server
+auth_param basic credentialsttl 2 hours
+auth_param basic casesensitive off
+</code></pre>
+#+END_HTML
+
+以下を追加。
+
+#+BEGIN_HTML
+<pre><code>acl password proxy_auth REQUIRED
+http_access allow password
+</code></pre>
+#+END_HTML
+
+さきほど追加したnetはコメントアウトしておく。
+
+#+BEGIN_HTML
+<pre><code># http_access allow net
+</code></pre>
+#+END_HTML
+
+再起動すれば設定完了。IEからネットにアクセスしてユーザ名とパスワードを効かれたらOK.
+
+* Special Thanks
+- [[http://ganbarepc.blog32.fc2.com/blog-entry-325.html][簡単プロキシサーバー設定！【 Squid　（Windows版） 】]]
+- [[http://d.hatena.ne.jp/neyngedhoo/20121023/1350971792][WindowsでプロキシーサーバSquid - なにがしのそれがし。neyngedhooの日記]]
+- [[http://uguisu.skr.jp/Windows/squid_win_tips.html][プロキシ（Proxy）サーバをWindows上に立ててみる：Squidの使い方]]
+- [[http://www32.atwiki.jp/lmes2/pages/192.html][おのれ鍋奉行が！ - Squid で BASIC認証]]
+- [[http://squid.robata.org/squid_nt.html][Windows NT 4.0/2000/XP/2003用のSquid]]
+- [[http://iceweasel.blog101.fc2.com/blog-entry-118.html][Windows Squid プロキシ 認証 - 電波素子は電気執事の夢を見るか？]]

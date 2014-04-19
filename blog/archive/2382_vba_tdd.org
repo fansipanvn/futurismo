@@ -1,0 +1,96 @@
+#+DATE: [2014-04-06 日 03:15]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: TDD
+#+TAGS: VBS
+#+DESCRIPTION: Excel VBAで テスト駆動開発してみる
+#+TITLE: Excel VBAで テスト駆動開発してみる
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/Windows_7_Vertical_Logo_Web.jpg"/>
+#+END_HTML
+
+2年前に、VB Lite Unitをいじっていたことがあるが、
+より未来派ハッカーに近づいたいま、改めていじってみる。
+
+- [[http://futurismo.biz/archives/59][VB Lite Unitでの記法まとめ | Futurismo]]
+
+** クラスモジュールでないとテストできない
+VBAには、ユーザフォーム、標準モジュール、クラスモジュールの3種類のコードの種類がある。
+VBLiteUnitでは、クラスモジュールに対してテストを実施する。
+
+クラスモジュールっなんだっけ？という僕たちには、以下のリンクが参考になる。
+
+- [[http://homepage1.nifty.com/CavalierLab/lab/vb/clsmdl/index.html][クラスモジュール講座]]
+
+** テスト実行用マクロをつくる
+以下のようなSubプロシージャを用意することで、テスト実行をマクロにする。
+
+#+BEGIN_HTML
+<pre><code>Public Sub RunAllTests
+	Runtests New Tst_Data
+End Sub
+</code></pre>
+#+END_HTML
+
+** テスト実行用のVBSをつくる
+コマンドラインからRunAllTestsを実行したい。
+
+以下を参考にして、Excelのマクロをコマンドラインから実施するためのVBSを作成。
+
+- [[http://blog.livedoor.jp/yorinaga/archives/51741586.html][VBScript:Excelマクロの実行 : yoriのＩＴ手帳]]
+
+#+BEGIN_HTML
+<pre><code>
+Dim objExcelApp ,objExcelBook
+Dim macro_path
+
+macro_path = "C:\cygwin\home\TSUNEMICHI\repo\vba-study\sample\test.xlsm"
+
+Set objExcelApp = CreateObject("Excel.Application")
+Set objExcelBook = objExcelApp.Workbooks.Open(macro_path, , True)
+
+objExcelApp.Run "'" + macro_path + "'!ThisWorkbook.reloadModule"
+objExcelApp.Run "'" + macro_path + "'!ThisWorkbook.runAllTests"
+
+objExcelBook.Saved = True
+objExcelBook.Close False
+Set objExcelBook = Nothing
+Set objExcelApp = Nothing
+</code></pre>
+#+END_HTML
+
+** テスト実行用のRakefile作成
+TDDっぽくするために、rakefileを作成してみた。rake testでテストを実行する。
+
+#+BEGIN_HTML
+<pre><code>
+require 'rake/clean'
+
+FILE_PATH  = "./test.xlsm"
+
+task :default => "open"
+
+task :open do
+  `cygstart  #{FILE_PATH}` 
+end
+
+task :test do
+  `cygstart test.vbs` 
+end
+</code></pre>
+#+END_HTML
+
+** テストコード作成
+src/testディレクトリ配下にそれぞれ作成。
+#+BEGIN_HTML
+<script src="https://gist.github.com/tsu-nera/9995702.js"></script>
+#+END_HTML
+
+* 完成品
+githubにアップ。
+
+- https://github.com/tsu-nera/ExcelVBA_TDD_Sample
+
+** Special Thanks
+- http://rsh.csh.sh/text-scripting-vba/
+- http://vb-lite-unit.sourceforge.net/

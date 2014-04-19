@@ -1,0 +1,64 @@
+#+DATE: [2012-05-05 土 19:13]
+#+BLOG: Futurismo
+#+POSTID: 43
+#+CATEGORY: TDD, Windows
+#+TAGS: VBA
+#+DESCRIPTION: VBA で TDDできるか調べてみた
+#+TITLE: VBA で TDDできるか調べてみた
+* はじめに
+VBA で TDDできるか調べてみた.以下の３つがあるらしい
+
+- VBAUnit
+- VB Lite Unit
+- xlUnit
+
+Outlookでも使えそうな VB Lite Unit を使ってみる。
+
+- http://vb-lite-unit.sourceforge.net/
+
+
+* 使い方
+前提として Visual Basic 6.0 Runtime Liblaryが必要。とりあえずよくわからないのでパス。
+
+1. ダウンロードしたものを、ハ－ドディスクの適当な場所に保存
+
+#+BEGIN_HTML
+<pre><code>C:\Windows\VbLiteUnit
+</code></pre>
+#+END_HTML
+
+2. スタートメニュ「ファイル名を指定して実行」より
+
+#+BEGIN_HTML
+<pre><code>regsvr32.exe “C:\Windows\VbLiteUnit\VbLiteUnit.dll”
+</code></pre>
+#+END_HTML
+
+(管理者権限で実行しないと失敗した）
+
+- http://gmr.blog.shinobi.jp/Entry/425/
+
+3.Outlookから VBEを開き、ツ－ルバ－から[ツ－ル] > [参照設定] を選択
+4.表示されたダイアログボックスの中からVBLiteUnitを選択
+
+5.デモソ－スをダウンロード
+
+- http://sourceforge.jp/projects/sfnet_vb-lite-unit/downloads/vb-lite-unit/1.2.5/vb-lite-unit-1.2.5-demo-txt.zip/
+
+6.[ファイル] > [ファイルのインボ－ト]でデモソ－スをインポ－ト
+
+7. サンプルソ－スのtclsTestClauseTextを実行
+表示のタブからイミディエイトウィンドウを起動。
+入力コンソールに以下を打ち込んで実行。RunTests New (クラス名)で実行する。
+
+#+BEGIN_HTML
+<pre><code>RunTests New tclsTestClauseText
+</code></pre>
+#+END_HTML
+
+ただ、自分でテストコ－ドを書く方法はちょっと難しそうなので、また今度
+
+** 参考リンク
+- http://d.hatena.ne.jp/miau/20110301/1298935505
+- http://blogs.yahoo.co.jp/mummykinoi/63579957.html
+- [[http://kawakawa2000.jugem.jp/?eid=22][ExcelマクロでTDDをやってみよう！ | プログラマーの外部記憶箱]]
