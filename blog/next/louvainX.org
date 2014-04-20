@@ -61,7 +61,9 @@ C++の、numericライブラリ(accumuulateなど)で利用されている。
 
 スタックのサイズが均一なことが特徴的。
 
-***** tail recursion
+***** tail-recursion(末尾再帰）
+その中にただ1つの再帰呼び出しがあり、
+かつその呼び出しが手続き本体の最後にあるもの。
 
 #+begin_src C++
 state whileLoop(state s) {
@@ -77,12 +79,16 @@ state whileLoop(state s) {
 
 - [[http://ja.wikipedia.org/wiki/%E4%B8%8D%E5%A4%89%E6%9D%A1%E4%BB%B6][不変条件 - Wikipedia]]
 
-*** week3
 *** List, trees, and records
 *** Symbolic programming
 *** Instantiation
 *** Genericity
-*** Higher-order programming
+*** Higher-order programming(高階プログラミング)
+procedure valueをサポートしている言語でのプログラミング技術。
+関数を引数としてわたす能力。
+
+Rubyではlambda, procなど。C言語には関数ポインタがある。C言語は2階。
+
 *** Kernel languages
 *** Abstract machines
 *** Mathematial semantics
