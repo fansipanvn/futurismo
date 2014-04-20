@@ -1,0 +1,112 @@
+#+BLOG: Futurismo
+#+POSTID: 2271
+#+DATE: [2014-02-22 土 10:00]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Oz
+#+DESCRIPTION:　OzとMozartのインストールメモ
+#+TITLE: マルチパラダイム言語Ozの開発環境MozartをインストールしてHelloWorldするまで
+edXでコンピュータプログラミングのパラダイムについての学習を始めた。
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/D1q2dCNGDOE" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+- [[https://www.edx.org/course/louvainx/louvainx-louv1-01x-paradigms-computer-1203][LouvainX: Louv1.01x: Paradigms of Computer Programming | edX]]
+
+学習のための言語として、コースではOzというマルチパラダイムな言語を利用する。
+
+- [[http://ja.wikipedia.org/wiki/Oz_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E)][Oz (プログラミング言語) - Wikipedia]]
+
+この記事では、Ozとその開発環境であるMozartの導入をメモする。
+
+*** インストール
+**** 事前準備
+まずは、以下をインストール
+- tk-dev
+- emacs
+
+#+BEGIN_HTML
+<pre><code>sudo apt-get install tk-dev
+>sudo apt-get install emacs
+</code></pre>
+#+END_HTML
+
+**** Mozart2をインストール
+以下からバイナリを落とす。
+
+- [[http://sourceforge.net/projects/mozart-oz/files/v2.0.0-alpha.0/][Mozart-Oz Programming System - Browse /v2.0.0-alpha.0 at SourceForge.net]]
+
+githubに開発版もあるのでlinkをはっておく。
+
+- https://github.com/mozart/mozart2#downloads
+
+解凍して、適当なところに配置。その後binディレクトリにパスを通す。ここでは、.zshenvに以下を追記
+
+#+BEGIN_HTML
+<pre><code>export PATH=/opt/mozart/bin:$PATH
+</code></pre>
+#+END_HTML
+
+端末から$oz と起動してemacsが起動すればOK. $oz -nwで端末から開ける。
+
+*** Hello World
+おきまりのHello Worldはこんな感じ。
+
+#+BEGIN_HTML
+<pre><code>{Browse 'Hello World'}
+</code></pre>
+#+END_HTML
+
+この行を選択して、M-x oz-feed-regionを実行すると、ブラウザが立ち上がり、Hello Worldが表示される。
+
+*** oz-mode
+Emacs環境のカスタマイズ。以下のようなショートカットが使えるらしいが、自分の環境ではうごかない。
+
+#+BEGIN_HTML
+<blockquote>
+C-. C-lFeed current line現在行をフィードする
+C-. C-rFeed selected region選択範囲をフィードする
+C-. C-bFeed whole buffer全バッファをフィードする
+</blockquote>
+#+END_HTML
+
+ということで、別のショートカットを割り当てた。
+
+#+BEGIN_HTML
+<pre><code>(add-hook 'oz-mode-hook
+  (lambda () 
+    (define-key oz-mode-map "\C-c\C-b" 'oz-feed-buffer)
+    (define-key oz-mode-map "\C-c\C-l" 'oz-feed-line))
+    (define-key oz-mode-map "\C-c\C-r" 'oz-feed-region)))
+</code></pre>
+#+END_HTML
+
+すべてのショートカットは以下。
+
+- [[http://dream.inf.ed.ac.uk/computing/installed/mozart/doc/opi/node9.html#appendix.keybindings][A Summary of Oz-Specific Emacs Key Bindings]]
+
+環境変数OZEMACSに利用するemacsが設定できるらしい。
+しかし、emacsclientは設定できなかった。
+
+*** ドキュメント
+日本語の情報がすくないけど、以下のベージが参考になる。
+
+- [[https://sites.google.com/site/shidoinfo/Home/programing-lang/oznyuumon][Oz入門 - 紫藤のWiki]]
+- [[http://d.hatena.ne.jp/mzp/20071112/mozart][ozでHello,world - みずぴー日記]]
+
+参考書はこれしか知らない。
+
+#+BEGIN_HTML
+<pre><code><div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E6%A6%82%E5%BF%B5%E3%83%BB%E6%8A%80%E6%B3%95%E3%83%BB%E3%83%A2%E3%83%87%E3%83%AB-Architect-Archive%E3%82%AF%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AF%E3%83%A2%E3%83%80%E3%83%B3%E3%83%BB%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B06-Architects%E2%80%99Archive-CLASSIC/dp/4798113468%3FSubscriptionId%3DAKIAJBCXQ4WQGJ7WU3WA%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798113468' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/51iXhiKTamL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E6%A6%82%E5%BF%B5%E3%83%BB%E6%8A%80%E6%B3%95%E3%83%BB%E3%83%A2%E3%83%87%E3%83%AB-Architect-Archive%E3%82%AF%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AF%E3%83%A2%E3%83%80%E3%83%B3%E3%83%BB%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B06-Architects%E2%80%99Archive-CLASSIC/dp/4798113468%3FSubscriptionId%3DAKIAJBCXQ4WQGJ7WU3WA%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798113468' rel='nofollow' target='_blank'>コンピュータプログラミングの概念・技法・モデル(IT Architect' Archiveクラシックモダン・コンピューティング6) (IT Architects’Archive CLASSIC MODER)</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 14.02.22</div><div class='amazlink-detail'>セイフ・ハリディ<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E6%A6%82%E5%BF%B5%E3%83%BB%E6%8A%80%E6%B3%95%E3%83%BB%E3%83%A2%E3%83%87%E3%83%AB-Architect-Archive%E3%82%AF%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AF%E3%83%A2%E3%83%80%E3%83%B3%E3%83%BB%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B06-Architects%E2%80%99Archive-CLASSIC/dp/4798113468%3FSubscriptionId%3DAKIAJBCXQ4WQGJ7WU3WA%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798113468' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00q0724.n763w947.g00q0724.n763x2b4/?pc=http%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F5079035%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Frms%2Fmsv%2FItem%3Fn%3D5079035%26surl%3Dbook' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
+</code></pre>
+#+END_HTML
+
+海外のページが詳しい。
+
+- [[http://dream.inf.ed.ac.uk/computing/installed/mozart/doc/opi/index.html][The Oz Programming Interface]]
+- [[http://www.eecs.ucf.edu/~leavens/ComS541Fall06/running_oz.shtml#][Running Oz]]
+
+**** 環境
+- Linux Mint 16
+
