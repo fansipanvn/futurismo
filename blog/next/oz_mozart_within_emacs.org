@@ -1,0 +1,73 @@
+#+BLOG: Futurismo
+#+POSTID: 2399
+#+DATE: [2014-04-20 日 11:44]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Emacs, 技術メモ
+#+TAGS: Oz
+#+DESCRIPTION: Mozartをemacsclientから起動する方法のメモ
+#+TITLE: Mozartをemacsclientから起動する方法のメモ
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+以前、Oz用のプログラミング環境Mozartをインストールした。
+
+- [[http://futurismo.biz/archives/2271][マルチパラダイム言語Ozの開発環境MozartをインストールしてHelloWorldするまで | Futurismo]]
+
+この方法だと、mozart専用のEmacsがたちあがる。
+
+できれば、今動いているemacs-serverにemacsclientでアクセスしたい。
+
+*** Elispの取得
+Oz用のElispを取得して、ロードパスの通った場所におく。
+
+- https://github.com/mozart/mozart2/tree/master/opi/emacs
+
+#+begin_src 
+#!/bin/sh
+wget https://raw.githubusercontent.com/mozart/mozart2/master/opi/emacs/oz.el
+wget https://raw.githubusercontent.com/mozart/mozart2/master/opi/emacs/oz-extra.el
+wget https://raw.githubusercontent.com/mozart/mozart2/master/opi/emacs/oz-server.el
+wget https://raw.githubusercontent.com/mozart/mozart2/master/opi/emacs/mozart.el
+#+end_src
+
+詳細なドキュメントはここ
+
+- http://dream.inf.ed.ac.uk/computing/installed/mozart/doc/opi/index.html
+
+*** Elipsと環境変数の設定
+設定ファイルに以下を書く。
+
+OZHOMEに mozartをインストールしたパスを設定。PATHにその配下のbinを指定。
+
+#+begin_src
+(or (getenv "OZHOME")
+    (setenv "OZHOME" 
+            "/mnt/win/opt/mozart"))   ; or wherever Mozart is installed
+(setenv "PATH" (concat (getenv "OZHOME") "/bin:" (getenv "PATH")))
+
+(add-to-list 'auto-mode-alist '("\\.oz\\'" . oz-mode))
+(add-to-list 'auto-mode-alist '("\\.ozg\\'" . oz-gump-mode))
+(autoload 'run-oz "oz" "" t)
+(autoload 'oz-mode "oz" "" t)
+(autoload 'oz-gump-mode "oz" "" t)
+(autoload 'oz-new-buffer "oz" "" t)
+#+end_src
+
+これでもよい。
+
+#+begin_src
+  export OZHOME=/mnt/win/opt/mozart
+  export PATH=/opt/mozart/bin:$PATH
+#+end_src
+
+これで、あとは.oz拡張子がついたファイルを開けば ozモードで 編集できる。ばっちし。
+
+**** Environment
+- Mint Linux 16
+- Emacs 24.3.1
+
+**** Special Thanks
+- [[http://dream.inf.ed.ac.uk/computing/installed/mozart/doc/opi/node2.html][2 Invoking the OPI]]
+- [[http://www.eecs.ucf.edu/~leavens/ComS541Fall06/running_oz.shtml#][Running Oz]]

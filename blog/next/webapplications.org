@@ -1,0 +1,11 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: Web Application Archtectures
+
+* Lecture
+
+Rails, git, Agile... モダンな開発手法とRuby が学べる。
+
+* Assginment
