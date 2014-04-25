@@ -30,6 +30,13 @@ org-agendaは、タスクの状態を一覧する機能。
 </code></pre>
 #+END_HTML
 
+*** スケジュール管理
+**** org-gcal
+
+- [[https://github.com/myuhe/org-gcal.el][myuhe/org-gcal.el]]
+- [[http://sheephead.homelinux.org/2014/03/14/7023/][Org-modeとGoogle calendar間で予定をやりとりするorg-gcal.elというのを作りました | sheephead]]
+
+
 *** GTD的な設定
 **** タスクの状態の設定
 
