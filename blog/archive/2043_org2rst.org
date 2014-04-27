@@ -1,7 +1,10 @@
+#+BLOG: Futurismo
+#+POSTID: 2403
+#+DATE: [2014-04-27 日 15:18]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
 #+CATEGORY: Emacs, 技術メモ
 #+TAGS: Sphinx
-#+DESCRIPTION:
+#+DESCRIPTION: Emacs org-modeで書いたテキストをRestructured Textに変換する方法を調べました
 #+TITLE: org-modeで書いたテキストをPandocでRestructured Textに変換する
 
 #+BEGIN_HTML
@@ -45,17 +48,17 @@ pandocはhaskellでかかれてるので、ビルドにはhaskellがひつよう
 cabal update
 cabal install pandoc
 git submodule update --init
-</code></pre>
-#+END_HTML
-
 $ pandoc -v
 pandoc 1.12.3.3
 Compiled with texmath 0.6.6.1, highlighting-kate 0.5.6.1.
+</code></pre>
+#+END_HTML
 
 ** 実験
 これがゴール。
 
 #+BEGIN_HTML
+<blockquote>
 Hello Sphinx
 ============
 
@@ -65,22 +68,21 @@ Hello Sphinx
 ======
 
 テストです。
-
-</code></pre>
+</blockquote>
 #+END_HTML
 
 これを変換する。
 
 #+BEGIN_HTML
-<pre><code>
-* Hello Sphinx
+<blockquote>
+ * Hello Sphinx
 
-テスト。
+ テスト。
 
-* テスト
+ * テスト
 
-テストです。
-</code></pre>
+ テストです。
+</blockquote>
 #+END_HTML
 
 変換はコマンドラインから以下を実行
@@ -128,7 +130,8 @@ markdownをpandocにかけるというもの。
 こうなった。
 
 #+BEGIN_HTML
-<pre><code>======
+<blockquote>
+======
 hello2
 ======
 
@@ -137,13 +140,13 @@ hello2
 .. raw:: html
 
    <div id="table-of-contents">
-   <h2>
+   \<h2\>
 
 Table of Contents
 
 .. raw:: html
 
-   </h2>
+   \</h2\>
    <div id="text-table-of-contents">
    <ul>
    <li>
@@ -173,7 +176,7 @@ Hello Sphinx
 ======
 
 テストです。
-</code></pre>
+</blockquote>
 #+END_HTML
 
 ヘッダによけいなものがたくさんつくものの、default pandocよりいいな。
@@ -216,3 +219,5 @@ batchについては今回はわからなかったので、次回に回す。外
 <pre><code>emacs hello.org -f org-md-export-to-markdown
 </code></pre>
 #+END_HTML
+
+とりあえず、なんとなくできるという道が開けた気がした。
