@@ -1,4 +1,31 @@
 * Futurismo
 Futurismo執筆用の実験リポジトリです。そのうち削除するかも。
 
+* Futurismoとは
+Futurismoとは、20世紀初めにイタリアにおいて勃興した運動。
+
+過去の芸術の徹底破壊と、機械化によって実現された近代社会の速さを称えるアバンギャルド。
+
+- [[http://ja.wikipedia.org/wiki/%E6%9C%AA%E6%9D%A5%E6%B4%BE][未来派 - Wikipedia]]
+
+そんな彼らのちょっとキケンな思想に我も続こう。ここにハッカー未来派宣言を記す。
+
+- [[http://futurismo.biz/sample-page][ハッカ－未来派宣言 | Futurismo]]
+
+* フロー情報とストック情報について
+** blog
+フロー情報を記録する。
+
 - http://futurismo.biz
+
+以下のカテゴリで記録する。
+
+- ハッキング ・・・自分の発想で新しいことしたときに記録する
+- 技術メモ ・・・ 学んだ知識を記録する
+- 日記 ・・・日々の感情を記録する
+
+** wiki
+ストック情報を記録する。
+
+- http://futurismo.biz/sphinx/html
+
