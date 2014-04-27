@@ -1,0 +1,59 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: Futurismo Wiki 立ち上げ
+* はじめに
+** 動機
+このブログも開設して2年が立った。
+
+新年の決意として、以下のようなエントリを書いた。
+
+GWなので、取り組もうとおもう。
+
+- [[http://futurismo.biz/archives/2209][プレインテキストへの決意 ～for progmatic programmer～ | Futurismo]]
+
+** フロー型とストック型の情報について
+
+* 実現方法
+Sphinxを利用しようと思う。
+
+wikiとsphinxの違いは以下の資料が詳しい。
+
+org-modeにハマっているので、Sphinxを選ぶ。
+
+ただし、致命的な課題がある。org-modeからtoctreeを記述できない。
+
+情報を束ねるための一番大事な背骨がかけないと！
+
+ということで、構造をまとめる場合は、rstで、実際の断片はorgで書くことにする。
+
+以下のエントリだと、Sphinxとorg-modeの違いは webかローカルの違い。
+
+- [[http://utsuboiwa.blogspot.jp/2011/01/sphinxwikiemacsorg-mode2011-01-28.html][Sphinx：wiki的な，Emacs/org-modeの根底の考えからの違い]]
+
+** orgファイルからrestructured textを生成
+
+これは別エントリに分離。
+
+- [[file:org2rst.org][org2rst]]
+
+* Sphinx
+
+- [[http://futurismo.biz/archives/930][SphinxをWindowsに導入していろいろした使い方・カスタマイズまとめ | Futurismo]]
+- [[http://tk0miya.hatenablog.com/entries/2011/11/30][Hack like a rolling stone]]
+
+#+BEGIN_HTML
+<pre><code>
+sudo apt-get install make python-setuptools
+sudo easy_install sphinx
+</code></pre>
+#+END_HTML
+
+/usr/local/bin配下にインストールされるのでここにパスを通す。
+
+以下で
+
+** Environment
+** Special Thanks
+- [[http://www.slideshare.net/iktakahiro/sphinxmarkdown#][SphinxをMarkdownで使い隊]]

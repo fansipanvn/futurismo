@@ -41,7 +41,6 @@ HTMLなんかは宣言的プログラミングの典型で、オブジェクト�
 
 
 ** Concept(コンセプト)
-*** week1
 **** Identifiers and environments(識別子と環境)
 x = 1 ということはどういうことかを説明する概念。
 
@@ -52,7 +51,6 @@ x1がメモリ上の実際の(束縛された)値で、Xがそれを指し示す
 
 **** functional programming
 
-*** week2 
 **** Recursion
 再帰的プログラミング。
 

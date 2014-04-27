@@ -1,5 +1,5 @@
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
-#+CATEGORY: Uncategorized, Hello
+#+CATEGORY: Emacs
 #+TAGS:
 #+DESCRIPTION:
 #+TITLE: Emacs org-modeでタスク管理
@@ -31,15 +31,17 @@ org-agendaは、タスクの状態を一覧する機能。
 #+END_HTML
 
 *** スケジュール管理
+**** calfw
+
+- [[http://d.hatena.ne.jp/kiwanami/20110723/1311434175#][ Emacs用カレンダー calfw v1.2 リリース - 技術日記＠kiwanami]]
+
 **** org-gcal
 
 - [[https://github.com/myuhe/org-gcal.el][myuhe/org-gcal.el]]
 - [[http://sheephead.homelinux.org/2014/03/14/7023/][Org-modeとGoogle calendar間で予定をやりとりするorg-gcal.elというのを作りました | sheephead]]
 
-
 *** GTD的な設定
 **** タスクの状態の設定
-
 
 *** Links
 - [[http://hpcgi1.nifty.com/spen/index.cgi?OrgMode%2FOrg-mode%A4%C7GTD%BC%C2%C1%A9%A1%CA%CB%DD%CC%F5%A1%CB][OrgMode/Org-modeでGTD実践（翻訳） - How I use Emacs and Org-mode to implement GTDの翻訳]]
