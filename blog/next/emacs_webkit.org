@@ -1,34 +1,29 @@
-
-
-
 - PyQt5:       http://www.riverbankcomputing.co.uk/software/pyqt/intro
 - Python-Xlib: https://pypi.python.org/pypi/python-xlib
-
-
-
-
 - Python-EPC:  https://github.com/tkf/python-epc
+
+** 環境
+- Linux Mint 16
+- Python 2.7
 
 PyQt5のインストール。
 
 sipなるものをまず入れる。
 
-#+BEGIN_HTML
-<pre><code>
-cd /tmp
-hg clone http://www.riverbankcomputing.com/hg/sip
-cd sip
-python setup.py prepare
-python configure.py
-make
-make install
-</code></pre>
-#+END_HTML
+sudo python configure.py
+sudo make
+sudo make install
 
+つぎに、PyQ5を入れる。
 
+sudo python configure.py --sip-incdir=/usr/include/python2.7
+
+- [[http://www.riverbankcomputing.co.uk/software/pyqt/download5][Riverbank | Software | PyQt | PyQt5 Download]]
 
 Python-Xlibは apt-get経由で。
 
 Python-EPCは el-getで入れた。
 
 ダウンロードは el-getで入れた。
+
+sudo apt-get install libqt5webkit5-dev
