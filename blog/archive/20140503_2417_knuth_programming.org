@@ -1,0 +1,154 @@
+#+BLOG: Futurismo
+#+POSTID: 2417
+#+DATE: [2014-05-03 土 20:45]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Book, Emacs, 日記
+#+TAGS: 
+#+DESCRIPTION: クヌース先生のプログラミング論を読んだ読書メモ
+#+TITLE: プログラマは芸術家となりえるか？クヌース先生のプログラム論を読んだ読書メモ
+* はじめに
+文芸的プログラミングに興味を持ったため、クヌース先生のエッセイ集をAmazonで買ってみました。
+
+#+BEGIN_HTML
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E3%82%AF%E3%83%8C%E3%83%BC%E3%82%B9%E5%85%88%E7%94%9F%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E8%AB%96-%E6%9C%89%E6%B2%A2-%E8%AA%A0/dp/4320025466%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4320025466' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/41uduoBo9fL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E3%82%AF%E3%83%8C%E3%83%BC%E3%82%B9%E5%85%88%E7%94%9F%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E8%AB%96-%E6%9C%89%E6%B2%A2-%E8%AA%A0/dp/4320025466%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4320025466' rel='nofollow' target='_blank'>クヌース先生のプログラム論</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 14.05.03</div><div class='amazlink-detail'></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E3%82%AF%E3%83%8C%E3%83%BC%E3%82%B9%E5%85%88%E7%94%9F%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E8%AB%96-%E6%9C%89%E6%B2%A2-%E8%AA%A0/dp/4320025466%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4320025466' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00q0724.n763w947.g00q0724.n763x2b4/?pc=http%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F468502%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Frms%2Fmsv%2FItem%3Fn%3D468502%26surl%3Dbook' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
+#+END_HTML
+
+この記事は、第一章の「アートとしてのプログラミング」についての読書メモです。
+
+* 一般的なサイエンスとアートの定義
+クヌース先生の代表的著作 The Art of Computer Programmingがある。
+この本のタイトルである Artという言葉は、
+どのような意味でつかっているかを、サイエンスとアートを対比させて述べられている。
+
+古代から中世、近代の各時代におけるアートとサイエンスの言葉の使われ方について紹介される。
+いろいろと、その時代ごとに意味が異なることが分かる。
+そして、今日的な意味でのサイエンスとアートはこういうものでは、と述べられる。
+
+#+BEGIN_HTML
+<blockquote>
+サイエンスとは、私たちがきわめてよく理解し、したがってコンピュータに教え込むことができるような知識のことである。
+もし、私たちが何かを完全に理解したとはいえない場合には、その何かはアートの範疇に入る。
+</blockquote>
+#+END_HTML
+
+ここでは、未知なものの追求をアート、既知なものがサイエンスと説明されている。
+
+#+BEGIN_HTML
+<blockquote>
+科学的な立場とは、論理的な、系統だった、個性的でない、冷静な、理性的なという言葉で特徴づけられる。
+
+一方、芸術的な立場とは、美的な、創造的な、人間性豊かな、熱心な、理性的でない、といった言葉で特徴づけられる。
+</blockquote>
+#+END_HTML
+
+そして、コンピュータ・プログラミングはサイエンスでもありアートである、とのべられる。
+たとえとして、機械学習があげられる。
+機械学習の目的は機械に知性を持たせることなので、
+その研究成果はサイエンスだが、その追求の仮定はアート。
+
+* クヌース先生の考えるサイエンスとアートの定義
+しかし、と文章はつづく。
+
+いろいろ本を読んで歴史的に調べたけど、
+なんか違和感があるなぁという前置きで、以下、のべられる。
+
+#+BEGIN_HTML
+<blockquote>
+私が芸術としてのコンピュータ・プログラミングを話す場合は、
+主に美的な意味での芸術の様式について考えるのです。
+教育者として、また著作者としての私の仕事の目標は、
+読者に美しいプログラムを書くことを学んでもうらことであります。
+
+私たちがプログラムを書こうとするときのきもちは、
+ちょうど詩をつくったり作曲したりするときの気持ちと同じであります。
+それは、プログラミングは知的な満足と感情的な満足の両方を私たちに与えることができます。
+それは、プログラミングによって複雑さを征し、
+矛盾なく構成された規則の系統を真に樹立することができるからです。
+
+プログラムには、優雅なものもあり、異国風のものもあり、また光り輝くものもあります。
+私が申し上げたいことは、壮大なプログラムを、
+高貴なプログラムを、そして真実壮麗なプログラムを書くことが可能であるということです。
+</blockquote>
+#+END_HTML
+
+一般的な意味での芸術として、
+クヌース先生はプログラムを作品、マスターピースとしてとらえている。なるほど、それは知ってた。
+
+自分の仕事で書くプログラムを考えるとかなしくなる。
+自分はif文にelse文を追加する仕事や、
+switch文にcase文を追加するような仕事をしている。
+仕事でのプログラミングは労働だ。仕事を楽しむことは諦めている。
+
+しかし、プログラミングは好きだ。
+それはわくわくするような行為だ。生まれ変わっても、プログラマでいたい。
+
+* プログラムにおける善について
+功利主義哲学者、ベンサムについて言及する。そして、
+プログラムにおけるよいことが、アートとなりえれば素晴らしいとのべられる。
+
+#+BEGIN_HTML
+<blockquote>
+ベンサムは、美学よりも、結果の有用性のほうが優れているという助言を与えています。
+
+私たちは、美というものの個人的な標準を定める、
+ある自由はもっています。しかし、私たちが美しいと考えるものが
+ほかの人にとっても有用であると考えられるならば、それ特に素晴らしいでしょう。
+
+私は、なんらかの意味で、たいへんよいプログラムを書くことが楽しいのです。
+</blockquote>
+#+END_HTML
+
+「よい」ということを要約すると、以下のようなことがかかれている。
+
+- プログラムが正しく動作すること
+- そのプログラムがユーザとやさしく対話すること
+- コンピュータのもつリソースが実際に使用される効率をあげること
+
+ビジネス的に最もよいプログラムとは、お金を稼げるプログラムだ。
+
+そして、ビジネス的によい（有用である）プログラムと
+自分が個人的によいと信じるプログラムが交差するとすると、それは素晴らしい。
+ 逆に言えば、それがずれていると不幸。
+
+ #+BEGIN_HTML
+ <blockquote>
+ 意味のあるエラーメッセージを作成したり、誤りを犯しにくい、
+ 柔軟性のある入力形式を設計することは、真の芸術であるといえるでしょう。
+ </blockquote>
+ #+END_HTML
+
+ 言い過ぎな気もするが。。。
+
+* Emacsがすばらしいということ
+仕事は芸術になるか？以下のようなことが述べられている。
+
+#+BEGIN_HTML
+<blockquote>
+私たちは、ほとんどどうしようもないくらい退屈で、
+どんな創造性のはけ口も見当たらないような、
+プログラミングの仕事を割り当てられることがあります。
+
+この私の仕事をどうやって芸術にしたらよいのでしょうか？
+
+この状況では創造性や芸術的手腕の余地はないでしょう。
+しかしこのような場合でさえ、大きな改良を加える方法はあるものです。
+もし仕事のための道具が美しいものであれば、決まりきった仕事をするのも楽しくなるものです。
+</blockquote>
+#+END_HTML
+
+つまり仕事とは、Emacsを芸術作品に昇華させること、と読めた。
+
+* まとめ
+まとめると、Artとしてのプログラムとは、
+
+  - 自分が美しいと感じるプログラム
+  - 創造的な、独創的なプログラム
+
+であること。
+
+仕事としてではなく、個人として、自分の楽しいと思えるArtを作り上げるとプログラマは幸せになれる。
+
+Artは個人的な感性である。それが、
+
+- 仕事におけるよいこと交差すればプログラマは幸せになれる。
+- 仕事におけるよいことと交差しなければ、仕事とはEmacsを芸術作品に昇華させることだと割り切れば幸せになれる。
