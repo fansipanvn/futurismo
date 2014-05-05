@@ -78,15 +78,15 @@ CE={Fact→fact}. ( Contectual Environment)
 * Functional programming
 関数型プログラミング。
 
+- [[http://ja.wikipedia.org/wiki/%E9%96%A2%E6%95%B0%E5%9E%8B%E8%A8%80%E8%AA%9E][関数型言語 - Wikipedia]]
+
 すべての計算や処理などを関数の定義の組み合わせとして記述していくタイプのプログラミング言語。
 
 「同じ入力には必ず同じ出力を返す」「関数の評価が他の関数に影響を及ぼさない」など
 数学における関数と似た性質を持った関数の定義としてプログラミングを行い、
 プログラムの実行は記述された関数群の評価として行われる。
 
-- [[http://ja.wikipedia.org/wiki/%E9%96%A2%E6%95%B0%E5%9E%8B%E8%A8%80%E8%AA%9E][関数型言語 - Wikipedia]]
 - [[http://e-words.jp/w/E996A2E695B0E59E8BE8A880E8AA9E.html][関数型言語とは 【 functional language 】： IT用語辞典]]
-
 
 - 広義の意味では、Whatをコンピュータに示すもの（Howを示さない）。
 - 狭義の意味では、プログラミングの中で数学を用いたもの(Function, Relation)。
@@ -132,6 +132,11 @@ Rubyではlambda, procなど。C言語には関数ポインタがある。C言�
 * Declarative Programming
 宣言型プログラミング。
 
+第1の意味は、
+処理方法ではなく対象の性質などを宣言することでプログラミングするパラダイム。
+第2の意味は、
+純粋関数型プログラミング、論理プログラミング、制約プログラミングの総称。
+
 - [[http://ja.wikipedia.org/wiki/%E5%AE%A3%E8%A8%80%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][宣言型プログラミング - Wikipedia]]
 
 - Imperative Programingの対になる概念。
@@ -148,12 +153,12 @@ HTMLはStateless、Declarative Programming language.
   
 * Imperative Programming
 命令型プログラミング。
+計算をプログラム状態を変化させる文の列で記述するパラダイム。
 
 - [[http://ja.wikipedia.org/wiki/%E5%91%BD%E4%BB%A4%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][命令型プログラミング - Wikipedia]]
 
 Imperative programmingとは、Function paradigmにCellの概念を加えたもの。
 
-- 手続き型プログラミングと同義のこともある。
 - Declarative Programingの対になる概念。
   Imperative vs Declaretive is also Stateful vs Stateless
 
@@ -162,6 +167,15 @@ Imperative programming = Function paradigm + Cell
 #+end_src
 
 - 実行するたびに、内部の状態によって結果がことなる。
+
+- 手続き型と同義のこともある。
+手順やチェックリストはプログラムではないが、
+命令型プログラミングのスタイルに似たコンセプトである。
+それらのステップが命令であり、実世界が状態を保持している。
+
+- 械語は命令から構成される
+低レベルから見た場合、
+プログラムの状態はメモリの内容によって定義され、文としては機械語の命令が相当する。
 
 ** Explicite State
 明示的状態。
@@ -212,13 +226,39 @@ Function ParadigmsとImperative Paradigmの違いは、
 * Structured programming
 構造化プログラミング。
 
+構造化プログラミングではプログラミング言語が持つステートメントを
+直接使ってプログラムを記述するのではなく、
+それらを抽象化したステートメントを持つ仮想機械を想定し、
+その仮想機械上でプログラムを記述する。
+普通、抽象化は1段階ではなく階層的である。
+各階層での実装の詳細は他の階層と隔離されており、
+実装の変更の影響はその階層内のみに留まる(Abstract data structures)。
+各階層はアプリケーションに近い抽象的な方から土台に向かって順序付けられている。
+この順序は各階層を設計した時間的な順番とは必ずしも一致しない(Concluding remarks)
+
 [[http://ja.wikipedia.org/wiki/%E6%A7%8B%E9%80%A0%E5%8C%96%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][- 構造化プログラミング - Wikipedia]]
+
+標準的な制御構造のみを使い、
+プログラム全体を段階的に細かな単位に分割して処理を記述していく手法。
+
+- [[http://e-words.jp/w/E6A78BE980A0E58C96E38397E383ADE382B0E383A9E3839FE383B3E382B0.html][構造化プログラミングとは 【 structured programming 】 ： IT用語辞典]]
+
+「制御の流れ」を構造化しただけであり、
+「データ構造」には何の制限や規則も設けていない。
+
+「芸術品」から脱却して「工業製品」へ遷移すること、
+あるいは、「処理性能重視」から「保守性重視」へ向かったもの。
+別の見方をすれば、処理効率を犠牲にして、作りやすさや理解容易性を求めたもの。
+
+- [[http://monoist.atmarkit.co.jp/mn/articles/1009/17/news118.html][構造化プログラミングからオブジェクト指向への進化 - MONOist（モノイスト）]]
 
 ** 三つの構造化文
 ダイクストラが提唱。
 
 - 順次
-順接、順構造とも言われる。プログラムに記された順に、逐次処理を行なっていく。プログラムの記述とコンピュータの動作経過が一致するプログラム構造である。
+順接、順構造とも言われる。
+プログラムに記された順に、逐次処理を行なっていく。
+プログラムの記述とコンピュータの動作経過が一致するプログラム構造である。
 
 - 反復
 一定の条件が満たされている間処理を繰り返す。
@@ -239,8 +279,10 @@ Function ParadigmsとImperative Paradigmの違いは、
 * Detarministic dataflow programming
 決定性データフロープログラミング。
 
+* 
 * Multi-agent dataflow programmming
 マルチエジェーントデータフロープログラミング。
+
 * Concept(コンセプト) 未整理
 
 *** List,trees, and records
