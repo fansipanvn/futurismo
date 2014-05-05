@@ -1,0 +1,6 @@
+* git command
+** ファイル単位で最新のコミットに戻す方法
+
+#+begin_src sh
+git checkout filename
+#+end_src

@@ -194,7 +194,7 @@ org-modeには、デフォルトでmarkdown変換コマンドあり。 MarkDown�
 さっきのゴミは、emacs-export機能のオプションを利用すれば消せた。
 
 #+BEGIN_HTML
-<pre><code>o#+OPTIONS: toc:nil
+<pre><code>#+OPTIONS: toc:nil
 </code></pre>
 #+END_HTML
 

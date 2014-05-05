@@ -1,0 +1,154 @@
+#+OPTIONS: toc:nil
+* プログラミングパラダイム
+
+- [[http://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%83%91%E3%83%A9%E3%83%80%E3%82%A4%E3%83%A0][プログラミングパラダイム - Wikipedia]]
+** Paradigm(パラダイム)
+
+*** functional programming(関数型プログラミング)
+**** Impliclite(declarative) State(暗黙的状態)
+関数の実行結果が値をもつのがImplecite State(関数型プログラミングの特徴)
+
+*** Object-oriented programming
+**** Explicite State
+State(状態）とは、必要とされる計算の途中結果を含む、値の時系列。
+(sequence of values calculated progressively,
+which contains the intermediate results of a computation)
+
+状態の導入によって、プログラムに時間の概念を与える。
+
+関数の実行の中に値をもつのがExplicite State(明示的状態)オブジェクト指向型プログラミングの特徴)
+
+**** Data abstraction
+**** Polymorphism
+**** Inheritance
+
+*** Imperative programming(命令型プログラミング)
+- [[http://ja.wikipedia.org/wiki/%E5%91%BD%E4%BB%A4%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][命令型プログラミング - Wikipedia]]
+
+Imperative programmingとは、Function paradigmにCellの概念を加えたもの。
+
+#+begin_src language
+Imperative programming = Function paradigm + Cell
+#+end_src
+
+*** Detarministic dataflow programming(決定性データフロープログラミング)
+*** Multi-agent dataflow programmming(マルチエジェーントデータフロープログラミング)
+
+*** Declarative programming(宣言型プログラミング)
+- [[http://ja.wikipedia.org/wiki/%E5%AE%A3%E8%A8%80%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][宣言型プログラミング - Wikipedia]]
+
+*** Procedural programming(手続型プログラミング)
+- [[http://ja.wikipedia.org/wiki/%E6%89%8B%E7%B6%9A%E3%81%8D%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][手続き型プログラミング - Wikipedia]]
+
+*** Structured programming(構造化プログラミング)
+- [[http://ja.wikipedia.org/wiki/%E6%A7%8B%E9%80%A0%E5%8C%96%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][構造化プログラミング - Wikipedia]]
+
+
+  
+** Concept(コンセプト) 未整理。
+**** Identifiers and environments(識別子と環境)
+x = 1 ということはどういうことかを説明する概念。
+
+数学的な写像関係で x = 1 を説明しようとしている。{ X -> x1=1 }みたいな感じ。
+x1がメモリ上の実際の(束縛された)値で、Xがそれを指し示す識別子。
+
+その写像関係を環境という。
+
+**** functional programming
+
+**** Recursion
+再帰的プログラミング。
+***** accumulater
+C++の、numericライブラリ(accumuulateなど)で利用されている。
+
+スタックのサイズが均一なことが特徴的。
+
+***** tail-recursion(末尾再帰）
+その中にただ1つの再帰呼び出しがあり、
+かつその呼び出しが手続き本体の最後にあるもの。
+
+#+begin_src C++
+state whileLoop(state s) {
+  while (!isDone(s)) // 終了条件
+    s = transform(s) // 再帰
+  return s;
+}
+
+#+end_src
+
+***** invariant programming(不変式プログラミング)
+再帰的に呼ばれる度に、数学的に真になる式。
+
+- [[http://ja.wikipedia.org/wiki/%E4%B8%8D%E5%A4%89%E6%9D%A1%E4%BB%B6][不変条件 - Wikipedia]]
+
+*** Operational Semantics
+wikipedia: [[http://ja.wikipedia.org/wiki/%E6%93%8D%E4%BD%9C%E7%9A%84%E6%84%8F%E5%91%B3%E8%AB%96][操作的意味論 - Wikipedia]]
+    
+プログラムの正しさを数学的に証明することを目指す。
+
+- Specification ・・・ プログラムの入力と出力を定義したものを
+- Program ・・・ プログラミング言語によってかかれたデータ
+
+ProgramがSpecificationを満たしているかを証明する。そのために、
+
+- Semantic(意味の対応付け）
+- Abstruct Machine(抽象化された実行環境）
+
+という概念を導入する。Programはkernel Languageに分解され、Kernel Language
+の構成要素がAbstruct Machineと対応付けられる。
+
+#+begin_src language
+                                Semanitic 
+    Program --> kernel Language ----->  Specification
+                                 Abstrucut Machine
+#+end_src
+
+プログラミングが正しいことは、数学的帰納法(mathematical induction)で証明する。
+
+**** example
+***** Specification
+
+#+begin_src language
+0! = 1
+n! = n×(n-1)!  when n>0
+#+end_src
+
+***** Program
+
+#+begin_src oz
+fun {Fact N}
+   if N==0 then 1 else N*{Fact N-1} end
+end
+#+end_src
+
+***** Semanitc Expression
+
+#+begin_src language
+E={Fact→fact, N→n, R→r} (AbstcutMachine)
+σ={fact=(proc ... end,CE),n=0,r} (memory)
+CE={Fact→fact}. ( Contectual Environment)
+
+{Fact N R}, E, σ
+#+end_src
+
+*** List,trees, and records
+*** Symbolic programming
+*** Instantiation
+*** Genericity
+*** Higher-order programming(高階プログラミング)
+procedure valueをサポートしている言語でのプログラミング技術。
+関数を引数としてわたす能力。
+
+Rubyではlambda, procなど。C言語には関数ポインタがある。C言語は2階。
+
+*** Kernel languages
+*** Abstract machines
+*** Mathematial semantics
+*** Explicit state
+*** Object-oriented programming
+*** Exception handling
+*** Dataflow synchronizaton
+*** Deterministic concurrency
+*** Nondeterminism
+*** Multiagent programming
+

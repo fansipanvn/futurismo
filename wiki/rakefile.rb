@@ -8,6 +8,7 @@ SPHINXBUILD   = "sphinx-build"
 BUILDDIR      = "build"
 SOURCEDIR     = "src"
 ALLSPHINXOPTS = "-d #{BUILDDIR}/doctrees #{SPHINXOPTS} #{SOURCEDIR}"
+BROWSER       = "firefox"
 
 CLEAN.include(["*/*.~","*/\#*","*/*.md"])
 CLOBBER.include(["build"])
@@ -27,6 +28,12 @@ task :ftp do
   if system( "ncftpput -R lolipop ./wordpress/sphinx build/html" )
     puts "FTP finished. Access to http://futurismo.biz/sphinx/html/"
   end
+end
+
+desc "open local file"
+task :open do
+  cmd = "#{BROWSER} #{BUILDDIR}/html/index.html"
+  system( cmd )
 end
 
 # You can set these variables from the command line.
