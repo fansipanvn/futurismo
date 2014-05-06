@@ -74,7 +74,6 @@ CE={Fact→fact}. ( Contectual Environment)
 {Fact N R}, E, σ
 #+end_src
 
-
 * Functional programming
 関数型プログラミング。
 
@@ -88,15 +87,28 @@ CE={Fact→fact}. ( Contectual Environment)
 
 - [[http://e-words.jp/w/E996A2E695B0E59E8BE8A880E8AA9E.html][関数型言語とは 【 functional language 】： IT用語辞典]]
 
-- 広義の意味では、Whatをコンピュータに示すもの（Howを示さない）。
-- 狭義の意味では、プログラミングの中で数学を用いたもの(Function, Relation)。
+広義の意味では、Whatをコンピュータに示すもの（Howを示さない）。
+狭義の意味では、プログラミングの中で数学を用いたもの(Function, Relation)。
+
+- 式と関数でプログラムを組み上げる(Use of MathMatics)
+- 関数を値として扱える(Higher-order programming)
+- 副作用を起こさない(Impliclite State, Stateless)
+
+- ttp://itpro.nikkeibp.co.jp/article/COLUMN/20110411/359286/?ST=develop&P=3][3つのプログラミングのパラダイムを押さえておこう：ITpro]]
 
 ** Impliclite(declarative) State
 暗黙的状態。宣言的状態ともいう。
 
 - 関数の実行結果が値をもつ
+- 同じ入力には必ず同じ出力を返す。
 - Explicite Stateとの対概念。
-- 関数型プログラミングの特徴。
+- 参照透明性。
+
+** Higher-order programming
+高階プログラミング。procedure valueをサポートしている言語でのプログラミング技術。
+関数を引数としてわたす能力。
+
+Rubyではlambda, procなど。C言語には関数ポインタがある。C言語は2階。
 
 ** Recursion
 再帰的プログラミング。
@@ -106,7 +118,9 @@ C++の、numericライブラリ(accumuulateなど)で利用されている。
 
 スタックのサイズが均一なことが特徴的。
 
-*** tail-recursion(末尾再帰）
+*** tail-recursion
+末尾再帰。
+
 その中にただ1つの再帰呼び出しがあり、
 かつその呼び出しが手続き本体の最後にあるもの。
 
@@ -118,16 +132,10 @@ state whileLoop(state s) {
 }
 #+end_src
 
-*** invariant programming(不変式プログラミング)
-再帰的に呼ばれる度に、数学的に真になる式。
+*** invariant programming
+不変式プログラミング。再帰的に呼ばれる度に、数学的に真になる式。
 
 - [[http://ja.wikipedia.org/wiki/%E4%B8%8D%E5%A4%89%E6%9D%A1%E4%BB%B6][不変条件 - Wikipedia]]
-
-*** Higher-order programming
-高階プログラミング。procedure valueをサポートしている言語でのプログラミング技術。
-関数を引数としてわたす能力。
-
-Rubyではlambda, procなど。C言語には関数ポインタがある。C言語は2階。
 
 * Declarative Programming
 宣言型プログラミング。
@@ -217,7 +225,7 @@ Function ParadigmsとImperative Paradigmの違いは、
   - 状態変化しない(Immunity)
   - 機能追加時にインタフェースの変更の影響度がおおきい。
 - Inperative
-  - 機能追加時にインタフェースの変更の影響度がない。(モジュール性）
+  - 機能追加時にインタフェースの変更の影響度がない。(モジュール性, モジュールプログラミング）
   - 状態変化する。
 
 ** 主な言語
@@ -234,7 +242,7 @@ Function ParadigmsとImperative Paradigmの違いは、
 各階層での実装の詳細は他の階層と隔離されており、
 実装の変更の影響はその階層内のみに留まる(Abstract data structures)。
 各階層はアプリケーションに近い抽象的な方から土台に向かって順序付けられている。
-この順序は各階層を設計した時間的な順番とは必ずしも一致しない(Concluding remarks)
+pこの順序は各階層を設計した時間的な順番とは必ずしも一致しない(Concluding remarks)
 
 [[http://ja.wikipedia.org/wiki/%E6%A7%8B%E9%80%A0%E5%8C%96%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][- 構造化プログラミング - Wikipedia]]
 
@@ -264,24 +272,181 @@ Function ParadigmsとImperative Paradigmの違いは、
 一定の条件が満たされている間処理を繰り返す。
 
 - 分岐
-ある条件が成立するなら処理Aを、そうでなければ処理Bを行なう。 
+ある条件が成立するなら処理Aを、そうでなければ処理Bを行なう。
 
 * Object-Oriented Programming
-オブジェクト指向型プログラミング
+オブジェクト指向型プログラミング。
+
+- [[http://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][オブジェクト指向プログラミング - Wikipedia]]
 
 ** Data abstraction
+データ抽象。3つの構成要素がある。
+
+- Input
+- Output
+- Interface
+
+データ抽象は内部と外部からなるプログラムかつ、両者がインターフェースを通じてやりとりするもの。
+
+A data abstraction is a part of a program that has an inside, an outside,
+and an interface in between The inside is hidden from the outside.
+
+*** Input/Output
+内部は外部からは隠蔽されている。-> カプセル化という。
+
+The inside is hidden from the outside
+
+*** Interface
+The interface is a set of operations that an be used according to certain rules.
+
+データ抽象には、主に二つの方法がある。
+
+- Abstract Data Type(ADT) keeps values and operations separate.
+- Object groups together value and operations in a single entity.
+
 *** Encapsulation
-カプセル化。
+プログラムと内部と内部をインタフェースで分けること。
+
+カプセル化のメリットは大規模開発をシンプルにする。
+
+- 正しさを保証する。
+- 複雑さを解消する。
+  
+*** Abstract Data Type
+抽象データ型。ADTと略されることも。
+
+構造化プログラミングは仮想機械モデルに基づく段階的詳細化法（stepwise refinement）をもたらしたが、
+データ構造の変更を行うと変更部分がソースコード中に散在してしまうという弱点があった。
+データ抽象の概念はその欠点を補完するものであった
+
+- [[http://ja.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][抽象データ型 - Wikipedia]]
+
+An ADT consists of a set of values and  a set of operations.
+
+- Integer型
+ - Value:1,2,3
+ - Operation:+
+- Stack型
+ - Value: elemtent
+ - Operation: push, pop, ...
+
+ValueとOperationそれ自体はStateを持たない。
+
+CTM, p433
+
+Diference between ADT and Object。Stackをつかった実装の違い。
+
+- ADT
+
+#+begin_src oz
+local Wrap Unwrap in
+  {NewWrapper Wrap Unwrap}
+  fun {NewStack} {Wrap nil} end
+  fun {Push W X} {Wrap X|{Unwrap W}} end
+  fun {Pop W X} S={Unwrap W} in X=S.1 {Wrap S.2} end
+  fun {IsEmpty W} {Unwrap W}==nil end
+end
+#+end_src
+
+この手法はStateful ADTという。
+
+そして、C言語では、こうやってデータ抽象化を行うことがおおい。
+もちろん関数ポインタ配列を使えばC言語でもObjectをつくることができるが、
+実際にはそこまでやらない。(面倒)
+
+- Object
+オブジェクトでは、データに対する操作はプロシージャ変数として扱われることに注目。
+
+#+begin_src oz
+fun {NewStack}
+  C={NewCell nil}
+  proc {Push X} C:=X|@C end
+  proc {Pop X} S=@C in X=S.1 C:=S.2 end
+  fun {IsEmpty} @C==nil end
+in
+  stack(push:Push pop:Pop isEmpty:IsEmpty)
+end
+#+end_src
+
+オブジェクト指向言語は、
+単にObjectをサポートする言語ではなくて、Abstruct Data Typeも強力にサポートしている。
+
+ObjectとADTの意味がごっちゃにつかわれているのが現実の現状。
+
+** Object
+値と操作をひとつのまとまりとしたもの。以下の構成要素をもつ。
+
+- 値 ・・・Explicite State(明示的状態)
+- 操作 ・・・Procedural Data Abstruction(手続的データ抽象)
+
+以下の能力を備えている。
+
+*** Data Abstruction
+オブジェクトは内部と外部はインタフェースを通じてやりとりされる。
+
+内部の明示的状態をAttributes,インタフェースをMethodsという。
+
+*** Procedure Dispatch
+オブジェクトは単一なエントリポイントをもつ。(エントリポイント = 呼び出し口)
+エントリポイントに渡される引数をメッセージという。
+
+下の例だと、Counterがエントリポイント。エントリポイントにinc,getメッセージを送る。
+
+#+begin_src oz
+   {Counter inc}
+   {Counter get(X)}
+#+end_src
+
+エントリポイントから、メッセージに対応するプロシージャが呼びだされる。
+
+メッセージとプロシシージャはあらかじめDispatch(バンドリング)されている。
+
+*** Instantiation
+オブジェクトは一つのメソッドで、
+異なる属性をもつ複数のオブジェクトを生成できる。
+
+この能力をInstantiation(インスタンス化）という。
+
+*** Classes
+メソッドと属性を定義する特別なシンタックスをClassという。
+
+属性とメソッドはレコードデータ構造によって管理されているだけである！
+
+Classという概念によって、オブジェクトの"宣言"と"生成(new)"を分離する。
 
 ** Polymorphism
-** Inheritance
 
+   [[http://ja.wikipedia.org/wiki/%E3%83%9D%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%95%E3%82%A3%E3%82%BA%E3%83%A0][- ポリモーフィズム - Wikipedia]]
+
+** Inheritance
+継承。あるオブジェクトが他のオブジェクトの特性を引き継ぐこと。
+
+   - [[http://ja.wikipedia.org/wiki/%E7%B6%99%E6%89%BF_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0)][継承 (プログラミング) - Wikipedia]]
+
+*** Composition
+コンポジション。新たなクラスに、既存クラスのインスタンスを保持する。
+has-a の関係(not is-a)
+
+Prefer Composition over inheritance(Effective Java).
+
+*** Delegation
+移譲。
+   
 * Detarministic dataflow programming
 決定性データフロープログラミング。
 
-* 
 * Multi-agent dataflow programmming
 マルチエジェーントデータフロープログラミング。
+
+
+
+
+
+* Books
+
+* Links
+- [[http://www.ibm.com/developerworks/jp/opensource/library/itm-progevo1/][プログラミング言語の進化を追え: 第1回 サルでも分かるプログラミング言語の新潮流(前篇)]]
+- [[http://www.ibm.com/developerworks/jp/opensource/library/itm-progevo2/index.html][プログラミング言語の進化を追え: 第2回 サルでも分かるプログラミング言語の新潮流(後篇)]]
 
 * Concept(コンセプト) 未整理
 
@@ -296,4 +461,3 @@ Function ParadigmsとImperative Paradigmの違いは、
 *** Dataflow synchronizaton
 *** Deterministic concurrency
 *** Nondeterminism
-
