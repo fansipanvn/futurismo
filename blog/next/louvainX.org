@@ -2,9 +2,13 @@
 #+CATEGORY: MOOC
 #+TAGS: edX
 #+DESCRIPTION:
-#+TITLE: Paradigms of Computer Programming めまいを感じるほどの感動体験
+#+TITLE: Paradigms of Computer Programming 最高の感動を味わえるCourse
 
 * はじめに
+感動というものを頭に走る電撃と定義するならば、
+このCourseは自分にとって、まちがいなく最高の感動だった。
+
+
 
 ** プログラミングパラダイムとは
 プログラミングパラダイムとは、プログラミングの分類方法、スコープ、見方。

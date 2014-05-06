@@ -458,32 +458,120 @@ Prefer Composition over inheritance(Effective Java).
 *** Delegation
 移譲。
    
-* Detarministic dataflow programming
+* Concurrenct Programming
+複数の相互作用を及ぼす計算タスクの（同時）並行的実行をおこなうパラダイム。
+
+平行プログラミング。(並列プログラミングではない)。
+
+- [[http://ja.wikipedia.org/wiki/%E4%B8%A6%E8%A1%8C%E8%A8%88%E7%AE%97][並行計算 - Wikipedia]]
+- [[http://ja.wikipedia.org/wiki/%E4%B8%A6%E5%88%97%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0][並列計算 - Wikipedia]]
+
+Multiple progressing activities that exist at the same time
+Activities that can communicate and synchronize
+
+- Communicate: information passes from one activity to another
+- Synchronize: an activity waits for another to perform a specific action
+
+平行プログラミングには3つの代表的なパラダイムがある。
+
+- Detarministic Dataflow
+- Message-passing concurrency(Erlang and Scala actor)
+- Shared-State concurrency(Java monitors)
+
+* Detarministic Dataflow Programming
 決定性データフロープログラミング。
+
+関数型パラダイムをべースにしている。
+
+- [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%95%E3%83%AD%E3%83%BC%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][データフロープログラミング - Wikipedia]]
+
+スレッド処理、時間経過をともなうのにも関わらず、実行結果はつねに一定！
+
+これが、Deterministicと名づけられた所以。
+
+Deerministic is not Obsarbable.
+
+応用が期待される分野は
+
+- MultiCore, ManyCore Processing (マルチコア、メニーコア)
+- Destributed Computing
+- Concurrent Deployment
+
+メニーコアやクラウドなどのキーワードと相性のよい、21世紀のパラダイム。
+
+** Detarministic Dataflow
+*** Unbound Value
+メモリ上に値が存在しないが、宣言された変数。
+
+- C/C++では、ゴミ(不定データ)が格納されている。
+- Javaは0初期化されている。
+- Prologは実行時にエラー終了する。
+- Ozは値がbindされるまでまちあわせる。
+
+*** DataFlow Value
+Unbound Valueがbindされるまでプログラムの実行を待ち合わせるような宣言的変数。
+
+Bindされたときの実行を Dataflow Executionという。
+
+** Threads
+プログラムの処理の単位(Thread of Program)
+
+- Each thread is sequential.
+- Each thread is independent of the others.
+- Two threads can communicate if they share a variable
+
+WikipediaではCPUのひとつの処理単位と定義されている。
+
+[[http://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%AC%E3%83%83%E3%83%89_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF)][- スレッド (コンピュータ) - Wikipedia]]
+
+** Streams
+リストの終端がUnbound Variableであるもの。
+
+Streamsは2つのThread間の通信チャネルとして利用できる。
+
+Streamの構成要素は以下。
+
+- Producer
+  ストリームのデータを生成。
+
+- Consumer
+  Producerから生成されたストリームのデータを受け取ってアクションを起こす。
+
+- Transformer
+  ProducerとConsumerとの間を仲介する。  
+
+- Pipeline
+  ProducerとConsumerとTransformerの間を仲介する。  
+
+単一格納変数(single-assined value)の性質（一度しか代入できない)
+を同期のスレッド間通信のための手段にする。
+
+平行スレッドのなかでStreamを読み書きするものをAgentsという。
+
+n#+begin_src language
+          S1=1|2|3..              S2=1|4|9..
+  Produce ----------> Transformer --------> Consuemer
+ S1={Prod 1}          S2={Trans S1}         {Disp S2}
+#+end_src
+
+** NonDeterminism
+非決定性。プログラムの実行結果を決定ことができるシステムの能力。
+
+Nondeterminismはmanagedされることが必須！
+しかし、制御がとても難しい。
+だからこそ、Determinismが重要なのだと。
+
+
+*** Scheduler
+どのスレッドを実行するかを決める、システムの一部をスケジューラという。
 
 * Multi-agent dataflow programmming
 マルチエジェーントデータフロープログラミング。
 
-
-
-
+Concurrent Deploymentが応用分野。Immunity Infra。
 
 * Books
-
 * Links
 - [[http://www.ibm.com/developerworks/jp/opensource/library/itm-progevo1/][プログラミング言語の進化を追え: 第1回 サルでも分かるプログラミング言語の新潮流(前篇)]]
 - [[http://www.ibm.com/developerworks/jp/opensource/library/itm-progevo2/index.html][プログラミング言語の進化を追え: 第2回 サルでも分かるプログラミング言語の新潮流(後篇)]]
 
-* Concept(コンセプト) 未整理
-
-*** List,trees, and records
-*** Symbolic programming
-*** Instantiation
-*** Genericity
-*** Kernel languages
-*** Abstract machines
-*** Mathematial semantics
-*** Exception handling
-*** Dataflow synchronizaton
-*** Deterministic concurrency
-*** Nondeterminism
