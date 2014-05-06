@@ -191,7 +191,7 @@ HTMLはStateless、Declarative Programming language.
 
 - [[http://ja.wikipedia.org/wiki/%E5%91%BD%E4%BB%A4%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][命令型プログラミング - Wikipedia]]
 
-Imperative programmingとは、Function paradigmにCellの概念を加えたもの。
+[[Imperative Programming]]とは、Function paradigmにCellの概念を加えたもの。
 
 - Declarative Programingの対になる概念。
   Imperative vs Declaretive is also Stateful vs Stateless
@@ -477,6 +477,14 @@ Activities that can communicate and synchronize
 - Detarministic Dataflow
 - Message-passing concurrency(Erlang and Scala actor)
 - Shared-State concurrency(Java monitors)
+
+** Concurrency Transparency
+平行透過性。
+
+複数のユーザーが1つのリソースを共有して使用するとき、
+それらユーザーに競合状態を気づかせてはならない。
+
+- [[http://ja.wikipedia.org/wiki/%E9%80%8F%E9%81%8E%E6%80%A7_(%E6%83%85%E5%A0%B1%E5%B7%A5%E5%AD%A6)][透過性 (情報工学) - Wikipedia]]
 
 * Detarministic Dataflow Programming
 決定性データフロープログラミング。
