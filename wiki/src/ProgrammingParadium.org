@@ -610,7 +610,19 @@ NonDeterminismの制御を機能追加したから。
 
 - [[http://ja.wikipedia.org/wiki/%E3%83%9E%E3%83%AB%E3%83%81%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0][マルチエージェントシステム - Wikipedia]]
 
+Distributed Systemともいう。
+
 CTMCP, Chapter 5
+
+** Port
+ボート。Named Steram.名前のつけられたストリーム。
+
+以下の操作をもつ、Abstruct Data Structure。
+
+- Port Creation
+- Message Sending
+  - Asyncronize
+  - Syncronize
 
 ** Agents
 通信モデルは大きく2つに分けられる。
@@ -634,26 +646,23 @@ Client,Server,PearをAgentという。
 
 CTMCP, Chapter 5より。
 
-*** Agent-Oriented Programming
-オブジェクト指向におけるオブジェクトを、
-自ら判断し処理できる機能を持ったエージェントと呼ばれるモジュールに置き換えたもの。
+Agentをもちいるプログラミングを、
+Object-Oriented Programmingと対比されて、
+Agent-Oriented Programmingということもある。
 
+ただし、Agentは必ずしもObjectでなくてもよい。2つのうちのどちらか。
+
+- Object
+- Transition state-functions
+
+*** Coordinator
+AgentのなかでほかのAgentをまとめるAgentをCoordinatorという。以下の性質をもつ。
 
 - 代理性 ・・・他のAgentの代理をして処理をおこなう。処理の結果をAgentに通知。
-- 知性 ・・・ 他のAgentから情報をあつめを代表して判断を下す。
+- 知性   ・・・ 他のAgentから情報をあつめを代表して判断を下す。
 - 移動性 ・・・他のAgentを代表して判断を下す。
 
-OOPのオブジェクトと部分的概念。
-オブジェクトの属性ではなくて振る舞いが重要視される。
-
-- [[http://itpro.nikkeibp.co.jp/word/page/10024992/][「エージェント指向」とは：ITpro]]
-- [[http://www.ogis-ri.co.jp/otc/hiroba/technical/agent/article/index.html][エージェント指向が目指すもの -INDEX-]]
-
-EnglishのWikipediaに OOPとAOPの対応比較表がある。
-
-- [[http://en.wikipedia.org/wiki/Agent-oriented_programming][Agent-oriented programming - Wikipedia
-
-Master(Coordinator)-Slave Archtecture。
+Master(Coordinator)-Slave Archtecture.
 
 - [[http://ja.wikipedia.org/wiki/%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%BC%E3%82%B9%E3%83%AC%E3%83%BC%E3%83%96][マスタースレーブ - Wikipedia]]
 
@@ -671,15 +680,20 @@ Agentはひとつのスレッドと複数のポートをもつ。ボートは明
 処理の実行自体はStreamデータ構造に入ったfunctionのプロシージャごとに実施する
 (Immutable and incremental)が、StateによってReplyの方法を変える。
 
-** Port
-ボート。Named Steram.名前のつけられたストリーム。
+*** Active Object(Object-Based Agent)
+オブジェクト指向におけるオブジェクトを、
+自ら判断し処理できる機能を持ったエージェントと呼ばれるモジュールに置き換えたもの。
 
-以下の操作をもつ、Abstruct Data Structure。
+OOPのオブジェクトと部分的概念。
+オブジェクトの属性ではなくて振る舞いが重要視される。
 
-- Port Creation
-- Message Sending
-  - Asyncronize
-  - Syncronize
+- [[http://itpro.nikkeibp.co.jp/word/page/10024992/][「エージェント指向」とは：ITpro]]
+- [[http://www.ogis-ri.co.jp/otc/hiroba/technical/agent/article/index.html][エージェント指向が目指すもの -INDEX-]]
+
+EnglishのWikipediaに OOPとAOPの対応比較表がある。
+
+- http://en.wikipedia.org/wiki/Agent-oriented_programming
+
 
 ** Protocol
 Messageの送信と受信のルール。
@@ -688,7 +702,7 @@ Messageの送信と受信のルール。
 
 プロトコルにしたがうことで、デッドロックを防ぐ。
 
-*** BroadCase
+*** BroadCast
 他の複数のエージェント(Multi-Agent)に通信を送る。
 
 *** Contract Net
