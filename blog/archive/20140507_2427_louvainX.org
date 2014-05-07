@@ -1,9 +1,179 @@
-#+OPTIONS: toc:t num:nil author:nil creator:nil LaTeX:t
-* プログラミングパラダイム
+#+BLOG: Futurismo
+#+POSTID: 2427
+#+DATE: [2014-05-07 水 19:36]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: MOOC, Book
+#+TAGS: edX
+#+DESCRIPTION:EdxでParadigms of Computer Programmingという講座を受けたまとめ
+#+TITLE: プログラミングの世界観を変える衝撃！Paradigms of Computer Programmingで震えるほどの知的感動を体験した
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/CPMCP.jpg" width="560"/>
+#+END_HTML
+
+* はじめに
+EdxでParadigms of Computer Programmingという講座を受けた。
+
+- [[https://www.edx.org/course/louvainx/louvainx-louv1-01x-paradigms-computer-1203#.U2oLTxMu2IM][LouvainX: Louv1.01x: Paradigms of Computer Programming | edX]]
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/D1q2dCNGDOE" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+感動というものを頭に走る電撃と定義するならば、
+このCourseは自分にとって、まちがいなく最高の感動だった。
+
+[toc]
+
+* 内容
+** 感動的な講義の展開
+プログラム言語のパラダイムやコンセプトが紹介される。
+
+5つのパラダイムが紹介される。
+
+- Functional Programming(関数型プログラミング)
+- Object-Oriented Programming(オブジェクト指向プログラミング)
+- Deterministic Dataflow Programming(決定性データフロープログラミング)
+- Multi-Agent Dataflow Programming(マルチエージェントデータフロープログラミング)
+- Active Object Programming(アクティブオブジェクトプログラミング)
+
+感動すべきは、その講義の展開だ。
+
+はじめに、すべてのBaseになる関数型パラダイムからスタート。
+
+そして、関数型パラダイムに、
+State(状態)という概念を追加することで、
+オブジェクト指向パラダイムに発展させる！
+
+また、関数型パラダイムに 
+Concurrency(並行性)、Thread(スレッド)という概念をを追加することで、
+決定性データフローパラダイムに発展させる！
+
+そして、決定性データフローパラダイムに
+Port(ポート)という概念をを追加することで、
+マルチエージェントデータフローパラダイムに発展させる！
+
+最後に、オブジェクト指向パラダイムとマルチエージェントデータフローパラダイムを
+融合させることで、アクティブオブジェクト指向パラダイムへ発展させる！
+
+新しいパラダイムやコンセプトが紹介されるごとに、
+価値観を覆す感動が自分の頭の中で電撃としてピリピリ走った。
+めくるめく感動体験の連続である。
+
+こんな体験はそうめったにできるものではない。スゴい！
+
+** 情熱的なビーターバンロイさん
+レクチャーをするビーターバンロイさんの語り口がとても情熱的だ。
+
+語り口にも感動した。重要な概念になるたびに、
+声の音程と強さがあがり、情熱的に語りかけてくる。感動に拍車をかける。
+
+** Oz(マルチパラダイム言語)と参考書について
+Ozというマルチパラダイム言語を利用する。
+
+- [[http://futurismo.biz/archives/2271][マルチパラダイム言語Ozの開発環境MozartをインストールしてHelloWorldするまで | Futurismo]]
+
+個人的には、MozartがEmacsをベースにしているところがとてもよかった。Emacs最高！
+
+- [[http://futurismo.biz/archives/2399][Mozartをemacsclientから起動する方法のメモ | Futurismo]]
+
+しかし、Ozの文法がわからない・・。
+
+情報元やサンプルコードが少なくて、文法を調べるのに苦労した。
+概念的にわかっていてもその実装するための文法がわからず時間かかったり。
+loopを書くのに2時間つかったり。参考書とforumでサンプルコード漁りまくった。
+
+*** Oz勉強リンク
+- [[http://e-p-i.github.io/tutorial_of_oz/index.html][Tutorial of Oz]]
+- [[http://dream.inf.ed.ac.uk/computing/installed/mozart/doc/opi/index.html][The Oz Programming Interface]]
+- [[http://www.eecs.ucf.edu/~leavens/ComS541Fall06/running_oz.shtml#][Running Oz]]
+
+*** 参考書
+#+BEGIN_HTML
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E6%A6%82%E5%BF%B5%E3%83%BB%E6%8A%80%E6%B3%95%E3%83%BB%E3%83%A2%E3%83%87%E3%83%AB-Architect-Archive%E3%82%AF%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AF%E3%83%A2%E3%83%80%E3%83%B3%E3%83%BB%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B06-Architects%E2%80%99Archive-CLASSIC/dp/4798113468%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798113468' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/51iXhiKTamL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E6%A6%82%E5%BF%B5%E3%83%BB%E6%8A%80%E6%B3%95%E3%83%BB%E3%83%A2%E3%83%87%E3%83%AB-Architect-Archive%E3%82%AF%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AF%E3%83%A2%E3%83%80%E3%83%B3%E3%83%BB%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B06-Architects%E2%80%99Archive-CLASSIC/dp/4798113468%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798113468' rel='nofollow' target='_blank'>コンピュータプログラミングの概念・技法・モデル(IT Architect' Archiveクラシックモダン・コンピューティング6) (IT Architects’Archive CLASSIC MODER)</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 14.05.07</div><div class='amazlink-detail'>セイフ・ハリディ<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E6%A6%82%E5%BF%B5%E3%83%BB%E6%8A%80%E6%B3%95%E3%83%BB%E3%83%A2%E3%83%87%E3%83%AB-Architect-Archive%E3%82%AF%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AF%E3%83%A2%E3%83%80%E3%83%B3%E3%83%BB%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B06-Architects%E2%80%99Archive-CLASSIC/dp/4798113468%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798113468' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00q0724.n763w947.g00q0724.n763x2b4/?pc=http%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F5079035%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Frms%2Fmsv%2FItem%3Fn%3D5079035%26surl%3Dbook' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
+#+END_HTML
+
+分厚くて重い。。900ページある。しかし、これがないと辛い。実はEnglishが一番難しい言語。
+
+通称、CTM本、CTMCP本、ガウディ本というらしい。
+
+- [[http://www.info.ucl.ac.be/~pvr/book.html][Concepts, Techniques, and Models of Computer Programming]]
+
+* 感想
+** モチベーション
+講座のなかでは、以下のような利点を強調してモチベーションをあげようとしている。
+
+- いくつものプログラミング言語がある。全てを学ぶことは不可能。
+- プログラミング言語はパラダイムで分類できる。
+- パラダイム、そこから導出れるコンセプトを抑えることで、多くの言語を理解できる！
+
+なるほど、利にかなっている。
+
+今は、オブジェクト指向が全盛だが、その天下もいつまで続くかは分からない。
+
+技術が進めばマルチコアや並列処理に対応するために、それに適した言語が必要になるかもしれない。
+HTMLなんかは宣言的プログラミングの典型で、オブジェクト指向ではどうにもならない。
+
+プロフェッショナルなプログラマを目指すのならば、
+オブジェクト指向だけでなくて、他の考え方も知っておきたいところだ。
+
+また高校生のころにこんな本を読んで、とても感激を受けた。
+
+#+BEGIN_HTML
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E5%B0%8F%E8%AB%96%E6%96%87%E3%82%92%E5%AD%A6%E3%81%B6%E2%80%95%E7%9F%A5%E3%81%AE%E6%A7%8B%E7%AF%89%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AB-%E9%95%B7%E5%B0%BE-%E9%81%94%E4%B9%9F/dp/463407110X%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D463407110X' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/41RWWEBXB7L._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E5%B0%8F%E8%AB%96%E6%96%87%E3%82%92%E5%AD%A6%E3%81%B6%E2%80%95%E7%9F%A5%E3%81%AE%E6%A7%8B%E7%AF%89%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AB-%E9%95%B7%E5%B0%BE-%E9%81%94%E4%B9%9F/dp/463407110X%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D463407110X' rel='nofollow' target='_blank'>小論文を学ぶ―知の構築のために</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 14.05.07</div><div class='amazlink-detail'>長尾 達也<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E5%B0%8F%E8%AB%96%E6%96%87%E3%82%92%E5%AD%A6%E3%81%B6%E2%80%95%E7%9F%A5%E3%81%AE%E6%A7%8B%E7%AF%89%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AB-%E9%95%B7%E5%B0%BE-%E9%81%94%E4%B9%9F/dp/463407110X%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D463407110X' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00q0724.n763w947.g00q0724.n763x2b4/?pc=http%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F1365994%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Frms%2Fmsv%2FItem%3Fn%3D1365994%26surl%3Dbook' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
+#+END_HTML
+
+パラダイムを学び、そしてその考えに触れることで自分の価値観が揺るがされる。
+新たな世界が見えるようになる。そんな知的興奮をパラダイムは与えてくれる。
+
+** 実際は、、
+講座は2月からはじまったのだが、他のことが忙しくてスケジュールどおりには進められなかった。
+
+なので、4末に講座が終了したあと、5月のGWの休みに集中して一気に勉強した。
+
+AssignmentやExamは締切り後に解いたりして、点数にはならず。それが残念。
+
+** プログラミング言語の分類学
+プログラミングパラダイムを分類したポスターが以下のサイトからダウンロードできる。
+
+[[http://www.info.ucl.ac.be/~pvr/paradigms.html][- Classification of the principal programming paradigms]]
+
+今まで3つのパラダイムしかしらなかった。
+
+- Declarative Programming(宣言的プログラミング)
+- Procedural programming(手続き型プログラミング)
+- Object-Oriented Programming(オブジェクト指向プログラミング)
+
+このポスターを眺めてみると、プログラミングの世界は広大であり、
+自分は視野が狭かった、ほんの片鱗しか見えていなかったと思った。
+
+そして、この講座で紹介されなかったパラダイムもまだまだたくさんあることに驚いた。
+もっともっと、いろんな言語やパラダイムに触れたいと、強く思った。
+
+ちなみに、最後にオススメ言語が紹介される。
+よい言語は、広く様々なパラダイムをカバーしてていること。
+その意味で、ScalaとErlangがオススメ、
+C++とJavaもややマルチパラダイムだけどちょっとレガシー、だそうだ。
+
+* Coursereで紹介されたプログラムパラダイムのメモ
+メモをとりながら、動画を見ていたのでそのメモ。
+
+今まで、あまりメモはとらなかった。満員電車で動画を見ることが多かったので。
+今回はGWに集中して取り組めたので、メモをとることはよいことだと思った。
+
+以下、引用がほとんどのメモだけれども、内容が間違っているかもしれないので注意。
+
+これはEmacs org-modeで階層的にメモをとった。
+これからも、今回触れられなかったパラダイムを追加していき、
+パラダイムツリーを生涯にわたって進化させていきたい。
+
+* プログラミングパラダイムとは
+プログラミングパラダイムとは、プログラミングの分類方法、スコープ、見方。
+
+なにかを定義しているようでなにもいっていない・・・詳しくはwikipedia参照。
 
 - [[http://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%83%91%E3%83%A9%E3%83%80%E3%82%A4%E3%83%A0][プログラミングパラダイム - Wikipedia]]
-
-* Base Concept
+* Base Concepts
 ** Valiables
 変数の構成要素は以下の2つ。
 
@@ -19,90 +189,12 @@ x1がメモリ上の実際の(束縛された)値で、Xがそれを指し示す
 *** environments
 識別子と変数の写像関係を環境という。
 
-*** Scope
-Valiableの有効範囲。
-
 ** State
 State(状態）とは、必要とされる計算の途中結果を含む、値の時系列。
 (sequence of values calculated progressively,
 which contains the intermediate results of a computation)
 
 状態の導入によって、プログラムに時間の概念を与える。
-
-** Operational Semantics
-wikipedia: [[http://ja.wikipedia.org/wiki/%E6%93%8D%E4%BD%9C%E7%9A%84%E6%84%8F%E5%91%B3%E8%AB%96][操作的意味論 - Wikipedia]]
-    
-プログラムの正しさを数学的に証明することを目指す。
-
-- Specification ・・・ プログラムの入力と出力を定義したものを
-- Program ・・・ プログラミング言語によってかかれたデータ
-
-ProgramがSpecificationを満たしているかを証明する。そのために、
-
-- Semantic(意味の対応付け）
-- Abstruct Machine(抽象化された実行環境）
-
-という概念を導入する。Programはkernel Languageに分解され、Kernel Language
-の構成要素がAbstruct Machineと対応付けられる。
-
-#+begin_src language
-                             Semanitic 
-    Program --> kernel Language ----->  Specification
-                            Abstrucut Machine
-#+end_src
-
-プログラミングが正しいことは、数学的帰納法(mathematical induction)で証明する。
-
-*** example
-**** Specification
-      
-#+begin_src language
-0! = 1
-n! = n×(n-1)!  when n>0
-#+end_src
-
-**** Program
-
-#+begin_src oz
-fun {Fact N}
-   if N==0 then 1 else N*{Fact N-1} end
-end
-#+end_src
-
-**** Semanitc Expression
-
-#+begin_src language
-E={Fact→fact, N→n, R→r} (AbstcutMachine)
-σ={fact=(proc ... end,CE),n=0,r} (memory)
-CE={Fact→fact}. ( Contectual Environment)
-
-{Fact N R}, E, σ
-#+end_src
-
-n* Functional programming
-関数型プログラミング。
-
-- [[http://ja.wikipedia.org/wiki/%E9%96%A2%E6%95%B0%E5%9E%8B%E8%A8%80%E8%AA%9E][関数型言語 - Wikipedia]]
-
-すべての計算や処理などを関数の定義の組み合わせとして記述していくタイプのプログラミング言語。
-
-「同じ入力には必ず同じ出力を返す」「関数の評価が他の関数に影響を及ぼさない」など
-数学における関数と似た性質を持った関数の定義としてプログラミングを行い、
-プログラムの実行は記述された関数群の評価として行われる。
-
-- [[http://e-words.jp/w/E996A2E695B0E59E8BE8A880E8AA9E.html][関数型言語とは 【 functional language 】： IT用語辞典]]
-
-広義の意味では、Whatをコンピュータに示すもの（Howを示さない）。
-狭義の意味では、プログラミングの中で数学を用いたもの(Function, Relation)。
-
-- 式と関数でプログラムを組み上げる(Use of MathMatics)
-- 関数を値として扱える(Higher-order programming)
-- 副作用を起こさない(Impliclite State, Stateless)
-
-- [[http://itpro.nikkeibp.co.jp/article/COLUMN/20110411/359286/?ST=develop&P=3][3つのプログラミングのパラダイムを押さえておこう：ITpro]]
-
-CTMCP, Capter 2
-
 * Declarative Programming
 宣言型プログラミング。
 
@@ -120,10 +212,6 @@ CTMCP, Capter 2
   
 HTMLはStateless、Declarative Programming language.
 状態はクッキーを導入してしばしば実現する。
-
-** 主な言語
-- HTML
-- MySQL
 
 * Functional Programmming
 ** Impliclite(declarative) State
@@ -154,14 +242,6 @@ C++の、numericライブラリ(accumuulateなど)で利用されている。
 その中にただ1つの再帰呼び出しがあり、
 かつその呼び出しが手続き本体の最後にあるもの。
 
-#+begin_src C++
-state whileLoop(state s) {
-  while (!isDone(s)) // 終了条件
-    s = transform(s) // 再帰
-  return s;
-}
-#+end_src
-
 *** invariant programming
 不変式プログラミング。再帰的に呼ばれる度に、数学的に真になる式。
 
@@ -173,7 +253,7 @@ state whileLoop(state s) {
 
 - [[http://ja.wikipedia.org/wiki/%E5%91%BD%E4%BB%A4%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][命令型プログラミング - Wikipedia]]
 
-[[Imperative Programming]]とは、Function paradigmにCellの概念を加えたもの。
+Imperative Programmingとは、Function paradigmにCellの概念を加えたもの。
 
 - Declarative Programingの対になる概念。
   Imperative vs Declaretive is also Stateful vs Stateless
@@ -208,25 +288,6 @@ Explicite State(明示的状態)を表す基本型。二つの構成要素から
 - 名前値(Vaiue)
 - 単一代入格納域への参照(Identifier)
 
-#+begin_src oz
-declare
-fun {Reverse L}
-   % 空リストのcellを生成
-   Rs = {NewCell nil}
-in
-   % リストの各要素を取り出して内部Cellに結合
-   for X in L do
-      Rs := X|@Rs
-   end
-
-   % 内部セルをリターンする。
-   % Rubyっぽい！
-   @Rs
-end
-
-{Show {Reverse [1 2 3 4]}}
-#+end_src
-
 Function ParadigmsとImperative Paradigmの違いは、
 
 - Function 
@@ -235,9 +296,6 @@ Function ParadigmsとImperative Paradigmの違いは、
 - Inperative
   - 機能追加時にインタフェースの変更の影響度がない。(モジュール性, モジュールプログラミング）
   - 状態変化する。
-
-** 主な言語
-- C言語
 
 * Structured programming
 構造化プログラミング。
@@ -281,6 +339,8 @@ pこの順序は各階層を設計した時間的な順番とは必ずしも一�
 
 - 分岐
 ある条件が成立するなら処理Aを、そうでなければ処理Bを行なう。
+
+[[http://ja.wikipedia.org/wiki/%E6%A7%8B%E9%80%A0%E5%8C%96%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][- 構造化プログラミング - Wikipedia]]
 
 * Object-Oriented Programming
 オブジェクト指向型プログラミング。
@@ -432,15 +492,6 @@ Classという概念によって、オブジェクトの"宣言"と"生成(new)"
 継承。あるオブジェクトが他のオブジェクトの特性を引き継ぐこと。
 
    - [[http://ja.wikipedia.org/wiki/%E7%B6%99%E6%89%BF_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0)][継承 (プログラミング) - Wikipedia]]
-
-*** Composition
-コンポジション。新たなクラスに、既存クラスのインスタンスを保持する。
-has-a の関係(not is-a)
-
-Prefer Composition over inheritance(Effective Java).
-
-*** Delegation
-移譲。
    
 ** Exceptions
 例外。プログラムがある処理を実行している途中で、
@@ -487,8 +538,6 @@ Activities that can communicate and synchronize
 
 - Lazy Deterministic Dataflow
 - Constraint Programming
-
-メモ:これは今はパス。
 
 * Detarministic Dataflow Programming
 決定性データフロープログラミング。
@@ -569,10 +618,8 @@ Streamの構成要素は以下。
 
 平行スレッドのなかでStreamを読み書きするものをAgentsという。
 
-n#+begin_src language
-          S1=1|2|3..              S2=1|4|9..
+#+begin_src language
   Produce ----------> Transformer --------> Consuemer
- S1={Prod 1}          S2={Trans S1}         {Disp S2}
 #+end_src
 
 ** NonDeterminism
@@ -599,9 +646,7 @@ Nondeterminismはmanagedされることが必須！
 平行透過性のためには、いくらスレッドを動的に追加しようとも、削除しようとも、
 最終的に得られる結果はかわらない(Deterministic!)
 
-それは、スレッドの各処理をincrementalに動作させることで*。
-
-可能となる 
+それは、スレッドの各処理をincrementalに動作させることで可能となる 
 
 * Multi-agent dataflow programmming
 マルチエジェーントデータフロープログラミング。
@@ -727,9 +772,4 @@ Object-Oriented Programming とMulti-Agent Programmingの2つのパラダイム�
 EnglishのWikipediaに OOPとAOPの対応比較表がある。
 
 - http://en.wikipedia.org/wiki/Agent-oriented_programming
-
-* Books
-* Links
-- [[http://www.ibm.com/developerworks/jp/opensource/library/itm-progevo1/][プログラミング言語の進化を追え: 第1回 サルでも分かるプログラミング言語の新潮流(前篇)]]
-- [[http://www.ibm.com/developerworks/jp/opensource/library/itm-progevo2/index.html][プログラミング言語の進化を追え: 第2回 サルでも分かるプログラミング言語の新潮流(後篇)]]
 
