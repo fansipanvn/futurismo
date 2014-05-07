@@ -1,0 +1,12 @@
+#+OPTIONS: toc:t num:nil author:nil creator:nil LaTeX:t
+* Design Pattern
+
+- [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3_(%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2)][デザインパターン (ソフトウェア) - Wikipedia]]
+
+* Gof
+* POSA
+* Multi-Thread Programming
+* Embedded System Programming
+** Finate State Machine
+
+* Books
