@@ -1,0 +1,25 @@
+* Embeded System
+組み込みシステム
+
+** MicroController
+** I/O Port
+** Register
+
+* Interface
+** Parallel Interface
+** Serial Interface
+*** Syncronization
+同期処理。以下の手段がある。
+
+- Blind-Cycle
+- Busy-Wait
+- Interrupt
+- Polling
+- DMA
+
+* TODO その他
+あとで調べるメモ。
+I2C
+FPGA
+DMA
+エンデベッンドスペシャリストの資格について調べる

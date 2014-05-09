@@ -1,0 +1,116 @@
+#+BLOG: Futurismo
+#+POSTID: 2431
+#+DATE: [2014-05-10 土 07:39]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Selenium, Ruby
+#+DESCRIPTION:次世代Selenium IDEといわれているSelenium Builderを試したメモ
+#+TITLE: Selenium BuilderでRubyコードを自動生成して実行する
+
+次世代Selenium IDEと唱われている、Selenium Builderを試したメモ。
+
+#+BEGIN_HTML
+<a href="https://picasaweb.google.com/lh/photo/Tu2VEkVYqYsV04cIb3i5qTyD6hjDXGH6XyE6iLrzolo?feat=embedwebsite"><img alt="" src="https://lh3.googleusercontent.com/-Zf4rF4KLaKQ/UvpByiJqSvI/AAAAAAAABCA/lvJgohfEmdo/s800/ruby1.png" width="256" height="256" /></a>
+#+END_HTML
+
+* 次世代Selenium IDE
+次世代という意味は、Selenium2 、
+つまりWebdriverをサポートしているということ。
+
+Selenium IDEは Selenium1(or RemoteConsole RC)をサポートしている。
+
+** Selenium Builderの準備
+Selenium Builderは forefoxのブラグイン。
+なので、まずはfirefoxをインストール。
+
+- [[http://www.mozilla.org/ja/firefox/new/][Firefox のダウンロード — 自由な Web ブラウザ — Mozilla]]
+
+次に、以下からプラグインをインストール。
+
+- [[http://sebuilder.github.io/se-builder/][Selenium Builder - The next evolution]]
+
+firefoxを再起動後、Ctrl+Alt+B or メニュー -> 開発ツール -> Launch Senium Builder.
+
+Selenium Builderについては、以下の記事がとても詳しい。Special Thanks!!
+
+- [[http://blog.trident-qa.com/2013/12/selenium-builder-vs-ide-recap/][次世代のIDE、Selenium Builderまとめ | 品質向上ブログ]]
+
+まとまったドキュメントはここ。
+
+- [[https://github.com/sebuilder/se-builder/wiki][Pages · sebuilder/se-builder Wiki]]
+
+** ruby selenium webdriverの準備
+rubyから seleniumを利用するために、selenium-webdriverを利用する。
+
+#+begin_src sh
+gem install selenium-webdriver
+#+end_src
+
+プロキシ配下では以下。
+
+#+begin_src sh
+gem install selenium-webdriver -r -p http://username:password@proxy.hostname:port
+#+end_src
+
+*** Windows環境のワナ
+Windows環境でgem installを動かすためには、devkitのインストールが必要。
+RubyInstallerと Devkitをセットでインストールする必要がある。
+
+- [[http://rubyinstaller.org/][RubyInstaller for Windows]]
+
+*** Cygwin環境のワナ
+そもそも、Cygwin環境では 依存パッケージのffiがバグっててインストールできない。
+
+Cygwin64bit版は依存しているffiライブラリがバグってる！
+パッチを当てる必要があるという茨の道。
+
+- https://github.com/ffi/ffi/issues/284
+
+#+begin_src sh
+$ gem install selenium-webdriver
+
+Building native extensions.  This could take a while...
+ERROR:  Error installing selenium-webdriver:
+        ERROR: Failed to build gem native extension.
+
+        /usr/bin/ruby.exe extconf.rb
+checking for ffi.h... *** extconf.rb failed ***
+Could not create Makefile due to some reason, probably lack of
+necessary libraries and/or headers.  Check the mkmf.log file for more
+#+end_src
+
+回避方法をためしてみても、自分の環境ではうまくいかなかったので諦め。
+
+* Rubyコードを生成
+自動化したいページで右クリックする。
+
+SeleniumBuilderが立ち上がる。記録の開始を選択して、作業を記録。
+
+記録が終わったら、ツールバー -> ファイル -> エクスポートを選択。
+
+Selenium2としては以下の形式へExportできる(2014/5現在)
+
+- JSON
+- Java(Junit/TestNG)
+- Ruby
+- Python
+- PHP
+- Node.JS
+- C#
+
+Selenium1としてExportするとさらに対応言語が多くなる。
+- HTML
+- Groovry
+- Perl
+
+Selenium1だと、RubyのRSpecやtextunitにも対応しているようだ。
+もっともっと多くなるのは時間の問題だろう。スゴい！
+
+Rubyを選択して、Rubyのコードを生成。
+
+* Rubyコードを生成
+生成したコードをコマンドラインから実行するだけ！こんなに簡単だとは！
+
+#+BEGIN_HTML
+<iframe width="420" height="315" src="//www.youtube.com/embed/Nsigzagcuds" frameborder="0" allowfullscreen></iframe>
+#+END_HTML

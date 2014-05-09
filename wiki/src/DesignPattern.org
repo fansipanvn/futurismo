@@ -8,5 +8,48 @@
 * Multi-Thread Programming
 * Embedded System Programming
 ** Finate State Machine
+有限オートマン。状態遷移のための制御方法。
+
+- [[http://ja.wikipedia.org/wiki/%E6%9C%89%E9%99%90%E3%82%AA%E3%83%BC%E3%83%88%E3%83%9E%E3%83%88%E3%83%B3][有限オートマトン - Wikipedia]]
+
+以下の5つの構成要素からなる。
+
+- Inputs
+- Outputs
+- States
+- State Transition Graph(STG)
+ - Tree
+ - Matrix
+- Output Determination
+
+*** Moore Machine
+ムーアマシン。
+出力が（入力によらず）現在の状態によってのみ決定される有限オートマトン。
+
+#+begin_src language
+NextState = f(Input, CurrentState)
+Output = g(CurrentState)
+#+end_src
+
+*** Mealy Machine
+ミーリマシン。
+出力が現在状態と入力によって決定される有限オートマトン。
+
+#+begin_src language
+Output = h(Input, CurrentState)
+#+end_src
+
+*** 実装方法
+#+begin_src c
+
+#define N = 2
+
+typedef enum { yes, no} state;
+struct FSM {
+  unsigned char out;     /* レシジスタへの出力 */
+  unsigned char next[N]  /* 次の状態グラフ。ここではMatrix */
+};
+
+#+end_src
 
 * Books
