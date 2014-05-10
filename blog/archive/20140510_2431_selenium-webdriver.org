@@ -108,7 +108,24 @@ Selenium1だと、RubyのRSpecやtextunitにも対応しているようだ。
 
 Rubyを選択して、Rubyのコードを生成。
 
-* Rubyコードを生成
+#+begin_src language
+require 'rubygems'
+require 'selenium-webdriver'
+wd = Selenium::WebDriver.for :firefox
+
+wd.get "https://www.google.co.jp/"
+wd.find_element(:id, "lst-ib").click
+wd.find_element(:id, "lst-ib").clear
+wd.find_element(:id, "lst-ib").send_keys "Selenium Builder"
+wd.find_element(:css, "div.tsf-p").click
+wd.find_element(:name, "btnK").click
+wd.quit
+#+end_src
+
+selenium-webdriverがrequireされいてるところに注目されたし。
+
+
+* Rubyコードを実行
 生成したコードをコマンドラインから実行するだけ！こんなに簡単だとは！
 
 #+BEGIN_HTML
