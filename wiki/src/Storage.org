@@ -1,0 +1,9 @@
+* ストレージ開発者が今すぐ登録すべきRSSまとめ
+IT業界にいると、情報の流れが早い。すぐに動向に置いてかれる。
+
+なにかうまい方法はと考えて、
+とりあえず結局業界をリードする人の発信する情報をキャッチすることにした。
+
+- [[http://www.publickey1.jp/][Publickey － Enterprise IT × Cloud Computing × Web Technology / Blog]]
+
+

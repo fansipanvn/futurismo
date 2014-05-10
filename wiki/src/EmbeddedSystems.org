@@ -1,25 +1,263 @@
 * Embeded System
-組み込みシステム
+組み込みシステム。
+
+特定の機能を実現するために機械や機器に組み込まれるコンピュータシステム。
+
+- [[http://ja.wikipedia.org/wiki/%E7%B5%84%E3%81%BF%E8%BE%BC%E3%81%BF%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0][組み込みシステム - Wikipedia]]
+
+組み込みシステムの主な構成要素は以下。
+
+- Embedded Systems
+  - MicroCotroller
+    - RAM
+    - ROM
+    - Processor(CPU)
+    - I/O Ports
+    - DAC
+  - 
+
+以下のような特徴をもつ。
+
+- A microcontroller hidden inside
+- A dedicated purpose
+- Run in real time
+- Input/output is important
+- High volume, low cost
+- Extremely reliable
+- Low power
+- Small size and weight
 
 ** MicroController
-** I/O Port
-** Register
+マイクロコントローラー。いわゆる、マイコン。
+
+- [[http://ja.wikipedia.org/wiki/%E3%83%9E%E3%82%A4%E3%82%AF%E3%83%AD%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF][マイクロコンピュータ - Wikipedia]]
+
+#+BEGIN_HTML
+<blockquote>
+Microcontrollers, which are microcomputers incorporating the processor, 
+RAM, ROM and I/O ports into a single package, 
+are often employed in an embedded system because of their low cost, 
+small size, and low power requirements.
+</blockquote>
+#+END_HTML
+
+** Interface
+ハードウェアとソフトウェアを結ぶもの。ここでいうところは、ハードウェアインタフェース。
+
+interface is defined as the hardware and software that combine 
+to allow the computer to communicate with the external hardware. 
+
+- [[http://ja.wikipedia.org/wiki/%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9#.E3.83.8F.E3.83.BC.E3.83.89.E3.82.A6.E3.82.A7.E3.82.A2.E3.82.A4.E3.83.B3.E3.82.BF.E3.83.95.E3.82.A7.E3.83.BC.E3.82.B9][インタフェース (情報技術) - Wikipedia]]
+
+** TODO I/O Port
+*** GPIO
+*** i2c
+
+** TODO Register
+
+** device driver
+a set of software functions that facilitate the use of an I/O port.
 
 * Interface
-** Parallel Interface
+** TODO Parallel Interface
+** Syncronization
+ハードウェアとソフトウェアの同期処理。
+
+ハードウェアのスピードとソフトウェアのスピードは、
+ソフトウェアの方が早いため相互でやりとりするためには以下の手段がある。
+
+*** Blind-Cycle 
+決められた時間SleepしたあとにI/Oステータスをチェックする.
+
+the software writes data to the output device, 
+triggers (starts) the device, then waits a specified time. 
+We call this method blind, because there is no status information 
+about the I/O device reported to the software. 
+
+*** Busy-Wait
+Input deviceのデータが更新されたときにI/Oステータスをチェックする。
+
+状態がBusyならばWait(loop), Readyならば次のステップへ。
+
+Busy Wait is a software loop that checks the I/O status 
+waiting for the done state. For an input device, 
+the software waits until the input device has new data, 
+and then reads it from the input device,
+
+*** Interrupt 
+ハードウェアが発生させる特別な通知。
+
+An interrupt uses hardware to cause special software execution. 
+With an input device, 
+the hardware will request an interrupt when input device has new data. 
+The software interrupt service will read from the input device and save in global RAM, 
+
+*** Periodic Polling 
+クロックタイマの割り込み契機でI/Oのステータスをチェック
+
+*** DMA 
+Direct Memory Access あるメモリから別のメモリに直接情報を書き込む
+
+
 ** Serial Interface
-*** Syncronization
-同期処理。以下の手段がある。
+*** UART
+Universal Asynchronous Receiver/Transmitter (UART).
+調歩同期方式によるシリアル通信をするための汎用I/F。
 
-- Blind-Cycle
-- Busy-Wait
-- Interrupt
-- Polling
-- DMA
+- [[http://ja.wikipedia.org/wiki/UART][UART - Wikipedia]]
 
-* TODO その他
-あとで調べるメモ。
-I2C
-FPGA
-DMA
-エンデベッンドスペシャリストの資格について調べる
+有名なので、最近のほとんどのマイコンに搭載されているらしい。
+* Thread/Process/Task
+** Thread
+A thread is defined as the path of action of software as it executes. 
+
+** Process
+A process is defined as the action of software as it executes. 
+
+スレッドとプロセスの違いは、変数のスコープの違い？
+
+Threads share access to I/O devices, 
+system resources, and global variables, 
+while processes have separate global variables and system resources. 
+Processes do not share I/O devices.
+
+実際は、OSによってバラバラ。
+
+- [[http://futurismo.biz/archives/2245][スレッドとタスクの違いについてしらべてみた(C++/Linux) | Futurismo]]
+
+* Interrupt
+Hardware Interrupt Software Action.
+
+Busy-Waitの制御で待ってられない場合は、Interruptを利用する。
+
+ここからは、一般的な説明ではなくてedXの中だけの定義。
+
+*** Arm/DisArm
+Armとは、ハードウェアが割り込みをあげることを有効化する。
+
+DisArmとは、ハードウェアが割り込みをあげることを無効化する。
+
+*** Enable/Disable
+Enableは一時的に割り込みを有効化する。
+
+Disbleは一時的に割り込みを無効化する。
+
+Disable中に発生したInterupptは Pendingされて、Enable時に通知される。
+
+*** Interruputの初期化処理
+1. Trigger flag set by hardware
+2. the device is armed by software
+3. the device is enabled for interrupts in the NVIC
+4. the processor is enabled for interrupts (PRIMASK I bit is clear)
+5. the interrupt level must be less than the BASEPRI. 
+
+*** Context Switch
+割り込みをハードウェアが検知したときに、
+foregroundとbackgroundのスレッドを入れ替える。
+
+- [[http://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%B3%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E3%82%B9%E3%82%A4%E3%83%83%E3%83%81][コンテキストスイッチ - Wikipedia]]
+
+現在のプロセスの実行を一時停止して、
+スタックにレジスタ情報を覚えておく。
+
+割り込みハンドラを実行して、
+ハンドラの実行が終了したらもとのプロセスを再開する。
+
+1. Current instruction is finished,
+2. Eight registers are pushed on the stack,
+3. LR is set to 0xFFFFFFF9,
+4. IPSR is set to the interrupt number,
+5. PC is loaded with the interrupt vector
+
+** Interrupt Service Routine(ISR)
+割り込みサービスルーチン。割り込みハンドラともいう。
+
+[[http://ja.wikipedia.org/wiki/%E5%89%B2%E3%82%8A%E8%BE%BC%E3%81%BF%E3%83%8F%E3%83%B3%E3%83%89%E3%83%A9][割り込みハンドラ - Wikipedia]]
+
+コンテキストスイッチによって、
+foregroundで動作している busy-waitなスレッドとISRがスワップされる。
+
+割り込み受け付けによって起動されるオペレーティングシステムや
+デバイスドライバのコールバックルーチン。
+割り込みハンドラは割り込み原因によってそれぞれ存在し、
+割り込みハンドラがそのタスクを完了するまでにかかる時間も様々である。
+
+*** NVIC
+割り込みハンドラに対応させたい関数は、
+startup scriptに事前に登録しておく。
+
+vectorというメモリ領域にシステムにどの関数を実行すればいいかをアドレスとして教える。
+
+interrupt発生時は vectorを参照して、それに対応する割り込みルーチンの関数を呼ぶ。
+
+nested vectored interrupt controller (NVIC) manages interrupts, 
+which are hardware-triggered software functions. Some internal peripherals, 
+like the NVIC communicate directly with the processor 
+via the private peripheral bus (PPB). 
+The tight integration of the processor and interrupt controller provides 
+fast execution of interrupt service routines (ISRs), 
+dramatically reducing the interrupt latency.
+
+*** Acknowledge
+割り込みをISRが認識すること。
+ISRが割り込みの認識を行った後、同じデバイスからの割り込みが発生しないよう割り込みマスクをする必要がある。
+そうしないと、クラッシュする恐れがある。
+
+- [[http://d241445.hosting-sv.jp/community/report/report31.html][レポート31：割り込みサービスルーチン（ISR）の処理]]
+
+実装でやってはいけないことは以下。
+
+- 長時間の処理はしてはいけない。
+- 待ち状態になってはいけない、Delay Loopはつかわないほうがよい。
+- 呼んではいけない関数がある。
+
+割り込みハンドラでは必要最小限の処理のみを行い、別のタスクに通知して、
+メインの処理はそっちでさせるように実装すべき。
+
+*** ISRからメイン処理への通知方法
+ISRとメイン処理はグローバルなメモリ領域を介して情報を受渡しする。
+
+- Binary Semaphore
+ISRで 決められたflagを立てて、メイン処理でそのフラグを監視する。
+flagが1ならば、それのフラグに対応する処理を実施する。
+
+- MailBox
+flagとともにデータも渡すこともある。
+
+flagをStatusといい、flagとdataを合わせたデータ構造をMailという。
+(MailBox Pruducer-Consumer Pattern)
+
+- FIFO queue
+ISRでFifoなメモリ領域にデータをPUTし、
+メイン処理のloop処理でで定期的にFifoなdataをチェックし、順次実行する。
+
+* 異常検出の方法について
+以下の2つがある。
+
+- Interupt(通知)
+  - リアルタイムに異常を処理できる。
+  - ハードウェアやOSに依存する。
+
+- Periodic Polling(監視)
+  - ソフトウェアの処理だけで実装できる。
+  - 割り込みを発生できないイベントも監視できる。
+
+- [[https://www.uquest.co.jp/embedded/learning/lecture04.html][学校では教えてくれないこと | 技術コラム集（組込みの門） | ユークエスト]]
+
+* DAC 
+digital to analog converter (DAC).
+
+デジタル電気信号をアナログ電気信号に変換する電子回路。
+
+[[http://ja.wikipedia.org/wiki/%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB-%E3%82%A2%E3%83%8A%E3%83%AD%E3%82%B0%E5%A4%89%E6%8F%9B%E5%9B%9E%E8%B7%AF][デジタル-アナログ変換回路 - Wikipedia]]
+
+** Sound
+
+* ADC
+analog to digital converter (ADC). 
+
+アナログ電気信号をデジタル電気信号に変換する電子回路。
+
+[[http://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%8A%E3%83%AD%E3%82%B0-%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%E5%A4%89%E6%8F%9B%E5%9B%9E%E8%B7%AF][アナログ-デジタル変換回路 - Wikipedia]]
+
+** Sensor
