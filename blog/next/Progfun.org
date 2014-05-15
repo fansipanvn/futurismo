@@ -1,0 +1,10 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: Functional Programming Principles in Scala
+
+- [[https://www.coursera.org/course/progfun][Functional Programming Principles in Scala | Coursera]]
+
+** Environment
+** Special Thanks

@@ -1,9 +1,9 @@
 #+OPTIONS: toc:t num:nil author:nil creator:nil LaTeX:t
 * プログラミングパラダイム
 
-- [[http://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%83%91%E3%83%A9%E3%83%80%E3%82%A4%E3%83%A0][プログラミングパラダイム - Wikipedia]]
+[[http://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%83%91%E3%83%A9%E3%83%80%E3%82%A4%E3%83%A0][プログラミングパラダイム - Wikipedia]]
 
-* Base Concept
+* Base Concepts
 ** Valiables
 変数の構成要素は以下の2つ。
 
@@ -79,29 +79,20 @@ CE={Fact→fact}. ( Contectual Environment)
 {Fact N R}, E, σ
 #+end_src
 
-n* Functional programming
-関数型プログラミング。
+広義の意味では、関数にforcusingしたプログラミング。
 
-- [[http://ja.wikipedia.org/wiki/%E9%96%A2%E6%95%B0%E5%9E%8B%E8%A8%80%E8%AA%9E][関数型言語 - Wikipedia]]
+** TODO Evaluation Strategy
+評価戦略。
 
-すべての計算や処理などを関数の定義の組み合わせとして記述していくタイプのプログラミング言語。
+プログラミング言語や、ラムダ計算のような式から成る計算模型において、
+如何なる手順で、評価すなわち式から値を得るか、
+という（通常決定的な）規則群。
 
-「同じ入力には必ず同じ出力を返す」「関数の評価が他の関数に影響を及ぼさない」など
-数学における関数と似た性質を持った関数の定義としてプログラミングを行い、
-プログラムの実行は記述された関数群の評価として行われる。
+[[http://ja.wikipedia.org/wiki/%E8%A9%95%E4%BE%A1%E6%88%A6%E7%95%A5][評価戦略 - Wikipedia]]
 
-- [[http://e-words.jp/w/E996A2E695B0E59E8BE8A880E8AA9E.html][関数型言語とは 【 functional language 】： IT用語辞典]]
-
-広義の意味では、Whatをコンピュータに示すもの（Howを示さない）。
-狭義の意味では、プログラミングの中で数学を用いたもの(Function, Relation)。
-
-- 式と関数でプログラムを組み上げる(Use of MathMatics)
-- 関数を値として扱える(Higher-order programming)
-- 副作用を起こさない(Impliclite State, Stateless)
-
-- [[http://itpro.nikkeibp.co.jp/article/COLUMN/20110411/359286/?ST=develop&P=3][3つのプログラミングのパラダイムを押さえておこう：ITpro]]
-
-CTMCP, Capter 2
+*** Call-by-Name(名前呼び)
+*** Call-by-Value(値呼び）
+*** Call-by-Ref(参照呼び）
 
 * Declarative Programming
 宣言型プログラミング。
@@ -125,48 +116,9 @@ HTMLはStateless、Declarative Programming language.
 - HTML
 - MySQL
 
-* Functional Programmming
-** Impliclite(declarative) State
-暗黙的状態。宣言的状態ともいう。
+* Functional Programming
+[[file:FunctionalProgramming.org]]
 
-- 関数の実行結果が値をもつ
-- 同じ入力には必ず同じ出力を返す。
-- Explicite Stateとの対概念。
-- 参照透明性。
-
-** Higher-order programming
-高階プログラミング。procedure valueをサポートしている言語でのプログラミング技術。
-関数を引数としてわたす能力。
-
-Rubyではlambda, procなど。C言語には関数ポインタがある。C言語は2階。
-
-** Recursion
-再帰的プログラミング。
-
-*** accumulater
-C++の、numericライブラリ(accumuulateなど)で利用されている。
-
-スタックのサイズが均一なことが特徴的。
-
-*** tail-recursion
-末尾再帰。
-
-その中にただ1つの再帰呼び出しがあり、
-かつその呼び出しが手続き本体の最後にあるもの。
-
-#+begin_src C++
-state whileLoop(state s) {
-  while (!isDone(s)) // 終了条件
-    s = transform(s) // 再帰
-  return s;
-}
-#+end_src
-
-*** invariant programming
-不変式プログラミング。再帰的に呼ばれる度に、数学的に真になる式。
-
-- [[http://ja.wikipedia.org/wiki/%E4%B8%8D%E5%A4%89%E6%9D%A1%E4%BB%B6][不変条件 - Wikipedia]]
-  
 * Imperative Programming
 命令型プログラミング。
 計算をプログラム状態を変化させる文の列で記述するパラダイム。
@@ -236,7 +188,7 @@ Function ParadigmsとImperative Paradigmの違いは、
   - 機能追加時にインタフェースの変更の影響度がない。(モジュール性, モジュールプログラミング）
   - 状態変化する。
 
-** 主な言語
+** Languaages
 - C言語
 
 * Structured programming

@@ -74,6 +74,10 @@ through abstraction of lower level functionality.
 
 - [[http://gblogs.cisco.com/jp/2014/02/open-source-controller-framework-opendaylight-1/][Cisco Japan Blog » オープンソース コントローラ フレームワーク ― OpenDaylight (1)]]
 
+なんと、Courseraに講義を発見！時間があれば受けたいところだが。。。
+
+- [[https://www.coursera.org/course/sdn][Software Defined Networking | Coursera]]
+
 ** EMC - Software Defined Storage(SDS)
 EMCのとなえる戦略。ストレージにおけるSoftware Defined.
 

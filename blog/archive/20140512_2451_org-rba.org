@@ -1,0 +1,198 @@
+#+BLOG: Futurismo
+#+POSTID: 2451
+#+DATE: [2014-05-15 木 23:47]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Emacs, ハッキング
+#+TAGS: RBA, Ruby
+#+DESCRIPTION: Web操作手順書を自動生成します
+#+TITLE: Web操作手順書を自動生成！Emacs org-babelで実現するRun Book Automation(RBA)
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* はじめに
+
+RunBookAutomationや Code As Infrastructureという単語をよく耳にする今日この頃。
+仕事でなにかと手順書を作成することがだれにでもあるはず。
+
+今日は、文芸的プログラミングと、RunBookAutomationの概念を合体させて、
+Web操作の作業手順書を自動作成してみます。
+
+これは、以下の記事の続編です。つまり、selenium-webdriverを
+Web操作自動化のためのエンジンとして利用します。
+
+- [[http://futurismo.biz/en/archives/2431][Selenium BuilderでRubyコードを自動生成して実行する | Futurismo]]
+
+以下の過去記事と関係があります。
+
+- [[http://futurismo.biz/archives/2349][Run Book Autmationとはなにかについて調べてみた | Futurismo]]
+- [[http://futurismo.biz/archives/2403][org-modeで書いたテキストをPandocでRestructured Textに変換する | Futurismo]]
+
+[toc]
+
+* 出力のためのツール org-babel
+
+org-babelを利用する。
+
+org-babelとは、文芸的プログラミングを実現するためのemacsの機能。
+
+[[http://orgmode.org/worg/org-contrib/babel/][Babel: active code in Org-mode]]
+
+* Ruby Codeに出力
+
+org-babelを利用して出力するには、rubyのcodeを以下のように囲む。
+
+#+begin_src language
+  #+begin_src ruby :tangle ./hello_rba.rb :exports none
+#+end_src
+
+- begin_src ruby ... rubyのコード
+- :tangle ./hello_rba.rb ... rubyの出力ファイル指定
+- exports none ... org-modeのexport機能ではcodeをexportしない。
+
+Rubyコードに書き出すには、以下を実施。
+
+#+begin_src language
+M-x org-babel-tangle
+#+end_src
+
+これで、動作する手順書(RBA)が自動生成される。
+
+* HTMLに出力
+
+org-export-dispatchから htmlを選択することで、htmlに変換可能。
+
+このとき:exports noneのオブションのおかげで、rubyのコードは出力されない。
+
+** github風にオシャレな出力
+
+pandocを利用して md から htmlに変換することで、cssがつかえる。 
+
+- [[http://shuzo-kino.hateblo.jp/entry/2014/02/16/220708][Pandocでドキュメント変換で楽する - Bye Bye Moore]]
+
+このデザインがとても気に入った！Special Thanks
+
+#+begin_src sh
+wget https://gist.github.com/andyferra/2554919/raw/2e66cabdafe1c9a7f354aa2ebf5bc38265e638e5/github.css
+pandoc hello_rba.md -c github.css -s -o hello_rba.html
+#+end_src
+
+* PDFに出力
+
+pandocを利用してpdfに変換したかったけど、深刻な容量不足のため断念。
+
+- [[http://qiita.com/sky_y/items/80bcd0f353ef5b8980ee#][HTML - 多様なフォーマットに対応！ドキュメント変換ツールPandocを知ろう - Qiita]]
+
+- [[http://oku.edu.mie-u.ac.jp/~okumura/texwiki/?cmd=read&page=Linux%2FLinux%20Mint][Linux/Linux Mint - TeX Wiki]]
+
+代替手段として、firefoxのプラグインでHTMLをpdfに変換した。
+
+* スクリーンショットを撮影
+selenium-webdriverには、スクリーンショット撮影機能がある。
+
+これを手順ごとに実施して、画像ファイルもorg-modeに含める。
+
+#+begin_src language
+wd.save_screenshot('screenshot.png')
+#+end_src
+
+org-modeにはこんな感じで書く
+#+begin_src language
+[[./screenshot.png]]
+#+end_src
+
+これで、画像がついてよりわかりやすくなった。
+
+* Code
+
+https://gist.github.com/tsu-nera/39eb7a9b7189531db008
+
+** RunBook
+
+表示のために、冒頭に#を入れています。
+
+#+begin_src language
+#   * Hello RBA
+#    
+#   ** はじめに
+#   Selenium Webdriverをつかって、Google検索します。
+#    
+#   #+begin_src ruby :tangle ./hello_rba.rb :exports none
+#   require 'pp'
+#   require 'selenium-webdriver'
+#   #+end_src
+#    
+#   ** 手順
+#   まずは、firefoxを立ち上げます。
+#    
+#   #+begin_src ruby :tangle ./hello_rba.rb :exports none
+#   wd = Selenium::WebDriver.for :firefox
+#   #+end_src
+#    
+#   次に、https://www.google.co.jp/ にアクセスします。
+#    
+#   #+begin_src ruby :tangle ./hello_rba.rb :exports none
+#   wd.get "https://www.google.co.jp/"
+#   wd.save_screenshot('screenshot.png')
+#   #+end_src
+#    
+#   [[./screenshot.png]]
+#    
+#   次に、検索窓に以下を入力します。
+#    
+#   - "Selenium Builder"
+#    
+#   #+begin_src ruby :tangle ./hello_rba.rb :exports none
+#   wd.find_element(:id, "lst-ib").click
+#   wd.find_element(:id, "lst-ib").clear
+#   wd.find_element(:id, "lst-ib").send_keys "Selenium Builder"
+#   wd.save_screenshot('screenshot2.png')
+#   #+end_src
+# 
+#   [[./screenshot2.png]]
+#    
+#   最後に、検索ボタンを押します。
+#    
+#   #+begin_src ruby :tangle ./hello_rba.rb :exports none
+#   wd.find_element(:name, "btnK").click
+#   #+end_src
+#    
+#   #+begin_src ruby :tangle ./hello_rba.rb :exports none
+#   sleep 3
+#   wd.save_screenshot('screenshot3.png')
+#   wd.quit
+#   #+end_src
+#    
+#   [[./screenshot3.png]]
+#+end_src
+
+** 生成したCode
+
+#+begin_src language
+require 'pp'
+require 'selenium-webdriver'
+
+wd = Selenium::WebDriver.for :firefox
+
+wd.get "https://www.google.co.jp/"
+wd.save_screenshot('screenshot.png')
+
+wd.find_element(:id, "lst-ib").click
+wd.find_element(:id, "lst-ib").clear
+wd.find_element(:id, "lst-ib").send_keys "Selenium Builder"
+wd.save_screenshot('screenshot2.png')
+
+wd.find_element(:name, "btnK").click
+
+sleep 3
+wd.save_screenshot('screenshot3.png')
+wd.quit
+#+end_src
+
+
+* Sample
+
+#+BEGIN_HTML
+<img src="http://lh6.ggpht.com/-LAhbzJR8w3g/U3TSdYx0ikI/AAAAAAAABDs/1XAvbhnYv9U/2014-05-15-234140_796x882_scrot.png">
+#+END_HTML

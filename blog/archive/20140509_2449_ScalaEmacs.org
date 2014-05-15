@@ -1,0 +1,144 @@
+#+BLOG: Futurismo
+#+POSTID: 2449
+#+DATE: [2014-05-11 日 19:39]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Emacs, 技術メモ
+#+TAGS: Scala
+#+DESCRIPTION: EmacsでScala開発環境を構築したメモ(Ensime)
+#+TITLE: EmacsでScala開発環境を構築(Ensime)
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* はじめに
+edXで受けた[[http://futurismo.biz/archives/2427][プログラミングパラダイム]] の講義のなかで、
+
+" これからは、Scalaと Erlangだ！C++とJavaはレガシーになりつつある!”
+
+とのことだったので、ちょっとscalaをいじってみようと思います。
+
+- [[http://www.scala-lang.org/][The Scala Programming Language]]
+
+[toc]
+
+** Environment
+- Linux Mint 16 64bit
+- Scala 2.9
+
+* Installing Scalas
+** Installing the JDK
+ScalaはJVM上で動作する。まずはJDKをインストール。
+
+#+begin_src sh
+sudo apt-get install openjdk-7-jdk
+#+end_src
+
+** Installing sbt
+Scalaのビルドツールであるsbtを入れる。以下からDownloadして、解凍。
+なかにあるbinディレクトリにパスを通す。
+
+- [[http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html][Setup — sbt Documentation]]
+
+日本語のドキュメントがあった。
+
+- [[http://scalajp.github.io/sbt-getting-started-guide-ja/][始める sbt - ようこそ]]
+- [[http://www.scala-sbt.org/][sbt — sbt Documentation]]
+
+** Installing Scala
+#+begin_src sh
+sudo apt-get install scala
+#+end_src
+
+以下から最新版をダウンロードしてもよい。
+
+- [[http://www.scala-lang.org/download/][Download | The Scala Programming Language]]
+
+ダウンロードしたらbin ディレクトリにパスを通す。
+
+#+begin_src sh
+# Scala 
+export PATH=$HOME/app/sbt/bin:$PATH
+export PATH=$HOME/app/scala/bin:$PATH
+#+end_src
+
+** Hello Scala
+それでは、お決まりの儀式から。
+
+#+begin_src scala
+object Hello extends App {
+  println("Hello, Scala!")
+}
+#+end_src
+
+以下で実行。
+
+#+begin_src sh
+% scalac Hello.scala
+% scala Hello
+Hello, Scala!
+#+end_src
+
+* Installing Emacs
+Emacs自体のインストール方法は省略。
+
+** Installing scala-mode
+scala-modeとscala-mode2がある。2を入れた。
+
+- [[https://github.com/hvesalai/scala-mode2][hvesalai/scala-mode2]]
+
+** Installing Ensime
+Scala用の統合開発環境。インストールははgithubにしたがえばよい。
+
+- [[https://github.com/ensime/ensime-src][ensime/ensime-src]]
+
+Ensime Serverをダウンロードしてロードパスの通った場所におく。
+
+- [[https://www.dropbox.com/sh/ryd981hq08swyqr/V9o9rDvxkS/ENSIME%20Releases][Dropbox - ENSIME Releases]]
+
+(ハマリメモ。githubから落としてきたやつではなくて、
+Dropboxから落としたReliese番でないとダメなんだね。めちゃくちゃハマった）
+
+*** .ensimeを作成
+ensimeを利用するには、.ensimeという設定ファイルが必要。
+
+- [[http://d.hatena.ne.jp/masaaki1001/20121226/1356539103][ensimeの設定方法 - masaaki1001の日記]]
+- [[http://d.hatena.ne.jp/lranran123/20130409/1365515128][EmacsでのScala開発にはEnsimeというプラグインらしい -q 趣味プログラマがまれになんかしたことの記録]]
+- https://github.com/ensime/ensime-sbt-cmd
+
+上記を参考に~/.sbt/plugins/plugins.sbtを作成し、以下を記入。
+VERSIONは環境にあわせて変更。ここでは、0.1.1
+
+#+begin_src language
+addSbtPlugin("org.ensime" % "ensime-sbt-cmd" % "0.1.1")
+#+end_src
+
+M-x ensime-config-gen 
+というコマンドでも対話的に設定ファイルが作成できるらしい。
+
+Hello.scalaを開いたディレクトリで以下を実行。
+
+#+begin_src language
+sbt "ensime generate"
+#+end_src
+
+*** emsime実行
+これで、.ensimeが生成される。
+
+Emacs上で M-x ensimeを実行。先ほど生成した.ensimeの場所を教える。
+
+今日はこんなところで。逐次、追記予定。
+
+* Special Thanks
+- [[https://hirooka.pro/?p=1611][Scala 2.10.1 | hirooka.pro]]
+- [[http://tototoshi.hatenablog.com/entry/20100925/1285420294][EmacsでつくるScala開発環境 前編(scala-mode) - tototoshi の日記]]
+- [[http://tototoshi.hatenablog.com/entry/20100927/1285595939][EmacsでつくるScala開発環境 後編(ENSIME) - tototoshi の日記]]
+- [[http://tototoshi.hatenablog.com/entry/20101101/1288623548][Scala + Emacs + ctags - tototoshi の日記]]
+- [[http://sleepboy-zzz.blogspot.jp/2013/10/emacsscala.html][memo: EmacsでのScala用の設定を公開してみる]]
+- [[http://d.hatena.ne.jp/lranran123/20130409/1365515128][EmacsでのScala開発にはEnsimeというプラグインらしい - 趣味プログラマがまれになんかしたことの記録]]
+- [[http://d.hatena.ne.jp/papamitra/20100817/ensime][ensimeで補完生活 - papamitra]]
+
+Emacs Scala Youtube Video Tutorials
+- [[http://jglobal.com/emacs-power-for-scala-development-setting-up/][Emacs Power for Scala Development: Setting Up - JGlobal Limited]]
+- [[https://www.youtube.com/channel/UCPNbOY0HKvilrk6XucqiwYw][Michael Nash - YouTube]]
+
