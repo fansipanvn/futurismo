@@ -1,0 +1,6 @@
+* Scala
+** Scala 開発環境
+*** Emacs
+    
+* 評価戦略
+Scalaは通常 Call-by-Valueだが、=>を用いることで Call-by-Nameで評価する。

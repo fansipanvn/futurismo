@@ -19,8 +19,16 @@ x1がメモリ上の実際の(束縛された)値で、Xがそれを指し示す
 *** environments
 識別子と変数の写像関係を環境という。
 
-*** Scope
+
+** Scope
 Valiableの有効範囲。
+
+- [[http://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%97][スコープ - Wikipedia]]
+
+*** Lexical Scope
+静的スコープ。変数はブロックの内側のみ有効。
+
+*** Dynamic Scope
 
 ** State
 State(状態）とは、必要とされる計算の途中結果を含む、値の時系列。

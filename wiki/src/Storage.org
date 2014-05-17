@@ -1,9 +1,174 @@
-* ストレージ開発者が今すぐ登録すべきRSSまとめ
+* 用語
+
+** Software Defined Storage
+EMCのとなえる戦略。ストレージにおけるSoftware Defined.
+
+#+BEGIN_HTML
+<blockquote>
+Software-defined storage (SDS) is a term 
+for computer data storage technologies which separate storage hardware 
+from the software that manages the storage infrastructure
+</blockquote>
+#+END_HTML
+
+[[http://en.wikipedia.org/wiki/Software-defined_storage][Software-defined storage - Wikipedia, the free encyclopedia]] 
+
+SDNはOpenFlowという共通技術によって浸透したが、
+ストレージ分野では共通技術となるようなものがないとか。
+
+[[http://www.publickey1.jp/blog/14/software-defined_storage.html][Software-Defined Storage、これからのストレージ技術が実現する世界とはどのようなものか？ － Publickey]]
+
+*** Chuck's blog
+Chuck氏の連載が熱い。
+
+- [[http://chucksblog.typepad.com/chucks_blog/software-defined-storage-series.html][Software-Defined Storage Series - Chuck's Blog]]
+
+***** Software-Defined Storage: Choices 
+
+[[http://chucksblog.emc.com/chucks_blog/2014/05/software-defined-storage-choices-ahead.html][Software-Defined Storage: Choices Ahead - Chuck's Blog]]
+
+UNIXが未来の道標を築き上げてきたように、Cloudもこれからの未来を築く。
+
+For years, I had that wall-sized chart that showed how UNIX evolved over the years. 
+I’m sure one could create a similar wall-sized infographic showing the evolution of “cloud”.  
+
+Software-Defined Storageに適応するために、様々なアイデアが競合しあう。
+
+We’re going to see something very similar when it 
+comes to software-defined storage. 
+Many flavors of the same idea will compete for adoption.
+
+よい選択をするために、過去に学ぼう。
+
+Learning To Make Good Choices
+
+****** #1 -- Familiar — Or Evolved?
+似たものになるか？それとも、進化するか？
+
+私はこのようにSoftware-Defined Storageという単語を使っている。
+
+アプリケーションの境界と提携して動的にストレージを構築できる能力
+
+ability to dynamically compose storage services aligned on application boundaries.
+
+この定義は重大な変化を運用モデルにもたらす。
+
+This particular definition mandates a serious change to the operational model: 
+using application-centric policies, just-in-time provisioning, etc.  
+And I would argue that the chief goal of software-defined anything is to evolve the model, 
+and not simply recreate the familiar past using new technology.   
+
+ドキュメントエディタは単にタイプライタをよくしたものではない。
+
+A document editor is not just a better typewriter.
+
+****** #2 -- Bottoms Up, Or Top Down?
+ボトムアップか？それとも、トップダウンか？
+
+それぞれのグループが自分たちのテクノロジをつくっている。
+積極的なM&Aが結果的にそれらを整理することになった。
+
+Every group making their own technology choices independently. 
+Aggressive M&A resulting in a cluttered toy box to be sorted out.
+
+それらの人々は、
+ベンダ間の差異を標準化するストレージ抽象レイヤに大変関心を持っている。
+
+These folks are quite interested in a storage abstraction layer 
+that normalizes all the differences, 
+and provides a standardized consumption and operational model.
+
+EMC ViPRこそがベストな選択だ。
+
+I believe that EMC’s ViPR controller is the best example of a 
+technology that meets this need. 
+
+今日、多くのプロダクトが Software-Defined Storageの
+攻略対象としてあげられている。
+
+And — yes — today there are many products being marketed as 
+“software-defined storage” that only have rudimentary northbound APIs at best.
+
+****** #3 -- Managed Separately, Or Converged?
+別々で管理するか？それとも統合するか？
+
+サーバ、ストレージ、ネットワーク、
+それぞれのチームが思い描くクラウドのイメージが違う。
+
+The server team reported out what they planned to do, 
+the network team, the storage team, etc.  
+Each team had a plan to implement "cloud" after their own image.
+
+3者のレポートがバラバラなのは明らか。
+
+After the third report-out, 
+it was clear that the teams hadn't done much collaboration :)
+
+****** #4 -- Static -- Or Dynamic?
+静的か？それとも動的か？
+
+私たちは、過去数年で手工芸的にそれぞれの要求に答えることから、
+あらかじめ確保されたサービスの選択が出来るようにした。
+
+We spent the last few years moving IT from hand-carving every request, 
+to having pre-allocated service choices.  
+
+私たちは、この先数年で要求に応じて動的に構成されたサービスを目指す。
+
+We'll spend the next few years moving from pre-allocated services 
+to dynamic composition of services from resources as demanded.
+
+****** #5 — Start To Invest Now — Or Wait Until The Dust Settles?
+いまから投資するか？安定するまでまつか？
+
+SDSが最大な勝利を収める領域は、運用モデルだ。
+新しい運用モデルは深く理解され、実装され、満足されるまで時間がかかる。
+
+The biggest win with SDS is the operational model — and it’s brand new.  
+New operational models can take a lot of time to fully understand, 
+implement and become comfortable with. 
+
+個人的な意見としては、
+今が、新しい運用モデルに慣れ親しむことに投資するのによいときだ。
+
+Personally, I’m telling people that now is a good time 
+to modestly invest in becoming familiar with the new operational model 
+
+****** The Key Question
+
+Software-Defined Anythingが進むにつれて、
+私たちはここからなににすればいいんだ？
+
+When it gets down to software-defined anything, 
+the real question is — what the heck are we trying to do here?  
+
+私たちのゴールは、今していることを継続的によりよくしていくことか？
+それとも、新しいモデルを再発明することか？
+
+Is our goal simply to do what we’re doing today, only do it incrementally better?
+Or is our goal to re-invent the model of how things get done?
+
+* SMI-S
+
+- [[http://ja.wikipedia.org/wiki/SMI-S][SMI-S - Wikipedia]]
+
+
+* CDMI
+
+* Links
+ストレージ開発者が今すぐ登録すべきRSSまとめ
 IT業界にいると、情報の流れが早い。すぐに動向に置いてかれる。
 
 なにかうまい方法はと考えて、
 とりあえず結局業界をリードする人の発信する情報をキャッチすることにした。
 
 - [[http://www.publickey1.jp/][Publickey － Enterprise IT × Cloud Computing × Web Technology / Blog]]
+- [[http://chucksblog.emc.com/chucks_blog/][Chuck's Blog]]
 
+SNIA 
+- http://snia-j.org/
+- [[http://www.snia.org/][Home | Storage Networking Industry Association]]
+
+
+* Books
 
