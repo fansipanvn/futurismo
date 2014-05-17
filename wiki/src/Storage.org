@@ -148,12 +148,26 @@ the real question is — what the heck are we trying to do here?
 Is our goal simply to do what we’re doing today, only do it incrementally better?
 Or is our goal to re-invent the model of how things get done?
 
+** 製品
+EMC ViPR
+IBM Elastic Storage
+
 * SMI-S
+ストレージ"管理"のためのAPI。
 
-- [[http://ja.wikipedia.org/wiki/SMI-S][SMI-S - Wikipedia]]
+2003にはじまったのに、なぜ10年以上たった今でもいまいちな知名度なのか？
 
+[[http://ja.wikipedia.org/wiki/SMI-S][SMI-S - Wikipedia]]
+[[http://www.snia-j.org/tech/smis/smis/smis1.html][SMISがストレージ業界に及ぼす影響(1/4) : SNIA-J]]
+[[http://www.atmarkit.co.jp/fnetwork/tanpatsu/16snw2004/01.html#][＠IT：特別企画：ストレージ・ネットワーキング・トレンドレポート【前編】]]
 
 * CDMI
+クラウドデータ管理インターフェイス（CDMI）
+
+[[http://www.sbbit.jp/article/cont1/24892][クラウドストレージ標準「CDMI」とは何か？SNIA会長ウェイン・アダムス氏インタビュー クラウドの標準化動向も一覧で理解｜ビジネス+IT]]
+[[http://www.snia-j.org/tech/WH/CloudStorage/CloudStorage4.html][クラウドストレージの実装、サービス提供と使用(4/6) : SNIA-J]]
+
+Rest APIらしい。EMCの ViPRも Restを利用している。
 
 * Links
 ストレージ開発者が今すぐ登録すべきRSSまとめ
@@ -165,10 +179,16 @@ IT業界にいると、情報の流れが早い。すぐに動向に置いてか
 - [[http://www.publickey1.jp/][Publickey － Enterprise IT × Cloud Computing × Web Technology / Blog]]
 - [[http://chucksblog.emc.com/chucks_blog/][Chuck's Blog]]
 
-SNIA 
-- http://snia-j.org/
-- [[http://www.snia.org/][Home | Storage Networking Industry Association]]
+** SNIA 
+Storage Networking Industry Association。
 
+http://snia-j.org/
+[[http://www.snia.org/][Home | Storage Networking Industry Association]]
+
+** IDC
+いろいろ調べている調査機関。
+
+[[http://www.idcjapan.co.jp/top.html][IDC Japan 株式会社]]
 
 * Books
 
