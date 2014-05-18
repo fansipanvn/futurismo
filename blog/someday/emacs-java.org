@@ -57,23 +57,45 @@ Emacsから Eclipseをつかう。その発想があったか！
 - コード補完・タグジャンプ
 - Android開発連携
 
-JUnit連携はmalabarができる。
-リファクタリングはどれもいまいちなので諦める。
-コード補完やタグジャンプはどれもできる。
+malabar-modeに挑戦したが、mavenがよくわからずに挫折。
 
-ということで、malabar-modeを試すことにした。
+なので、eclimを試す。
 
 * 開発環境を整える
+** eclim
+
+インストーラがあるので、指示にしたがって入れればよい。
+
+[[http://eclim.org/install.html][Download / Install — eclim (eclipse + vim)]]
+
+** eclim-emacs
+emacsから利用するためには、eclim-emacsを入れる。
+
+- [[https://github.com/senny/emacs-eclim][senny/emacs-eclim]]
+
+** .emacsの設定
+こんな感じ。詳しくは、README参照。
+
+#+begin_src language
+(require 'eclim)
+(global-eclim-mode)
+
+;; eclim daemon
+(require 'eclimd)
+
+;; regular auto-complete initialization
+;;(require 'auto-complete-config)
+;;(ac-config-default)
+
+;; add the emacs-eclim source
+(require 'ac-emacs-eclim-source)
+(ac-emacs-eclim-config)
+
+(setq eclim-eclipse-dirs "/opt/eclipse/kepler")
+(setq eclim-executable "/opt/eclipse/kepler/eclim")
+(setq eclimd-executable "/opt/eclipse/kepler/eclimd")
+(setq eclimd-default-workspace "/mnt/win/src/coursera")
+#+end_src
+
 ** Special Thanks
-主に以下の記事を参考させてもらいました。ありがとうございます。
-
-- [[http://d.hatena.ne.jp/lranran123/20130404/1365088550][EmacsでJava の環境構築、CEDETとyasnippetとmalabar-mode - 趣味プログラマがまれになんかしたことの記録]]
-- [[http://qiita.com/toshikiw/items/389430db19561307d037][Emacs - malabar-modeでjavaを書く - Qiita]]
-- [[http://d.hatena.ne.jp/nekop/20101215/1292380225][EmacsでJavaを書く - nekopの日記]]
-
-** malabar-mode
-githubから落とす。これはfringe-helper.elにも依存しているので注意。
-
-- https://github.com/m0smith/malabar-mode
-- 
 
