@@ -1,0 +1,30 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: MOOC, 技術メモ
+#+TAGS: POSA, coursera
+#+DESCRIPTION:
+#+TITLE: 
+
+- [[https://www.coursera.org/course/posa][Pattern-Oriented Software Architectures: Programming Mobile Services for Android Handheld Systems | Coursera]]
+
+* Sylabas
+
+Section 0: Course Introduction
+Section 1: Android Concurrency
+        Module 1: Concurrency Motivations and Challenges
+        Module 2: Java Concurrency Mechanisms
+        Module 3: Android Concurrency Frameworks
+Section 2: Android Services, Local IPC, and Security
+        Module 1: Android Services and Local IPC
+        Module 2: Android App Security and Risks
+        Module 3: Building More Secure Android Apps
+Section 3: Concurrency and Communication Patterns in Android
+        Module 1: Coordinating Concurrent Access to Shared Data
+        Module 2: Ensuring Only One Looper Per Thread
+        Module 3:Passing Commands to Threads & Services
+        Module 4: Passing Message Requests to Threads
+        Module 5: Decoupling Synchronous & Synchronous Processing
+        Module 6: Supporting Object-Oriented Remote Method Calls
+
+
+** Environment
+** Special Thanks

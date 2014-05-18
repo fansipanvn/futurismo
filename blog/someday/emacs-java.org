@@ -1,0 +1,79 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: EmacsでJava開発環境を構築(副題 Eclipseをやっつけろ)
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+[toc]
+
+* はじめに
+よし、認めよう。私は、Eclipseフリークだった。
+
+Eclipseですべての開発環境の統合を夢見て、あらゆるプラグインを試した。
+
+[[http://futurismo.biz/eclipsecdt4cpp][全C/C++プログラマに捧ぐ！Eclipse CDTを使う時のオススメ機能/プラグインまとめ | Futurismo]]
+
+歳をとるにつれて、若かりし誤った考えを改めた。真の統合開発環境はEmacsなのでは？
+
+いや、うすうすは気づいている。Java開発ではEclipseが最強なことくらい。
+
+しかし、それを分かっていてあえてEmacsを使うことは美しい行為ではないか？
+それは、死を覚悟して決戦に挑む武士のように。
+
+この記事は、そんな不安と挑戦の記録です。
+
+** Environment
+* Java開発環境について
+まずは、EmacsにおけるJava開発環境を調べた。
+
+以下の3つが選択肢としてある。詳細な解説はリンク先に譲る。
+
+** JDEE
+CEDETベースのツール。あまりメンテナンスされていないようだ。
+
+[[http://mikio.github.io/article/2012/12/23_emacsjdeejava.html][Emacs中毒者に贈るJDEEによるJava開発環境の構築|ざる魂]]
+[[http://epian-wiki.appspot.com/wiki/Emacs/JDEEEmacs/JDEE - epian-wiki]]
+[[http://www.emacswiki.org/emacs/JavaDevelopmentEnvironment][EmacsWiki: Java Development Environment]]
+
+** malabar-mode
+JDEEにかわってでてきたモダンなjavaのメジャーモード。
+[[http://d.hatena.ne.jp/nekop/20101215/1292380225][EmacsでJavaを書く - nekopの日記]]
+[[http://d.hatena.ne.jp/lranran123/20130404/1365088550][EmacsでJava の環境構築、CEDETとyasnippetとmalabar-mode - 趣味プログラマがまれになんかしたことの記録]]
+
+** Eclim
+Emacsから Eclipseをつかう。その発想があったか！
+[[http://sleepboy-zzz.blogspot.jp/2014/02/emacsjava_22.html][memo: EmacsでJavaの設定]]
+[[http://d.hatena.ne.jp/clairvy/20100630/1277854580][Emacs-Eclim を試す - クラなんとか or くらなんとか or cla なんとかの日記]]
+
+** 選定する
+選ぶに当たって重視する機能は、
+
+- JUnit連携機能
+- リファクタリング
+- コード補完・タグジャンプ
+- Android開発連携
+
+JUnit連携はmalabarができる。
+リファクタリングはどれもいまいちなので諦める。
+コード補完やタグジャンプはどれもできる。
+
+ということで、malabar-modeを試すことにした。
+
+* 開発環境を整える
+** Special Thanks
+主に以下の記事を参考させてもらいました。ありがとうございます。
+
+- [[http://d.hatena.ne.jp/lranran123/20130404/1365088550][EmacsでJava の環境構築、CEDETとyasnippetとmalabar-mode - 趣味プログラマがまれになんかしたことの記録]]
+- [[http://qiita.com/toshikiw/items/389430db19561307d037][Emacs - malabar-modeでjavaを書く - Qiita]]
+- [[http://d.hatena.ne.jp/nekop/20101215/1292380225][EmacsでJavaを書く - nekopの日記]]
+
+** malabar-mode
+githubから落とす。これはfringe-helper.elにも依存しているので注意。
+
+- https://github.com/m0smith/malabar-mode
+- 
+

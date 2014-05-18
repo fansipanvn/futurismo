@@ -1,0 +1,98 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: EmacsでAndroid開発環境を構築(副題 Eclipseをやっつけろ)
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+[toc]
+
+* はじめに
+よし、認めよう。私は、Eclipse フリークだった。
+
+Eclipseですべての開発環境の統合を夢見て、あらゆるプラグインを試した。
+
+[[http://futurismo.biz/eclipsecdt4cpp][全C/C++プログラマに捧ぐ！Eclipse CDTを使う時のオススメ機能/プラグインまとめ | Futurismo]]
+
+しかし、最近は考えが変わってしまった。真の統合開発環境はEmacsなのでは？
+
+TODO もっと扇情的に。
+
+そんな、不安と挑戦の記録です。
+
+** Environment
+   
+* Java開発環境について
+まずは、EmacsにおけるJava開発環境を調べた。
+
+以下の3つが選択肢としてある。詳細な解説はリンク先に譲る。
+
+** JDEE
+CEDETベースのツール。あまりメンテナンスされていないようだ。
+
+[[http://mikio.github.io/article/2012/12/23_emacsjdeejava.html][Emacs中毒者に贈るJDEEによるJava開発環境の構築|ざる魂]]
+[[http://epian-wiki.appspot.com/wiki/Emacs/JDEEEmacs/JDEE - epian-wiki]]
+[[http://www.emacswiki.org/emacs/JavaDevelopmentEnvironment][EmacsWiki: Java Development Environment]]
+
+** malabar-mode
+JDEEにかわってでてきたモダンなjavaのメジャーモード。
+[[http://d.hatena.ne.jp/nekop/20101215/1292380225][EmacsでJavaを書く - nekopの日記]]
+[[http://d.hatena.ne.jp/lranran123/20130404/1365088550][EmacsでJava の環境構築、CEDETとyasnippetとmalabar-mode - 趣味プログラマがまれになんかしたことの記録]]
+
+** Eclim
+Emacsから Eclipseをつかう。その発想があったか！
+[[http://sleepboy-zzz.blogspot.jp/2014/02/emacsjava_22.html][memo: EmacsでJavaの設定]]
+[[http://d.hatena.ne.jp/clairvy/20100630/1277854580][Emacs-Eclim を試す - クラなんとか or くらなんとか or cla なんとかの日記]]
+
+選ぶに当たって重視する機能は、
+
+- JUnit連携機能
+- リファクタリング
+- コード補完・タグジャンプ
+- Android開発連携
+
+JUnit連携はmalabarができる。
+リファクタリングはどれもいまいちなので諦める。
+コード補完やタグジャンプはどれもできる。
+
+ということで、malabar-modeを試すことにした。
+
+* Android開発環境について
+つづいて、EmacsにおけるAndroid開発環境を調べる。
+
+** android-mode
+一番メジャーな方法
+
+- [[http://qiita.com/uro_uro_/items/bab8c1d27255b03b9ee1][android-mode チートシート - Qiita]]
+- [[http://baohaojun.github.io/blog/2013/01/09/coding-android-java-in-emacs-en.html][Doing Android Java Programming in Emacs]]
+- http://obcerver.com/post/view/p/7
+- https://github.com/remvee/android-mode
+- http://web.archive.org/web/20120321225744/http://riddell.us/AndroidWithEmacsOnUbuntu.html
+
+** android-emacs-toolkit
+一択としてあるが、あまり開発されていないように見える。
+
+- http://code.google.com/p/android-emacs-toolkit/
+
+** 別に連携させない
+別にemacsと連携させなくたって、コマンドラインからつかえばいい。
+
+android-modeをつかうことにする。
+
+* 設定
+
+** Special Thanks
+主に以下の記事を参考させてもらいました。ありがとうございます。
+
+- [[http://d.hatena.ne.jp/nekop/20101215/1292380225][EmacsでJavaを書く - nekopの日記]]
+- [[http://d.hatena.ne.jp/lranran123/20130404/1365088550][EmacsでJava の環境構築、CEDETとyasnippetとmalabar-mode - 趣味プログラマがまれになんかしたことの記録]]
+
+** Androidの設定
+*** android-mode
+el-getでいれる。
+
+https://github.com/remvee/android-mode
+
