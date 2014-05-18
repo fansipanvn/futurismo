@@ -1,8 +1,11 @@
+#+BLOG: Futurismo
+#+POSTID: 2462
+#+DATE: [2014-05-18 日 19:47]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
-#+CATEGORY: 技術メモ
-#+TAGS:
-#+DESCRIPTION:
-#+TITLE: EmacsでJava開発環境を構築(副題 Eclipseをやっつけろ)
+#+CATEGORY: Emacs, 技術メモ, Eclipse
+#+TAGS: Java
+#+DESCRIPTION: EclimでJava開発環境をつくったメモです
+#+TITLE: EclimでEmacsとEclipseのいいとこどり！EmacsでJava開発環境を構築した(副題 打倒Eclipse!)
 
 #+BEGIN_HTML
 <img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
@@ -22,11 +25,16 @@ Eclipseですべての開発環境の統合を夢見て、あらゆるプラグ�
 いや、うすうすは気づいている。Java開発ではEclipseが最強なことくらい。
 
 しかし、それを分かっていてあえてEmacsを使うことは美しい行為ではないか？
+
 それは、死を覚悟して決戦に挑む武士のように。
 
 この記事は、そんな不安と挑戦の記録です。
 
 ** Environment
+- Linux Mint 16
+- Eclipe 4.3 Kepler
+- Emacs 24
+
 * Java開発環境について
 まずは、EmacsにおけるJava開発環境を調べた。
 
@@ -35,19 +43,21 @@ Eclipseですべての開発環境の統合を夢見て、あらゆるプラグ�
 ** JDEE
 CEDETベースのツール。あまりメンテナンスされていないようだ。
 
-[[http://mikio.github.io/article/2012/12/23_emacsjdeejava.html][Emacs中毒者に贈るJDEEによるJava開発環境の構築|ざる魂]]
-[[http://epian-wiki.appspot.com/wiki/Emacs/JDEEEmacs/JDEE - epian-wiki]]
-[[http://www.emacswiki.org/emacs/JavaDevelopmentEnvironment][EmacsWiki: Java Development Environment]]
+- [[http://mikio.github.io/article/2012/12/23_emacsjdeejava.html][Emacs中毒者に贈るJDEEによるJava開発環境の構築|ざる魂]]
+- [[http://epian-wiki.appspot.com/wiki/Emacs/JDEEEmacs/JDEE - epian-wiki]]
+- [[http://www.emacswiki.org/emacs/JavaDevelopmentEnvironment][EmacsWiki: Java Development Environment]]
 
 ** malabar-mode
 JDEEにかわってでてきたモダンなjavaのメジャーモード。
-[[http://d.hatena.ne.jp/nekop/20101215/1292380225][EmacsでJavaを書く - nekopの日記]]
-[[http://d.hatena.ne.jp/lranran123/20130404/1365088550][EmacsでJava の環境構築、CEDETとyasnippetとmalabar-mode - 趣味プログラマがまれになんかしたことの記録]]
+
+- [[http://d.hatena.ne.jp/nekop/20101215/1292380225][EmacsでJavaを書く - nekopの日記]]
+- [[http://d.hatena.ne.jp/lranran123/20130404/1365088550][EmacsでJava の環境構築、CEDETとyasnippetとmalabar-mode - 趣味プログラマがまれになんかしたことの記録]]
 
 ** Eclim
 Emacsから Eclipseをつかう。その発想があったか！
-[[http://sleepboy-zzz.blogspot.jp/2014/02/emacsjava_22.html][memo: EmacsでJavaの設定]]
-[[http://d.hatena.ne.jp/clairvy/20100630/1277854580][Emacs-Eclim を試す - クラなんとか or くらなんとか or cla なんとかの日記]]
+
+- [[http://sleepboy-zzz.blogspot.jp/2014/02/emacsjava_22.html][memo: EmacsでJavaの設定]]
+- [[http://d.hatena.ne.jp/clairvy/20100630/1277854580][Emacs-Eclim を試す - クラなんとか or くらなんとか or cla なんとかの日記]]
 
 ** 選定する
 選ぶに当たって重視する機能は、
@@ -63,7 +73,6 @@ malabar-modeに挑戦したが、mavenがよくわからずに挫折。
 
 * 開発環境を整える
 ** eclim
-
 インストーラがあるので、指示にしたがって入れればよい。
 
 [[http://eclim.org/install.html][Download / Install — eclim (eclipse + vim)]]
@@ -74,7 +83,7 @@ emacsから利用するためには、eclim-emacsを入れる。
 - [[https://github.com/senny/emacs-eclim][senny/emacs-eclim]]
 
 ** .emacsの設定
-こんな感じ。詳しくは、README参照。
+こんな感じ。詳しくは、README参照。まだ、あんまりいじくりまわしていない。
 
 #+begin_src language
 (require 'eclim)
@@ -97,5 +106,34 @@ emacsから利用するためには、eclim-emacsを入れる。
 (setq eclimd-default-workspace "/mnt/win/src/coursera")
 #+end_src
 
-** Special Thanks
+* 使い方
+M-x start-eclimdで eclipseを eclimデーモンとして起動。
 
+M-x eclim-project-modeで workspaceにあるプロジェクト一覧が表示される。
+
+適当にソースを選んでごにょごにょ。
+詳しくは、README参照。まだ、あんまりいじくりまわしていない。
+
+M-x stop-eclimdで eclipseを eclimデーモンを終了。
+
+このページがとても詳しいのでリンクをはっておきます。
+
+[[http://www.skybert.net/emacs/java/][.:: skybert.net :: emacs :: java ::.]]
+
+* JUnitを動かす
+これでJUnitが動いた。これはいいな。
+
+https://groups.google.com/forum/#!topic/emacs-eclim/Bj0kyZ2mUSk
+
+#+begin_src language
+(defun eclim-run-test ()
+  (interactive)
+  (if (not (string= major-mode "java-mode"))
+    (message "Sorry cannot run current buffer."))
+  (compile (concat eclim-executable " -command java_junit -p " eclim--project-name " -t " (eclim-package-and-class))))
+#+end_src
+
+* 最後に
+使いこなすには、時間がかかりそうな。
+
+今は、まだeclipseのほうがいいと思っている。いや、負けるなEmacs！
