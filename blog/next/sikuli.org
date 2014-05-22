@@ -1,0 +1,30 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: Sikuli 
+
+- [[http://www.sikuli.org/][Sikuli Script - Home]]
+
+ sikuli-setup.jarをダウンロードして、インストーラをダブルクリックで起動するだけ。
+
+すると、いろいろとインストールオブションがきかれる。
+
+JRubyを選択。
+
+slkulix.jarをダブルクリックで起動。IDEが立ち上がる。
+
+
+runsikulix.cmdで起動するとエラーした。
+
+[error] ResourceLoader: loadLib: Fatal Error 110: loading: WinUtil.dll
+[error] ResourceLoader: loadLib: Since native library was found, it might be a problem with needed dependent libraries
+C:\sikuliX\libs\WinUtil.dll: 指定されたプロシージャが見つかりません。ﴀ＀
+[error] ResourceLoader: loadLib: Check, wether a valid Sikuli libs folder is in system path at runtime!
+
+** Environment
+** Special Thanks
+- [[http://safx-dev.blogspot.jp/2013/02/sikuliui.html][Safx: SikuliスクリプトでのUI操作自動化を試してみる]]
+- [[http://kawakawa2000.img.jugem.jp/20130212_475168.jpg][WindowsでSikuli Scriptを使ってみる！ | プログラマーの外部記憶箱]]
+- [[http://hontech.xii.jp/blog/archives/28][sikuliの簡単な使い方 | hontech]]
+- [[http://hontech.xii.jp/blog/archives/59][sikuliの使い方-細かい機能1 | hontech]]

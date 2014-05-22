@@ -1,0 +1,7 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: windowsで gem install selenium-webdriver がエラーしたときの解決メモ
+
+windowsで gem install selenium-webdriver がエラーしたときの解決メモ
