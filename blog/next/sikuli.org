@@ -14,17 +14,81 @@ JRubyを選択。
 
 slkulix.jarをダブルクリックで起動。IDEが立ち上がる。
 
-
+** WinUtil.dllが見つからないエラーではまる
 runsikulix.cmdで起動するとエラーした。
 
+#+begin_src sh
 [error] ResourceLoader: loadLib: Fatal Error 110: loading: WinUtil.dll
 [error] ResourceLoader: loadLib: Since native library was found, it might be a problem with needed dependent libraries
 C:\sikuliX\libs\WinUtil.dll: 指定されたプロシージャが見つかりません。ﴀ＀
 [error] ResourceLoader: loadLib: Check, wether a valid Sikuli libs folder is in system path at runtime!
+#+end_src
+
+よくわからないのだが、環境変数のパスを通して(C:\sikuliX\libs)、JDK 7 を最新版にしたらなおった。
+
+* 使い方
+* Hello Sikuli
+以下のようなコード。
+
+実行結果はこんな感じ。
+
+#+BEGIN_HTML
+<iframe width="420" height="315" src="//www.youtube.com/embed/SoN_zfuG1E8?rel=0" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+* 実行ファイルから実行する
+もちろん、IDE を経由しないでコマンドラインから実行できる。
+
+ツールバーのファイルから実行ファイルとしてエクスポートを選択。.skl拡張子のバイナリファイルができる。(ここではtest.skl)
+
+runsikulix.cmdの引数として、.sklを渡す（注意: 1.1からの仕様)
+
+#+begin_src language
+E:\test>C:\sikuliX\runsikulix.cmd -r test.skl
+#+end_src
+
+これで、コマンドラインから実行できた。
+
+* Rubyから実行する
+
+#+BEGIN_HTML
+<blockquote>
+But be aware: Since the interpreters used are based on Java, the modules available for Python or Ruby might not be available in the Jython or JRuby environment. So before trying to use any non-standard modules or extension packages, you have to check, wether they are supported in this SikuliX environment.
+</blockquote>
+#+END_HTML
+
+- [[https://answers.launchpad.net/sikuli/+question/221083][Question #221083 : Questions : Sikuli]]
+
+* その他Tips
+** キーの送信
+
+#+begin_src language
+click(Key.ENTER)
+#+end_src
+
+エラーする。
+
+#+begin_src sh
+[error] script [ HelloSikuli ] stopped with error in line 1
+[error] NoMethodError ( (NoMethodError) undefined method `ENTER' for Java::OrgSikuliScript::Key:Class )
+#+end_src
+
 
 ** Environment
+- windows 7 64bit
+- JDK 7 64bit
+
 ** Special Thanks
+よくまとまっているまとめ
+
 - [[http://safx-dev.blogspot.jp/2013/02/sikuliui.html][Safx: SikuliスクリプトでのUI操作自動化を試してみる]]
-- [[http://kawakawa2000.img.jugem.jp/20130212_475168.jpg][WindowsでSikuli Scriptを使ってみる！ | プログラマーの外部記憶箱]]
 - [[http://hontech.xii.jp/blog/archives/28][sikuliの簡単な使い方 | hontech]]
-- [[http://hontech.xii.jp/blog/archives/59][sikuliの使い方-細かい機能1 | hontech]]
+
+Java Classの継承関係
+
+- [[http://doc.sikuli.org/javadoc/org/sikuli/script/package-tree.html][org.sikuli.script Class Hierarchy]] 
+
+Official
+
+- [[http://www.sikulix.com/][SikuliX powered by RaiMan - Home]]
+- 
