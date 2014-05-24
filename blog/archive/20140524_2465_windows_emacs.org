@@ -1,0 +1,59 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Emacs, Windows, 技術メモ
+#+TAGS:
+#+DESCRIPTION:Windows用のEmacsを入れてみることにした
+#+TITLE: WindowsでEmacsを利用する
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* はじめに
+Windows上では、CygwinでインストールしたEmacsを今まで利用していたのだが、
+CygwinのEmacsだと文字のレンダリングがズレルことがしばしばある。
+
+さすがにイライラしてきたので、Windows用のEmacsを入れてみることにした。
+
+* Emacs for Windows
+Windows用にコンパイルされたEmacsのバイナリが以下から手に入る。
+32bit用はあるけど、64bitはみつからないな^^;。まあいいや。最新版を取得する。
+
+- [[http://ftp.gnu.org/gnu/emacs/windows/][GNU Project Archives]]
+  - emacs-24.3-bin-i386.zip
+
+適当な所に解凍(C:\emacs-24.3)。
+binフォルダの中にあるrunemacs.exeを起動してEmacsが立ち上がれば成功。
+runemacs.exeはデスクトップなどにショートカットを作成。
+
+* 設定ファイル(.emacs)の場所を指定
+.emacs.dをCygwinと共有したい。init fileの参照方法は以下のようだ。
+
+#+BEGIN_HTML
+<blockquote>
+1. If the environment variable HOME is set, use the directory it indicates.
+2. If the registry entry HKCU\SOFTWARE\GNU\Emacs\HOME is set, use the directory it indicates.
+3. If the registry entry HKLM\SOFTWARE\GNU\Emacs\HOME is set, use the directory it indicates. Not recommended, as it results in users sharing the same HOME directory.
+4. If C:\.emacs exists, then use C:/. This is for backward compatibility, as previous versions defaulted to C:/ if HOME was not set.
+5. Use the user's AppData directory, usually a directory called Application Data under the user's profile directory, the location of which varies according to Windows version and whether the computer is part of a domain.
+</blockquote>
+#+END_HTML
+
+- [[http://www.gnu.org/software/emacs/manual/html_node/efaq-w32/Location-of-init-file.html#Location-of-init-file][Location of init file - GNU Emacs FAQ For MS Windows]]
+
+HKCU\SOFTWARE\GNU\Emacs\HOMEというレジスタにパスを設定することにした。
+Win+R でファイル名を指定して実行を起動して、regeditと入力。
+レジストリエディタが起動するので、対象のレジストリを作成。
+GNUとEmacsキーを作成。HOMEの文字列値として以下を書いた。
+
+#+begin_src language
+C:\cygwin\home\TSUNEMICHI\dotfiles
+#+end_src
+
+また、環境変数からHOMEを削除。
+
+これで、cygwinの.emacs.dを参照するようになった。
+
+** Special Thanks
+Official Site
+
+- [[http://www.gnu.org/software/emacs/manual/html_node/efaq-w32/index.html][GNU Emacs FAQ For MS Windows]]
