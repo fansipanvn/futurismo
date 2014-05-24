@@ -1,0 +1,55 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: ハッキング
+#+TAGS: 自動化, Ruby, Selenium, Sikuli, Windows
+#+DESCRIPTION:
+#+TITLE: Sikuli, Selenium, WSH, 3つの自動化ツールでGoogle検索自動化に挑め！
+
+#+BEGIN_HTML
+<a href="https://picasaweb.google.com/lh/photo/Tu2VEkVYqYsV04cIb3i5qTyD6hjDXGH6XyE6iLrzolo?feat=embedwebsite"><img alt="" src="https://lh3.googleusercontent.com/-Zf4rF4KLaKQ/UvpByiJqSvI/AAAAAAAABCA/lvJgohfEmdo/s800/ruby1.png" width="256" height="256" /></a>
+#+END_HTML
+
+* はじめに
+前回、Sikuliの使い方を調べてみました。
+
+- [[http://futurismo.biz/archives/2467][画像認識でアプリケーション操作の自動化を実現！Sikuliがあまりに革命的で興奮した | Futurismo]]
+
+今回は、Sikuliと別のツールを組み合わせてみます。前回記事の続編です。
+
+- [[http://futurismo.biz/en/archives/2431][Selenium BuilderでRubyコードを自動生成して実行する | Futurismo]]
+
+* やること
+以下の手順を自動化します。
+
+1. firefoxを立ち上げる
+2. 検索窓にSikuliと入力する
+3. 検索ボタンをおす
+
+以下のツールを利用します。
+
+- Sikuli   ... 画像認識による自動化ツール
+- Selenium ... HTML解析による自動化ツール
+- WSH      ... キー操作の自動化ツール
+
+なんだか、ヨットに対して戦車と軍艦と戦闘機で総攻撃をかけるような感じになってきた。
+
+* 使う手段
+JRubyです。以下を利用。
+
+- win32ole
+- sikulixapi
+- selenium-webdriver
+
+win32oleはデフォルトで入っている。sikuliは前回記事を参照。
+
+selenium-webdriverは、jgem install selenium-webdriverで問題なくインストール。
+
+* 結果
+自動化がキマるとけっこうきもちいい。
+
+#+BEGIN_HTML
+<iframe width="420" height="315" src="//www.youtube.com/embed/fiAT3qeqng0?rel=0" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+#+BEGIN_HTML
+<script src="https://gist.github.com/tsu-nera/92bc84f740cdeb67bb5f.js"></script>
+#+END_HTML

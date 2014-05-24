@@ -1,0 +1,196 @@
+#+BLOG: Futurismo
+#+POSTID: 2467
+#+DATE: [2014-05-24 土 14:11]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Ruby, 自動化, Sikuli
+#+DESCRIPTION:アプリケーションの自動操作をスクリプトで実現するSikuliを調べてみました
+#+TITLE: 画像認識でアプリケーション操作の自動化を実現！Sikuliがあまりに革命的で興奮した
+
+#+BEGIN_HTML
+<a href="https://picasaweb.google.com/lh/photo/lRDJ9IcUEEb0SOkEeZUtAjyD6hjDXGH6XyE6iLrzolo?feat=embedwebsite"><img src="https://lh6.googleusercontent.com/-MTSQnqO-6L8/U4AlKQuYAII/AAAAAAAABEI/aW-X9CjdRYo/s800/HelloSikuli.png" height="137" width="307" /></a>
+#+END_HTML
+
+* はじめに
+
+アプリケーションの自動操作をスクリプトで実現するために、Sikuliを調べてみました。
+
+* Sikuliとは
+Sikuliとは、
+
+- OpenCVをつかった画像認識
+- OCRをつかった文字認識
+
+で、アプリケーションの自動操作を実現するためのツール、スクリプト言語。
+
+- [[http://www.sikuli.org/uploads/1/3/6/8/13689586/_6261800_orig.jpg][Sikuli Script - Home]]
+
+Javaで実装されているため、JVM上で動作するスクリプト言語から利用できる。
+
+スクリプト編集のためのIDEは、
+画像とプログラム言語を合わせて表示できるという、革命的なソフトウェア。
+久々に、スゴイ！とおもったソフトウェアだ。
+
+* インストール
+sikuli-setup.jarをダウンロードして、インストーラをダブルクリックで起動するだけ。
+  
+すると、いろいろとインストールオブションがきかれる。JRubyを選択。
+
+slkulix.jarをダブルクリックで起動。IDEが立ち上がる。
+
+#+BEGIN_HTML
+<a href="https://picasaweb.google.com/lh/photo/vIwnyrHKl_Xkb008-SwenzyD6hjDXGH6XyE6iLrzolo?feat=embedwebsite"><img src="https://lh3.googleusercontent.com/-Gobl5QjseIw/U4AlJ4_n1GI/AAAAAAAABEE/bPOxbiLEtT4/s400/skitch_ide.png" height="229" width="400" /></a>
+#+END_HTML
+
+インストールは、以下のドキュメントが詳しい。
+
+- [[http://www.sikulix.com/quickstart.html][SikuliX QuickStart - SikuliX powered by RaiMan]]
+
+** WinUtil.dllが見つからないエラーではまる
+runsikulix.cmdで起動するとエラーした。
+
+#+begin_src sh
+[error] ResourceLoader: loadLib: Fatal Error 110: loading: WinUtil.dll
+[error] ResourceLoader: loadLib: Since native library was found, it might be a problem with needed dependent libraries
+C:\sikuliX\libs\WinUtil.dll: 指定されたプロシージャが見つかりません。ﴀ＀
+[error] ResourceLoader: loadLib: Check, wether a valid Sikuli libs folder is in system path at runtime!
+#+end_src
+
+よくわからないのだが、環境変数のパスを通して(C:\sikuliX\libs)、JDK 7 を最新版にしたらなおった。
+
+* Hello Sikuli
+以下のようなコード。
+
+#+begin_src language
+App.open("notepad.exe")
+  
+find("1400849474303.png")
+  
+type("Hello Sikuli!!")
+#+end_src
+
+#+BEGIN_HTML
+<a href="https://picasaweb.google.com/lh/photo/lRDJ9IcUEEb0SOkEeZUtAjyD6hjDXGH6XyE6iLrzolo?feat=embedwebsite"><img src="https://lh6.googleusercontent.com/-MTSQnqO-6L8/U4AlKQuYAII/AAAAAAAABEI/aW-X9CjdRYo/s800/HelloSikuli.png" height="137" width="307" /></a>
+#+END_HTML
+
+実行結果はこんな感じ。驚きの結果である。
+
+#+BEGIN_HTML
+<iframe width="420" height="315" src="//www.youtube.com/embed/SoN_zfuG1E8?rel=0" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+* 実行ファイルから実行する
+もちろん、IDE を経由しないでコマンドラインから実行できる。
+
+ツールバーのファイルから実行ファイルとしてエクスポートを選択。
+.skl拡張子のバイナリファイルができる。(ここではtest.skl)
+なかみは、たんなるzipだったりする。
+
+runsikulix.cmdの引数として、.sklを渡す（注意: 1.1からの仕様)
+
+#+begin_src language
+E:\test>C:\sikuliX\runsikulix.cmd -r test.skl
+#+end_src
+
+これで、コマンドラインから実行できた。
+
+* Rubyから実行する
+Sikuliの素晴らしいところは、JVM上で動作スクリプト言語を利用できる。
+
+JPython, JRubyとか。つまりは、Rubyが使える！
+
+** IDEで Rubyをつかう
+保存フォルダをのぞくと、たんなる.rbファイルがある。
+IDEから実行すると、Lib配下にあるsikkulix.rbがrequireされるようだ。
+ようするに、rubyの文法をつかってかけるということ。
+
+たとえば、さっきのHelloSikuliをメソッド化してみる。
+
+#+begin_src language
+def hello
+  App.open("notepad.exe")
+    
+  find("1400849474303.png")
+    
+  type("Hello Sikuli!!")
+end
+
+hello()
+#+end_src
+
+すごい。
+
+** Ruby scriptとしてつかう
+Sikuli IDEでは、実行時にsikkulix.rbを読み込んでいろいろやっているようなので、
+このファイルに書いてあることを真似すると、純粋なrubyとして実行できる。
+
+#+BEGIN_HTML
+<blockquote>
+But be aware: Since the interpreters used are based on Java, the modules available for Python or Ruby might not be available in the Jython or JRuby environment. So before trying to use any non-standard modules or extension packages, you have to check, wether they are supported in this SikuliX environment.
+</blockquote>
+#+END_HTML
+
+Java APIを JRubyを経由して呼び出すため、
+JRubyのちからを借りる。以下のガイダンスに従う。
+
+- [[http://sikulix-2014.readthedocs.org/en/latest/faq/030-java-dev.html][How to use SikuliX API in your JAVA programs — SikuliX 1.1+ documentation]]
+
+** JRubyをインストール
+
+以下から、インストール。インストールしたら、binフォルダにパスを通す。
+
+- [[http://jruby.org/][Home — JRuby.org]]
+
+実行は、jrubyコマンドで実行。
+
+** sikulixapi.jarをクラスパスに追加
+sikulixapi.jarのなかに、sikuliを制御する処理が入っているので、ここにクラスパスを通す。
+
+#+begin_src language
+require 'java'
+$CLASSPATH << 'C:\\sikuliX\\'
+require 'sikulixapi.jar'
+#+end_src
+
+** 必要なSikuliクラスをimport
+つづいて、必要なクラスをインポートする。
+
+#+begin_src language
+java_import "org.sikuli.script.Screen"
+#+end_src
+あとは、一生懸命書くだけだ。なんどでも思う、これはスゴイ。
+
+** 結果
+#+BEGIN_HTML
+<script src="https://gist.github.com/tsu-nera/49ae027207468846fba5.js"></script>
+#+END_HTML
+** Environment
+- windows 7 64bit
+- JDK 7 64bit
+- JRuby 1.7.12
+
+** Special Thanks
+Official
+
+- [[http://www.sikulix.com/][SikuliX powered by RaiMan - Home]]
+
+Java Doc 
+
+- https://dl.dropboxusercontent.com/u/42895525/docs/index.html
+
+Document
+
+- [[http://sikulix-2014.readthedocs.org/en/latest/index.html][Sikuli / SikuliX Documentation for version 1.1+ (01/2014 and later) — SikuliX 1.1+ documentation]]
+
+よくまとまっている日本語のまとめ
+
+- [[http://safx-dev.blogspot.jp/2013/02/sikuliui.html][Safx: SikuliスクリプトでのUI操作自動化を試してみる]]
+- [[http://hontech.xii.jp/blog/archives/28][sikuliの簡単な使い方 | hontech]]
+- [[http://www-he.scphys.kyoto-u.ac.jp/member/n.kamo/wiki/doku.php?id=study:software:sikuli][Sikuli KamonoWiki]]
+
+
+Ruby関連
+
+- [[http://blackrat.org/ruby/getting-sikuli-script-working-with-jruby-on-the-mac/][Getting Sikuli Script working with Ruby(JRuby) on the Mac | blackrat.org]]
+- [[https://answers.launchpad.net/sikuli/+question/221083][Question #221083 : Questions : Sikuli]]
+- [[http://www.software-testing.com.au/blog/2010/08/16/automating-flash-ajax-popups-and-more-using-ruby-watir-and-sikuli/][Automating Flash, AJAX, Popups and more using Ruby, Watir and Sikuli | Illiteration –]]
