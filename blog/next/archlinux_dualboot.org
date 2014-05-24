@@ -1,0 +1,87 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: 最高スペックのLet's Noteを買ったのでとりあえずWindows8とArchLinuxのデュアルブートにしてみた
+
+* TODO 画像を入れる
+
+* はじめに
+掲題のとおり、新しいノートPCを買ってしまいました。
+
+Panasonicの Let's Note.
+
+いままで散々弄りまわしてきたVAIOだけれどれ、
+最近になって裏のネジがなくなってしまった。
+そのため、ディスプレイが今にも外れそうな危ない状態だ。
+
+VAIOには名残惜しいものの、このままだといつ壊れてもおかしくない。
+そんなわけで、新しいPCを買うことになった。
+本心は、再びVAIOを購入したいところだったが、VAIOがヨドバシに売っていなかった。
+
+ヨドバシの店頭においてある一番高い、30万に届くような高スペックのLet's Noteを購入。
+
+最高スペックには最高のOSを！
+
+ということで、Windows8とArchLinuxとのデュアルブートにすることにした。
+
+* 事前準備
+** ArchLinux ディストリビューションを取得
+以下から、最新版をダウンロード。日本のミラーサイトからダウンロードする。
+
+- [[https://www.archlinux.org/download/][Arch Linux - Downloads]]
+  - archlinux-2014.05.01-dual.iso
+
+** インストール用にUSBメモリ作成
+USBWriter for Windowsで、ダウンロードしたISOファイルをUSBメモリに焼く。
+
+- [[http://sourceforge.net/projects/usbwriter/][USBWriter | Free software downloads at SourceForge.net]]
+
+** 高速スタートアップ解除
+
+手順にしたがって、高速スタートアップを無効にする。
+
+- [[http://www.eightforums.com/tutorials/6320-fast-startup-turn-off-windows-8-a.html][Fast Startup - Turn On or Off in Windows 8]]
+
+** パーティションを切る
+コントロールパネル→管理ツール→コンピュータの管理→記憶域→ディスクの管理を機動起動。
+
+購入時、ドライブ構成はこんな感じ。
+
+- 合計 240GB
+  - 回復パーティション 800MB
+  - EFIシステムパーティション 260MB
+  - Cドライブ 221GB
+  - 回復パーティション 15GB
+
+CドライブからArchLinux用のパーティションを切り出す。
+150GB/70GBの 2対1くらいの比率にしておくか。適当だけど。
+
+** Environment
+*** Windows 8.1
+    
+* SpecialThanks & BookMarks
+** ArchLinuxとは
+- [[http://dic.nicovideo.jp/a/arch%20linux][Arch Linuxとは (アーチリナックスとは ) - ニコニコ大百科]]
+- [[http://divide-et-impera.org/archives/1388][Ubuntuに飽きた俺達の楽園はArch Linuxにあった | Divide et impera]]
+
+Arch Linux のリリースを USB ドライブに書き込む方法
+- [[https://wiki.archlinux.org/index.php/USB_Installation_Media_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][USB Installation Media (日本語) - ArchWiki]]
+
+
+- [[http://blog.volment.com/?p=47][実は簡単Arch Linuxのインストール手順！ | volment]]
+- [[http://qiita.com/syui/items/1ffec0f12c253cda122b][awesome - ArchLinuxのGUI環境設を整える vol.1 - Qiita]]
+
+*** デュアルブート関係
+- [[https://wiki.archlinux.org/index.php/Windows_and_Arch_Dual_Boot_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Windows and Arch Dual Boot (日本語) - ArchWiki]]
+
+** その他
+- [[https://qiita.com/tags/archlinux][archLinuxに関する32件の投稿 - Qiita]]
+
+*** 英語
+USBからArchLinuxをインストールする方法
+
+- [[https://wiki.archlinux.org/index.php/Installing_Arch_Linux_on_a_USB_key][Installing Arch Linux on a USB key - ArchWiki]]
+
+
+- [[http://futurismo.biz/archives/2064][Windowsと Mint Linuxのデュアルブート環境をVAIOに構築した手順メモ | Futurismo]]
