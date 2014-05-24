@@ -89,7 +89,7 @@ CE={Fact→fact}. ( Contectual Environment)
 
 広義の意味では、関数にforcusingしたプログラミング。
 
-** TODO Evaluation Strategy
+** Evaluation Strategy
 評価戦略。
 
 プログラミング言語や、ラムダ計算のような式から成る計算模型において、
@@ -448,7 +448,16 @@ Activities that can communicate and synchronize
 - Lazy Deterministic Dataflow
 - Constraint Programming
 
-メモ:これは今はパス。
+** Blocking/NonBlocking
+通信制御の方式。
+
+Blockingモードは、相手との通信を同期する。
+
+- [[http://e-words.jp/w/E38396E383ADE38383E382ADE383B3E382B0E9809AE4BFA1.html][ブロッキング通信とは]]
+
+Non-Blockingモードは、相手との通信を同期しない。
+
+- [[http://e-words.jp/w/E3838EE383B3E38396E383ADE38383E382ADE383B3E382B0E9809AE4BFA1.html][ノンブロッキング通信とは 〔 ノンブロッキングモード 〕]]
 
 * Detarministic Dataflow Programming
 決定性データフロープログラミング。

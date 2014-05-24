@@ -38,7 +38,6 @@ USBWriter for Windowsで、ダウンロードしたISOファイルをUSBメモ�
 - [[http://sourceforge.net/projects/usbwriter/][USBWriter | Free software downloads at SourceForge.net]]
 
 ** 高速スタートアップ解除
-
 手順にしたがって、高速スタートアップを無効にする。
 
 - [[http://www.eightforums.com/tutorials/6320-fast-startup-turn-off-windows-8-a.html][Fast Startup - Turn On or Off in Windows 8]]
@@ -57,6 +56,8 @@ USBWriter for Windowsで、ダウンロードしたISOファイルをUSBメモ�
 CドライブからArchLinux用のパーティションを切り出す。
 150GB/70GBの 2対1くらいの比率にしておくか。適当だけど。
 
+あっ、もちろんあとでリカバリディスクも作成します。順番が違う気がするけども。
+
 ** Environment
 *** Windows 8.1
     
@@ -68,12 +69,16 @@ CドライブからArchLinux用のパーティションを切り出す。
 Arch Linux のリリースを USB ドライブに書き込む方法
 - [[https://wiki.archlinux.org/index.php/USB_Installation_Media_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][USB Installation Media (日本語) - ArchWiki]]
 
-
+パーティションの切り方
+- [[https://wiki.archlinux.org/index.php/Partitioning_(%E6%97%A5%E6%9C%AC%E8%AA%9E)#GPT_.E3.81.8B_MBR_.E3.81.AE.E9.81.B8.E6.8A.9E][Partitioning (日本語) - ArchWiki]]
 - [[http://blog.volment.com/?p=47][実は簡単Arch Linuxのインストール手順！ | volment]]
 - [[http://qiita.com/syui/items/1ffec0f12c253cda122b][awesome - ArchLinuxのGUI環境設を整える vol.1 - Qiita]]
 
 *** デュアルブート関係
 - [[https://wiki.archlinux.org/index.php/Windows_and_Arch_Dual_Boot_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Windows and Arch Dual Boot (日本語) - ArchWiki]]
+- https://www.youtube.com/watch?v=wZpr1eW48rc
+- [[http://d.hatena.ne.jp/godai_0519/20140128/1390919028][ThinkPad X240をArch Linuxとのデュアルブートにするメモ - 堕(惰)プログラマ開発記録]]
+
 
 ** その他
 - [[https://qiita.com/tags/archlinux][archLinuxに関する32件の投稿 - Qiita]]

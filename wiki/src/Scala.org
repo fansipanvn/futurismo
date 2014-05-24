@@ -3,4 +3,7 @@
 *** Emacs
     
 * 評価戦略
-Scalaは通常 Call-by-Valueだが、=>を用いることで Call-by-Nameで評価する。
+  Scalaは通常 Call-by-Valueだが、=>を用いることで Call-by-Nameで評価する。
+
+* TODO 無名関数
+* TODO カリー化
