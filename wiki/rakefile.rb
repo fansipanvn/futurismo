@@ -11,6 +11,7 @@ BROWSER       = "firefox"
 
 CLEAN.include(["*/**/*.~","*/**/\#*","*/**/*.md"])
 CLOBBER.include(["build"], "*/**/*.rst")
+CLOBBER.exclude("src/index.rst")
 
 task :default => :html
 

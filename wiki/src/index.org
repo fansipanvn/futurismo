@@ -1,0 +1,11 @@
+#+TITLE: Futurismo Wiki
+#+OPTIONS: toc:nil author:nil
+
+#+RST:.. toctree::
+#+RST:   :maxdepth: 1
+#+RST:   Git
+
+* Indices and tables
+#+RST: * :ref:`genindex`
+#+RST: * :ref:`modindex`
+#+RST: * :ref:`search`
