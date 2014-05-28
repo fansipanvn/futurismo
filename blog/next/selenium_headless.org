@@ -1,0 +1,58 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: 
+
+* HttpUnit Driver
+
+* PhantomJS Driver
+
+以下のサイトからwindows用のバイナリをダウンロードして、phantomjs.exeするだけ。
+
+- http://phantomjs.org/
+
+- [[https://github.com/detro/ghostdriver][detro/ghostdriver]]
+
+
+#+begin_src language
+phantomjs.exe --webdriver=9134
+#+end_src
+
+#+begin_src language
+require "selenium-webdriver"
+
+driver = Selenium::WebDriver.for(:remote, :url => "http://localhost:9134")
+
+driver.navigate.to "http://google.com"
+element = driver.find_element(:name, 'q')
+element.send_keys "PhantomJS"
+element.submit
+puts driver.title
+driver.quit
+#+end_src
+
+また、phantom.exeに環境変数PATHを通すことで、
+以下のように書くことができる。
+
+こうすると、
+rubyスクリプト起動の延長でphantomjsを起動してportに接続してくれる。
+
+#+begin_src language
+# driver = Selenium::WebDriver.for(:remote, :url => "http://localhost:9134")
+driver = Selenium::WebDriver.for :phantomjs
+#+end_src
+
+
+
+* gem headless 
+
+- [[https://github.com/leonid-shevtsov/headless][leonid-shevtsov/headless]]
+
+
+
+** Environment
+** Special Thanks
+- [[http://stackoverflow.com/questions/1418082/is-it-possible-to-hide-the-browser-in-selenium-rc][Is it possible to hide the browser in Selenium RC? - Stack Overflow]]
+- [[http://qiita.com/okitan/items/00b677df1a941a1e0ba0][Selenium 使いのための PhantomJS 解説 - Qiita]]
+- [[http://phantomjs.org/release-1.8.html][PhantomJS 1.8 Release Notes | PhantomJS]]
