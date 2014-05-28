@@ -19,7 +19,6 @@ x1がメモリ上の実際の(束縛された)値で、Xがそれを指し示す
 *** environments
 識別子と変数の写像関係を環境という。
 
-
 ** Scope
 Valiableの有効範囲。
 
@@ -89,7 +88,7 @@ CE={Fact→fact}. ( Contectual Environment)
 
 広義の意味では、関数にforcusingしたプログラミング。
 
-** TODO Evaluation Strategy
+** Evaluation Strategy
 評価戦略。
 
 プログラミング言語や、ラムダ計算のような式から成る計算模型において、
@@ -101,6 +100,16 @@ CE={Fact→fact}. ( Contectual Environment)
 *** Call-by-Name(名前呼び)
 *** Call-by-Value(値呼び）
 *** Call-by-Ref(参照呼び）
+
+** SyntaxSuger
+糖衣構文。
+
+プログラミング言語において、
+読み書きのしやすさのために導入される構文であり、
+既に定義されている他の構文の（人間にとってより理解しやすい）
+書換えとして定義されるもののこと。
+
+- [[http://ja.wikipedia.org/wiki/%E7%B3%96%E8%A1%A3%E6%A7%8B%E6%96%87][糖衣構文 - Wikipedia]]
 
 * Declarative Programming
 宣言型プログラミング。
@@ -423,33 +432,6 @@ CTM p93参照。
 例外をつかわないと、コンテクストごとの結果を検証必要があり、
 case文が乱立するうんこコードが出来る。
 
-* Concurrenct Programming
-複数の相互作用を及ぼす計算タスクの（同時）並行的実行をおこなうパラダイム。
-
-平行プログラミング。(並列プログラミングではない)。
-
-- [[http://ja.wikipedia.org/wiki/%E4%B8%A6%E8%A1%8C%E8%A8%88%E7%AE%97][並行計算 - Wikipedia]]
-- [[http://ja.wikipedia.org/wiki/%E4%B8%A6%E5%88%97%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0][並列計算 - Wikipedia]]
-
-Multiple progressing activities that exist at the same time
-Activities that can communicate and synchronize
-
-- Communicate: information passes from one activity to another
-- Synchronize: an activity waits for another to perform a specific action
-
-平行プログラミングには3つの代表的なパラダイムがある。
-
-- Detarministic Dataflow
-- Message-passing concurrency(Erlang and Scala actor)
-- Shared-State concurrency(Java monitors)
-
-その他、並列実行の競合をさけるためには、以下ようなパラダイムもある。
-
-- Lazy Deterministic Dataflow
-- Constraint Programming
-
-メモ:これは今はパス。
-
 * Detarministic Dataflow Programming
 決定性データフロープログラミング。
 
@@ -562,6 +544,10 @@ Nondeterminismはmanagedされることが必須！
 それは、スレッドの各処理をincrementalに動作させることで*。
 
 可能となる 
+
+* Concurrent Programming
+
+[[file:ConcurrentProgramming.org][Concurrent Programming]]
 
 * Multi-agent dataflow programmming
 マルチエジェーントデータフロープログラミング。

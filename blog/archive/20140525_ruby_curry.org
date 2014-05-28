@@ -1,0 +1,143 @@
+#+BLOG: Futurismo
+#+POSTID: 2472
+#+DATE: [2014-05-25 日 14:37]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Ruby, 関数型
+#+DESCRIPTION: Rubyの無名関数、Procオブジェクト、カリー化のメモ
+#+TITLE: Rubyの無名関数についての整理メモ
+
+#+BEGIN_HTML
+<a href="https://picasaweb.google.com/lh/photo/Tu2VEkVYqYsV04cIb3i5qTyD6hjDXGH6XyE6iLrzolo?feat=embedwebsite"><img alt="" src="https://lh3.googleusercontent.com/-Zf4rF4KLaKQ/UvpByiJqSvI/AAAAAAAABCA/lvJgohfEmdo/s800/ruby1.png" width="256" height="256" /></a>
+#+END_HTML
+
+* はじめに
+
+Scalaで関数型プログラミングを勉強しているが、無名関数がよくわからない。
+
+無名関数はRubyでいうところのブロックとのこと。
+
+なので、慣れ親しんだ言語のRubyで整理してみることにした。
+
+* スタート地点
+単純に、足し算について考えてみます。
+
+#+begin_src language
+# -*- coding: utf-8 -*-
+# ふつうの足し算
+def add2(x, y)
+  x + y
+end
+
+p add2(1, 2)
+
+# 関数の抽象
+def add3(x, y)
+  add2(x, y)
+end
+
+p add3(1, 2)
+
+#+end_src
+
+ここまではさすがに理解できる。
+
+* ブロック渡し
+** 無名関数
+そもそも無名関数(Annonimous Functions)とは、
+名前付けされずに定義された関数。
+Function Literal(関数リテラル)、匿名関数といわれることもある。
+
+- [[http://ja.wikipedia.org/wiki/%E7%84%A1%E5%90%8D%E9%96%A2%E6%95%B0][無名関数 - Wikipedia]]
+
+*** メリット
+- 一度しか使わない関数の名前を付けなくて済む。
+- 名前の衝突を考えなくて済む。
+- 関数の引数などに直接渡せる
+
+Rubyだと、無名関数はブロックで表現される。do endでも表現される。
+
+明示的に変数として表現する方法とそうでない方法がある。
+
+- 明示的に渡すときは、引数に&をつけて、callメソッドで呼び出す
+- 暗示的に渡すときは、yieldで呼び出す
+
+#+begin_src language
+# ブロック渡し（明示的)
+def add5(x, y, &proc)
+  proc.call(x, y)
+end
+
+p add5(1, 2){|x, y| x + y}
+
+# ブロック渡し（暗示的)
+def add6(x, y)
+  yield(x, y)
+end
+
+p add6(1, 2){|x, y| x + y}
+
+#+end_src
+
+* 関数値
+Procedure Values。関数を値としてメモリ上に保持すること。
+
+Rubyでは、ブロックをProcオブジェクトとして、
+メモリ上に名前をつけて束縛したものが、それにあたる。
+
+lambda, procとして表現する方法がある。callメソッドで呼び出す。
+
+- [[http://qiita.com/kidachi_/items/15cfee9ec66804c3afd2][ ブロックとProcをちゃんと理解する - Qiita]]
+
+#+begin_src language
+# 関数値の導入
+def add4(x, y, proc)
+  proc.call(x, y)
+end
+proc = lambda{|x, y| x + y}
+p add4(1, 2, proc)
+
+# ラムダの糖衣構文
+p add4(1, 2, ->(x, y){x + y})
+#+end_src
+
+* カリー化
+そして、よく分からない概念が、カリー化。
+
+複数の引数をとる関数を、
+
+- 引数が「もとの関数の最初の引数」で
+- 戻り値が「もとの関数の残りの引数を取り結果を返す関数」
+
+であるような関数にすること。
+
+- [[http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%AA%E3%83%BC%E5%8C%96][カリー化 - Wikipedia]]
+
+部分適用を容易にすることが可能になるというメリットがあるらしい。
+
+#+begin_src language
+# カリー化
+curry = lambda{|x| lambda{|y| x + y}}
+p curry.call(1).call(2)
+
+# ラムダの糖衣構文
+curry2 = ->(x){->(y) {x + y}}
+p curry2.call(1)
+p curry2.call(1).call(2)
+
+# カリーの糖衣構文
+curried_proc = proc.curry
+p curried_proc.call(1)
+p curried_proc.call(1).call(2)
+#+end_src
+
+** 実行結果
+この結果をみると、Procオブジェクトとしてメモリ上にあることがよくわかる。
+
+#+begin_src language
+3
+#<Proc:0x007fd286805e48@sample.rb:45 (lambda)>
+3
+#<Proc:0x007fd286805b28 (lambda)>
+3
+#+end_src

@@ -1,5 +1,4 @@
 # Rakefile for Sphinx documentation
-#
 require 'rake/clean'
 require 'pp'
 
@@ -10,8 +9,9 @@ SOURCEDIR     = "src"
 ALLSPHINXOPTS = "-d #{BUILDDIR}/doctrees #{SPHINXOPTS} #{SOURCEDIR}"
 BROWSER       = "firefox"
 
-CLEAN.include(["*/*.~","*/\#*","*/*.md"])
-CLOBBER.include(["build"])
+CLEAN.include(["*/**/*.~","*/**/\#*","*/**/*.md"])
+CLOBBER.include(["build"], "*/**/*.rst")
+CLOBBER.exclude("src/index.rst")
 
 task :default => :html
 

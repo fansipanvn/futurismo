@@ -33,6 +33,13 @@ CTMCP, Capter 2
 
 Coursera functional programming
 
+** Languaages
+- 狭義の意味では Lisp, XPath, Haskell,,,
+- 広義の意味では、Scheme, Clojure, ocame, F#, Scala, Smalltalk, Ruby...
+
+* Immunity
+副作用を起こさない
+
 ** Impliclite(declarative) State
 暗黙的状態。宣言的状態ともいう。
 
@@ -41,22 +48,83 @@ Coursera functional programming
 - Explicite Stateとの対概念。
 - 参照透明性。
 
-** Higher-order programming
+** Stateless
+
+** impelative paradigmとの違い
+
+*** impelative paradium
+- ループで反復構造を実行
+- 異なる関数の間で共有する状態を変更
+
+#+begin_src scala
+var i = 0
+while(i < args.length) {
+  if (i != 0) {
+    print(" ");
+  }
+  print(args(i));
+  i += 1;
+}
+println();
+
+#+end_src
+
+*** functional paradium
+- 再帰で反復構造を実行
+- argは変数ではなくて、不変な定数
+
+#+begin_src scala
+args.foreach(arg => println(arg))
+
+for (arg <- args)
+  println(arg)
+#+end_src
+
+* Higher-order programming
 高階プログラミング。
+
 procedure valueをサポートしている言語でのプログラミング技術。
 関数を引数としてわたす能力。
 
 Rubyではlambda, procなど。C言語には関数ポインタがある。C言語は2階。
 
-** Recursion
+** Annonimous Functions
+名前付けされずに定義された関数.
+
+Function Literal(関数リテラル)、匿名関数といわれることもある。
+
+- [[http://ja.wikipedia.org/wiki/%E7%84%A1%E5%90%8D%E9%96%A2%E6%95%B0][無名関数 - Wikipedia]]
+
+*** メリット
+- 一度しか使わない関数の名前を付けなくて済む。
+- 名前の衝突を考えなくて済む。
+- 関数の引数などに直接渡せる
+
+*** Language
+- Ruby {|x, y| x + y}
+- Scala (x :Int, y :Int) =>  x + y , (x, y) => x + y
+
+** Currying
+カリー化。複数の引数をとる関数を、
+
+- 引数が「もとの関数の最初の引数」で
+- 戻り値が「もとの関数の残りの引数を取り結果を返す関数」
+
+であるような関数にすること。
+
+- [[http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%AA%E3%83%BC%E5%8C%96][カリー化 - Wikipedia]]
+
+部分適用を容易にすることが可能になるというメリットがある。
+
+* Recursion
 再帰的プログラミング。
 
-*** accumulater
+** accumulater
 C++の、numericライブラリ(accumuulateなど)で利用されている。
 
 スタックのサイズが均一なことが特徴的。
 
-*** tail-recursion
+** tail-recursion
 末尾再帰。
 
 その中にただ1つの再帰呼び出しがあり、
@@ -101,13 +169,9 @@ fun {Fact N}
 end
 #+end_src
 
-
-*** invariant programming
+** invariant programming
 不変式プログラミング。再帰的に呼ばれる度に、数学的に真になる式。
 
 - [[http://ja.wikipedia.org/wiki/%E4%B8%8D%E5%A4%89%E6%9D%A1%E4%BB%B6][不変条件 - Wikipedia]]
   
-** Languaages
-- 狭義の意味では Lisp, XPath, Haskell,,,
-- 広義の意味では、Scheme, Clojure, ocame, F#, Scala, Smalltalk, Ruby...
-  
+
