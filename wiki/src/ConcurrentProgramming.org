@@ -70,11 +70,16 @@ Non-Blockingモードは、相手との通信を同期しない。
 
    - http://developer.android.com/reference/java/util/concurrent/locks/ReentrantLock.html
 
-** ReentrantRead
-   WriteLock Improves performance when resources are read 
-   much more often than written
+** ReadWriteLock
+   Readers-Writerlock, ともいわれる。
 
-   Readers-Writer lockともいわれる。
+   WriteLock Improves performance when resources are read 
+   much more often than written.
+
+   It allows multiple threads to read a certain resource,
+   but only one to write it, at a time. 
+
+   http://tutorials.jenkov.com/java-util-concurrent/readwritelock.html
 
 ** Semaphore 
    A non-negative integer that controls the access of 
@@ -130,3 +135,7 @@ Non-Blockingモードは、相手との通信を同期しない。
     または、旅行のツアーガイド。集合時間が決められていてる。
 
 
+
+** Java Links
+   http://tutorials.jenkov.com/java-concurrency/read-write-locks.html
+  

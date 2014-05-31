@@ -1,0 +1,121 @@
+#+BLOG: Futurismo
+#+POSTID: 2476
+#+DATE: [2014-05-30 金 23:25]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 日記
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: 今のプロジェクトの状況について
+
+* はじめに
+今日は、愚痴な日記です。
+
+不快に感じる人もいると思うので、そう感じたらreturnをお願いします。
+
+ブログに個人的な感情をスケッチすることも、
+あとで見返したときに懐かしく思うかもしれないので、
+とりあえず今の感情を残しておく。
+
+* 会議室によびだされる
+今、会社で関わっているプロジェクトがうまくいっていない。
+
+うまくいっていないというのは、
+このままだと投資したお金を回収できないと言う意味。
+
+今日は、会社で上司に呼ばれてこんなことをいわれた。
+
+#+BEGIN_HTML
+<blockquote>
+社員ひとりを1ヶ月養うのに、xx万円かかる。
+
+なので、プロジェクトをxヶ月続けるとxx万円かかる。
+
+つまり、1500万円回収しないといけないのにこのままだとぜんぜんダメだよ！
+
+みんなが汗水たらして働いたお金を投資しているのに、こんなこと許されないよ！
+</blockquote>
+#+END_HTML
+
+この危機感自体は自分も常々感じていて全く同感なのだけれども、
+会議室に呼ばれて対面でいわれると心がとてもイタい。
+
+* 自分の市場価値って
+このままだと、数ヶ月携わってきたプロジェクトが打ち切りになってしまう。
+
+このままだと、自分は会社で利益を生み出すどころか、
+会社にいくだけで毎日xx万円を消費するだけになってしまう。
+
+自分の1行書くプログラムにどれだけの価値があるのだろうか？
+
+プログラマはスキルによって市場価値が決まるのだときいて、
+必死で毎日スキルを磨いているはずなのだが、
+自分の生み出す珍妙なプログラムがお金を生み出すのか全く実感として沸かない。
+プログラムをビジネスとしてお金につなげる感覚がまるでない。
+
+ましてや、そこから1000万を越えるような利益が生まれるのだろうか？
+
+日本の平均年収が400万円って、スゴいことではないか？
+自分には、100万円も自力で稼ぐ自信がない。。。
+生産性も平均以下だし、いつも工程遅延を起こすし。
+自分の市場価値ってそもそもプラスなのだろうか？？
+
+先日先輩に、どうすればお金儲けができるか考えています、と言ったら、
+
+残業すれば？
+
+といわれた。それは、完全にズレている！
+
+* inovativeが降りてくるのを待っている
+もう少し具体的に今関わっているプロジェクトのことを書くと、いわゆる
+
+"Software-Defined" xxx 
+
+に関わるものを作っている。
+
+- [[http://futurismo.biz/archives/2435][Software Defined Infrastructureに関するブックマーク | Futurismo]]
+
+自分のつくっているものは、世の中にあるものに対して
+新規性がなく差別化ができてないというところが、転覆寸前なところだ。
+
+敵はGoogleであり、Amazonであり、EMCであり、HPであり、
+とにかく低予算と行き当たりバッタリなスキルでは
+東郷平八郎もはだし逃げ出すような状況なのだ。
+
+しかし、方向性は間違っていないと信じている。
+Software-Definedを調べれば調べるほど、
+これは単なるブームではなくて大きなうねりなることを感じる。
+きっと、波に乗ればどんどん追加予算も投資してくれるはず。風は追い風なのだ。
+
+Chuck's Blogというブログで、
+Software-Defined Storageに関する記事が怒涛のように投稿されて刺激された。
+
+- [[http://chucksblog.emc.com/chucks_blog/software-defined-storage-series.html][Software-Defined Storage Series - Chuck's Blog]]
+
+インフラまわりに関する知識はまるでシロウトなので、
+まずは知識を頭に入れている。タイムリーにCourseraで SDNとOpenStackの講義が始まった。
+
+- https://www.coursera.org/course/sdn
+
+Chucks氏は、Software-Definedの世界は、新しいなにかが生まれるといっている。
+
+- [[http://chucksblog.emc.com/chucks_blog/2014/05/software-defined-storage-choices-ahead.html][Software-Defined Storage: Choices Ahead - Chuck's Blog]]
+
+#+BEGIN_HTML
+<blockquote>
+When it gets down to software-defined anything, the real question is — what the heck are we trying to do here?  
+Is our goal simply to do what we’re doing today, only do it incrementally better?
+Or is our goal to re-invent the model of how things get done?
+</blockquote>
+#+END_HTML
+
+そのなにかをみつけて、実現させたい。
+思いつかなければ1500万円がドブにすてられることになる。
+
+お金が稼げるかという観点では、
+プロジェクトがいつ打ち切りにされてもしかたがない状況。
+それは、妥当な判断だとおもうし、それは早く判断してほしい。
+このままだと生きているだけでリソースを食いつぶしてしまうので。
+
+しかし、ようやくプロジェクトに愛着が沸いてきたのだ。
+個人的にはなんとか延命させたい。
+こんな状況でも、潰れる最後の日まで、希望を信ることにする。

@@ -7,11 +7,13 @@
 * TODO 画像を入れる
 
 * はじめに
-掲題のとおり、新しいノートPCを買ってしまいました。
+掲題のとおり、新しいノートPCを買った。
 
 Panasonicの Let's Note.
 
-いままで散々弄りまわしてきたVAIOだけれどれ、
+TODO 写真
+
+いままで散々弄りまわしてきたVAIOだけれど、
 最近になって裏のネジがなくなってしまった。
 そのため、ディスプレイが今にも外れそうな危ない状態だ。
 
@@ -19,13 +21,19 @@ VAIOには名残惜しいものの、このままだといつ壊れてもおか�
 そんなわけで、新しいPCを買うことになった。
 本心は、再びVAIOを購入したいところだったが、VAIOがヨドバシに売っていなかった。
 
-ヨドバシの店頭においてある一番高い、30万に届くような高スペックのLet's Noteを購入。
+ヨドバシの店頭においてある一番高い、
+30万に届くような高スペックのLet's Noteを購入。
 
 最高スペックには最高のOSを！
 
 ということで、Windows8とArchLinuxとのデュアルブートにすることにした。
 
-* 事前準備
+以下は、インストールするまでの作業メモです。
+
+* Windows側での事前準備
+まず、購入時にはWindows8.1がすでにインストールされている。
+デュアルブート化のための準備をWindows側でする。
+
 ** ArchLinux ディストリビューションを取得
 以下から、最新版をダウンロード。日本のミラーサイトからダウンロードする。
 
@@ -56,7 +64,17 @@ USBWriter for Windowsで、ダウンロードしたISOファイルをUSBメモ�
 CドライブからArchLinux用のパーティションを切り出す。
 150GB/70GBの 2対1くらいの比率にしておくか。適当だけど。
 
-あっ、もちろんあとでリカバリディスクも作成します。順番が違う気がするけども。
+** リカバリディスク作成
+いざというときのために、リカバリディスクを作成。
+これはノートPCの説明書にしたがった。
+
+* ArchLinuxのインストール
+基本的には以下のページにしたがう。
+
+- [[https://wiki.archlinux.org/index.php/Beginners%27_Guide_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Beginners' Guide (日本語) - ArchWiki]]
+
+** FAQを読む
+
 
 ** Environment
 *** Windows 8.1
@@ -65,6 +83,11 @@ CドライブからArchLinux用のパーティションを切り出す。
 ** ArchLinuxとは
 - [[http://dic.nicovideo.jp/a/arch%20linux][Arch Linuxとは (アーチリナックスとは ) - ニコニコ大百科]]
 - [[http://divide-et-impera.org/archives/1388][Ubuntuに飽きた俺達の楽園はArch Linuxにあった | Divide et impera]]
+
+** インストール 
+- [[https://wiki.archlinux.org/index.php/Installation_Guide_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Installation Guide (日本語) - ArchWiki]]
+- [[https://wiki.archlinux.org/index.php/Beginners%27_Guide_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Beginners' Guide (日本語) - ArchWiki]]
+
 
 Arch Linux のリリースを USB ドライブに書き込む方法
 - [[https://wiki.archlinux.org/index.php/USB_Installation_Media_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][USB Installation Media (日本語) - ArchWiki]]

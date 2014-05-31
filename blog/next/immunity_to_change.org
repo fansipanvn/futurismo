@@ -141,6 +141,21 @@ how you feel or make sense of what happens during your test.
 Depending on your Big Assumption and your test design, 
 this type of data may be the only type you can collect.
 
+** DICE
+
+*** Did, do data
+    What you actually did and the data you collected    
+
+*** Interpretation
+    How you interpret that data (or the multiple interpretations you make)
+
+*** Connection to Big Assumption
+    What the data tells you about your BA
+
+*** Encore
+    What the data tells you about your BA
+    What text can you run next
+
 * 自分の挑戦
 自分の挑戦体験記を後悔。間違えた、公開。
 
