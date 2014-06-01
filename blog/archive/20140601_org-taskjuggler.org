@@ -1,0 +1,127 @@
+#+BLOG: Futurismo
+#+POSTID: 2485
+#+DATE: [2014-06-01 日 17:20]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Emacs, 技術メモ
+#+TAGS: org-mode, GTD
+#+DESCRIPTION:TaskJugglerを利用してorg-modeからガントチャートを作成してみる
+#+TITLE: TaskJugglerを利用してorg-modeからガントチャートを作成してみる
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* はじめに
+org-modeでタスク管理をしているのだけれども、
+いくつかのプロジェクトをガントチャートで見る方法がないか調べてみた。
+
+TaskJugglerというツールが使えそうなので、ちょっくら試してみた。
+
+- [[http://www.taskjuggler.org/][TaskJuggler - A Free and Open Source Project Management Software - About TaskJuggler]]
+
+* TaskJugglerについて
+TaskJugglerは、オープンソースのプロジェクト管理ツール。
+
+- [[http://ja.wikipedia.org/wiki/TaskJuggler][TaskJuggler - Wikipedia]]
+
+特徴は、以下。
+
+- ガントチャート
+- コマンドラインベース
+- プレーンテキスト管理
+
+なんとも自分にとってはうれしい内容。
+
+10年以上つづいているプロジェクトらしく、
+ドキュメントが充実しているところがさらにうれしい。
+
+- [[http://www.taskjuggler.org/tj3/manual/toc.html][Index]]
+
+** Install
+Rubyでかかれているので、gem installでいける。簡単簡単。
+
+#+begin_src language
+% gem install taskjuggler
+
+% tj3 --version
+TaskJuggler v3.5.0 - A Project Management Software
+#+end_src
+
+- [[http://www.taskjuggler.org/tj3/manual/Installation.html#Installation][Installation]]
+
+サンプルプロジェクトを試してみる。
+
+#+begin_src language
+wget http://taskjuggler.org/tj3/examples/Tutorial/tutorial.tjp
+tj3 tutorial.tjp
+#+end_src
+
+htmlが生成される。Overview.htmlを開いてみる。
+
+* Org-modeでつかう
+org-modeには、taskjugglerを使うためのelがすでにはいっている。以下をrequireする。
+
+#+begin_src language
+(require 'ox-taskjuggler)
+#+end_src
+
+以下のコマンドでorgからtjpに変換できる。
+
+- org-taskjuggler-export
+- org-taskjuggler-export-and-
+- org-taskjuggler-export-process-and-open
+
+org-exportの一部として動くのでよい。
+
+* サンプル
+Resourceを設定しないと、デフォルトでリソースが tsu-neraになるが、
+-という文字でsyntax errorになるので、allocate属性をつけた。
+
+#+begin_src language
+ * TaskJuggler search					:taskjuggler_project:
+ ** test
+    :PROPERTIES:
+    :task_id:  taskjuggler
+    :allocate: tsune
+    :Effort:   2h
+    :END: 
+  
+ * Resources 					       :taskjuggler_resource:
+ ** Developers
+    :PROPERTIES:
+    :resource_id: tsune
+    :END:
+#+end_src
+
+#+BEGIN_HTML
+<img src="http://lh4.ggpht.com/-PRa1tPiOxow/U4rhSe3INKI/AAAAAAAABEo/9u73Ez3Pp1s/2014-06-01-171555_796x882_scrot.png">
+#+END_HTML
+
+* まとめ
+これは、使いこなせば強力なツールになりそうだ。org-modeとの連携がいい。
+
+* その他。
+** Special Thanks
+TaskJuggler Offical Document
+- [[http://www.taskjuggler.org/tj3/manual/toc.html][Index]]
+
+org-manual
+- [[http://www.gnu.org/software/emacs/manual/html_node/org/TaskJuggler-export.html][TaskJuggler export - The Org Manual]]
+
+github
+- [[https://github.com/taskjuggler/TaskJuggler][taskjuggler/TaskJuggler]]
+
+ちょっとふるい。
+- [[http://orgmode.org/worg/org-tutorials/org-taskjuggler.html][Creating Gantt charts by Exporting to TaskJuggler]]
+
+TaskJuggler 3に対応した記事。
+- [[http://orgmode.org/worg/exporters/taskjuggler/ox-taskjuggler.html][Exporting Gantt charts with Taskjuggler v3 (tj3)]]
+
+日本語の記事。
+- [[http://ichiroc.hatenablog.com/entry/2010/05/16/000500#][org-mode で管理しているプロジェクトをガントチャートにする - ichiroc subset]]
+
+** Environment
+- Ruby 2.0.0
+- TaskJuggler 3.5
+- Linux Mint 16
+
