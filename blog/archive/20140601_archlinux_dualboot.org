@@ -1,17 +1,18 @@
+#+BLOG: Futurismo
+#+POSTID: 2482
+#+DATE: [2014-06-01 日 14:01]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
-#+CATEGORY: 技術メモ
-#+TAGS:
-#+DESCRIPTION:
-#+TITLE: 最高スペックのLet's Noteを買ったのでとりあえずWindows8とArchLinuxのデュアルブートにしてみた
+#+CATEGORY: 技術メモ, Linux
+#+TAGS: ArchLinux
+#+DESCRIPTION:Let's NoteをWindows8とArchLinuxのデュアルブートにした作業メモ
+#+TITLE: Lets Noteを買ったのでとりあえずWindows8とArchLinuxのデュアルブートにしてみた
 
-* TODO 画像を入れる
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/archlinux-logo-dark.png" width="500"/>
+#+END_HTML
 
 * はじめに
-掲題のとおり、新しいノートPCを買った。
-
-Panasonicの Let's Note.
-
-TODO 写真
+新しいノートPCを買った。Panasonicの Let's Note.
 
 いままで散々弄りまわしてきたVAIOだけれど、
 最近になって裏のネジがなくなってしまった。
@@ -21,14 +22,15 @@ VAIOには名残惜しいものの、このままだといつ壊れてもおか�
 そんなわけで、新しいPCを買うことになった。
 本心は、再びVAIOを購入したいところだったが、VAIOがヨドバシに売っていなかった。
 
-ヨドバシの店頭においてある一番高い、
-30万に届くような高スペックのLet's Noteを購入。
+ヨドバシの店頭においてある一番高い、30万に届くような高スペックのLet's Noteを購入。
 
 最高スペックには最高のOSを！
 
 ということで、Windows8とArchLinuxとのデュアルブートにすることにした。
 
 以下は、インストールするまでの作業メモです。
+
+[toc]
 
 * Windows側での事前準備
 まず、購入時にはWindows8.1がすでにインストールされている。
@@ -41,7 +43,7 @@ VAIOには名残惜しいものの、このままだといつ壊れてもおか�
   - archlinux-2014.05.01-dual.iso
 
 ** インストール用にUSBメモリ作成
-USBWriter for Windowsで、ダウンロードしたISOファイルをUSBメモリに焼く。
+   USBWriter for Windowsで、ダウンロードしたISOファイルをUSBメモリに焼く。
 
 - [[http://sourceforge.net/projects/usbwriter/][USBWriter | Free software downloads at SourceForge.net]]
 
@@ -105,17 +107,17 @@ rootでログイン成功。
 キーマップで日本語を設定。
 
 #+begin_src sh
-# loadkeys jp106
+loadkeys jp106
 #+end_src
 
 文字コードも設定。
 
 #+begin_src sh
-# nano /etc/locale.gen
+nano /etc/locale.gen
 ja_JP.UTF-8 UTF-8
 
-# locale-gen
-# export LANG=ja_JP.UTF-8
+locale-gen
+export LANG=ja_JP.UTF-8
 #+end_src
 
 ** 無線の設定
@@ -162,6 +164,9 @@ rootとhomeを分けておくと rm -rfしたときにデータ復旧できる�
 
 - /     20GB
 - /home 130GB
+
+/bootは、EFI system partitionがあるのでそれをつかう。
+(この用語についてはあとでまたでてくる)
 
 *** gdisk
 パーティションツールは、SSDを長持ちさせるために、GPTに対応したgdiskを利用する。
@@ -213,10 +218,17 @@ lsblk -fでFSTYPEがext4であることを確認。
 # mount /dev/sda8 /mnt/home
 #+end_src
 
+EFI system partitionを /boot/efiにマウントする。
+
+#+begin_src sh
+# mkdir -p /mnt/boot/efi
+# mount /dev/sda2 /mnt/boot/efi
+#+end_src
+
 ** ミラーの選択
 とりあえず、jaistとtukubaを最優先に設定。
 
-** ペースシステムのインストール
+** ベースシステムのインストール
 ついにインストール。
 
 #+begin_src sh
@@ -265,14 +277,7 @@ Arch WikiのUEFIシステムのインストール手順にしたがう。ツー�
 # pacman -S grub efibootmgr os-prober dosfstools
 #+end_src
 
-chrootを抜ける。さっき調べたEFI system partitionを /boot/efiにマウントする。
-
-#+begin_src sh
-# mkdir -p /mnt/boot/efi
-# mount /dev/sda2 /mnt/boot/efi
-#+end_src
-
-arch-chrootにもう一回はいって、以下のコマンドでインストール
+以下のコマンドでインストール
 
 #+begin_src sh
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub --recheck --debug
@@ -283,25 +288,83 @@ grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub 
 
 #+begin_src sh
 # pacman -S os-prober
-# grub-mkconfig -o /boot/efi/EFI/GRUB/grub.cfg
+# grub-mkconfig -o /boot/grub/grub.cfg
 #+end_src
 
-** Environment
-*** Windows 8.1
-    
+grub-mkconfigがエラーする。
+os-proberを単体で実行しても同じエラーメッセージがでる。
+os-proberを削除するとエラーがでない。どうもこれが悪いみたい。
+
+- [[http://unix.stackexchange.com/questions/105389/arch-grub-asking-for-run-lvm-lvmetad-socket-on-a-non-lvm-disk][partition - Arch GRUB asking for /run/lvm/lvmetad.socket on a non lvm disk - Unix & Linux Stack Exchange]]
+
+manualで grub menuを設定する。/etc/grub.d/40_customを編集。
+以下を書くことで、grubのmenuにwindowsを表示できる。ArchLinuxはかってに表示される。
+
+#+begin_src language
+#!/bin/sh
+
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+
+if [ "${grub_platform}" == "efi" ]; then
+  menuentry "Microsoft Windows 8.1 x86_64 UEFI-GPT" {
+    echo "Loading Microsoft Windows 8.1..."
+    insmod part_gpt
+    insmod fat
+    insmod search_fs_uuid
+    insmod chain
+    search --fs-uuid --set=root $hints_string $uuid
+    chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+  }
+fi
+
+menuentry "System shutdown" {
+	echo "System shutting down..."
+	halt
+}
+
+menuentry "System restart" {
+	echo "System rebooting..."
+	reboot
+}
+#+end_src
+
+#+begin_src sh
+# uuid
+# grub-probe --target=fs_uuid /boot/efi/EFI/Microsoft/Boot/bootmgfw.efi
+1231-C3B2
+# hints_string
+# grub-probe --target=hints_string /boot/efi/EFI/Microsoft/Boot/bootmgfw.efi
+--hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2
+#+end_src
+
+/boot/grub/grub.cfgに反映させる。このコマンドでgrub.cfgに追記される。
+
+#+begin_src sh
+grub-mkconfig -o /boot//grub/grub.cfg
+#+end_src
+
+ここまで完了したら、reboot! 
+
+再起動してgrubメニューにArchLinuxとWindowsが表示されていることを確認。今日はつかれたので、ここまで。
+
 * 参考にしたページのBookMarks
 ** ArchLinuxとは
 - [[http://dic.nicovideo.jp/a/arch%20linux][Arch Linuxとは (アーチリナックスとは ) - ニコニコ大百科]]
 - [[http://divide-et-impera.org/archives/1388][Ubuntuに飽きた俺達の楽園はArch Linuxにあった | Divide et impera]]
+- [[http://zaka-think.com/linux/archlinux/archlinux%E3%82%92%E3%82%84%E3%82%81%E3%81%9F%E7%90%86%E7%94%B1/][Archlinuxをやめた理由 | ざかしんく]]
 
 ** インストール 
 - [[https://wiki.archlinux.org/index.php/Installation_Guide_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Installation Guide (日本語) - ArchWiki]]
 - [[https://wiki.archlinux.org/index.php/Beginners%27_Guide_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Beginners' Guide (日本語) - ArchWiki]]
 
-Arch Linux のリリースを USB ドライブに書き込む方法
+*** Arch Linux のリリースを USB ドライブに書き込む方法
 - [[https://wiki.archlinux.org/index.php/USB_Installation_Media_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][USB Installation Media (日本語) - ArchWiki]]
+- [[https://wiki.archlinux.org/index.php/Installing_Arch_Linux_on_a_USB_key][Installing Arch Linux on a USB key - ArchWiki]]
 
-パーティションの切り方
+*** パーティションの切り方
 - [[https://wiki.archlinux.org/index.php/Partitioning_(%E6%97%A5%E6%9C%AC%E8%AA%9E)#GPT_.E3.81.8B_MBR_.E3.81.AE.E9.81.B8.E6.8A.9E][Partitioning (日本語) - ArchWiki]]
 - [[http://blog.volment.com/?p=47][実は簡単Arch Linuxのインストール手順！ | volment]]
 - [[http://qiita.com/syui/items/1ffec0f12c253cda122b][awesome - ArchLinuxのGUI環境設を整える vol.1 - Qiita]]
@@ -315,18 +378,4 @@ Arch Linux のリリースを USB ドライブに書き込む方法
 ** その他
 - [[https://qiita.com/tags/archlinux][archLinuxに関する32件の投稿 - Qiita]]
 - [[http://qiita.com/xorphitus/items/3711895eb5d9f946c782][Arch Linux快適デスクトップ環境の構築 - Qiita]]
-
-*** 英語
-USBからArchLinuxをインストールする方法
-
-- [[https://wiki.archlinux.org/index.php/Installing_Arch_Linux_on_a_USB_key][Installing Arch Linux on a USB key - ArchWiki]]
-
-
 - [[http://futurismo.biz/archives/2064][Windowsと Mint Linuxのデュアルブート環境をVAIOに構築した手順メモ | Futurismo]]
-  
-
-
-
-* その後の作業
-
-emacs
