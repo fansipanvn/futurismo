@@ -68,18 +68,228 @@ CドライブからArchLinux用のパーティションを切り出す。
 いざというときのために、リカバリディスクを作成。
 これはノートPCの説明書にしたがった。
 
+** FAQを読む/ArchWayを読む
+FAQとArch Wayを読んで、インストールして後悔しないか再度確認。
+
+- [[https://wiki.archlinux.org/index.php/FAQ_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][FAQ (日本語) - ArchWiki]]
+- [[https://wiki.archlinux.org/index.php/The_Arch_Way_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][The Arch Way (日本語) - ArchWiki]]
+
+*** KISS
+Keep It Simple, Stupid.
+
+シンプルにしとけよ、このバカチンが
+
 * ArchLinuxのインストール
 基本的には以下のページにしたがう。
 
 - [[https://wiki.archlinux.org/index.php/Beginners%27_Guide_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Beginners' Guide (日本語) - ArchWiki]]
 
-** FAQを読む
+** USBメモリから起動
+F2からBIOSの設定を変更して、USBメモリから起動する。
 
+いきなりエラーしてワクワクするＯ(〃⌒▼⌒〃)Ｏ
+
+#+begin_src language
+failed to start loader
+#+end_src
+
+- [[https://teksyndicate.com/forum/linux/loaderefi-error-arch-linux/168495][Loader.efi error Arch Linux | Tek Syndicate]]
+
+Secure Bootが怪しいということで、以下のガイダンスにしたがう。
+
+- [[https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface#Secure_Boot][Unified Extensible Firmware Interface - ArchWiki]]
+
+rootでログイン成功。
+
+** 言語の選択
+キーマップで日本語を設定。
+
+#+begin_src sh
+# loadkeys jp106
+#+end_src
+
+文字コードも設定。
+
+#+begin_src sh
+# nano /etc/locale.gen
+ja_JP.UTF-8 UTF-8
+
+# locale-gen
+# export LANG=ja_JP.UTF-8
+#+end_src
+
+** 無線の設定
+pingしてダメなことを確認する。unknown hostと出てきた。
+
+#+begin_src sh
+# ping -c 3 www.google.com
+#+end_src
+
+#+begin_src sh
+# iw dev
+phy#0
+        Interface wlp2s0
+
+# ip link set wlp2s0 up
+#+end_src
+
+エラーした。
+
+#+begin_src sh
+RTNELINK answerss: Operation not possible do to RF-kill
+#+end_src
+
+wifiの物理スイッチがOffになってただけだった。スイッチオンしたら成功。
+
+#+begin_src sh
+# wifi-menu wlp2s0
+#+end_src
+
+wifi-menuではdhcp設定がうまくいかない。手動設定でうまくいった。pingも通る。
+
+#+begin_src sh
+# wpa_supplicant -B -i wlp2s0 -c <(wpa_passphrase "ssid" "psk")
+# dhcpcd wlp2s0
+#+end_src
+
+** パーティションを切る
+以下を参考にパーティションを考える。
+
+- [[https://wiki.archlinux.org/index.php/Partitioning_(%E6%97%A5%E6%9C%AC%E8%AA%9E)#GPT_.E3.81.8B_MBR_.E3.81.AE.E9.81.B8.E6.8A.9E][Partitioning (日本語) - ArchWiki]]
+
+こんな感じ。swap領域はwikiを信じて作成しない。
+rootとhomeを分けておくと rm -rfしたときにデータ復旧できる。
+
+- /     20GB
+- /home 130GB
+
+*** gdisk
+パーティションツールは、SSDを長持ちさせるために、GPTに対応したgdiskを利用する。
+
+(以前つかったことがある GPartedを試みたものの、GPTの設定方法がわからなかった。
+どうも一旦すべてのパーティションを削除しないとgptは設定できないようだった)
+
+#+begin_src sh
+# gdisk /dev/sda
+#+end_src
+
+nコマンドでパーティション追加。
+
+- Parttition number は defaultなので Enter
+- First sector  は defaultなので Enter
+- Last sector は +20G/Enter
+- GUIDは  は defaultなので Enter
+
+最後にwでディスクに書き込む。
+
+** ファイルシステムの作成
+ext4でパーティションをフォーマットする。
+
+まずは、lsblkで device nameを確認
+
+#+begin_src sh
+# lsblk
+#+end_src
+
+容量と見比べて、今回は以下が対象。
+
+- sda7  20G Root用
+- sda8 126G home用
+
+#+begin_src sh
+# mkfs.ext4 /dev/sda7
+# mkfs.ext4 /dev/sda8
+#+end_src
+
+lsblk -fでFSTYPEがext4であることを確認。
+
+** パーティションのマウント
+パーティションをマウントする。
+
+#+begin_src sh
+# mount /dev/sda7 /mnt
+
+# mkdir /mnt/home
+# mount /dev/sda8 /mnt/home
+#+end_src
+
+** ミラーの選択
+とりあえず、jaistとtukubaを最優先に設定。
+
+** ペースシステムのインストール
+ついにインストール。
+
+#+begin_src sh
+# pacstrap -i /mnt base base-devel
+#+end_src
+
+** fstabの生成
+
+#+begin_src sh
+# genfstab -U -p /mnt >> /mnt/etc/fstab
+#+end_src
+
+* Chroot とベースシステムの設定
+
+#+begin_src sh
+# arch-chroot /mnt /bin/bash
+#+end_src
+
+ごちゃごちゃしているのでメモは省略。
+
+* ブートローダ設定
+ブートローダは使ったことがあるGRUBにする。
+
+- [[https://wiki.archlinux.org/index.php/GRUB_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][GRUB (日本語) - ArchWiki]]
+
+** べんきょ
+まずは、用語がわからないので、wikiをざっとながめる。
+
+- [[https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Unified Extensible Firmware Interface (日本語) - ArchWiki]]
+- [[https://wiki.archlinux.org/index.php/GUID_Partition_Table_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][GUID Partition Table (日本語) - ArchWiki]]
+- [[https://wiki.archlinux.org/index.php/UEFI_Bootloaders_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Boot Loaders (日本語) - ArchWiki]]
+
+つぎに自分のシステムがUEFIとGPTに対応しているか調べる。
+
+#+begin_src sh
+# parted /dev/sda print
+#+end_src
+
+冒頭にPartition Table:gpt, リストの2番目に EFI system partitionとかいてある。
+どうやらGPTとESPがあるもよう。さすが、最新式。
+
+** GRUBインストール
+Arch WikiのUEFIシステムのインストール手順にしたがう。ツールを入れる。
+
+#+begin_src sh
+# pacman -S grub efibootmgr os-prober dosfstools
+#+end_src
+
+chrootを抜ける。さっき調べたEFI system partitionを /boot/efiにマウントする。
+
+#+begin_src sh
+# mkdir -p /mnt/boot/efi
+# mount /dev/sda2 /mnt/boot/efi
+#+end_src
+
+arch-chrootにもう一回はいって、以下のコマンドでインストール
+
+#+begin_src sh
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub --recheck --debug
+#+end_src
+
+** デュアルブート対応
+これもwikiにしたがう。
+
+#+begin_src sh
+# pacman -S os-prober
+# grub-mkconfig -o /boot/efi/EFI/GRUB/grub.cfg
+#+end_src
 
 ** Environment
 *** Windows 8.1
     
-* SpecialThanks & BookMarks
+* 参考にしたページのBookMarks
 ** ArchLinuxとは
 - [[http://dic.nicovideo.jp/a/arch%20linux][Arch Linuxとは (アーチリナックスとは ) - ニコニコ大百科]]
 - [[http://divide-et-impera.org/archives/1388][Ubuntuに飽きた俺達の楽園はArch Linuxにあった | Divide et impera]]
@@ -87,7 +297,6 @@ CドライブからArchLinux用のパーティションを切り出す。
 ** インストール 
 - [[https://wiki.archlinux.org/index.php/Installation_Guide_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Installation Guide (日本語) - ArchWiki]]
 - [[https://wiki.archlinux.org/index.php/Beginners%27_Guide_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Beginners' Guide (日本語) - ArchWiki]]
-
 
 Arch Linux のリリースを USB ドライブに書き込む方法
 - [[https://wiki.archlinux.org/index.php/USB_Installation_Media_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][USB Installation Media (日本語) - ArchWiki]]
@@ -99,12 +308,13 @@ Arch Linux のリリースを USB ドライブに書き込む方法
 
 *** デュアルブート関係
 - [[https://wiki.archlinux.org/index.php/Windows_and_Arch_Dual_Boot_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Windows and Arch Dual Boot (日本語) - ArchWiki]]
-- https://www.youtube.com/watch?v=wZpr1eW48rc
+- [[https://wiki.archlinux.org/index.php/GRUB_(%E6%97%A5%E6%9C%AC%E8%AA%9E)#UEFI-GPT_.E3.83.A2.E3.83.BC.E3.83.89.E3.81.A7.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB.E3.81.95.E3.82.8C.E3.81.9F_Windows_.E3.81.AE.E3.83.A1.E3.83.8B.E3.83.A5.E3.83.BC.E3.82.A8.E3.83.B3.E3.83.88.E3.83.AA][GRUB (日本語) - ArchWiki]]
 - [[http://d.hatena.ne.jp/godai_0519/20140128/1390919028][ThinkPad X240をArch Linuxとのデュアルブートにするメモ - 堕(惰)プログラマ開発記録]]
-
+- [[https://spica.pw/blog/?p=157][x240にArchとWindows8.1を共存させる | In the Spica]]
 
 ** その他
 - [[https://qiita.com/tags/archlinux][archLinuxに関する32件の投稿 - Qiita]]
+- [[http://qiita.com/xorphitus/items/3711895eb5d9f946c782][Arch Linux快適デスクトップ環境の構築 - Qiita]]
 
 *** 英語
 USBからArchLinuxをインストールする方法
@@ -113,3 +323,10 @@ USBからArchLinuxをインストールする方法
 
 
 - [[http://futurismo.biz/archives/2064][Windowsと Mint Linuxのデュアルブート環境をVAIOに構築した手順メモ | Futurismo]]
+  
+
+
+
+* その後の作業
+
+emacs
