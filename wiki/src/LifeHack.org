@@ -1,0 +1,7 @@
+* LifeHack
+
+** PDF を grepする
+
+#+begin_src sh
+sudo apt-get install pdfgrep
+#+end_src

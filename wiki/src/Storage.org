@@ -1,4 +1,4 @@
-* 用語
+o* 用語
 
 ** Software Defined Storage
 EMCのとなえる戦略。ストレージにおけるSoftware Defined.

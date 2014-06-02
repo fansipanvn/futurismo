@@ -39,29 +39,9 @@ SDIの大きな特徴は、コンピュート（CPU、メモリ）、ネット�
 - [[http://cloud.watch.impress.co.jp/docs/column/virtual/20130730_609512.html][【仮想化道場】“やわらかいデータセンター”を作る、IntelのSoftware Defined Infrastructure - クラウド Watch]]
 
 *** Cisco - Software Defined Network(SDN)
-Software-Defined Networking.ネットワークにおけるSoftware defined.
-
-#+BEGIN_HTML
-<blockquote>
-SDN allows network administrators to manage network services 
-through abstraction of lower level functionality.
-</blockquote>
-#+END_HTML
-
-- [[http://en.wikipedia.org/wiki/Software-defined_networking][Software-defined networking - Wikipedia, the free encyclopedia]]
-
-#+BEGIN_HTML
-<blockquote>
-広義：「従来システムのネットワーク要素を抽象化し分割する、コンピュータ ネットワークを構築するアプローチ」（wiki より）
-狭義：「（広義のアプローチを具体化するために）ネットワーク機器のコントロール プレーン、データ プレーンを分離し、集中化されたソフトウェアからコントロールして、もっと効率的なこと、便利なことをする！！」
-</blockquote>
-#+END_HTML
+    Software-Defined Networking.ネットワークにおけるSoftware defined.
 
 - [[http://gblogs.cisco.com/jp/2014/02/open-source-controller-framework-opendaylight-1/][Cisco Japan Blog » オープンソース コントローラ フレームワーク ― OpenDaylight (1)]]
-
-なんと、Courseraに講義を発見！時間があれば受けたいところだが。。。
-
-- [[https://www.coursera.org/course/sdn][Software Defined Networking | Coursera]]
 
 *** EMC - Software Defined Storage(SDS)
 EMCのとなえる戦略。ストレージにおけるSoftware Defined.
@@ -135,3 +115,45 @@ OpenDaylightが開発したオープンソース コントローラ フレーム
 - [[http://sourceforge.jp/magazine/14/02/06/144500][オープンソースSDNプロジェクトのOpenDaylightが初リリース、「Hydrogen」が登場]]
 - [[http://www.atmarkit.co.jp/ait/articles/1402/05/news050.html][SDNのオープンソースプロジェクト：OpenDaylight Project、最初のリリースHydrogenを発表 - ＠IT]]
 - [[http://gihyo.jp/dev/serial/01/linuxcon2014/0003][#3　最終回はNeela Jacques氏にOpenDaylightについて伺いました：LinuxCon Japan 2014 Preview｜gihyo.jp … 技術評論社]]
+
+
+* Software Defined Networking (SDN)
+   A new networking paradigm whereby the behavior of a network is controlled 
+   by a single high-level software program.  
+   The general term for network architectures whereby the control 
+   plane (software that controls network behavior) and the 
+   data plane (the devices that forward traffic) are separate from one another.
+
+   SDN allows network administrators to manage network services 
+   through abstraction of lower level functionality.
+
+- [[http://en.wikipedia.org/wiki/Software-defined_networking][Software-defined networking - Wikipedia, the free encyclopedia]]
+
+** 定義
+
+- 広義：「従来システムのネットワーク要素を抽象化し分割する、コンピュータ ネットワークを構築するアプローチ」（wiki より）
+- 狭義：「（広義のアプローチを具体化するために）ネットワーク機器のコントロール プレーン、データ プレーンを分離し、集中化されたソフトウェアからコントロールして、もっと効率的なこと、便利なことをする！！」
+
+** 構成要素
+*** Control plane
+    The functions in the network that control the behavior of the network 
+    (e.g., network paths, forwarding behavior).  
+    Typically, the control plane is instantiated as a single, high-level
+    software controller.
+
+*** Data plane
+    The functions in the network that are responsible for forwarding
+    (or not forwarding) traffic.  Typically, the data plane is
+    instantiated as forwarding tables in routers, switches, firewalls
+    , and middleboxes.
+
+** 主要概念
+*** Active networks
+    A collection of network architecture projects in the 1990s that shared
+    many of the same goals as software-defined networking.
+
+*** Network virtualization
+    The notion of instantiating many distinct logical networks on top of a single
+    , shared physical network infrastructure.
+
+
