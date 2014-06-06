@@ -118,21 +118,39 @@ OpenDaylightが開発したオープンソース コントローラ フレーム
 
 
 * Software Defined Networking (SDN)
-   A new networking paradigm whereby the behavior of a network is controlled 
-   by a single high-level software program.  
-   The general term for network architectures whereby the control 
-   plane (software that controls network behavior) and the 
-   data plane (the devices that forward traffic) are separate from one another.
+** 定義
+- 広義：「従来システムのネットワーク要素を抽象化し分割する、コンピュータ ネットワークを構築するアプローチ」（wiki より）
+- 狭義：「（広義のアプローチを具体化するために）ネットワーク機器のコントロール プレーン、データ プレーンを分離し、集中化されたソフトウェアからコントロールして、もっと効率的なこと、便利なことをする！！」
 
-   SDN allows network administrators to manage network services 
-   through abstraction of lower level functionality.
+A new networking paradigm whereby the behavior of a network is controlled 
+by a single high-level software program.  
+The general term for network architectures whereby the control 
+plane (software that controls network behavior) and the 
+data plane (the devices that forward traffic) are separate from one another.
+
+SDN allows network administrators to manage network services 
+through abstraction of lower level functionality.
 
 - [[http://en.wikipedia.org/wiki/Software-defined_networking][Software-defined networking - Wikipedia, the free encyclopedia]]
 
-** 定義
+** SDNの歴史と基盤技術
+*** Active networks
+    A collection of network architecture projects in the 1990s that shared
+    many of the same goals as software-defined networking.
 
-- 広義：「従来システムのネットワーク要素を抽象化し分割する、コンピュータ ネットワークを構築するアプローチ」（wiki より）
-- 狭義：「（広義のアプローチを具体化するために）ネットワーク機器のコントロール プレーン、データ プレーンを分離し、集中化されたソフトウェアからコントロールして、もっと効率的なこと、便利なことをする！！」
+*** Network virtualization
+    ネットワーク仮想化。物理ネットワーク上に複数の論理ネットワークを構築すること。
+
+    The notion of instantiating many distinct logical networks 
+    on top of a single, shared physical network infrastructure.
+
+- [[http://ascii.jp/elem/000/000/793/793504/][ASCII.jp：なぜSDNは生まれたのか？ネットワーク仮想化との関係は？ (1/2)｜Q&A形式で学ぶOpenFlow/SDN]]
+
+   「ネットワーク仮想化」とも呼ばれ、厳密にはSDNの応用の一つであり、
+   また、SDNによらず別の技術によって実現する手法もあるため、
+    SDNそのものとは区別する必要がある。
+
+- [[http://e-words.jp/w/SDN.html][SDNとは 【 Software-Defined Networking 】 - 意味/解説/説明/定義 ： IT用語辞典]]
 
 ** 構成要素
 *** Control plane
@@ -146,14 +164,5 @@ OpenDaylightが開発したオープンソース コントローラ フレーム
     (or not forwarding) traffic.  Typically, the data plane is
     instantiated as forwarding tables in routers, switches, firewalls
     , and middleboxes.
-
-** 主要概念
-*** Active networks
-    A collection of network architecture projects in the 1990s that shared
-    many of the same goals as software-defined networking.
-
-*** Network virtualization
-    The notion of instantiating many distinct logical networks on top of a single
-    , shared physical network infrastructure.
 
 

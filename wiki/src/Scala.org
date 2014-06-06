@@ -6,7 +6,6 @@
   Scalaは通常 Call-by-Valueだが、=>を用いることで Call-by-Nameで評価する。
 
 * High-Order Fuuction
-
 ** Function Type
 #+begin_verse
 The type A => B is the type of a function that takes 
@@ -32,3 +31,40 @@ where f is an arbitrary, fresh name (that’s not yet used in the program)
 #+end_verse
 
 ** カリー化
+
+*  Data and Abstraction
+** trait
+Javaのインターフェースみたいなもの
+
+** class
+
+* Pattern Matching
+条件分岐のための記法。
+
+もう、「条件分岐はmatch式、if文は三項演算子」くらいの勢い。
+
+Java:
+
+#+begin_src java
+switch( <セレクター式> ){ 
+  case 場合 : 処理
+  ...
+}
+#+end_src
+
+Scalaのmatch式:
+
+#+begin_src scala
+<セレクター式> match { 
+  case パターン => 処理
+  ...
+}
+
+
+
+#+end_src
+
+- [[http://yuroyoro.hatenablog.com/entry/20100317/1268819400][Scala的な考え方 - Scalaがとっつきにくいと思っている人へ - ゆるよろ日記]]
+
+* Lists
+* Collections
