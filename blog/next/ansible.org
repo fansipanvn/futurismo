@@ -1,0 +1,36 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: ansibleをつかってみる
+
+* Ansibleとは
+いわゆる構成管理ツール。
+
+Chefに乗り遅れてしまったので、Ansibleを代わりに試してみる。
+
+* Ansibleのインストール
+pipを利用してインストールする。
+
+#+begin_src language
+sudo pacman -S python-pip
+sudo pip install ansible
+#+end_src
+
+* Hello Ansible
+
+* Environment
+- Arch Linux
+- Python
+
+* Special Thanks
+Ansibleの哲学が述べられている。
+
+- [[http://tdoc.info/blog/2014/01/20/ansible_beyond_configuration.html][Ansibleのアーキテクチャー: 構成管理を超えて — そこはかとなく書くよん。]]
+
+** チュートリアル
+
+- [[http://yteraoka.github.io/ansible-tutorial/][Ansible チュートリアル | Ansible Tutorial in Japanese]]
+- [[http://apatheia.info/blog/2013/04/06/about-ansible/][構成管理ツール Ansible について - apatheia.info]]
+- [[http://qiita.com/seizans/items/54da2077ac8e2dcf5d6f][vagrant - Ansible コトハジメ - Qiita]]
+- [[http://qiita.com/itiut@github/items/e8b95ac9b9ea2a6ea701][AnsibleをUbuntuのローカルで使う - Qiita]]

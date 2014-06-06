@@ -63,13 +63,47 @@ pacman -S emacs git zsh tmux ssh
 
 すべてをアップデート。
 
-#+begin_src language
+n#+begin_src language
 pacman -Syu
 #+end_src
 
-** gitの設定
+** my dotfiles
+github上で管理しているdotfilesをインストールする。
 
-dotfilesをダウンロード
+#+begin_src language
+git clone https://github.com/tsu-nera/toolkit.git
+git submodule update --init
+#+end_src
+
+つづけて、emacsも立ち上げる。
+el-getでパッケージ管理しているので自動でtoolはおとしてくる。
+
+
+* GUI環境の設定
+** xmonad
+
+* 日本語環境の設定
+** 文字コードの設定
+ja_JP.UTF-8をつかう。
+
+#+begin_src language
+# locale.genを編集
+emacs /etc/locale.gen
+
+# 以下をコメントアウト
+en_US.UTF-8 UTF-8
+ja_JP.UTF-8 UTF-8
+
+# locale.gen生成
+locale.gen
+#+end_src
+
+コンソール環境では文字化けする。GUI環境を整えてから以下を設定。
+
+#+begin_src language
+echo LANG=ja_JP.UTF-8 > /etc/locale.conf
+export LANG=ja_JP.UTF-8
+#+end_src
 
 * Bookmarks
 - [[https://wiki.archlinux.org/index.php/Beginners%27_Guide/Extra_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Beginners' Guide/Extra (日本語) - ArchWiki]]
