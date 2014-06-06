@@ -58,7 +58,7 @@ ArchLinuxのパッケージ管理ツール、pacmanをまずはべんきょ。
 よく利用するツールをインストール。
 
 #+begin_src language
-pacman -S emacs git zsh tmux ssh
+pacman -S emacs git zsh tmux openssh
 #+end_src
 
 すべてをアップデート。
@@ -80,6 +80,9 @@ el-getでパッケージ管理しているので自動でtoolはおとしてく�
 
 
 * GUI環境の設定
+** X Window System
+
+
 ** xmonad
 
 * 日本語環境の設定

@@ -2,7 +2,7 @@
 #+CATEGORY: 技術メモ
 #+TAGS:
 #+DESCRIPTION:
-#+TITLE: ansibleをつかってみる
+#+TITLE: ansibleで実現する Immunity Emacs
 
 * Ansibleとは
 いわゆる構成管理ツール。
@@ -10,27 +10,44 @@
 Chefに乗り遅れてしまったので、Ansibleを代わりに試してみる。
 
 * Ansibleのインストール
-pipを利用してインストールする。
+#+begin_src language
+sudo pacman -S ansible
+#+end_src
+
+ちなみに、以下の方法ではbuildでエラーした。なんでかな？
 
 #+begin_src language
+# pip
 sudo pacman -S python-pip
 sudo pip install ansible
+# easy_install
+sudo pacman -S python-setuptools
+sudo easy_install ansible
 #+end_src
 
 * Hello Ansible
+
+
+* Emacsをインストール
+
+git cvs bzr mercurial openssh emacs
 
 * Environment
 - Arch Linux
 - Python
 
-* Special Thanks
-Ansibleの哲学が述べられている。
-
-- [[http://tdoc.info/blog/2014/01/20/ansible_beyond_configuration.html][Ansibleのアーキテクチャー: 構成管理を超えて — そこはかとなく書くよん。]]
-
-** チュートリアル
+* BookMarks
+チュートリアル
 
 - [[http://yteraoka.github.io/ansible-tutorial/][Ansible チュートリアル | Ansible Tutorial in Japanese]]
 - [[http://apatheia.info/blog/2013/04/06/about-ansible/][構成管理ツール Ansible について - apatheia.info]]
 - [[http://qiita.com/seizans/items/54da2077ac8e2dcf5d6f][vagrant - Ansible コトハジメ - Qiita]]
+- [[http://demand-side-science.jp/blog/2014/ansible-in-wonderland-01/][不思議の国のAnsible – 第1話 – DSS Tech Blog]]
+- [[http://tdoc.info/blog/2013/04/20/ansible.html][ansibleを使ってみる — そこはかとなく書くよん。]]
+
+ローカルで利用する。
+- [[http://cloverrose.hateblo.jp/entry/2013/09/07/112153][Ansibleをローカルで使ってみた - cloverrose's blog]]
 - [[http://qiita.com/itiut@github/items/e8b95ac9b9ea2a6ea701][AnsibleをUbuntuのローカルで使う - Qiita]]
+
+Ansibleの哲学・アーキ。
+- [[http://tdoc.info/blog/2014/01/20/ansible_beyond_configuration.html][Ansibleのアーキテクチャー: 構成管理を超えて — そこはかとなく書くよん。]]
