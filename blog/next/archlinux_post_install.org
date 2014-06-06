@@ -1,0 +1,57 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Linux, 技術メモ
+#+TAGS: ArchLinux
+#+DESCRIPTION: Arch Linux インストール後の設定メモです
+#+TITLE: Arch Linux インストール後の設定メモ
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/archlinux-logo-dark.png" width="500"/>
+#+END_HTML
+
+前回、ArchLinuxをインストールしたので、今回はその後の設定についてまとめます。
+
+- [[http://futurismo.biz/archives/2482][Lets Noteを買ったのでとりあえずWindows8とArchLinuxのデュアルブートにしてみた | Futurismo]]
+
+* wifiの設定
+まずは、wifiを有効化。
+
+#+begin_src language
+iw dev
+wpa_supplicant -B -i wlp2s0 -c <(wpa_passphrase "ssid" "psk")
+dhcpcd wlp2s0
+#+end_src
+
+起動時に自動でwifi接続するように設定。
+
+#+begin_src language
+pacman -S wpa_actiond
+systemctl enable netctl-auto@wlp2s0.service
+reboot
+#+end_src
+
+再起動してネットに接続できればOK.
+
+* ツールの設定
+** pacman
+ArchLinuxのパッケージ管理ツール、pacmanをまずはべんきょ。
+
+- [[https://wiki.archlinux.org/index.php/Pacman_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][pacman (日本語) - ArchWiki]]
+
+よく利用するツールをインストール。
+
+#+begin_src language
+pacman -S emacs git zsh tmux
+#+end_src
+
+すべてをアップデート。
+
+#+begin_src language
+pacman -Syu
+#+end_src
+
+** dotfilesをダウンロード
+
+* Bookmarks
+- [[https://wiki.archlinux.org/index.php/Beginners%27_Guide/Extra_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Beginners' Guide/Extra (日本語) - ArchWiki]]
+- [[http://futurismo.biz/archives/2082][Linux Mintインストール後の設定メモ | Futurismo]]
+- [[http://note.chiebukuro.yahoo.co.jp/detail/n267693][Archlinuxのインストールから環境設定まで - Yahoo!知恵袋]]
