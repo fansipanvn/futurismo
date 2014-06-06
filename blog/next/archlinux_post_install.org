@@ -31,6 +31,24 @@ reboot
 
 再起動してネットに接続できればOK.
 
+* ユーザ設定
+ユーザの作成。
+
+#+begin_src language
+useradd -m -g users -G wheel -s /usr/bin/zsh tsu-nera
+passwd tsu-nera
+#+end_src
+
+sudoをパスワードなしで利用するために、visudoを設定。rootになって、
+
+#+begin_src language
+# これで emacsで visudoが起動できる。
+VISUAL=emacs visudo
+
+# 末尾に以下の行を追加。
+tsu-nera ALL=(ALL) ALL
+#+end_src
+
 * ツールの設定
 ** pacman
 ArchLinuxのパッケージ管理ツール、pacmanをまずはべんきょ。
@@ -40,7 +58,7 @@ ArchLinuxのパッケージ管理ツール、pacmanをまずはべんきょ。
 よく利用するツールをインストール。
 
 #+begin_src language
-pacman -S emacs git zsh tmux
+pacman -S emacs git zsh tmux ssh
 #+end_src
 
 すべてをアップデート。
@@ -49,7 +67,9 @@ pacman -S emacs git zsh tmux
 pacman -Syu
 #+end_src
 
-** dotfilesをダウンロード
+** gitの設定
+
+dotfilesをダウンロード
 
 * Bookmarks
 - [[https://wiki.archlinux.org/index.php/Beginners%27_Guide/Extra_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Beginners' Guide/Extra (日本語) - ArchWiki]]
