@@ -2,14 +2,24 @@
 #+CATEGORY: 技術メモ
 #+TAGS:
 #+DESCRIPTION:
-#+TITLE: ansibleで実現する Immunity Emacs
+#+TITLE: 
 
-* Ansibleとは
-いわゆる構成管理ツール。
+* はじめに
+いままで、このブログには自分がPCで実施した設定を技術メモとして書いてきた。
+自宅でためした内容を会社でも実施することがかなりある。
+どうせならば、ブログとして残すとともに、実行可能なスクリプトとして残したい。
 
-Chefに乗り遅れてしまったので、Ansibleを代わりに試してみる。
+ということで、構成管理ツールである、Ansibleを試すことにした。
+
+Chefも本を2冊かったものの、なんだか乗り遅れた感があるため、ansibleを試す。
+
 
 * Ansibleのインストール
+Ansibleとは、いわゆる構成管理ツール。サーバの設定を自動化することができる。
+
+
+
+
 #+begin_src language
 sudo pacman -S ansible
 #+end_src
@@ -25,18 +35,79 @@ sudo pacman -S python-setuptools
 sudo easy_install ansible
 #+end_src
 
-* Hello Ansible
+** ping
+pingコマンドというのがあり、これで疎通確認ができる。
 
+#+begin_src language
+mkdir ansible
+cd ansible
+echo 'localhost' > host
+ansible localhost -m ping -i hosts
+#+end_src
 
-* Emacsをインストール
+hostsというのはインベントリファイルという。
+インベントリファイルに登録されたホストにのみansibleは実行可能。
 
-git cvs bzr mercurial openssh emacs
+- [[https://github.com/yteraoka/ansible-tutorial/wiki/Inventory-File][Inventory File · yteraoka/ansible-tutorial Wiki]]
+
+** localで利用する
+公式Docによると2つの方法がある。
+
+#+begin_src language
+# コマンドラインから --connection=localを設定
+ansible-playbook playbook.yml --connection=local
+
+# playbookに以下を記述
+- hosts: 127.0.0.1
+  connection: local
+#+end_src
+
+* gitを入れてみる
+以下の記事を参考に、gitをインストールしてみる。
+
+- [[http://qiita.com/itiut@github/items/e8b95ac9b9ea2a6ea701][AnsibleをUbuntuのローカルで使う - Qiita]]
+
+#+begin_src language
+---
+- hosts: localhost
+  user: tsu-nera
+  tasks:
+    - name: "git"
+      pacman: name=git
+      sudo: yes
+#+end_src
+
+コマンドラインから実行。-K オブションでパスワードを聞かれる。
+
+#+begin_src language
+ansible-playbook site.yml -i hosts -K
+#+end_src
+
+-i hostsは環境変数を設定することで省略可能。
+
+#+begin_src language
+export ANSIBLE_HOSTS=~/.ansible/hosts
+#+end_src
+
+/etc/sudoersで以下の一行を追加することで、-Kも書略できる。
+#+begin_src language
+# visudo
+username ALL=(ALL) NOPASSWD:ALL
+#+end_src
+
+* Emacs org-modeと連携させる
+el-getでの設定ファイルっぽいことをansibleでもしたい。
+ブログの記事がそのまま実行可能な設定ファイルになるのが理想。
 
 * Environment
 - Arch Linux
-- Python
+- Python 3.5
 
 * BookMarks
+公式Doc
+
+- [[http://docs.ansible.com/index.html#][Ansible Documentation — Ansible Documentation]]
+
 チュートリアル
 
 - [[http://yteraoka.github.io/ansible-tutorial/][Ansible チュートリアル | Ansible Tutorial in Japanese]]
@@ -44,6 +115,8 @@ git cvs bzr mercurial openssh emacs
 - [[http://qiita.com/seizans/items/54da2077ac8e2dcf5d6f][vagrant - Ansible コトハジメ - Qiita]]
 - [[http://demand-side-science.jp/blog/2014/ansible-in-wonderland-01/][不思議の国のAnsible – 第1話 – DSS Tech Blog]]
 - [[http://tdoc.info/blog/2013/04/20/ansible.html][ansibleを使ってみる — そこはかとなく書くよん。]]
+- [[http://docs.ansible.com/pacman_module.html][pacman - Manage packages with pacman — Ansible Documentation]]
+- [[http://d.hatena.ne.jp/akishin999/20130815/1376520672][Ansible の Playbook を使ってみる - akishin999の日記]]
 
 ローカルで利用する。
 - [[http://cloverrose.hateblo.jp/entry/2013/09/07/112153][Ansibleをローカルで使ってみた - cloverrose's blog]]
@@ -51,3 +124,14 @@ git cvs bzr mercurial openssh emacs
 
 Ansibleの哲学・アーキ。
 - [[http://tdoc.info/blog/2014/01/20/ansible_beyond_configuration.html][Ansibleのアーキテクチャー: 構成管理を超えて — そこはかとなく書くよん。]]
+
+他人のansible-playbooksの参考.
+- https://github.com/RaymiiOrg/ansible
+- https://github.com/francisbesset/ansible-playbooks
+- https://github.com/sheldonh/dotfiles-ansible
+
+その他
+- [[http://qiita.com/advent-calendar/2013/ansible][Ansible Advent Calendar 2013 - Qiita]]
+
+こんな感じなものをorg-modeで書きたい。
+- [[http://syui.co/blog/2014/04/11/macbookair/][MacBookAir - MBA-HACK2]]
