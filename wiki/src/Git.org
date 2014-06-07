@@ -14,10 +14,11 @@ detatched HEADはブランチから外れてしまった修正。
 こんなときは、一旦新規ブランチを作成して、そのブランチをmasterにマージする。
 
 #+begin_src language
-git co -b temp_detatched
-git co master
+git checkout -b temp_detatched
+git checkout master
 git merge temp_detatched
 git push origin master
+git branch -d temp_detatched
 #+end_src
 
 - [[http://d.hatena.ne.jp/nishiohirokazu/20110513/1305290792][gitのHEADがブランチから外れてしまう現象とその直し方 - 西尾泰和のはてなダイアリー]]
