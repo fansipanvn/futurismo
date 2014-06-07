@@ -4,3 +4,21 @@
 #+begin_src sh
 git checkout filename
 #+end_src
+
+* トラブルシューティング
+** detatched HEADとなった場合の復旧方法
+detatched HEADはブランチから外れてしまった修正。
+
+うっかり, git co masterをしてしまうと、修正が消えてしまう。
+
+こんなときは、一旦新規ブランチを作成して、そのブランチをmasterにマージする。
+
+#+begin_src language
+git co -b temp_detatched
+git co master
+git merge temp_detatched
+git push origin master
+#+end_src
+
+- [[http://d.hatena.ne.jp/nishiohirokazu/20110513/1305290792][gitのHEADがブランチから外れてしまう現象とその直し方 - 西尾泰和のはてなダイアリー]]
+- [[http://devlights.hatenablog.com/entry/20130417/p1][detached HEAD状態から元に戻すコマンド (git, checkout, fix a detached HEAD, .git/HEAD, refs/heads/master) - いろいろ備忘録日記]]
