@@ -1,0 +1,137 @@
+#+BLOG: Futurismo
+#+POSTID: 2492
+#+DATE: [2014-06-08 日 19:31]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Emacs, ハッキング
+#+TAGS: ansible, org-mode
+#+DESCRIPTION:org-babel-tangleとansibleを組み合わせて、orgファイルからansible実行
+#+TITLE:実行可能なドキュメント生成！AnsibleとOrg-modeで実現するRun Book Automation(RBA)
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* はじめに
+org-babel-tangleをEmacsの外のコマンドラインから実行する方法を調べました。
+
+そして、生成したyamlファイルをansibleにわたして実行することで、
+実行可能なドキュメントを生成してみました。
+
+関連する過去記事は以下。
+
+- [[http://futurismo.biz/archives/2403][org-modeで書いたテキストをPandocでRestructured Textに変換する | Futurismo]]
+- [[http://futurismo.biz/archives/2451][Web操作手順書を自動生成！Emacs org-babelで実現するRun Book Automation(RBA) | Futurismo]]
+- [[http://futurismo.biz/archives/2490][自分のデスクトップ環境の歴史を記録する！ansibleで設定ファイルをクラウド管理する方法 | Futurismo]]
+
+** Environment
+   - ArchLinux
+   - Emacs 24.3
+
+* Emacs の関数をコマンドラインから実行する
+org-modeでかかれたドキュメントを
+コマンドラインから変換するためのスクリプトを調べた。
+
+以下のサイトから直接スクリプトを引用する。
+
+- [[http://orgmode.org/manual/Batch-execution.html][Batch execution - The Org Manual]]
+
+#+begin_src language
+#!/bin/sh
+# -*- mode: shell-script -*-
+#
+# tangle files with org-mode
+#
+DIR=`pwd`
+FILES=""
+
+# wrap each argument in the code required to call tangle on it
+for i in $@; do
+    FILES="$FILES \"$i\""
+done
+
+emacs -Q --batch \
+    --eval "(progn
+     (add-to-list 'load-path (expand-file-name \"~/src/org/lisp/\"))
+     (add-to-list 'load-path (expand-file-name \"~/src/org/contrib/lisp/\" t))
+     (require 'org)(require 'org-exp)(require 'ob)(require 'ob-tangle)
+     (mapc (lambda (file)
+            (find-file (expand-file-name file \"$DIR\"))
+            (org-babel-tangle)
+            (kill-buffer)) '($FILES)))" 2>&1 |grep tangled
+#+end_src
+
+このスクリプトを実行すると、コマンドラインからorg-babel-tangleが実行できる。
+
+* org-banel-tangleとansible-playbookを同時実行
+枯れた自分のシェルスクリプトの知識を呼び覚まして、シェルスクリプトを書いた。
+
+Indentをたもつために、以下のおまじないも加えた。
+
+#+begin_src language
+(setq org-src-preserve-indentation t)
+#+end_src
+
+- [[http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-makefile.html][Makefile Source Code Blocks in Org Mode]]
+
+#+BEGIN_HTML
+<script src="https://gist.github.com/tsu-nera/b5e42b1afe57cb625e01.js"></script>
+#+END_HTML
+
+* virtualboxのインストールスクリプト
+以下のようなorgファイルを用意した。
+
+#+BEGIN_HTML
+<blockquote>
+   * VirtualBox
+    
+   - [[https://wiki.archlinux.org/index.php/VirtualBox_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][VirtualBox (日本語) - ArchWiki]]
+    
+   以下のモジュールが必要。
+    
+   - virtualbox
+   - virtualbox-host-modules
+   - qt4
+    
+   #+begin_src yaml :tangle yes
+   ---
+   - hosts: localhost
+     sudo: yes
+     tasks:
+       - name: Install VirtualBox
+         pacman: name=virtualbox,virtualbox-host-modules,qt4
+   #+end_src
+    
+   ArchLinuxでゲストOSを動かすためにはKernelモジュールをロードする必要がある。
+    
+   #+begin_src yaml :tangle yes
+       - name: Load Kernel Module
+         command: modprobe vboxdrv
+   #+end_src
+</blockquote>
+#+END_HTML
+
+コマンドラインから実行して、virtualboxをインストール成功！カッコいい。
+
+#+begin_src sh
+[tsu-nera]% ./ansible-org-tangled.sh archlinux/virtualbox.org
+
+PLAY [localhost] ************************************************************** 
+
+GATHERING FACTS *************************************************************** 
+ok: [localhost]
+
+TASK: [Install VirtualBox] **************************************************** 
+ok: [localhost]
+
+TASK: [Load Kernel Module] **************************************************** 
+changed: [localhost]
+
+PLAY RECAP ******************************************************************** 
+localhost                  : ok=3    changed=1    unreachable=0    failed=0   
+#+end_src
+
+もちろん、org-modeなので、HTMLへの出力とかもできる。
+
+githubにアップするだげで、orgファイルはいい感じに表示されるところがよい。
+
+- https://gist.github.com/tsu-nera/83084289c9c6660812de
