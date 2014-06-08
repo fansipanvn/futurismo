@@ -1,0 +1,121 @@
+#+BLOG: Futurismo
+#+POSTID: 2498
+#+DATE: [2014-06-08 日 23:26]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Jenkins, Ruby, 技術メモ
+#+TAGS: RSpec
+#+DESCRIPTION:Windows環境でJenkinsからRSpecを実行するメモ
+#+TITLE: Windows環境でJenkinsからRSpecを実行するメモ
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/Windows_7_Vertical_Logo_Web.jpg"/>
+#+END_HTML
+
+* やりたいこと
+
+Windows環境で、RSpecを夜中に連続実行したい。
+
+cronを利用してもいいけど、Better cronな Jenkinsを使う方法を調べた。
+
+** なぜcronでなくてJenkins?
+Jenkinsを利用する利点は、
+
+- cron書式で設定Ok
+  - [[http://futurismo.biz/archives/1490][cronとwatchrを使ってJenkinsからオレオレリポジトリ監視してみる | Futurismo]]
+- グラフィカルな結果レポート
+- ログが残せる
+
+ところかな。
+
+- [[http://hazi.jp/2012-12/2203/][邪道Jenkins（スライド） | Hazi.log]]
+- [[http://image.slidesharecdn.com/jenkins-130706091448-phpapp02/95/slide-1-638.jpg?cb=1373120272][すごい cron ? - Jenkins 試した]]
+
+** むかしも挑戦したけど
+今回はRCではなくて、WebDriver.
+
+- [[http://futurismo.biz/archives/292][Selenium RCで自分のPCからテストケースを実行する | Futurismo]]
+
+** Environment
+- Windows 7 64bit
+- Jenkins
+- Ruby 2.0 p353
+- RSpec 3.0
+
+* Jenkins
+** Jenkins インストール
+公式サイトからwarファイルをダウンロード。
+
+- http://jenkins-ci.org/
+  - jenkins.war
+
+** Jenkins起動
+ワンラインで終わり。jenkins ワー！
+
+#+begin_src language
+C:\Jenkins>java -jar jenkins.war
+#+end_src
+
+localhost の port 8080がデフォルトなのでアクセスする。おじさんがいれば成功。
+
+- http://localhost:8080/
+
+ほかにも、windowsインストーラからインストールする方法もある。むかし挑戦した。
+
+- [[http://futurismo.biz/archives/299][JenkinsをWindowsPCにインストールする | Futurismo]]
+
+ハマった思い出があるので、今回は挑戦しない。
+
+- [[http://futurismo.biz/archives/331][WindowsバッチファイルをJenkinsで起動したらネットにアクセスできない | Futurismo]]
+
+* RSpecを連続実行
+** cron実行
+新規ジョブを作成 > フリースタイル・プロジェクトのビルド > ビルド・トリガ > 定期的に実行を選択。
+
+5分に1度実行。
+
+#+begin_src language
+*/5 * * * *
+#+end_src
+
+ビルド > Windowsバッチコマンドの実行を選択。入力欄にrspecの実行を記入。
+
+#+begin_src language
+rspec "C:\cygwin\home\TSUNEMICHI\repo\selenium\selenium_spec.rb" 
+#+end_src
+
+手動でビルドを実行してみて、起動が成功すればOK.
+
+#+begin_src language
+C:\Users\TSUNEMICHI\.jenkins\jobs\selenium-rspec\workspace>rspec "C:\cygwin\home\TSUNEMICHI\repo\selenium\selenium_spec.rb" 
+.
+
+Finished in 18.02 seconds (files took 1.68 seconds to load)
+1 example, 0 failures
+Finished: SUCCESS
+#+end_src
+
+** テスト出力
+せっかくなので、テスト結果の視覚化を。
+ci_reporterというgemをつかうことで、RSpecの実行結果をJUnit形式のxmlに変換できる。
+
+- [[https://github.com/nicksieger/ci_reporter/][nicksieger/ci_reporter]]
+
+とのことだったが、rspec3は古いフォーマッタに対応していないとのことなので、今回は保留で。
+
+ほかにも、実行時間の視覚化もできるようだ。
+
+- [[http://sue445.hatenablog.com/entry/2013/03/17/015836][Jenkinsにスローテストのグラフを表示する - くりにっき]]
+
+* Special Thanks
+** RSpec
+selenium-webdriverで、なぞのエラーがでて苦しむ。手動パッチをあてた。
+
+invalid byte sequence in UTF-8 (ArgumentError)
+
+- [[http://gosyujin.github.io/2013/03/18/selenium-firefox-loaderror/][Selenium WebDriverでFirefoxがロードできなくなった - kk_Atakaの日記＠GitHub Pages]]
+- [[http://seesaawiki.jp/w/kou1okada/d/Cygwin%20-%20Ruby-1.9.3p327%20-%20win32/registry][Cygwin - Ruby-1.9.3p327 - win32/registry - PIB]]
+
+** Jenkins
+
+- [[http://codezine.jp/article/detail/7505][「Selenium2」テスト徹底活用！ Jenkinsによる自動実行とSelenium Grid2による複数環境でのテスト （1/6）：CodeZine]]
+- [[http://ozzy2010.blogspot.jp/2012/05/5web-jenkins-x-selenium.html][ソフトウェアテスト: 5分でできるWebテスト自動化 - Jenkins x Selenium]]
