@@ -8,9 +8,13 @@
 <img alt="" src="http://futurismo.biz/wp-content/uploads/archlinux-logo-dark.png" width="500"/>
 #+END_HTML
 
-前回、ArchLinuxをインストールしたので、今回はその後の設定についてまとめます。
+* はじめに
+
+前回ArchLinuxをインストールしたので、今回はインストール後の設定についてまとめます。
 
 - [[http://futurismo.biz/archives/2482][Lets Noteを買ったのでとりあえずWindows8とArchLinuxのデュアルブートにしてみた | Futurismo]]
+
+[toc]
 
 * wifiの設定
 まずは、wifiを有効化。
@@ -68,8 +72,10 @@ pacman -Syu
 #+end_src
 
 ** yaourt
+pacmanのラッパー。
+特徴は、Arch User Repositoryにあるツールをインストールすることができること。
 
-   pacman -S base-devel
+- [[https://wiki.archlinux.org/index.php/Yaourt_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Yaourt (日本語) - ArchWiki]]
 
 ** gitの設定
 
@@ -90,7 +96,7 @@ git submodule update --init
 つづけて、emacsも立ち上げる。
 el-getでパッケージ管理しているので自動でtoolはおとしてくる。
 
-* TODO 日本語環境の設定
+*  日本語環境の設定
 ** 文字コードの設定
 ja_JP.UTF-8をつかう。
 
@@ -106,54 +112,84 @@ ja_JP.UTF-8 UTF-8
 locale.gen
 #+end_src
 
-コンソール環境では文字化けする。GUI環境を整えてから以下を設定。
+コンソール環境では文字化けする。X Window System環境をを整えてから以下を設定。
 
 #+begin_src language
 echo LANG=ja_JP.UTF-8 > /etc/locale.conf
 export LANG=ja_JP.UTF-8
 #+end_src
 
+** IM/IME
+親指シフトが利用できる、ibus-anthyを利用する。
+
+#+begin_src language
+# インストール
 sudo pacman -S ibus-anthy
+# 設定
 ibus-setup
+#+end_src
+
+日本語入力はなかなか苦労した。
+なぜなら、ibus-daemonを起動しても日本語入力できなかったから。
+
+結論としては、/etc/clipboardに設定をした。.zshenvや.xinitrc, .profileはすべて失敗した。
+
+#+begin_src language
+# ibus
+export XIM=ibus
+export XIM_PROGRAM=/usr/bin/ibus-daemon
+export XIM_ARGS="--xim"
+export GTK_IM_MODULE="ibus"
+export XMODIFIERS="@im=ibus"
+export QT_IM_MODULE="ibus"
+ibus-daemon -d -x
+#+end_src
 
 ** Font
-Ricty 
+Ricty を使う。驚いたのは、archlinuxだと、以下のコマンド一つでインストールできてしまうこと。
 
+#+begin_src language
 yaourt -S ttf-ricty
+#+end_src
+
+いままで散々苦労してきたが、あまりに導入が簡単過ぎて感動した。
+
+- [[http://futurismo.biz/archives/1313][いつ変えるの？今でしょ！Windowsプログラマーのための『Ricty』]]
+- [[http://futurismo.biz/archives/2072][美は生産性に宿る！プログラマーのためのフォントRictyをLinux Mintに導入した]]
 
 * GUI環境の設定
 ** X Window System
 
-# pacman -S xorg-server xorg-server-utils xorg-xinit
+#+begin_src language
+# x window systemのインストール
+pacman -S xorg-server xorg-server-utils xorg-xinit
+pacman -S mesa
 
-# pacman -S mesa
-
+# ドライバを調べる。
 $ lspci | grep VGA
 Intel Corporation Haswell-ULT Integrated Graphics Controller(rev 09)
+#+end_src
 
-ここから適切なドライバを探す。
+ここから適切なドライバを探す。自分のPCは intelなので、 xf86-video-intelのようだ。
 
 - [[https://wiki.archlinux.org/index.php/Xorg_(%E6%97%A5%E6%9C%AC%E8%AA%9E)#.E3.83.89.E3.83.A9.E3.82.A4.E3.83.90.E3.83.BC.E3.81.AE.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB][Xorg (日本語) - ArchWiki]]
 
+#+begin_src language
 pacman -S xf86-video-intel
+#+end_src
 
-タッチパッドの制御
+タッチパッドの制御のために以下もインストール。
 
+#+begin_src language
 pacman -S xf86-input-synaptics
+#+end_src
 
-*** TouchPad Disable
-TouchPadは普段は邪魔なので、無効化しておく。エイリアスを切って、off/onをする。
+ただし、TouchPadは普段は邪魔なので、無効化しておく。エイリアスを切って、off/onをする。
 
 #+begin_src language
 alias touchpad_disable='xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0'
 alias touchpad_enable='xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 1'
 #+end_src
-
-** urxvt
-
-/etc/hosts
-
-yaourt -S rxvt-unicode-patched
 
 ** slim
 軽量なログインマネージャー。
@@ -178,22 +214,19 @@ systemctl enable slim.service
 reboot
 #+end_src
 
-** xmonad
-タイル型ウィンドウマネージャ。
+** xmonad/urxvt
+タイル型ウィンドウマネージャのxmonad, ターミナルにurxvtをつかう。
 
 - [[https://wiki.archlinux.org/index.php/Xmonad_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Xmonad (日本語) - ArchWiki]]
 
-これは以前から利用している。
+これは以前から利用しているからだ。なので、詳細は省略。（過去記事参照)
 
 - [[http://futurismo.biz/archives/2165][タイル型ウィンドウマネージャという新たな世界観に衝撃を受けた!]]
+- [[http://futurismo.biz/archives/2163][省エネ時代の軽快ターミナル！rxvt-unicode(urxvt)でサクサクターミナル生活 ]]
 
 #+begin_src language
-pacman -S xmonad xmonad-contrib dmenu xmobar
+pacman -S xmonad xmonad-contrib dmenu xmobar, rxvt-unicode
 #+end_src
-
-詳細は省略。（過去記事参照)
-
-*** TODO xmodmap
 
 * サウンド設定
 ** ALSA
@@ -215,7 +248,7 @@ alsamixerをコマンドラインから起動する。
 #+begin_src language
 # 音がでるデバイスを調べる。
 $ aplay -l
-**** ハードウェアデバイス PLAYBACK のリスト ****
+  *** ハードウェアデバイス PLAYBACK のリスト ****
 カード 0: HDMI [HDA Intel HDMI], デバイス 3: HDMI 0 [HDMI 0]
   サブデバイス: 1/1
   サブデバイス #0: subdevice #0
@@ -248,10 +281,37 @@ pacman -S flashplugin
 
 - [[http://futurismo.biz/archives/1487][CentOSで日本標準時の時刻をntpで取得するためのメモ | Futurismo]]
 
+  #+begin_src language
+  systemctl enable ntpd
+  #+end_src
+
+* まとめ
+前回の記事のArchLinuxの導入までで、30時間はかかった気がする。。疲れた。
+ArchLinuxの導入の大変さを身をもって実感。
+自分の手で設定をつくりあげる、これは大変だけれども非常に達成感があった。
+
+ArchLinuxは壊れやすいときくので、なるべく詳細にインストールメモを残してみた。
+なんとなく、再設定をしそうな気がするので。ArchWikiの異常な丁寧さと詳細さに感嘆した。
+困っても、大抵のことはここに書いてあったので、迷うことはなかった。
+
+なぜ、Linux MintからArchLinuxに移行しようとしたのだろう？
+
+ローリングストーンモデルに惹かれた点が大きい。
+Linux Mintはアップデートにフルインストールが必要だけれども、ArchLinuxはコマンド一つだ。
+
+しかし、それは表の理由だ。真の理由は、ブランドバリューに引かれたから。
+ArchLinuxには、かたよったステレオタイプがある。
+
+『私、ArchLinuxをつかってます』というと、なんだかマニアっぽい。
+『私、vuittonのバッグを持っているの』というのと同じ。
+
+芸術家をアーチストという、そしてまた、ArchLinuxをつかうひとも、アーチストという。
+
+そんな自己満足感と達成感に浸っている。
+
 * Bookmarks
-- [[https://wiki.archlinux.org/index.php/Beginners%27_Guide/Extra_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Beginners' Guide/Extra (日本語) - ArchWiki]]
 - [[http://futurismo.biz/archives/2082][Linux Mintインストール後の設定メモ | Futurismo]]
+- [[https://wiki.archlinux.org/index.php/Beginners%27_Guide/Extra_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Beginners' Guide/Extra (日本語) - ArchWiki]]
 - [[http://note.chiebukuro.yahoo.co.jp/detail/n267693][Archlinuxのインストールから環境設定まで - Yahoo!知恵袋]]
 - [[http://memo.laughk.org/2014/05/25/start_archlinux.html][Arch Linux はじめました ~ 続・ラフなラボ]]
-- [[http://archlinux-blogger.blogspot.jp/2013/08/arch-linux.html][普段使いのArch Linux: Arch Linuxで日本語フォントを設定 ]]
 - [[http://archlinux-blogger.blogspot.jp/2014/02/arch-linux-20140201-2-x-gnomegui.html][普段使いのArch Linux: Arch Linux インストール (デスクトップ環境・日本語化編)]]
