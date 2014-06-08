@@ -1,24 +1,34 @@
+#+BLOG: Futurismo
+#+POSTID: 2490
+#+DATE: [2014-06-08 日 15:34]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
 #+CATEGORY: 技術メモ
-#+TAGS:
-#+DESCRIPTION:
-#+TITLE: 
+#+TAGS: ansible, ArchLinux
+#+DESCRIPTION: ansibleを利用して、デスクトップ環境を管理します
+#+TITLE: 自分のデスクトップ環境の歴史を記録する！ansibleで設定ファイルをクラウド管理する方法
 
 * はじめに
 いままで、このブログには自分がPCで実施した設定を技術メモとして書いてきた。
+
 自宅でためした内容を会社でも実施することがかなりある。
 どうせならば、ブログとして残すとともに、実行可能なスクリプトとして残したい。
 
 ということで、構成管理ツールである、Ansibleを試すことにした。
 
-Chefも本を2冊かったものの、なんだか乗り遅れた感があるため、ansibleを試す。
+今回は、ローカルマシン(ArchLinux)の設定を目的にして試してみます。
 
+ちなみに、関連記事は以下。
+
+- [[http://futurismo.biz/archives/1325][自分のプログラミング開発環境の歴史を記録する！githubで設定ファイル(dotfiles)をクラウド管理する方法 | Futurismo]]
+
+** Environment
+- Arch Linux
+- Python 3.5
 
 * Ansibleのインストール
 Ansibleとは、いわゆる構成管理ツール。サーバの設定を自動化することができる。
 
-
-
+- [[http://www.ansible.com/home][Ansible is Simple IT Automation]]
 
 #+begin_src language
 sudo pacman -S ansible
@@ -35,8 +45,9 @@ sudo pacman -S python-setuptools
 sudo easy_install ansible
 #+end_src
 
+* Ansibleをつかってみる
 ** ping
-pingコマンドというのがあり、これで疎通確認ができる。
+pingコマンドというのがあり、これでインストール後の疎通確認ができる。
 
 #+begin_src language
 mkdir ansible
@@ -62,7 +73,7 @@ ansible-playbook playbook.yml --connection=local
   connection: local
 #+end_src
 
-* gitを入れてみる
+** gitを入れてみる
 以下の記事を参考に、gitをインストールしてみる。
 
 - [[http://qiita.com/itiut@github/items/e8b95ac9b9ea2a6ea701][AnsibleをUbuntuのローカルで使う - Qiita]]
@@ -90,23 +101,23 @@ export ANSIBLE_HOSTS=~/.ansible/hosts
 #+end_src
 
 /etc/sudoersで以下の一行を追加することで、-Kも書略できる。
+
 #+begin_src language
 # visudo
 username ALL=(ALL) NOPASSWD:ALL
 #+end_src
 
 * NTPの設定をしてみる
-NTPの設定を自動化してみる。手順は以下を参考。
+NTPの設定を自動化してみる。
+
+- [[http://futurismo.biz/archives/1487][CentOSで日本標準時の時刻をntpで取得するためのメモ | Futurismo]]
 
 ** 実施手順
-
 #+begin_src language
 # ntpのインストール
 pacman -S ntp
 # ntpサーバへの接続設定
 cp ntp.conf /etc/ntp.conf
-# ntpデーモンを起動する
-timedatectl set-ntp 1
 #+end_src
 
 /etc/ntp.confの内容は以下。
@@ -134,27 +145,82 @@ driftfile /var/lib/ntp/ntp.drift
 logfile /var/log/ntp.log
 #+end_src
 
-- [[http://futurismo.biz/archives/1487][CentOSで日本標準時の時刻をntpで取得するためのメモ | Futurismo]]
+こうなった。以下を参考にしたけれども、途中でわからなくなった。
+すみませんが、リンク先参照ということで。
 
+- [[https://gist.github.com/phillipuniverse/7721288][Set up NTP with Ansible, dedicating one as a timelord]]
 
+#+begin_src language
+---
+- hosts: localhost
+  sudo: yes
+  tasks:
+    - name: Install NTP
+      pacman: name=ntp
 
-* ArchLinuxの設定を書いてみる
+    - name: Copy over the NTP configuration
+      copy: src=files/ntp.conf dest=/etc/ntp.conf owner=root group=root mode=0644
+#+end_src
 
-* Emacs org-modeと連携させる
-el-getでの設定ファイルっぽいことをansibleでもしたい。
-ブログの記事がそのまま実行可能な設定ファイルになるのが理想。
+** ArchLinuxの設定を書いてみる
 
-* Environment
-- Arch Linux
-- Python 3.5
+ArchLinuxで利用するツールをyamlファイルで管理。
+
+#+begin_src yaml
+---
+- hosts: localhost
+  sudo: yes
+  tasks:
+    - name: install IM
+      pacman: name=ibus-anthy
+
+    - name: install utilities
+      pacman: name=curl,wget,openssh
+
+    - name: install login manager
+      pacman: name=slim,archlinux-themes-slim,slim-themes
+
+    - name: window manager
+      pacman: name=xmonad,xmonad-contrib,dmenu,xmobar,xorg-xev
+
+    - name: Install NTP
+      pacman: name=ntp
+
+    - name: Copy over the NTP configuration
+      copy: src=files/ntp.conf dest=/etc/ntp.conf owner=root group=root mode=0644
+
+    - name: Install multimedia
+      pacman: name=flashplugin,alsa-utils
+#+end_src
+
+* まとめ
+デスクトップをプレーンテキストでバージョン管理したい。
+
+dotfilesで設定を管理することを、一歩おしすすめて、OS自体を管理したい。
+
+調べながらなので、今回の設定は時間がかかり、またpacmanくらいしかつかいこなせていない。
+けれども、これからこのdotansiblesも成長させていく。
+ansibleはとてもシンプルな仕様なので、覚えるのも時間がかからないはずだ。
+
+- [[https://github.com/tsu-nera/dotansible][tsu-nera/dotansible]]
+
+調べてみると、dotfilesを管理するようにansibleでdesktopを管理するも流行ってる？
+
+- https://github.com/RaymiiOrg/ansible
+- https://github.com/francisbesset/ansible-playbooks
+- https://github.com/sheldonh/dotfiles-ansible
+- https://github.com/ahtik/dotdotbox/
+
+dotfilesと同じように、少しずつ自分の成長過程をプレーンテキストで管理して記録していく。
 
 * BookMarks
-公式Doc
+** 公式Doc
 - [[http://docs.ansible.com/index.html#][Ansible Documentation — Ansible Documentation]]
+
 日本語訳
 - [[https://github.com/shkumagai/ansible-doc-ja][shkumagai/ansible-doc-ja]]vv
 
-チュートリアル
+** チュートリアル
 
 - [[http://yteraoka.github.io/ansible-tutorial/][Ansible チュートリアル | Ansible Tutorial in Japanese]]
 - [[http://apatheia.info/blog/2013/04/06/about-ansible/][構成管理ツール Ansible について - apatheia.info]]
@@ -172,16 +238,9 @@ el-getでの設定ファイルっぽいことをansibleでもしたい。
 Ansibleの哲学・アーキ。
 - [[http://tdoc.info/blog/2014/01/20/ansible_beyond_configuration.html][Ansibleのアーキテクチャー: 構成管理を超えて — そこはかとなく書くよん。]]
 
-他人のansible-playbooksの参考.
-- https://github.com/RaymiiOrg/ansible
-- https://github.com/francisbesset/ansible-playbooks
-- https://github.com/sheldonh/dotfiles-ansible
-
-その他
-- [[http://qiita.com/advent-calendar/2013/ansible][Ansible Advent Calendar 2013 - Qiita]]
-
-こんな感じなものをorg-modeで書きたい。
-- [[http://syui.co/blog/2014/04/11/macbookair/][MacBookAir - MBA-HACK2]]
-
 ansible bestpractice.
 - [[http://docs.ansible.com/playbooks_best_practices.html#always-name-tasks][Best Practices — Ansible Documentation]]
+
+** その他
+- [[http://qiita.com/advent-calendar/2013/ansible][Ansible Advent Calendar 2013 - Qiita]]
+
