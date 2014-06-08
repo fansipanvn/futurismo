@@ -90,37 +90,7 @@ git submodule update --init
 つづけて、emacsも立ち上げる。
 el-getでパッケージ管理しているので自動でtoolはおとしてくる。
 
-* GUI環境の設定
-** X Window System
-
-# pacman -S xorg-server xorg-server-utils xorg-xinit
-
-# pacman -S mesa
-
-$ lspci | grep VGA
-Intel Corporation Haswell-ULT Integrated Graphics Controller(rev 09)
-
-ここから適切なドライバを探す。
-
-- [[https://wiki.archlinux.org/index.php/Xorg_(%E6%97%A5%E6%9C%AC%E8%AA%9E)#.E3.83.89.E3.83.A9.E3.82.A4.E3.83.90.E3.83.BC.E3.81.AE.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB][Xorg (日本語) - ArchWiki]]
-
-pacman -S xf86-video-intel
-
-タッチパッドの制御
-
-pacman -S xf86-input-synaptics
-
-*** TouchPad Disable
-TouchPadは普段は邪魔なので、無効化しておく。エイリアスを切って、off/onをする。
-
-#+begin_src language
-alias touchpad_disable='xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0'
-alias touchpad_enable='xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 1'
-#+end_src
-
-** xmonad
-
-* 日本語環境の設定
+* TODO 日本語環境の設定
 ** 文字コードの設定
 ja_JP.UTF-8をつかう。
 
@@ -151,7 +121,34 @@ Ricty
 
 yaourt -S ttf-ricty
 
-* 外観関係
+* GUI環境の設定
+** X Window System
+
+# pacman -S xorg-server xorg-server-utils xorg-xinit
+
+# pacman -S mesa
+
+$ lspci | grep VGA
+Intel Corporation Haswell-ULT Integrated Graphics Controller(rev 09)
+
+ここから適切なドライバを探す。
+
+- [[https://wiki.archlinux.org/index.php/Xorg_(%E6%97%A5%E6%9C%AC%E8%AA%9E)#.E3.83.89.E3.83.A9.E3.82.A4.E3.83.90.E3.83.BC.E3.81.AE.E3.82.A4.E3.83.B3.E3.82.B9.E3.83.88.E3.83.BC.E3.83.AB][Xorg (日本語) - ArchWiki]]
+
+pacman -S xf86-video-intel
+
+タッチパッドの制御
+
+pacman -S xf86-input-synaptics
+
+*** TouchPad Disable
+TouchPadは普段は邪魔なので、無効化しておく。エイリアスを切って、off/onをする。
+
+#+begin_src language
+alias touchpad_disable='xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0'
+alias touchpad_enable='xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 1'
+#+end_src
+
 ** urxvt
 
 /etc/hosts
@@ -182,6 +179,74 @@ reboot
 #+end_src
 
 ** xmonad
+タイル型ウィンドウマネージャ。
+
+- [[https://wiki.archlinux.org/index.php/Xmonad_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Xmonad (日本語) - ArchWiki]]
+
+これは以前から利用している。
+
+- [[http://futurismo.biz/archives/2165][タイル型ウィンドウマネージャという新たな世界観に衝撃を受けた!]]
+
+#+begin_src language
+pacman -S xmonad xmonad-contrib dmenu xmobar
+#+end_src
+
+詳細は省略。（過去記事参照)
+
+*** TODO xmodmap
+
+* サウンド設定
+** ALSA
+サウンドカードのデバイスドライバ。
+
+- [[https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Advanced Linux Sound Architecture (日本語) - ArchWiki]]
+
+#+begin_src language
+pacman -S alsa-utils
+#+end_src
+
+alsamixerをコマンドラインから起動する。
+(自分の環境では) F6 の サウンドカード選択でHDA Intel PCHを選択。
+
+自分の場合は、これで音がでなかったので、以下の作業をした。
+
+- [[https://wiki.archlinux.org/index.php/Advanced_Linux_Sound_Architecture#HDMI_output_does_not_work][Advanced Linux Sound Architecture - ArchWiki]]
+
+#+begin_src language
+# 音がでるデバイスを調べる。
+$ aplay -l
+**** ハードウェアデバイス PLAYBACK のリスト ****
+カード 0: HDMI [HDA Intel HDMI], デバイス 3: HDMI 0 [HDMI 0]
+  サブデバイス: 1/1
+  サブデバイス #0: subdevice #0
+カード 0: HDMI [HDA Intel HDMI], デバイス 7: HDMI 1 [HDMI 1]
+  サブデバイス: 1/1
+  サブデバイス #0: subdevice #0
+カード 0: HDMI [HDA Intel HDMI], デバイス 8: HDMI 2 [HDMI 2]
+  サブデバイス: 1/1
+  サブデバイス #0: subdevice #0
+カード 1: PCH [HDA Intel PCH], デバイス 0: ALC269VC Analog [ALC269VC Analog]
+  サブデバイス: 1/1
+  サブデバイス #0: subdevice #0
+
+# 音がでるかテスト
+$ apply -D plughw:1,0 /usr/share/sounds/alsa/Front_Center.wav
+#+end_src
+
+** youtube
+youtubeを見るためには、Adobe Flash Playerが必要。
+
+- [[https://wiki.archlinux.org/index.php/Browser_Plugins_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Browser Plugins (日本語) - ArchWiki]]
+
+#+begin_src language
+pacman -S flashplugin
+#+end_src
+
+* その他
+** 時刻設定
+   時刻が狂っているので時刻合わせをする。
+
+- [[http://futurismo.biz/archives/1487][CentOSで日本標準時の時刻をntpで取得するためのメモ | Futurismo]]
 
 * Bookmarks
 - [[https://wiki.archlinux.org/index.php/Beginners%27_Guide/Extra_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Beginners' Guide/Extra (日本語) - ArchWiki]]
@@ -190,4 +255,3 @@ reboot
 - [[http://memo.laughk.org/2014/05/25/start_archlinux.html][Arch Linux はじめました ~ 続・ラフなラボ]]
 - [[http://archlinux-blogger.blogspot.jp/2013/08/arch-linux.html][普段使いのArch Linux: Arch Linuxで日本語フォントを設定 ]]
 - [[http://archlinux-blogger.blogspot.jp/2014/02/arch-linux-20140201-2-x-gnomegui.html][普段使いのArch Linux: Arch Linux インストール (デスクトップ環境・日本語化編)]]
-
