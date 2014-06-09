@@ -5,6 +5,16 @@
 git checkout filename
 #+end_src
 
+** githubからファイルを履歴を含めて削除する方法
+
+see: http://blog.s21g.com/articles/1592
+
+#+begin_src language
+% git filter-branch -f --index-filter 'git update-index --remove "filename"' HEAD
+% git push --force
+#+end_src
+
+
 * トラブルシューティング
 ** detatched HEADとなった場合の復旧方法
 detatched HEADはブランチから外れてしまった修正。
