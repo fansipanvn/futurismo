@@ -1,3 +1,4 @@
+#+OPTIONS: toc:nil
 * Scala
 ** Scala 開発環境
 *** Emacs
@@ -22,14 +23,16 @@ So, Int => Int is the type of functions that map integers to integers.
 #+end_src
 
 *** 糖衣構文
-#+begin_verse
-An anonymous function ( x 1 : T 1 , ..., x n : T n ) ⇒ E can always be
+#+BEGIN_HTML
+<blockquote>
+An anonymous function ( x 1 : T 1 , ..., x n : T n )  E can always be
 expressed using def as follows:
 
 def f ( x 1 : T 1 , ..., x n : T n ) = E ; f
 
 where f is an arbitrary, fresh name (that’s not yet used in the program)
-#+end_verse
+</blockquote>
+#+END_HTML
 
 ** カリー化
 
