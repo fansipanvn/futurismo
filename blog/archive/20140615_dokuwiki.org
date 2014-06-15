@@ -1,0 +1,106 @@
+#+BLOG: Futurismo
+#+POSTID: 2500
+#+DATE: [2014-06-15 日 10:55]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 日記
+#+TAGS:Dokuwiki
+#+DESCRIPTION: Futurismo Wikiを立ち上げました
+#+TITLE: Futurismo Wiki 立ち上げ(Dokuwiki)
+* はじめに
+** 動機
+このブログも開設して2年が立った。
+
+このブログの記事は org-modeを利用して書いている。
+StudyLogとして日々学んだことを、ブログに書いている。
+
+最近、以下のような課題を感じる。
+
+- 知識を体系的に整理することが不便
+- 知識を追記して膨らませて発展させていくことが不便
+- 知識と知識をつなげることが不便
+- ちょっとした備忘録をブログの記事にするのは気が引ける
+- 他人にとってはどうでもよいことをブログの記事にするのは気が引ける
+
+ブログに知識を集約していくことに限界を感じている。
+
+** フロー型とストック型の情報について
+情報には、フロー型とストック型という二種類の分類方法があるようだ。
+
+- [[http://mojix.org/2005/06/28/232219][ブログはフロー、Wikiはストック - モジログ]]
+- [[http://www.pitecan.com/articles/WiredVision/wv21/index.html][第21回 流れる情報と留まる情報 | WIRED VISION]]
+- [[http://june29.jp/2009/05/05/information-stock-and-flow/][情報のストックとフロー - 準二級.jp]]
+- [[http://homepage.flips.jp/?page=page3][なぜ、ブログ・ビジネスブログだと効果が出ないか（ストック情報とフロー情報の違い） ]]
+- [[http://umu.hustle.ne.jp/blog/archives/post_2.html][フロー情報のストック化 - うむらうす]]
+
+ブログは時系列のつながりで知識を整理する。wikiは概念のつながりで知識を整理する。
+どちらがよいというわけではなくて、どちらも必要。
+というわけで、Futurismo Wikiを立ち上げることにした。
+
+** BlogからWikiへ
+Blogは主に3つのカテゴリに分ける。
+
+- ハッキング ・・・自分の発想で新しいことしたときに記録する
+- 技術メモ ・・・ 学んだ知識を記録する
+- 日記 ・・・日々の感情を記録する
+
+技術メモカテゴリに書いた知識を積極的にwikiへストックしていく。
+
+* 実現方法
+** Dokuwikiにきめた
+Wikiはいくつもの種類があるが、Dokuwikiを試してみる。
+
+- [[https://www.dokuwiki.org/ja:dokuwiki][ja:dokuwiki DokuWiki]]
+
+理由は、Dokuwikiがデータベースを利用しないから。
+プレインテキストで情報を管理できるから。
+
+新年の決意として、以下のようなエントリを書いた。
+
+- [[http://futurismo.biz/archives/2209][プレインテキストへの決意 ～for progmatic programmer～ | Futurismo]]
+
+** Dokuwikiのインストール
+以下の手順にしたがう。
+
+- [[https://www.dokuwiki.org/ja:install][ja:install DokuWiki]]
+
+ツール本体をダウンロードして、解凍。
+そして、Webサーバにアップロードしてinstall.phpにアクセス。
+
+- http://futurismo.biz/dokuwiki/
+
+あとは、手順にしたがって設定していくだけ。簡単。
+
+* org-mode から Dokuwiki形式への変換方法
+Emacsのorgファイルで書いた文章をDokuwiki形式に変換したい。
+
+調べると、いくつかの方法があるようだ。
+
+- [[http://unix.stackexchange.com/questions/9794/org-mode-to-dokuwiki-converter][emacs - org mode to dokuwiki converter - Unix & Linux Stack Exchange]]
+  - https://github.com/w-vi/ox-wk.el
+- [[http://pastelwill.jp/wiki/doku.php?id=emacs:org2dokuwiki][emacs:org2dokuwiki - PastelWiki]]
+
+ox-wk.elを利用することにした。org-wk-export-to-wikiでtxt形式に出力できる。
+
+** 外部スクリプトから実行
+
+こんな感じで即席スクリプトを書いてみた。
+
+#+BEGIN_HTML
+<script src="https://gist.github.com/tsu-nera/79ddd91758ff28a0aad6.js"></script>
+#+END_HTML
+
+これで、コマンドラインからorgをwikiに変換。あとは、FTPかなんかでアップロード。
+アップロードもそのうち自動化したい。
+
+** githubでバージョン管理
+データがプレインテキストなので、もちろんgitでバージョン管理する。
+
+- https://github.com/tsu-nera/futurismo/tree/master/wiki
+
+リボジトリはgithubへアップロード。
+githubはorg-mode形式をいい感じに表示してくれる。
+実は、GithubがあればDokuwikiなんていらないのでは？！
+
+* 今回たちあげたDokuwiki URL
+
+http://futurismo.biz/dokuwiki

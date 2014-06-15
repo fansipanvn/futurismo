@@ -2,7 +2,7 @@
 #+CATEGORY: 技術メモ
 #+TAGS:
 #+DESCRIPTION:
-#+TITLE: Futurismo Wiki 立ち上げ
+#+TITLE: 
 * はじめに
 ** 動機
 このブログも開設して2年が立った。

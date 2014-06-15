@@ -1,12 +1,11 @@
 #!/bin/sh
 # -*- mode: shell-script -*-
 #
-# tangle files with org-mode
+# org-wk-export-to-wiki files with org-mode
 #
 DIR=`pwd`
 FILES=""
 
-# wrap each argument in the code required to call tangle on it
 for i in $@; do
     FILES="$FILES \"$i\""
 done

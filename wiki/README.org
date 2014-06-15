@@ -1,2 +1,2 @@
 * Futurismo(wiki)
-Sphinxで立ち上げ準備中
+Dokuwikiで立ち上げ準備中.

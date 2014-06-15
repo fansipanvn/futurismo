@@ -15,7 +15,7 @@ Futurismoとは、20世紀初めにイタリアにおいて勃興した運動。
 * フロー情報とストック情報について
 ** blog
 
-http://futurismo.biz
+   http://futurismo.biz
 
 フロー情報を記録する。時系列で情報を管理。
 
@@ -27,10 +27,10 @@ http://futurismo.biz
 
 *** 命名規約
 
-  (日付)_(PostID)_(CamelCaseDescription).org
+  (日付)_(Description).org
 
 ** wiki
-http://futurismo.biz/sphinx/html
+   http://futurismo.biz/dokuwiki
 
 ストック情報を記録する。ページ名で情報を管理。
 
@@ -41,10 +41,6 @@ http://futurismo.biz/sphinx/html
 
 *** 命名規約
 
-- org file (ページ名でモジュールを定義, WikiNameに相当)
+- org file (ページ名でモジュールを定義)
 
-  (CamelCaseDescription).org
-
-- rst file (構造を定義, Wikiカテゴリに相当)
-
-  (CamelCaseDescription).rst
+  (sample_file).org
