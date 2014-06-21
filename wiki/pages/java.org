@@ -1,0 +1,6 @@
+* Java
+
+* 開発環境
+** Emacs
+- [[http://futurismo.biz/archives/2462][EclimでEmacsとEclipseのいいとこどり！EmacsでJava開発環境を構築した]]
+
