@@ -142,3 +142,18 @@ Emacs Scala Youtube Video Tutorials
 - [[http://jglobal.com/emacs-power-for-scala-development-setting-up/][Emacs Power for Scala Development: Setting Up - JGlobal Limited]]
 - [[https://www.youtube.com/channel/UCPNbOY0HKvilrk6XucqiwYw][Michael Nash - YouTube]]
 
+
+* 追記 2014-06-21
+sbt-modeというものもある。
+
+- https://github.com/hvesalai/sbt-mode
+
+機能的にはensimeとおなじようなことができるし、
+ensimeファイルを作成しなくてもいいので導入が楽。
+
+ensimeよりよいところは、M-x sbt-send-regionで 
+Scala REPLにリージョンを送信することができるところ。これは便利そう。
+
+また、replをautoloadする方法もあるようだ。
+
+- [[https://github.com/ensime/ensime-src/issues/149][Auto reload classes in the Scala REPL on recompilation · Issue #149 · ensime/ensime-src]]

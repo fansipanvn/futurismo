@@ -11,7 +11,7 @@ Edxで Unlocking the Immunity to Changeという講座を受講した記録で�
 
 - [[https://www.edx.org/course/harvardx/harvardx-gse1x-unlocking-immunity-change-940#.U6UVXlsvCCg][Unlocking the Immunity to Change: A New Approach to Personal Improvement | edX]]
 
-#+BEGIN_HTML
+n#+BEGIN_HTML
 <iframe width="560" height="315" src="//www.youtube.com/embed/lPiWUjbtQvk" frameborder="0" allowfullscreen></iframe>
 #+END_HTML
 
@@ -249,7 +249,6 @@ Hooks(落とし穴)とRelease(脱出ルート)を意識することが必要。
     At this point, you automatically act and think in ways that 
     run counter to your previously held Big Assumption 
     in those situations where it is not valid.
-
 * 自分の挑戦
   自分の挑戦体験記を後悔。間違えた、公開。
 

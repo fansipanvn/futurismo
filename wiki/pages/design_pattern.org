@@ -11,7 +11,32 @@
 * Gof
 ** 生成に関するパターン
 *** Factory Method 
-オブジェクトの生成を行う時のインタフェースを規定して、 インスタンス化するクラスを決定するのはサブクラスに任せる。
+    オブジェクトの生成を行う時のインタフェースを規定して、 
+    インスタンス化するクラスを決定するのはサブクラスに任せる。
+
+    - [[http://ja.wikipedia.org/wiki/Factory_Method_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Factory Method パターン - Wikipedia]]
+
+**** C言語での応用
+     C言語でAbstruct Data Typeな設計をつかうときの常套手段。
+
+#+begin_src c
+int createInstance(void) {
+  return calloc(4);
+}
+
+int destroyInstance(int ptr) {
+  free(ptr);
+  return NULL;
+}
+
+int main(void) {
+  int *instance = createInstance();
+  instance = destoryInstance(instance);
+  return 0;
+}
+#+end_src
+
+
 *** Abstract Factory 
 関連するオブジェクト群を、その具象クラスを明確にせずに生成するための インタフェースを提供する。
 *** Builder 
@@ -51,11 +76,53 @@
 *** Observer 
 あるオブジェクトに依存した複数のオブジェクトがある場合に、 被依存オブジェクトの状態変化を、依存オブジェクトに通知する。
 *** State 
-状態に応じてオブジェクトの振る舞いを変更したいときに、 振る舞いを別オブジェクトにカプセル化する。
+    状態に応じてオブジェクトの振る舞いを変更したいときに、 
+    振る舞いを別オブジェクトにカプセル化する。
+
 *** Strategy 
-アルゴリズムをカプセル化して、アルゴリズムを交換可能にする。 ひとつの入力データに対して、アルゴリズム毎に異なる結果を出力する。
+    アルゴリズムをカプセル化して、アルゴリズムを交換可能にする。 
+    ひとつの入力データに対して、アルゴリズム毎に異なる結果を出力する。
+
+    - [[http://ja.wikipedia.org/wiki/Strategy_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Strategy パターン - Wikipedia]]
+
+    アプリケーションで使用されるアルゴリズムを動的に切り替える必要がある際に有用.
+
+    - Android
+    - Windows
+    - Linux
+
+**** 名前のつけかた
+     xxxStrategy
+
 *** Template Method 
-アルゴリズムを複数のステップに分解し、それぞれのステップを抽象メソッドにする。 各ステップでのメソッドの実装はサブクラスで定義する。
+    アルゴリズムを複数のステップに分解し、
+    それぞれのステップを抽象メソッドにする。 
+    各ステップでのメソッドの実装はサブクラスで定義する。
+
+    システムのフレームワークを構築するための手段としてよく活用される.
+
+    [[Factory Method]] パターンは、内部に [[Template Method]] パターンを包含することが多い
+
+    - [[http://ja.wikipedia.org/wiki/Template_Method_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Template Method パターン - Wikipedia]]
+
+#+begin_src ruby
+class A
+  def execute()
+    raise "to be implemented"
+  end
+end
+
+class B < A
+  def execute()
+  end
+end
+
+class C < A
+  def execute()
+  end
+end
+#+end_src
+
 *** Visitor 
 複数のオブジェクトからなるオブジェクト構造があるときに、 それぞれのオブジェクト要素に処理を追加またはオブジェクト要素の処理を変更するため、 Visitorクラスを用意する。
 
