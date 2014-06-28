@@ -1,0 +1,14 @@
+* データ構造
+
+* List
+* Tree
+* Stream
+要素は遅延評価される。そのため、ストリームは無限の長さをもつことができる。
+
+- [[http://docs.scala-lang.org/ja/overviews/collections/concrete-immutable-collection-classes.html][具象不変コレクションクラス - Scala Documentation]]
+
+For streams, this is a by-name parameter. 
+That’s why the second argument to Stream.cons is not evaluated atthe point of call.
+
+Instead, it will be evaluated each time someone calls
+tail on a Stream object.

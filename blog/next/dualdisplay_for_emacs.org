@@ -1,0 +1,59 @@
+#+BLOG: Futurismo
+#+POSTID: 2508
+#+DATE: [2014-06-26 木 07:41]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: 
+#+DESCRIPTION:
+#+TITLE: デュアルディスプレイヤーのためのEmacs Tips
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+会社でトリプルディスプレイにした結果、
+生産性が効率が下がったように感じる今日この頃。
+
+生産性をあげるために、
+マルチディスプレイ環境におけるEmacsの使い方について調べてみた。
+
+* フレーム間操作
+マルチディスプレイでは、別フレームを利用するのがよさそう。
+
+#+begin_src sh
+# 別フレームを生成
+C-x 5 2 
+
+# ファイルを探して別フレームで開く
+C-x 5 f
+
+# バッファを別フレームで開く
+C-x 5 b
+#+end_src
+
+別フレームへは以下のコマンドで移動。
+
+#+begin_src language
+other-frame or C-x 5 o
+
+next-multiframe-window
+#+end_src
+
+* ace-jump-mode
+もっとベターなのがこの方法。ace-jump-modeを利用する。
+
+- [[https://github.com/winterTTr/ace-jump-mode][winterTTr/ace-jump-mode]]
+
+これを利用すると、フレームを越えて移動したい場所に3ステップでジャンプできる。
+
+このLispのスゴさは、Emacs Rocksの動画を見るのがよい。
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/UZkpmegySnc" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+- [[http://emacsrocks.com/e10.html][Emacs Rocks!]]
+
+赤い文字でターゲットを絞って、ジャンプできる。すげぇ!
+
+Emacs is Awesome.
