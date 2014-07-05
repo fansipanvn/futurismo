@@ -1,2 +1,111 @@
 * Networking
 
+* SDN
+Software Defined Networking.
+
+** 定義
+- 広義：「従来システムのネットワーク要素を抽象化し分割する、コンピュータ ネットワークを構築するアプローチ」（wiki より）
+- 狭義：「（広義のアプローチを具体化するために）ネットワーク機器のコントロール プレーン、データ プレーンを分離し、集中化されたソフトウェアからコントロールして、もっと効率的なこと、便利なことをする！！」
+
+A new networking paradigm whereby the behavior of a network is controlled 
+by a single high-level software program.  
+The general term for network architectures whereby the control 
+plane (software that controls network behavior) and the 
+data plane (the devices that forward traffic) are separate from one another.
+
+SDN allows network administrators to manage network services 
+through abstraction of lower level functionality.
+
+[[http://en.wikipedia.org/wiki/Software-defined_networking][Software-defined networking - Wikipedia, the free encyclopedia]]
+
+コントロールプレーンとフォワーディングプレーンを分離し、ネットワークにプログラマビリティを持たせる
+
+[[http://forums.juniper.net/t5/%E3%83%96%E3%83%AD%E3%82%B0/SDN%E6%99%82%E4%BB%A3%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC-%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3-Forwarding-Plane-%E5%89%8D%E7%B7%A8/ba-p/204427][SDN時代のデータセンター・アーキテクチャ/Forwarding Plane J-Net Community]]
+
+
+ネットワーク全体で一つのOSとして見え、
+ソフトウェアから見れば個々のネットワーク機器が隠ぺいされています。
+こうすることで、ソフトウェアを開発さえすれば
+自由にネットワークを制御することが可能になります。
+
+[[http://thinkit.co.jp/story/2012/02/02/3151][SDNへの潮流とOpenFlowの歴史 | Think IT（シンクイット）]]
+
+
+** SDNの歴史と基盤技術
+*** Active networks
+    A collection of network architecture projects in the 1990s that shared
+    many of the same goals as software-defined networking.
+
+*** Network virtualization
+    ネットワーク仮想化。物理ネットワーク上に複数の論理ネットワークを構築すること。
+
+    The notion of instantiating many distinct logical networks 
+    on top of a single, shared physical network infrastructure.
+
+    [[http://ascii.jp/elem/000/000/793/793504/][ASCII.jp：なぜSDNは生まれたのか？ネットワーク仮想化との関係は？ (1/2)｜Q&A形式で学ぶOpenFlow/SDN]]
+
+   「ネットワーク仮想化」とも呼ばれ、厳密にはSDNの応用の一つであり、
+   また、SDNによらず別の技術によって実現する手法もあるため、
+   ネットワーク仮想化とSDNそのものとは区別する必要がある。
+
+   [[http://e-words.jp/w/SDN.html][SDNとは 【 Software-Defined Networking 】 - 意味/解説/説明/定義 ： IT用語辞典]]
+
+** 構成要素
+*** Control Plane
+    The functions in the network that control the behavior of the network 
+    (e.g., network paths, forwarding behavior).  
+    Typically, the control plane is instantiated as a single, high-level
+    software controller.
+
+*** Data Plane
+フォワーディング・プレーン, Forwarding planeともいう。
+
+[[http://en.wikipedia.org/wiki/Forwarding_plane][Forwarding plane - Wikipedia, the free encyclopedia]]
+
+The functions in the network that are responsible for forwarding
+(or not forwarding) traffic.  Typically, the data plane is
+instantiated as forwarding tables in routers, switches, firewalls
+, and middleboxes.
+
+Data plane design goals. 技術革新に素早く対応できること。
+    - Flexible(柔軟性)
+    - Extensible(拡張性)
+    - Clean interfaces (整理されたインタフェース)
+      
+**** Programmable Hardware
+     標準化された、プログラミング可能なハードウェア。
+     もうすぐ、高級言語での記述もできるようになるはず。
+
+     - FPGA
+     - Click
+
+**** Flowの構成要素
+     - ヘッダフィールド（マッチングルール）
+     - アクション
+       - Forwarding
+       - Enqueue
+       - Drop
+     - 統計情報
+
+     [[http://thinkit.co.jp/story/2012/02/09/3209][OpenFlowのアーキテクチャと仕様・機能 | Think IT（シンクイット）]]
+
+** 他の用語との違いについて整理
+*** OpenFlow
+    Software-Defined Network （SDN）は、コンセプト、アーキテクチャ。
+    それを実現する技術の一つがOpenFlow。
+
+*** OpenStack
+    OpenStackはクラウドをOSSで管理するためのソフトウェア群の総称。
+    OpenStackのネットワーク仮想化にあたる部分がSDNの思想と重なる。
+
+
+* OpenFlow
+  OpenFlowは、スタンフォード大学が中心となっている
+  「OpenFlowスイッチングコンソーシアム」が提唱するネットワーク制御技術.
+
+  SDNを実現するための代表的なフレームワーク。
+
+  - [[http://ascii.jp/elem/000/000/794/794744/][ASCII.jp：SDNを牽引するOpenFlowとは？業界へのインパクトは？]]
+  - [[http://e-words.jp/w/OpenFlow.html][OpenFlowとは 〔 オープンフロー 〕 - 意味/解説/説明/定義 ： IT用語辞典]]
+  - [[http://www.publickey1.jp/blog/13/openflowsdnopenflowsdn_japan_2013.html][OpenFlow/SDNはなぜ誕生したのか、OpenFlow以前にあった問題とは。生みの親カサド氏が壇上で語る。SDN Japan 2013 － Publickey]]
+    

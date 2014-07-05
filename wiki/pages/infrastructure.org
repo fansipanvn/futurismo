@@ -1,4 +1,4 @@
-* Software Defined xxx とは
+* Software Defined Infrastructure
 ソフトウェアを中心としたインフラ構築のビジョン。
 
 #+BEGIN_HTML
@@ -15,7 +15,8 @@ resources and services to achieve IT as a service (ITaaS)
 
 #+BEGIN_HTML
 <blockquote>
-「Software Defined」とは「（手作業ではなく）ソフトウェアで定義・制御する環境」を実現する、または目指すという意味
+「Software Defined」とは「（手作業ではなく）ソフトウェアで定義・制御する環境」
+を実現する、または目指すという意味
 </blockquote>
 #+END_HTML
 
@@ -70,29 +71,10 @@ Intelが提唱するアーキテクチャ。
 
 ** 実現するための技術・OSS
 *** OpenStack
-- [[http://ja.wikipedia.org/wiki/OpenStack][OpenStack - Wikipedia]]
-
-#+BEGIN_HTML
-<blockquote>
-クラウド基盤を構築するオープンソースソフトウエア。
-KVMやXen、VMware ESXi、Hyper-Vといった仮想化ソフト（ハイパーバイザー）と組み合わせ、
-IaaS（Infrastructure as a Service）やストレージサービスを提供するための仮想マシンやストレージ、ネットワークの管理機能などを提供する
-
-OpenStackを使って構築したクラウド環境は、
-統一したAPIや認証を使って管理できる。
-また、IaaSのパブリッククラウドサービスで最大手であるAmazon EC2と互換性を持つ。
-</blockquote>
-#+END_HTML
-
-- [[http://itpro.nikkeibp.co.jp/article/Keyword/20121029/433321/][Networkキーワード - OpenStack とは：ITpro]]
-
-- [[http://cloud.watch.impress.co.jp/docs/column/cloud/20140404_642748.html][【クラウド特捜部】プレーヤーがそろい表舞台に立つOpenStack - クラウド Watch]] 
 *** OpenFlow
-OpenFlowとは、
-ソフトウェアによってネットワークの構成を行うための新しい標準。
+OpenFlowとはソフトウェアによってネットワークの構成を行うための新しい標準。
 
 - [[http://e-words.jp/w/OpenFlow.html][OpenFlowとは 〔 オープンフロー 〕 - 意味/解説/説明/定義 ： IT用語辞典]]
-- [[http://www.publickey1.jp/blog/13/openflowsdnopenflowsdn_japan_2013.html][OpenFlow/SDNはなぜ誕生したのか、OpenFlow以前にあった問題とは。生みの親カサド氏が壇上で語る。SDN Japan 2013 － Publickey]]
 
 *** CloudStack
 - [[http://www.atmarkit.co.jp/ait/articles/1403/03/news019.html][プロダクトの差はわずか？ 活動評価視点で検証：OpenStackとCloudStack、違いは何？ (1/2) - ＠IT]]
@@ -117,52 +99,34 @@ OpenDaylightが開発したオープンソース コントローラ フレーム
 - [[http://gihyo.jp/dev/serial/01/linuxcon2014/0003][#3　最終回はNeela Jacques氏にOpenDaylightについて伺いました：LinuxCon Japan 2014 Preview｜gihyo.jp … 技術評論社]]
 
 
-* Software Defined Networking (SDN)
-** 定義
-- 広義：「従来システムのネットワーク要素を抽象化し分割する、コンピュータ ネットワークを構築するアプローチ」（wiki より）
-- 狭義：「（広義のアプローチを具体化するために）ネットワーク機器のコントロール プレーン、データ プレーンを分離し、集中化されたソフトウェアからコントロールして、もっと効率的なこと、便利なことをする！！」
+* OpenStack
+  2010年にRackspace Hosting（英語版）とNASAによって始められた
+  IaaSクラウドコンピューティングプロジェクト.
 
-A new networking paradigm whereby the behavior of a network is controlled 
-by a single high-level software program.  
-The general term for network architectures whereby the control 
-plane (software that controls network behavior) and the 
-data plane (the devices that forward traffic) are separate from one another.
+  2012年9月19日、開発やライセンスの管理はすべて、
+  850を超す企業や組織による非営利団体OpenStack Foundationに移管された.
 
-SDN allows network administrators to manage network services 
-through abstraction of lower level functionality.
+[[http://ja.wikipedia.org/wiki/OpenStack][OpenStack - Wikipedia]]
 
-- [[http://en.wikipedia.org/wiki/Software-defined_networking][Software-defined networking - Wikipedia, the free encyclopedia]]
+オープンソースで構成されるクラウド・インフラストラクチャー
 
-** SDNの歴史と基盤技術
-*** Active networks
-    A collection of network architecture projects in the 1990s that shared
-    many of the same goals as software-defined networking.
+OpenStackの背景には、「IaaS(Infrastructure as a Service)基盤を
+オープンソースで作りたい！」という明確な動機があります。
 
-*** Network virtualization
-    ネットワーク仮想化。物理ネットワーク上に複数の論理ネットワークを構築すること。
+クラウド基盤を構築するオープンソースソフトウエア。
+KVMやXen、VMware ESXi、Hyper-Vといった仮想化ソフト（ハイパーバイザー）と組み合わせ、
+IaaS（Infrastructure as a Service）や
+ストレージサービスを提供するための仮想マシンやストレージ、
+ネットワークの管理機能などを提供する.
 
-    The notion of instantiating many distinct logical networks 
-    on top of a single, shared physical network infrastructure.
+OpenStackを使って構築したクラウド環境は、統一したAPIや認証を使って管理できる。
+また、IaaSのパブリッククラウドサービスで最大手であるAmazon EC2と互換性を持つ。
 
-- [[http://ascii.jp/elem/000/000/793/793504/][ASCII.jp：なぜSDNは生まれたのか？ネットワーク仮想化との関係は？ (1/2)｜Q&A形式で学ぶOpenFlow/SDN]]
+- [[http://itpro.nikkeibp.co.jp/article/Keyword/20121029/433321/][Networkキーワード - OpenStack とは：ITpro]]
+- [[http://cloud.watch.impress.co.jp/docs/column/cloud/20140404_642748.html][【クラウド特捜部】プレーヤーがそろい表舞台に立つOpenStack - クラウド Watch]] 
 
-   「ネットワーク仮想化」とも呼ばれ、厳密にはSDNの応用の一つであり、
-   また、SDNによらず別の技術によって実現する手法もあるため、
-    SDNそのものとは区別する必要がある。
+** BookMarks
+- [[http://www.atmarkit.co.jp/ait/articles/1407/02/news118.html][「AWSは称賛に値する」：OpenStackは結局、どう使われていくのか - ＠IT]]
 
-- [[http://e-words.jp/w/SDN.html][SDNとは 【 Software-Defined Networking 】 - 意味/解説/説明/定義 ： IT用語辞典]]
-
-** 構成要素
-*** Control plane
-    The functions in the network that control the behavior of the network 
-    (e.g., network paths, forwarding behavior).  
-    Typically, the control plane is instantiated as a single, high-level
-    software controller.
-
-*** Data plane
-    The functions in the network that are responsible for forwarding
-    (or not forwarding) traffic.  Typically, the data plane is
-    instantiated as forwarding tables in routers, switches, firewalls
-    , and middleboxes.
-
-
+* Software-Defined Networking(SDN)
+  -> [[file:networking.org::*SDN][Networking-SDN]]

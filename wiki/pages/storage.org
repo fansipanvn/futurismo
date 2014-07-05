@@ -22,7 +22,7 @@ SDNはOpenFlowという共通技術によって浸透したが、
 Chuck氏の連載が熱い。
 
 - [[http://chucksblog.typepad.com/chucks_blog/software-defined-storage-series.html][Software-Defined Storage Series - Chuck's Blog]]
-
+  
 ***** Software-Defined Storage: Choices 
 
 [[http://chucksblog.emc.com/chucks_blog/2014/05/software-defined-storage-choices-ahead.html][Software-Defined Storage: Choices Ahead - Chuck's Blog]]
@@ -42,7 +42,8 @@ Many flavors of the same idea will compete for adoption.
 
 Learning To Make Good Choices
 
-****** #1 -- Familiar — Or Evolved?
+- #1 -- Familiar — Or Evolved?
+
 似たものになるか？それとも、進化するか？
 
 私はこのようにSoftware-Defined Storageという単語を使っている。
@@ -62,7 +63,8 @@ and not simply recreate the familiar past using new technology.
 
 A document editor is not just a better typewriter.
 
-****** #2 -- Bottoms Up, Or Top Down?
+- #2 -- Bottoms Up, Or Top Down?
+
 ボトムアップか？それとも、トップダウンか？
 
 それぞれのグループが自分たちのテクノロジをつくっている。
@@ -89,7 +91,8 @@ technology that meets this need.
 And — yes — today there are many products being marketed as 
 “software-defined storage” that only have rudimentary northbound APIs at best.
 
-****** #3 -- Managed Separately, Or Converged?
+- #3 -- Managed Separately, Or Converged?
+
 別々で管理するか？それとも統合するか？
 
 サーバ、ストレージ、ネットワーク、
@@ -104,7 +107,8 @@ Each team had a plan to implement "cloud" after their own image.
 After the third report-out, 
 it was clear that the teams hadn't done much collaboration :)
 
-****** #4 -- Static -- Or Dynamic?
+- #4 -- Static -- Or Dynamic?
+
 静的か？それとも動的か？
 
 私たちは、過去数年で手工芸的にそれぞれの要求に答えることから、
@@ -118,7 +122,8 @@ to having pre-allocated service choices.
 We'll spend the next few years moving from pre-allocated services 
 to dynamic composition of services from resources as demanded.
 
-****** #5 — Start To Invest Now — Or Wait Until The Dust Settles?
+- #5 — Start To Invest Now — Or Wait Until The Dust Settles?
+
 いまから投資するか？安定するまでまつか？
 
 SDSが最大な勝利を収める領域は、運用モデルだ。
@@ -134,7 +139,7 @@ implement and become comfortable with.
 Personally, I’m telling people that now is a good time 
 to modestly invest in becoming familiar with the new operational model 
 
-****** The Key Question
+- The Key Question
 
 Software-Defined Anythingが進むにつれて、
 私たちはここからなににすればいいんだ？
