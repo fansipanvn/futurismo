@@ -212,13 +212,16 @@ Javaはこれを言語レベルでサポートしている。
 一般に、Producer-consumerパターンを使って実現される。
 
 ** Thread-specific storage 
-静的変数・グローバル変数のように扱えるがスレッドごとに異なる内容を格納できるメモリ領域を提供する。
+   静的変数・グローバル変数のように扱えるがスレッドごとに異なる内容を格納できるメモリ領域を提供する。
 
 ** Two-phase termination 
-スレッドを安全に終了させる方法。
-スレッドは、終了要求を表すフラグを定期的に確認して、それがセットされたら終了処理を行う。
+   スレッドを安全に終了させる方法。
+   スレッドは、終了要求を表すフラグを定期的に確認して、それがセットされたら終了処理を行う。
 
 ** Ping-Pong Problem
+* Functional Programming
+
+- [[http://patternsinfp.wordpress.com/][Patterns in Functional Programming | Exploiting the relationship between data structure and program structure]]
 
 * Embedded System Programming
 ** Finate State Machine
@@ -268,8 +271,7 @@ struct FSM {
 
 
 
-
 * Links
   [[http://www.hyuki.com/dp/dpinfo.html][デザインパターン紹介]]
-  結城浩さんのGof以外のパターン紹介
+  結城浩さんの並列・平行プログラミングのパターン紹介
 

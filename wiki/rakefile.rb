@@ -5,32 +5,53 @@ require 'pp'
 CLEAN.include(["*/**/*.~","*/**/\#*"])
 CLOBBER.include("*/**/*.txt")
 
-SPHINXOPTS    = ""
-SPHINXBUILD   = "sphinx-build"
-BUILDDIR      = "build"
 SOURCEDIR     = "src"
-ALLSPHINXOPTS = "-d #{BUILDDIR}/doctrees #{SPHINXOPTS} #{SOURCEDIR}"
-BROWSER       = "firefox"
+BUILDDIR      = "pages"
+BUILDCMD      = "org-wk-export-to-wiki"
+URL           = "http://futurismo.biz/dokuwiki"
 
-task :default => :html
-
-desc "to make standalone HTML files"
-task :html do
-  cmd = "#{SPHINXBUILD} -b html #{ALLSPHINXOPTS} #{BUILDDIR}/html"
+desc "export org-file to dokuwiki-file"
+task :export do
+  cmd = "./#{BUILDCMD} #{SOURCEDIR}/*.org"
   if system( cmd )
-    puts "Build finished. The HTML pages are in #{BUILDDIR}/html."
+    system("mv #{SOURCEDIR}/*.txt #{BUILDDIR}")
+    puts "Build finished. The HTML pages are in #{BUILDDIR}"
   end
 end
 
 desc "send all files to ftp server"
 task :ftp do
-  if system( "ncftpput -R lolipop ./wordpress/sphinx build/html" )
-    puts "FTP finished. Access to http://futurismo.biz/sphinx/html/"
+  if system( "ncftpput -R lolipop ./wordpress/dokuwiki/data pages" )
+    puts "FTP finished. Access to #{URL}"
   end
 end
 
-desc "open local file"
-task :open do
-  cmd = "#{BROWSER} #{BUILDDIR}/html/index.html"
-  system( cmd )
-end
+
+##################################################################
+# For Sphinx Setting(old)
+##################################################################
+# SPHINXOPTS    = ""
+# SPHINXBUILD   = "sphinx-build"
+# ALLSPHINXOPTS = "-d #{BUILDDIR}/doctrees #{SPHINXOPTS} #{SOURCEDIR}"
+# BROWSER       = "firefox"
+
+# desc "to make standalone HTML files"
+# task :html do
+#   cmd = "#{SPHINXBUILD} -b html #{ALLSPHINXOPTS} #{BUILDDIR}/html"
+#   if system( cmd )
+#     puts "Build finished. The HTML pages are in #{BUILDDIR}/html."
+#   end
+# end
+
+# desc "send all files to ftp server"
+# task :ftp do
+#   if system( "ncftpput -R lolipop ./wordpress/sphinx build/html" )
+#     puts "FTP finished. Access to http://futurismo.biz/sphinx/html/"
+#   end
+# end
+
+# desc "open local file"
+# task :open do
+#   cmd = "#{BROWSER} #{BUILDDIR}/html/index.html"
+#   system( cmd )
+# end

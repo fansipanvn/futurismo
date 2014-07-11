@@ -1,0 +1,263 @@
+#+BLOG: Futurismo
+#+POSTID: 2514
+#+DATE: [2014-07-06 日 19:40]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: peco, Go
+#+DESCRIPTION: pecoをためした
+#+TITLE:  最近ナウイpecoを試してみたメモ
+
+最近、なにかとpecoというキーワードをきくようになった。
+
+ナウいツールのようなので、流行に乗り遅れないように、僕も試してみた！
+
+[toc]
+
+* pecoとは
+pecoとは、コマンドラインからインタラクティブに情報源を検索するためのツール。
+
+- [[https://github.com/peco/peco][peco/peco]]
+
+みんな大好き、Emacs helmのようなことが、コマンドラインから可能になる。
+
+* インストール
+pecoはgo言語でかかれているよう。
+まだ自分のPCにgoが入っていなかったので、まずはインストールした。
+
+#+begin_src sh
+$ sudo pacman -S go
+#+end_src
+
+パスの設定をする。.zshrcに追記。
+
+#+begin_src language
+# for go lang
+if [ -x "`which go`" ]; then
+  export GOPATH=$HOME/go
+  export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+fi
+#+end_src
+
+次に、以下のコマンドでインストール。
+
+#+begin_src sh
+$ go get github.com/peco/peco/cmd/peco
+#+end_src
+
+簡単 :-)
+
+* pecoをつかってみる
+pecoにパイプで標準入力を渡す。
+
+#+begin_src language
+$ ls | peco
+#+end_src
+
+lsのフィルタができた！やたー！！
+
+* pecoの設定
+** 設定ファイルを用意
+設定ファイルを用意します。$HOME/.peco/config.jsonを用意。
+
+なるべく、Emacsに合わせて、キーバインドを設定。
+
+#+begin_src json
+{
+    "Keymap": {
+        "M-v": "peco.SelectPreviousPage",
+        "C-v": "peco.SelectNextPage",
+        "C-g": "peco.Cancel"
+    }
+}
+#+end_src
+
+** alias設定
+aliasを設定して、もっと便利に。.zshrcに追記。
+
+#+begin_src sh
+alias -g P='| peco'
+#+end_src
+
+よく利用しそうな、top, ps, lsあたりにもaliasを切っておく。llあたりは置き換えてしまう。
+
+#+begin_src sh
+if [ -x "`which peco`" ]; then
+  alias ll='ls -la | peco'
+  alias tp='top | peco'
+  alias pp='ps aux | peco'
+fi
+#+end_src
+
+* いろいろとpecoする
+** コマンド履歴をpecoする
+まずは、定番のコマンド履歴をフィルター。
+
+以下の記事を参考にして、.zshrcに関数を定義しました。Ctrl+rでフィルタがかかる。便利。
+
+- [[http://qiita.com/uchiko/items/f6b1528d7362c9310da0][oh-my-zsh の環境で、peco-select-history が動かない - Qiita]]
+
+#+begin_src sh
+# history filter
+# http://qiita.com/uchiko/items/f6b1528d7362c9310da0
+function peco-select-history() {
+    local tac
+    if which tac > /dev/null; then
+        tac="tac"
+    else
+        tac="tail -r"
+    fi
+    BUFFER=$(\history -n 1 | \
+        eval $tac | \
+        peco --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle clear-screen
+}
+zle -N peco-select-history
+bindkey '^[x' peco-select-history # M-xに割り当て
+#+end_src
+
+** ディレクトリ履歴をpecoする
+cdrというコマンドを利用すると、最近訪れたディレクトリの一覧を見ることができる。
+
+- [[http://keisanbutsuriya.blog.fc2.com/blog-entry-77.html][計算物理屋の研究備忘録 最近移動したディレクトリに一発で移動できるcdrを使う]]
+
+#+begin_src sh
+autoload -Uz is-at-least
+if is-at-least 4.3.11
+then
+  autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+  add-zsh-hook chpwd chpwd_recent_dirs
+  zstyle ':chpwd:*' recent-dirs-max 5000
+  zstyle ':chpwd:*' recent-dirs-default yes
+  zstyle ':completion:*' recent-dirs-insert both
+fi
+#+end_src
+
+このコマンドを利用して、cdrをpecoでフィルターする。以下を参考にしました。
+
+- [[http://shibayu36.hatenablog.com/entry/2014/06/27/223538][pecoを使い始めた - $shibayu36->blog;]]
+- [[http://piyopiyoducky.net/blog/2013/08/17/cdr-with-percol/][Zshのcdrとpercolで最近移動したディレクトリにAnythingライクに移動する - PiyoPiyoDucky]]
+
+#+begin_src sh
+function peco-cdr () {
+    local selected_dir=$(cdr -l | awk '{ print $2 }' | peco)
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-cdr
+bindkey '^xr' peco-cdr
+#+end_src
+
+** クリップボード履歴をpecoする
+Linuxでは、 anamnesisというツールを利用するとクリップボードの履歴管理ができる。
+
+- [[http://anamnesis.sourceforge.net/][Anamnesis clipboard history manager]]
+
+xclipもインストールする必要あり！
+
+以下のaliasを切る。
+
+#+begin_src sh
+alias ap='anamnesis -l 200 | peco'
+#+end_src
+
+本当はフィルタ結果をcutして再度クリップボードに挿入したい。それはまた今度。
+
+** migemoでpecoする
+   CustomMatcherというものを利用すると、検索する際にフィルタをかけられる。
+   最近登場した、Go/Migemoもpecoに対応しているようなので、早速ためす。
+
+   #+begin_src sh
+   go get github.com/koron/gomigemo/cmd/gmigemo
+   go get github.com/koron/gomigemo/cmd/gmigemogrep
+   #+end_src
+
+以下のように、.peco/config.jsonに追記した。
+
+- [[https://github.com/peco/peco/wiki/CustomMatcher#migemo][CustomMatcher · peco/peco Wiki · GitHub]][[https://github.com/peco/peco/wiki/CustomMatcher#migemo][CustomMatcher · peco/peco Wiki · GitHub]]
+
+JSONの記法を知らなかったので、CustomMatcherとKeymapの間に,をいれていなくてしばらく悩んでた。
+
+#+begin_src json
+{
+    "CustomMatcher": {
+        "Migemo": [
+            "/home/tsu-nera/go/bin/migemogrep",
+            "$QUERY"
+        ]
+    },
+    "Keymap": {
+        "M-v": "peco.SelectPreviousPage",
+        "C-v": "peco.SelectNextPage",
+        "C-g": "peco.Cancel"
+    }
+}
+#+end_src
+
+カスタムマッチャは、pecoの検索中に Ctrl + r を入力することで、トグルすることができる。
+これで、Migemoを選択すると、gmigemoが利用できる。
+
+* pecoからアプリを起動する
+** pecoでprocess killする
+pecoでフィルタした内容をcut や xargsに渡すことで検索結果をさらに加工する。
+
+以下のコマンドで firefoxを killする。
+
+#+begin_src language
+ps -ef | peco | awk '{ print $2 }' | xargs kill
+#+end_src
+
+長いので、functionに。
+
+#+begin_src sh
+function peco-kill-process () {
+    ps -ef | peco | awk '{ print $2 }' | xargs kill
+    zle clear-screen
+}
+zle -N peco-kill-process
+bindkey '^xk' peco-kill-process   # C-x k
+#+end_src
+
+** ls で 検索したファイルを emacsでひらく
+たとえば、ブログ記事記事なんかをサクッと検索して emacsclientで開きたい。
+
+#+begin_src sh
+function peco-find-file () {
+    ls | peco | xargs emacsclient -nw
+    zle clear-screen
+}
+zle -N peco-find-file
+bindkey '^x^f' peco-find-file     # C-x C-f
+#+end_src
+
+** ls で 検索したファイルを なにかで開く
+linuxなので、 xdg-openを利用します。
+
+#+begin_src sh
+function peco-open-app () {
+    ls | peco | xargs xdg-open
+    zle clear-screen
+}
+zle -N peco-open-app
+bindkey '^xo' peco-open-app     # C-x o
+#+end_src
+
+** agで検索して、指定行をemacsでひらく
+以下のような記事を見つけました。
+
+- [[http://qiita.com/fmy/items/b92254d14049996f6ec3][ag(The Silver Searcher)で検索しpecoで更に絞り込みvimで該当行を開く - Qiita]]
+
+emacsも負けてられないので、指定行をemacsで開くfunctionを作成。
+
+#+begin_src sh
+if [ -x "`which ag`" ]; then
+function peco-ag () {
+    ag $@ | peco --query "$LBUFFER" | awk -F : '{print "+" $2 " " $1}' | xargs emacsclient -nw
+}
+fi
+#+end_src
+
+Unix哲学万歳.

@@ -1,0 +1,6 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, MOOC
+#+TAGS: Coursera, C, 
+#+DESCRIPTION: 
+#+TITLE: The Hardware/Software Interface
+

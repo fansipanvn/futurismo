@@ -1,0 +1,8 @@
+* Wiki
+おもに、このWikiの管理についての覚書。
+
+http://futurismo.biz/dokuwiki/doku.php
+http://futurismo.biz/archives/2500
+
+* アップロード方法
+* アップデート方法

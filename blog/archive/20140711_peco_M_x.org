@@ -1,0 +1,32 @@
+#+BLOG: Futurismo
+#+POSTID: 2520
+#+DATE: [2014-07-11 金 10:14]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: ハッキング
+#+TAGS: peco, zsh
+#+DESCRIPTION: pecoで実行コマンドを絞り込んで実行するpeco-M-x
+#+TITLE: pecoで実行コマンドを絞り込んで実行するpeco-M-x
+
+今朝、Archlinuxのdmenuがうまく動かなくなった。
+
+結果的には直ったのだけれども、
+dmenuでやっているようなことをpecoでやってみたい。
+
+** やりたいこと
+実行可能なコマンドを対話的コマンドで検索して、実行する.
+
+Emacsのhelm-M-xのようなことをしたい。
+
+** 実現方法
+1. 環境変数PATH配下にある実行可能コマンドを表示
+2. 表示結果をpecoで絞り込む。
+3. 検索結果を実行
+
+** Implement
+シェルですべてかければよかったのだけれども、シェルが苦手なので途中でRubyに逃げた。
+
+だれか、シェルで書き直してくれないかな。（他力本願)
+
+#+BEGIN_HTML
+<script src="https://gist.github.com/tsu-nera/43b39465afe700db4202.js"></script>
+#+END_HTML

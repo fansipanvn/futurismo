@@ -89,6 +89,69 @@ Data plane design goals. 技術革新に素早く対応できること。
 
      [[http://thinkit.co.jp/story/2012/02/09/3209][OpenFlowのアーキテクチャと仕様・機能 | Think IT（シンクイット）]]
 
+*** NorthBound API
+    Programming interface that allows applications and norchestration systems to 
+    program the network .Uses for Northbound API ,
+
+- Path computation 
+- Loop avoidance 
+- Routing 
+- Security
+
+  Northbound APIは、アプリケーションからSDNコントローラを制御できるAPIだ。    
+  
+    - [[http://www.publickey1.jp/blog/12/sdnopenflownorthbound_api.html][SDN/OpenFlowの新しい課題：Northbound APIとは何か？ － Publickey]]
+    - [[http://www.publickey1.jp/blog/12/northdound_apisoftware-defined_network.html][Northdound APIは、Software-Defined Networkにとって重大な欠落だ － Publickey]]
+
+Northbound API can help,
+
+- Sophisticated events 
+- Composition of policies 
+- Event handling
+
+*** SouthBound API
+Control Planeと Data PlaneをつなぐAPI.
+
+** SDNのアーキテクチャ
+#+begin_src language
+                           ---
+   Controller Applications  |
+   ======================   |
+      NorthBound API        | Control Plane
+   ======================   |  
+     Controller Platform   ---
+   ======================   |  
+      SouthBound API        | Data Plane
+   ======================   |
+     OpenFlow Switches      |  
+                           ---
+#+end_src
+
+** Composition
+シーケンシャルな制御方法とパラレルな制御方法。
+
+- Sequential composition :Perform one operation, then the next.
+- Parallel composition :Perform both operations simultaneously.
+
+** Event-Driven SDN
+   ネットワーク構成のほとんどは、イベント駆動の処理。
+   ネットワークのポリシーをEvent-Basedで表現という考えが
+   Event-Based Network Control.
+   
+    - Event Plane
+      - user
+      - time
+      - history
+    - Dinamic Event Handler
+      -> State Transition signal to Control Plane.
+    - Control Plane
+      -> finite state machineで制御される。
+      - State
+	ドメインの状態(value)の集合。
+      - Events
+	ステートマシンにしたがって状態遷移を発生させるトリガ
+    - Data Plane
+
 ** 他の用語との違いについて整理
 *** OpenFlow
     Software-Defined Network （SDN）は、コンセプト、アーキテクチャ。
@@ -97,7 +160,6 @@ Data plane design goals. 技術革新に素早く対応できること。
 *** OpenStack
     OpenStackはクラウドをOSSで管理するためのソフトウェア群の総称。
     OpenStackのネットワーク仮想化にあたる部分がSDNの思想と重なる。
-
 
 * OpenFlow
   OpenFlowは、スタンフォード大学が中心となっている
