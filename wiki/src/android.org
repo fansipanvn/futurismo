@@ -25,10 +25,12 @@ Android開発。
    2種類の方法がある。
 
 *** Started Serveces
-    startService/stopService
+    startService/stopService.
 
 *** Bound Services
-    bindService/unbindService
+    bindService/unbindService.
+
+    Bound Serviceは Server-ClientモデルにおけるServer.
 
 * 開発環境
 ** Futurismo
