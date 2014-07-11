@@ -1,3 +1,4 @@
+#+OPTIONS: toc:nil
 * Logical Thinking
   [[http://ja.wikipedia.org/wiki/%E3%83%AD%E3%82%B8%E3%82%AB%E3%83%AB%E3%82%B7%E3%83%B3%E3%82%AD%E3%83%B3%E3%82%B0][ロジカルシンキング - Wikipedia]]
 

@@ -1,3 +1,4 @@
+#+OPTIONS: toc:nil
 * Functional Programmming
 関数型プログラミング。
 

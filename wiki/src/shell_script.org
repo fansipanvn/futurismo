@@ -1,9 +1,10 @@
-* find
-
+#+OPTIONS: toc:nil
+* Unicコマンド
+** find
 
 - [[http://www.xmisao.com/2013/09/01/how-to-use-find-and-xargs.html][findとxargsの基本的な使い方 -- ぺけみさお]]
 
-** -execと xargsの違い
+*** -execと xargsの違い
 - execは各行にたいして処理が実施される。
 - argsはすべての行にたいして処理が実施される。
 
@@ -14,18 +15,24 @@ find . -name "*.txt" | xargs wc -l
 
 -type f でファイルのみ。ディレクトリ無視。
 
-* sed
+** sed
 
 - [[http://nunleeuw.hateblo.jp/entry/2013/03/09/202629][sedで個人的によく使うコマンド集 - emptyshelf]]
 
 - sedのiオプションなしで置換を実行してみて、問題がないか確認
 - sedにiオプションをつけて実行
 
-** ヘッダの挿入
-
+*** ヘッダの挿入
 
 #+begin_src sh
 sed -i '1s/^/test\n/' filename
 sed -i '1i\test' filename
 #+end_src
 
+wikiにヘッダを挿入する
+
+#+begin_src sh
+find . -name "*.org" -exec sed -i '1i\#+OPTIONS: toc:nil' {} \;
+#+end_src
+
+* シェルスクリプト

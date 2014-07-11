@@ -1,3 +1,4 @@
+#+OPTIONS: toc:nil
 * Software Defined Infrastructure
 ソフトウェアを中心としたインフラ構築のビジョン。
 

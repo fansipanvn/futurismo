@@ -1,3 +1,4 @@
+#+OPTIONS: toc:nil
 * git command
 ** ファイル単位で最新のコミットに戻す方法
 

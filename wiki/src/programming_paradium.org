@@ -1,3 +1,4 @@
+#+OPTIONS: toc:nil
 #+OPTIONS: toc:t num:nil author:nil creator:nil LaTeX:t
 * プログラミングパラダイム
 
