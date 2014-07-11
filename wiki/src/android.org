@@ -1,0 +1,42 @@
+* Android
+Android開発。
+
+* Idioms
+** Activity
+** Intent
+** Countent
+
+* HAMMR FrameWork
+** Handler
+
+* AsyncTask Framework
+
+* Service
+常駐型アプリケーションには、Serviceを利用する。
+
+- [[http://techbooster.org/android/application/3270/][Androidでの常駐型Serviceを使う方法（LocalServiceによる常駐アプリ） | Tech Booster]]
+
+** Serviceのライフサイクル
+   - onCreate
+   - onStartCommand
+   - onDestroy
+
+** Serviceの実行方法
+   2種類の方法がある。
+
+*** Started Serveces
+    startService/stopService
+
+*** Bound Services
+    bindService/unbindService
+
+* 開発環境
+** Futurismo
+- [[http://futurismo.biz/archives/2025][Eclipse ADTでつくるAndroidエミュレータ開発環境構築メモ(Windows) | Futurismo]]
+- [[http://futurismo.biz/archives/2181][Courseraの「Creative, Serious and Playful Science of Android Apps」を受けた ]]
+- [[http://futurismo.biz/archives/2344][Programming Mobile Applications for Android Handheld SystemsでAndoroidアーキテクチャの基礎を体系的に学んだ]]
+
+* Links
+「Androidの教科書」をつくるオープンソースプロジェクト.
+- https://github.com/TechBooster/AndroidOpenTextbook
+
