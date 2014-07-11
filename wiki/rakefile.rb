@@ -8,6 +8,8 @@ CLOBBER.include("*/**/*.txt")
 SOURCEDIR     = "src"
 BUILDDIR      = "pages"
 BUILDCMD      = "org-wk-export-to-wiki"
+
+BROWSER       = "firefox"
 URL           = "http://futurismo.biz/dokuwiki"
 
 task :default => [:export, :ftp]
@@ -26,4 +28,9 @@ task :ftp do
   if system( "ncftpput -R lolipop ./wordpress/dokuwiki/data pages" )
     puts "FTP finished. Access to #{URL}"
   end
+end
+
+desc "open url"
+task :open do
+  system("#{BROWSER} #{URL}")
 end
