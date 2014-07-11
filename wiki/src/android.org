@@ -1,20 +1,54 @@
+#+OPTIONS: toc:nil
 * Android
 Android開発。
 
-* Idioms
-** Activity
-** Intent
-** Countent
+* Activity
+  An activity is a single, focused thing that the user can do
+  http://developer.android.com/reference/android/app/Activity.html
 
-* HAMMR FrameWork
-** Handler
+  Activityとは、“Androidアプリの画面”
+  [[http://www.atmarkit.co.jp/ait/articles/0901/19/news122.html][Androidで動く携帯Javaアプリ作成入門（2）：Androidアプリ作成の基本“Activity”とは何か？ (1/2) - ＠IT]]
 
-* AsyncTask Framework
+  Provides a visual interface for user interaction.
+  [[http://android.keicode.com/basics/activity.php][アクティビティ - Android 開発入門]]
+
+** Lifecycle
+   [[http://www.javadrive.jp/android/activity/index2.html][アクティビティのライフサイクル - Android入門]]
+
+   Template-Method Patternが利用されている。
+
+* Intent
+  An intent is an abstract description of an operation to be performed.
+  [[http://developer.android.com/reference/android/content/Intent.html][Intent | Android Developers]]
+
+  Command PatternのCommandに相当。
+
+** Explicite Intent
+   明示的インテント, アクティビティを直接指定して起動させる
+
+** Implicite Intent
+   暗黙的インテント, アクティビティは指定しない。
+   サービスが決められたアクティビティを起動する。
+
+   決められたルールをインテントフィルタという。
+
+** 明示的インテントと暗黙的インテントの自分の理解
+   Windowsではある拡張子のファイルをダブルクリックしたときに、
+   起動されるデフォルトのアプリケーションが決まっている。
+   ダブルクリックがInpliciteに相当。
+
+   ファイルを右クリックして、アプリケーションを指定して実行することもできる。
+   右クリックでアプリケーションを指定することがExpliciteに相当。
+
+  [[http://android.keicode.com/basics/intent-type.php][明示的インテントと暗黙的インテント - Android 開発入門]]
 
 * Service
-常駐型アプリケーションには、Serviceを利用する。
+  常駐型アプリケーションには、Serviceを利用する。
+  [[http://techbooster.org/android/application/3270/][Androidでの常駐型Serviceを使う方法（LocalServiceによる常駐アプリ） | Tech Booster]]
 
-- [[http://techbooster.org/android/application/3270/][Androidでの常駐型Serviceを使う方法（LocalServiceによる常駐アプリ） | Tech Booster]]
+  バックグラウンドで動くプログラム.
+
+  Runs in background to perform long-running operations or to access remote resource
 
 ** Serviceのライフサイクル
    - onCreate
@@ -27,10 +61,60 @@ Android開発。
 *** Started Serveces
     startService/stopService.
 
+    - onCreate()
+    - onDestroy()
+    - onStartCommand()
+
 *** Bound Services
     bindService/unbindService.
 
+    - onCreate()
+    - onDestroy()
+    - onBind/onUnbind
+
     Bound Serviceは Server-ClientモデルにおけるServer.
+
+* Cuncurrency Framework
+** HaMeR FrameWork
+   以下の3つからなるフレームワーク
+
+  - Message
+  Contains a description of a message’s type & an arbitrary 
+  data object that can  sent to  Handler via a MessageQueue
+
+  Message are created by Factory Method.
+
+  - Handler
+  Allows the sending & processing of Message & Runnable objects
+  in the MessageQueue associated with a Thread Looper
+
+  Active Object & Command Processor patterns
+
+  - Runnable
+  Represents a command that can be executed.
+
+  これは、Procedure Value.
+
+** AsyncTask Framework
+   [[http://android.keicode.com/basics/async-asynctask.php][AsyncTask を利用した非同期処理 - Android 開発入門]]
+   
+** IntentService
+   サービスの停止はキュー内の作業が全て終わったときに自動的に行われます.
+
+   - [[http://android.keicode.com/basics/services-intentservice.php][IntentService - 非同期、自動終了、キュー・・・便利なサービスの実装 - Android 開発入門]]
+   - [[http://developer.android.com/reference/android/app/IntentService.html][IntentService | Android Developers]]
+   - [[http://techbooster.jpn.org/andriod/application/1570/][IntentServiceを使って非同期処理を行う « Tech Booster]]
+
+** ExecuterService
+   [[http://java.keicode.com/lang/multithreading-executor.php][ExecutorService の使い方 - Java 入門]]
+
+*** ThreadPool
+   複数のスレッドをあらかじめ作成して待機させておき、
+   タスクが来たら待っているスレッドにタスクを割り当てて
+   処理を開始させる仕組みをスレッドプールと言います
+
+* BroadCast Reciever
+* Countent Providor
 
 * 開発環境
 ** Futurismo
