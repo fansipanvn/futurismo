@@ -31,7 +31,6 @@ through abstraction of lower level functionality.
 
 [[http://thinkit.co.jp/story/2012/02/02/3151][SDNへの潮流とOpenFlowの歴史 | Think IT（シンクイット）]]
 
-
 ** SDNの歴史と基盤技術
 *** Active networks
     A collection of network architecture projects in the 1990s that shared

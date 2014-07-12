@@ -1,0 +1,114 @@
+#+OPTIONS: toc:nil
+* Archtecture Patterns
+アーキテクチャパターン。
+
+* POSA-1
+会社の図書館にあった。
+
+  http://www.amazon.co.jp/exec/obidos/ASIN/4764902834/asakichy-22/
+
+** 混沌から構造へ
+*** Layers
+*** Pipes and Filters
+*** lackboard
+** 分散システム
+*** Broker
+** 対話型システム
+*** Model-View-Controller
+*** Presentation-Abstraction-Control
+** 適合型システム
+*** Microkernel
+*** Reflection
+** Links
+- [[http://d.hatena.ne.jp/asakichy/20090602/1243900715][POSAのアーキテクチャパターン - Strategic Choice]]
+  
+ここにある図がよい。
+- [[http://thinkit.co.jp/article/940/1][第2回 アーキテクチャーパターンとは何か | Think IT]]
+
+* POSA-2  
+  Schmidt先生、渾身の著作！
+
+  なぞのPDF群。
+  - [[http://www.dre.vanderbilt.edu/~schmidt/PDF/][Index of /~schmidt/PDF]]
+  
+  とても参考になるリンク。POSA2.
+  [[http://www.dre.vanderbilt.edu/~schmidt/POSA/POSA2/][Pattern-Oriented Software Architecture: Patterns for Concurrent and Networked Objects]]
+
+* Multi-Thread Programming Pattern
+平行性に関するパターン。 Wikipediaよりもってきた。
+
+** Active Object (Actor) 
+   メソッドの呼び出しとメソッドの実際の実行を分離することで並行性を導入する。
+   各オブジェクトは利用者からの要求を管理するためのメッセージキューとスケジューラを持つ。
+
+** Balking 
+   前提条件が満たされていない場合は、(その時点での)処理の実行をあきらめる。
+
+** Double-checked locking 
+   ロックの取得におけるオーバヘッドを削減するための技法。
+   まずをスレッドセーフでない方法で「ロックヒント」を調べて、それが成功したら実際のロックを試みる。
+
+** Future 
+   「処理が完了しているかどうか分からない処理結果」を表すオブジェクトを作成することで同期を実現する。
+   処理が完了していないうちに結果を取得しようとした場合は処理が完了するまでロックされる。
+
+** Guarded suspension
+   前提条件が満たされるまで待機するための機構。
+
+** Lock 
+   リソースに対して１つのスレッドが「ロック」をかけて、
+   そのあいだ他のスレッドがそのリソースにアクセスしたり変更を加えたりできないようにする。
+
+  - [[http://www.castle-cadenza.demon.co.uk/lock.htm][Lock Design Pattern]]
+
+** Monitor 
+   排他的に実行しなければならないメソッド群を持つオブジェクトを
+   スレッドセーフに利用できるようにするための機構。
+   Javaはこれを言語レベルでサポートしている。
+
+   - [[http://docs.oracle.com/javase/jp/6/api/javax/management/monitor/package-summary.html][javax.management.monitor (Java Platform SE 6)]]
+   - [[http://en.wikipedia.org/wiki/Monitor_(synchronization)][Monitor (synchronization) - Wikipedia, the free encyclopedia]]
+
+** Producer-consumer
+   「生産者」 (producer) スレッド群がデータを生成して「通信路」に追加し、
+   「消費者」 (consumer) スレッド群がそのデータを「通信路」から取り出して処理するという構造。
+   必要な同期はすべて「通信路」によって行なわれるため、
+   生産者と消費者のルーチンは同期を意識せずに実装できる。
+   この通信路は同期キューなどで実現される（一部の言語はこれを標準ライブラリで提供している）。
+
+- [[http://omiya6048.hatenablog.com/entry/2013/05/29/145253][JavaでProducer-Consumerパターンを実践！ - omiya6048's blog]]
+- [[http://en.wikipedia.org/wiki/Producer%E2%80%93consumer_problem][Producer–consumer problem - Wikipedia, the free encyclopedia]]
+
+** Reactor
+   同期的に扱わなければならないリソース群に対する非同期的インタフェースを提供する。
+   
+** Readers-writer lock
+   書き込みは排他アクセスが必要だが読み込みは
+   並行に行えるようにしたい場合のためのロック機構。
+   
+   排他制御が必要な共有リソースのために導入する。
+   
+** Scheduler 
+   シングルスレッドで実行される処理（例えばファイルへの書き込み）の実行を各スレッドに許可するタイミングを明確に制御する。
+
+** Thread pool
+   多数のスレッドを作成してそれらに多数のタスクを処理させる。
+   典型的な状況ではスレッド数よりもかなり多くのタスクが存在し、
+   各スレッドは、あるタスクの処理が終わると次の処理待ちタスクの実行に取りかかる。
+   一般に、Producer-consumerパターンを使って実現される。
+
+** Thread-specific storage 
+   静的変数・グローバル変数のように扱えるが
+   スレッドごとに異なる内容を格納できるメモリ領域を提供する。
+
+** Two-phase termination 
+   スレッドを安全に終了させる方法。
+   スレッドは、終了要求を表すフラグを定期的に確認して、それがセットされたら終了処理を行う。
+
+
+* POSA-3
+* POSA-4
+* POSA-5
+   
+
+

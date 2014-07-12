@@ -2,6 +2,13 @@
 * Android
 Android開発。
 
+Android Frameworkの4大要素は以下。
+
+- Activity
+- Service
+- BroadCast Reciever
+- Countent Providor
+
 * Activity
   An activity is a single, focused thing that the user can do
   http://developer.android.com/reference/android/app/Activity.html
@@ -20,6 +27,11 @@ Android開発。
 * Intent
   An intent is an abstract description of an operation to be performed.
   [[http://developer.android.com/reference/android/content/Intent.html][Intent | Android Developers]]
+
+  アクティビティは別のアクティビティを呼び出し、
+  ユーザーが行いたがっている情報を渡すためのクラス。
+
+  インテントは、アクティビティ同士が起動し合える、緩い結合システムの基礎を形成
 
   Command PatternのCommandに相当。
 
@@ -74,6 +86,14 @@ Android開発。
 
     Bound Serviceは Server-ClientモデルにおけるServer.
 
+* BroadCast Reciever
+アプリケーションが配信するインテントの監視が複数のグループで行える。
+
+Observer Pattern.
+
+* Content Providor
+複数のアプリケーションで利用できるデータストアへのアクセスを提供
+
 * Cuncurrency Framework
 ** HaMeR FrameWork
    以下の3つからなるフレームワーク
@@ -97,7 +117,9 @@ Android開発。
 
 ** AsyncTask Framework
    [[http://android.keicode.com/basics/async-asynctask.php][AsyncTask を利用した非同期処理 - Android 開発入門]]
-   
+
+   Template-Method Pattern
+
 ** IntentService
    サービスの停止はキュー内の作業が全て終わったときに自動的に行われます.
 
@@ -113,8 +135,24 @@ Android開発。
    タスクが来たら待っているスレッドにタスクを割り当てて
    処理を開始させる仕組みをスレッドプールと言います
 
-* BroadCast Reciever
-* Countent Providor
+** AIDL
+   プロセス間通信。Android Interface Definition Language.
+
+   [[http://developer.android.com/guide/components/aidl.html][Android Interface Definition Language (AIDL) | Android Developers]]
+
+- AIDLファイルにIPCのインターフェイスを記述する
+- Serviceにインターフェイスを実装する
+- ActivityからServiceにBindし、インターフェイスを叩く
+
+[[http://xfutures.jp/2009/07/18/60/][AIDLによるプロセス間通信 | xFutures]]
+
+複数のアプリから使用される可能性のある処理を独立したプロセスとして切り離し、
+それぞれのアプリから使用できるようにサービス化しておくこと、
+そのサービスを利用すること」がプロセス間通信の目的.
+
+身近なAIDLを使用するサービスの1つとして「アプリ内課金」があります.
+
+[[http://www.atmarkit.co.jp/ait/articles/1206/15/news124.html][Androidのプロセス間通信を自由自在にするAIDL (1/3) - ＠IT]]
 
 * 開発環境
 ** Futurismo
