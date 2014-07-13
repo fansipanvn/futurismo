@@ -1,0 +1,152 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Book
+#+TAGS: Pattern
+#+DESCRIPTION:ソフトウェア・パターンへの情熱を現実生活へ注ぎ込めないか？
+#+TITLE: ソフトウェア・パターンへの情熱を現実生活へ注ぎ込めないか？
+
+* はじめに
+ビジネスの世界でのフレームワークが、
+ソフトウェアのパターンに近いことに気がついた。
+
+- [[http://futurismo.biz/archives/2523][マイスターになるためには、型をにつけ、型を破る！パターン、Wiki、XP,を読んだ読書メモ | Futurismo]]
+
+自宅の本棚に勝間和代のフレームワークに関する本を見つけたので、読み返してみた。
+
+#+BEGIN_HTML
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E5%8B%9D%E9%96%93%E5%92%8C%E4%BB%A3%E3%81%AE%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E9%A0%AD%E3%82%92%E5%89%B5%E3%82%8B7%E3%81%A4%E3%81%AE%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E3%83%AF%E3%83%BC%E3%82%AF%E5%8A%9B-%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E6%80%9D%E8%80%83%E6%B3%95%E3%81%AE%E5%9F%BA%E6%9C%AC%E3%81%A8%E5%AE%9F%E8%B7%B5-%E5%8B%9D%E9%96%93%E5%92%8C%E4%BB%A3-ebook/dp/B00B8IXLZ4%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00B8IXLZ4' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/51NukTNGmHL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E5%8B%9D%E9%96%93%E5%92%8C%E4%BB%A3%E3%81%AE%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E9%A0%AD%E3%82%92%E5%89%B5%E3%82%8B7%E3%81%A4%E3%81%AE%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E3%83%AF%E3%83%BC%E3%82%AF%E5%8A%9B-%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E6%80%9D%E8%80%83%E6%B3%95%E3%81%AE%E5%9F%BA%E6%9C%AC%E3%81%A8%E5%AE%9F%E8%B7%B5-%E5%8B%9D%E9%96%93%E5%92%8C%E4%BB%A3-ebook/dp/B00B8IXLZ4%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00B8IXLZ4' rel='nofollow' target='_blank'>勝間和代のビジネス頭を創る7つのフレームワーク力　ビジネス思考法の基本と実践</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 14.07.13</div><div class='amazlink-detail'>勝間和代<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E5%8B%9D%E9%96%93%E5%92%8C%E4%BB%A3%E3%81%AE%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E9%A0%AD%E3%82%92%E5%89%B5%E3%82%8B7%E3%81%A4%E3%81%AE%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E3%83%AF%E3%83%BC%E3%82%AF%E5%8A%9B-%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E6%80%9D%E8%80%83%E6%B3%95%E3%81%AE%E5%9F%BA%E6%9C%AC%E3%81%A8%E5%AE%9F%E8%B7%B5-%E5%8B%9D%E9%96%93%E5%92%8C%E4%BB%A3-ebook/dp/B00B8IXLZ4%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00B8IXLZ4' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00r00z4.n763w00c.g00r00z4.n763xc67/?pc=http%3A%2F%2Fitem.rakuten.co.jp%2Fdorama%2F9784887596399%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Fdorama%2Fi%2F11441731%2F' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
+#+END_HTML
+
+* ソフトウェア・パターンとビジネス・フレームワーク
+この本では、フレームワークを以下のように定義している。
+
+#+BEGIN_HTML
+<blockquote>
+なにかの概念や考え方を自分なりに整理して、
+考えやすくするもの、覚えやすくするもの。
+</blockquote>
+#+END_HTML
+
+このような定義は、ソフトウェアにおけるパターンと同じ考え方のように思う。
+共通して現れる概念がカタログ化されて名前をつけられていることで、
+より記憶に止めやすくなる。
+
+#+BEGIN_HTML
+<blockquote>
+フレームワークをたくさんもつということは、
+頭の中でさまざまな情報を処理し、判断し、意思決定を行う際に、
+その場に応じて最適な道具を使えるということ。
+</blockquote>
+#+END_HTML
+
+デザインパターンを身につければ、ソフトウェアの構造の理解が速くなる。
+デザインパターンは思考のための道具だ。
+
+* 問題解決フレームワークについてのまとめ
+  問題解決思考のフレームワーク、パターンについて、
+  読みながら調べたことを覚え書きとして書く。
+
+  問題解決の手法として、以下ががあげられている。
+  - MECE
+  - ピラミッドストラクチャ
+  - 仮説思考
+
+** MECE
+   Mutually Exclusive and Collectively Exhaustive.
+   (相互に排他的な項目」による「完全な全体集合」)
+
+   - [[http://ja.wikipedia.org/wiki/MECE][MECE - Wikipedia]]
+
+   情報や分析対象をグループ分けする際に、
+   「重複なく・漏れなく」行うべきであるということを示した指針。
+   
+   - 最低限 2 x 2 のマトリックスで考える
+   - 既存のMICE用フレームワークで考える
+
+** ピラミッドストラクチャ
+   結論と根拠を多段に組み立てることによって作られる構造で、
+   ドキュメントの骨子全体の構造を表現するものとされる。
+
+*** ロジックツリー
+    問題の分析や、課題の整理の結果をツリー構造として表現したものであり、
+    目的によって様々な種類がある。
+
+    - 結果－原因（why）
+    - 目的－手段（how）
+    - 全体－部分（what）
+
+    といった推論を繰り返して論理展開を行う場合、
+    その概念・事象間の論理的なつながりをツリー状に図示すること.
+
+    問題解決などに使う場合には、上位概念から下位概念への分岐を2～3程度、
+    多くても5つぐらいまでにするのがよいとされる。
+
+    - [[http://www.itmedia.co.jp/im/articles/0609/01/news133.html][情報マネジメント用語辞典：ロジックツリー（ろじっくつりー）]]
+
+*** MECEとロジックツリーの違い
+    MICEは「もれなく、だぶりなく」数え上げるという考え方.
+    ロジックツリーはMECEを実行するためのツール（フレームワーク）の一つ。
+
+    - [[http://oshiete.goo.ne.jp/qa/3869287.html][ＭＥＣＥとロジックツリーの違いとは？ - 教えて！goo]]
+      
+*** ロジックツリーとピラミッドストラクチャーの違い
+   以下のサイトでロジックツリーとピラミッドストラクチャーの違いが紹介されている。
+
+   [[http://d.hatena.ne.jp/ohshi004/20080803/1217755608][ロジックツリーとピラミッドストラクチャー - Thinking Room で何想ふ。]]
+
+   - ロジックツリー
+   MECEを意識して、上位概念を下位の概念にトップダウン式に分解していく形式。
+   帰納的。
+
+   - ピラミッドストラクチャー
+   具体的な情報や観察事項から上位の概念としてのメッセージを
+   ボトムアップに抽出していく形式。演繹的。
+
+** 仮説思考
+   仮説思考とは、何かに取り組む際に、
+   その時点で考えられる仮説（仮の結論）を置いて考える思考方法.
+
+   - [[http://www.nsspirit-cashf.com/logical/kasetsu_shikou.html][N's spirit　仮説思考　仮説とは　仮説の立て方]]
+
+   仮説とはその時点で「こうすれば、こうなる」という結論をその理由とともに 設定すること。
+   一般的な「原因解明」次に「行動決定」の流れではなく、
+   「行動決定」次に「検証」の逆の順に進める。
+
+   - [[http://fk-plaza.jp/Solution/solu_kasetsu.htm][問題解決手法＞仮説思考法]]
+
+   仮説は事実かどうか検証する。まちがっているかもしれないので。
+   - 統計データやグラフ(定量的)
+   - ヒヤリング(定性的)
+* 現実問題をパターンで解き明かし、パターンを作り出す
+
+フレームワークの活用方法について、以下のように言及されている。
+
+#+BEGIN_HTML
+大事なことは、自分でさまざまなフレームワークをさまざまな経験や
+学びのなかから一つでも多く見つけだし、頭の中で整理して、
+さらに新しいフレームワークを自分ででつくっていくこと。
+
+フレームワークは思考を活発化し、助けるために存在するものであって、
+思考をサボるためにあるのではない。
+#+END_HTML
+
+これも、ソフトウェア開発でも参考になる。
+つまり、パターンをソフトウェアの構造から読み取り分類して整理する。
+そこからはみでるものを、新しい構造のパターンとして記憶に止めていく。
+
+* パターンへの情熱を現実生活へ注ぎ込めないか
+自分は、デザインパターンを熱心に学んでいる。
+それは、デザインパターンを身につけることが、
+自分の思考を加速させ、成長を促すと信じているからだ。
+成長したい、ソフトウェアをはより速く、深く理解したいという動機が裏にある。
+
+パターンへの情熱を現実生活へ注ぎ込めないか？
+
+つまり、プログラミングと同じような情熱と好奇心をもって、
+自分の生活に起こる様々な問題を解き明かせないか？
+
+論理的な思考のフレームワークをみにつけることで、
+目の前のことをより速く、深く理解することができる。
+
+これは、ソフトウェア・パターンを身につけることよりも、魅力的に感じる。
+
+というわけで、ロジカル・シンキングについて、もう少し学んで見ようと思う。
