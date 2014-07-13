@@ -1,17 +1,47 @@
+#+BLOG: Futurismo
+#+POSTID: 2523
+#+DATE: [2014-07-13 日 09:46]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
-#+CATEGORY: 技術メモ, BOOK
-#+TAGS: Pattern
-#+DESCRIPTION:
-#+TITLE: パターン、Wiki、XP
+#+CATEGORY: 技術メモ, Book
+#+TAGS: Pattern, XP, Wiki
+#+DESCRIPTION:パターン、Wiki、XP,を読んだ読書メモ
+#+TITLE: マイスターになるためには、型をにつけ、型を破る！パターン、Wiki、XP,を読んだ読書メモ
 
 * はじめに
+ソフトウェアのパターンを集中的に学んでいる。また、以前Wikiを立ち上げた。
+
+そんななか、パターンとWikiの概念の関係性を教えてくれる、興味深い本を手に取った。
 
 #+BEGIN_HTML
 <div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E3%80%81Wiki%E3%80%81XP-%7E%E6%99%82%E3%82%92%E8%B6%85%E3%81%88%E3%81%9F%E5%89%B5%E9%80%A0%E3%81%AE%E5%8E%9F%E5%89%87-WEB-PRESS-plus%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/dp/4774138975%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774138975' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/51psMmyTdWL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E3%80%81Wiki%E3%80%81XP-%7E%E6%99%82%E3%82%92%E8%B6%85%E3%81%88%E3%81%9F%E5%89%B5%E9%80%A0%E3%81%AE%E5%8E%9F%E5%89%87-WEB-PRESS-plus%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/dp/4774138975%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774138975' rel='nofollow' target='_blank'>パターン、Wiki、XP ~時を超えた創造の原則 (WEB+DB PRESS plusシリーズ)</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 14.07.12</div><div class='amazlink-detail'>江渡 浩一郎<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E3%80%81Wiki%E3%80%81XP-%7E%E6%99%82%E3%82%92%E8%B6%85%E3%81%88%E3%81%9F%E5%89%B5%E9%80%A0%E3%81%AE%E5%8E%9F%E5%89%87-WEB-PRESS-plus%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/dp/4774138975%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774138975' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00q0724.n763w947.g00q0724.n763x2b4/?pc=http%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F6118704%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Frms%2Fmsv%2FItem%3Fn%3D6118704%26surl%3Dbook' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
 #+END_HTML
 
-* あとがきが大事
+* 内容
+題名のとおり、以下の3つの関係性を時系列にそって書いている。
 
+- [[http://ja.wikipedia.org/wiki/%E3%83%91%E3%82%BF%E3%83%B3%E3%83%BB%E3%83%A9%E3%83%B3%E3%82%B2%E3%83%BC%E3%82%B8][パタン・ランゲージ - Wikipedia]]
+- [[http://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BC%E3%83%A0%E3%83%BB%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][エクストリーム・プログラミング - Wikipedia]]
+- [[http://ja.wikipedia.org/wiki/%E3%82%A6%E3%82%A3%E3%82%AD][ウィキ - Wikipedia]]
+
+それぞれの概念をつくった3人の人物に注目して話が進んでいく。
+
+- [[http://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%88%E3%83%95%E3%82%A1%E3%83%BC%E3%83%BB%E3%82%A2%E3%83%AC%E3%82%B0%E3%82%B6%E3%83%B3%E3%83%80%E3%83%BC][クリストファー・アレグザンダー - Wikipedia]]
+- [[http://ja.wikipedia.org/wiki/%E3%82%B1%E3%83%B3%E3%83%88%E3%83%BB%E3%83%99%E3%83%83%E3%82%AF][ケント・ベック - Wikipedia]]
+- [[http://ja.wikipedia.org/wiki/%E3%82%A6%E3%82%A9%E3%83%BC%E3%83%89%E3%83%BB%E3%82%AB%E3%83%8B%E3%83%B3%E3%82%AC%E3%83%A0][ウォード・カニンガム - Wikipedia]]
+
+時系列に歴史をかたり、各章のおわりで他の概念との関係を示す。
+歴史は横のつながりで再解釈すると面白い。東洋と西洋、イスラムとキリスト、などなど。
+そんなように、歴史的な縦軸のなかで横のつながりを示されると知的好奇心を心地よく刺激する。
+
+パターンとWiki、XPというものがすべてアレクサンダーの思想から生まれたことに驚く。
+それは、キリスト教とイスラム教が同じ旧約聖書を起源としているような驚き。
+
+* あとがきが大事
+本のほとんどは史実を書くことに割かれている。
+あとがきとして筆者の意見を垣間見る。とてもいいことをいっているので抜粋。
+
+#+BEGIN_HTML
+<blockquote>
 プログラマがプログラミングするさいに、
 自分のプログラムにどのようなパターンが見出されるかを
 自分自身で考えながらプログラミングすることが、
@@ -21,23 +51,16 @@ XPのプラクティスを入り口として、
 自分たちの開発プロセスを改善する方法を自分たち自身で考えつづけ、
 そこから得た経験をまたプラクティスとして抽出するようにする、
 そのようなプロセスを続けることによってはじめてXPのプラクティスが有効に働くようになる。
+</blockquote>
+#+END_HTML
 
-* 暗黙知と形式知
-** 暗黙知
-知識というものがあるとすると、
-その背後には必ず暗黙の次元の「知る」という動作がある」ということを示した概念。
+パターンにとって、型にはまって考えることが大事なように考えられがち。
+しかし、本当に大事なことは、型をみにつけ、型を破るという、こと。
+古くから芸能の世界でいわれていることだ。
 
-- [[http://ja.wikipedia.org/wiki/%E6%9A%97%E9%BB%99%E7%9F%A5][暗黙知 - Wikipedia]]
+- [[http://ja.wikipedia.org/wiki/%E5%AE%88%E7%A0%B4%E9%9B%A2][守破離 - Wikipedia]]
 
-** 形式知
-
-形式知（けいしきち）は知識の分類の一つであり、
-主に文章・図表・数式などによって説明・表現できる知識を指す。暗黙知に対する概念。
-
-- [[http://ja.wikipedia.org/wiki/%E5%BD%A2%E5%BC%8F%E7%9F%A5][形式知 - Wikipedia]]
-- [[http://ja.wikipedia.org/wiki/%E8%A6%8B%E3%81%88%E3%82%8B%E5%8C%96][見える化 - Wikipedia]]
-
-
+以下、簡単な読書メモです。
 
 * パターン
 ** パターン
@@ -53,8 +76,6 @@ XPのプラクティスを入り口として、
 ** パターンランゲージ
    建築において繰り返し現れる構造を再利用しやすい形式でまとめたもの。
    あるいは、パターンを集めて一つの体系としてまとぬあげたもの。
-
-   - [[http://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AA%E3%82%B9%E3%83%88%E3%83%95%E3%82%A1%E3%83%BC%E3%83%BB%E3%82%A2%E3%83%AC%E3%82%B0%E3%82%B6%E3%83%B3%E3%83%80%E3%83%BC][クリストファー・アレグザンダー - Wikipedia]]
 
    建築家クリストファーアレクサンダーが考えた建築手法。
 
@@ -77,8 +98,6 @@ XPのプラクティスを入り口として、
 パターンを記述して閲覧するためにはじめたのが起源。
 WikiWikiWebというパターンブラウザ。
 
-- [[http://ja.wikipedia.org/wiki/%E3%82%A6%E3%82%A9%E3%83%BC%E3%83%89%E3%83%BB%E3%82%AB%E3%83%8B%E3%83%B3%E3%82%AC%E3%83%A0][ウォード・カニンガム - Wikipedia]]
-
 ** ブログとwikiの根本的な違い
 ブログとwikiの根本的な違いは、以下。
 
@@ -89,9 +108,6 @@ WikiWikiWebというパターンブラウザ。
 ケント・ベックがパターンの考えをソフトウェア開発のプラクティスに応用した。
 プロセスのベストプラクティスをカタログ化したもの。プロセスへパターンを適用したもの。
 
-- [[http://ja.wikipedia.org/wiki/%E3%82%B1%E3%83%B3%E3%83%88%E3%83%BB%E3%83%99%E3%83%83%E3%82%AF][ケント・ベック - Wikipedia]]
-- [[http://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BC%E3%83%A0%E3%83%BB%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][エクストリーム・プログラミング - Wikipedia]]
-
 ** アレクサンダー6つの原理とXPプラクティス
    - 有機的秩序の原則 ・・・ フィーチャーに注目した開発
    - 参加の原則 ・・・ 顧客との対話を重視
@@ -100,3 +116,39 @@ WikiWikiWebというパターンブラウザ。
    - 診断の原則 ・・・ TDD, CI 
    - 調整の原則 ・・・ PDCA
 
+その他、関係ないかもしれないけど、暗黙知と形式知についてのメモ。
+
+* 暗黙知と形式知
+** 暗黙知
+知識というものがあるとすると、
+その背後には必ず暗黙の次元の「知る」という動作がある」ということを示した概念。
+
+- [[http://ja.wikipedia.org/wiki/%E6%9A%97%E9%BB%99%E7%9F%A5][暗黙知 - Wikipedia]]
+
+** 形式知
+形式知（けいしきち）は知識の分類の一つであり、
+主に文章・図表・数式などによって説明・表現できる知識を指す。暗黙知に対する概念。
+
+- [[http://ja.wikipedia.org/wiki/%E5%BD%A2%E5%BC%8F%E7%9F%A5][形式知 - Wikipedia]]
+- [[http://ja.wikipedia.org/wiki/%E8%A6%8B%E3%81%88%E3%82%8B%E5%8C%96][見える化 - Wikipedia]]
+  
+* これからどうするか
+** 今は型を学ぶとき
+パターンに興味をもった動機は、プログラマとして成長したいからだった。
+
+プログラミングを身につけるということは、芸を身につけることだと思っている。
+成長するためには、洗練された型を身につけることが近道だ。
+
+今は、型を身につけるとき。自分はまだまだ未熟なので、定石を身体に叩き込む時。
+しかし、いつかは型を破らなければならないときもくるだろう。
+そんなとき、この本を見直したい。
+
+** いろんな分野のパターンを収集する
+パターンは、建築とソフトウェア開発に限るものではない。
+
+どんなものにだってパターンが存在する。
+そのような言語化されていないもやもやしたものを、
+wikiとして拾い上げ、整理して、分類する。
+そうすることは、他の分野にも応用できるとおもう。
+
+自分もWikiにいろいろな考えを書き溜めて、そのつどごとに整理していこうとおもう。
