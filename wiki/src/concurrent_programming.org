@@ -33,38 +33,38 @@ Activities that can communicate and synchronize
 define a "critical section" that can only be executed by one thread at a time
 
 *** Reentrant
-リエントラント。
+    リエントラント。
 
-プログラムやサブルーチンが、実行の途中で割り込まれ、
-その実行が完了する前に再び呼び出され実行されても安全だという性質。
+    プログラムやサブルーチンが、実行の途中で割り込まれ、
+    その実行が完了する前に再び呼び出され実行されても安全だという性質。
 
-- [[http://ja.wikipedia.org/wiki/%E3%83%AA%E3%82%A8%E3%83%B3%E3%83%88%E3%83%A9%E3%83%B3%E3%83%88][リエントラント - Wikipedia]]
+   - [[http://ja.wikipedia.org/wiki/%E3%83%AA%E3%82%A8%E3%83%B3%E3%83%88%E3%83%A9%E3%83%B3%E3%83%88][リエントラント - Wikipedia]]
 
-複数のスレッドから同時に呼び出されても正しく動作する関数。
+   複数のスレッドから同時に呼び出されても正しく動作する関数。
 
 *** Spin Lock
-スピンロック。
+    スピンロック。
 
-スレッドがロックを獲得できるまで単純にループ（スピン）
-して定期的にロックをチェックしながら待つ方式。
-
-- [[http://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%94%E3%83%B3%E3%83%AD%E3%83%83%E3%82%AF][スピンロック - Wikipedia]]
+    スレッドがロックを獲得できるまで単純にループ（スピン）
+    して定期的にロックをチェックしながら待つ方式。
+    
+   - [[http://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%94%E3%83%B3%E3%83%AD%E3%83%83%E3%82%AF][スピンロック - Wikipedia]]
 
 *** Reentrant Lock
-再入可能ロック。Sleep Lock
+    再入可能ロック。Sleep Lock
 
-Android API:  [[http://developer.android.com/reference/java/util/concurrent/locks/ReentrantLock.html][ReentrantLock | Android Developers]]
+    Android API:  [[http://developer.android.com/reference/java/util/concurrent/locks/ReentrantLock.html][ReentrantLock | Android Developers]]
 
 ** Blocking/NonBlocking
-通信制御の方式。
+   通信制御の方式。
 
-Blockingモードは、相手との通信を同期する。
+   Blockingモードは、相手との通信を同期する。
+   
+   - [[http://e-words.jp/w/E38396E383ADE38383E382ADE383B3E382B0E9809AE4BFA1.html][ブロッキング通信とは]]
 
-- [[http://e-words.jp/w/E38396E383ADE38383E382ADE383B3E382B0E9809AE4BFA1.html][ブロッキング通信とは]]
+   Non-Blockingモードは、相手との通信を同期しない。
 
-Non-Blockingモードは、相手との通信を同期しない。
-
-- [[http://e-words.jp/w/E3838EE383B3E38396E383ADE38383E382ADE383B3E382B0E9809AE4BFA1.html][ノンブロッキング通信とは 〔 ノンブロッキングモード 〕]]
+   - [[http://e-words.jp/w/E3838EE383B3E38396E383ADE38383E382ADE383B3E382B0E9809AE4BFA1.html][ノンブロッキング通信とは 〔 ノンブロッキングモード 〕]]
 
 * Detarministic Dataflow
 * Message-passing concurrency
@@ -138,7 +138,6 @@ Non-Blockingモードは、相手との通信を同期しない。
     競馬のスタートバーのようなイメージ。
 
     または、旅行のツアーガイド。集合時間が決められていてる。
-
 
 ** Java Links
    http://tutorials.jenkov.com/java-concurrency/read-write-locks.html

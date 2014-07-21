@@ -22,7 +22,6 @@ resources and services to achieve IT as a service (ITaaS)
 #+END_HTML
 
 - [[http://www.ctc-g.co.jp/report/column/it_sdi/index.html][よくわかるIT新発見　第1回　「Software Defined xx」の潮流を読み解く！｜伊藤忠テクノソリューションズ]]
-
 - [[http://itpro.nikkeibp.co.jp/article/COLUMN/20131127/521113/][漆原茂の技術インパクト - 第10回　Software Defined Everything：ITpro]]
 
 ** 各ベンダの動向
@@ -53,9 +52,9 @@ EMCのとなえる戦略。ストレージにおけるSoftware Defined.
 ** 実現するためのArchtecture
 *** Software Defined Infrastructe
 
-このページで紹介されているアーキテクチャがわかりやすい。
-
-[[http://www.ctc-g.co.jp/report/column/it_sdi/index.html][よくわかるIT新発見　第1回　「Software Defined xx」の潮流を読み解く！｜伊藤忠テクノソリューションズ]]
+    このページで紹介されているアーキテクチャがわかりやすい。
+    
+    [[http://www.ctc-g.co.jp/report/column/it_sdi/index.html][よくわかるIT新発見　第1回　「Software Defined xx」の潮流を読み解く！｜伊藤忠テクノソリューションズ]]
 
 以下、引用。
 
@@ -107,24 +106,24 @@ OpenDaylightが開発したオープンソース コントローラ フレーム
   2012年9月19日、開発やライセンスの管理はすべて、
   850を超す企業や組織による非営利団体OpenStack Foundationに移管された.
 
-[[http://ja.wikipedia.org/wiki/OpenStack][OpenStack - Wikipedia]]
+  - [[http://ja.wikipedia.org/wiki/OpenStack][OpenStack - Wikipedia]]
 
-オープンソースで構成されるクラウド・インフラストラクチャー
+  オープンソースで構成されるクラウド・インフラストラクチャー
+  
+  OpenStackの背景には、「IaaS(Infrastructure as a Service)基盤を
+  オープンソースで作りたい！」という明確な動機があります。
 
-OpenStackの背景には、「IaaS(Infrastructure as a Service)基盤を
-オープンソースで作りたい！」という明確な動機があります。
+  クラウド基盤を構築するオープンソースソフトウエア。
+  KVMやXen、VMware ESXi、Hyper-Vといった仮想化ソフト（ハイパーバイザー）と組み合わせ、
+  IaaS（Infrastructure as a Service）や
+  ストレージサービスを提供するための仮想マシンやストレージ、
+  ネットワークの管理機能などを提供する.
 
-クラウド基盤を構築するオープンソースソフトウエア。
-KVMやXen、VMware ESXi、Hyper-Vといった仮想化ソフト（ハイパーバイザー）と組み合わせ、
-IaaS（Infrastructure as a Service）や
-ストレージサービスを提供するための仮想マシンやストレージ、
-ネットワークの管理機能などを提供する.
+  OpenStackを使って構築したクラウド環境は、統一したAPIや認証を使って管理できる。
+  また、IaaSのパブリッククラウドサービスで最大手であるAmazon EC2と互換性を持つ。
 
-OpenStackを使って構築したクラウド環境は、統一したAPIや認証を使って管理できる。
-また、IaaSのパブリッククラウドサービスで最大手であるAmazon EC2と互換性を持つ。
-
-- [[http://itpro.nikkeibp.co.jp/article/Keyword/20121029/433321/][Networkキーワード - OpenStack とは：ITpro]]
-- [[http://cloud.watch.impress.co.jp/docs/column/cloud/20140404_642748.html][【クラウド特捜部】プレーヤーがそろい表舞台に立つOpenStack - クラウド Watch]] 
+  - [[http://itpro.nikkeibp.co.jp/article/Keyword/20121029/433321/][Networkキーワード - OpenStack とは：ITpro]]
+  - [[http://cloud.watch.impress.co.jp/docs/column/cloud/20140404_642748.html][【クラウド特捜部】プレーヤーがそろい表舞台に立つOpenStack - クラウド Watch]] 
 
 ** BookMarks
 - [[http://www.atmarkit.co.jp/ait/articles/1407/02/news118.html][「AWSは称賛に値する」：OpenStackは結局、どう使われていくのか - ＠IT]]

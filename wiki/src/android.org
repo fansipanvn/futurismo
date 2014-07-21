@@ -87,12 +87,12 @@ Android Frameworkの4大要素は以下。
     Bound Serviceは Server-ClientモデルにおけるServer.
 
 * BroadCast Reciever
-アプリケーションが配信するインテントの監視が複数のグループで行える。
+  アプリケーションが配信するインテントの監視が複数のグループで行える。
 
 Observer Pattern.
 
 * Content Providor
-複数のアプリケーションで利用できるデータストアへのアクセスを提供
+  複数のアプリケーションで利用できるデータストアへのアクセスを提供
 
 * Cuncurrency Framework
 ** HaMeR FrameWork
@@ -118,7 +118,8 @@ Observer Pattern.
 ** AsyncTask Framework
    [[http://android.keicode.com/basics/async-asynctask.php][AsyncTask を利用した非同期処理 - Android 開発入門]]
 
-   Template-Method Pattern
+   Template-Method Pattern.
+   Facade Pattern
 
 ** IntentService
    サービスの停止はキュー内の作業が全て終わったときに自動的に行われます.

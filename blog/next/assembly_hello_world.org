@@ -1,0 +1,24 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Assenbly
+#+DESCRIPTION: アセンブリ言語でHello World
+#+TITLE: アセンブリ言語の中心で愛を叫ぶ
+
+* はじめに
+世界の中心で愛を叫ぼうとした。
+
+しかし、そもそも世界の中心がどこかわからなかった。
+
+世界の中心など、いったい存在するのだろうか？
+世界の中心はバチカン市国というのは、キリスト教徒の盲信ではないか？
+己れの信じる場所が世界の中心なのだ。
+すなわち、あらゆる場所が世界の中心たりえるのである。
+
+ということで、アセンブリ言語の中心で愛を叫ぶことにした。
+
+** Environment
+   - ArchLinux
+   - gcc
+   - gdb
+
+** Special Thanks

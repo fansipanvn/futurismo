@@ -1,0 +1,176 @@
+* Object-Oriented Programming
+オブジェクト指向型プログラミング。
+
+- [[http://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][オブジェクト指向プログラミング - Wikipedia]]
+
+  CTMCP, Chapter 6,7
+
+** Data abstraction
+   データ抽象。3つの構成要素がある。
+
+   - Input
+   - Output
+   - Interface
+
+   データ抽象は内部と外部からなるプログラムかつ、両者がインターフェースを通じてやりとりするもの。
+
+   A data abstraction is a part of a program that has an inside, an outside,
+   and an interface in between The inside is hidden from the outside.
+
+*** Input/Output
+内部は外部からは隠蔽されている。-> カプセル化という。
+
+The inside is hidden from the outside
+
+*** Interface
+The interface is a set of operations that an be used according to certain rules.
+
+データ抽象には、主に二つの方法がある。
+
+- Abstract Data Type(ADT) keeps values and operations separate.
+- Object groups together value and operations in a single entity.
+
+*** Encapsulation
+プログラムと内部と内部をインタフェースで分けること。
+
+カプセル化のメリットは大規模開発をシンプルにする。
+
+- 正しさを保証する。
+- 複雑さを解消する。
+  
+*** Abstract Data Type
+抽象データ型。ADTと略されることも。
+
+構造化プログラミングは仮想機械モデルに基づく段階的詳細化法（stepwise refinement）をもたらしたが、
+データ構造の変更を行うと変更部分がソースコード中に散在してしまうという弱点があった。
+データ抽象の概念はその欠点を補完するものであった
+
+- [[http://ja.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][抽象データ型 - Wikipedia]]
+
+An ADT consists of a set of values and  a set of operations.
+
+- Integer型
+ - Value:1,2,3
+ - Operation:+
+- Stack型
+ - Value: elemtent
+ - Operation: push, pop, ...
+
+ValueとOperationそれ自体はStateを持たない。
+
+CTM, p433
+
+Diference between ADT and Object。Stackをつかった実装の違い。
+
+- ADT
+
+#+begin_src oz
+local Wrap Unwrap in
+  {NewWrapper Wrap Unwrap}
+  fun {NewStack} {Wrap nil} end
+  fun {Push W X} {Wrap X|{Unwrap W}} end
+  fun {Pop W X} S={Unwrap W} in X=S.1 {Wrap S.2} end
+  fun {IsEmpty W} {Unwrap W}==nil end
+end
+#+end_src
+
+この手法はStateful ADTという。
+
+そして、C言語では、こうやってデータ抽象化を行うことがおおい。
+もちろん関数ポインタ配列を使えばC言語でもObjectをつくることができるが、
+実際にはそこまでやらない。(面倒)
+
+- Object
+オブジェクトでは、データに対する操作はプロシージャ変数として扱われることに注目。
+
+#+begin_src oz
+fun {NewStack}
+  C={NewCell nil}
+  proc {Push X} C:=X|@C end
+  proc {Pop X} S=@C in X=S.1 C:=S.2 end
+  fun {IsEmpty} @C==nil end
+in
+  stack(push:Push pop:Pop isEmpty:IsEmpty)
+end
+#+end_src
+
+オブジェクト指向言語は、
+単にObjectをサポートする言語ではなくて、Abstruct Data Typeも強力にサポートしている。
+
+ObjectとADTの意味がごっちゃにつかわれているのが現実の現状。
+
+** Object
+   値と操作をひとつのまとまりとしたもの。以下の構成要素をもつ。
+
+   - 値 ・・・Explicite State(明示的状態)
+   - 操作 ・・・Procedural Data Abstruction(手続的データ抽象)
+
+   以下の能力を備えている。
+
+*** Data Abstruction
+    オブジェクトは内部と外部はインタフェースを通じてやりとりされる。
+    内部の明示的状態をAttributes,インタフェースをMethodsという。
+
+*** Procedure Dispatch
+    オブジェクトは単一なエントリポイントをもつ。(エントリポイント = 呼び出し口)
+    エントリポイントに渡される引数をメッセージという。
+
+    下の例だと、Counterがエントリポイント。エントリポイントにinc,getメッセージを送る。
+
+    #+begin_src oz
+   {Counter inc}
+   {Counter get(X)}
+    #+end_src
+
+    エントリポイントから、メッセージに対応するプロシージャが呼びだされる。
+
+    メッセージとプロシシージャはあらかじめDispatch(バンドリング)されている。
+
+*** Instantiation
+    オブジェクトは一つのメソッドで、
+    異なる属性をもつ複数のオブジェクトを生成できる。
+    
+    この能力をInstantiation(インスタンス化）という。
+    
+*** Classes
+    メソッドと属性を定義する特別なシンタックスをClassという。
+    属性とメソッドはレコードデータ構造によって管理されているだけである！
+    Classという概念によって、オブジェクトの"宣言"と"生成(new)"を分離する。
+
+** Polymorphism
+
+   [[http://ja.wikipedia.org/wiki/%E3%83%9D%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%95%E3%82%A3%E3%82%BA%E3%83%A0][- ポリモーフィズム - Wikipedia]]
+
+** Inheritance
+   継承。あるオブジェクトが他のオブジェクトの特性を引き継ぐこと。
+
+   - [[http://ja.wikipedia.org/wiki/%E7%B6%99%E6%89%BF_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0)][継承 (プログラミング) - Wikipedia]]
+
+*** Composition
+コンポジション。新たなクラスに、既存クラスのインスタンスを保持する。
+has-a の関係(not is-a)
+
+Prefer Composition over inheritance(Effective Java).
+
+*** Delegation
+移譲。
+   
+
+
+* Bookmarks
+
+- [[http://qiita.com/hirokidaichi/items/591ad96ab12938878fe1][新人プログラマに知っておいてもらいたい人類がオブジェクト指向を手に入れるまでの軌跡 - Qiita]]
+
+#+BEGIN_QUOTE
+むだにHogeインタフェースとHogeImplクラスがあったり、
+むだにnewするだけのcreateメソッドがあったり、
+どこで値が設定されてるかわからないオブジェクトがひきまわされてたり、
+ソースコードを追いにくくするためにやってるとしか思えない、
+オブジェクト指向なコードをよく目にする。
+
+クラスは単にユーザー定義型であり、
+継承は部分型と差分プログラミングを実現する仕組みだととらえるのがいい。
+オブジェクトがメッセージを送りあうとかメルヘンの世界には入らず、機能だけ考えるのがいい。
+#+END_QUOTE
+
+- [[http://d.hatena.ne.jp/nowokay/20140718#1405691217][オブジェクト指向は禁止するべき - きしだのはてな]]
