@@ -17,6 +17,14 @@
 * x86, x86-64 ISAの文法
 
 ** レジスタ
+*** load / store
+    - Load data  from  memory  into  %reg =  Mem[address]    
+    - Store register  data  into  memory   Mem[address]  =  %reg
+
+    メモリからメモリへのデータ移動は一回の操作ではできない。
+    Cannot  do  memory-­‐memory  transfer  with  a  single instruction.
+    
+*** レジスタの種類
 
  - eax, ecx, edx, ebx, esp, ebp, esi, edi	  ... 汎用レジスタ (32 ビット)
  - rax, rcx, rdx, rbx, rsp, rbp, rsi, rdi, r8～15 ... 汎用レジスタ (64 ビット)
@@ -44,6 +52,7 @@
 
 *** eax
     サブルーチンからの戻り値を受けとるために利用することがおおい。
+
 ** x86-64 Calling Conventions(呼出規約)
    プログラムで関数を呼び出す際に、レジスタやスタックを使いどのように引数を渡すか、
    戻り値をどのように受け取るかは呼出規約(calling convention)で決められている
@@ -82,6 +91,7 @@ _function:
     #+end_src
 
 *** lea
+    Address  Computa?on  Instruction .
     アドレス計算命令。lea命令は、srcオペランドのアドレスを計算し、そのアドレスをdestオペランドにロードします。
 
     #+begin_src asm
@@ -141,6 +151,21 @@ Else: result = y-x;
  #+end_src
 
 *** while
+    #+begin_src c
+    while ( sum != 0 ) {
+      <loop body>
+    } 
+    #+end_src
+
+    #+begin_src asm
+loopTop: cmpl $0, %eax
+    je loopDone
+         <loop body code>
+    jmp  loopTop
+loopDone: 
+    #+end_src
+
+
 *** for
 *** switch
 
@@ -154,6 +179,9 @@ Else: result = y-x;
 * Tools
 ** gdb
    デバッカ。
+
+   - [[http://flex.phys.tohoku.ac.jp/texi/gdb-j/gdb-j_toc.html][GDB マニュアル - Table of Contents]]
+
 *** ステップ実行
 **** run (r)
      プログラムの実行。
@@ -170,20 +198,52 @@ Else: result = y-x;
      ブレークポイントをはる。b [関数名].
 **** info b
      ブレークポイントの情報を表示。
+
 **** delete(d)
      ブレークポイントのクリア。
+
 *** アセンブリ解析
 **** disas
      アセンブリコードの表示
 **** info register(info reg)
      レジスタの情報を表示
 **** x 
-     メモリの状態表示
+     メモリの状態表示, x/[表示する個数][出力書式][出力単位]
+
+     |----------+---------|
+     | 出力単位 | 意味    |
+     |----------+---------|
+     | b        | 1バイト |
+     | h        | 2バイト |
+     | w        | 4バイト |
+     | g        | 8バイト |
+     |----------+---------|
+
+     #+begin_src sh
+     (gdb) x/6xw
+     #+end_src
+     
+*** その他
+**** バックトレース(bt)
+     バックトレースとは、 ユーザ・プログラムが現在いる箇所にどのようにして到達したかを示す要約情報
+
+     #+begin_src sh
+     (gdb) bt
+     #0  0x000000000040174e in read_six_numbers ()
+     #1  0x0000000000400eac in phase_2 ()
+     #2  0x0000000000400dd5 in main (argc=<optimized out>, argv=0x7fffffffdb58) at bom
+     #+end_src
 
 *** Links
   - [[http://d.hatena.ne.jp/Watson/20100318/1268887029][gdbコマンド メモ - Watsonのメモ]]
 
 ** objdump
+
+   - t ファイルのシンボルテーブルエントリを表示します。 nm によって得られる情報とほぼ同じ
+   - T ファイルの動的なシンボルテーブルエントリを表示します。「nm -D」とほぼ同じ
+   - S (可能であれば) ソースコードを逆アセンブル結果と混在させて表示します
+   - d Use this to disassemble all of the code.
+     
 ** nm
    オブジェクトファイルのシンボルをリストする。
    - [[http://kazmax.zpp.jp/cmd/n/nm.1.html][nm - コマンド (プログラム) の説明 - Linux コマンド集 一覧表]]

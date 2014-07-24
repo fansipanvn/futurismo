@@ -1,0 +1,57 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ,Emacs
+#+TAGS: English
+#+DESCRIPTION: 
+#+TITLE: 英語力を向上させたいのでまずはEmacsからはじめた
+
+* 英語のWriting/Speaking力を鍛えるためには？
+** 英語で自分の考えを自由に表現できない
+最近英語で話す機会が多いのだが、
+自分の考えをうまく表現できずにくやしく思うことが多い。
+
+MOOCのおかげで、Listening力はバリバリに向上を感じるのだが、
+次に鍛えるべきところは、自分の考えを不自由なく表現する力だと感じる。
+
+すなわち、以下だ。
+
+- Writening
+- Speaking
+
+英単語がわからなくても、簡単な言葉に言い直せば表現できる。
+しかし、スラスラと表現することが難しい。
+
+** もっとも効果的な手段は？
+もっとも効果的な手段はなんだろうか？
+
+間違っていてもいいので、
+とにかく日常のなかで英語で表現する機会を増やすことだと思った。
+
+自分の日常のほとんどはパソコンをいじっている。
+パソコンでする作業のほとんどで、Emacsを利用している。つまりは、
+
+Emacsの英語学習環境を整える
+
+これが、もっとも英語上達に効果的な方法なのではとおもう。
+
+というわけで、ペテンな前置きが長くなったが、
+英語学習に役立ちそうなEmacsLispを集めてみる。
+
+* 英語力をあげるEmacsLisp
+** 辞書系
+*** sdic.el
+*** sdic-inline.el
+*** lookup.el
+** 文法チェック系
+*** ispell-buffer.el
+*** fly-spell.el
+*** grammer.el
+*** look.el
+** 翻訳系
+*** google-translate.el
+
+- [[http://qiita.com/catatsuy/items/ae9875706769d4f02317][卒論を英語で書けと言われしまったあなたにおすすめの Emacs の設定 - Qiita]]
+- [[http://qiita.com/okonomi/items/f18c9221420eca47ebc6][Emacs - google-translate.el と popwin.el で翻訳作業が捗った件 - Qiita]]
+- [[http://sleepboy-zzz.blogspot.jp/2013/10/emacsgrammarel_639.html][memo: Emacsで英語の文章書くのに便利なgrammar.elを導入した]]
+- [[http://www.math.s.chiba-u.ac.jp/~matsu/emacs/emacs21/english.html][english & japanese]]
+- [[http://emacs.tsutomuonoda.com/emacs-sdic-install-setting/][Emacs上で英和和英辞書を引くためのソフトSDICをインストール・設定する | Emacsのelispインストール・設定・使い方]]
+- [[http://ubulog.blogspot.jp/2007/08/emacs.html][ubulog: Emacsで快適な翻訳環境を]]
