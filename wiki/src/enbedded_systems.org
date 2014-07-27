@@ -1,19 +1,19 @@
 #+OPTIONS: toc:nil
 * Embeded System
-組み込みシステム。
+組み込みシステム.
 
-特定の機能を実現するために機械や機器に組み込まれるコンピュータシステム。
+特定の機能を実現するために機械や機器に組み込まれるコンピュータシステム.
 
 - [[http://ja.wikipedia.org/wiki/%E7%B5%84%E3%81%BF%E8%BE%BC%E3%81%BF%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0][組み込みシステム - Wikipedia]]
 
-組み込みシステムの主な構成要素は以下。
+組み込みシステムの主な構成要素は以下.
 
 - Embedded Systems
   - MicroCotroller
     - Memory
       - RAM
       - ROM
-    - Processor(CPU)
+    - Processor (CPU)
     - I/O Ports
     - DAC
     - Bas
@@ -23,7 +23,7 @@
     - Sensor
     - ADC
 
-以下のような特徴をもつ。
+以下のような特徴をもつ.
 
 - A microcontroller hidden inside
 - A dedicated purpose
@@ -35,7 +35,7 @@
 - Small size and weight
 
 * MicroController
-マイクロコントローラー。いわゆる、マイコン。
+マイクロコントローラー. いわゆる, マイコン.
 
 - [[http://ja.wikipedia.org/wiki/%E3%83%9E%E3%82%A4%E3%82%AF%E3%83%AD%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF][マイクロコンピュータ - Wikipedia]]
 
@@ -49,9 +49,9 @@ small size, and low power requirements.
 #+END_HTML
 
 ** I/O Port
-Input Port/Output Portの略。
-Input Portは 外部の世界(外部の集積回路、sensor, etc)
-からの情報をコンピュータのなかに入れる。Output Portはその逆。
+Input Port/Output Port の略.
+Input Port は 外部の世界 (外部の集積回路, sensor, etc)
+からの情報をコンピュータのなかに入れる. Output Port はその逆.
 
 A port is a physical connection between the computer and its outside world.
 
@@ -59,68 +59,68 @@ A port is a physical connection between the computer and its outside world.
 a set of software functions that facilitate the use of an I/O port.
 
 *** GPIO
-GPIOはGeneral Purpose Input/Output（汎用入出力）の略語。
+GPIO は General Purpose Input/Output (汎用入出力) の略語.
 
 [[http://ja.wikipedia.org/wiki/GPIO][GPIO - Wikipedia]]
 
-LSIチップや電子機器の備える入出力端子の一種で、
-設定次第で様々な用途に利用できるもの。
+LSI チップや電子機器の備える入出力端子の一種で,
+設定次第で様々な用途に利用できるもの.
 
-ソフトウェアの指示によって任意の入力あるいは出力に利用することができる。
-複数の端子がGPIOに割り当てられている場合には、
-これを一つのグループとして一括して制御することができ「GPIOポート」などと呼ばれる
+ソフトウェアの指示によって任意の入力あるいは出力に利用することができる.
+複数の端子が GPIO に割り当てられている場合には,
+これを一つのグループとして一括して制御することができ「 GPIO ポート」などと呼ばれる
 
-[[http://e-words.jp/w/GPIO.html][GPIOとは 【 General Purpose Input/Output 】 - 意味/解説/説明/定義 ： IT用語辞典]]
+[[http://e-words.jp/w/GPIO.html][GPIO とは 【 General Purpose Input/Output 】 - 意味/ 解説/ 説明/ 定義 : IT 用語辞典]]
 
-PinはGPIOの構成要素。たとえば、GPIO PortAは、PA0-PA7の8つのPinからできている。
+Pin は GPIO の構成要素. たとえば, GPIO PortA は, PA0-PA7 の 8 つの Pin からできている.
 
 Pins can be configured for digital I/O, 
 analog input, timer I/O, or serial I/O. 
 For example PA0 can be digital I/O or serial input.
 
-Pinのそれぞれが外部デバイスに接続される。
-用途は、レジスタの設定によって自由にできる。
+Pin のそれぞれが外部デバイスに接続される.
+用途は, レジスタの設定によって自由にできる.
 
-- PA1 ... LEDへのOutput用
-- PA2 ... Switch からの Input用
-- PA3 ... UART の Input用
-- PA4 ... UART の Output用
+- PA1 ... LED への Output 用
+- PA2 ... Switch からの Input 用
+- PA3 ... UART の Input 用
+- PA4 ... UART の Output 用
 
 ** Register
-コンピュータのプロセッサなどが内蔵する記憶回路で、
-制御装置や演算装置や実行ユニットに直結した、
-操作に要する速度が最速の、比較的少量のものを指す。
+コンピュータのプロセッサなどが内蔵する記憶回路で,
+制御装置や演算装置や実行ユニットに直結した,
+操作に要する速度が最速の, 比較的少量のものを指す.
 
-一般に、論理回路において、フリップフロップなどにより状態を保持する装置をレジスタと呼ぶ。
-コンピュータにおいては、プロセッサが内蔵しているそれを指す。
-プロセッサには、プログラムが読み書きできるレジスタ以外に、
-プロセッサ自身が動作するためのレジスタがあり、内部レジスタなどと呼ばれる。
+一般に, 論理回路において, フリップフロップなどにより状態を保持する装置をレジスタと呼ぶ.
+コンピュータにおいては, プロセッサが内蔵しているそれを指す.
+プロセッサには, プログラムが読み書きできるレジスタ以外に,
+プロセッサ自身が動作するためのレジスタがあり, 内部レジスタなどと呼ばれる.
 
 [[http://ja.wikipedia.org/wiki/%E3%83%AC%E3%82%B8%E3%82%B9%E3%82%BF_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF)][レジスタ (コンピュータ) - Wikipedia]]
 
 Registers are high-speed storage inside the processor.
 
-*** Registerのプログラムでの扱い
+*** Register のプログラムでの扱い
 
-Pinを操作するためのレジスタには、
-アドレス空間の決められたアドレスが割り振られている。(仕様)
+Pin を操作するためのレジスタには,
+アドレス空間の決められたアドレスが割り振られている. (仕様)
 
-プログラムでは、あらかじめDefineを利用してレジスタのアドレスを宣言するのが王道。
-volatileをつけることで、コンパイラが最適化してアドレスを変更するのを防ぐ。
+プログラムでは, あらかじめ Define を利用してレジスタのアドレスを宣言するのが王道.
+volatile をつけることで, コンパイラが最適化してアドレスを変更するのを防ぐ.
 
 #+begin_src c
-#define PA5   (*((volatile unsigned long *)0x40004080))
+#define PA5   (*((volatile unsigned long *) 0x40004080))
 #+end_src
 
-これは以下と同値。
+これは以下と同値.
 
 #+begin_src c
-data = (*((volatile unsigned long *)0x40004080));
+data = (*((volatile unsigned long *) 0x40004080));
 data = 0x40004080;
 data = (*0x40004080);
 #+end_src
 
-そうすると、以下のようにして Registerの値を Read/Writeできる。
+そうすると, 以下のようにして Register の値を Read/Write できる.
 
 #+begin_src c
 # Register Write
@@ -129,10 +129,10 @@ PA5 = 0x20;
 data = PA5;
 #+end_src
 
-初期設定はこんな感じ。
+初期設定はこんな感じ.
 
 #+begin_src c
-void PortF_Init(void){ volatile unsigned long delay;
+void PortF_Init (void){ volatile unsigned long delay;
   SYSCTL_RCGC2_R |= 0x00000020;   // 1) F clock
   delay = SYSCTL_RCGC2_R;         // delay  
   GPIO_PORTF_LOCK_R = 0x4C4F434B; // 2) unlock PortF PF0 
@@ -147,20 +147,20 @@ void PortF_Init(void){ volatile unsigned long delay;
 }
 #+end_src
 
-*** LチカExample抜粋
+*** L チカ Example 抜粋
 
 #+begin_src c
 // symbolic names instead of addresses
-#define GPIO_PORTF_DATA_R    (*((volatile unsigned long *)0x400253FC))
-#define GPIO_PORTF_DIR_R     (*((volatile unsigned long *)0x40025400))
-#define GPIO_PORTF_AFSEL_R   (*((volatile unsigned long *)0x40025420))
-#define GPIO_PORTF_PUR_R     (*((volatile unsigned long *)0x40025510))
-#define GPIO_PORTF_DEN_R     (*((volatile unsigned long *)0x4002551C))
-#define GPIO_PORTF_LOCK_R    (*((volatile unsigned long *)0x40025520))
-#define GPIO_PORTF_CR_R      (*((volatile unsigned long *)0x40025524))
-#define GPIO_PORTF_AMSEL_R   (*((volatile unsigned long *)0x40025528))
-#define GPIO_PORTF_PCTL_R    (*((volatile unsigned long *)0x4002552C))
-#define SYSCTL_RCGC2_R       (*((volatile unsigned long *)0x400FE108))
+#define GPIO_PORTF_DATA_R    (*((volatile unsigned long *) 0x400253FC))
+#define GPIO_PORTF_DIR_R     (*((volatile unsigned long *) 0x40025400))
+#define GPIO_PORTF_AFSEL_R   (*((volatile unsigned long *) 0x40025420))
+#define GPIO_PORTF_PUR_R     (*((volatile unsigned long *) 0x40025510))
+#define GPIO_PORTF_DEN_R     (*((volatile unsigned long *) 0x4002551C))
+#define GPIO_PORTF_LOCK_R    (*((volatile unsigned long *) 0x40025520))
+#define GPIO_PORTF_CR_R      (*((volatile unsigned long *) 0x40025524))
+#define GPIO_PORTF_AMSEL_R   (*((volatile unsigned long *) 0x40025528))
+#define GPIO_PORTF_PCTL_R    (*((volatile unsigned long *) 0x4002552C))
+#define SYSCTL_RCGC2_R       (*((volatile unsigned long *) 0x400FE108))
 
 // 2. Declarations Section
 //   Global Variables
@@ -169,7 +169,7 @@ unsigned long SW2; // input from PF0
 
 // Subroutine to initialize port F pins for input and output
 // PF4 is input SW1 and PF2 is output Blue LED
-void PortF_Init(void){ volatile unsigned long delay;
+void PortF_Init (void){ volatile unsigned long delay;
   SYSCTL_RCGC2_R |= 0x00000020;   // 1) F clock
   delay = SYSCTL_RCGC2_R;         // delay  
   GPIO_PORTF_LOCK_R = 0x4C4F434B; // 2) unlock PortF PF0 
@@ -183,54 +183,54 @@ void PortF_Init(void){ volatile unsigned long delay;
   GPIO_PORTF_DEN_R |= 0x1F;       // 7) enable digital pins PF4-PF0       
 }
 
-void FlashSOS(void){
+void FlashSOS (void){
   //S
-  GPIO_PORTF_DATA_R |= 0x08;  delay(1);
-  GPIO_PORTF_DATA_R &= ~0x08; delay(1);
-  GPIO_PORTF_DATA_R |= 0x08;  delay(1);
-  GPIO_PORTF_DATA_R &= ~0x08; delay(1);
-  GPIO_PORTF_DATA_R |= 0x08;  delay(1);
-  GPIO_PORTF_DATA_R &= ~0x08; delay(1);
+  GPIO_PORTF_DATA_R |= 0x08;  delay (1);
+  GPIO_PORTF_DATA_R &= ~0x08; delay (1);
+  GPIO_PORTF_DATA_R |= 0x08;  delay (1);
+  GPIO_PORTF_DATA_R &= ~0x08; delay (1);
+  GPIO_PORTF_DATA_R |= 0x08;  delay (1);
+  GPIO_PORTF_DATA_R &= ~0x08; delay (1);
   //O
-  GPIO_PORTF_DATA_R |= 0x08; delay(4);
-  GPIO_PORTF_DATA_R &= ~0x08;delay(4);
-  GPIO_PORTF_DATA_R |= 0x08; delay(4);
-  GPIO_PORTF_DATA_R &= ~0x08;delay(4);
-  GPIO_PORTF_DATA_R |= 0x08; delay(4);
-  GPIO_PORTF_DATA_R &= ~0x08;delay(4);
+  GPIO_PORTF_DATA_R |= 0x08; delay (4);
+  GPIO_PORTF_DATA_R &= ~0x08;delay (4);
+  GPIO_PORTF_DATA_R |= 0x08; delay (4);
+  GPIO_PORTF_DATA_R &= ~0x08;delay (4);
+  GPIO_PORTF_DATA_R |= 0x08; delay (4);
+  GPIO_PORTF_DATA_R &= ~0x08;delay (4);
   //S
-  GPIO_PORTF_DATA_R |= 0x08; delay(1);
-  GPIO_PORTF_DATA_R &= ~0x08;delay(1);
-  GPIO_PORTF_DATA_R |= 0x08; delay(1);
-  GPIO_PORTF_DATA_R &= ~0x08;delay(1);
-  GPIO_PORTF_DATA_R |= 0x08; delay(1);
-  GPIO_PORTF_DATA_R &= ~0x08;delay(1);
-  delay(10); // Delay for 5 secs in between flashes
+  GPIO_PORTF_DATA_R |= 0x08; delay (1);
+  GPIO_PORTF_DATA_R &= ~0x08;delay (1);
+  GPIO_PORTF_DATA_R |= 0x08; delay (1);
+  GPIO_PORTF_DATA_R &= ~0x08;delay (1);
+  GPIO_PORTF_DATA_R |= 0x08; delay (1);
+  GPIO_PORTF_DATA_R &= ~0x08;delay (1);
+  delay (10); // Delay for 5 secs in between flashes
 }
 #+end_src
 
 * Memory
 ** ROM
-書き込んだデータは消去できないが、電源を切ってもデータが消えない読み出し専用のメモリ.
+書き込んだデータは消去できないが, 電源を切ってもデータが消えない読み出し専用のメモリ.
 
 ** RAM
-データの読み書きは自由に行えるが、電源を切ると内容が消えるメモリ(Random Access Memory）
+データの読み書きは自由に行えるが, 電源を切ると内容が消えるメモリ (Random Access Memory)
 
 * Interface
-ハードウェアとソフトウェアを結ぶもの。ここでいうところは、ハードウェアインタフェース。
+ハードウェアとソフトウェアを結ぶもの. ここでいうところは, ハードウェアインタフェース.
 
 interface is defined as the hardware and software that combine 
 to allow the computer to communicate with the external hardware. 
 
 - [[http://ja.wikipedia.org/wiki/%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9#.E3.83.8F.E3.83.BC.E3.83.89.E3.82.A6.E3.82.A7.E3.82.A2.E3.82.A4.E3.83.B3.E3.82.BF.E3.83.95.E3.82.A7.E3.83.BC.E3.82.B9][インタフェース (情報技術) - Wikipedia]]
 
-I/O Port, 外部電子回路、物理的デバイス、ソフトウェアなどを集めたもの。
+I/O Port, 外部電子回路, 物理的デバイス, ソフトウェアなどを集めたもの.
 
 An interface is defined as the collection of the I/O port, 
 external electronics, physical devices, and the software, 
 which combine to allow the computer to communicate with the external world.
 
-以下の4つに分類される。
+以下の 4 つに分類される.
 
 - Parallel - binary data are available simultaneously on a group of lines
 - Serial - binary data are available one bit at a time on a single line
@@ -238,20 +238,20 @@ which combine to allow the computer to communicate with the external world.
 - Time - data are encoded as a period, frequency, pulse width, or phase shift
 
 ** Parallel Interface
-パラレルポートとは、コンピュータシステム内で、
-ばらばらの周辺機器をケーブルで接続するために使われる物理的なインタフェースの一種。
+パラレルポートとは, コンピュータシステム内で,
+ばらばらの周辺機器をケーブルで接続するために使われる物理的なインタフェースの一種.
 
 - [[http://ja.wikipedia.org/wiki/%E3%83%91%E3%83%A9%E3%83%AC%E3%83%AB%E3%83%9D%E3%83%BC%E3%83%88][パラレルポート - Wikipedia]]
-- [[http://www.sophia-it.com/content/%E3%83%91%E3%83%A9%E3%83%AC%E3%83%AB%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9][パラレルインターフェースとは 「パラレルインタフェース」 (parallel interface)： - IT用語辞典バイナリ]]
+- [[http://www.sophia-it.com/content/%E3%83%91%E3%83%A9%E3%83%AC%E3%83%AB%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9][パラレルインターフェースとは 「パラレルインタフェース」 (parallel interface): - IT 用語辞典バイナリ]]
 
 ** Syncronization
-ハードウェアとソフトウェアの同期処理。
+ハードウェアとソフトウェアの同期処理.
 
-ハードウェアのスピードとソフトウェアのスピードは、
-ソフトウェアの方が早いため相互でやりとりするためには以下の手段がある。
+ハードウェアのスピードとソフトウェアのスピードは,
+ソフトウェアの方が早いため相互でやりとりするためには以下の手段がある.
 
 *** Blind-Cycle 
-決められた時間SleepしたあとにI/Oステータスをチェックする.
+決められた時間 Sleep したあとに I/O ステータスをチェックする.
 
 the software writes data to the output device, 
 triggers (starts) the device, then waits a specified time. 
@@ -259,9 +259,9 @@ We call this method blind, because there is no status information
 about the I/O device reported to the software. 
 
 *** Busy-Wait
-Input deviceのデータが更新されたときにI/Oステータスをチェックする。
+Input device のデータが更新されたときに I/O ステータスをチェックする.
 
-状態がBusyならばWait(loop), Readyならば次のステップへ。
+状態が Busy ならば Wait (loop), Ready ならば次のステップへ.
 
 Busy Wait is a software loop that checks the I/O status 
 waiting for the done state. For an input device, 
@@ -269,7 +269,7 @@ the software waits until the input device has new data,
 and then reads it from the input device,
 
 *** Interrupt 
-ハードウェアが発生させる特別な通知。
+ハードウェアが発生させる特別な通知.
 
 An interrupt uses hardware to cause special software execution. 
 With an input device, 
@@ -277,7 +277,7 @@ the hardware will request an interrupt when input device has new data.
 The software interrupt service will read from the input device and save in global RAM, 
 
 *** Periodic Polling 
-クロックタイマの割り込み契機でI/Oのステータスをチェック
+クロックタイマの割り込み契機で I/O のステータスをチェック
 
 *** DMA 
 Direct Memory Access あるメモリから別のメモリに直接情報を書き込む
@@ -286,11 +286,11 @@ Direct Memory Access あるメモリから別のメモリに直接情報を書�
 ** Serial Interface
 *** UART
 Universal Asynchronous Receiver/Transmitter (UART).
-調歩同期方式によるシリアル通信をするための汎用I/F。
+調歩同期方式によるシリアル通信をするための汎用 I/F.
 
 - [[http://ja.wikipedia.org/wiki/UART][UART - Wikipedia]]
 
-有名なので、最近のほとんどのマイコンに搭載されているらしい。
+有名なので, 最近のほとんどのマイコンに搭載されているらしい.
 * Thread/Process/Task
 ** Thread
 A thread is defined as the path of action of software as it executes. 
@@ -298,37 +298,37 @@ A thread is defined as the path of action of software as it executes.
 ** Process
 A process is defined as the action of software as it executes. 
 
-スレッドとプロセスの違いは、変数のスコープの違い？
+スレッドとプロセスの違いは, 変数のスコープの違い?
 
 Threads share access to I/O devices, 
 system resources, and global variables, 
 while processes have separate global variables and system resources. 
 Processes do not share I/O devices.
 
-実際は、OSによってバラバラ。
+実際は, OS によってバラバラ.
 
-- [[http://futurismo.biz/archives/2245][スレッドとタスクの違いについてしらべてみた(C++/Linux) | Futurismo]]
+- [[http://futurismo.biz/archives/2245][スレッドとタスクの違いについてしらべてみた (C++/Linux) | Futurismo]]
 
 * Interrupt
 Hardware Interrupt Software Action.
 
-Busy-Waitの制御で待ってられない場合は、Interruptを利用する。
+Busy-Wait の制御で待ってられない場合は, Interrupt を利用する.
 
-ここからは、一般的な説明ではなくてedXの中だけの定義。
+ここからは, 一般的な説明ではなくて edX の中だけの定義.
 
 *** Arm/DisArm
-Armとは、ハードウェアが割り込みをあげることを有効化する。
+Arm とは, ハードウェアが割り込みをあげることを有効化する.
 
-DisArmとは、ハードウェアが割り込みをあげることを無効化する。
+DisArm とは, ハードウェアが割り込みをあげることを無効化する.
 
 *** Enable/Disable
-Enableは一時的に割り込みを有効化する。
+Enable は一時的に割り込みを有効化する.
 
-Disbleは一時的に割り込みを無効化する。
+Disble は一時的に割り込みを無効化する.
 
-Disable中に発生したInterupptは Pendingされて、Enable時に通知される。
+Disable 中に発生した Interuppt は Pending されて, Enable 時に通知される.
 
-*** Interruputの初期化処理
+*** Interruput の初期化処理
 1. Trigger flag set by hardware
 2. the device is armed by software
 3. the device is enabled for interrupts in the NVIC
@@ -336,16 +336,16 @@ Disable中に発生したInterupptは Pendingされて、Enable時に通知さ�
 5. the interrupt level must be less than the BASEPRI. 
 
 *** Context Switch
-割り込みをハードウェアが検知したときに、
-foregroundとbackgroundのスレッドを入れ替える。
+割り込みをハードウェアが検知したときに,
+foreground と background のスレッドを入れ替える.
 
 - [[http://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%B3%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E3%82%B9%E3%82%A4%E3%83%83%E3%83%81][コンテキストスイッチ - Wikipedia]]
 
-現在のプロセスの実行を一時停止して、
-スタックにレジスタ情報を覚えておく。
+現在のプロセスの実行を一時停止して,
+スタックにレジスタ情報を覚えておく.
 
-割り込みハンドラを実行して、
-ハンドラの実行が終了したらもとのプロセスを再開する。
+割り込みハンドラを実行して,
+ハンドラの実行が終了したらもとのプロセスを再開する.
 
 1. Current instruction is finished,
 2. Eight registers are pushed on the stack,
@@ -353,26 +353,26 @@ foregroundとbackgroundのスレッドを入れ替える。
 4. IPSR is set to the interrupt number,
 5. PC is loaded with the interrupt vector
 
-** Interrupt Service Routine(ISR)
-割り込みサービスルーチン。割り込みハンドラともいう。
+** Interrupt Service Routine (ISR)
+割り込みサービスルーチン. 割り込みハンドラともいう.
 
 [[http://ja.wikipedia.org/wiki/%E5%89%B2%E3%82%8A%E8%BE%BC%E3%81%BF%E3%83%8F%E3%83%B3%E3%83%89%E3%83%A9][割り込みハンドラ - Wikipedia]]
 
-コンテキストスイッチによって、
-foregroundで動作している busy-waitなスレッドとISRがスワップされる。
+コンテキストスイッチによって,
+foreground で動作している busy-wait なスレッドと ISR がスワップされる.
 
 割り込み受け付けによって起動されるオペレーティングシステムや
-デバイスドライバのコールバックルーチン。
-割り込みハンドラは割り込み原因によってそれぞれ存在し、
-割り込みハンドラがそのタスクを完了するまでにかかる時間も様々である。
+デバイスドライバのコールバックルーチン.
+割り込みハンドラは割り込み原因によってそれぞれ存在し,
+割り込みハンドラがそのタスクを完了するまでにかかる時間も様々である.
 
 *** NVIC
-割り込みハンドラに対応させたい関数は、
-startup scriptに事前に登録しておく。
+割り込みハンドラに対応させたい関数は,
+startup script に事前に登録しておく.
 
-vectorというメモリ領域にシステムにどの関数を実行すればいいかをアドレスとして教える。
+vector というメモリ領域にシステムにどの関数を実行すればいいかをアドレスとして教える.
 
-interrupt発生時は vectorを参照して、それに対応する割り込みルーチンの関数を呼ぶ。
+interrupt 発生時は vector を参照して, それに対応する割り込みルーチンの関数を呼ぶ.
 
 nested vectored interrupt controller (NVIC) manages interrupts, 
 which are hardware-triggered software functions. Some internal peripherals, 
@@ -383,55 +383,55 @@ fast execution of interrupt service routines (ISRs),
 dramatically reducing the interrupt latency.
 
 *** Acknowledge
-割り込みをISRが認識すること。
-ISRが割り込みの認識を行った後、同じデバイスからの割り込みが発生しないよう割り込みマスクをする必要がある。
-そうしないと、クラッシュする恐れがある。
+割り込みを ISR が認識すること.
+ISR が割り込みの認識を行った後, 同じデバイスからの割り込みが発生しないよう割り込みマスクをする必要がある.
+そうしないと, クラッシュする恐れがある.
 
-- [[http://d241445.hosting-sv.jp/community/report/report31.html][レポート31：割り込みサービスルーチン（ISR）の処理]]
+- [[http://d241445.hosting-sv.jp/community/report/report31.html][レポート 31:割り込みサービスルーチン (ISR) の処理]]
 
-実装でやってはいけないことは以下。
+実装でやってはいけないことは以下.
 
-- 長時間の処理はしてはいけない。
-- 待ち状態になってはいけない、Delay Loopはつかわないほうがよい。
-- 呼んではいけない関数がある。
+- 長時間の処理はしてはいけない.
+- 待ち状態になってはいけない, Delay Loop はつかわないほうがよい.
+- 呼んではいけない関数がある.
 
-割り込みハンドラでは必要最小限の処理のみを行い、別のタスクに通知して、
-メインの処理はそっちでさせるように実装すべき。
+割り込みハンドラでは必要最小限の処理のみを行い, 別のタスクに通知して,
+メインの処理はそっちでさせるように実装すべき.
 
-*** ISRからメイン処理への通知方法
-ISRとメイン処理はグローバルなメモリ領域を介して情報を受渡しする。
+*** ISR からメイン処理への通知方法
+ISR とメイン処理はグローバルなメモリ領域を介して情報を受渡しする.
 
 - Binary Semaphore
-ISRで 決められたflagを立てて、メイン処理でそのフラグを監視する。
-flagが1ならば、それのフラグに対応する処理を実施する。
+ISR で 決められた flag を立てて, メイン処理でそのフラグを監視する.
+flag が 1 ならば, それのフラグに対応する処理を実施する.
 
 - MailBox
-flagとともにデータも渡すこともある。
+flag とともにデータも渡すこともある.
 
-flagをStatusといい、flagとdataを合わせたデータ構造をMailという。
+flag を Status といい, flag と data を合わせたデータ構造を Mail という.
 (MailBox Pruducer-Consumer Pattern)
 
 - FIFO queue
-ISRでFifoなメモリ領域にデータをPUTし、
-メイン処理のloop処理でで定期的にFifoなdataをチェックし、順次実行する。
+ISR で Fifo なメモリ領域にデータを PUT し,
+メイン処理の loop 処理でで定期的に Fifo な data をチェックし, 順次実行する.
 
 * 異常検出の方法について
-以下の2つがある。
+以下の 2 つがある.
 
-- Interupt(通知)
-  - リアルタイムに異常を処理できる。
-  - ハードウェアやOSに依存する。
+- Interupt (通知)
+  - リアルタイムに異常を処理できる.
+  - ハードウェアや OS に依存する.
 
-- Periodic Polling(監視)
-  - ソフトウェアの処理だけで実装できる。
-  - 割り込みを発生できないイベントも監視できる。
+- Periodic Polling (監視)
+  - ソフトウェアの処理だけで実装できる.
+  - 割り込みを発生できないイベントも監視できる.
 
-- [[https://www.uquest.co.jp/embedded/learning/lecture04.html][学校では教えてくれないこと | 技術コラム集（組込みの門） | ユークエスト]]
+- [[https://www.uquest.co.jp/embedded/learning/lecture04.html][学校では教えてくれないこと | 技術コラム集 (組込みの門) | ユークエスト]]
 
 * DAC 
 digital to analog converter (DAC).
 
-デジタル電気信号をアナログ電気信号に変換する電子回路。
+デジタル電気信号をアナログ電気信号に変換する電子回路.
 
 [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB-%E3%82%A2%E3%83%8A%E3%83%AD%E3%82%B0%E5%A4%89%E6%8F%9B%E5%9B%9E%E8%B7%AF][デジタル-アナログ変換回路 - Wikipedia]]
 
@@ -440,8 +440,9 @@ digital to analog converter (DAC).
 * ADC
 analog to digital converter (ADC). 
 
-アナログ電気信号をデジタル電気信号に変換する電子回路。
+アナログ電気信号をデジタル電気信号に変換する電子回路.
 
 [[http://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%8A%E3%83%AD%E3%82%B0-%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%E5%A4%89%E6%8F%9B%E5%9B%9E%E8%B7%AF][アナログ-デジタル変換回路 - Wikipedia]]
 
 ** Sensor
+

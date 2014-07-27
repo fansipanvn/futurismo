@@ -1,0 +1,87 @@
+#+OPTIONS: toc:nil
+* Web
+** Web の歴史
+   - Web1.0 ・・・クライアントは静的ページを Web サーバから取得する. ウェブページ. ウェブを読む.
+   - Web2.0 ・・・クライアント/ サーバ側で動的にページを作成する. ウェブサービス. ウェブを使う.
+   - Web3.0 ・・・クライアントごとがつながりあう. データの上のメタデータをあつかう.
+   - クラウドコンピューティング ・・・あらゆるデバイスがネットにつながる.
+   - セマンティックウェブ ・・・ビックデータの統計解析から価値を生み出す.
+
+     [[http://dmtc.jp/magazine/?p=1461][迫り来る Web3.0 時代を生き抜くエンジニアが持たなければいけない 3 つの視点 | DMTC Magazine]]
+
+* HTTP Protocols
+  HTTP は, Hypertext Transfer Protocol の略.
+
+  - [[http://ja.wikipedia.org/wiki/Hypertext_Transfer_Protocol][Hypertext Transfer Protocol - Wikipedia]]  
+
+  Web ブラウザと Web サーバの間で, 
+  HTML などのコンテンツの送受信に用いられる通信プロトコル.
+
+** HTTP request methods
+** HTTP Status Code
+   HTTP ステータスコード.[[http://ja.wikipedia.org/wiki/HTTP%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%89][HTTP ステータスコード - Wikipedia]]
+
+   |-----+---------------+--------------------|
+   | 1xx | Informational | 情報               |
+   | 2xx | Success       | 成功               |
+   | 3xx | Redirection   | リダイレクション   |
+   | 4xx | Client Error  | クライアントエラー |
+   | 5xx | Server Error  | サーバエラー       |
+   |-----+---------------+--------------------|
+
+** Mine Type
+   規格上 US-ASCII のテキストしか使用できないインターネットの電子メールで
+   さまざまなフォーマット (書式) を扱えるようにする規格.マイム.
+   
+   [[http://ja.wikipedia.org/wiki/Multipurpose_Internet_Mail_Extensions][- Multipurpose Internet Mail Extensions - Wikipedia]]
+
+** Cookies
+   HTTP におけるウェブサーバとウェブブラウザ間で状態を管理するプロトコル, 
+   またそこで用いられるウェブブラウザに保存された情報のことを指す. 
+   ユーザ識別やセッション管理を実現する目的などに利用される.
+
+   - [[http://ja.wikipedia.org/wiki/HTTP_cookie][HTTP cookie - Wikipedia]]
+
+* Web Archtectures
+   #+begin_src language
+   Web Client
+       |
+   (NetWork)
+       |
+   Web Server
+       |
+   Script/Service
+       |
+   (Connector)
+       |
+    DataBase
+   #+end_src
+
+ - [[http://ja.wikipedia.org/wiki/Model_View_Controller][Model View Controller - Wikipedia]]
+
+** Database Layer
+**** Relational DateBase
+   - [[http://ja.wikipedia.org/wiki/%E9%96%A2%E4%BF%82%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9][関係データベース - Wikipedia]]
+
+**** The Active Record Design Pattern
+
+** Presentation Layer
+   Presentation Layer の構成要素は以下.
+
+   - HTML (構造)
+   - CSS (表現)
+   - JavaScript (動作)
+
+   これらは絶対に, 絶対に, 絶対に, 分けなければいけないと強調される.
+
+** Middleware Layer
+  - HTTP, HTTPS (Request, Responce) http://ja.wikipedia.org/wiki/Hypertext_Transfer_Protocol
+  - REST-based, Restful, http://ja.wikipedia.org/wiki/REST
+  - RPC-based, SOAP [[http://ja.wikipedia.org/wiki/SOAP_(%E3%83%97%E3%83%AD%E3%83%88%E3%82%B3%E3%83%AB)][SOAP (プロトコル) - Wikipedia]]
+
+
+* Books
+  - [[http://www.amazon.co.jp/%E3%80%8C%E3%83%97%E3%83%AD%E3%81%AB%E3%81%AA%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEWeb%E6%8A%80%E8%A1%93%E5%85%A5%E9%96%80%E3%80%8D-%E2%80%95%E2%80%95%E3%81%AA%E3%81%9C%E3%80%81%E3%81%82%E3%81%AA%E3%81%9F%E3%81%AFWeb%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%92%E9%96%8B%E7%99%BA%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E3%81%AE%E3%81%8B-%E5%B0%8F%E6%A3%AE-%E8%A3%95%E4%BB%8B/dp/4774142352%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774142352][Amazon.co.jp: 「プロになるための Web 技術入門」: 小森 裕介]]
+
+* Links
+  - [[http://futurismo.biz/archives/2414][Web Application Archtectures を受講しました | Futurismo]]

@@ -1,0 +1,61 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: 
+
+* Emacs 24.4の導入
+ewwはEmacs 24.4に標準プラグインとして組み込まれる予定。
+なので、開発版の24.4を自分のPCにインストールした。
+
+** Emacs 24.4を githubからインストール
+   githubからcloneする。
+
+   git clone https://github.com/mirrors/emacs.git
+
+   cloneしたディレクトリに移動して、以下を実行。
+
+   #+begin_src language
+   ./autogen.sh
+   ./configure
+   make
+   sudo make install
+   #+end_src
+
+** ewwを起動
+   Emacs 24.4のインストールができたら、M-x ewwと押すだけ。
+   url or keywordを入力すると、検索結果が表示される。
+
+** ewwのコード
+
+   - http://bzr.savannah.gnu.org/lh/emacs/trunk/annotate/head:/lisp/net/eww.el
+
+* Tips集
+
+** defaultの検索エンジンを変更
+   google jpを設定する。defaultでは、duckduckgoが設定されている。
+
+   #+begin_src emacs-lisp
+   (setq eww-search-prefix "http://www.google.co.jp/search?q=")
+   #+end_src
+
+** eww 複数起動はできない？？
+   ewwを複数起動はできないようだ。
+   画面を2分割して、別の画面を表示したり、
+   elscreenを利用して、タブブラウザ的なことはできなかった。
+
+** 履歴をさかのぼる
+** 外部ブラウザでリンクを開く(eww-browse-with-external-link)
+   テキストブラウザは地味なので、ときには別のブラウザでもWebページを閲覧したい。
+   私は普段はconkerorを利用しているので、これで開きたい。
+
+   以下の関数で今見ているページを外部ブラウザで開くことができる。&にキーバインドされている。
+
+   #+begin_src language
+   eww-browse-with-external-link
+   #+end_src
+
+** Emacsの検索機能をフルで発揮!
+
+** Environment
+** Special Thanks

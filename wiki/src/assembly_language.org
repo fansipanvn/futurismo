@@ -1,61 +1,194 @@
 #+OPTIONS: toc:nil
 * アセンブリ言語
-  一般的には最適化コンパイラが人手で書かれたアセンブリ言語のコードと同等の性能を発揮すると言われている。
+  一般的には最適化コンパイラが人手で書かれたアセンブリ言語のコードと同等の性能を発揮すると言われている.
 
 - [[http://ja.wikipedia.org/wiki/%E3%82%A2%E3%82%BB%E3%83%B3%E3%83%96%E3%83%AA%E8%A8%80%E8%AA%9E][アセンブリ言語 - Wikipedia]]
 
+* メモリ
+** Memory Layout
+
+   #+begin_src language
+   2^n-1
+   |---------------------|
+   | Stacks              | ローカル変数, プロシージャの内容
+   |                     |
+   | Dynamic Data (Heap) | new や malloc で獲得できる領域
+   | Static Data         | グローバル変数など.
+   | Literals            | 文字列
+   | Instructions        | プログラム. 関数
+   |---------------------|
+   0
+   #+end_src
+
 * ISA
-  命令セットアーキテクチャ。(Instruction Set Architecture)
+  命令セットアーキテクチャ. (Instruction Set Architecture)
 
   - [[http://ja.wikipedia.org/wiki/%E5%91%BD%E4%BB%A4%E3%82%BB%E3%83%83%E3%83%88][命令セット - Wikipedia]]
 
   コンピュータのハードウェアに対して命令を伝えるための言葉の語彙.
 
-** x86, x64(x86-64) ISA
- インテルやAMDのISA。32bitがx86, 64bitが x64.
+** x86, x64 (x86-64) ISA
+   インテルや AMD の ISA. 32bit が x86, 64bit が x64.
 
-* x86, x86-64 ISAの文法
+* x86, x86-64 ISA の文法
 
 ** レジスタ
 *** load / store
     - Load data  from  memory  into  %reg =  Mem[address]    
     - Store register  data  into  memory   Mem[address]  =  %reg
 
-    メモリからメモリへのデータ移動は一回の操作ではできない。
-    Cannot  do  memory-­‐memory  transfer  with  a  single instruction.
+    メモリからメモリへのデータ移動は一回の操作ではできない.
+    Cannot  do  memory-­-memory  transfer  with  a  single instruction.
     
 *** レジスタの種類
+     - eax, ecx, edx, ebx, esp, ebp, esi, edi	  ... 汎用レジスタ (32 ビット)
+     - rax, rcx, rdx, rbx, rsp, rbp, rsi, rdi, r8~15 ... 汎用レジスタ (64 ビット)
+     - eflags	... フラグレジスタ (32 ビット)
+     - rflags	... フラグレジスタ (64 ビット)
+     - eip	... プログラムカウンタ (32 ビット)
+     - rip	... プログラムカウンタ (64 ビット)
+     - st (0)~(7)	... FPU レジスタ
+     - FPU ステータスレジスタ	... FPU ステータスレジスタ
+     - FPU コントロールレジスタ	... FPU コントロールレジスタ
+     - xmm0~7	... XMM レジスタ
+     - mxcsr	... MXCSR コントロール&ステータスレジスタ 
 
- - eax, ecx, edx, ebx, esp, ebp, esi, edi	  ... 汎用レジスタ (32 ビット)
- - rax, rcx, rdx, rbx, rsp, rbp, rsi, rdi, r8～15 ... 汎用レジスタ (64 ビット)
- - eflags	... フラグレジスタ (32 ビット)
- - rflags	... フラグレジスタ (64 ビット)
- - eip	... プログラムカウンタ (32 ビット)
- - rip	... プログラムカウンタ (64 ビット)
- - st(0)～(7)	... FPU レジスタ
- - FPU ステータスレジスタ	... FPU ステータスレジスタ
- - FPU コントロールレジスタ	... FPU コントロールレジスタ
- - xmm0～7	... XMM レジスタ
- - mxcsr	... MXCSR コントロール＆ステータスレジスタ 
+       参考リンク.
+      - [[http://www.mztn.org/lxasm64/amd04.html][Assembly Programming on x86-64 Linux (04)]]
+      - [[http://milkpot.sakura.ne.jp/note/x86.html][プログラミングノート - x86]]
+      - [[http://qiita.com/kktk-KO/items/da83ce61e4ae1b55a905][x86-64 アセンブリ読んでみる -O0 - Qiita]]
+      - [[http://ja.wikibooks.org/wiki/X86%E3%82%A2%E3%82%BB%E3%83%B3%E3%83%96%E3%83%A9][X86 アセンブラ - Wikibooks]]
+      - [[https://speakerdeck.com/ntddk/x86asenburaru-men][x86 アセンブラ入門]]
 
- 参考リンク。
-   - [[http://www.mztn.org/lxasm64/amd04.html][Assembly Programming on x86-64 Linux (04)]]
-   - [[http://milkpot.sakura.ne.jp/note/x86.html][プログラミングノート - x86]]
-   - [[http://qiita.com/kktk-KO/items/da83ce61e4ae1b55a905][x86-64 アセンブリ読んでみる -O0 - Qiita]]
-   - [[http://ja.wikibooks.org/wiki/X86%E3%82%A2%E3%82%BB%E3%83%B3%E3%83%96%E3%83%A9][X86アセンブラ - Wikibooks]]
+**** x86 registers
 
+      |-------------+------|
+      | caller-Save | %eax |
+      | caller-Save | %edx |
+      | caller-Save | %ecx |
+      |-------------+------|
+      | callee-Save | %ebx |
+      | callee-Save | %esi |
+      | callee-Save | %edi |
+      |-------------+------|
+      | Special     | %esp |
+      | Special     | %ebp |
+      |-------------+------|
 
-*** ベースレジスタ   rsb, 
-*** スタックレジスタ rsp, esp
-    スタックポインタはサブルーチンコールの戻りアドレスをメモリに自動的に格納したり、
-    PUSH、POP命令でレジスタを一時的に退避、復帰する場合に使われます
+**** x64 registers
 
-*** eax
-    サブルーチンからの戻り値を受けとるために利用することがおおい。
+     |-----+---------------|
+     | rax | return value  |
+     | rbx | Caller Saved  |
+     | rcx | Argument#4    |
+     | rdx | Argument#3    |
+     | rsi | Argument#2    |
+     | rdi | Argument#1    |
+     | rsp | Stack Pointer |
+     | rbp | Callee saved  |
+     |-----+---------------|
+     | r8  | Argument#5    |
+     | r9  | Argument#6    |
+     | r10 | Caller Saved  |
+     | r11 | Caller Saved  |
+     | r12 | Callee Saved  |
+     | r13 | Callee Saved  |
+     | r14 | Callee Saved  |
+     | r15 | Callee Saved  |
+     |-----+---------------|
 
-** x86-64 Calling Conventions(呼出規約)
-   プログラムで関数を呼び出す際に、レジスタやスタックを使いどのように引数を渡すか、
-   戻り値をどのように受け取るかは呼出規約(calling convention)で決められている
+*** 汎用レジスタ
+**** %eax,%edx, %ecx
+     Caller saves prior to call if values are used later.
+     呼び出し元が引数を渡すために利用.
+
+**** %eax
+     サブルーチンからの戻り値を受けとるために利用することがおおい.
+
+**** %ebx, %esi, %edi
+     Callee saves if wants to use them.
+
+*** ベースレジスタ   %rsb, %esp
+*** スタックレジスタ %rsp, &esp
+    スタックポインタはサブルーチンコールの戻りアドレスをメモリに自動的に格納したり,
+    PUSH, POP 命令でレジスタを一時的に退避, 復帰する場合に使われます.
+
+*** プログラムカウンタ %eip
+    次に実行する命令のアドレス
+** 命令
+*** mov
+    mov 命令は src オペランドを dest オペランドにコピーします.
+
+    #+begin_src asm
+    mov src, dest
+    #+end_src
+*** push, pop
+    スタックを操作するための命令.
+    スタックとは, ebp と esp ではさまれたメモリのこと.
+
+    #+BEGIN_SRC 
+     |---| %ebp
+     |	 |
+     |	 |
+     |	 |
+     |---| %esp
+    #+END_SRC
+
+  - push スタックに値を入れる
+    + Fetch value from Src
+    + Decrement%esp by 4
+    + Store value at address given by %esp
+  - pop スタックから値を取り出す
+    + Load value from address %esp
+    + Write value to Dest  
+    + Increment %esp by 4
+  - leave 以下の二つの instruction との糖衣構文
+    + mov %ebp, %esp
+    + pop %ebp
+
+*** call, ret
+    関数に飛ぶ.
+
+    #+begin_src asm
+    400e79:	e8 bf 03 00 00       	callq  40123d <strings_not_equal>
+    #+end_src
+
+    ret でサブルーチンを抜ける
+
+*** add, sub
+  - 加減算
+  - add eax, ecx => eax = eax + ec   
+*** lea
+    Address  Computa?on  Instruction .
+    アドレス計算命令. lea 命令は, src オペランドのアドレスを計算し,
+    そのアドレスを dest オペランドにロードします.
+
+    #+begin_src asm
+    lea src, dest
+    #+end_src
+
+*** jmp
+    - jmp 無条件ジャンプ
+    - jc, jnc CF が立っているかどうか
+    - jz, jnz ZF が立っているかどうか
+    - js, jns SF が立っているかどうか
+    - jo, jno OF が立っているかどうか
+*** test
+    - 論理積
+    - test eax, eax
+    - eax=0 なら ZF=1 となるので , jz 命令などで分岐
+
+*** cmp
+    - 比較
+    - cmp eax, 0
+    - eax=0 なら ZF=1 となるので , jz 命令などで分岐
+*** xor
+    - 排他的論理和
+    - xor eax, eax
+    - 同じ値同士なら 0 になるので, test や cmp の準備に多用される.
+** x86-64 Calling Conventions (呼出規約)
+   プログラムで関数を呼び出す際に, レジスタやスタックを使いどのように引数を渡すか,
+   戻り値をどのように受け取るかは呼出規約 (calling convention) で決められている
 
    the x86-64 ISA passes the first six arguments to a function in registers. 
    Registers are used in the following order: 
@@ -65,70 +198,56 @@
    The return value for functions is passed in rax.
 
   - [[http://ja.wikipedia.org/wiki/%E5%91%BC%E5%87%BA%E8%A6%8F%E7%B4%84#System_V_AMD64_ABI_.E5.91.BC.E5.87.BA.E8.A6.8F.E7.B4.84][呼出規約 - Wikipedia]]
-  - [[http://th0x4c.github.io/blog/2013/04/10/gdb-calling-convention/][Linux x86-64 の呼出規約(calling convention)を gdb で確認する]]
+  - [[http://th0x4c.github.io/blog/2013/04/10/gdb-calling-convention/][Linux x86-64 の呼出規約 (calling convention) を gdb で確認する]]
 
 *** サブルーチンプロローグ
-#+begin_src asm
-_function:
-     push ebp       ;ベースポインタを保存
-     mov ebp, esp   ;現在のスタックフレームを指すようベースポインタを変更
-     sub esp, x     ;局所変数(Cでいう自動変数)の大きさの分スタックポインタを減らす
-#+end_src
+    #+begin_src asm
+    _function:
+        push ebp       ;ベースポインタを保存
+        mov ebp, esp   ;現在のスタックフレームを指すようベースポインタを変更
+        sub esp, x     ;局所変数 (C でいう自動変数) の大きさの分スタックポインタを減らす
+    #+end_src
 
 *** サブルーチンエピローグ
-#+begin_src asm
+    #+begin_src asm
     mov esp, ebp   ;局所変数を除去
     pop ebp        ;ベースポインタを復帰
     ret            ;サブルーチンから戻る
-#+end_src
-
-** データ転送命令
-*** mov
-    mov命令はsrcオペランドをdestオペランドにコピーします。
-
-    #+begin_src asm
-    mov src, dest
     #+end_src
 
-*** lea
-    Address  Computa?on  Instruction .
-    アドレス計算命令。lea命令は、srcオペランドのアドレスを計算し、そのアドレスをdestオペランドにロードします。
 
-    #+begin_src asm
-    lea src, dest
-    #+end_src
 
 
 ** 制御構文
 *** if
-    すべて、「二者を比べ」て「結果によってジャンプ」.
+    すべて, 「二者を比べ」て「結果によってジャンプ」.
 
-#+begin_src c
-int absdiff(int x, int y)
-{
-  int result;
-  if (x > y) {
-    result = x-y;
-  } else {
-    result = y-x;
-  }
-  return result;
-}
- 
-int goto_ad ( int x, int y) 
-{ 
-  int result; 
-  if (x <= y) 
-    goto Else ; 
-  result = x-y; 
-Exit : 
-  return result;
-Else: result = y-x; 
-  goto Exit ; 
-}
-#+end_src
+    #+begin_src c
+    int absdiff (int x, int y)
+    {
+      int result;
+      if (x > y) {
+        result = x-y;
+      } else {
+        result = y-x;
+      }
+      return result;
+    }
+     
+    int goto_ad ( int x, int y) 
+    { 
+      int result; 
+      if (x <= y) 
+        goto Else ; 
+      result = x-y; 
+    Exit : 
+      return result;
+    Else: result = y-x; 
+      goto Exit ; 
+    }
+    #+end_src
 
- #+begin_src asm
+    #+begin_src asm
  int x %edx
  int y %eax 
 
@@ -136,8 +255,8 @@ Else: result = y-x;
 	pushl %ebp
 	movl %esp , %ebp
 	; body
-	movl 8(%ebp), %edx
-	movl 12(%ebp), %eax
+	movl 8 (%ebp), %edx
+	movl 12 (%ebp), %eax
 	cmpl %eax , %edx ;
 	jle .L7
 	; body end
@@ -148,7 +267,7 @@ Else: result = y-x;
  .L7:
 	subl %edx , %eax ; x-y
 	jmp .L8
- #+end_src
+    #+end_src
 
 *** while
     #+begin_src c
@@ -158,54 +277,60 @@ Else: result = y-x;
     #+end_src
 
     #+begin_src asm
-loopTop: cmpl $0, %eax
-    je loopDone
-         <loop body code>
-    jmp  loopTop
-loopDone: 
+    loopTop: cmpl $0, %eax
+        je loopDone
+             <loop body code>
+        jmp  loopTop
+    loopDone: 
     #+end_src
 
-
 *** for
+    for は while の糖衣構文.
+
 *** switch
+    Jump Table (indirect jmp) を利用する.
 
-** 関数
-   関数に飛ぶ。
-
-   #+begin_src asm
-   400e79:	e8 bf 03 00 00       	callq  40123d <strings_not_equal>
-   #+end_src
+    [jump table のアドレス + 8 * (引数)] で求められる
+    アドレスの値 (switch 先のアドレスが格納されている) を参照して,
+    そのアドレスにジャンプする.2 回ジャンプする. それが Indirect という意味.
+    
+    - Direct: jmp .L61 
+      - Jump  target  is  denoted  by  label .L61
+    - Indirect: jmp *.L62 (,%edx,4)
+      - Start  of  jump  table:   . L62
+      - Must  scale  by  factor  of  4  (labels  are  32-bits  =  4  bytes  on  IA32)
+      - Fetch  target  from  effective  address .L62 + edx*4
 
 * Tools
 ** gdb
-   デバッカ。
+   デバッカ.
 
    - [[http://flex.phys.tohoku.ac.jp/texi/gdb-j/gdb-j_toc.html][GDB マニュアル - Table of Contents]]
 
 *** ステップ実行
 **** run (r)
-     プログラムの実行。
+     プログラムの実行.
 **** step (s)
-     プログラムをステップ実行。ステップオーバー。
+     プログラムをステップ実行. ステップオーバー.
 **** stepi
-     アセンブリコードのステップ実行。
+     アセンブリコードのステップ実行.
 **** next (n)
-     プログラムをステップ実行。ステップイン。
+     プログラムをステップ実行. ステップイン.
 **** cont (c)
-     プログラムの再開。
+     プログラムの再開.
 *** ブレークポイント操作
-**** breakpoint(b)
-     ブレークポイントをはる。b [関数名].
+**** breakpoint (b)
+     ブレークポイントをはる. b [関数名].
 **** info b
-     ブレークポイントの情報を表示。
+     ブレークポイントの情報を表示.
 
-**** delete(d)
-     ブレークポイントのクリア。
+**** delete (d)
+     ブレークポイントのクリア.
 
 *** アセンブリ解析
 **** disas
      アセンブリコードの表示
-**** info register(info reg)
+**** info register (info reg)
      レジスタの情報を表示
 **** x 
      メモリの状態表示, x/[表示する個数][出力書式][出力単位]
@@ -213,10 +338,10 @@ loopDone:
      |----------+---------|
      | 出力単位 | 意味    |
      |----------+---------|
-     | b        | 1バイト |
-     | h        | 2バイト |
-     | w        | 4バイト |
-     | g        | 8バイト |
+     | b        | 1 バイト |
+     | h        | 2 バイト |
+     | w        | 4 バイト |
+     | g        | 8 バイト |
      |----------+---------|
 
      #+begin_src sh
@@ -224,8 +349,8 @@ loopDone:
      #+end_src
      
 *** その他
-**** バックトレース(bt)
-     バックトレースとは、 ユーザ・プログラムが現在いる箇所にどのようにして到達したかを示す要約情報
+**** バックトレース (bt)
+     バックトレースとは, ユーザ・プログラムが現在いる箇所にどのようにして到達したかを示す要約情報
 
      #+begin_src sh
      (gdb) bt
@@ -235,20 +360,20 @@ loopDone:
      #+end_src
 
 *** Links
-  - [[http://d.hatena.ne.jp/Watson/20100318/1268887029][gdbコマンド メモ - Watsonのメモ]]
+  - [[http://d.hatena.ne.jp/Watson/20100318/1268887029][gdb コマンド メモ - Watson のメモ]]
 
 ** objdump
 
-   - t ファイルのシンボルテーブルエントリを表示します。 nm によって得られる情報とほぼ同じ
-   - T ファイルの動的なシンボルテーブルエントリを表示します。「nm -D」とほぼ同じ
+   - t ファイルのシンボルテーブルエントリを表示します. nm によって得られる情報とほぼ同じ
+   - T ファイルの動的なシンボルテーブルエントリを表示します. 「 nm -D 」とほぼ同じ
    - S (可能であれば) ソースコードを逆アセンブル結果と混在させて表示します
    - d Use this to disassemble all of the code.
      
 ** nm
-   オブジェクトファイルのシンボルをリストする。
+   オブジェクトファイルのシンボルをリストする.
    - [[http://kazmax.zpp.jp/cmd/n/nm.1.html][nm - コマンド (プログラム) の説明 - Linux コマンド集 一覧表]]
 
 * Reference
-- [[http://www.intel.com/content/www/us/en/architecture-and-technology/64-ia-32-architectures-software-developer-instruction-set-reference-manual-325383.html][Intel® 64 and IA-32 Architectures Software Developer’s Manual V2]]
+- [[http://www.intel.com/content/www/us/en/architecture-and-technology/64-ia-32-architectures-software-developer-instruction-set-reference-manual-325383.html][Intel ® 64 and IA-32 Architectures Software Developer's Manual V2]]
 - [[http://support.amd.com/en-us][Support & Drivers]]
-- [[http://www.oklab.org/program/assembler/gas.html#0][GNU アセンブラ入門(GAS)]]
+- [[http://www.oklab.org/program/assembler/gas.html#0][GNU アセンブラ入門 (GAS)]]

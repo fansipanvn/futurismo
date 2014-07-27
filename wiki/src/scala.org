@@ -2,10 +2,10 @@
 * Scala
 ** Scala 開発環境
 *** Emacs
-- [[http://futurismo.biz/archives/2449][EmacsでScala開発環境を構築(Ensime) | Futurismo]]
+- [[http://futurismo.biz/archives/2449][Emacs で Scala 開発環境を構築 (Ensime) | Futurismo]]
 
 * 評価戦略
-  Scalaは通常 Call-by-Valueだが、=>を用いることで Call-by-Nameで評価する。
+  Scala は通常 Call-by-Value だが, =>を用いることで Call-by-Name で評価する.
 
 * High-Order Fuuction
 ** Function Type
@@ -15,8 +15,8 @@ an argument oftype A and returns a result of type B .
 So, Int => Int is the type of functions that map integers to integers.
 #+end_verse
 
-** 無名関数(Annonimous Function)
-(x: Int)がパラメータ, x * x * x は Body.
+** 無名関数 (Annonimous Function)
+(x: Int) がパラメータ, x * x * x は Body.
 
 #+begin_src scala
 (x: Int) => x * x * x
@@ -30,7 +30,7 @@ expressed using def as follows:
 
 def f ( x 1 : T 1 , ..., x n : T n ) = E ; f
 
-where f is an arbitrary, fresh name (that’s not yet used in the program)
+where f is an arbitrary, fresh name (that's not yet used in the program)
 </blockquote>
 #+END_HTML
 
@@ -38,37 +38,34 @@ where f is an arbitrary, fresh name (that’s not yet used in the program)
 
 *  Data and Abstraction
 ** trait
-Javaのインターフェースみたいなもの
+Java のインターフェースみたいなもの
 
 ** class
 
 * Pattern Matching
-条件分岐のための記法。
+条件分岐のための記法.
 
-もう、「条件分岐はmatch式、if文は三項演算子」くらいの勢い。
+もう, 「条件分岐は match 式, if 文は三項演算子」くらいの勢い.
 
 Java:
 
 #+begin_src java
-switch( <セレクター式> ){ 
+switch ( <セレクター式> ){ 
   case 場合 : 処理
   ...
 }
 #+end_src
 
-Scalaのmatch式:
+Scala の match 式:
 
 #+begin_src scala
 <セレクター式> match { 
   case パターン => 処理
   ...
 }
-
-
-
 #+end_src
 
-- [[http://yuroyoro.hatenablog.com/entry/20100317/1268819400][Scala的な考え方 - Scalaがとっつきにくいと思っている人へ - ゆるよろ日記]]
+- [[http://yuroyoro.hatenablog.com/entry/20100317/1268819400][Scala 的な考え方 - Scala がとっつきにくいと思っている人へ - ゆるよろ日記]]
 
 * Lists
 * Collections

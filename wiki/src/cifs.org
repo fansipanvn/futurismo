@@ -1,0 +1,44 @@
+* CIFS
+** 概要
+  SMB プロトコルを正式にドキュメント化して仕様を公開することで,
+  Windows 以外のオペレーティングシステム (OS) やインターネット上を介して
+  ファイル共有サービス等を利用できるように拡張したものが CIFS.
+
+*** 主な特徴
+   - CIFS はインターネットで標準的に利用される TCP/IP を基盤としている.
+   - CIFS を使用するアプリケーションとして Samba が知られている.
+   - CIFS を実装したファイル共有ソフトウェアは Windows に内蔵されている
+   - UNIX 系 OS では, Samba を利用する.
+     Windows のファイル共有機能を使ってアクセスできるようになっている.
+   - CIFS は, NetBIOS インターフェイスを経由せず,
+     ただ 1 つの TCP のポート (445 番) だけでサービスできるように改良されたプロトコル.
+     使用するポートが 1 つだけでよいので, ファイアウォールなどでの管理も容易.
+   - CIFS defines a series of commands used to pass information between networked computers.
+
+** Specification
+   - [[http://msdn.microsoft.com/en-us/library/ee442092.aspx][Common Internet File System (CIFS) Protocol]]
+
+** Links
+  - [[http://www.atmarkit.co.jp/ait/articles/0410/29/news103.html][基礎から学ぶ Windows ネットワーク: ファイル共有プロトコル SMB/CIFS - ＠ IT]]
+
+*** Microsoft 公式
+   - [[http://technet.microsoft.com/en-us/library/cc939973.aspx][Common Internet File System]]
+   - [[http://msdn.microsoft.com/en-us/library/windows/desktop/aa365233 (v=vs.85).aspx][Microsoft SMB Protocol and CIFS Protocol Overview (Windows)]]
+* SMB
+  Server Message Block (SMB) は, 主に Windows で使用されている
+  OSI 参照モデル第 7 層アプリケーション層部分の独自通信プロトコルの総称.
+
+  - [[http://ja.wikipedia.org/wiki/Server_Message_Block][Server Message Block - Wikipedia]]
+
+  SMB は Microsoft 社独自のプロトコルで仕様も正式には公開されていなかった.
+
+* SAMBA
+  マイクロソフトの Windows ネットワークを実装したフリーソフトウェア.
+  Linux, Solaris, BSD, Mac OS X などの Unix 系 OS を用いて,
+  Windows のファイルサーバやプリントサービス, ドメインコントローラ機能,
+  ドメイン参加機能を提供する.
+
+  - [[http://ja.wikipedia.org/wiki/Samba][Samba - Wikipedia]]
+
+** Links
+  - [[http://futurismo.biz/archives/1390][CentOS 上で SAMBA サーバを立ちあげて Windows からアクセスするためのメモ]]

@@ -3,25 +3,39 @@
 
 * Cuncurrency 
 ** Thread
-   Javaで Threadを利用する方法は2つある。
+   Java で Thread を利用する方法は 2 つある.
 
-   - [[http://www.javaroad.jp/java_thread3.htm][Javaの道：スレッド（３．スレッドの作成）]]
+   - [[http://www.javaroad.jp/java_thread3.htm][Java の道:スレッド (3. スレッドの作成)]]
 
-*** Threadの継承
-*** Runnable I/Fの実装
+*** Thread の継承
+*** Runnable I/F の実装
     スレッドを実装するクラスが別のクラスのサブクラスでなければならない
-    時にRunnableインタフェースを使用. Javaは多重継承をサポートしていない。
+    時に Runnable インタフェースを使用. Java は多重継承をサポートしていない.
 
-1. Runnableインタフェースを実装したクラスを作成する。
-2. そのクラスでrunメソッドを実装する。
-3. そのクラスのインスタンスを作成する。
-4. そのインスタンスを引数としたコンストラクタでThreadクラスのインスタンスを作成する。
-5. そのThreadクラスのインスタンスのstartメソッドを呼び出す。
+1. Runnable インタフェースを実装したクラスを作成する.
+2. そのクラスで run メソッドを実装する.
+3. そのクラスのインスタンスを作成する.
+4. そのインスタンスを引数としたコンストラクタで Thread クラスのインスタンスを作成する.
+5. その Thread クラスのインスタンスの start メソッドを呼び出す.
 
-    [[http://www.techscore.com/tech/Java/JavaSE/Thread/2-2/][2. スレッドの実行 (2) | TECHSCORE(テックスコア)]]
+    [[http://www.techscore.com/tech/Java/JavaSE/Thread/2-2/][2. スレッドの実行 (2) | TECHSCORE (テックスコア)]]
   
-* 開発環境
+* 開発環境・ツール
 ** Emacs
-- [[http://futurismo.biz/archives/2462][EclimでEmacsとEclipseのいいとこどり！EmacsでJava開発環境を構築した]]
+- [[http://futurismo.biz/archives/2462][Eclim で Emacs と Eclipse のいいとこどり!Emacs で Java 開発環境を構築した]]
 
-  
+** ビルドツール
+
+*** Apatch Ant
+
+*** Apatch Maven
+
+*** Gradle
+**** 特徴
+    次から引用: [[http://www.atmarkit.co.jp/ait/articles/1403/14/news034.html][ビルドツール Gradle のインストールと使い方 - ＠ IT]]
+
+    - Groovy でビルド手順を記述
+    - Apache Ivy ベースの強力な依存関係管理
+    - 人気の IDE (Eclipse, NetBeans) でも使える
+    - Ant ビルドの呼び出しもできる
+    

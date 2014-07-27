@@ -1,0 +1,85 @@
+#+BLOG: Futurismo
+#+POSTID: 2535
+#+DATE: [2014-07-25 金 22:54]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: 
+#+DESCRIPTION: Emacsでpdf-toolsをうごかすのにいろいろハマったメモ
+#+TITLE: Emacsでpdf-toolsをうごかすのにいろいろハマったメモ
+
+Emacsでpdf-toolsを動かすのにいろいろハマったので、解決するまでのメモです。
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+** Environment
+   - ArchLinux
+   - Emacs 24.3.1
+
+* さて、コンパイルが通らない！
+今は、ArchLinuxをつかっているが、以前はLinux Mintを利用してた。
+
+その環境ではなんの問題もなくインストールできたのだが、
+環境かArchLinuxに変わったらコンパイルが通らなくなっちゃた。
+
+forkして、いろいろいじくって、強引にコンパイルを通した。
+
+- https://github.com/tsu-nera/pdf-tools
+
+#+begin_src 
+./configure & make
+make install
+#+end_src
+
+* doc-view-modeが動かん！
+まず、doc-view-modeでPDFが見れない！
+
+どうも、GhostScriptというものを入れる必要があるようだ。
+
+- [[http://www.idryman.org/blog/2013/05/20/emacs-and-pdf/][Emacs and PDF - Carpe diem (Felix's blog)]]
+
+ということで、インストール。
+
+#+begin_src language
+sudo pacman -S ghostscript
+#+end_src
+
+* それでもPDFみれない！
+それでも、PDFが見れない。
+
+どうも、no windowsモードで閲覧しようとしたことが原因。
+
+#+begin_src language
+emacsclient -nw
+#+end_src
+
+フレームを作成するモードで立ち上げる。
+
+#+begin_src language
+emacsclient -c
+#+end_src
+
+やっと、EmacsでPDF見れた！！
+
+* めっちゃおそい！
+閲覧には成功したけれども、閲覧しているとEmacsがものすごく重い！
+
+これは、ストレスを通り越して、使えないレベルだ。。
+いろいろ調べると、linum-modeが悪さをしていることが判明。
+
+- [[http://stackoverflow.com/questions/16132234/how-can-i-speed-up-emacs-docview-mode][How can I speed up Emacs DocView mode? - Stack Overflow]]
+
+以下のページを参考に、major-modeが doc-view-modeのときは、linum-modeはdisableに。
+
+- [[https://github.com/Khady/emacs.d/blob/master/setup-linum.el][emacs.d/setup-linum.el at master · Khady/emacs.d]]
+
+* ついにPDFが見れるようになった～～！！
+というわけで、めちゃくちゃ茨の道だったものの、
+何とかPDFが快適にEmacsで閲覧できるようになりました。わーい ^^
+
+** Special Thanks
+  pdf-tools自体のつかいかたは、この記事がとても参考になりました。
+  pdf-occurとか、pdf-isearchとか、便利。
+
+   - [[http://sheephead.homelinux.org/2014/03/17/7076/][Emacs上のPDFでisearch,occur,imenuとかなんでもしてしまうpdf-toolsの紹介 | sheephead]]

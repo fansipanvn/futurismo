@@ -2,58 +2,58 @@
 
 * 演算子
 
-- [[http://ja.wikipedia.org/wiki/C%E3%81%A8C%2B%2B%E3%81%AE%E6%BC%94%E7%AE%97%E5%AD%90][CとC++の演算子 - Wikipedia]]
+- [[http://ja.wikipedia.org/wiki/C%E3%81%A8C%2B%2B%E3%81%AE%E6%BC%94%E7%AE%97%E5%AD%90][C と C++ の演算子 - Wikipedia]]
 
-** bit演算
+** bit 演算
 
 - [[http://ja.wikipedia.org/wiki/%E3%83%93%E3%83%83%E3%83%88%E6%BC%94%E7%AE%97][ビット演算 - Wikipedia]]
 
-代表的な演算子。
+代表的な演算子.
 
 - AND: A&B
 - OR:  A|B
 - XOR:  A^B <=> (A&~B)|(~A&B)
 - NOT:  ~A 
-- DeMorgan’s Low: ~(A|B) = ~A&~B
+- DeMorgan's Low: ~(A|B) = ~A&~B
 
 *** Two's Complement Arithmetic
-    2の補数。[[http://ja.wikipedia.org/wiki/2%E3%81%AE%E8%A3%9C%E6%95%B0][2の補数 - Wikipedia]]
-    Integerのnegativeを得るためには、以下の関係がなりたつ。
+    2 の補数. [[http://ja.wikipedia.org/wiki/2%E3%81%AE%E8%A3%9C%E6%95%B0][2 の補数 - Wikipedia]]
+    Integer の negative を得るためには, 以下の関係がなりたつ.
 
 #+begin_src language
 ~x + 1 = -x
 x + 1 = ~x
 #+end_src
 
-これからいろいろな定理が導ける。
+これからいろいろな定理が導ける.
 
 #+begin_src c
-/* マイナス1 (2) */
+/* マイナス 1 (2) */
 + ~0
 
 (!A) = (A ^ 1)
 (A ^ 1) ^ 1= (!A) ^ 1 = A
 #+end_src
 
-*** Bit演算Tips
-- [[http://yoshiiz.blog129.fc2.com/blog-entry-397.html][よしいずの雑記帳　ビット演算基本技集]]
+*** Bit 演算 Tips
+- [[http://yoshiiz.blog129.fc2.com/blog-entry-397.html][よしいずの雑記帳  ビット演算基本技集]]
 - http://www.hackersdelight.org/basics2.pdf
 - [[https://graphics.stanford.edu/~seander/bithacks.html][Bit Twiddling Hacks]]
 
 #+begin_src c
-/* Nビット目を取り出す */
+/* N ビット目を取り出す */
 (n >> N) & 1
 
-/* Nビット目に1をセットする */
+/* N ビット目に 1 をセットする */
 n = n | (1 << N);
 
-/* Nビット目に0をセットする */
+/* N ビット目に 0 をセットする */
 n = n & ~(1 << N);
 
-/* Nビット目を反転 */
+/* N ビット目を反転 */
 n = n ^ (1 << N);
 
-/* 0ビット目からN-1ビット目までがすべて1である列の生成 */
+/* 0 ビット目から N-1 ビット目までがすべて 1 である列の生成 */
 n = (1 << N) - 1;
 
 /* 全ビットの反転 (1) */
@@ -63,59 +63,59 @@ n = ~n
 n = n ^ ~0
 
 /* unsigned int の最上位ビットの値 (1) */
-1 << ( sizeof(unsigned) * 8 - 1 )
+1 << ( sizeof (unsigned) * 8 - 1 )
 
 /* unsigned int の最上位ビットの値 (2) */
 ~(~0U >> 1)
 
-/* 1である最も下位のビットの値を抽出 */
+/* 1 である最も下位のビットの値を抽出 */
 -n & n
 
 /* 奇数かどうかの判定 */
 if ( n & 1 ) { /* 奇数 */ }
 #+end_src
 
-絶対値を求める。
+絶対値を求める.
 
 - [[http://www.hayasoft.com/haya/bit-enzan/technic.html][Haya's homepage]]
-- [[http://bleis-tift.hatenablog.com/entry/20070620/1182344738][絶対値を求める - ぐるぐる～]]
+- [[http://bleis-tift.hatenablog.com/entry/20070620/1182344738][絶対値を求める - ぐるぐる~]]
 
 #+begin_src c
 /* 絶対値 */
 int r = (v + mask) ^ mask;
 int r = (v ^ mask) - mask;
 
-inline int fastabs(int a)
+inline int fastabs (int a)
 {
  int mask = a >> 31;
  return (a ^ mask) - mask;
 }
 
-/* 2整数のmax, min */
-inline int fastmax(int a, int b)
+/* 2 整数の max, min */
+inline int fastmax (int a, int b)
 {
  int t = (a-b);
  return a - (t & (t >> 31));
 }
 
-inline int fastmin(int a, int b)
+inline int fastmin (int a, int b)
 {
  int t = (a-b);
  return b + (t & (t >> 31));
 }
 #+end_src
 
-if文を置き換え。
+if 文を置き換え.
 
 #+begin_src c
-/* x が 0 or 1と仮定すると */
-if(x) a=y else a=z;
+/* x が 0 or 1 と仮定すると */
+if (x) a=y else a=z;
 a = x ? y : z;
 a = ((x<<31) >> 31)& y + ((!x) << 31) >> 31) & z
 #+end_src
 
-*** フラグ制御Tips
-イベントフラグの制御として、C言語ではビット演算が大活躍！
+*** フラグ制御 Tips
+イベントフラグの制御として, C 言語ではビット演算が大活躍!
 
 - [[http://yas-hummingbird.blogspot.jp/2009/02/c_11.html][ビット演算を理解してフラグを使いこなす - C#:humming bird]]
 
@@ -134,30 +134,30 @@ x & ~y
 *** 乗算・除算
 
 #+begin_src c
-/* 2のi乗倍する */
+/* 2 の i 乗倍する */
 n <<= i;
 y = x << 1; // y = x * 2;
 
-/* 2のi乗で割る */
+/* 2 の i 乗で割る */
 n >>= i;
 y = x >> 1; // y = x / 2;
 
-/* 2のi乗で割った剰余 */
+/* 2 の i 乗で割った剰余 */
 n & ((1 << i) - 1)
 #+end_src
 
 *** 算術シフトと論理シフト
-    - [[http://www.aobasoft.co.jp/casl/html/010_200.htm][１．２０　論理シフトと算術シフト]]
+    - [[http://www.aobasoft.co.jp/casl/html/010_200.htm][1.20  論理シフトと算術シフト]]
 
-    論理シフトは符号ビット（先頭ビット，第１５ビット，最も左のビット）
-    を含めてシフトするもので、空いたビット位置すべてに０が入ります。
+    論理シフトは符号ビット (先頭ビット, 第 15 ビット, 最も左のビット)
+    を含めてシフトするもので, 空いたビット位置すべてに 0 が入ります.
     
-    算術シフトは符号ビットを除いてシフトするもので、
-    空いたビット位置すべてに左シフトの時は０、
-    右シフトの時は符号ビットと同じものが入ります。
+    算術シフトは符号ビットを除いてシフトするもので,
+    空いたビット位置すべてに左シフトの時は 0,
+    右シフトの時は符号ビットと同じものが入ります.
 
-#+begin_src c
-int logicalShift(int x, int n) {
+#+BEGIN_SRC c
+int logicalShift (int x, int n) {
   int mask = ((1 << 31) >> n) << 1;
   return (x >> n) & ~mask;
 }
@@ -166,8 +166,8 @@ int logicalShift(int x, int n) {
 ** 論理演算
   - [[http://ja.wikipedia.org/wiki/%E8%AB%96%E7%90%86%E6%BC%94%E7%AE%97#.E5.85.AC.E5.BC.8F][論理演算 - Wikipedia]]
 
-*** 論理演算子Tips
-    ifを論理演算で置き換える。
+*** 論理演算子 Tips
+    if を論理演算で置き換える.
 
 #+begin_src c
 /* if (A) B */
@@ -181,4 +181,4 @@ A || B;
 
 * TDD
 ** Ceedling
- - [[http://futurismo.biz/archives/1498][Rubyで書かれた統合C言語TDD開発環境 「Ceedling」 がけっこう便利そうな件]]
+ - [[http://futurismo.biz/archives/1498][Ruby で書かれた統合 C 言語 TDD 開発環境 「 Ceedling 」 がけっこう便利そうな件]]

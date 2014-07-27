@@ -2,7 +2,7 @@
 * RubyTrouble
 
 ** Windows
-*** コマンドプロンプトでirbエラー
+*** コマンドプロンプトで irb エラー
 
 #+begin_src dos
 \Users\TSUNEMICHI>irb
@@ -10,9 +10,9 @@ DL is deprecated, please use Fiddle
 C:/Ruby200-x64/lib/ruby/site_ruby/2.0.0/rbreadline.rb:2111:in `expand_path': non-absolute home ((
 #+end_src
 
-Cygwinで 環境変数を HOME=/home/xxxにしているから、expand_pathメソッドがエラーする。
+Cygwin で 環境変数を HOME=/home/xxx にしているから, expand_path メソッドがエラーする.
 
-以下を入力。
+以下を入力.
 
 #+begin_src dos
 C:\Users\TSUNEMICHI>set HOME=
@@ -20,9 +20,9 @@ C:\Users\TSUNEMICHI>set HOME=
 
 - [[http://stackoverflow.com/questions/12028130/ruby-irb-doesnt-work-on-windows][Ruby: irb doesn't work on Windows - Stack Overflow]]
 
-*** Cygwinでで selenium-webdriver インストール失敗
-Cygwin64bit版は依存しているffiライブラリがバグってる！
-パッチを当てる必要があるという茨の道。
+*** Cygwin でで selenium-webdriver インストール失敗
+Cygwin64bit 版は依存している ffi ライブラリがバグってる!
+パッチを当てる必要があるという茨の道.
 
 - https://github.com/ffi/ffi/issues/284
 
@@ -39,9 +39,9 @@ Could not create Makefile due to some reason, probably lack of
 necessary libraries and/or headers.  Check the mkmf.log file for more
 #+end_src
 
-Windows版のRubyでgemのbuildがともなう場合は、
-development kit という、mingwをベースにしたパッケージを入れるのが王道らしいです。
-以下からダウンロードして、解凍したフォルダのbinフォルダに環境変数PATHを通す。
+Windows 版の Ruby で gem の build がともなう場合は,
+development kit という, mingw をベースにしたパッケージを入れるのが王道らしいです.
+以下からダウンロードして, 解凍したフォルダの bin フォルダに環境変数 PATH を通す.
 
 http://rubyinstaller.org/downloads/
 
