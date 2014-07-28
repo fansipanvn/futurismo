@@ -5,8 +5,8 @@
 Software Defined Networking.
 
 ** 定義
-- 広義：「従来システムのネットワーク要素を抽象化し分割する、コンピュータ ネットワークを構築するアプローチ」（wiki より）
-- 狭義：「（広義のアプローチを具体化するために）ネットワーク機器のコントロール プレーン、データ プレーンを分離し、集中化されたソフトウェアからコントロールして、もっと効率的なこと、便利なことをする！！」
+- 広義:「従来システムのネットワーク要素を抽象化し分割する, コンピュータ ネットワークを構築するアプローチ」 (wiki より)
+- 狭義:「 (広義のアプローチを具体化するために) ネットワーク機器のコントロール プレーン, データ プレーンを分離し, 集中化されたソフトウェアからコントロールして, もっと効率的なこと, 便利なことをする!! 」
 
 A new networking paradigm whereby the behavior of a network is controlled 
 by a single high-level software program.  
@@ -19,36 +19,36 @@ through abstraction of lower level functionality.
 
 [[http://en.wikipedia.org/wiki/Software-defined_networking][Software-defined networking - Wikipedia, the free encyclopedia]]
 
-コントロールプレーンとフォワーディングプレーンを分離し、ネットワークにプログラマビリティを持たせる
+コントロールプレーンとフォワーディングプレーンを分離し, ネットワークにプログラマビリティを持たせる
 
-[[http://forums.juniper.net/t5/%E3%83%96%E3%83%AD%E3%82%B0/SDN%E6%99%82%E4%BB%A3%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC-%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3-Forwarding-Plane-%E5%89%8D%E7%B7%A8/ba-p/204427][SDN時代のデータセンター・アーキテクチャ/Forwarding Plane J-Net Community]]
+[[http://forums.juniper.net/t5/%E3%83%96%E3%83%AD%E3%82%B0/SDN%E6%99%82%E4%BB%A3%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC-%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3-Forwarding-Plane-%E5%89%8D%E7%B7%A8/ba-p/204427][SDN 時代のデータセンター・アーキテクチャ/Forwarding Plane J-Net Community]]
 
 
-ネットワーク全体で一つのOSとして見え、
-ソフトウェアから見れば個々のネットワーク機器が隠ぺいされています。
-こうすることで、ソフトウェアを開発さえすれば
-自由にネットワークを制御することが可能になります。
+ネットワーク全体で一つの OS として見え,
+ソフトウェアから見れば個々のネットワーク機器が隠ぺいされています.
+こうすることで, ソフトウェアを開発さえすれば
+自由にネットワークを制御することが可能になります.
 
-[[http://thinkit.co.jp/story/2012/02/02/3151][SDNへの潮流とOpenFlowの歴史 | Think IT（シンクイット）]]
+[[http://thinkit.co.jp/story/2012/02/02/3151][SDN への潮流と OpenFlow の歴史 | Think IT (シンクイット)]]
 
-** SDNの歴史と基盤技術
+** SDN の歴史と基盤技術
 *** Active networks
     A collection of network architecture projects in the 1990s that shared
     many of the same goals as software-defined networking.
 
 *** Network virtualization
-    ネットワーク仮想化。物理ネットワーク上に複数の論理ネットワークを構築すること。
+    ネットワーク仮想化. 物理ネットワーク上に複数の論理ネットワークを構築すること.
 
     The notion of instantiating many distinct logical networks 
     on top of a single, shared physical network infrastructure.
 
-    [[http://ascii.jp/elem/000/000/793/793504/][ASCII.jp：なぜSDNは生まれたのか？ネットワーク仮想化との関係は？ (1/2)｜Q&A形式で学ぶOpenFlow/SDN]]
+    [[http://ascii.jp/elem/000/000/793/793504/][ASCII.jp:なぜ SDN は生まれたのか? ネットワーク仮想化との関係は? (1/2)|Q&A 形式で学ぶ OpenFlow/SDN]]
 
-   「ネットワーク仮想化」とも呼ばれ、厳密にはSDNの応用の一つであり、
-   また、SDNによらず別の技術によって実現する手法もあるため、
-   ネットワーク仮想化とSDNそのものとは区別する必要がある。
+   「ネットワーク仮想化」とも呼ばれ, 厳密には SDN の応用の一つであり,
+   また, SDN によらず別の技術によって実現する手法もあるため,
+   ネットワーク仮想化と SDN そのものとは区別する必要がある.
 
-   [[http://e-words.jp/w/SDN.html][SDNとは 【 Software-Defined Networking 】 - 意味/解説/説明/定義 ： IT用語辞典]]
+   [[http://e-words.jp/w/SDN.html][SDN とは 【 Software-Defined Networking 】 - 意味/ 解説/ 説明/ 定義 : IT 用語辞典]]
 
 ** 構成要素
 *** Control Plane
@@ -58,7 +58,7 @@ through abstraction of lower level functionality.
     software controller.
 
 *** Data Plane
-フォワーディング・プレーン, Forwarding planeともいう。
+フォワーディング・プレーン, Forwarding plane ともいう.
 
 [[http://en.wikipedia.org/wiki/Forwarding_plane][Forwarding plane - Wikipedia, the free encyclopedia]]
 
@@ -67,27 +67,27 @@ The functions in the network that are responsible for forwarding
 instantiated as forwarding tables in routers, switches, firewalls
 , and middleboxes.
 
-Data plane design goals. 技術革新に素早く対応できること。
-    - Flexible(柔軟性)
-    - Extensible(拡張性)
+Data plane design goals. 技術革新に素早く対応できること.
+    - Flexible (柔軟性)
+    - Extensible (拡張性)
     - Clean interfaces (整理されたインタフェース)
       
 **** Programmable Hardware
-     標準化された、プログラミング可能なハードウェア。
-     もうすぐ、高級言語での記述もできるようになるはず。
+     標準化された, プログラミング可能なハードウェア.
+     もうすぐ, 高級言語での記述もできるようになるはず.
 
      - FPGA
      - Click
 
-**** Flowの構成要素
-     - ヘッダフィールド（マッチングルール）
+**** Flow の構成要素
+     - ヘッダフィールド (マッチングルール)
      - アクション
        - Forwarding
        - Enqueue
        - Drop
      - 統計情報
 
-     [[http://thinkit.co.jp/story/2012/02/09/3209][OpenFlowのアーキテクチャと仕様・機能 | Think IT（シンクイット）]]
+     [[http://thinkit.co.jp/story/2012/02/09/3209][OpenFlow のアーキテクチャと仕様・機能 | Think IT (シンクイット)]]
 
 *** NorthBound API
     Programming interface that allows applications and norchestration systems to 
@@ -98,10 +98,10 @@ Data plane design goals. 技術革新に素早く対応できること。
 - Routing 
 - Security
 
-  Northbound APIは、アプリケーションからSDNコントローラを制御できるAPIだ。    
+  Northbound API は, アプリケーションから SDN コントローラを制御できる API だ.
   
-    - [[http://www.publickey1.jp/blog/12/sdnopenflownorthbound_api.html][SDN/OpenFlowの新しい課題：Northbound APIとは何か？ － Publickey]]
-    - [[http://www.publickey1.jp/blog/12/northdound_apisoftware-defined_network.html][Northdound APIは、Software-Defined Networkにとって重大な欠落だ － Publickey]]
+    - [[http://www.publickey1.jp/blog/12/sdnopenflownorthbound_api.html][SDN/OpenFlow の新しい課題:Northbound API とは何か? - Publickey]]
+    - [[http://www.publickey1.jp/blog/12/northdound_apisoftware-defined_network.html][Northdound API は, Software-Defined Network にとって重大な欠落だ - Publickey]]
 
 Northbound API can help,
 
@@ -110,9 +110,9 @@ Northbound API can help,
 - Event handling
 
 *** SouthBound API
-Control Planeと Data PlaneをつなぐAPI.
+Control Plane と Data Plane をつなぐ API.
 
-** SDNのアーキテクチャ
+** SDN のアーキテクチャ
 #+begin_src language
                            ---
    Controller Applications  |
@@ -128,14 +128,14 @@ Control Planeと Data PlaneをつなぐAPI.
 #+end_src
 
 ** Composition
-シーケンシャルな制御方法とパラレルな制御方法。
+シーケンシャルな制御方法とパラレルな制御方法.
 
 - Sequential composition :Perform one operation, then the next.
 - Parallel composition :Perform both operations simultaneously.
 
 ** Event-Driven SDN
-   ネットワーク構成のほとんどは、イベント駆動の処理。
-   ネットワークのポリシーをEvent-Basedで表現という考えが
+   ネットワーク構成のほとんどは, イベント駆動の処理.
+   ネットワークのポリシーを Event-Based で表現という考えが
    Event-Based Network Control.
    
     - Event Plane
@@ -145,29 +145,61 @@ Control Planeと Data PlaneをつなぐAPI.
     - Dinamic Event Handler
       -> State Transition signal to Control Plane.
     - Control Plane
-      -> finite state machineで制御される。
+      -> finite state machine で制御される.
       - State
-	ドメインの状態(value)の集合。
+	ドメインの状態 (value) の集合.
       - Events
 	ステートマシンにしたがって状態遷移を発生させるトリガ
     - Data Plane
 
 ** 他の用語との違いについて整理
 *** OpenFlow
-    Software-Defined Network （SDN）は、コンセプト、アーキテクチャ。
-    それを実現する技術の一つがOpenFlow。
+    Software-Defined Network (SDN) は, コンセプト, アーキテクチャ.
+    それを実現する技術の一つが OpenFlow.
 
 *** OpenStack
-    OpenStackはクラウドをOSSで管理するためのソフトウェア群の総称。
-    OpenStackのネットワーク仮想化にあたる部分がSDNの思想と重なる。
+    OpenStack はクラウドを OSS で管理するためのソフトウェア群の総称.
+    OpenStack のネットワーク仮想化にあたる部分が SDN の思想と重なる.
 
 * OpenFlow
-  OpenFlowは、スタンフォード大学が中心となっている
-  「OpenFlowスイッチングコンソーシアム」が提唱するネットワーク制御技術.
+  OpenFlow は, スタンフォード大学が中心となっている
+  「 OpenFlow スイッチングコンソーシアム」が提唱するネットワーク制御技術.
 
-  SDNを実現するための代表的なフレームワーク。
+  SDN を実現するための代表的なフレームワーク.
 
-  - [[http://ascii.jp/elem/000/000/794/794744/][ASCII.jp：SDNを牽引するOpenFlowとは？業界へのインパクトは？]]
-  - [[http://e-words.jp/w/OpenFlow.html][OpenFlowとは 〔 オープンフロー 〕 - 意味/解説/説明/定義 ： IT用語辞典]]
-  - [[http://www.publickey1.jp/blog/13/openflowsdnopenflowsdn_japan_2013.html][OpenFlow/SDNはなぜ誕生したのか、OpenFlow以前にあった問題とは。生みの親カサド氏が壇上で語る。SDN Japan 2013 － Publickey]]
+  - [[http://ascii.jp/elem/000/000/794/794744/][ASCII.jp:SDN を牽引する OpenFlow とは? 業界へのインパクトは?]]
+  - [[http://e-words.jp/w/OpenFlow.html][OpenFlow とは 〔 オープンフロー 〕 - 意味/ 解説/ 説明/ 定義 : IT 用語辞典]]
+  - [[http://www.publickey1.jp/blog/13/openflowsdnopenflowsdn_japan_2013.html][OpenFlow/SDN はなぜ誕生したのか, OpenFlow 以前にあった問題とは. 生みの親カサド氏が壇上で語る. SDN Japan 2013 - Publickey]]
     
+* WAN
+** WAN 高速化
+** 高速化装置
+  通信のレスポンスを決める要素は大きく 3 つ.
+   - 遅延
+   - 1 回のやり取りで送信するデータ量であるウインドウ・サイズ
+   - アプリケーションのバースト転送性
+
+   遅延の影響を受けやすいアプリケーションが存在する.
+   その代表格は, 米マイクロソフトのファイル共有プロトコルの CIFS や,
+   データベースに使われる Microsoft SQL などのアクセス.
+
+   [[http://itpro.nikkeibp.co.jp/article/COLUMN/20070606/273782/][ネット設計を激変させる WAN 高速化装置]]
+
+** 高速化技術
+*** キャッシュ
+    使用頻度の高いデータを高速読み出し可能な記憶装置に蓄積しておく仕組み.
+
+*** プロトコル・アクセラレーション
+    プロトコル・アクセラレーションの特徴は, 代理応答という仕組み.
+
+    - 各社の WAN 高速化装置が登場した当初は, 
+      ユーザーが多いこともあって CIFS が主要な高速化対象だった.
+    - MAPI, NFS も対応してきている.
+    - 利用頻度の高さから HTTP (hypertext transfer protocol) に対応する製品も増えてきた.
+
+**** 代理応答
+    サーバーがデータ転送を始めると, 
+    サーバー側の WAN 高速化装置がクライアントの代わりに Ack を返す
+     
+    [[http://itpro.nikkeibp.co.jp/article/COLUMN/20070606/273783/?ST=neteng][WAN 高速化装置の高速化テクノロジ--キャッシュとプロトコル・アクセラレーション]]
+

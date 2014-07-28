@@ -1,5 +1,9 @@
 #+OPTIONS: toc:nil
 * Web
+  World Wide Web.インターネット上で提供されるハイパーテキストシステム.
+
+  - [[http://ja.wikipedia.org/wiki/World_Wide_Web][World Wide Web - Wikipedia]]
+
 ** Web の歴史
    - Web1.0 ・・・クライアントは静的ページを Web サーバから取得する. ウェブページ. ウェブを読む.
    - Web2.0 ・・・クライアント/ サーバ側で動的にページを作成する. ウェブサービス. ウェブを使う.
@@ -41,6 +45,9 @@
    ユーザ識別やセッション管理を実現する目的などに利用される.
 
    - [[http://ja.wikipedia.org/wiki/HTTP_cookie][HTTP cookie - Wikipedia]]
+
+* REST
+  Restful,Representational State Transfer,http://ja.wikipedia.org/wiki/REST
 
 * Web Archtectures
    #+begin_src language

@@ -1,3 +1,4 @@
+#+OPTIONS: toc:nil
 * CIFS
 ** 概要
   SMB プロトコルを正式にドキュメント化して仕様を公開することで,
@@ -16,11 +17,17 @@
    - CIFS defines a series of commands used to pass information between networked computers.
 
 ** Specification
-   - [[http://msdn.microsoft.com/en-us/library/ee442092.aspx][Common Internet File System (CIFS) Protocol]]
+  [[http://msdn.microsoft.com/en-us/library/ee442092.aspx][Common Internet File System (CIFS) Protocol]]
+
+** CIFS が WAN で遅い理由.
+  - 1 つの Ack に対し, 最大で 1514 バイト× 2 (=3K バイト) のデータしか送信できない.
+  - CIFS の通信では, 送信したデータに対する Ack が返ってくるまで, 送信側は次のデータを送信しない.
+
+  [[http://itpro.nikkeibp.co.jp/article/COLUMN/20070606/273782/][ネット設計を激変させる WAN 高速化装置]]
 
 ** Links
   - [[http://www.atmarkit.co.jp/ait/articles/0410/29/news103.html][基礎から学ぶ Windows ネットワーク: ファイル共有プロトコル SMB/CIFS - ＠ IT]]
-
+  - [[http://www.slideshare.net/hebikuzure/smb-packet][パケット キャプチャで学ぶSMB (CIFS) の基本]]
 *** Microsoft 公式
    - [[http://technet.microsoft.com/en-us/library/cc939973.aspx][Common Internet File System]]
    - [[http://msdn.microsoft.com/en-us/library/windows/desktop/aa365233 (v=vs.85).aspx][Microsoft SMB Protocol and CIFS Protocol Overview (Windows)]]
@@ -42,3 +49,4 @@
 
 ** Links
   - [[http://futurismo.biz/archives/1390][CentOS 上で SAMBA サーバを立ちあげて Windows からアクセスするためのメモ]]
+
