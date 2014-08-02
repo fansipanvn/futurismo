@@ -107,6 +107,38 @@
 
     [[http://blog.livedoor.jp/kimura_nya/archives/30321835.html][「空・雨・傘」の枠組みをいかに利用するか : コンサルティングとファイナンス]]
 
+*** フィーチャードリブンとイシュードリブンの比較
+**** フィーチャードリブン
+    フィーチャードリブンとは, アジャイルプラクティスの一つ.
+    それらは全て, 顧客にとっての機能価値 (feature) という観点で駆動される. 
+    その主な目的は, 実際に動作するソフトウェアを繰り返し, 適切な間隔で提供することである.
+
+    - [[http://ja.wikipedia.org/wiki/%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E6%A9%9F%E8%83%BD%E9%A7%86%E5%8B%95%E9%96%8B%E7%99%BA][ユーザー機能駆動開発 - Wikipedia]]
+
+**** イシュードリブン
+    自分が今取り組もうとしている課題が本当に解くべき課題なのかを再度確認して, 
+    最終的なアウトプットのインパクトを強める.
+
+    - [[http://d.hatena.ne.jp/fulic/20110812/1313159016][イシューからはじめよ-知的生産の「シンプルな本質」 - THINK CIRCUIT]]
+
+*** TDD/BDD と仮説思考の比較
+    - TDD/BDD:
+      * テストからはじめる.
+      * テストを通すために実装する.
+      * 必要のないコードは書かない. 
+    - 仮説思考: 
+      * 課題の仮説からはじめる.
+      * 仮説を証明するために分析する.
+      * 必要のない分析はしない.
+
+*** ウォーターフォールとなぜなぜ思考の比較
+    - ウォーターフォール:
+      * 実装からはじめる.
+      * 実装をしてからテストをする.
+    - なぜなぜ分析
+      * 分析からはじめる.
+      * 分析をした結果を整理して課題を導く.
+
 ** ブレインストーミング
    アイデアを出すための方法.
 
@@ -274,6 +306,10 @@
   MECE とロジックツリーで解決策を考える.
   解決策の方向性でロジックツリーを展開する.
 * Links
+#+BEGIN_HTML
+<iframe src="//www.slideshare.net/slideshow/embed_code/6908366" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/KeitaENOMOTO/ss-6908366" title="『イシューからはじめよ』サマリ" target="_blank">『イシューからはじめよ』サマリ</a> </strong> from <strong><a href="http://www.slideshare.net/KeitaENOMOTO" target="_blank">Keita Enomoto</a></strong> </div>
+#+END_HTML
+
 * Books
   -『問題解決プロフェッショナル「思考と技術」』 (齋藤 嘉則, ダイヤモンド社, 1997 年)
   -『経営参謀が明かす論理思考と発想の技術』 (後 正武, プレジデント社, 1998 年)
