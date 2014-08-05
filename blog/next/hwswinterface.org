@@ -4,3 +4,11 @@
 #+DESCRIPTION: 
 #+TITLE: The Hardware/Software Interface
 
+メモリアライメントの理解や, ビット演算の作法は,独習 C にはあまり書いていない.
+ほかの C 言語導入用の参考書も, おそらくそうだろう.自分は実務を通して経験的に学んだ.
+
+しかし, このような導入教育を受けて入れば, 仕事で戸惑うことはなかった.
+
+* Links
+C/C++ のためのセキュアコーディング.
+  - [[http://www.ipa.go.jp/security/awareness/vendor/programmingv2/clanguage.html][IPA セキュア・プログラミング講座:C / C++ 言語編]]

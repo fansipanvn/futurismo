@@ -1,5 +1,4 @@
 #+OPTIONS: toc:nil
-
 * 演算子
 
 - [[http://ja.wikipedia.org/wiki/C%E3%81%A8C%2B%2B%E3%81%AE%E6%BC%94%E7%AE%97%E5%AD%90][C と C++ の演算子 - Wikipedia]]
@@ -178,6 +177,14 @@ A || B;
 #+end_src
 
 ** 算術演算
+
+* 構造体
+  構造体のサイズは, コンパイルが決める.
+  double, int は char よりも先に宣言したほうが, メモリ効率かよい.
+
+* メモリ
+** Memory Leak
+   メモリ解放漏れ.
 
 * TDD
 ** Ceedling

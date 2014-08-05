@@ -20,6 +20,17 @@
 
     [[http://www.techscore.com/tech/Java/JavaSE/Thread/2-2/][2. スレッドの実行 (2) | TECHSCORE (テックスコア)]]
   
+
+* Java Servlets
+  サーバ上でウェブページなどを動的に生成したりデータ処理を行うために,
+  Java で作成されたプログラム及びその仕様.JSP.
+
+  - [[http://ja.wikipedia.org/wiki/Java_Servlet][Java Servlet - Wikipedia]]
+
+** Web.xml
+   クライアントから受信したリクエストをどの Servlet に届けるかを定めた情報.
+   port のような役割??
+
 * 開発環境・ツール
 ** Emacs
 - [[http://futurismo.biz/archives/2462][Eclim で Emacs と Eclipse のいいとこどり!Emacs で Java 開発環境を構築した]]

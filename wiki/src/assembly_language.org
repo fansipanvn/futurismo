@@ -113,8 +113,9 @@
     スタックポインタはサブルーチンコールの戻りアドレスをメモリに自動的に格納したり,
     PUSH, POP 命令でレジスタを一時的に退避, 復帰する場合に使われます.
 
-*** プログラムカウンタ %eip
+*** プログラムカウンタ %rip, %eip
     次に実行する命令のアドレス
+
 ** 命令
 *** mov
     mov 命令は src オペランドを dest オペランドにコピーします.
@@ -307,11 +308,26 @@
 
    - [[http://flex.phys.tohoku.ac.jp/texi/gdb-j/gdb-j_toc.html][GDB マニュアル - Table of Contents]]
 
+   コンパイル時に-g g -O0 オブションをつける必要がある.
+
+#+begin_src sh
+$ gcc -g g -O0 ソースコード名
+#+end_src
+
+| オプション | 意味                                                         |
+|------------+--------------------------------------------------------------|
+| -g         | ファイルにデバッグ情報を付加する.                            |
+|            | これがないとデバッグ時に変数名や行番号が表示されない         |
+|------------+--------------------------------------------------------------|
+| -O0        | 最適化を行わない. 最適化を行うと,                            |
+|            | コードの入れ替えや削除が行われてしまい, デバッグしにくくなる |
+
 *** ステップ実行
 **** run (r)
      プログラムの実行.
 **** step (s)
      プログラムをステップ実行. ステップオーバー.
+
 **** stepi
      アセンブリコードのステップ実行.
 **** next (n)
@@ -320,14 +336,21 @@
      プログラムの再開.
 *** ブレークポイント操作
 **** breakpoint (b)
-     ブレークポイントをはる. b [関数名].
+     ブレークポイントをはる. 
+
+#+begin_src language
+(gdb) b 行番号
+(gdb) b 関数名
+(gdb) b ファイル名:行番号
+#+end_src
+
 **** info b
      ブレークポイントの情報を表示.
 
 **** delete (d)
      ブレークポイントのクリア.
 
-*** アセンブリ解析
+*** メモリ情報
 **** disas
      アセンブリコードの表示
 **** info register (info reg)
@@ -347,7 +370,29 @@
      #+begin_src sh
      (gdb) x/6xw
      #+end_src
-     
+
+     ステップカウンタの 3 ステップ先までを表示
+
+     #+begin_src language
+     (gdb) x /3i $rip
+     #+end_src
+
+     カレントスタックポインタからの情報を表示
+
+     #+begin_src language
+     (gdb) x /30x $rsp
+     (gdb) x /30xg $rsp
+     #+end_src
+
+     アドレスの値を文字で表示
+
+     #+begin_src language
+     (gdb) x /s $eax
+     #+end_src
+
+**** info locals (i lo)
+     ローカル変数表示.
+      
 *** その他
 **** バックトレース (bt)
      バックトレースとは, ユーザ・プログラムが現在いる箇所にどのようにして到達したかを示す要約情報
@@ -377,3 +422,6 @@
 - [[http://www.intel.com/content/www/us/en/architecture-and-technology/64-ia-32-architectures-software-developer-instruction-set-reference-manual-325383.html][Intel ® 64 and IA-32 Architectures Software Developer's Manual V2]]
 - [[http://support.amd.com/en-us][Support & Drivers]]
 - [[http://www.oklab.org/program/assembler/gas.html#0][GNU アセンブラ入門 (GAS)]]
+
+** Links
+   - C/C++ 言語をアセンブラに変換する Web サービス http://assembly.ynh.io/

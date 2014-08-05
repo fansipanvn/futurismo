@@ -1,6 +1,7 @@
-_*
 *.md
 .#*
 *.rst
 *.html
 *.png
+*.txt
+\#*

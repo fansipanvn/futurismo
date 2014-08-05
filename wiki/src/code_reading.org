@@ -1,0 +1,115 @@
+* コードリーディング
+
+OSS のコードを読み解くためのノウハウをここに集約する.
+
+以下の戦略が考えられる.
+
+ - リバースエンジニアリングからせめる
+   設計をツールによって見える化することで, 理解を助ける.
+
+ - リーディングツールからせめる
+   ツールによって検索効率をあげて可読性をあげることで, 理解を助ける.
+
+ - ノウハウ蓄積からせめる
+   内部の構造についてしらべたことを適切にまとめあげて見直すことで, 理解を助ける.
+
+ - 設計パターンからせめる
+   ステレオタイプを当てはめることによって, 理解を助ける.
+
+** Links
+- [[http://www.amazon.co.jp/Code-Reading%E2%80%95%E3%82%AA%E3%83%BC%E3%83%97%E3%83%B3%E3%82%BD%E3%83%BC%E3%82%B9%E3%81%8B%E3%82%89%E5%AD%A6%E3%81%B6%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E6%8A%80%E6%B3%95-%E3%83%88%E3%83%83%E3%83%97%E3%82%B9%E3%82%BF%E3%82%B8%E3%82%AA/dp/4839912653][Amazon.co.jp: Code Reading-オープンソースから学ぶソフトウェア開発技法: トップスタジオ, まつもと ゆきひろ, 平林 俊一, 鵜飼 文敏: 本]]
+
+* リバースエンジニアリング
+** UML 生成
+*** Amateras UML (Java)
+    クラス図やシーケンス図を描画するための Eclipse プラグイン.
+    Eclipse Luna では, ハングしてしまって利用できなかった?!
+
+    - [[http://amateras.sourceforge.jp/cgi-bin/fswiki/wiki.cgi?page=AmaterasUML][AmaterasUML - Project Amateras]]
+
+      サイトからツールをダウンロードして, eclipse/plugins 配下に配置.
+
+**** Links
+     - [[http://www.yukun.info/blog/2008/01/amateras-uml.html][Java のソースコードから UML のクラス図を作成]]
+
+*** The ObjectAid UML Explorer for Eclipse (Java)
+    - [[http://www.objectaid.com/][ObjectAid UML Explorer - Home]]
+    - [[http://fuzz-box.blogspot.jp/2012/09/how-to-generate-uml-diagrams-from-java.html][Fuzz Box: How to generate UML Diagrams from Java code in Eclipse]]
+
+    Eclipse Luna では, ハングしてしまって利用できなかった?!
+
+**** インストール方法
+    see: http://www.objectaid.com/installation
+
+    ツールバー > ヘルプ > 新規ソフトウェアのインストール > 追加 を選択.
+    ダイヤログに以下を入力.
+
+    - Name: ObjectAid UML Explorer
+    - URL: http://www.objectaid.net/update 
+
+    Class Diagram は無料. その他は有料. 以下の二つをチェックしてインストール.
+
+    - ObjectAid Class Diagram
+
+**** 使い方
+     プロジェクト or パッケージを選択して,
+     新規 > その他 > ObjectAid UML Diagram > Class Diagram を選択.
+
+*** Class Visualizer (Java)
+    Java でかかれている. IDE 縛りでないところはうれしい. 
+    しかし, うまく, class や jar を検出できない.    
+
+    - [[http://class-visualizer.net/][Class Visualizer - Welcome to Class Visualizer]]
+
+*** UMLGraph (Java)
+    Javadoc に UML を仕込む? 謎.
+
+    - [[http://java.dzone.com/articles/reverse-engineer-source-code-u][Reverse-engineer Source Code into UML Diagrams | Javalobby]]
+
+*** code 2 UML (Java)
+    Class 間を線で結ぶだけの, 貧弱なツール.
+
+    - [[http://sourceforge.net/projects/code2uml/files/latest/download][Download Code 2 UML from SourceForge.net]]
+
+*** Links
+    - [[http://stackoverflow.com/questions/6167266/generate-uml-class-diagram-from-java-project][Generate UML Class Diagram from Java Project - Stack Overflow]]
+
+*** 有償なので評価対象外
+    - Rational Software Architect (Java) 
+    - Aster: [[http://astah.change-vision.com/ja/feature/import-java.html][Java リバース (ソースコードの読み込み)]]
+    - The ObjectAid UML Explorer for Eclipse (クラス図は無償)
+    - Code Engineering http://www.visual-paradigm.com/features/code-engineering/
+
+** コールグラフ生成
+*** Doxygen
+
+** 参考リンク
+
+* リーディングツール
+** Eclipse
+** タグジャンプ
+    必須ツール. Eclipse のような IDE に依存しないならば, これがないと死ねる.
+
+*** GNU Global
+
+** grep
+   ソースコード探索における最大の武器は, grep.
+
+** 参考リンク
+  - [[http://www.codereading.com/codereading/tools/tools.html][コードを読むためのツール]]
+  - [[http://www.itmedia.co.jp/enterprise/articles/0712/26/news015_2.html][まつもとゆきひろのハッカーズライフ:第 10 回  ソースを読もう (2/2) - ITmedia エンタープライズ]]
+  - 楽天技術顧問のよしおかひろたかさんの素晴らしいスライド
+    http://www.slideshare.net/hyoshiok/sourcecode-reading-workshop2010 ... 
+
+* ノウハウ蓄積
+** Wiki
+** gitbucket
+   ソースコードへのコメント機能が実装予定.
+
+** UML
+   設計に関する知識を共有するための, デファクトスタンダード, 強力な手法.
+
+** 参考リンク
+
+* 設計パターン
+** 参考リンク
