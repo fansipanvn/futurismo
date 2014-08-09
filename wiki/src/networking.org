@@ -156,7 +156,7 @@ Control Plane と Data Plane をつなぐ API.
 *** OpenFlow
     Software-Defined Network (SDN) は, コンセプト, アーキテクチャ.
     それを実現する技術の一つが OpenFlow.
-
+    
 *** OpenStack
     OpenStack はクラウドを OSS で管理するためのソフトウェア群の総称.
     OpenStack のネットワーク仮想化にあたる部分が SDN の思想と重なる.
@@ -183,7 +183,7 @@ Control Plane と Data Plane をつなぐ API.
    その代表格は, 米マイクロソフトのファイル共有プロトコルの CIFS や,
    データベースに使われる Microsoft SQL などのアクセス.
 
-   [[http://itpro.nikkeibp.co.jp/article/COLUMN/20070606/273782/][ネット設計を激変させる WAN 高速化装置]]
+   - [[http://itpro.nikkeibp.co.jp/article/COLUMN/20070606/273782/][ネット設計を激変させる WAN 高速化装置]]
 
 ** 高速化技術
 *** キャッシュ
@@ -203,3 +203,8 @@ Control Plane と Data Plane をつなぐ API.
      
     [[http://itpro.nikkeibp.co.jp/article/COLUMN/20070606/273783/?ST=neteng][WAN 高速化装置の高速化テクノロジ--キャッシュとプロトコル・アクセラレーション]]
 
+*** 先読み
+
+** Links
+   CIFS に関する WAN Accerelation
+   - http://www.snia.org/sites/default/files2/sdc_archives/2009_presentations/monday/MarkRabinovich-IgorGokhman-CIFS_Acceleration_Techniques.pdf

@@ -1,0 +1,197 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY:  Linux, 技術メモ
+#+TAGS: 資格
+#+DESCRIPTION:  LPIC L1 101 合格体験記です
+#+TITLE: LPIC L1 合格体験記
+
+LPIC の公式サイトにいくと, 合格者の声というページがある.
+
+- http://www.lpi.or.jp/charm/success.shtml
+
+だれにもインタビューされていないのだが, 自作自演で質問に答えてみました.
+
+* きっかけ
+  きっかけは, 2 年前でした.
+  実家にかえると, 母親が LPIC L2 の資格有効期限が切れると騒いでいました.
+  
+  母親のことを尊敬していなかったので, 
+  そんな母親でもとれる資格をサラッと取得して, 
+  母親をビックリさせようと思ったのがきっかけでした.
+
+* 学習方法 1 (非推奨)
+** LPIC の勉強がつまらないことに気づくのに時間はかからなかった
+  学習をはじめて, すぐにこの資格の勉強はつまらないことに気づきました.
+  資格のために暗記をしているような気持ちが強く, すぐに書籍学習は止めてしまいました.
+
+** Linux でのワクワク生活
+  そのかわりに, VMware で Ubuntsu を入れていじるところからはじめました.
+
+  - [[http://futurismo.biz/archives/777][Windows で VMware Player 上の Ubuntu を動かしてみたメモ | Futurismo]]
+
+  今まで, Windows だけで生活してきたのですが, 
+  Linux の普段づかいもわるくないかもと気づきました.
+  
+  それから, Ubuntu -> CentOS -> Linux Mint ... と放浪生活を続けて,
+  いまは, ArchLinux にたどり着きました. 
+  ArchLinux はいいですね. 大抵のツールが簡単に動作するという快感! 
+  yaourt や AUR, ArchWiki がすばらしい.
+  また, 常に最新という哲学が好き.みんなも, ArchLinux をつかうべき!
+
+  Windows と Linux のデュアルブートはかなり勉強になりました.
+  パソコンが起動しなくなっちゃったという絶望感を味わいながら, 
+  必死でもがいているうちに, LPIC L1 で必要な知識は身につきました.
+
+  - [[http://futurismo.biz/archives/2064][Windows と Mint Linux のデュアルブート環境を VAIO に構築した手順メモ | Futurismo]]
+  - [[http://futurismo.biz/archives/2482][Lets Note を買ったのでとりあえず Windows8 と ArchLinux のデュアルブートにしてみた | Futurismo]]
+
+** zsh という美酒
+  また, zsh カスタマイズの蜜を知り, シェルの楽しさに酔いしれました.
+  シェル知識はこのこと身についた気がします.
+
+  - [[http://futurismo.biz/archives/1363][zsh は至高の利便性?!Cygwin に zsh をインストール&設定した導入方法まとめ | Futurismo]]
+
+* 学習方法 2 (推奨)
+  学習方法 1 では, いつになっても合格できない気がします.
+  真面目に自分の試験対策を書きます.
+
+** 必勝勉強パターンは ping-t
+   王道パターンは, 以下.
+
+   Ping-t を解きまくり, 解けなかった問題だけを勉強する.
+
+   - http://ping-t.com/
+
+   Linux をある程度知っているという前提で, 資格習得のために知識を丸暗記して, 
+   次の日にはすっかり忘れるには, この方法が一番よいかと思います.
+
+   ping-t は, 101 試験は無料. 102 試験は有料. 101 だけ利用するのもあり.
+
+** 自分の学習方法は edX
+   2014 年 08 月に, edX で LinuxFundation が講座をスタートさせました.
+
+   - https://www.edx.org/course/linuxfoundationx/linuxfoundationx-lfs101x-introduction-1621
+
+   この講座は, Linux 初心者のために inuxFoundation が用意した学習教材.
+   講座の紹介動画で, Linux Creator の Linus Torvalds がでてきたことに感動しました.
+
+   #+BEGIN_HTML
+   <iframe width="560" height="315" src="//www.youtube.com/embed/BmDricQGK6w" frameborder="0" allowfullscreen></iframe>
+   #+END_HTML
+
+   これからの LPIC L1 試験の対策の定番はこれだ! もちろん, 無料.
+
+*** L1 と出題範囲との対応
+    出題範囲は 5 年をめどに更新されていく.
+  - [[http://lpi.or.jp/exam/index.shtml][出題範囲 - LPI-Japan - エルピーアイジャパン]]
+
+   2015 年に出題範囲の変更が予定されている.
+  - [[http://itpro.nikkeibp.co.jp/article/Interview/20140530/560542/#][インタビュー&トーク - OpenStack 認定試験を開始へ, LPIC 1 と LPI 304 の内容も更新:ITpro]]
+
+  以下は 2014 年時点での LPIC 出題範囲との対応.
+
+#+BEGIN_QUOTE
+** 101 試験
+*** 主題 101:システムアーキテクチャ
+    101.1 ハードウェア設定の決定と構成
+    101.2 システムのブート
+    101.3 ランレベルの変更とシステムのシャットダウンまたはリブート
+
+    Chapter 01: The Linux Foundation 				
+    Chapter 02: Linux Philosophy and Concepts 			
+
+*** 主題 102:Linux のインストールとパッケージ管理
+
+    102.1 ハードディスクのレイアウト設計
+    102.2 ブートマネージャのインストール
+    102.3 共有ライブラリを管理する
+    102.4 Debian パッケージ管理を使用する
+    102.5 RPM および YUM パッケージ管理を使用する
+
+    Chapter 03: Linux Structure and Installation 		
+    Chapter 07: Finding Linux Documentation
+
+*** 主題 103:GNU と Unix のコマンド
+
+    103.1 コマンドラインで操作する
+    103.2 フィルタを使ってテキストストリームを処理する
+    103.3 基本的なファイル管理を行う
+    103.4 ストリーム, パイプ, リダイレクトを使う
+    103.5 プロセスを生成, 監視, 終了する
+    103.6 プロセスの実行優先度を変更する
+    103.7 正規表現を使用してテキストファイルを検索する
+    103.8 vi を使って基本的なファイル編集を行う
+
+    Chapter 06: Command Line Operations
+    Chapter 10: Text Editors
+    Chapter 13: Manipulating Text
+    Chapter 17: Processes
+
+*** 主題 104:デバイス, Linux ファイルシステム, ファイルシステム階層標準
+
+    104.1 パーティションとファイルシステムの作成
+    104.2 ファイルシステムの整合性を保持する
+    104.3 ファイルシステムのマウントとアンマウントをコントロールする
+    104.4 ディスククォータを管理する
+    104.5 ファイルのパーミッションと所有者を管理する
+    104.6 ハードリンクとシンボリックリンクを作成・変更する
+    104.7 システムファイルを見つける, 適切な位置にファイルを配置する
+
+    Chapter 08: File Operations
+
+** 102 試験
+
+*** 主題 105:シェル, スクリプト, およびデータ管理
+
+    105.1 シェル環境のカスタマイズと使用
+    105.2 簡単なスクリプトをカスタマイズまたは作成する
+    105.3 SQL データ管理
+
+    Chapter 15 : Bash Shell Scripting
+    Chapter 16: Advanced Bash Scripting
+
+*** 主題 106:ユーザインターフェイスとデスクトップ
+
+    106.1 X11 のインストールと設定
+    106.2 ディスプレイマネージャの設定
+    106.3 アクセシビリティ
+    
+    Chapter 04: Graphical Interface
+    Chapter 18: Common Applications
+
+*** 主題 107:管理業務
+
+    107.1 ユーザアカウント, グループアカウント, および関連するシステムファイルを管理する
+    107.2 ジョブスケジューリングによるシステム管理業務の自動化
+    107.3 ローカライゼーションと国際化
+
+    Chapter 05: System Configuration from the Graphical Interface
+    Chapter 09: User Environment
+
+*** 主題 108:重要なシステムサービス
+
+    108.1 システム時刻を維持する
+    108.2 システムのログ
+    108.3 メール転送エージェント (MTA) の基本
+    108.4 プリンターと印刷を管理する
+
+    Chapter 14: Printing
+
+*** 主題 109:ネットワークの基礎
+
+    109.1 インターネットプロトコルの基礎
+    109.2 基本的なネットワーク構成
+    109.3 基本的なネットワークの問題解決
+    109.4 クライアント側の DNS 設定
+
+    Chapter 12: Network Operations
+
+*** 主題 110:セキュリティ
+
+    110.1 セキュリティ管理業務を実施する
+    110.2 ホストのセキュリティ設定
+    110.3 暗号化によるデータの保護
+
+    Chapter11: Local Security Principles
+#+END_QUOTE
+
+* これから

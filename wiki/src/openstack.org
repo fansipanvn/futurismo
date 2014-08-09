@@ -1,0 +1,37 @@
+#+OPTIONS: toc:nil
+* OpenStack
+  2010 年に Rackspace Hosting (英語版) と NASA によって始められた
+  IaaS クラウドコンピューティングプロジェクト.
+
+  2012 年 9 月 19 日, 開発やライセンスの管理はすべて,
+  850 を超す企業や組織による非営利団体 OpenStack Foundation に移管された.
+
+  - [[http://ja.wikipedia.org/wiki/OpenStack][OpenStack - Wikipedia]]
+
+  オープンソースで構成されるクラウド・インフラストラクチャー
+  
+  OpenStack の背景には, 「 IaaS (Infrastructure as a Service) 基盤を
+  オープンソースで作りたい! 」という明確な動機があります.
+
+  クラウド基盤を構築するオープンソースソフトウエア.
+  KVM や Xen, VMware ESXi, Hyper-V といった仮想化ソフト (ハイパーバイザー) と組み合わせ,
+  IaaS (Infrastructure as a Service) や
+  ストレージサービスを提供するための仮想マシンやストレージ,
+  ネットワークの管理機能などを提供する.
+
+  OpenStack を使って構築したクラウド環境は, 統一した API や認証を使って管理できる.
+  また, IaaS のパブリッククラウドサービスで最大手である Amazon EC2 と互換性を持つ.
+
+  - [[http://itpro.nikkeibp.co.jp/article/Keyword/20121029/433321/][Network キーワード - OpenStack とは:ITpro]]
+  - [[http://cloud.watch.impress.co.jp/docs/column/cloud/20140404_642748.html][【クラウド特捜部】プレーヤーがそろい表舞台に立つ OpenStack - クラウド Watch]] 
+
+* Swift
+  オブジェクト・ストア.
+
+  - [[http://www.ibm.com/developerworks/jp/cloud/library/cl-openstack-swift-cinder/][OpenStack について学ぶ: ストレージ関連コンポーネントの Swift と Cinder]]
+  - [[http://docs.openstack.org/developer/swift/][Welcome to Swift's documentation! - swift 2.0.0.115.g698919e documentation]]
+
+* Cinder
+
+* Links
+- 日本 OpenStack ユーザの会 http://openstack.jp/

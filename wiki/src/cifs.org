@@ -17,7 +17,8 @@
    - CIFS defines a series of commands used to pass information between networked computers.
 
 ** Specification
-  [[http://msdn.microsoft.com/en-us/library/ee442092.aspx][Common Internet File System (CIFS) Protocol]]
+   
+   [[http://msdn.microsoft.com/en-us/library/ee442092.aspx][- Common Internet File System (CIFS) Protocol]]
 
 ** CIFS が WAN で遅い理由.
   - 1 つの Ack に対し, 最大で 1514 バイト× 2 (=3K バイト) のデータしか送信できない.
@@ -31,6 +32,7 @@
 *** Microsoft 公式
    - [[http://technet.microsoft.com/en-us/library/cc939973.aspx][Common Internet File System]]
    - [[http://msdn.microsoft.com/en-us/library/windows/desktop/aa365233 (v=vs.85).aspx][Microsoft SMB Protocol and CIFS Protocol Overview (Windows)]]
+
 * SMB
   Server Message Block (SMB) は, 主に Windows で使用されている
   OSI 参照モデル第 7 層アプリケーション層部分の独自通信プロトコルの総称.
