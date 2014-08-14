@@ -66,21 +66,23 @@ LPIC の公式サイトにいくと, 合格者の声というページがある.
 
    ping-t は, 101 試験は無料. 102 試験は有料. 101 だけ利用するのもあり.
 
-** 自分の学習方法は edX
-   2014 年 08 月に, edX で LinuxFundation が講座をスタートさせました.
+* edX で LPIC L1 を勉強するべき 3 つの理由
+  2014 年 08 月に, edX で LinuxFundation が講座をスタートさせました.
 
-   - https://www.edx.org/course/linuxfoundationx/linuxfoundationx-lfs101x-introduction-1621
+  - https://www.edx.org/course/linuxfoundationx/linuxfoundationx-lfs101x-introduction-1621
 
-   この講座は, Linux 初心者のために inuxFoundation が用意した学習教材.
-   講座の紹介動画で, Linux Creator の Linus Torvalds がでてきたことに感動しました.
+  この講座は, Linux 初心者のために inuxFoundation が用意した学習教材.
+  講座の紹介動画で, Linux Creator の Linus Torvalds がでてきたことに感動しました.
 
-   #+BEGIN_HTML
-   <iframe width="560" height="315" src="//www.youtube.com/embed/BmDricQGK6w" frameborder="0" allowfullscreen></iframe>
-   #+END_HTML
+  #+BEGIN_HTML
+  <iframe width="560" height="315" src="//www.youtube.com/embed/BmDricQGK6w" frameborder="0" allowfullscreen></iframe>
+  #+END_HTML
 
-   これからの LPIC L1 試験の対策の定番はこれだ! もちろん, 無料.
+  これからの LPIC L1 試験の対策の定番はこれではないでしょうか?! もちろん, 無料.
 
-*** L1 と出題範囲との対応
+** (理由 1) 知識の丸暗記ではなく課題を解きながら勉強できる
+** (理由 2) 英語の勉強もできる
+** (理由 3) L1 と出題範囲との対応している
     出題範囲は 5 年をめどに更新されていく.
   - [[http://lpi.or.jp/exam/index.shtml][出題範囲 - LPI-Japan - エルピーアイジャパン]]
 
@@ -192,6 +194,7 @@ LPIC の公式サイトにいくと, 合格者の声というページがある.
     110.3 暗号化によるデータの保護
 
     Chapter11: Local Security Principles
+
 #+END_QUOTE
 
 * これから

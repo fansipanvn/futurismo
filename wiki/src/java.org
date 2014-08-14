@@ -1,5 +1,30 @@
 #+OPTIONS: toc:nil
 * Java
+** interface
+   内容に抽象メソッドしか持たないクラスのようなもの.
+
+#+begin_src java
+class InterfaceImpl implements Interface1, interface2, interface3 {
+	...
+}
+#+end_src
+
+** extend
+   継承.
+
+** interface,extend,implement のちがい
+   誤解しやすいので整理しておく.
+
+   - [[http://oshiete.goo.ne.jp/qa/111300.html][interface,extend,implement のちがい - Java - 教えて!goo]]
+
+   以下の関係がある.
+
+   - interface  と  implements
+   - class  と extends
+
+   Java では, 多重継承を許可していない. ひとつの class を extends で継承し
+   たら, 別の暮らすは interface として宣言して, implements として Mix-in
+   する 必要がある. Ruby でいうところの, < と include の関係と同じ.
 
 * Cuncurrency 
 ** Thread
@@ -20,7 +45,6 @@
 
     [[http://www.techscore.com/tech/Java/JavaSE/Thread/2-2/][2. スレッドの実行 (2) | TECHSCORE (テックスコア)]]
   
-
 * Java Servlets
   サーバ上でウェブページなどを動的に生成したりデータ処理を行うために,
   Java で作成されたプログラム及びその仕様.JSP.
@@ -30,6 +54,26 @@
 ** Web.xml
    クライアントから受信したリクエストをどの Servlet に届けるかを定めた情報.
    port のような役割??
+
+** Marshalling
+   マーシャリング. 異なる 2 つのシステム間で, データを交換できるように
+   データを操作する処理
+
+   - [[http://en.wikipedia.org/wiki/Marshalling_(computer_science)][Marshalling (computer science) - Wikipedia, the free encyclopedia]]
+* Spring
+  - 公式; http://projects.spring.io/spring-framework/
+  - [[http://ja.wikipedia.org/wiki/Spring_Framework][Spring Framework - Wikipedia]]
+
+* Java Annotation
+  クラスやメソッド, パッケージに対してメタデータとして注釈を記入する.
+
+  - [[http://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%8E%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3][アノテーション - Wikipedia]]
+
+  3 つの種類がある.
+
+  - マーカー・アノテーション ・・・ データが無く名前だけを持つアノテーション.
+  - 単一値アノテーション ・・・ データを一つだけ持つアノテーション. 見かけはメソッド呼び出しに似ている.
+  - フル・アノテーション ・・・複数のデータを持つアノテーション.
 
 * 開発環境・ツール
 ** Emacs

@@ -56,6 +56,14 @@
 
     クライアントは, サーバの状態をしらない.
 
+* Web Application
+  インターネット (もしくはイントラネット) などのネットワークを介して使
+  用するアプリケーションソフトウェア.(cf. Desktop Application, Mobile
+  Application)
+
+   - [[http://ja.wikipedia.org/wiki/%E3%82%A6%E3%82%A7%E3%83%96%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3][ウェブアプリケーション - Wikipedia]]
+
+
 * Web Archtectures
    #+begin_src language
    Web Client
@@ -73,25 +81,51 @@
 
  - [[http://ja.wikipedia.org/wiki/Model_View_Controller][Model View Controller - Wikipedia]]
 
+** プロトコル
+
+  - HTTP, HTTPS (Request, Responce) http://ja.wikipedia.org/wiki/Hypertext_Transfer_Protocol
+  - REST-based, Restful, http://ja.wikipedia.org/wiki/REST
+  - RPC-based, SOAP [[http://ja.wikipedia.org/wiki/SOAP_(%E3%83%97%E3%83%AD%E3%83%88%E3%82%B3%E3%83%AB)][SOAP (プロトコル) - Wikipedia]]
+
 ** Database Layer
-**** Relational DateBase
+   データペースレイヤ. データアクセスレイヤとも.
+
+   データベースへのアクセスを抽象化する.クラス名の末尾に DAO (Data
+   Access Object) がつく.
+
+**** Relational Database
    - [[http://ja.wikipedia.org/wiki/%E9%96%A2%E4%BF%82%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9][関係データベース - Wikipedia]]
 
 **** The Active Record Design Pattern
 
 ** Presentation Layer
-   Presentation Layer の構成要素は以下.
+   プレゼンテーション層.ユーザインタフェースとコントローラを提供.
+   クラス名は Controller, Action.
 
-   - HTML (構造)
-   - CSS (表現)
-   - JavaScript (動作)
+*** Presentation
+  Presentation Layer の構成要素は以下.
 
-   これらは絶対に, 絶対に, 絶対に, 分けなければいけないと強調される.
+  - HTML (構造)
+  - CSS (表現)
+  - JavaScript (動作)
 
-** Middleware Layer
-  - HTTP, HTTPS (Request, Responce) http://ja.wikipedia.org/wiki/Hypertext_Transfer_Protocol
-  - REST-based, Restful, http://ja.wikipedia.org/wiki/REST
-  - RPC-based, SOAP [[http://ja.wikipedia.org/wiki/SOAP_(%E3%83%97%E3%83%AD%E3%83%88%E3%82%B3%E3%83%AB)][SOAP (プロトコル) - Wikipedia]]
+  これらは絶対に, 絶対に, 絶対に, 分けなければいけないと強調される.
+
+*** Controller
+    画面遷移や画面でボタンが押されたときの動作制御やセッション管理など.
+
+** Middle-ware Layer
+   ビジネスロジック層ともいう.クラスの末尾に Service のついた名前や,
+   対象となるオブジェクト名 (Employee, Order) がつく.
+
+*** Service
+    ユースケースに表されるような特定業務や特定部署の処理のまとまりをコ
+    ントロールする.トランザクションの起点.一般的にはステートレス.
+
+*** Domain
+    サービスから起動される, ビジネスを行う上で当然認識される顧客や注文
+    といったサービスの集まり. 自分自身がなにものかを示す値と, その値を
+    利用した処理を実現する.
 
 ** REST
    Restful,Representational State Transfer,http://ja.wikipedia.org/wiki/REST
@@ -103,7 +137,7 @@
    - RPC スタイルに合わせた簡易な XML+HTTP インターフェイスを採用したシステム (SOAP は使わない) .
 
 *** Fielding の REST 原則
-   Fielding の REST 原則に従うシステムは, しばしば RESTful といわれる.
+    Fielding の REST 原則に従うシステムは, しばしば RESTful といわれる.
 
     1. セッションなどの状態管理を行わない (やり取りされる情報はそれ自体で完結して解釈することができる) 」
        (Web システムでは, HTTP 自体にはセッション管理の機構はない)
@@ -113,7 +147,6 @@
        (ハイパーメディア的な書式で情報を表現する) 」 (HTML や XML に相当)
 
     http://e-words.jp/w/REST.html
-
 
 ** Publisher-Subscriber Model
    非同期メッセージングパラダイム.

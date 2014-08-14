@@ -8,22 +8,56 @@
   http://www.amazon.co.jp/exec/obidos/ASIN/4764902834/asakichy-22/
 
 ** 混沌から構造へ
+   複雑になりがちなソフトウェアの構造を整理して「分割して統治」するた
+   めのパターン.
+
 *** Layers
+    アプリケーションを複数の"層"に分け, それらを独立したモジュールとし
+    て開発・保守する. 各層はインタフェースを定義しモジュール化されたソ
+    フトウェアであり, テクノロジーの進歩や要求の変化に合わせて各層を個
+    別に置換できる.
+
+    - [[http://ja.wikipedia.org/wiki/%E5%A4%9A%E5%B1%A4%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3][多層アーキテクチャ - Wikipedia]]
+
+    分割が必要な大規模なシステムが前提. 小規模システムではいらない.
+
+    - [[http://www.hakkaku.net/articles/20080630-227][八角研究所 : POSA 本でアーキテクチャパターンを勉強しよう Layers]]
+
+    失敗談) Windows の Desktop Application を MVC でつくってやたらと時間が
+    かかってしまった.
+
+**** 特徴
+     - 隣接しないレイヤへのアクセスを禁止
+     - 片方向のアクセスを許可.
+
+**** メリット
+     1. 変更が局所化されるため保守性が向上する,
+     2. 抽象度の低い下位レイヤは, さまざまなシステムで再利用できる可能性がある
+     3. レイヤ間のやり取りが標準化されている場合, レイヤを交換することが容易になる
+
 *** Pipes and Filters
 *** lackboard
 ** 分散システム
+   分散システムを開発する上で有効なパターン.
+
 *** Broker
 ** 対話型システム
+   人とコンピュータの対話 (クライアントとシステムの対話) を提供するシ
+   ステムで有効なパターン
+
 *** Model-View-Controller
 *** Presentation-Abstraction-Control
 ** 適合型システム
+   環境の変化や機能要求の変化による中核機能への影響を抑えるために有効
+   なパターン.
+
 *** Microkernel
 *** Reflection
 ** Links
-- [[http://d.hatena.ne.jp/asakichy/20090602/1243900715][POSA のアーキテクチャパターン - Strategic Choice]]
-  
-ここにある図がよい.
-- [[http://thinkit.co.jp/article/940/1][第 2 回 アーキテクチャーパターンとは何か | Think IT]]
+   - [[http://d.hatena.ne.jp/asakichy/20090602/1243900715][POSA のアーキテクチャパターン - Strategic Choice]]
+     
+   ここにある図がよい.
+   - [[http://thinkit.co.jp/article/940/1][第 2 回 アーキテクチャーパターンとは何か | Think IT]]
 
 * POSA-2  
   Schmidt 先生, 渾身の著作!

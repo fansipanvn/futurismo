@@ -1,0 +1,23 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: 
+
+  - [[https://www.coursera.org/course/mobilecloud][Programming Cloud Services for Android Handheld Systems | Coursera]]
+
+** ウェブアプリケーション
+   - [[http://ja.wikipedia.org/wiki/%E3%82%A6%E3%82%A7%E3%83%96%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3][ウェブアプリケーション - Wikipedia]]
+
+** Spring Framework
+   Java での Web 開発デファクトスタンダードの Spring を利用する.
+
+** オブジェクトストレージ
+  ストレージ業界に身をおく自分としては, オブジェクトストレージのアーキ
+  テクチャを垣間見たことは有益だった. 今までは, 本や WEB で知識を読ん
+  でもどうもピンとこなかった.コードから 学ぶことで,構造や機能が頭に思
+  い浮かべられるようになった.
+
+  - [[http://www.ctc-g.co.jp/~ctcsp//sp/ostf_02.html][新たな潮流, オブジェクトストレージとは?  『オブジェクトストレージが求められる背景』]]
+   
+* これから

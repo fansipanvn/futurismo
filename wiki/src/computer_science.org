@@ -1,0 +1,30 @@
+* Computer Science
+  CS, 計算機科学ともいう.
+
+  - [[http://ja.wikipedia.org/wiki/%E8%A8%88%E7%AE%97%E6%A9%9F%E7%A7%91%E5%AD%A6][計算機科学 - Wikipedia]]
+  - [[http://en.wikipedia.org/wiki/Computer_science][Computer science - Wikipedia, the free encyclopedia]]
+
+* MECE な分類
+  - 理学
+    - アルゴリズムとデータ構造
+    - セキュリティ
+    - 情報理論
+    - 機械学習
+    - オペレーション・リサーチ
+    - ゲーム理論
+    - 確率・統計
+  - 工学
+    - データベース
+    - WEB サービス
+    - ネットワーク
+    - 組込みソフト
+    - OS
+      - Windows
+      - Linux
+      - Android
+    - コンピュータ・アーキテクチャ
+    - 設計手法
+      - 設計パターン・オブジェクト指向設計
+    - プログラミング言語
+      - 関数型言語
+      - オブジェクト指向言語

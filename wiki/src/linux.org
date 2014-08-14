@@ -1,5 +1,212 @@
 #+OPTIONS: toc:nil
 * Linux
+** Distribution
+   大きく分けて, 3 つの流派がある.
+   - Debian ... Ubuntu, Mint Linux, 個人用として人気.
+   - Fedora ... CentOS エンタープライズ業界で人気.
+   - SUSE ... OpenSUSE 小売業, ヨーロッパで人気.
+
+* FileSystems
+  コンピュータのリソースを操作するための, オペレーティングシステム (OS) が持つ機能の一つ.
+
+  - [[http://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0][ファイルシステム - Wikipedia]]
+
+** FileSystems の種類
+ - Conventional disk filesystems: ext2, ext3, ext4, XFS, Btrfs, JFS, NTFS, etc.
+ - Flash storage filesystems: ubifs, JFFS2, YAFFS, etc.
+ - Database filesystems
+ - Special purpose filesystems: procfs, sysfs, tmpfs, debugfs, etc.
+
+** partition
+  A partition is a logical part of the disk.
+
+  冷蔵庫に棚があるように, Disk にはパーティションがある.
+
+  |                                | Windows     | Linux            |
+  |--------------------------------+-------------+------------------|
+  | Partition                      | Disk1       | /dev/sda1        |
+  | Filesystem type                | NTFS/FAT32  | EXT3/EXT4/XFS... |
+  | Mounting Parameters            | DriveLetter | MountPoint       |
+  | Base Folder where OS is stored | C drive     | /                |
+
+** Filesystem Hierarchy Standard
+   Linux と他の UNIX 系オペレーティングシステムでの主なディレクトリとその内容を定めたもの.
+
+   - [[http://ja.wikipedia.org/wiki/Filesystem_Hierarchy_Standard][Filesystem Hierarchy Standard - Wikipedia]]
+
+* The Boot Process
+
+  BIOS 方式と UEFI 方式がある.両者はかなりことなっている.
+
+  - [[https://wiki.archlinux.org/index.php/Arch_Boot_Process_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Arch Boot Process (日本語) - ArchWiki]]
+
+  [[https://preview.edge.edx.org/c4x/Linux/LFS101/asset/chapter03_flowchart_scr15_1.jpg]]
+
+** BIOS
+
+*** MBR
+   マスターブートレコード (MBR) はストレージデバイスの最初の 512 バイトのこと
+   the boot loader resides at the first sector of the hard disk .
+
+   OS のブートローダとストレージデバイスのパーティションテーブルのために予約された領域.
+
+   - [[https://wiki.archlinux.org/index.php/Master_Boot_Record_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Master Boot Record (日本語) - ArchWiki]]
+
+*** BIOS 方式
+   #+begin_src language
+   BIOS -> MBR (Assembly Code) -> Boot loader -> Linux Kernel
+   #+end_src
+
+   - システムの電源が入れられ POST が実行される
+   - BIOS がブートに必要なシステムハードウェア (ディスクやキーボードコントローラなど) を初期化する
+   - (BIOS のディスク順で) 最初のディスクの最初の 440 バイト (Master Boot Record) が BIOS によって実行される
+   - BIOS から MBR ブートコードにコントロールが移り, 次のステージのコードが起動する (通常はブートローダーのコード)
+   - 起動した (2 番目の) コード (ブートローダー) はサポートと設定ファイルを読み込む
+   - 設定ファイルのデータに基づき, ブートローダーはカーネルと initramfs をシステムメモリ (RAM) にロードしてカーネルを起動する
+
+*** UEFI 方式
+    - システムのスイッチが入る - POST (Power On Self Test) プロセス
+    - UEFI ファームウェアがロードされます. ファームウェアは起動に必要なハードウェアを初期化します
+    - 次にファームウェアはブートマネージャのデータを読み込みどの 
+      UEFI アプリケーションをどこから (つまりどのディスク・パーティションから) 起動するか決定します
+    - ファームウェアのブートマネージャのブートエントリに定義されているように 
+      UEFI アプリケーションをファームウェアが起動します
+    - 起動した UEFI アプリケーションは設定によって他のアプリケーション 
+      (UEFI シェルや rEFInd の場合) やカーネルと initramfs (GRUB などのブートローダの場合) を起動します
+
+    - [[https://wiki.archlinux.org/index.php/Unified_Extensible_Firmware_Interface_(%E6%97%A5%E6%9C%AC%E8%AA%9E)#UEFI_.E3.81.AE.E3.83.96.E3.83.BC.E3.83.88.E3.83.97.E3.83.AD.E3.82.BB.E3.82.B9][Unified Extensible Firmware Interface (日本語) - ArchWiki]]
+
+** Boot loader
+   ブートローダは BIOS や UEFI によって起動される一番最初のソフトウェア.
+   
+   - Step1:(Init boot loader)
+     Bootable Disk に格納されている Boot Sector を, RAM 上に読み出す.
+   - Step2: 
+     /boot に格納されている Boot loader を読み出す
+
+   - [[https://wiki.archlinux.org/index.php/Boot_Loaders_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Boot Loaders (日本語) - ArchWiki]]
+
+*** Boot Sector の種類
+    - BIOS/MBR (旧)
+    - EFI/UEFI (新)
+
+*** Boot loader の種類
+    - GRUB [[https://wiki.archlinux.org/index.php/GRUB_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][GRUB (日本語) - ArchWiki]]
+    - ISOLINUX
+    - sysLinux
+
+** Linux Kernel
+   The boot loader loads
+   - Linux kernel
+   - an initial RAM – based file system (initramfs)
+   into memory so it can be used directly by the kernel.  
+
+*** initramfs
+    Linux カーネルのブート時によく使われる一時的なファイルシステムの一種.
+
+    [[http://ja.wikipedia.org/wiki/Initrd][- initrd - Wikipedia]]
+
+    initramfs filesystem image contains,
+    - programs
+    - binary files 
+    that perform all actions needed to mount the proper root filesystem.
+
+    - mount proper roor filesystem
+    - providing kernel functionality
+    - device drivers for mass storage controllers with a facility (UDEV)
+    - locating the drivers they need to operate properly, and loading
+      them.
+    - After the root filesystem has been found, it is checked for
+      errors and mounted.
+
+    mount point へのデバイスのマウントが完了したら, initramfs は RAM 上から削除される.
+    そして init programm (/sbin/init) が実行される.
+
+**** udev
+     ホットプラグデバイスを接続した際に, デバイスファイルを動的に作成する仕組み.
+     デバイスファイルとは Linux に接続されているデバイスをファイルとし
+     て扱うためのファイルです. デバイスファイルは「/dev 」ディレクトリ
+     配下に配置されます.
+
+     udev (Userspace DEVice management) はデバイスの接続を検知 (カーネ
+     ルから通知される) した際, デバイスファイルを動的に作成します
+
+*** init
+    init は, UNIX 系システムのプログラムのひとつであり, 他の全てのプロセスを起動する役目を持つ. 
+    デーモンとして動作し, 一般に PID 1 を付与される.
+
+    - [[http://ja.wikipedia.org/wiki/Init][init - Wikipedia]]
+
+   #+begin_src language
+   [tsu-nera]% ps -ax | ag init
+   1 ?        Ss     0:00 /sbin/init
+   #+end_src
+
+*** BSD スタイルの init
+*** System V スタイルの init
+    - dmesg 
+      システムの起動時のメッセージを表示.
+    - /proc/cmdline
+      システム起動時にブートローダからカーネルに渡されたパラメータを確認することが出来るファイル
+    - /var/log/messages
+      システムの起動 tty.
+**** ランレベル
+     Linux の動作モードのことをランレベルといいます.
+     現在のランレベルは init または telinit コマンドで変更することが出来ます.
+
+     書式は以下のとおりです.
+
+#+begin_src language
+     init ランレベル
+     telinit ランレベル
+#+end_src
+
+     | 0 | システム停止                         |                                             |
+     | 1 | シングルユーザーモード               | ネットワークやデーモンを起動せず,           |
+     |   |                                      | root 以外のログインを許可しない (注 2)      |
+     | 2 | マルチユーザーモード                 | ネットワークを起動しない (注 3)             |
+     | 3 | ネットワーク有のマルチユーザーモード | 通常のモード (注 3)                         |
+     | 4 | 未使用                               |                                             |
+     | 5 | X11                                  | ランレベル 3 + X ディスプレイマネージャ起動 |
+     | 6 | システム再起動                       |                                             |
+
+*** systemd
+    systemd は Linux における init デーモンの代替であり, 
+    System V スタイルと BSD スタイルの両方をサポート
+
+    ArchLinux はこれを利用している.
+
+    - [[https://wiki.archlinux.org/index.php/Systemd_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][systemd (日本語) - ArchWiki]]
+
+* Shell
+  zsh だけしっとけ!
+
+* X Window System
+  ビットマップディスプレイ上でウィンドウシステムを提供する表示プロトコル.
+
+  - [[http://ja.wikipedia.org/wiki/X_Window_System][X Window System - Wikipedia]]
+
+  the X Window System is loaded as the final step in the boot process.
+
+  構成要素は以下.
+  - Session Manager
+  - Window Manager
+  - A set of utilities.
+
+** Xorg
+   Xorg は X window system バージョン 11 のオープンソース実装
+
+   - [[https://wiki.archlinux.org/index.php/Xorg_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Xorg (日本語) - ArchWiki]]
+   
+* Command Line Documentation
+*** man
+    Linux manual.
+
+    - man xxx 使い方表示
+    - man -f or whatis ... コマンドヘッダ表示
+    - man -k or apropos ... man 内の検索 
+
+*** GNU Info System
 * LPIC
   LPIC とは, LPI (Linux Professional Institute) によって
   運営されている Linux 技術者の技術者認定資格.
@@ -11,79 +218,3 @@
    出題範囲は 5 年をめどに更新されていく. (2009-v3, 2015-v4)
    - [[http://lpi.or.jp/exam/index.shtml][出題範囲 - LPI-Japan - エルピーアイジャパン]]
 
-目標:101 試験
-
-主題 101:システムアーキテクチャ
-
-101.1 ハードウェア設定の決定と構成
-101.2 システムのブート
-101.3 ランレベルの変更とシステムのシャットダウンまたはリブート
-
-主題 102:Linux のインストールとパッケージ管理
-
-102.1 ハードディスクのレイアウト設計
-102.2 ブートマネージャのインストール
-102.3 共有ライブラリを管理する
-102.4 Debian パッケージ管理を使用する
-102.5 RPM および YUM パッケージ管理を使用する
-
-主題 103:GNU と Unix のコマンド
-
-103.1 コマンドラインで操作する
-103.2 フィルタを使ってテキストストリームを処理する
-103.3 基本的なファイル管理を行う
-103.4 ストリーム, パイプ, リダイレクトを使う
-103.5 プロセスを生成, 監視, 終了する
-103.6 プロセスの実行優先度を変更する
-103.7 正規表現を使用してテキストファイルを検索する
-103.8 vi を使って基本的なファイル編集を行う
-
-主題 104:デバイス, Linux ファイルシステム, ファイルシステム階層標準
-
-104.1 パーティションとファイルシステムの作成
-104.2 ファイルシステムの整合性を保持する
-104.3 ファイルシステムのマウントとアンマウントをコントロールする
-104.4 ディスククォータを管理する
-104.5 ファイルのパーミッションと所有者を管理する
-104.6 ハードリンクとシンボリックリンクを作成・変更する
-104.7 システムファイルを見つける, 適切な位置にファイルを配置する
-
-目標:102 試験
-
-主題 105:シェル, スクリプト, およびデータ管理
-
-105.1 シェル環境のカスタマイズと使用
-105.2 簡単なスクリプトをカスタマイズまたは作成する
-105.3 SQL データ管理
-
-主題 106:ユーザインターフェイスとデスクトップ
-
-106.1 X11 のインストールと設定
-106.2 ディスプレイマネージャの設定
-106.3 アクセシビリティ
-
-主題 107:管理業務
-
-107.1 ユーザアカウント, グループアカウント, および関連するシステムファイルを管理する
-107.2 ジョブスケジューリングによるシステム管理業務の自動化
-107.3 ローカライゼーションと国際化
-
-主題 108:重要なシステムサービス
-
-108.1 システム時刻を維持する
-108.2 システムのログ
-108.3 メール転送エージェント (MTA) の基本
-108.4 プリンターと印刷を管理する
-
-主題 109:ネットワークの基礎
-
-109.1 インターネットプロトコルの基礎
-109.2 基本的なネットワーク構成
-109.3 基本的なネットワークの問題解決
-109.4 クライアント側の DNS 設定
-
-主題 110:セキュリティ
-
-110.1 セキュリティ管理業務を実施する
-110.2 ホストのセキュリティ設定
-110.3 暗号化によるデータの保護

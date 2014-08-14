@@ -1,200 +1,278 @@
 #+OPTIONS: toc:nil
-o* 用語
+* Block-Based Storage
+  ブロックストレージ.NFS や CIFS で OS からドライブやマウントポイント
+  として見ることができる.
 
-** Software Defined Storage
-EMCのとなえる戦略。ストレージにおけるSoftware Defined.
+** 基本的な設定手順
+*** RAID グループ作成
+    RAID 構成を行うと, まず複数のディスクは RAID グループとして管理さ
+    れます. ここで複数の物理ディスクは論理的にグループ化され, それぞれ
+    のパフォーマンスや冗長化要件に合わせ RAID レベルを設定いたします.
 
-#+BEGIN_HTML
-<blockquote>
-Software-defined storage (SDS) is a term 
-for computer data storage technologies which separate storage hardware 
-from the software that manages the storage infrastructure
-</blockquote>
-#+END_HTML
+*** LUN (論理ボリューム) 作成
+    RAID グループを設定した後は, グループ内にあるディスクを論理的に分
+    けて使います. この論理的に分けられたものを LUN (Logical Number of
+    Unit) といい, Windows や Linux などの OS から物理的なディスクとし
+    て認識される単位となります.
 
-[[http://en.wikipedia.org/wiki/Software-defined_storage][Software-defined storage - Wikipedia, the free encyclopedia]] 
+*** パーティション作成
+    LUN で設定されたディスク容量を論理的に切り分けて使う単位をパーティ
+    ションと呼びます. OS が作成するファイルシステムはこの単位で設定さ
+    れ, OS やユーザ領域などの目的に合わせ一つのパーティションの中から
+    複数のドライブを作ることが可能です.
 
-SDNはOpenFlowという共通技術によって浸透したが、
-ストレージ分野では共通技術となるようなものがないとか。
-
-[[http://www.publickey1.jp/blog/14/software-defined_storage.html][Software-Defined Storage、これからのストレージ技術が実現する世界とはどのようなものか？ － Publickey]]
-
-*** Chuck's blog
-Chuck氏の連載が熱い。
-
-- [[http://chucksblog.typepad.com/chucks_blog/software-defined-storage-series.html][Software-Defined Storage Series - Chuck's Blog]]
+*** マウント
+*** ファイルシステムフォーマット
   
-***** Software-Defined Storage: Choices 
+* Object-Based Storage
+  オブジェクトストレージ.
 
-[[http://chucksblog.emc.com/chucks_blog/2014/05/software-defined-storage-choices-ahead.html][Software-Defined Storage: Choices Ahead - Chuck's Blog]]
+** 特徴
+  - HTTPS 上の REST (Representational State Transfer) を利用
+  - OS やファイルシステムに依存することなく, 
+    データの格納や格納したオブジェクトへのアクセスが可能
+  - 例外を除き, ファイルシステムは使われない
+  - 固有の名前 (UUID のような文字列) が付与され,ストレージ内において,
+    データとデータを管理するためのメタデータが関連づけられる.
+  - ディレクトリ構造がない, フラットなアクセス.
+  - RAID やファイルシステムに必要な, ボリューム設計や複雑な運用管理,
+    スペアディスクの設定が不要
 
-UNIXが未来の道標を築き上げてきたように、Cloudもこれからの未来を築く。
+** RAS 技術
+*** Replication 
+    データ複製.オブジェクトをコピーし, ノード間で複製を保持することで
+    冗長性を高める手法.
 
-For years, I had that wall-sized chart that showed how UNIX evolved over the years. 
-I’m sure one could create a similar wall-sized infographic showing the evolution of “cloud”.  
+*** Erasure Coding 
+    Erasure Coding はオジェクトを分割して消失訂正符号を付加し, 物理的
+    に異なるノードに分散して格納することで, その分割したデータのいくつ
+    かが消失した場合でも, 元のオブジェクトを復元することができる手法.
 
-Software-Defined Storageに適応するために、様々なアイデアが競合しあう。
+    RAID5 のようなことを, ノード間で実施する.
 
-We’re going to see something very similar when it 
-comes to software-defined storage. 
-Many flavors of the same idea will compete for adoption.
+** Links
+   - [[http://www.reqtc.com/column/object-storage.html][いま話題のオブジェクトストレージとは!? ]]
+   - [[http://www.ctc-g.co.jp/~ctcsp//sp/ostf_02.html][新たな潮流, オブジェクトストレージとは?  『オブジェクトストレージが求められる背景』]]
 
-よい選択をするために、過去に学ぼう。
+* Cloud Storage
+  クラウドストレージ.
+  
+* Software Defined Storage
+  EMC のとなえる戦略. ストレージにおける Software Defined.
 
-Learning To Make Good Choices
+  #+BEGIN_HTML
+  <blockquote>
+  Software-defined storage (SDS) is a term 
+  for computer data storage technologies which separate storage hardware 
+  from the software that manages the storage infrastructure
+  </blockquote>
+  #+END_HTML
 
-- #1 -- Familiar — Or Evolved?
+  [[http://en.wikipedia.org/wiki/Software-defined_storage][Software-defined storage - Wikipedia, the free encyclopedia]] 
 
-似たものになるか？それとも、進化するか？
+  SDN は OpenFlow という共通技術によって浸透したが,
+  ストレージ分野では共通技術となるようなものがないとか.
 
-私はこのようにSoftware-Defined Storageという単語を使っている。
+  [[http://www.publickey1.jp/blog/14/software-defined_storage.html][Software-Defined Storage, これからのストレージ技術が実現する世界とはどのようなものか? - Publickey]]
 
-アプリケーションの境界と提携して動的にストレージを構築できる能力
+** Chuck's blog
+   Chuck 氏の連載が熱い.
 
-ability to dynamically compose storage services aligned on application boundaries.
+   - [[http://chucksblog.typepad.com/chucks_blog/software-defined-storage-series.html][Software-Defined Storage Series - Chuck's Blog]]
+  
+*** Software-Defined Storage: Choices 
 
-この定義は重大な変化を運用モデルにもたらす。
+    [[http://chucksblog.emc.com/chucks_blog/2014/05/software-defined-storage-choices-ahead.html][Software-Defined Storage: Choices Ahead - Chuck's Blog]]
 
-This particular definition mandates a serious change to the operational model: 
-using application-centric policies, just-in-time provisioning, etc.  
-And I would argue that the chief goal of software-defined anything is to evolve the model, 
-and not simply recreate the familiar past using new technology.   
+    UNIX が未来の道標を築き上げてきたように, Cloud もこれからの未来を築く.
 
-ドキュメントエディタは単にタイプライタをよくしたものではない。
+    For years, I had that wall-sized chart that showed how UNIX evolved over the years. 
+    I'm sure one could create a similar wall-sized infographic showing the evolution of "cloud".  
 
-A document editor is not just a better typewriter.
+    Software-Defined Storage に適応するために, 様々なアイデアが競合しあう.
 
-- #2 -- Bottoms Up, Or Top Down?
+    We're going to see something very similar when it 
+    comes to software-defined storage. 
+    Many flavors of the same idea will compete for adoption.
 
-ボトムアップか？それとも、トップダウンか？
+    よい選択をするために, 過去に学ぼう.
 
-それぞれのグループが自分たちのテクノロジをつくっている。
-積極的なM&Aが結果的にそれらを整理することになった。
+    Learning To Make Good Choices
 
-Every group making their own technology choices independently. 
-Aggressive M&A resulting in a cluttered toy box to be sorted out.
+    - #1 -- Familiar - Or Evolved?
 
-それらの人々は、
-ベンダ間の差異を標準化するストレージ抽象レイヤに大変関心を持っている。
+    似たものになるか? それとも, 進化するか?
 
-These folks are quite interested in a storage abstraction layer 
-that normalizes all the differences, 
-and provides a standardized consumption and operational model.
+    私はこのように Software-Defined Storage という単語を使っている.
 
-EMC ViPRこそがベストな選択だ。
+    アプリケーションの境界と提携して動的にストレージを構築できる能力
 
-I believe that EMC’s ViPR controller is the best example of a 
-technology that meets this need. 
+    ability to dynamically compose storage services aligned on application boundaries.
 
-今日、多くのプロダクトが Software-Defined Storageの
-攻略対象としてあげられている。
+    この定義は重大な変化を運用モデルにもたらす.
 
-And — yes — today there are many products being marketed as 
-“software-defined storage” that only have rudimentary northbound APIs at best.
+    This particular definition mandates a serious change to the operational model: 
+    using application-centric policies, just-in-time provisioning, etc.  
+    And I would argue that the chief goal of software-defined anything is to evolve the model, 
+    and not simply recreate the familiar past using new technology.   
 
-- #3 -- Managed Separately, Or Converged?
+    ドキュメントエディタは単にタイプライタをよくしたものではない.
 
-別々で管理するか？それとも統合するか？
+    A document editor is not just a better typewriter.
 
-サーバ、ストレージ、ネットワーク、
-それぞれのチームが思い描くクラウドのイメージが違う。
+    - #2 -- Bottoms Up, Or Top Down?
 
-The server team reported out what they planned to do, 
-the network team, the storage team, etc.  
-Each team had a plan to implement "cloud" after their own image.
+    ボトムアップか? それとも, トップダウンか?
 
-3者のレポートがバラバラなのは明らか。
+    それぞれのグループが自分たちのテクノロジをつくっている.
+    積極的な M&A が結果的にそれらを整理することになった.
 
-After the third report-out, 
-it was clear that the teams hadn't done much collaboration :)
+    Every group making their own technology choices independently. 
+    Aggressive M&A resulting in a cluttered toy box to be sorted out.
 
-- #4 -- Static -- Or Dynamic?
+    それらの人々は,
+    ベンダ間の差異を標準化するストレージ抽象レイヤに大変関心を持っている.
 
-静的か？それとも動的か？
+    These folks are quite interested in a storage abstraction layer 
+    that normalizes all the differences, 
+    and provides a standardized consumption and operational model.
 
-私たちは、過去数年で手工芸的にそれぞれの要求に答えることから、
-あらかじめ確保されたサービスの選択が出来るようにした。
+    EMC ViPR こそがベストな選択だ.
 
-We spent the last few years moving IT from hand-carving every request, 
-to having pre-allocated service choices.  
+    I believe that EMC's ViPR controller is the best example of a 
+    technology that meets this need. 
 
-私たちは、この先数年で要求に応じて動的に構成されたサービスを目指す。
+    今日, 多くのプロダクトが Software-Defined Storage の
+    攻略対象としてあげられている.
 
-We'll spend the next few years moving from pre-allocated services 
-to dynamic composition of services from resources as demanded.
+    And - yes - today there are many products being marketed as 
+    "software-defined storage" that only have rudimentary northbound APIs at best.
 
-- #5 — Start To Invest Now — Or Wait Until The Dust Settles?
+    - #3 -- Managed Separately, Or Converged?
 
-いまから投資するか？安定するまでまつか？
+    別々で管理するか? それとも統合するか?
 
-SDSが最大な勝利を収める領域は、運用モデルだ。
-新しい運用モデルは深く理解され、実装され、満足されるまで時間がかかる。
+    サーバ, ストレージ, ネットワーク,
+    それぞれのチームが思い描くクラウドのイメージが違う.
 
-The biggest win with SDS is the operational model — and it’s brand new.  
-New operational models can take a lot of time to fully understand, 
-implement and become comfortable with. 
+    The server team reported out what they planned to do, 
+    the network team, the storage team, etc.  
+    Each team had a plan to implement "cloud" after their own image.
 
-個人的な意見としては、
-今が、新しい運用モデルに慣れ親しむことに投資するのによいときだ。
+    3 者のレポートがバラバラなのは明らか.
 
-Personally, I’m telling people that now is a good time 
-to modestly invest in becoming familiar with the new operational model 
+    After the third report-out, 
+    it was clear that the teams hadn't done much collaboration :)
 
-- The Key Question
+    - #4 -- Static -- Or Dynamic?
 
-Software-Defined Anythingが進むにつれて、
-私たちはここからなににすればいいんだ？
+    静的か? それとも動的か?
 
-When it gets down to software-defined anything, 
-the real question is — what the heck are we trying to do here?  
+    私たちは, 過去数年で手工芸的にそれぞれの要求に答えることから,
+    あらかじめ確保されたサービスの選択が出来るようにした.
 
-私たちのゴールは、今していることを継続的によりよくしていくことか？
-それとも、新しいモデルを再発明することか？
+    We spent the last few years moving IT from hand-carving every request, 
+    to having pre-allocated service choices.  
 
-Is our goal simply to do what we’re doing today, only do it incrementally better?
-Or is our goal to re-invent the model of how things get done?
+    私たちは, この先数年で要求に応じて動的に構成されたサービスを目指す.
+
+    We'll spend the next few years moving from pre-allocated services 
+    to dynamic composition of services from resources as demanded.
+
+    - #5 - Start To Invest Now - Or Wait Until The Dust Settles?
+
+    いまから投資するか? 安定するまでまつか?
+
+    SDS が最大な勝利を収める領域は, 運用モデルだ.
+    新しい運用モデルは深く理解され, 実装され, 満足されるまで時間がかかる.
+
+    The biggest win with SDS is the operational model - and it's brand new.  
+    New operational models can take a lot of time to fully understand, 
+    implement and become comfortable with. 
+
+    個人的な意見としては,
+    今が, 新しい運用モデルに慣れ親しむことに投資するのによいときだ.
+
+    Personally, I'm telling people that now is a good time 
+    to modestly invest in becoming familiar with the new operational model 
+
+    - The Key Question
+
+    Software-Defined Anything が進むにつれて,
+    私たちはここからなににすればいいんだ?
+
+    When it gets down to software-defined anything, 
+    the real question is - what the heck are we trying to do here?  
+
+    私たちのゴールは, 今していることを継続的によりよくしていくことか?
+    それとも, 新しいモデルを再発明することか?
+
+    Is our goal simply to do what we're doing today, only do it incrementally better?
+    Or is our goal to re-invent the model of how things get done?
 
 ** 製品
-EMC ViPR
-IBM Elastic Storage
+   EMC ViPR
+   IBM Elastic Storage
 
 * SMI-S
-ストレージ"管理"のためのAPI。
+  ストレージ"管理"のための API.
 
-2003にはじまったのに、なぜ10年以上たった今でもいまいちな知名度なのか？
+  2003 にはじまったのに, なぜ 10 年以上たった今でもいまいちな知名度なのか?
 
-[[http://ja.wikipedia.org/wiki/SMI-S][SMI-S - Wikipedia]]
-[[http://www.snia-j.org/tech/smis/smis/smis1.html][SMISがストレージ業界に及ぼす影響(1/4) : SNIA-J]]
-[[http://www.atmarkit.co.jp/fnetwork/tanpatsu/16snw2004/01.html#][＠IT：特別企画：ストレージ・ネットワーキング・トレンドレポート【前編】]]
+  [[http://ja.wikipedia.org/wiki/SMI-S][SMI-S - Wikipedia]]
+  [[http://www.snia-j.org/tech/smis/smis/smis1.html][SMIS がストレージ業界に及ぼす影響 (1/4) : SNIA-J]]
+  [[http://www.atmarkit.co.jp/fnetwork/tanpatsu/16snw2004/01.html#][＠ IT:特別企画:ストレージ・ネットワーキング・トレンドレポート【前編】]]
 
 * CDMI
-クラウドデータ管理インターフェイス（CDMI）
+  クラウドデータ管理インターフェイス (CDMI)
 
-[[http://www.sbbit.jp/article/cont1/24892][クラウドストレージ標準「CDMI」とは何か？SNIA会長ウェイン・アダムス氏インタビュー クラウドの標準化動向も一覧で理解｜ビジネス+IT]]
-[[http://www.snia-j.org/tech/WH/CloudStorage/CloudStorage4.html][クラウドストレージの実装、サービス提供と使用(4/6) : SNIA-J]]
+  [[http://www.sbbit.jp/article/cont1/24892][クラウドストレージ標準「 CDMI 」とは何か?SNIA 会長ウェイン・アダムス氏インタビュー クラウドの標準化動向も一覧で理解|ビジネス +IT]]
+  [[http://www.snia-j.org/tech/WH/CloudStorage/CloudStorage4.html][クラウドストレージの実装, サービス提供と使用 (4/6) : SNIA-J]]
 
-Rest APIらしい。EMCの ViPRも Restを利用している。
+  Rest API らしい. EMC の ViPR も Rest を利用している.
+
+* ハードディスク
+** BAD Data
+   ハードディスクに記録されたユーザデータは, 磁性の劣化等が原因で不正
+   なデータとなり, CRC (Cyclic Redundancy Check) やブロック ID の検
+   査により不正なデータとして検出される場合がある.このため, ストレージ
+   デバイスには書き込まれているものの, 不正なデータとなってしまったデー
+   タを BAD Data という.
+
+** 信頼性・寿命
+   - [[http://d.hatena.ne.jp/tagomoris/20110419/1303181958#][RAID レベルの話: 1+0 と 6 はどっちが安全か? - tagomoris のメモ置
+     き場]]
+
+
+
+* 用語
+** アドバンスド・コピー
+   アドバンスト・コピー機能は, サーバの CPU を使用せずにストレージだけ
+   (筺体内) で高速にコピーを作成する機能.
+
+   - [[http://storage-system.fujitsu.com/jp/products/diskarray/feature/c02/][オンライン中の高速バックアップ アドバンスト・コピー機能 (EC, OPC) : 富士通]]
+
 
 * Links
-ストレージ開発者が今すぐ登録すべきRSSまとめ
-IT業界にいると、情報の流れが早い。すぐに動向に置いてかれる。
+  ストレージ開発者が今すぐ登録すべき RSS まとめ
+  IT 業界にいると, 情報の流れが早い. すぐに動向に置いてかれる.
 
-なにかうまい方法はと考えて、
-とりあえず結局業界をリードする人の発信する情報をキャッチすることにした。
+  なにかうまい方法はと考えて,
+  とりあえず結局業界をリードする人の発信する情報をキャッチすることにした.
 
-- [[http://www.publickey1.jp/][Publickey － Enterprise IT × Cloud Computing × Web Technology / Blog]]
-- [[http://chucksblog.emc.com/chucks_blog/][Chuck's Blog]]
+  - [[http://www.publickey1.jp/][Publickey - Enterprise IT × Cloud Computing × Web Technology / Blog]]
+  - [[http://chucksblog.emc.com/chucks_blog/][Chuck's Blog]]
 
 ** SNIA 
-Storage Networking Industry Association。
+   Storage Networking Industry Association.
 
-http://snia-j.org/
-[[http://www.snia.org/][Home | Storage Networking Industry Association]]
+   http://snia-j.org/
+   [[http://www.snia.org/][Home | Storage Networking Industry Association]]
 
 ** IDC
-いろいろ調べている調査機関。
+   いろいろ調べている調査機関.
 
-[[http://www.idcjapan.co.jp/top.html][IDC Japan 株式会社]]
+   [[http://www.idcjapan.co.jp/top.html][IDC Japan 株式会社]]
 
 * Books
 

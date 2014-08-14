@@ -1,5 +1,17 @@
 #+OPTIONS: toc:nil
 * Networking
+** PortFowarding
+   ポートフォワーディング.
+   ローカルコンピュータの特定のポートに送られてきたデータを,
+   別に用意した通信経路を用いてリモートコンピュータの特定ポートに送信すること.
+
+   - [[http://e-words.jp/w/E3839DE383BCE38388E38395E382A9E383AFE383BCE38387E382A3E383B3E382B0.html][ポートフォワーディングとは 【 port forwarding 】]]
+
+   たとえば, Windows ファイルサーバに, 
+   SSH 経由で (CIFS, port 445/tcp で) アクセスする (した)
+
+   - [[http://akasaka-taro.blogspot.jp/2011/12/cifs-over-ssh-windows7-ssh.html][赤坂タロウの日記: CIFS over SSH, Windows7 ssh 経由でファイル共有
+     アクセス]]
 
 * SDN
 Software Defined Networking.

@@ -1,0 +1,37 @@
+#+OPTIONS: toc:nil
+* データ記述言語
+  コンピュータにおいて扱うデータを記述するための人工言語.
+
+  - [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%BC%E3%82%BF%E8%A8%98%E8%BF%B0%E8%A8%80%E8%AA%9E][データ記述言語 - Wikipedia]]
+  
+* JSON
+  ジェイソン. [[http://ja.wikipedia.org/wiki/JavaScript_Object_Notation][JavaScript Object Notation - Wikipedia]]
+
+** 特徴
+
+  - WEB 開発で人気
+  - 拡張子 .json
+  - JavaScript ベース
+
+** 表記
+   - オブジェクトはキーと値のペアをコロンで対にして表現
+   - これらの対をコンマで区切ってゼロ個以上列挙
+   - 全体を波かっこでくくる
+
+   #+begin_src js
+{"name": "John Smith", "age": 33}
+
+{
+    "name":"Jules",
+    "classOfMooc":"Coursera"
+    "University":"Vandy"
+    "mobilecloud": {
+	"date":" …..",
+	"url":" … "
+    }
+}
+   #+end_src
+
+* XML
+* YAML
+* CSV

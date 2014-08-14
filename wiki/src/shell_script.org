@@ -1,26 +1,26 @@
 #+OPTIONS: toc:nil
-* Unicコマンド
+* Unix コマンド
 ** find
 
-- [[http://www.xmisao.com/2013/09/01/how-to-use-find-and-xargs.html][findとxargsの基本的な使い方 -- ぺけみさお]]
+- [[http://www.xmisao.com/2013/09/01/how-to-use-find-and-xargs.html][find と xargs の基本的な使い方 -- ぺけみさお]]
 
-*** -execと xargsの違い
-- execは各行にたいして処理が実施される。
-- argsはすべての行にたいして処理が実施される。
+*** -exec と xargs の違い
+- exec は各行にたいして処理が実施される.
+- args はすべての行にたいして処理が実施される.
 
 #+begin_src sh
 find . -name "*.txt" -exec wc -l {} \;
 find . -name "*.txt" | xargs wc -l
 #+end_src
 
--type f でファイルのみ。ディレクトリ無視。
+-type f でファイルのみ. ディレクトリ無視.
 
 ** sed
 
-- [[http://nunleeuw.hateblo.jp/entry/2013/03/09/202629][sedで個人的によく使うコマンド集 - emptyshelf]]
+- [[http://nunleeuw.hateblo.jp/entry/2013/03/09/202629][sed で個人的によく使うコマンド集 - emptyshelf]]
 
-- sedのiオプションなしで置換を実行してみて、問題がないか確認
-- sedにiオプションをつけて実行
+- sed の i オプションなしで置換を実行してみて, 問題がないか確認
+- sed に i オプションをつけて実行
 
 *** ヘッダの挿入
 
@@ -29,10 +29,23 @@ sed -i '1s/^/test\n/' filename
 sed -i '1i\test' filename
 #+end_src
 
-wikiにヘッダを挿入する
+wiki にヘッダを挿入する
 
 #+begin_src sh
 find . -name "*.org" -exec sed -i '1i\#+OPTIONS: toc:nil' {} \;
 #+end_src
 
 * シェルスクリプト
+** for
+*** コマンドラインから連番のフォルダ作成
+    - [[http://shellscript.sunone.me/for.html][for 文の使用方法 - UNIX & Linux コマンド・シェルスクリプト リファレンス]]
+
+    この程度はさらっと書きたいところだね.
+
+    #+begin_src sh
+    % for i in `seq 1 18`
+    > do
+    > mkdir $i
+    > done 
+    #+end_src
+

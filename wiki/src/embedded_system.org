@@ -49,89 +49,99 @@ small size, and low power requirements.
 #+END_HTML
 
 ** I/O Port
-Input Port/Output Port の略.
-Input Port は 外部の世界 (外部の集積回路, sensor, etc)
-からの情報をコンピュータのなかに入れる. Output Port はその逆.
+   Input Port/Output Port の略.
+   Input Port は 外部の世界 (外部の集積回路, sensor, etc)
+   からの情報をコンピュータのなかに入れる. Output Port はその逆.
 
-A port is a physical connection between the computer and its outside world.
+   A port is a physical connection between the computer and its outside world.
 
 *** device driver
-a set of software functions that facilitate the use of an I/O port.
+    a set of software functions that facilitate the use of an I/O port.
 
 *** GPIO
-GPIO は General Purpose Input/Output (汎用入出力) の略語.
+    GPIO は General Purpose Input/Output (汎用入出力) の略語.
 
-[[http://ja.wikipedia.org/wiki/GPIO][GPIO - Wikipedia]]
+    [[http://ja.wikipedia.org/wiki/GPIO][GPIO - Wikipedia]]
 
-LSI チップや電子機器の備える入出力端子の一種で,
-設定次第で様々な用途に利用できるもの.
+    LSI チップや電子機器の備える入出力端子の一種で,
+    設定次第で様々な用途に利用できるもの.
 
-ソフトウェアの指示によって任意の入力あるいは出力に利用することができる.
-複数の端子が GPIO に割り当てられている場合には,
-これを一つのグループとして一括して制御することができ「 GPIO ポート」などと呼ばれる
+    ソフトウェアの指示によって任意の入力あるいは出力に利用することができる.
+    複数の端子が GPIO に割り当てられている場合には,
+    これを一つのグループとして一括して制御することができ「 GPIO ポート」などと呼ばれる
 
-[[http://e-words.jp/w/GPIO.html][GPIO とは 【 General Purpose Input/Output 】 - 意味/ 解説/ 説明/ 定義 : IT 用語辞典]]
+    [[http://e-words.jp/w/GPIO.html][GPIO とは 【 General Purpose Input/Output 】 - 意味/ 解説/ 説明/ 定義 : IT 用語辞典]]
 
-Pin は GPIO の構成要素. たとえば, GPIO PortA は, PA0-PA7 の 8 つの Pin からできている.
+    Pin は GPIO の構成要素. たとえば, GPIO PortA は, PA0-PA7 の 8 つの Pin からできている.
 
-Pins can be configured for digital I/O, 
-analog input, timer I/O, or serial I/O. 
-For example PA0 can be digital I/O or serial input.
+    Pins can be configured for digital I/O, 
+    analog input, timer I/O, or serial I/O. 
+    For example PA0 can be digital I/O or serial input.
 
-Pin のそれぞれが外部デバイスに接続される.
-用途は, レジスタの設定によって自由にできる.
+    Pin のそれぞれが外部デバイスに接続される.
+    用途は, レジスタの設定によって自由にできる.
 
-- PA1 ... LED への Output 用
-- PA2 ... Switch からの Input 用
-- PA3 ... UART の Input 用
-- PA4 ... UART の Output 用
+    - PA1 ... LED への Output 用
+    - PA2 ... Switch からの Input 用
+    - PA3 ... UART の Input 用
+    - PA4 ... UART の Output 用
 
-** Register
-コンピュータのプロセッサなどが内蔵する記憶回路で,
-制御装置や演算装置や実行ユニットに直結した,
-操作に要する速度が最速の, 比較的少量のものを指す.
+*** I/O Address
+    I/O ポートアドレスとは周辺機器 (デバイス) と
+    CPU がデータをやり取りする際に使用する 16 ビットのアドレス.
 
-一般に, 論理回路において, フリップフロップなどにより状態を保持する装置をレジスタと呼ぶ.
-コンピュータにおいては, プロセッサが内蔵しているそれを指す.
-プロセッサには, プログラムが読み書きできるレジスタ以外に,
-プロセッサ自身が動作するためのレジスタがあり, 内部レジスタなどと呼ばれる.
+    Linux では, 以下で確認.
 
-[[http://ja.wikipedia.org/wiki/%E3%83%AC%E3%82%B8%E3%82%B9%E3%82%BF_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF)][レジスタ (コンピュータ) - Wikipedia]]
-
-Registers are high-speed storage inside the processor.
-
-*** Register のプログラムでの扱い
-
-Pin を操作するためのレジスタには,
-アドレス空間の決められたアドレスが割り振られている. (仕様)
-
-プログラムでは, あらかじめ Define を利用してレジスタのアドレスを宣言するのが王道.
-volatile をつけることで, コンパイラが最適化してアドレスを変更するのを防ぐ.
-
-#+begin_src c
-#define PA5   (*((volatile unsigned long *) 0x40004080))
+#+begin_src language
+ls /proc/ioports
 #+end_src
 
-これは以下と同値.
 
-#+begin_src c
+** Register
+   コンピュータのプロセッサなどが内蔵する記憶回路で,
+   制御装置や演算装置や実行ユニットに直結した,
+   操作に要する速度が最速の, 比較的少量のものを指す.
+
+   一般に, 論理回路において, フリップフロップなどにより状態を保持する装置をレジスタと呼ぶ.
+   コンピュータにおいては, プロセッサが内蔵しているそれを指す.
+   プロセッサには, プログラムが読み書きできるレジスタ以外に,
+   プロセッサ自身が動作するためのレジスタがあり, 内部レジスタなどと呼ばれる.
+
+   [[http://ja.wikipedia.org/wiki/%E3%83%AC%E3%82%B8%E3%82%B9%E3%82%BF_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF)][レジスタ (コンピュータ) - Wikipedia]]
+
+   Registers are high-speed storage inside the processor.
+
+*** Register のプログラムでの扱い
+    Pin を操作するためのレジスタには,
+    アドレス空間の決められたアドレスが割り振られている. (仕様)
+
+    プログラムでは, あらかじめ Define を利用してレジスタのアドレスを宣言するのが王道.
+    volatile をつけることで, コンパイラが最適化してアドレスを変更するのを防ぐ.
+
+    #+begin_src c
+#define PA5   (*((volatile unsigned long *) 0x40004080))
+    #+end_src
+
+    これは以下と同値.
+
+    #+begin_src c
 data = (*((volatile unsigned long *) 0x40004080));
 data = 0x40004080;
 data = (*0x40004080);
-#+end_src
+    #+end_src
 
-そうすると, 以下のようにして Register の値を Read/Write できる.
+    そうすると, 以下のようにして Register の値を Read/Write できる.
 
-#+begin_src c
+    #+begin_src c
 # Register Write
 PA5 = 0x20;
 # Register Read
 data = PA5;
-#+end_src
+    #+end_src
 
-初期設定はこんな感じ.
+    初期設定はこんな感じ.
 
-#+begin_src c
+    #+begin_src c
 void PortF_Init (void){ volatile unsigned long delay;
   SYSCTL_RCGC2_R |= 0x00000020;   // 1) F clock
   delay = SYSCTL_RCGC2_R;         // delay  
@@ -145,7 +155,7 @@ void PortF_Init (void){ volatile unsigned long delay;
   GPIO_PORTF_PUR_R |= 0x11;       // enable pullup resistors on PF4,PF0      
   GPIO_PORTF_DEN_R |= 0x1F;       // 7) enable digital pins PF4-PF0       
 }
-#+end_src
+    #+end_src
 
 *** L チカ Example 抜粋
 
@@ -163,7 +173,7 @@ void PortF_Init (void){ volatile unsigned long delay;
 #define SYSCTL_RCGC2_R       (*((volatile unsigned long *) 0x400FE108))
 
 // 2. Declarations Section
-//   Global Variables
+//   Global Variablesp
 unsigned long SW1; // input from PF4
 unsigned long SW2; // input from PF0
 
@@ -216,62 +226,103 @@ void FlashSOS (void){
 ** RAM
    データの読み書きは自由に行えるが, 電源を切ると内容が消えるメモリ (Random Access Memory)
 
-** Cache
-   ある領域から他の領域へ情報を転送する際, 
-   その転送遅延を極力隠蔽化させ転送効率を向上させるために考案された記憶階層の実現手段である.
+* Cache
+  ある領域から他の領域へ情報を転送する際, 
+  その転送遅延を極力隠蔽化させ転送効率を向上させるために考案された記憶階層の実現手段である.
 
-   - [[http://ja.wikipedia.org/wiki/%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0)][キャッシュ (コンピュータシステム) - Wikipedia]]
-   - [[http://ja.wikipedia.org/wiki/%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5%E3%83%A1%E3%83%A2%E3%83%AA][キャッシュメモリ - Wikipedia]]
+  - [[http://ja.wikipedia.org/wiki/%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0)][キャッシュ (コンピュータシステム) - Wikipedia]]
+  - [[http://ja.wikipedia.org/wiki/%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5%E3%83%A1%E3%83%A2%E3%83%AA][キャッシュメモリ - Wikipedia]]
 
-   たとえば, 
-   - Memory -> Cache -> CPU
-   - Memory -> Cache -> HDD
+  たとえば, 
+  - Memory -> Cache -> CPU
+  - Memory -> Cache -> HDD
 
-*** Associativity
-    キャッシュメモリはデータを Block (Line) と呼ぶある程度まとまった単位で管理する.
-    複数セットのタグを持てば同じエントリアドレスでも複数データの格納を行うことが可能となる.
-    このタグのセット数 (ウエイ) を連想度と呼ぶ. データ格納構造の相違は連想度の相違でもある.
+** Memory Hierarchy
 
-**** ダイレクトマップ方式 (Direct Mapped)
+   | registers          |             |
+   | L1 Cache           | SRAM        |
+   | L2 Cache           | SRAM        |
+   | Memory             | DRAM        |
+   | local 2nd storage  | local disks |
+   | remote 2nd storage | Web Servers |
+
+** Locality
+   局所性.
+
+   Programs tend to use data and instructions 
+   with addresses near or equal to those they have used recently.
+
+   - [[http://ja.wikipedia.org/wiki/%E5%8F%82%E7%85%A7%E3%81%AE%E5%B1%80%E6%89%80%E6%80%A7][参照の局所性 - Wikipedia]]
+
+*** 時間的局所性 (英: temporal locality)
+    ある時点で参照されたリソースが近い将来にも再び参照される可能性が高いことを表す概念
+*** 空間的局所性 (英: spatial locality)
+    あるリソースが参照されたとき, その近傍のリソースが参照される可能性が高いことを表す概念
+*** 逐次的局所性 (英: sequential locality)
+    メモリが逐次アクセスされるという概念       
+
+** Associativity
+   キャッシュメモリはデータを Block (Line) と呼ぶある程度まとまった単位で管理する.
+   複数セットのタグを持てば同じエントリアドレスでも複数データの格納を行うことが可能となる.
+   このタグのセット数 (ウエイ) を連想度と呼ぶ. データ格納構造の相違は連想度の相違でもある.
+
+*** ダイレクトマップ方式 (Direct Mapped)
     1 組のタグにより構成 (連想度 1) されるデータ格納構造. 
     アドレスにより一意に配置が決まるため, タグの構造が非常に単純. 
     だが, 同一エントリに異なるフレームアドレスが転送されると必ずラインの入れ替えが発生する. 
-**** セットアソシアティブ方式 (Set Associative)
+
+    - [[http://www.cs.umd.edu/class/sum2003/cmsc311/Notes/Memory/direct.html][Direct Mapped Cache]]
+
+*** セットアソシアティブ方式 (Set Associative)
     複数のタグにより構成 (連想度 2 以上) されるデータ格納構造. 
     同一エントリに異なるフレームアドレスのデータを複数格納することができる. 
     連想度が上がるほどキャッシュヒット率は上昇するが製造は困難になっていくため, 
     システムによりバランスのよい実装が異なる. 
-**** フルアソシアティブ方式 (Fully Associative)
+
+    - [[http://www.cs.umd.edu/class/sum2003/cmsc311/Notes/Memory/set.html][Set Associative Cache]]
+
+*** フルアソシアティブ方式 (Fully Associative)
     エントリアドレスによる振り分けはなく, 全てのラインが検索対象となる構造. 
     従って連想度はライン数分となる. キャッシュスラッシングは起こり難くヒット率は最も優れているが, 
     実装コストや複雑度の面から通常用いられることはない.
 
-*** Locality
-    局所性.
+** General Cache Organization
+   Block (Line), Set という概念を踏まえ, 一般的なキャッシュ構造は以下になる.
 
-    Programs tend to use data and instructions 
-    with addresses near or equal to those they have used recently.
+*** Cache Structure
 
-    - [[http://ja.wikipedia.org/wiki/%E5%8F%82%E7%85%A7%E3%81%AE%E5%B1%80%E6%89%80%E6%80%A7][参照の局所性 - Wikipedia]]
+#+begin_src language
+    Cache size = Block size 
+               x 連想数 (2 の倍数)
+               x Set 数 (2 の倍数)
+#+end_src
 
-**** 時間的局所性 (英: temporal locality)
-     ある時点で参照されたリソースが近い将来にも再び参照される可能性が高いことを表す概念
-**** 空間的局所性 (英: spatial locality)
-     あるリソースが参照されたとき, その近傍のリソースが参照される可能性が高いことを表す概念
-**** 逐次的局所性 (英: sequential locality)
-     メモリが逐次アクセスされるという概念       
+   | Block | .... | Block |
+   | Block | .... | Block |
+   | Block | .... | Block |
+   | Block | .... | Block |
+   | Block | .... | Block |
 
-*** Memory Hierarchy
+*** Set Structure
 
-    | registers          |             |
-    | L1 Cache           | SRAM        |
-    | L2 Cache           | SRAM        |
-    | Memory             | DRAM        |
-    | local 2nd storage  | local disks |
-    | remote 2nd storage | Web Servers |
+   1 Set は, Block の集合.集合の size が associativity.
 
+   | Block | .... | Block |
 
+*** Block Structure
+    - tags ... 同一 set のなかで一位に識別するための情報.
+    - set index ... xxx 個のアドレスを yyy 個に圧縮するためのハッシュキー. 
+                    ここが何ビットになるかは associativity の決め方次第.
+    - block offset ... x bit を 2 の倍数 bit に収めるための offset.
+    - data  ... メインメモリからロードしたデータ
+
+    | tags | set index | block offset | data |
     
+#+begin_src language
+    ex.) 0x1833 .... 0000...... 0011 0011
+    -> 0011 は block offset として使わない.
+    -> 011 が index
+#+end_src
 
 * Interface
 ハードウェアとソフトウェアを結ぶもの. ここでいうところは, ハードウェアインタフェース.
@@ -295,11 +346,41 @@ which combine to allow the computer to communicate with the external world.
 - Time - data are encoded as a period, frequency, pulse width, or phase shift
 
 ** Parallel Interface
-パラレルポートとは, コンピュータシステム内で,
-ばらばらの周辺機器をケーブルで接続するために使われる物理的なインタフェースの一種.
+   パラレルポートとは, コンピュータシステム内で,
+   ばらばらの周辺機器をケーブルで接続するために使われる物理的なインタフェースの一種.
 
 - [[http://ja.wikipedia.org/wiki/%E3%83%91%E3%83%A9%E3%83%AC%E3%83%AB%E3%83%9D%E3%83%BC%E3%83%88][パラレルポート - Wikipedia]]
 - [[http://www.sophia-it.com/content/%E3%83%91%E3%83%A9%E3%83%AC%E3%83%AB%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9][パラレルインターフェースとは 「パラレルインタフェース」 (parallel interface): - IT 用語辞典バイナリ]]
+
+*** PCI
+    コンピュータのプロセッサと周辺機器との間の通信を行うためのバスアーキテクチャの一つ.
+    - [[http://ja.wikipedia.org/wiki/Peripheral_Component_Interconnect][Peripheral Component Interconnect - Wikipedia]]
+
+   #+begin_src sh
+   $ lspci
+   #+end_src
+
+*** USB
+    USB (Universal Serial Bus) はホットプラグに対応したインターフェイスの規格です.
+    USB デバイスは USB コントローラ (チップ) によって制御されます. 
+    また, それぞれの USB コントローラにはモジュール (デバイスドライバ) が必要です.
+
+    以下は主な USB コントローラ, USB の規格, モジュールをまとめたものです.
+    
+    | Controller | Spec   | USB mod (2.4) | USB mod (2.6) |
+    | UHCI       | USB1.1 | usb-uhci      | uhci_hcd     |
+    | OHCI       | USB1.1 | usb-uhci      | uhci_hcd     |
+    | EHCI       | USB2.0 | -             | ehci_hcd     |
+
+    USB には以下のような特徴があります.
+
+    - USB コントローラは最大 127 台の USB デバイスを制御できる
+    - システムが起動している状態でも USB デバイスの差し替えが出来る (ホットプラグ)
+    - 接続しているホストから電源を供給できる
+    - キーボード, マウス, プリンタなど多くのデバイスが USB に対応している
+
+    なお, USB1.1 規格はカーネル 2.4 から, USB2.0 規格はカーネル 2.6 か
+    らサポートされています.
 
 ** Syncronization
 ハードウェアとソフトウェアの同期処理.
@@ -337,7 +418,14 @@ The software interrupt service will read from the input device and save in globa
 クロックタイマの割り込み契機で I/O のステータスをチェック
 
 *** DMA 
-Direct Memory Access あるメモリから別のメモリに直接情報を書き込む
+    Direct Memory Access あるメモリから別のメモリに直接情報を書き込む.
+    CPU を介することなくメインメモリと周辺機器の間で直接的に情報転送を行う方式.
+
+    #+begin_src language
+    # デバイスが使用中の DMA チャネルに関する情報
+    # cat /proc/dma
+    #+end_src
+
 
 ** Serial Interface
 *** UART
