@@ -1,0 +1,21 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: Dokuwiki のカスタマイズ作業メモ
+
+* はじめに
+  以前, 高らかに Futurismo Wiki の立ち上げを宣言しました.
+
+  - [[http://futurismo.biz/archives/2500][Futurismo Wiki 立ち上げ (Dokuwiki) | Futurismo]]
+
+  宣言しただけで, ちっともカスタマイズしていなかったので, カスタマイズ
+  してみました.本記事は, その作業メモ.
+
+* アップグレード
+  Upgrade Plugin を利用して最新版にアップグレードする.
+
+  - [[https://www.dokuwiki.org/ja:install:upgrade][ja:install:upgrade]]
+
+* SEO 対策
+

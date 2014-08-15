@@ -1,0 +1,314 @@
+#+BLOG: Futurismo
+#+POSTID: 2538
+#+DATE: [2014-08-14 木 22:51]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ,Emacs
+#+TAGS: English
+#+DESCRIPTION: 英語力をあげるための Emacs Lisp まとめ
+#+TITLE: 英語力を向上させたいのでまずは Emacs からはじめた
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* 英語の Writing/Speaking 力を鍛えるためには?
+** 英語で自分の考えを自由に表現できない
+   最近英語で話す機会が多いのだが,
+   自分の考えをうまく表現できずにくやしく思うことが多い.
+
+   MOOC のおかげで, Listening 力はバリバリに向上を感じるのだが,
+   次に鍛えるべきところは, 自分の考えを不自由なく表現する力だと感じる.
+
+   すなわち, 以下だ.
+
+   - Writening
+   - Speaking
+
+   英単語がわからなくても, 簡単な言葉に言い直せば表現できる.
+   しかし, スラスラと表現することが難しい.
+
+** もっとも効果的な手段は?
+   もっとも効果的な手段はなんだろうか?
+
+   間違っていてもいいので,
+   とにかく日常のなかで英語で表現する機会を増やすことだと思った.
+
+   自分の日常のほとんどはパソコンをいじっている.
+   パソコンでする作業のほとんどで, Emacs を利用している. つまりは,
+
+   Emacs の英語学習環境を整える
+
+   これが, もっとも英語上達に効果的な方法なのではとおもう.
+
+   というわけで, ペテンな前置きが長くなったが,
+   英語学習に役立ちそうな EmacsLisp を集めてみる.
+
+* 前提条件
+** 環境
+  - Arch Linux
+  - Emacs 24.4
+
+** 強化するモード
+   今考えている英語強化法は,
+   - 英語の日記を書く
+   - 英語で twitter でつぶやく
+
+   なので, org-mode と twitter-edit-mode を対象にしようと思う.
+
+* 英語力をあげる Emacs Lisp
+** WEB 検索
+*** google-translate.el
+    ご存知, Google 翻訳.これはめっちゃいいや!!
+
+    - https://github.com/manzyuk/google-translate
+
+    設定はこのページを参考にしました. どうもありがとうございます.
+
+    - [[http://qiita.com/catatsuy/items/ae9875706769d4f02317][卒論を英語で書けと言われしまったあなたにおすすめの Emacs の設
+      定 - Qiita]]
+
+#+begin_src emacs-lisp
+(require 'google-translate)
+
+(global-set-key "\C-xt" 'google-translate-at-point)
+(global-set-key "\C-xT" 'google-translate-query-translate)
+
+;; 翻訳のデフォルト値を設定 (ja -> en) (無効化は C-u する)
+(custom-set-variables
+ '(google-translate-default-source-language "ja")
+ '(google-translate-default-target-language "en"))
+
+;; google-translate.el の翻訳バッファをポップアップで表示させる
+(push '("*Google Translate*") popwin:special-display-config)
+#+end_src
+
+*** google-this
+   Google 検索.おまけで翻訳機能もついている.
+
+   google-translate があればいらないか? とりあえずいれとく.
+   
+   - [[https://github.com/Bruce-Connor/emacs-google-this][Bruce-Connor/emacs-google-this]]
+
+   代表的な使用方法.
+
+   - C-c / g (RET) でその場のキーワード検索.
+   - C-c / w でその場のワードを検索
+   - C-c / l でその行を検索
+   - C-c / c Google 翻訳
+
+#+begin_src emacs-lisp
+(require 'google-this)
+(google-this-mode 1)
+#+end_src
+
+*** search-web.el
+    無料でオンラインの英辞郎 on the WEB をサクッと利用する.
+
+    - [[https://github.com/tomoya/search-web.el/tree/master][tomoya/search-web.el]]
+    - [[http://qiita.com/akisute3@github/items/8deb54b75b48e8b04cb0][Emacs 使用中に素早く検索する - Qiita]]
+    - [[http://d.hatena.ne.jp/tomoya/20090703/1246610432][Emacs ですぐに単語の検索をしたい欲望を叶える Elisp. - 日々, とん
+      は語る. ]]
+
+    キーバインドはつけていない.
+
+#+begin_src emacs-lisp
+(require 'search-web)
+#+end_src
+
+*** codic.el
+    エンジニアのためのネーミング辞書.
+
+    - [[http://codic.jp/][codic - デベロッパーのためのネーミング辞書]]
+    - [[https://github.com/syohex/emacs-codic][syohex/emacs-codic]]
+
+#+begin_src emacs-lisp
+(require 'codic)
+#+end_src
+
+** 文法チェック系
+*** fly-spell.el
+   リアルタイム, スペルチェック..これは, 大変重宝している.
+
+   - [[http://www.gfd-dennou.org/member/uwabami/cc-env/emacs/flyspell_config.html][Youhei SASAKI's official site: flyspell-mode の設定]]
+
+   #+begin_src emacs-lisp
+   (require 'flyspell)
+   #+end_src
+
+   - [[http://d.hatena.ne.jp/mooz/20100423/p1][flyspell-mode の修正候補表示を popup.el で - mooz deceives you]]
+
+     キーバインドを設定.
+
+   #+begin_src emacs-lisp
+  (global-set-key (kbd "C-c <f8>") 'flyspell-mode)
+  (global-set-key (kbd "C-c <f9>") 'ispell-word)
+  (global-set-key (kbd "C-c <f10>") 'flyspell-buffer)
+   #+end_src
+
+   どうも flyspell と ac-complete は相性が悪い?
+
+   #+BEGIN_SRC emacs-lisp
+   (ac-flyspell-workaround)
+   #+END_SRC
+
+   あるモードのみ flysell を起動させる. 
+
+    #+begin_src emacs-lisp
+    ;; コメント領域のところだけ有効.
+    (mapc
+    (lambda (hook)
+    (add-hook hook 'flyspell-prog-mode))
+    '(
+    c-mode-common-hook
+    ruby-mode-hook
+    emacs-lisp-mode-hook   
+    ))
+    #+end_src
+
+    #+begin_src emacs-lisp
+    (mapc
+    (lambda (hook)
+    (add-hook hook
+    '(lambda () (flyspell-mode 1))))
+    '(
+    text-mode-hook
+    org-mode-hook
+    wl-draft-mode-hook
+    twittering-edit-mode
+    ))
+    #+end_src
+
+*** helm-flyspell
+    helm-flyspell は flyspell をさらに便利にしてくれる.
+
+    - https://gist.github.com/cofi/3013327
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x g i") 'helm-flyspell-correct)
+#+end_src
+
+*** ispell-buffer.el
+    これも文法チェックだけど, 自分は fly-spell で満足したので,試していない.
+
+    - [[http://qiita.com/catatsuy/items/ae9875706769d4f02317][卒論を英語で書けと言われしまったあなたにおすすめの Emacs の設定 - Qiita]]
+      
+*** grammer.el
+   英語の文法をチェックしてくれる.
+
+   - [[http://www.emacswiki.org/emacs/BaoqiuCui][EmacsWiki: Baoqiu Cui]]
+   - [[http://sleepboy-zzz.blogspot.jp/2013/10/emacsgrammarel_639.html][memo: Emacs で英語の文章書くのに便利な grammar.el を導入した]]
+
+   常に動かすとウザいので, 必要に応じて C-M-g で文法チェック発動.
+
+   インストールは以下.
+
+   - link-grammar をインストール.
+   - /usr/include/link-grammar/ にファイルが配置される.
+   - svn co http://bcui-emacs.googlecode.com/svn/trunk/grammar
+   - INCDIRS = -I. -I/usr/include/link-grammar に Makefile を修正.
+
+#+begin_src emacs-lisp
+(require 'grammar)
+(setq grammar-program-name "~/.emacs.d/elisp/grammar/grammar")
+;; 黒背景用の色変更
+(set-face-attribute 'grammar-error-face nil
+                    :background "#Ff6347"
+                   :foreground "#000000")
+(add-hook 'twittering-edit-mode-hook 'grammar-mode)
+#+end_src
+
+** 入力系
+*** auto-capitalize.el
+    文字を大文字に直す.
+    - [[http://sleepboy-zzz.blogspot.jp/2013/09/auto-capitalizeel-aspell.html][memo: 英語環境で文字を大文字にキャピタライズする拡張
+      auto-capitalize.el を導入し た & aspell の個人辞書からもキャピタ
+      ライズするようにした]]
+
+   自動で大文字に変換する.
+
+   - https://github.com/yuutayamada/auto-capitalize-el
+   - [[http://sleepboy-zzz.blogspot.jp/2013/09/auto-capitalizeel-aspell.html][memo: 英語環境で文字を大文字にキャピタライズする拡張 auto-capitalize.el を導入した]]
+
+   You can use by M-x 
+   - turn-on-auto-capitalize-mode
+   - auto-capitalize-mode.
+
+   #+begin_src emacs-lisp
+;; This code is from README
+(require 'auto-capitalize)
+
+;; Enable auto-capitalize-mode
+(add-hook 'twittering-edit-mode-hook
+          '(lambda ()
+             (turn-on-auto-capitalize-mode)))
+   #+end_src
+
+** 辞書系
+   辞書系は, どれもうまく動かすことができませんでした. . . 
+   とりあえすメモとして手順を書いておく.
+
+*** sdic.el
+    Emacs から辞書が引けるインタフェース.フリー辞書を試す.
+
+    - GENE95 英和辞書
+      - http://www.namazu.org/~tsuchiya/sdic/data/gene.html
+      - gene95.tar.gz
+    - EDICT 和英辞書
+      - ftp://ftp.u-aizu.ac.jp/pub/SciEng/nihongo/ftp.cc.monash.edu.au/
+    [[http://www.edrdg.org/jmdict/edict.html][  - The EDICT Dictionary File]]
+      - edict2.gz
+
+    github repository.
+
+    - [[https://github.com/emacsattic/sdic][emacsattic/sdic]]
+
+   その他, 参考リンク.
+
+    - [[http://emacs.tsutomuonoda.com/emacs-sdic-install-setting/][Emacs 上で英和和英辞書を引くためのソフト SDIC をインストール・設定する | Emacs の elisp インストール・設定・使い方]]
+    - [[http://ubulog.blogspot.jp/2007/08/emacs.html][ubulog: Emacs で快適な翻訳環境を]]
+
+   自分の環境では, うまく動作させることができなかった. いつか試す.
+
+*** sdic-inline.el
+    sdic-inline-mode がオンであると, ポイント下にある単語を辞書で自動
+    でひき, 結果をミニバッファに表示.
+
+    - [[http://d.hatena.ne.jp/khiker/20100303/sdic_inline][sdic-inline / ポイント下の単語の意味をミニバッファに表示する - とりあえず暇だったし何となく始めたブログ]]
+
+*** lookup.el
+    オフラインの辞書 (EPWING 形式) を検索できるツール.辞書は有料なので, 試していない.
+    かなり便利そうだ. いつか試す言う意味でブックマーク.
+
+    - [[http://openlab.jp/edict/lookup/index.html.ja][Lookup]]
+
+*** look.el
+    うろおぼえな英単語の綴りを検索することができる.
+    詳しくは以下のリンクを参照.
+    
+    - [[http://www.math.s.chiba-u.ac.jp/~matsu/emacs/emacs21/english.html][english & japanese]]
+
+    Unix の look というコマンドを Emacs から利用する.
+
+    - [[http://linuxjm.sourceforge.jp/html/util-linux/man1/look.1.html][Man page of LOOK]]
+
+    ArchLinux だと, 辞書が入ってなかったので入れた.
+
+#+begin_src sh
+$ sudo pacman -S words
+$ wget http://www.math.s.chiba-u.ac.jp/~matsu/emacs/emacs21/look.el
+#+end_src
+
+wget で取得した, elisp に (provide 'look) を末尾に追加して, 以下を追記.
+
+#+begin_src emacs-lisp
+(require look)
+(global-set-key "\M-L" 'look-here)
+#+end_src
+
+ これは, helm-flyspell と比べると, 利便性では劣る気がする.
+
+
+* まとめ
+  さてこれで, TOEIC の点数が 150 点アップだ.
+
+  あっ, しまった, TOEIC では Emacs が使えない!!

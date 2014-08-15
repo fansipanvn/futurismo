@@ -1,19 +1,70 @@
 #+OPTIONS: toc:nil
 * Wiki
-おもに、このWikiの管理についての覚書。
+おもに, この DokuWiki の管理についての覚書.
 
-http://futurismo.biz/dokuwiki/doku.php
-http://futurismo.biz/archives/2500
+- http://futurismo.biz/dokuwiki/doku.php
+- http://futurismo.biz/archives/2500
 
-ウォード・カンニガムがプログラムに関する、
-パターンを記述して閲覧するためにはじめたのが起源。
-WikiWikiWebというパターンブラウザ。
+ウォード・カンニガムがプログラムに関する,パターンを記述して閲覧するた
+めにはじめたのが起源. WikiWikiWeb というパターンブラウザ.
 
-** ブログとwikiの根本的な違い
-ブログとwikiの根本的な違いは、以下。
+** ブログと wiki の根本的な違い
+ブログと wiki の根本的な違いは, 以下.
 
   - ブログは情報を日付で管理するシステム
-  - wikiはページ名で情報を管理するシステム
+  - wiki はページ名で情報を管理するシステム
 
-* アップロード方法
-* アップデート方法
+* メンテナンス
+** アップグレード
+  サイトをアップグレードするためプラグインを利用する.
+
+  - [[https://www.dokuwiki.org/ja:install:upgrade][ja:install:upgrade]]
+
+** 記事のアップロード
+*** org-wk で org 形式から dokuwiki 形式に変換
+
+   - [[https://github.com/w-vi/ox-wk.el][w-vi/ox-wk.el]]   
+
+   #+begin_src sh
+#!/bin/sh
+DIR=`pwd`
+FILES=""
+
+for i in $@; do
+    FILES="$FILES \"$i\""
+done
+
+emacs -Q --batch \
+    --eval "(progn
+     (add-to-list 'load-path (expand-file-name \"~/.emacs.d/el-get/repo/org-mode/lisp/\"))
+     (add-to-list 'load-path (expand-file-name \"~/.emacs.d/el-get/repo/ox-wk/\"))
+     (require 'org) (require 'ox-wk)
+     (mapc (lambda (file)
+            (find-file (expand-file-name file \"$DIR\"))
+            (org-wk-export-to-wiki)
+            (kill-buffer)) '($FILES)))" 2>&1
+   #+end_src
+
+*** ncftpput でアップロード
+
+#+begin_src sh
+$ ncftpput -R lolipop ./wordpress/dokuwiki/data pages
+#+end_src
+
+* プラグイン
+  - [[https://www.dokuwiki.org/ja:plugins][ja:plugins]]
+
+    プラグインマネージャーを利用する.(bundle).
+
+  - [[https://www.dokuwiki.org/ja:plugin:plugin][ja:plugin:plugin]]
+
+** Indexmenu
+   名前空間にもとづいて, メニュー作成.
+   これで, トップページの目次を作成する.
+
+* SEO 対策
+
+  - [[https://www.dokuwiki.org/ja:seo][ja:seo]]
+   
+** Google Analytics for DokuWiki
+   

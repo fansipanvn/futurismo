@@ -1,0 +1,12 @@
+#+OPTIONS: toc:nil
+* Futurismo Wiki
+  フロー情報をスタック情報として蓄積していくための 個人用 Wiki.
+
+  - Blog: http://futurismo.biz
+  - Github: https://github.com/tsu-nera
+  - Twitter: https://github.com/tsu-nera
+  - Hatena: http://b.hatena.ne.jp/tsu-nera/
+
+* Contents
+  
+  {{indexmenu>.:#3|context}}

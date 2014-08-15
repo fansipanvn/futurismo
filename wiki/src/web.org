@@ -87,17 +87,6 @@
   - REST-based, Restful, http://ja.wikipedia.org/wiki/REST
   - RPC-based, SOAP [[http://ja.wikipedia.org/wiki/SOAP_(%E3%83%97%E3%83%AD%E3%83%88%E3%82%B3%E3%83%AB)][SOAP (プロトコル) - Wikipedia]]
 
-** Database Layer
-   データペースレイヤ. データアクセスレイヤとも.
-
-   データベースへのアクセスを抽象化する.クラス名の末尾に DAO (Data
-   Access Object) がつく.
-
-**** Relational Database
-   - [[http://ja.wikipedia.org/wiki/%E9%96%A2%E4%BF%82%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9][関係データベース - Wikipedia]]
-
-**** The Active Record Design Pattern
-
 ** Presentation Layer
    プレゼンテーション層.ユーザインタフェースとコントローラを提供.
    クラス名は Controller, Action.
@@ -115,22 +104,86 @@
     画面遷移や画面でボタンが押されたときの動作制御やセッション管理など.
 
 ** Middle-ware Layer
-   ビジネスロジック層ともいう.クラスの末尾に Service のついた名前や,
-   対象となるオブジェクト名 (Employee, Order) がつく.
+   ビジネスロジック層ともいう
 
-*** Service
-    ユースケースに表されるような特定業務や特定部署の処理のまとまりをコ
-    ントロールする.トランザクションの起点.一般的にはステートレス.
+    これらの定義は, Spring3 から引用:
+    http://gihyo.jp/book/2012/978-4-7741-5380-3?ard=1407982106
 
-*** Domain
-    サービスから起動される, ビジネスを行う上で当然認識される顧客や注文
-    といったサービスの集まり. 自分自身がなにものかを示す値と, その値を
-    利用した処理を実現する.
+*** トランザクション
+    分けることのできない一連の情報処理の単位.
+
+    - [[http://ja.wikipedia.org/wiki/%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B6%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3][トランザクション - Wikipedia]]
+
+    データベースにおいては, データに対する一つの論理的操作の事.
+
+**** ACID 特性
+     信頼性のあるトランザクションシステムの持つべき性質.
+     - [[http://ja.wikipedia.org/wiki/ACID_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E7%A7%91%E5%AD%A6)][ACID (コンピュータ科学) - Wikipedia]]
+
+**** トランザクション境界
+     プレゼンテーション層とトランザクション層の境界.
+
+     簡単に言うと,
+     - (開始) xxx Controller から xxxService のメソッド呼び出し.
+     - (終了) xxxService のメソッドの return.
+
+*** ビジネスロジックの分類
+    クラスの末尾に Service のついた名前や,対象となるオブジェクト名
+    (Employee, Order) がつく.
+
+**** Service
+     ユースケースに表されるような特定業務や特定部署の処理のまとまりをコ
+     ントロールする.トランザクションの起点.一般的にはステートレス.
+
+**** Domain
+     サービスから起動される, ビジネスを行う上で当然認識される顧客や注文
+     といったサービスの集まり. 自分自身がなにものかを示す値と, その値を
+     利用した処理を実現する.
+
+*** ビジネスロジック・パターン
+    - トランザクションスクリプトとは「アクションより起動される一連の手続き」
+    - ドメインモデルとは「ドメイン内の名詞によって体系化されたモデル」
+
+    [[http://d.hatena.ne.jp/higayasuo/20080519/1211183826][いまさらきけない「ドメインモデル」と「トランザクションスクリプト」]]
+
+**** トランザクションスクリプト
+     - ユースケースごとに Service クラスをつくっていく.
+     - 手続き処理で記述.処理ごとドメインを呼び出していくだけなので, オ
+       ブジェクト指向ぽくない.
+     - 小規模開発向け. とても簡単で分かりやすい.
+     
+**** ドメインモデル
+     - 大規模開発向け. とても簡単で分かりやすい.
+     - ドメインにロジックを持たせる. (OOP 設計!)
+
+** Database Layer
+   データペースレイヤ. データアクセスレイヤとも.
+
+   データベースへのアクセスを抽象化する.クラス名の末尾に DAO (Data
+   Access Object) がつく.
+
+*** DB Layer 役割 
+    - RDB へのアクセスをビジネスロジック層から隠蔽
+    - 必要なデータを RDB から取得してオブジェクト (domain) にマッピン
+      グ.
+
+**** O/R マッピング
+     Object と Relational DB の対応づけ.
+     基本的に, DD テーブルの 1 レコードが 1 オブジェクトに対応.
+
+*** Relational Database
+    リレーショナルデータベース. デファクトスタンダードな Db 設計.RDB
+
+    - [[http://ja.wikipedia.org/wiki/%E9%96%A2%E4%BF%82%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9][関係データベース - Wikipedia]]
+
+*** The Active Record Design Pattern
 
 ** REST
-   Restful,Representational State Transfer,http://ja.wikipedia.org/wiki/REST
+   Restful,Representational State Transfer.分散ハイパーメディアシステ
+   ムのためのソフトウェアアーキテクチャのスタイルのひとつ.
 
-   分散ハイパーメディアシステムのためのソフトウェアアーキテクチャのスタイルのひとつ.
+   - http://ja.wikipedia.org/wiki/REST
+   
    2 つの意味で使われている.
 
    - Fielding の REST アーキテクチャスタイルの原則に合わせた Web サービスシステム.
