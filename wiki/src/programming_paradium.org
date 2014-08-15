@@ -1,57 +1,56 @@
 #+OPTIONS: toc:nil
-#+OPTIONS: toc:t num:nil author:nil creator:nil LaTeX:t
 * プログラミングパラダイム
 
 [[http://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%83%91%E3%83%A9%E3%83%80%E3%82%A4%E3%83%A0][プログラミングパラダイム - Wikipedia]]
 
 * Base Concepts
 ** Valiables
-変数の構成要素は以下の2つ。
+変数の構成要素は以下の 2 つ.
 
-- 識別子(Identifier)
-- 格納域実体(Store entity)
+- 識別子 (Identifier)
+- 格納域実体 (Store entity)
 
 *** Identifires and Store Entity
-x = 1 ということはどういうことかを説明する概念。
+x = 1 ということはどういうことかを説明する概念.
 
-数学的な写像関係で x = 1 を説明しようとしている。{ X -> x1=1 }みたいな感じ。
-x1がメモリ上の実際の(束縛された)値で、Xがそれを指し示す識別子。
+数学的な写像関係で x = 1 を説明しようとしている. { X -> x1=1 }みたいな感じ.
+x1 がメモリ上の実際の (束縛された) 値で, X がそれを指し示す識別子.
 
 *** environments
-識別子と変数の写像関係を環境という。
+識別子と変数の写像関係を環境という.
 
 ** Scope
-Valiableの有効範囲。
+Valiable の有効範囲.
 
 - [[http://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%97][スコープ - Wikipedia]]
 
 *** Lexical Scope
-静的スコープ。変数はブロックの内側のみ有効。
+静的スコープ. 変数はブロックの内側のみ有効.
 
 *** Dynamic Scope
 
 ** State
-State(状態）とは、必要とされる計算の途中結果を含む、値の時系列。
+State (状態) とは, 必要とされる計算の途中結果を含む, 値の時系列.
 (sequence of values calculated progressively,
 which contains the intermediate results of a computation)
 
-状態の導入によって、プログラムに時間の概念を与える。
+状態の導入によって, プログラムに時間の概念を与える.
 
 ** Operational Semantics
 wikipedia: [[http://ja.wikipedia.org/wiki/%E6%93%8D%E4%BD%9C%E7%9A%84%E6%84%8F%E5%91%B3%E8%AB%96][操作的意味論 - Wikipedia]]
     
-プログラムの正しさを数学的に証明することを目指す。
+プログラムの正しさを数学的に証明することを目指す.
 
 - Specification ・・・ プログラムの入力と出力を定義したものを
 - Program ・・・ プログラミング言語によってかかれたデータ
 
-ProgramがSpecificationを満たしているかを証明する。そのために、
+Program が Specification を満たしているかを証明する. そのために,
 
-- Semantic(意味の対応付け）
-- Abstruct Machine(抽象化された実行環境）
+- Semantic (意味の対応付け)
+- Abstruct Machine (抽象化された実行環境)
 
-という概念を導入する。Programはkernel Languageに分解され、Kernel Language
-の構成要素がAbstruct Machineと対応付けられる。
+という概念を導入する. Program は kernel Language に分解され, Kernel Language
+の構成要素が Abstruct Machine と対応付けられる.
 
 #+begin_src language
                              Semanitic 
@@ -59,14 +58,14 @@ ProgramがSpecificationを満たしているかを証明する。そのために
                             Abstrucut Machine
 #+end_src
 
-プログラミングが正しいことは、数学的帰納法(mathematical induction)で証明する。
+プログラミングが正しいことは, 数学的帰納法 (mathematical induction) で証明する.
 
 *** example
 **** Specification
       
 #+begin_src language
 0! = 1
-n! = n×(n-1)!  when n>0
+n! = n × (n-1)!  when n>0
 #+end_src
 
 **** Program
@@ -80,314 +79,314 @@ end
 **** Semanitc Expression
 
 #+begin_src language
-E={Fact→fact, N→n, R→r} (AbstcutMachine)
+E={Fact → fact, N → n, R → r} (AbstcutMachine)
 σ={fact=(proc ... end,CE),n=0,r} (memory)
-CE={Fact→fact}. ( Contectual Environment)
+CE={Fact → fact}. ( Contectual Environment)
 
 {Fact N R}, E, σ
 #+end_src
 
-広義の意味では、関数にforcusingしたプログラミング。
+広義の意味では, 関数に forcusing したプログラミング.
 
 ** Evaluation Strategy
-評価戦略。
+評価戦略.
 
-プログラミング言語や、ラムダ計算のような式から成る計算模型において、
-如何なる手順で、評価すなわち式から値を得るか、
-という（通常決定的な）規則群。
+プログラミング言語や, ラムダ計算のような式から成る計算模型において,
+如何なる手順で, 評価すなわち式から値を得るか,
+という (通常決定的な) 規則群.
 
 [[http://ja.wikipedia.org/wiki/%E8%A9%95%E4%BE%A1%E6%88%A6%E7%95%A5][評価戦略 - Wikipedia]]
 
-*** Call-by-Name(名前呼び)
-*** Call-by-Value(値呼び）
-*** Call-by-Ref(参照呼び）
+*** Call-by-Name (名前呼び)
+*** Call-by-Value (値呼び)
+*** Call-by-Ref (参照呼び)
 
 ** SyntaxSuger
-   糖衣構文。
+   糖衣構文.
 
    - [[http://ja.wikipedia.org/wiki/%E7%B3%96%E8%A1%A3%E6%A7%8B%E6%96%87][糖衣構文 - Wikipedia]]
 
-   プログラミング言語において、読み書きのしやすさのために導入される構文であり、
-   既に定義されている他の構文の（人間にとってより理解しやすい）
-   書換えとして定義されるもののこと。
+   プログラミング言語において, 読み書きのしやすさのために導入される構文であり,
+   既に定義されている他の構文の (人間にとってより理解しやすい)
+   書換えとして定義されるもののこと.
 
 ** Exceptions
-   例外。プログラムがある処理を実行している途中で、
-   なんらかの異常が発生した場合に、
-   現在の処理を中断（中止）して、別の処理を行うこと。
+   例外. プログラムがある処理を実行している途中で,
+   なんらかの異常が発生した場合に,
+   現在の処理を中断 (中止) して, 別の処理を行うこと.
    その際に発生した異常のことを例外と呼ぶ
 
    - [[http://ja.wikipedia.org/wiki/%E4%BE%8B%E5%A4%96%E5%87%A6%E7%90%86][例外処理 - Wikipedia]]
 
-   よくある2つの概念。
+   よくある 2 つの概念.
 
-   - try  ・・・ 例外ハンドラをもつ例外補足コンテクストを生成。  
-   - raise・・・ もっとも内部の例外補足コンテキストへjampし、そこにある例外ハンドラを起動。
+   - try  ・・・ 例外ハンドラをもつ例外補足コンテクストを生成.
+   - raise ・・・ もっとも内部の例外補足コンテキストへ jamp し, そこにある例外ハンドラを起動.
 
-   各コンテキストはスタックで管理され、tryはスタックの１つにmarkerをつける。
-   raiseはmarkerにジャンプしてmarkerの場所に例外処理のコンテキストを挿入する。
+   各コンテキストはスタックで管理され, try はスタックの 1 つに marker をつける.
+   raise は marker にジャンプして marker の場所に例外処理のコンテキストを挿入する.
 
-   CTM p93参照。
+   CTM p93 参照.
 
-   例外をつかわないと、コンテクストごとの結果を検証必要があり、
-   case文が乱立するうんこコードが出来る。
+   例外をつかわないと, コンテクストごとの結果を検証必要があり,
+   case 文が乱立するうんこコードが出来る.
 
 * Declarative Programming
-  宣言型プログラミング。
+  宣言型プログラミング.
 
-  第1の意味は、
-  処理方法ではなく対象の性質などを宣言することでプログラミングするパラダイム。
-  第2の意味は、
-  純粋関数型プログラミング、論理プログラミング、制約プログラミングの総称。
+  第 1 の意味は,
+  処理方法ではなく対象の性質などを宣言することでプログラミングするパラダイム.
+  第 2 の意味は,
+  純粋関数型プログラミング, 論理プログラミング, 制約プログラミングの総称.
 
   - [[http://ja.wikipedia.org/wiki/%E5%AE%A3%E8%A8%80%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][宣言型プログラミング - Wikipedia]]
 
-  Imperative Programingの対になる概念。"Function without State"
+  Imperative Programing の対になる概念. "Function without State"
   Imperative vs Declaretive is also Stateful vs Stateless
   
-  HTMLはStateless、Declarative Programming language.
-  状態はクッキーを導入してしばしば実現する。
+  HTML は Stateless, Declarative Programming language.
+  状態はクッキーを導入してしばしば実現する.
 
 ** 主な言語
 - HTML
 - MySQL
 
 * Functional Programming
-  -> 記事独立。
+  -> 記事独立.
   [[file:FunctionalProgramming.org]]
 
 * Imperative Programming
-命令型プログラミング。
-計算をプログラム状態を変化させる文の列で記述するパラダイム。
+命令型プログラミング.
+計算をプログラム状態を変化させる文の列で記述するパラダイム.
 
 - [[http://ja.wikipedia.org/wiki/%E5%91%BD%E4%BB%A4%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][命令型プログラミング - Wikipedia]]
 
-[[Imperative Programming]]とは、Function paradigmにCellの概念を加えたもの。
+[[Imperative Programming]] とは, Function paradigm に Cell の概念を加えたもの.
 
-- Declarative Programingの対になる概念。
+- Declarative Programing の対になる概念.
   Imperative vs Declaretive is also Stateful vs Stateless
 
 #+begin_src language
 Imperative programming = Function paradigm + Cell
 #+end_src
 
-- 実行するたびに、内部の状態によって結果がことなる。
+- 実行するたびに, 内部の状態によって結果がことなる.
 
-- 手続き型と同義のこともある。(Procedural programming)
-手順やチェックリストはプログラムではないが、
-命令型プログラミングのスタイルに似たコンセプトである。
-それらのステップが命令であり、実世界が状態を保持している。
+- 手続き型と同義のこともある. (Procedural programming)
+手順やチェックリストはプログラムではないが,
+命令型プログラミングのスタイルに似たコンセプトである.
+それらのステップが命令であり, 実世界が状態を保持している.
 
 - 械語は命令から構成される
-低レベルから見た場合、
-プログラムの状態はメモリの内容によって定義され、文としては機械語の命令が相当する。
+低レベルから見た場合,
+プログラムの状態はメモリの内容によって定義され, 文としては機械語の命令が相当する.
 
 ** Explicite State
-明示的状態。
+明示的状態.
 
-- 生存期間が2度以上の手続的呼び出しに渡るような一つの状態。
-- 関数の実行の中に値をもつ。
-- 手続きの引数に現れないもの。
+- 生存期間が 2 度以上の手続的呼び出しに渡るような一つの状態.
+- 関数の実行の中に値をもつ.
+- 手続きの引数に現れないもの.
 
-同様なことを関数型パラダイムで実現するためには、仮引数に状態を持たないといけない。
+同様なことを関数型パラダイムで実現するためには, 仮引数に状態を持たないといけない.
 
 ** Cell
-Explicite State(明示的状態)を表す基本型。二つの構成要素からなる。
+Explicite State (明示的状態) を表す基本型. 二つの構成要素からなる.
 
-- 名前値(Vaiue)
-- 単一代入格納域への参照(Identifier)
+- 名前値 (Vaiue)
+- 単一代入格納域への参照 (Identifier)
 
 #+begin_src oz
 declare
 fun {Reverse L}
-   % 空リストのcellを生成
+   % 空リストの cell を生成
    Rs = {NewCell nil}
 in
-   % リストの各要素を取り出して内部Cellに結合
+   % リストの各要素を取り出して内部 Cell に結合
    for X in L do
       Rs := X|@Rs
    end
 
-   % 内部セルをリターンする。
-   % Rubyっぽい！
+   % 内部セルをリターンする.
+   % Ruby っぽい!
    @Rs
 end
 
 {Show {Reverse [1 2 3 4]}}
 #+end_src
 
-Function ParadigmsとImperative Paradigmの違いは、
+Function Paradigms と Imperative Paradigm の違いは,
 
 - Function 
-  - 状態変化しない(Immunity)
-  - 機能追加時にインタフェースの変更の影響度がおおきい。
+  - 状態変化しない (Immunity)
+  - 機能追加時にインタフェースの変更の影響度がおおきい.
 - Inperative
-  - 機能追加時にインタフェースの変更の影響度がない。(モジュール性, モジュールプログラミング）
-  - 状態変化する。
+  - 機能追加時にインタフェースの変更の影響度がない. (モジュール性, モジュールプログラミング)
+  - 状態変化する.
 
 ** Languaages
-- C言語
+- C 言語
 
 * Event-Driven Programming
-イベント駆動プログラミング。
+イベント駆動プログラミング.
 
 - [[http://ja.wikipedia.org/wiki/%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E9%A7%86%E5%8B%95%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][イベント駆動型プログラミング - Wikipedia]]
 
-起動すると共にイベントを待機し、
-起こったイベントに従って処理を行うプログラミングパラダイム。
+起動すると共にイベントを待機し,
+起こったイベントに従って処理を行うプログラミングパラダイム.
 
  - イベントハンドラの処理のみをかけばよい
- - GUIでよく利用される。
- - フレームワーク作成側で振る舞いを規定できる。
+ - GUI でよく利用される.
+ - フレームワーク作成側で振る舞いを規定できる.
 
 ** 用語
    - イベント 
-    プログラムの流れとは別に発生する事象。
+    プログラムの流れとは別に発生する事象.
    - イベントハンドラ 
-     イベントが発生した際に実行すべきサブルーチンのこと。イベントフック、イベントリスナーなどの呼び方がある。
+     イベントが発生した際に実行すべきサブルーチンのこと. イベントフック, イベントリスナーなどの呼び方がある.
    - トリガ 
-    イベントを発生させるきっかけ。
+    イベントを発生させるきっかけ.
    - イベントディスパッチャ 
-     発生したイベントをイベントハンドラに振り分ける機能のこと。
+     発生したイベントをイベントハンドラに振り分ける機能のこと.
    - イベントキュー 
-     複数のイベントが連続して発生した場合に、それらのイベントを待ち行列として保持するデータ構造。
+     複数のイベントが連続して発生した場合に, それらのイベントを待ち行列として保持するデータ構造.
    - イベントループ 
-     イベントを待機するループを持つ機構。イベントループ内にイベントディスパッチャを持つ構造が一般的.
+     イベントを待機するループを持つ機構. イベントループ内にイベントディスパッチャを持つ構造が一般的.
 
      from wikipedia.
 
 * Structured programming
-  構造化プログラミング。
+  構造化プログラミング.
   
   構造化プログラミングではプログラミング言語が持つステートメントを
-  直接使ってプログラムを記述するのではなく、
-  それらを抽象化したステートメントを持つ仮想機械を想定し、
-  その仮想機械上でプログラムを記述する。
-  普通、抽象化は1段階ではなく階層的である。
-  各階層での実装の詳細は他の階層と隔離されており、
-  実装の変更の影響はその階層内のみに留まる(Abstract data structures)。
-  各階層はアプリケーションに近い抽象的な方から土台に向かって順序付けられている。
-  この順序は各階層を設計した時間的な順番とは必ずしも一致しない(Concluding remarks)
+  直接使ってプログラムを記述するのではなく,
+  それらを抽象化したステートメントを持つ仮想機械を想定し,
+  その仮想機械上でプログラムを記述する.
+  普通, 抽象化は 1 段階ではなく階層的である.
+  各階層での実装の詳細は他の階層と隔離されており,
+  実装の変更の影響はその階層内のみに留まる (Abstract data structures).
+  各階層はアプリケーションに近い抽象的な方から土台に向かって順序付けられている.
+  この順序は各階層を設計した時間的な順番とは必ずしも一致しない (Concluding remarks)
 
   [[http://ja.wikipedia.org/wiki/%E6%A7%8B%E9%80%A0%E5%8C%96%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][- 構造化プログラミング - Wikipedia]]
 
-  標準的な制御構造のみを使い、
-  プログラム全体を段階的に細かな単位に分割して処理を記述していく手法。
+  標準的な制御構造のみを使い,
+  プログラム全体を段階的に細かな単位に分割して処理を記述していく手法.
   
-  - [[http://e-words.jp/w/E6A78BE980A0E58C96E38397E383ADE382B0E383A9E3839FE383B3E382B0.html][構造化プログラミングとは 【 structured programming 】 ： IT用語辞典]]
+  - [[http://e-words.jp/w/E6A78BE980A0E58C96E38397E383ADE382B0E383A9E3839FE383B3E382B0.html][構造化プログラミングとは 【 structured programming 】 : IT 用語辞典]]
   
-  「制御の流れ」を構造化しただけであり、
-  「データ構造」には何の制限や規則も設けていない。
+  「制御の流れ」を構造化しただけであり,
+  「データ構造」には何の制限や規則も設けていない.
   
-  「芸術品」から脱却して「工業製品」へ遷移すること、
-  あるいは、「処理性能重視」から「保守性重視」へ向かったもの。
-  別の見方をすれば、処理効率を犠牲にして、作りやすさや理解容易性を求めたもの。
+  「芸術品」から脱却して「工業製品」へ遷移すること,
+  あるいは, 「処理性能重視」から「保守性重視」へ向かったもの.
+  別の見方をすれば, 処理効率を犠牲にして, 作りやすさや理解容易性を求めたもの.
   
-  - [[http://monoist.atmarkit.co.jp/mn/articles/1009/17/news118.html][構造化プログラミングからオブジェクト指向への進化 - MONOist（モノイスト）]]
+  - [[http://monoist.atmarkit.co.jp/mn/articles/1009/17/news118.html][構造化プログラミングからオブジェクト指向への進化 - MONOist (モノイスト)]]
 
-  ときどき、勘違いされているが構造化プログラミングとは
-  「手続き型言語」のことでもなければ「gotoを使わないプログラミング」のことでもない。
+  ときどき, 勘違いされているが構造化プログラミングとは
+  「手続き型言語」のことでもなければ「 goto を使わないプログラミング」のことでもない.
 
-  つまり、現代風に言い換えると「レイヤリングアーキテクチャ」のようなもので、
-  ある土台の上にさらに抽象化した土台をおき、
-  その上にさらに・・・というようにプログラムをくみ上げていく考え方のことだ。
+  つまり, 現代風に言い換えると「レイヤリングアーキテクチャ」のようなもので,
+  ある土台の上にさらに抽象化した土台をおき,
+  その上にさらに・・・というようにプログラムをくみ上げていく考え方のことだ.
 
   - [[http://qiita.com/hirokidaichi/items/591ad96ab12938878fe1][新人プログラマに知っておいてもらいたい人類がオブジェクト指向を手に入れるまでの軌跡 - Qiita]]
 
 ** 三つの構造化文
-   ダイクストラが提唱。
+   ダイクストラが提唱.
 *** 順次
-    順接、順構造とも言われる。プログラムに記された順に、逐次処理を行なっていく。
-    プログラムの記述とコンピュータの動作経過が一致するプログラム構造である。
+    順接, 順構造とも言われる. プログラムに記された順に, 逐次処理を行なっていく.
+    プログラムの記述とコンピュータの動作経過が一致するプログラム構造である.
     
 *** 反復
-    一定の条件が満たされている間処理を繰り返す。
+    一定の条件が満たされている間処理を繰り返す.
 
 *** 分岐
-    ある条件が成立するなら処理Aを、そうでなければ処理Bを行なう。
+    ある条件が成立するなら処理 A を, そうでなければ処理 B を行なう.
 
 * Object-Oriented Programming
-  オブジェクト指向型プログラミング。
-  -> 記事独立。
+  オブジェクト指向型プログラミング.
+  -> 記事独立.
 
 * Detarministic Dataflow Programming
-決定性データフロープログラミング。
+決定性データフロープログラミング.
 
-関数型パラダイムをべースにしている。
+関数型パラダイムをべースにしている.
 
 - [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%95%E3%83%AD%E3%83%BC%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][データフロープログラミング - Wikipedia]]
 
-スレッド処理、時間経過をともなうのにも関わらず、実行結果はつねに一定！
-これが、Deterministicと名づけられた所以。
+スレッド処理, 時間経過をともなうのにも関わらず, 実行結果はつねに一定!
+これが, Deterministic と名づけられた所以.
 
 Deerministic is not Obsarbable.
 
-アイデア自体は70年代に提示されたアイデアのに、今まで忘れ去れれていた。
+アイデア自体は 70 年代に提示されたアイデアのに, 今まで忘れ去れれていた.
 
-- MultiCore, ManyCore Processing (マルチコア、メニーコア)
+- MultiCore, ManyCore Processing (マルチコア, メニーコア)
 - Destributed Computing
 - Concurrent Deployment
 - BigData Computing
 
-以上のようなキーワードとともに、
-21世紀の今こそ注目をあびるべき、次世代プログラミングパラダイム！
-（とピーターバンロイさんがいっていた）
+以上のようなキーワードとともに,
+21 世紀の今こそ注目をあびるべき, 次世代プログラミングパラダイム!
+(とピーターバンロイさんがいっていた)
 
 CTMCP, Chapter 4
 
 ** Detarministic Dataflow
 *** Unbound Value
-メモリ上に値が存在しないが、宣言された変数。
+メモリ上に値が存在しないが, 宣言された変数.
 
-- C/C++では、ゴミ(不定データ)が格納されている。
-- Javaは0初期化されている。
-- Prologは実行時にエラー終了する。
-- Ozは値がbindされるまでまちあわせる。
+- C/C++ では, ゴミ (不定データ) が格納されている.
+- Java は 0 初期化されている.
+- Prolog は実行時にエラー終了する.
+- Oz は値が bind されるまでまちあわせる.
 
 *** DataFlow Value
-Unbound Valueがbindされるまでプログラムの実行を待ち合わせるような宣言的変数。
+Unbound Value が bind されるまでプログラムの実行を待ち合わせるような宣言的変数.
 
-Bindされたときの実行を Dataflow Executionという。
+Bind されたときの実行を Dataflow Execution という.
 
-このデータフロー変数によって、No Race Conditions(非強豪状態)を実現する！
+このデータフロー変数によって, No Race Conditions (非強豪状態) を実現する!
 (これがもっともこのパラダイムで大事)
 
 - [[http://ja.wikipedia.org/wiki/%E7%AB%B6%E5%90%88%E7%8A%B6%E6%85%8B][競合状態 - Wikipedia]]
 
 ** Threads
-プログラムの処理の単位(Thread of Program)
+プログラムの処理の単位 (Thread of Program)
 
 - Each thread is sequential.
 - Each thread is independent of the others.
 - Two threads can communicate if they share a variable
 
-WikipediaではCPUのひとつの処理単位と定義されている。
+Wikipedia では CPU のひとつの処理単位と定義されている.
 
 [[http://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%AC%E3%83%83%E3%83%89_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF)][- スレッド (コンピュータ) - Wikipedia]]
 
 ** Streams
-リストの終端がUnbound Variableであるもの。
+リストの終端が Unbound Variable であるもの.
 
-Streamsは2つのThread間の通信チャネルとして利用できる。
+Streams は 2 つの Thread 間の通信チャネルとして利用できる.
 
-Streamの構成要素は以下。
+Stream の構成要素は以下.
 
 - Producer
-  ストリームのデータを生成。
+  ストリームのデータを生成.
 
 - Consumer
-  Producerから生成されたストリームのデータを受け取ってアクションを起こす。
+  Producer から生成されたストリームのデータを受け取ってアクションを起こす.
 
 - Transformer
-  ProducerとConsumerとの間を仲介する。  
+  Producer と Consumer との間を仲介する.
 
 - Pipeline
-  ProducerとConsumerとTransformerの間を仲介する。  
+  Producer と Consumer と Transformer の間を仲介する.
 
-単一格納変数(single-assined value)の性質（一度しか代入できない)
-を同期のスレッド間通信のための手段にする。
+単一格納変数 (single-assined value) の性質 (一度しか代入できない)
+を同期のスレッド間通信のための手段にする.
 
-平行スレッドのなかでStreamを読み書きするものをAgentsという。
+平行スレッドのなかで Stream を読み書きするものを Agents という.
 
 n#+begin_src language
           S1=1|2|3..              S2=1|4|9..
@@ -396,30 +395,30 @@ n#+begin_src language
 #+end_src
 
 ** NonDeterminism
-非決定性。プログラムの実行結果を決定ことができるシステムの能力。
+非決定性. プログラムの実行結果を決定ことができるシステムの能力.
 
-Nondeterminismはmanagedされることが必須！
-しかし、制御がとても難しい。
-だからこそ、Determinismが重要なのだと。
+Nondeterminism は managed されることが必須!
+しかし, 制御がとても難しい.
+だからこそ, Determinism が重要なのだと.
 
 *** Scheduler
-どのスレッドを実行するかを決める、システムの一部をスケジューラという。
+どのスレッドを実行するかを決める, システムの一部をスケジューラという.
 
 ** Concurrency Transparency
-平行透過性。
+平行透過性.
 
-複数のユーザーが1つのリソースを共有して使用するとき、
-それらユーザーに競合状態を気づかせてはならない。
+複数のユーザーが 1 つのリソースを共有して使用するとき,
+それらユーザーに競合状態を気づかせてはならない.
 
 - [[http://ja.wikipedia.org/wiki/%E9%80%8F%E9%81%8E%E6%80%A7_(%E6%83%85%E5%A0%B1%E5%B7%A5%E5%AD%A6)][透過性 (情報工学) - Wikipedia]]
 
 *** concurrency for dummies
-平行性のためのダミースレッド。
+平行性のためのダミースレッド.
 
-平行透過性のためには、いくらスレッドを動的に追加しようとも、削除しようとも、
-最終的に得られる結果はかわらない(Deterministic!)
+平行透過性のためには, いくらスレッドを動的に追加しようとも, 削除しようとも,
+最終的に得られる結果はかわらない (Deterministic!)
 
-それは、スレッドの各処理をincrementalに動作させることで*。
+それは, スレッドの各処理を incremental に動作させることで*.
 
 可能となる 
 
@@ -428,26 +427,26 @@ Nondeterminismはmanagedされることが必須！
 [[file:ConcurrentProgramming.org][Concurrent Programming]]
 
 * Multi-agent dataflow programmming
-マルチエジェーントデータフロープログラミング。
+マルチエジェーントデータフロープログラミング.
 
-Concurrency を解決するためのいろいろなパラダイムのなかで、
-最強のパラダイムがこれだとピーターバンロイさんはいう。
+Concurrency を解決するためのいろいろなパラダイムのなかで,
+最強のパラダイムがこれだとピーターバンロイさんはいう.
 
-なぜなら、Deterministic Dataflow Programmingをベースに、
-NonDeterminismの制御を機能追加したから。
+なぜなら, Deterministic Dataflow Programming をベースに,
+NonDeterminism の制御を機能追加したから.
 
-(Deterministic Dataflow Programmingに、Portという明示的状態をくわえた)
+(Deterministic Dataflow Programming に, Port という明示的状態をくわえた)
 
 - [[http://ja.wikipedia.org/wiki/%E3%83%9E%E3%83%AB%E3%83%81%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0][マルチエージェントシステム - Wikipedia]]
 
-Distributed Systemともいう。
+Distributed System ともいう.
 
 CTMCP, Chapter 5
 
 ** Port
-ボート。Named Steram.名前のつけられたストリーム。
+ボート. Named Steram.名前のつけられたストリーム.
 
-以下の操作をもつ、Abstruct Data Structure。
+以下の操作をもつ, Abstruct Data Structure.
 
 - Port Creation
 - Message Sending
@@ -455,79 +454,79 @@ CTMCP, Chapter 5
   - Syncronize
 
 ** Agents
-通信モデルは大きく2つに分けられる。
+通信モデルは大きく 2 つに分けられる.
 
 - Client-Server Architectures
 - Pear-to-Pear Architectures
 
-Client,Server,PearをAgentという。
+Client,Server,Pear を Agent という.
 
 - [[http://ja.wikipedia.org/wiki/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88][ソフトウェアエージェント - Wikipedia]]
 
-以下の構成要素をもつ。
+以下の構成要素をもつ.
 
 - have identity     ... mail address
 - recieve messages  ... mailbox
 - process messeges  ... orderd mailbox
 - reply to messeges ... pre-addressed return letter
 
-エージェントは独立実体で、自身の局所的な目的を目指して仕事をする。
-相互作用が適切に設計されていればエージェントは大局的仕事も達成する。
+エージェントは独立実体で, 自身の局所的な目的を目指して仕事をする.
+相互作用が適切に設計されていればエージェントは大局的仕事も達成する.
 
-CTMCP, Chapter 5より。
+CTMCP, Chapter 5 より.
 
-Agentをもちいるプログラミングを、
-Object-Oriented Programmingと対比されて、
-Agent-Oriented Programmingということもある。
+Agent をもちいるプログラミングを,
+Object-Oriented Programming と対比されて,
+Agent-Oriented Programming ということもある.
 
-ただし、Agentは必ずしもObjectでなくてもよい。2つのうちのどちらか。
+ただし, Agent は必ずしも Object でなくてもよい. 2 つのうちのどちらか.
 
 - Object
 - Transition state-functions
 
 *** Coordinator
-AgentのなかでほかのAgentをまとめるAgentをCoordinatorという。以下の性質をもつ。
+Agent のなかでほかの Agent をまとめる Agent を Coordinator という. 以下の性質をもつ.
 
-- 代理性 ・・・他のAgentの代理をして処理をおこなう。処理の結果をAgentに通知。
-- 知性   ・・・ 他のAgentから情報をあつめを代表して判断を下す。
-- 移動性 ・・・他のAgentを代表して判断を下す。
+- 代理性 ・・・他の Agent の代理をして処理をおこなう. 処理の結果を Agent に通知.
+- 知性   ・・・ 他の Agent から情報をあつめを代表して判断を下す.
+- 移動性 ・・・他の Agent を代表して判断を下す.
 
-Master(Coordinator)-Slave Archtecture.
+Master (Coordinator)-Slave Archtecture.
 
 - [[http://ja.wikipedia.org/wiki/%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%BC%E3%82%B9%E3%83%AC%E3%83%BC%E3%83%96][マスタースレーブ - Wikipedia]]
 
 *** Stateless Agent
-あるメッセージを受信したときに、そのメッセージに応じてアクションをとるAgents.
-アクションは受信メッセージに依存する。
+あるメッセージを受信したときに, そのメッセージに応じてアクションをとる Agents.
+アクションは受信メッセージに依存する.
 
-Agentはひとつのスレッドと複数のポートをもつ。ボートは明示的変数(Cell)と同義。
+Agent はひとつのスレッドと複数のポートをもつ. ボートは明示的変数 (Cell) と同義.
 
-このPort以外はImmutableなデータ構造。Portのみがメモリ上に確保される。
+この Port 以外は Immutable なデータ構造. Port のみがメモリ上に確保される.
 
 *** State with Agent
-ポートの他にState(明示的状態)をもつこともある。
+ポートの他に State (明示的状態) をもつこともある.
 
-処理の実行自体はStreamデータ構造に入ったfunctionのプロシージャごとに実施する
-(Immutable and incremental)が、StateによってReplyの方法を変える。
+処理の実行自体は Stream データ構造に入った function のプロシージャごとに実施する
+(Immutable and incremental) が, State によって Reply の方法を変える.
 
 ** Protocol
-Messageの送信と受信のルール。
+Message の送信と受信のルール.
 
 [[http://ja.wikipedia.org/wiki/%E9%80%9A%E4%BF%A1%E3%83%97%E3%83%AD%E3%83%88%E3%82%B3%E3%83%AB][- 通信プロトコル - Wikipedia]]
 
-プロトコルにしたがうことで、デッドロックを防ぐ。
+プロトコルにしたがうことで, デッドロックを防ぐ.
 
 *** BroadCast
-他の複数のエージェント(Multi-Agent)に通信を送る。
+他の複数のエージェント (Multi-Agent) に通信を送る.
 
 *** Contract Net
-契約ネットプロトコル。
+契約ネットプロトコル.
 [[http://en.wikipedia.org/wiki/Contract_Net_Protocol][Contract Net Protocol - Wikipedia, the free encyclopedia]]
 
 ** Ozma
- Multi-agent dataflow programmmingを実現するための言語。ScalaとOzを合体させた。
+ Multi-agent dataflow programmming を実現するための言語. Scala と Oz を合体させた.
 
-ピーターバンロイさん直々の説明動画は以下で見れる。
+ピーターバンロイさん直々の説明動画は以下で見れる.
 
 - [[http://www.infoq.com/presentations/Ozma-Extending-Scala-with-Oz-Concurrency][Ozma: Extending Scala with Oz Concurrency]]
 
@@ -535,25 +534,25 @@ github repository.
 
 - [[https://github.com/sjrd/ozma][sjrd/ozma]]
 
-* Active Objects Programming(Object-Based Agent)
-オブジェクト指向におけるオブジェクトを、
+* Active Objects Programming (Object-Based Agent)
+オブジェクト指向におけるオブジェクトを,
 自ら判断し処理できる機能を持ったエージェントと呼ばれるモジュールに
-置き換えたもの。
+置き換えたもの.
 
-Object-Oriented Programming とMulti-Agent Programmingの2つのパラダイムを
-合体させてできたパラダイム。
+Object-Oriented Programming と Multi-Agent Programming の 2 つのパラダイムを
+合体させてできたパラダイム.
 
-オブジェクトの属性ではなくて振る舞いが重要視される。
+オブジェクトの属性ではなくて振る舞いが重要視される.
 
-- [[http://itpro.nikkeibp.co.jp/word/page/10024992/][「エージェント指向」とは：ITpro]]
+- [[http://itpro.nikkeibp.co.jp/word/page/10024992/][「エージェント指向」とは:ITpro]]
 - [[http://www.ogis-ri.co.jp/otc/hiroba/technical/agent/article/index.html][エージェント指向が目指すもの -INDEX-]]
 
-EnglishのWikipediaに OOPとAOPの対応比較表がある。
+English の Wikipedia に OOP と AOP の対応比較表がある.
 
 - http://en.wikipedia.org/wiki/Agent-oriented_programming
 
 * Books
 * Links
-- [[http://www.ibm.com/developerworks/jp/opensource/library/itm-progevo1/][プログラミング言語の進化を追え: 第1回 サルでも分かるプログラミング言語の新潮流(前篇)]]
-- [[http://www.ibm.com/developerworks/jp/opensource/library/itm-progevo2/index.html][プログラミング言語の進化を追え: 第2回 サルでも分かるプログラミング言語の新潮流(後篇)]]
+- [[http://www.ibm.com/developerworks/jp/opensource/library/itm-progevo1/][プログラミング言語の進化を追え: 第 1 回 サルでも分かるプログラミング言語の新潮流 (前篇)]]
+- [[http://www.ibm.com/developerworks/jp/opensource/library/itm-progevo2/index.html][プログラミング言語の進化を追え: 第 2 回 サルでも分かるプログラミング言語の新潮流 (後篇)]]
 

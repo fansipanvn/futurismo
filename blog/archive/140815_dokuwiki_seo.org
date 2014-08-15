@@ -1,66 +1,20 @@
-#+OPTIONS: toc:nil
-* DokuWiki
-おもに, この DokuWiki の管理についての覚書.
+#+BLOG: Futurismo
+#+POSTID: 2542
+#+DATE: [2014-08-15 金 14:37]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Dokuwiki, SEO
+#+DESCRIPTION: Dokuwiki の SEO カスタマイズ作業メモ
+#+TITLE: Dokuwiki の SEO カスタマイズ作業メモ
+* はじめに
+  以前, 高らかに Futurismo Wiki の立ち上げを宣言しました.
 
-- http://futurismo.biz/dokuwiki/doku.php
-- http://futurismo.biz/archives/2500
+  - [[http://futurismo.biz/archives/2500][Futurismo Wiki 立ち上げ (Dokuwiki) | Futurismo]]
 
-ウォード・カンニガムがプログラムに関する,パターンを記述して閲覧するた
-めにはじめたのが起源. WikiWikiWeb というパターンブラウザ.
+  宣言しただけで, ちっともカスタマイズしていなかったので, カスタマイズ
+  してみました.本記事は, その作業メモ.
 
-** ブログと wiki の根本的な違い
-ブログと wiki の根本的な違いは, 以下.
-
-  - ブログは情報を日付で管理するシステム
-  - wiki はページ名で情報を管理するシステム
-
-* メンテナンス
-** アップグレード
-  サイトをアップグレードするためプラグインを利用する.
-
-  - [[https://www.dokuwiki.org/ja:install:upgrade][ja:install:upgrade]]
-
-** 記事のアップロード
-*** org-wk で org 形式から dokuwiki 形式に変換
-
-   - [[https://github.com/w-vi/ox-wk.el][w-vi/ox-wk.el]]   
-
-   #+begin_src sh
-#!/bin/sh
-DIR=`pwd`
-FILES=""
-
-for i in $@; do
-    FILES="$FILES \"$i\""
-done
-
-emacs -Q --batch \
-    --eval "(progn
-     (add-to-list 'load-path (expand-file-name \"~/.emacs.d/el-get/repo/org-mode/lisp/\"))
-     (add-to-list 'load-path (expand-file-name \"~/.emacs.d/el-get/repo/ox-wk/\"))
-     (require 'org) (require 'ox-wk)
-     (mapc (lambda (file)
-            (find-file (expand-file-name file \"$DIR\"))
-            (org-wk-export-to-wiki)
-            (kill-buffer)) '($FILES)))" 2>&1
-   #+end_src
-
-*** ncftpput でアップロード
-
-#+begin_src sh
-$ ncftpput -R lolipop ./wordpress/dokuwiki/data pages
-#+end_src
-
-* プラグイン
-  - [[https://www.dokuwiki.org/ja:plugins][ja:plugins]]
-
-    プラグインマネージャーを利用する.(bundle).
-
-  - [[https://www.dokuwiki.org/ja:plugin:plugin][ja:plugin:plugin]]
-
-** Indexmenu
-   名前空間にもとづいて, メニュー作成.
-   これで, トップページの目次を作成する.
+  とくに, SEO に関する情報についてまとめてみました.
 
 * SEO 対策
 
@@ -116,4 +70,14 @@ $ ncftpput -R lolipop ./wordpress/dokuwiki/data pages
       - [Google Analytics ID]:にトラッキング ID を入力
       - [Don't count admin/superuser]:チェック
       - [Don't count logged in users]:チェック
+
+** Google Adsense
+   アドセンスもテーマに挿入出きるみたい.ただ, Wiki のデザインを大切にし
+   たいので, この Wiki には広告はいれないことにした.
+
+   - [[http://tsuyushiga.hatenablog.jp/entry/2014/03/02/000748][【その他】 Dokuwiki に GoogleAdSense の広告を表示する - tsuyushiga's blog]]
+
+* おわりに
+  なにもしないと, Google 検索にまったくひっかからないんだということを
+  今更ながら知りました orz.
 

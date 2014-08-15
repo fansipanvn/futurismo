@@ -36,6 +36,75 @@ find . -name "*.org" -exec sed -i '1i\#+OPTIONS: toc:nil' {} \;
 #+end_src
 
 * シェルスクリプト
+** 引数チェック
+*** 引数の数をチェック
+
+#+begin_src sh
+if [ $# != 1 ]; then
+    echo "usage: $0 file_path" 1>&2
+    exit 1
+fi
+#+end_src
+
+*** ファイルやディレクトリパスが存在するか
+
+#+begin_src sh
+if [ -e パス ]; then
+    # 存在する場合
+else
+    # 存在しない場合
+fi
+#+end_src
+
+** ファイル・ディレクトリ操作
+
+   - [[http://d.hatena.ne.jp/zariganitosh/20100921/get_file_name_ext_dir][ファイルパスからファイル名や拡張子を自由に取り出す - ザリガニが見ていた.... ]]
+
+#+begin_src sh
+$ fpath='/a/b/c.d.e'
+
+# ファイル名を取り出す (拡張子あり)
+$ fname_ext="${fpath##*/}"
+$ echo $fname_ext
+c.d.e
+
+# ファイル名を取り出す (拡張子なし)
+$ fname="${fname_ext%.*}"
+$ echo $fname
+c.d
+
+# 拡張子を取り出す
+$ fext="${fpath##*.}"
+$ echo $fext
+e
+
+# ディレクトリを取り出す
+$ fdir="${fpath%/*}"
+$ echo $fdir
+/a/b
+#+end_src
+
+
+** 日時操作
+`date xxx `でかこんで実行する.
+
+#+begin_src sh
+DATE=`date -d "$1" '+%s'`
+#+end_src
+
+- [[http://shellscript.sunone.me/date.html][日付を取得する - UNIX & Linux コマンド・シェルスクリプト リファレンス]]
+
+| フォーマット               | コマンド              |
+|----------------------------+-----------------------|
+| yyyy/mm/dd                 | date '+%Y/%m/%d'      |
+| yyyy/mm/dd (Sun..Sat)      | date '+%Y/%m/%d (%a)' |
+| yy/mm/dd                   | date '+%y/%m/%d'      |
+| yyyy-mm-dd                 | date '+%F'            |
+| mm/dd/yy                   | date '+%D'            |
+| hh:mm (24 時間制)          | date '+%R'            |
+| hh:mm:ss (24 時間制)       | date '+%T'            |
+| hh:mm:ss AM PM (12 時間制) | date '+%r'            |
+
 ** for
 *** コマンドラインから連番のフォルダ作成
     - [[http://shellscript.sunone.me/for.html][for 文の使用方法 - UNIX & Linux コマンド・シェルスクリプト リファレンス]]
