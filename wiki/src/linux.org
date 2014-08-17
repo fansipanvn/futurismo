@@ -5,35 +5,6 @@
    - Debian ... Ubuntu, Mint Linux, 個人用として人気.
    - Fedora ... CentOS エンタープライズ業界で人気.
    - SUSE ... OpenSUSE 小売業, ヨーロッパで人気.
-
-* FileSystems
-  コンピュータのリソースを操作するための, オペレーティングシステム (OS) が持つ機能の一つ.
-
-  - [[http://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0][ファイルシステム - Wikipedia]]
-
-** FileSystems の種類
- - Conventional disk filesystems: ext2, ext3, ext4, XFS, Btrfs, JFS, NTFS, etc.
- - Flash storage filesystems: ubifs, JFFS2, YAFFS, etc.
- - Database filesystems
- - Special purpose filesystems: procfs, sysfs, tmpfs, debugfs, etc.
-
-** partition
-  A partition is a logical part of the disk.
-
-  冷蔵庫に棚があるように, Disk にはパーティションがある.
-
-  |                                | Windows     | Linux            |
-  |--------------------------------+-------------+------------------|
-  | Partition                      | Disk1       | /dev/sda1        |
-  | Filesystem type                | NTFS/FAT32  | EXT3/EXT4/XFS... |
-  | Mounting Parameters            | DriveLetter | MountPoint       |
-  | Base Folder where OS is stored | C drive     | /                |
-
-** Filesystem Hierarchy Standard
-   Linux と他の UNIX 系オペレーティングシステムでの主なディレクトリとその内容を定めたもの.
-
-   - [[http://ja.wikipedia.org/wiki/Filesystem_Hierarchy_Standard][Filesystem Hierarchy Standard - Wikipedia]]
-
 * The Boot Process
 
   BIOS 方式と UEFI 方式がある.両者はかなりことなっている.
@@ -177,6 +148,77 @@
     ArchLinux はこれを利用している.
 
     - [[https://wiki.archlinux.org/index.php/Systemd_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][systemd (日本語) - ArchWiki]]
+* FileSystems
+  コンピュータのリソースを操作するための, オペレーティングシステム (OS) が持つ機能の一つ.
+
+  - [[http://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0][ファイルシステム - Wikipedia]]
+
+** FileSystems の種類
+ - Conventional disk filesystems: ext2, ext3, ext4, XFS, Btrfs, JFS, NTFS, etc.
+ - Flash storage filesystems: ubifs, JFFS2, YAFFS, etc.
+ - Database filesystems
+ - Special purpose filesystems: procfs, sysfs, tmpfs, debugfs, etc.
+
+** partition
+  A partition is a logical part of the disk.
+
+  冷蔵庫に棚があるように, Disk にはパーティションがある.
+
+  |                                | Windows     | Linux            |
+  |--------------------------------+-------------+------------------|
+  | Partition                      | Disk1       | /dev/sda1        |
+  | Filesystem type                | NTFS/FAT32  | EXT3/EXT4/XFS... |
+  | Mounting Parameters            | DriveLetter | MountPoint       |
+  | Base Folder where OS is stored | C drive     | /                |
+
+** Filesystem Hierarchy Standard
+   Linux と他の UNIX 系オペレーティングシステムでの主なディレクトリとその内容を定めたもの.
+
+   - [[http://ja.wikipedia.org/wiki/Filesystem_Hierarchy_Standard][Filesystem Hierarchy Standard - Wikipedia]]
+
+** LVM
+   論理ボリュームマネージャ.
+   UNIX 系の大規模ストレージ/ ディスクマネージメント機能.
+
+   - [[http://ja.wikipedia.org/wiki/%E8%AB%96%E7%90%86%E3%83%9C%E3%83%AA%E3%83%A5%E3%83%BC%E3%83%A0%E3%83%9E%E3%83%8D%E3%83%BC%E3%82%B8%E3%83%A3][論理ボリュームマネージャ - Wikipedia]]
+
+   物理的な記憶デバイスの領域 (物理ボリューム:PV) を複数まとめてひとつの
+   大きな仮想的な領域 (ボリュームグループ:VG) とし, そこから仮想的なパー
+   ティション領域 (論理ボリューム:LV) を切り出すことで, 従来の物理的なパー
+   ティションを用いた方法よりも柔軟に記憶領域を管理することができるように
+   する仕組み.
+
+*** メリット
+   - 動的かつ自在にディスクのパーティションを変更できる仕組み.
+   - 後から物理ボリュームを加えることができる.
+   - 動的にリサイズすることができる
+   - パーティションを複数のディスクにまたがって作成できる.
+   - スナップショット機能が利用できる.
+
+*** デメリット
+   - RAID に比べてディスクアクセス性能が出ない.
+
+*** 物理ボリューム (PV:Physical Volume)
+    物理的なハードディスクやパーティション. pvcreate で作成.
+
+*** ボリュームグループ (VG:Volume Group)
+    物理ボリュームを集めて作る, 仮想的な領域 (仮想的なハードディスクの
+    ようなものだと思ってよいです) vgcreate コマンドを使用して作成
+    
+*** 論理ボリューム (LV:Logical Volume)
+    ボリュームグループの一部 (または全部) を使って作る, 仮想的なパーティ
+    ション. 従来のパーティションと同じように, この論理ボリューム上にファ
+    イルシステムを作って利用可能. lvcreate コマンドを使用して作成.
+
+    作成した論理ボリューム (LV) を実際に使用するには mkfs コマンドで, 作成
+    した論理ボリュームにファイルシステムを作成し, mount コマンドでマウ
+    ントする.
+
+*** RAID との関係
+    ArchWiki のテーブル図がわかりやすい.[[https://wiki.archlinux.org/index.php/Software_RAID_and_LVM][Software RAID and LVM - ArchWiki]]
+
+    - LVM + mirror はホストの CPU を利用する.
+    - RAID はディスクアレイの CPU を利用する.
 
 * GNU/Unix-Base Commands
 ** 圧縮・解凍

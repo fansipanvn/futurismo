@@ -1,0 +1,12 @@
+* ArchLinux
+
+** システムログ
+   syslog-ng を入れる. /var/log/xxx にログされる.
+   
+#+begin_src bash
+$ sudo pacman -S syslog-ng
+$ sudo systemctl enable syslog-ng
+$ sudo reboot
+#+end_src
+
+
