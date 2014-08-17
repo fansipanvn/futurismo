@@ -440,75 +440,117 @@ Universal Asynchronous Receiver/Transmitter (UART).
 A thread is defined as the path of action of software as it executes. 
 
 ** Process
-A process is defined as the action of software as it executes. 
+*** Definition
+    - A process is defined as the action of software as it executes. 
+    - A process is an instance of a running program.
 
-スレッドとプロセスの違いは, 変数のスコープの違い?
+*** Features
+    プロセスは 2 つの抽象化をおこなう
+    - 論理制御フロー
+      - それぞれのプロセスが 1 つの CPU で実行しているように見える
+    - プライベートな仮想メモリ空間
+      - それぞれのプロセスが 1 つの メインメモリ で実行しているように見える
 
-Threads share access to I/O devices, 
-system resources, and global variables, 
-while processes have separate global variables and system resources. 
-Processes do not share I/O devices.
+    Process は一度にひとつのことしか実行できない.
+    - concurrently: 平行で動作しているように見える
+    - 実際はシーケンシャル.
+    
+    その秘密は, OS のコンテキストスイッチにある!
 
-実際は, OS によってバラバラ.
+*** fork-exec model
+    Fork-exec is a commonly used technique in Unix whereby an
+    executing process spawns a new program.
 
-- [[http://futurismo.biz/archives/2245][スレッドとタスクの違いについてしらべてみた (C++/Linux) | Futurismo]]
+    fork-exec モデルは, プロセス管理手法.
+
+    - [[http://en.wikipedia.org/wiki/Fork-exec][Fork-exec - Wikipedia, the free encyclopedia]]
+    - [[http://ja.wikipedia.org/wiki/Fork][fork - Wikipedia]]
+
+    forc と exec の説明は以下.
+
+    - fork: 現在のプロセスのコピーを生成.
+    - execve: 現在のプロセスのコードとメモリ空間を別のものへ置き換える.
+
+*** Thread との違い
+
+    スレッドとプロセスの違いは, 変数のスコープの違い?
+
+    Threads share access to I/O devices, 
+    system resources, and global variables, 
+    while processes have separate global variables and system resources. 
+    Processes do not share I/O devices.
+
+    実際は, OS によってバラバラ.
+
+    - [[http://futurismo.biz/archives/2245][スレッドとタスクの違いについてしらべてみた (C++/Linux) | Futurismo]]
 
 * Interrupt
-Hardware Interrupt Software Action.
+  Hardware Interrupt Software Action.
 
-Busy-Wait の制御で待ってられない場合は, Interrupt を利用する.
+  非同期例外ともいう. プロセッサの外部からのイベントによってひきおこさ
+  れる.
 
-ここからは, 一般的な説明ではなくて edX の中だけの定義.
+  - I/O  interrupts  
+    - hittng  Ctrl-­-C  on  the  keyboard  
+    - clicking  a  mouse  buVon  or  tapping  a  touchscreen  
+    - arrival  of  a  packet  from  a  network  
+    - arrival  of  data  from  a  disk  
+  - Hard  reset  interrupt  
+    - hittng  the  reset  buVon  on  front  panel  
+  - Soft  reset  interrupt  
+    - hittng  Ctrl-­-Alt-­-Delete on a PC
+
+  Busy-Wait の制御で待ってられない場合は, Interrupt を利用する.
+
+** Edx
+   ここからは, 一般的な説明ではなくて edX の中だけの定義.
 
 *** Arm/DisArm
-Arm とは, ハードウェアが割り込みをあげることを有効化する.
-
-DisArm とは, ハードウェアが割り込みをあげることを無効化する.
-
+    - Arm とは, ハードウェアが割り込みをあげることを有効化する.
+    - DisArm とは, ハードウェアが割り込みをあげることを無効化する.
+    
 *** Enable/Disable
-Enable は一時的に割り込みを有効化する.
-
-Disble は一時的に割り込みを無効化する.
-
-Disable 中に発生した Interuppt は Pending されて, Enable 時に通知される.
+    - Enable は一時的に割り込みを有効化する.
+    - Disable は一時的に割り込みを無効化する.Disable 中に発生した
+      Interuppt は Pending されて, Enable 時に通知される.
 
 *** Interruput の初期化処理
-1. Trigger flag set by hardware
-2. the device is armed by software
-3. the device is enabled for interrupts in the NVIC
-4. the processor is enabled for interrupts (PRIMASK I bit is clear)
-5. the interrupt level must be less than the BASEPRI. 
+    1. Trigger flag set by hardware
+    2. the device is armed by software
+    3. the device is enabled for interrupts in the NVIC
+    4. the processor is enabled for interrupts (PRIMASK I bit is clear)
+    5. the interrupt level must be less than the BASEPRI. 
 
 *** Context Switch
-割り込みをハードウェアが検知したときに,
-foreground と background のスレッドを入れ替える.
+    割り込みをハードウェアが検知したときに,
+    foreground と background のスレッドを入れ替える.
 
-- [[http://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%B3%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E3%82%B9%E3%82%A4%E3%83%83%E3%83%81][コンテキストスイッチ - Wikipedia]]
+    - [[http://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%B3%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E3%82%B9%E3%82%A4%E3%83%83%E3%83%81][コンテキストスイッチ - Wikipedia]]
 
-現在のプロセスの実行を一時停止して,
-スタックにレジスタ情報を覚えておく.
+    現在のプロセスの実行を一時停止して,
+    スタックにレジスタ情報を覚えておく.
 
-割り込みハンドラを実行して,
-ハンドラの実行が終了したらもとのプロセスを再開する.
+    割り込みハンドラを実行して,
+    ハンドラの実行が終了したらもとのプロセスを再開する.
 
-1. Current instruction is finished,
-2. Eight registers are pushed on the stack,
-3. LR is set to 0xFFFFFFF9,
-4. IPSR is set to the interrupt number,
-5. PC is loaded with the interrupt vector
+    1. Current instruction is finished,
+    2. Eight registers are pushed on the stack,
+    3. LR is set to 0xFFFFFFF9,
+    4. IPSR is set to the interrupt number,
+    5. PC is loaded with the interrupt vector
 
 ** Interrupt Service Routine (ISR)
-割り込みサービスルーチン. 割り込みハンドラともいう.
+   割り込みサービスルーチン. 割り込みハンドラともいう.
 
-[[http://ja.wikipedia.org/wiki/%E5%89%B2%E3%82%8A%E8%BE%BC%E3%81%BF%E3%83%8F%E3%83%B3%E3%83%89%E3%83%A9][割り込みハンドラ - Wikipedia]]
+   - [[http://ja.wikipedia.org/wiki/%E5%89%B2%E3%82%8A%E8%BE%BC%E3%81%BF%E3%83%8F%E3%83%B3%E3%83%89%E3%83%A9][割り込みハンドラ - Wikipedia]]
 
-コンテキストスイッチによって,
-foreground で動作している busy-wait なスレッドと ISR がスワップされる.
+   コンテキストスイッチによって,foreground で動作している busy-wait な
+   スレッドと ISR がスワップされる.
 
-割り込み受け付けによって起動されるオペレーティングシステムや
-デバイスドライバのコールバックルーチン.
-割り込みハンドラは割り込み原因によってそれぞれ存在し,
-割り込みハンドラがそのタスクを完了するまでにかかる時間も様々である.
+   割り込み受け付けによって起動されるオペレーティングシステムやデバイ
+   スドライバのコールバックルーチン.割り込みハンドラは割り込み原因によっ
+   てそれぞれ存在し,割り込みハンドラがそのタスクを完了するまでにかかる
+   時間も様々である.
 
 *** NVIC
 割り込みハンドラに対応させたい関数は,

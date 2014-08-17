@@ -178,9 +178,12 @@
 
     - [[https://wiki.archlinux.org/index.php/Systemd_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][systemd (日本語) - ArchWiki]]
 
+* GNU/Unix-Base Commands
+** 圧縮・解凍
+   - [[http://uguisu.skr.jp/Windows/tar.html][tar コマンドで解凍・圧縮する linux 一覧まとめ (gz, zip, tar.xz など)]]
+
 * Shell
   zsh だけしっとけ!
-
 * X Window System
   ビットマップディスプレイ上でウィンドウシステムを提供する表示プロトコル.
 

@@ -1,0 +1,48 @@
+* WordPress
+** Docker
+*** wordpress image を取得
+    もちろん, Docker Hub に wordpress のイメージがあった.
+    tutum/wordpress というリポジトリが導入が導入が簡単だとの評判.
+    
+    - [[https://registry.hub.docker.com/u/tutum/wordpress/][tutum/wordpress Repository | Docker Hub Registry - Repositories of Docker Images]]
+
+    ローカル環境に落として実行.
+
+    #+begin_src language
+    $ sudo docker run -d -p 80:80 tutum/wordpress
+    #+end_src
+
+    まつこと数分・・・
+    http://localhost にアクセスしてみるとインストール完了!! 
+
+    - /var/www/html 配下に wordpress の資料が置いてある.
+    - /var/www/html/wp-content/themes に ホストで編集したものをゲスト
+      OS に scp すればよい.
+
+*** ssh を利用できるようにする
+
+    #+begin_src language
+    $ sudo docker run -i -t tutum/wordpress /bin/bash
+    #+end_src
+
+    コンテナの中で openssh-server を立ち上げ.パスワードを設定.
+
+   #+begin_src sh
+apt-get install openssh-server
+mkdir /var/run/sshd
+/usr/sbin/sshd
+passwd root
+exit
+   #+end_src
+
+
+*** Links
+    - [[http://www.centurylinklabs.com/tutorials/docker/wordpress-in-a-docker-container-on-the-centurylink-cloud/][Installing WordPress in a Docker Container on the CenturyLink Cloud | CenturyLink Labs]]
+    
+** Themes
+** History
+   - [[http://futurismo.biz/archives/1533][サイトデザインを変更しました!WordPress 用テンプレート賢威 6.0 カスタマイズメモ | Futurismo]]
+** Tips
+   - [[http://futurismo.biz/archives/1729][WordPress で処理をファイル分割する方法を調べてみました. | Futurismo]]
+   - [[http://futurismo.biz/archives/1734][jQuery で Google カスタム検索をさくっとカスタマイズ | Futurismo]]
+   - [[http://futurismo.biz/archives/1722][ブログの上部に固定メニューバーを設置しました | Futurismo]]

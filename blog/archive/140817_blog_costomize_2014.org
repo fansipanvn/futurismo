@@ -1,0 +1,100 @@
+#+BLOG: Futurismo
+#+POSTID: 2561
+#+DATE: [2014-08-17 日 12:46]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 日記, WordPress
+#+TAGS:
+#+DESCRIPTION:  2014 WordPress テーマを 賢威 6.2 にバージョンアップしました
+#+TITLE: 2014 WordPress テーマを 賢威 6.2 にバージョンアップしました
+
+1 年ぶりにサイトデザインを変更しました. 
+
+このブログをはじめて 2 年経ち, 2 度目のテーマ変更です.
+
+* ScreenShot
+** Futurismo
+
+   [[file:./..//img/2014-08-17-125026_futurismo_keni62.png]]
+
+** Futurismo wiki
+
+   [[file:./../img/2014-08-17-124249_futurismo_wiki.png]]
+
+* Motivations
+** 1 年前のテーマはやりっぱなしテーマ
+   一年前に, ブログカスタマイズを熱心にやっていた.
+
+ - [[http://futurismo.biz/archives/1533][サイトデザインを変更しました!WordPress 用テンプレート賢威 6.0 カスタマイズメモ | Futurismo]]
+
+   しかし, 途中でやめてしまった. なので, 今までのブログはとても中途半
+   端な状態で放置されいてた. 建設が途中で打ちきられて, ほったらかしに
+   されているように.
+
+   シンタックスライライトやサムネイル画像の扱いなど, とても中途半端な
+   デザインなことに不満を持っていた.
+
+** 賢威 6.2 を導入
+   このブログは, 開設当初から 賢威テーマを採用している.
+
+   この賢威テーマは有料なのだけれども, いいところは毎年無料でバージョン
+   アップができるところ. 賢威 6.0 は一年半前のテーマなので, やや古さを
+   感じてきた.現在は, 6.2 なので, バージョンアップしたかった.
+
+   #+BEGIN_HTML
+   <script type="text/javascript" src="http://www.infotop.jp/click.js"></script>
+   <a href="http://www.seo-keni.jp/" onClick="return clickCount (248685, 2058);"><img src="http://www.infotop.jp/img/banner3_2058.jpg" border="0" /></a>
+   #+END_HTML
+
+** ダークなテーマに変更したかった
+   自分の普段の PC 環境が, 黒系を中心にまとめるようになった.
+
+   - [[http://futurismo.biz/archives/2146][Beautiful Colorful Terminal – Emacs ターミナル環境をカラフルに彩る | Futurismo]]
+
+   よって, ブログもまるで Emacs の Dark Themes のような色にしたかった.
+
+   もちろん, その色は SEO 的には悪い気がする.暗くジメジメしたようなイ
+   メージをあたえかねない.
+
+   しかし, 自分のブログなど, 深海 5000m に潜む深海魚のような存在でいい
+   んだ! 深海魚だって, ひとにみられていなくたって, 驚くような進化を遂
+   げているのだ!
+
+* テーマカスタマイズ
+  賢威テーマは毎年バージョンアップをするために, そのたびごとにテーマ
+  をカスタマイズしていたら, 面倒だ. そのため今回は, 今後のメンテナン
+  スがしやすいような工夫をした.
+
+** Docker 導入
+   簡単に ローカルでの WordPress カスタマイズ環境を手に入れるために,
+   Docker を利用した. 
+
+   - [[http://futurismo.biz/archives/2545][WordPress ローカル環境が 5 分で構築できるか? Docker の都市伝説を検証してみた | Futurismo]]
+
+   以前は, Windows 上で カスタマイズしていたけれども,これに比べればものすごく簡単だった.
+
+   - [[http://futurismo.biz/archives/23][web サーバーからロ-カル環境への移行まとめ | Futurismo]]
+
+** git で版数管理
+   版数管理をしながら PHP ファイルや HTML ファイルを編集した.
+
+   移行前と移行後の差分を git を利用して見ることで, 修正部分がとても分か
+   りやすくなった.
+
+* まとめ   
+  ブログのカスタマイズを毎年することが恒例行事になってきた.
+
+  そして, 年を重ねるごとに自分のスキルが上がっていることに気づく.1 年
+  前では考えつかなかった方法で, カスタマイズをしようとする.こういう発
+  見を重ねることは楽しいことだ.
+
+  また, まとめといいつつ, ブログのテーマ移行はまだ半分くらいしか終わっ
+  ていない. このまま中途半端で 1 年が過ぎる可能性がある. ここでおわっ
+  てしまっては, 完全にレベルダウンだ. . :(
+
+
+
+# ./..//img/2014-08-17-125026_futurismo_keni62.png
+# http://futurismo.biz/wp-content/uploads/wpid-2014-08-17-125026_futurismo_keni62.png
+# ./../img/2014-08-17-124249_futurismo_wiki.png http://futurismo.biz/wp-content/uploads/wpid-2014-08-17-124249_futurismo_wiki.png
+
+# ./..//img/2014-08-17-125026_futurismo_keni62.png http://futurismo.biz/wp-content/uploads/wpid-2014-08-17-125026_futurismo_keni621.png

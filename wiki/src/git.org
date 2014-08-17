@@ -1,12 +1,14 @@
 #+OPTIONS: toc:nil
-* git command
+* Git
+
+* Tips
 ** ファイル単位で最新のコミットに戻す方法
 
 #+begin_src sh
 git checkout filename
 #+end_src
 
-** githubからファイルを履歴を含めて削除する方法
+** github からファイルを履歴を含めて削除する方法
 
 see: http://blog.s21g.com/articles/1592
 
@@ -15,14 +17,28 @@ see: http://blog.s21g.com/articles/1592
 % git push --force
 #+end_src
 
+** リモートブランチを clone する方法
+   default では, master branch しか clone できない.
+
+#+begin_src sh
+# ブランチをしらべる
+$ git branch -r
+origin/HEAD -> origin/master
+origin/development
+origin/master
+# 以下のように clone.
+$ git checkout -b development origin/development
+#+end_src
+
+   - [[http://qiita.com/shim0mura/items/85aa7fc762112189bd73][Git - リモートのブランチを clone する - Qiita]]
 
 * トラブルシューティング
-** detatched HEADとなった場合の復旧方法
-detatched HEADはブランチから外れてしまった修正。
+** detatched HEAD となった場合の復旧方法
+detatched HEAD はブランチから外れてしまった修正.
 
-うっかり, git co masterをしてしまうと、修正が消えてしまう。
+うっかり, git co master をしてしまうと, 修正が消えてしまう.
 
-こんなときは、一旦新規ブランチを作成して、そのブランチをmasterにマージする。
+こんなときは, 一旦新規ブランチを作成して, そのブランチを master にマージする.
 
 #+begin_src language
 git checkout -b temp_detatched
@@ -32,5 +48,5 @@ git push origin master
 git branch -d temp_detatched
 #+end_src
 
-- [[http://d.hatena.ne.jp/nishiohirokazu/20110513/1305290792][gitのHEADがブランチから外れてしまう現象とその直し方 - 西尾泰和のはてなダイアリー]]
-- [[http://devlights.hatenablog.com/entry/20130417/p1][detached HEAD状態から元に戻すコマンド (git, checkout, fix a detached HEAD, .git/HEAD, refs/heads/master) - いろいろ備忘録日記]]
+- [[http://d.hatena.ne.jp/nishiohirokazu/20110513/1305290792][git の HEAD がブランチから外れてしまう現象とその直し方 - 西尾泰和のはてなダイアリー]]
+- [[http://devlights.hatenablog.com/entry/20130417/p1][detached HEAD 状態から元に戻すコマンド (git, checkout, fix a detached HEAD, .git/HEAD, refs/heads/master) - いろいろ備忘録日記]]

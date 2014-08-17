@@ -131,6 +131,13 @@ CE={Fact → fact}. ( Contectual Environment)
    例外をつかわないと, コンテクストごとの結果を検証必要があり,
    case 文が乱立するうんこコードが出来る.
 
+*** 例外の種類
+    - Asynchronous  Exceptions: 非同期例外
+    - Synchronous  Exceptions: 同期例外
+      - Traps: 意図的に OS が止める breakpont, systemcall, file open
+      - Faults: リカバリ可能な例外, page fault, segmentation fault
+      - Aborts: リカバリ不可能な例外, プログラムは強制終了.
+
 * Declarative Programming
   宣言型プログラミング.
 

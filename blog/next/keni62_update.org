@@ -1,0 +1,14 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: WordPress のテーマを 賢威 6.2 に アップデートしました
+
+WordPress のテーマを 賢威 6.2 に アップデートしました. 
+
+# ここに画像でも入れる.
+
+1 年ぶりのブログテーマカスタマイズです.
+
+- [[http://futurismo.biz/archives/1533][サイトデザインを変更しました!WordPress 用テンプレート賢威 6.0 カスタマイズメモ | Futurismo]]
+
