@@ -1,0 +1,103 @@
+#+BLOG: Futurismo
+#+POSTID: 2575
+#+DATE: [2014-08-19 火 22:26]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Book, 技術メモ
+#+TAGS: Web
+#+DESCRIPTION: プロになるための Web 技術入門を読んだ書評です
+#+TITLE: HTTP も知らないのぉ~? にカチンときたら読むべき! プロになるための Web 技術入門を読んだ.
+
+毎晩お風呂の中でゆでダコになりながら,
+『プロになるための Web 技術入門』を読みました.
+
+#+BEGIN_HTML
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E3%80%8C%E3%83%97%E3%83%AD%E3%81%AB%E3%81%AA%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEWeb%E6%8A%80%E8%A1%93%E5%85%A5%E9%96%80%E3%80%8D-%E2%80%95%E2%80%95%E3%81%AA%E3%81%9C%E3%80%81%E3%81%82%E3%81%AA%E3%81%9F%E3%81%AFWeb%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%92%E9%96%8B%E7%99%BA%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E3%81%AE%E3%81%8B-%E5%B0%8F%E6%A3%AE-%E8%A3%95%E4%BB%8B/dp/4774142352%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774142352' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/614GgCmIuPL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E3%80%8C%E3%83%97%E3%83%AD%E3%81%AB%E3%81%AA%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEWeb%E6%8A%80%E8%A1%93%E5%85%A5%E9%96%80%E3%80%8D-%E2%80%95%E2%80%95%E3%81%AA%E3%81%9C%E3%80%81%E3%81%82%E3%81%AA%E3%81%9F%E3%81%AFWeb%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%92%E9%96%8B%E7%99%BA%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E3%81%AE%E3%81%8B-%E5%B0%8F%E6%A3%AE-%E8%A3%95%E4%BB%8B/dp/4774142352%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774142352' rel='nofollow' target='_blank'>「プロになるための Web 技術入門」 --なぜ, あなたは Web システムを開発できないのか</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 14.08.19</div><div class='amazlink-detail'>小森 裕介<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E3%80%8C%E3%83%97%E3%83%AD%E3%81%AB%E3%81%AA%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AEWeb%E6%8A%80%E8%A1%93%E5%85%A5%E9%96%80%E3%80%8D-%E2%80%95%E2%80%95%E3%81%AA%E3%81%9C%E3%80%81%E3%81%82%E3%81%AA%E3%81%9F%E3%81%AFWeb%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%82%92%E9%96%8B%E7%99%BA%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E3%81%AE%E3%81%8B-%E5%B0%8F%E6%A3%AE-%E8%A3%95%E4%BB%8B/dp/4774142352%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774142352' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00q0724.n763w947.g00q0724.n763x2b4/?pc=http%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F6416565%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Frms%2Fmsv%2FItem%3Fn%3D6416565%26surl%3Dbook' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
+#+END_HTML
+
+* 目的: Web アプリケーション開発の基礎を身につけるために
+  現在, coursera を利用して web アプリケーションの仕組みを学んでいる.
+  
+  - [[https://www.coursera.org/course/mobilecloud][Programming Cloud Services for Android Handheld Systems | Coursera]]
+
+  コンテンツ的にも, 英語的にも, よくわからないので, 平易に Web の仕組み
+  について書いてある本で基本を学びたいと思って, ゆでダコになった.
+
+  また, この本は, 3 ヶ月前に購入したまま積ん読になっていた.以前も,
+  coursera で rails を利用した web archtectures を学んだはずなのだが, 身体
+  に知識がしみこんでいない.とても虚しく感じるので, 改めて学んでみた.
+
+  - [[http://futurismo.biz/archives/2414][ Web Application Archtectures を受講しました | Futurismo]]
+
+* 感想: 初心者にやさしい平易な入門書
+  この本は, Amazon の口コミでは分かりやすいと評判.
+  また, 会社のできる社員のデスクにはこの本がなぜか置いてある.
+
+** うわさどおりの分かりやすい内容
+ *そして, はたして, 分かりやすさは本物だった*
+
+ - 身近な比喩
+ 比喩や例に合わせて, 概念が紹介されるので, わかりやすい.
+
+ - 技術の必要なった背景からの解説
+ その技術が*なぜ*必要とされたのかが時系列にかかれているため,
+ Web の発展の横軸のなかで概念を理解していくことができることも, 分かり
+ やすさにつながる.
+
+ - 平易
+ 難しいことはかかれていない. 初心者をターゲットにしている.
+
+** HTTP も知らないのぉ~? にカチンときたら読むべき
+   自分は平均よりはそこそこ技術書を読んでいるほうだけれども, この本はお
+   すすめである. 
+
+   Web は普段当たり前のように利用しているが, それがどんな技術に支えられ
+   ていているかを知ることは, 洋服の内側を覗き込むようなおもしろさがあ
+   る.
+   
+   自分のような, Web の仕事とは直接関わりがないひとで,HTTP の仕組みすら
+   まともに理解していないことに恥じらいを感じている人は,
+
+   絶対に読むべき! 絶対に読むべき!
+
+* 内容: シンプルかつ王道ではないですか?
+  Web 技術について, 歴史的な理由を含めて解説されている.
+
+  簡単にキーワードを抜き出すと以下の通り. これらの概念が順番に解説され
+  ていく.シンプルかつ王道だ.
+
+  これらの概念をすらすらと説明できますか? ボクはできません (だめじゃん)
+
+  - サーバ, クライアントモデル
+  - HTTP プロトコル
+    - IP アドレス
+    - URL, URI
+    - GET, POST
+  - CGI
+    - Cookie
+    - Session
+  - Web システム構成
+    - WEB サーバ
+    - DB サーバ
+    - アプリケーションサーバ
+  - Web アプリーション 
+    - JSP
+    - サーブレット
+    - フレームワーク
+  - Web アーキテクチャ
+    - MVC Pattern
+    - layer Pattern
+
+* 行動目標: CIFS プロトコルと HTTP プロトコルの比較
+  さて, 概念はなんとなく理解した.
+
+  次の目標はこういうものを実装するところだ.まず, 直近の目標としては,
+  coursera の今受講している講座を完了させること.
+
+  また, 今は仕事で CIFS 関連の仕事をしている. なので, HTTP プロトコルについて
+  はもう少し深くまなんで, CIFS プロトコルとの比較を行いたい.
+
+  さらには, ちょっと仕事で OpenStack もかじることになるかもしれない. た
+  ぶんほんのちょっと. 個人的に注目している Software-Defined Storage も
+  Web サービスであることを知った.この Web 知識をベースにして, そういう
+  Restful な Web サービスをもっと理解したいところだ.
+

@@ -114,19 +114,23 @@ a = ((x<<31) >> 31)& y + ((!x) << 31) >> 31) & z
 #+end_src
 
 *** フラグ制御 Tips
-イベントフラグの制御として, C 言語ではビット演算が大活躍!
+    イベントフラグの制御として, C 言語ではビット演算が大活躍!
 
 - [[http://yas-hummingbird.blogspot.jp/2009/02/c_11.html][ビット演算を理解してフラグを使いこなす - C#:humming bird]]
 
 #+begin_src c
-/* フラグの取得 */
+/* フラグの取得 get */
 x & y
-
-/* フラグを立てる */
+/* フラグを立てる set */
 x | y
-
-/* フラグを解除 */
+/* フラグを解除 clear */
 x & ~y
+#+end_src
+
+#+begin_src c
+x &= 0x10;
+x |= 0x10;
+x &= ~0x10;
 #+end_src
 
 ** シフト演算
@@ -185,6 +189,18 @@ A || B;
 * メモリ
 ** Memory Leak
    メモリ解放漏れ.
+
+** allocator
+
+*** Explicit allocator
+    C の malloc や free で動的に取得・開放される.
+
+    - [[http://ja.wikipedia.org/wiki/Malloc][malloc - Wikipedia]]
+     
+*** Inplicit allocator
+    アプリケーションによって獲得されるが, 開放されない.
+
+    Java のガベージ・コレクション.
 
 * TDD
 ** Ceedling

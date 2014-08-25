@@ -1,0 +1,263 @@
+#+BLOG: Futurismo
+#+POSTID: 2586
+#+DATE: [2014-08-20 水 23:25]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: MOOC, 日記
+#+TAGS: coursera, edX
+#+DESCRIPTION: MOOC をはじめてから だいたい 1 年くらいたったまとめ
+#+TITLE: 感動駆動学習こそ最強の学習法だ! MOOC をはじめて 1 年たったまとめ.
+
+#+BEGIN_HTML
+<div class="figure"><img src="http://futurismo.biz/wp-content/uploads/wpid-20140821_study1.jpg" alt="20140821_study.jpg" /></div>
+photo credit: <a href="https://www.flickr.com/photos/betta_design/2200198472/">betta design</a> via <a href="http://photopin.com">photopin</a> <a href="http://creativecommons.org/licenses/by-nc/2.0/">cc</a>
+#+END_HTML
+
+* はじめに
+  MOOC をはじめてから だいたい 1 年くらいたったので, ここでまとめをしてみる.
+
+* 受けた講座
+  かなりいろいろと平行して取り組んでいたので, どれも中途半端だったり, 
+  途中で挫折したりした.
+  そういうのもひっくるめて, 今まで受けたものを時系列にまとめてみる.
+
+** coursera: Algorithms Part 1
+   はじめて受けた講座.すべてが新鮮だった. 英語が聞き取れなかったり.
+   そして, この講義と続編の Part2 が今まで受けたなかで, もっとも難しかった.
+
+   - [[http://futurismo.biz/archives/1834][Coursera Algorithms Part Ⅰを受講しました | Futurismo]]
+   - [[https://www.coursera.org/course/algs4partI][Algorithms, Part I | Coursera]]
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/gZV5jVF8lJ8" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+** coursera: C++ For C Programmers
+   C 言語しか知らない自分にとっては理想的な内容.これで C++ を身につけたつもり.
+   そして, ここでの知識は仕事にも直結した.
+
+   - http://futurismo.biz/archives/2020
+   - [[https://www.coursera.org/course/cplusplus4c][C++ For C Programmers | Coursera]]
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/tph2O4qPNMg" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+** coursera: Algorithms Part 2
+   Algorithms Part1 の続編.最難関だった.
+
+   しかし, この講義をすべて終えたときの達成感はものすごかった.
+   プログラミングの基礎のアルゴリズムをついに学びおえたのだなあと...感動.
+
+   - [[http://futurismo.biz/archives/2055][Coursera Algorithms PartII を受講しました | Futurismo]]
+   - [[https://www.coursera.org/course/algs4partII][Algorithms, Part II | Coursera]]
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/GO8frjxq25I" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+** coursera: Creative, Serious and Playful Science of Android Apps
+   ノンプログラマ用の内容だったので, 結構楽勝.
+   Android タブレットを購入した.
+   くだらないアプリも作成したが, こういうものづくりの感動も大事.
+
+   - [[http://futurismo.biz/archives/2181][プログラミングできなくても Android アプリができる!Coursera の「 Creative, Serious and Playful Science of Android Apps 」を受けた | Futurismo]]
+   - [[https://www.coursera.org/course/androidapps101][Creative, Serious and Playful Science of Android Apps | Coursera]]
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/6rTbNJsztUU" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+** edX: Embedded Systems - Shape the World
+   エセ組み込みエンジニアの自分としては, 
+   工学部で習うような知識をどこかで学びたいとずっと思っていた.
+   そして MOOC で学べた. 念願が叶った! 感動.
+
+   この講義は途中で挫折してしまったけど, それでもとても有益だった. L チカ!
+
+   - [[http://futurismo.biz/archives/2439][Embedded Systems – Shape The World ずっと受けたかった組み込みソフト開発の授業 | Futurismo]]
+   - [[https://www.edx.org/course/utaustinx/utaustinx-ut-6-01x-embedded-systems-1172#.U_SXTVsvCCh][Embedded Systems Course| edX]]
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/KUtsCLgNomo" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+** coursera: Programming Mobile Applications for Android Handheld Systems
+   前に受けた Android の講義は, 純粋にアプリ作成の楽しさを伝えるものだったが,
+   この講義はガチで Android Architecture を解説していく. 
+   これはあまりおもしろくなかったな.
+
+   そしてこの講義は, Android 3 部作のスタートの講義. 
+   3 つの講座が連携することで, Android 開発のすべてを徹底的に学べるとか.
+
+   - [[http://futurismo.biz/archives/2344][Programming Mobile Applications for Android Handheld Systems で Andoroid アーキテクチャの基礎を体系的に学んだ | Futurismo]]
+   - [[https://www.coursera.org/course/android][Programming Mobile Applications for Android Handheld Systems | Coursera]]
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/szmWnKKvj9s" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+** coursera: Web Application Architectures
+   仕事で Ruby をつかいはじめたので, rails をいじってみたいがために受けた.
+   Web アーキテクチャは自分とは畑違いなので, 知らないことが多いことに気づかされた.
+
+   - [[http://futurismo.biz/archives/2414][Web Application Archtectures を受講しました | Futurismo]]
+
+** edX: Paradigms of Computer Programming
+   もっとも, 感動した講義.プログラミングのパラダイムを学べる.
+   これはすごい. こういう体験を待っていたのだ!
+
+   - [[http://futurismo.biz/archives/2427][プログラミングの世界観を変える衝撃!Paradigms of Computer Programming で震えるほどの知的感動を体験した | Futurismo]]
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/D1q2dCNGDOE" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+** edX: Unlocking the Immunity to Change: A New Approach to Personal Improvement
+   唯一, CS 以外の講義.心理学だ.
+
+   この講義で使われている理論と, それがかかれた自己啓発本はもっとはやるべき.
+   自己啓発本のなかでは, かなり独創的に感じる.
+   
+   - [[http://futurismo.biz/archives/2503][ライフハックでは人間は変われない!Unlocking the Immunity to Change で早寝早起きに挑戦した | Futurismo]]
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/lPiWUjbtQvk" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+** coursera: Functional Programming Principles in Scala
+   Scala 作者じきじきの講義. すげえ.
+   そして, 関数型言語をずっと学びたいと思っていた欲求を満たす講義.
+
+   Scala はまだこの講義を終えても身についたとは言えないが, これからもま
+   なんでいきたいというモチベーションと, 関数型言語を学びたいというモ
+   チベーションには火がついた.
+
+   - [[https://www.coursera.org/course/progfun][Functional Programming Principles in Scala | Coursera]]
+   - [[http://futurismo.biz/archives/2510][Scala 作者直伝の講座!Functional Programming Principles in Scala を受けた | Futurismo]]
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/tSCNZvv7ti4" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+** coursera: Pattern-Oriented Software Architectures: Programming Mobile Services for Android Handheld Systems
+   Android 3 部作の 2 つ目. POSA2 の著者が登場.
+
+   ずっと, デザインパターンを学びたいなと思っていたのだが,
+   POSA とともに, gof のデザインパターンもかなりでてきた.
+
+   POSA は日本ではあまりメジャーではないが, これももっとはやるべき.と
+   いうか, POSA2 以降が訳されてほしいな.
+   
+   - [[https://www.coursera.org/course/posa][Pattern-Oriented Software Architectures: Programming Mobile Services for Android Handheld Systems | Coursera]]
+   - [[http://futurismo.biz/archives/2527][オブジェクト指向設計と並列プログラミングを Andoird で学ぶ!Pattern-Oriented Software Architectures を受けた | Futurismo]]
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/Pz9FWJ0zQUo" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+** coursera: Software Defined Networking
+   話題の Software Defined ちょめちょめを学ぶために受けた.
+   ネットワークは専門外なので, よく分からなかった.
+
+   - [[https://www.coursera.org/course/sdn][Software Defined Networking | Coursera]]
+   - [[http://futurismo.biz/archives/2530][SDN の最新動向を体系的に学ぶ!Coursera で学ぶ Software Defined Networking | Futurismo]]
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/bWvLmWQUEDQ" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+** その他: 現在受講中
+*** edX: Introduction to Linux
+    Linux Foundation が MOOC に進出して講座を開いたというもの.
+    Introduction の動画が, Linus Torvalds 氏じきじきのお話なところがすごい.
+    LPIC L1 対策に受けてる.    
+
+*** coursera: Programming Cloud Services for Android Handheld Systems
+    - [[https://www.coursera.org/course/mobilecloud][Programming Cloud Services for Android Handheld Systems | Coursera]]
+
+      クラウドサービスについて学ぶ. Java, Spring Framework.
+      Android 三部作の最後の講義.
+
+*** coursera: The Hardware/Software Interface
+    - [[https://www.coursera.org/course/hwswinterface][The Hardware/Software Interface | Coursera]]
+
+    アセンブリ言語と C 言語を学ぶことで, 低レベルな高レベルのプログラ
+    ミングを学ぶ. これはとてもおもしろい! そのうち感想を.
+
+
+* おもしろかった講義ベスト 3
+  1. Paradigms of Computer Programming: おもしろいというよりも, 感動体験の連続.
+  2. Algorithms: 1 番難しく, 1 番苦労した.しかし, Assignment がどれもおもしろかった.
+  3. Pattern-Oriented Software Architectures: パターンにはある種の憧れがあり, それを学ぶことができた.
+
+* つかった言語
+  いろいろつかった.
+
+  - Java
+  - C++
+  - Ruby
+  - Oz
+  - C
+  - Assembly
+  - Scala
+
+  そして, あたって砕ければとりあえずどんな言語もできる気がしてきた.
+  それまでは, まともに使える言語が C しかなかった. この恐怖心と苦手意識
+  をを打ち破れた心の変化は大きい.
+  
+  そして, どんな言語にも対応できる Emacs の偉大さを知った.
+
+* 自分はどのようなときに感動を感じるか?
+  感動があれば, どんなに疲れて泣きたいときでも前に進める.
+  モチベーションが湧き上がる.
+
+  どういうポイントで自分が感動するか, ピックアップしてみた.
+  
+** 作者直伝の講義に感動
+   Scala や POSA, Immunity to Change, 
+   Paradigms of Computer Programming の講義のように,
+   その分野の権威が直々に登場することに感動する.
+
+   そういう人たちの講義は情熱的であり, 説得力があり, 震える瞬間がよくある.
+
+   こういう講義こそ, MOOC を利用して学習するメリットだと思う.
+
+** 長年学びたいと思っていた講義に感動
+   C++ や Embedded Systems, POSA など, 
+   いつか学びたいと思っていたことを学ぶと感動する.
+
+   欲求不満が解消されることろに感動のポイントがあるのだと思う.
+
+   これは, MOOC に限ったことではないけど.
+
+** 知識と知識がつながりあい, 新しい世界がみえる瞬間に感動
+   POSA や Scala,Paradigms of Computer Programming など,
+   新しい考えをしり, より深くプログラミングの世界が見えるようになると
+   感動する.
+
+** 学生時代にかじったことを学ぶと感動する
+   自分は一応? 情報系の学部を卒業している.
+   なので, それと関連する内容を学ぶと, 感動した. 
+   グラフ理論だったり,情報理論だったり.
+
+   自分はたいへん lazy な学生でほとんど勉強しないで後悔しているので,
+   その罪悪感が軽減されたという, 負の感動もあるのだろう.
+
+* 感動駆動学習こそ最強の学習法
+  MOOC の講義を次々と受けた理由は, *感動に駆動される*から.
+
+  感動しつつ, 学習し, 成長する
+  
+  これが最高の学習スタイルではないだろうか? 
+
+  書籍でも学習できる.しかし, MOOC を利用すれば,
+  最先端の技術や最高クラスの講義がいつでも, どこでも, だれでも, 無料で手に入る.
+  21 世紀の教育革命バンザイ! MOOC に幸あれ!
+
+  MOOC の講義も有限だし, そもそも自分の時間が有限. 
+  そして, 社会人をしながら MOOC をバリバリやるのは, かなりつらいときもある. 
+  この学習スタイルがいつまで続くかはわからない.
+
+  しかし,  もう 1 年やってみようとおもう.具体的には, 機械学習と統計学を学びたい.
+  そういうモチベーションと, それが叶ったとき, 
+  そしてそれを学ぶことによって見える新たな世界に, 来年もぼくは感動するだろう.

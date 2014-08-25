@@ -49,6 +49,9 @@
    言語処理系による自動的な末尾呼び出しへの変換やその最適化 (末尾最適化) は難しい.
 
 
+* SQL Injection
+
+
 * Links
 IPA の出す C/C++ のセキュアコーディング
   - [[http://www.ipa.go.jp/security/awareness/vendor/programmingv2/clanguage.html][IPA セキュア・プログラミング講座:C / C++ 言語編]]

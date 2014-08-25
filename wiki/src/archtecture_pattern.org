@@ -46,6 +46,8 @@
    ステムで有効なパターン
 
 *** Model-View-Controller
+    - [[http://kray.jp/blog/think_about_mvc/#][MVC について考える | KRAY Inc]]
+
 *** Presentation-Abstraction-Control
 ** 適合型システム
    環境の変化や機能要求の変化による中核機能への影響を抑えるために有効
