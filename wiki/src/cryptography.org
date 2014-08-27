@@ -1,0 +1,82 @@
+#+OPTIONS: toc:nil
+* Cryptography
+  暗号技術についてのまとめ
+
+  - [[http://ja.wikipedia.org/wiki/%E6%9A%97%E5%8F%B7][暗号 - Wikipedia]]
+  - [[http://ja.wikipedia.org/wiki/%E6%9A%97%E5%8F%B7%E7%90%86%E8%AB%96][暗号理論 - Wikipedia]]
+
+* 共通鍵暗号
+  暗号化と復号に同一の (共通の) 鍵を用いる暗号方式.
+
+** AES
+  アメリカ国防省のの暗号方式.
+
+  - [[http://ja.wikipedia.org/wiki/Advanced_Encryption_Standard][Advanced Encryption Standard - Wikipedia]] 
+
+** DES (ブロック暗号)
+** RC4 (ストリーム暗号)
+** ワンタイムパッド
+
+* 公開鍵暗号
+  暗号化と復号に別個の鍵 (手順) を使い,
+  暗号化の為の鍵を公開できるようにした暗号方式.
+
+  - 暗号鍵で lock したものは公開鍵でしか unlock できない
+  - 公開鍵で lock したものは秘密鍵でしか unlock できない
+
+** デメリット
+   - 基本的に一方通行の使い方しかできない.
+   送信側に対して今度は受信側から暗号化したデータを送信しようとする場合, 
+   送信側で秘密鍵と公開鍵を作成し, 公開鍵を公開しておく必要があります.
+
+   - 処理が複雑になるため処理速度が遅くなる傾向がある
+
+** デジタル署名
+   秘密鍵で lock して, 公開鍵で unlock する.
+
+** RSA
+   桁数が大きい合成数の素因数分解問題が困難であることを
+   安全性の根拠とした公開鍵暗号の一つ.
+
+   - [[http://ja.wikipedia.org/wiki/RSA%E6%9A%97%E5%8F%B7][RSA 暗号 - Wikipedia]]
+
+   大学で 2 回も同じ講義をうけたけど, すっかり忘れたというもの.
+
+** 楕円曲線暗号 (ECC)
+   - [[http://ja.wikipedia.org/wiki/%E6%A5%95%E5%86%86%E6%9B%B2%E7%B7%9A%E6%9A%97%E5%8F%B7][楕円曲線暗号 - Wikipedia]]
+
+   これも大学でやったけど, すっかり忘れたというもの.
+   
+** ElGamal
+
+* 暗号化通信
+** SSH
+  - [[http://ja.wikipedia.org/wiki/Secure_Shell][Secure Shell - Wikipedia]]
+  - [[http://www.adminweb.jp/web-service/ssh/index4.html][共通鍵暗号と公開鍵暗号の解説と SSH での認証手順 - Web サービスの始め方]]
+
+** SSL
+*** SSH と SSL の違い
+    SSH は AP 層で認証・暗号化を行います.
+    SSL/TLS は, AP 層の下の層での認証・暗号化を行うものです.
+
+    - SSH
+      -  OSI : Application Layer (7 層) に位置.
+      - クライアントとサーバ間の全てのトラフィックを完全に暗号化.
+      - コマンドラインなど CUI アクセスや管理コンソールアクセスの場合に利用される.
+      - Version2 では, 第三者が交換データを偽造に対し保護機能がある.
+    - SSL / TLS
+      - OSI : Transport Layer (4 層) の上位に位置.
+      - HTTP/Web トラフィックを代表とし, SMTP,POP,IMAP などのトラフィックをセキュリティ保護する場合に利用.
+      - 暗号化,認証,改竄検出の機能を提供.
+
+**** links
+  - [[http://stanimoto.blogspot.jp/2009/06/sshssltls.html][SE のめも: SSH と SSL/TLS の違い]]
+  - [[http://storage-system.fujitsu.com/jp/products/diskarray/feature/d16/][SSL/SSH による強固なセキュリティ : 富士通]]
+
+** HTTPS
+
+* 認証
+** BASIC 認証
+** LDAP 認証
+** NTLM 認証
+** ケルベロス認証

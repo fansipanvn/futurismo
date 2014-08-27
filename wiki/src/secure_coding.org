@@ -50,11 +50,17 @@
 
 
 * SQL Injection
+  SQL インジェクション (英: SQL Injection) とは, 
+  アプリケーションのセキュリティ上の不備を意図的に利用し, 
+  アプリケーションが想定しない SQL 文を実行させることにより, 
+  データベースシステムを不正に操作する攻撃方法のこと.
+  また, その攻撃を可能とする脆弱性のこと.
 
+  - [[http://ja.wikipedia.org/wiki/SQL%E3%82%A4%E3%83%B3%E3%82%B8%E3%82%A7%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3][SQL インジェクション - Wikipedia]]
 
 * Links
-IPA の出す C/C++ のセキュアコーディング
+  IPA の出す C/C++ のセキュアコーディング
   - [[http://www.ipa.go.jp/security/awareness/vendor/programmingv2/clanguage.html][IPA セキュア・プログラミング講座:C / C++ 言語編]]
 
-ハッカー, アイスマン
-[[https://www.youtube.com/watch?v=47keSzH0mSM][  - ▶ 「天才ハッカー アイスマン」ザ! 世界仰天ニュース - YouTube]]
+  ハッカー, アイスマン
+  [[https://www.youtube.com/watch?v=47keSzH0mSM][  - ▶ 「天才ハッカー アイスマン」ザ! 世界仰天ニュース - YouTube]]
