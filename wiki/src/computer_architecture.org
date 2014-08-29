@@ -117,7 +117,7 @@
     Block (Line), Set という概念を踏まえ, 一般的なキャッシュ構造は以下になる.
 
 **** Cache Structure
-
+     
      #+begin_src language
      Cache size = Block size 
                	x 連想数 (2 の倍数)

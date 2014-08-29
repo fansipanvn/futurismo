@@ -76,7 +76,78 @@
 ** HTTPS
 
 * 認証
+** PKI
+   公開鍵基盤は, 利用者の身元について「信頼できる第三者」
+   が審査を行い, 保証を実現する仕組み.
+
+  -  [[http://ja.wikipedia.org/wiki/%E5%85%AC%E9%96%8B%E9%8D%B5%E5%9F%BA%E7%9B%A4][公開鍵基盤 - Wikipedia]]
+
 ** BASIC 認証
+   HTTP で定義される認証方式の一つ.
+
+   - Basic 認証では, ユーザ名とパスワードの組みをコロン ":" でつなぐ
+   - Base64 でエンコードして送信する. 
+   - 盗聴や改竄が簡単
+   - ほぼ全ての Web サーバおよびブラウザで対応している
+
+  参考リンク.
+
+  - [[http://ja.wikipedia.org/wiki/Basic%E8%AA%8D%E8%A8%BC][Basic 認証 - Wikipedia]]
+  - [[http://allabout.co.jp/gm/gc/23780/][基本認証でアクセス制限をかける方法 All About]]
+
+*** Appatch での設定
+
+    - ウェブサーバの設定を記述する「.htaccess 」ファイル
+    - 基本認証用の ID とパスワードを記述する「.htpasswd 」ファイル
+
 ** LDAP 認証
+   LDAP は, ディレクトリ・サービスに接続するために使用されるプロトコル
+
+   - [[http://ja.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol][Lightweight Directory Access Protocol - Wikipedia]]
+
+   インターネットやイントラネットなどの TCP/IP ネットワークで, ディレクトリデー
+   タベースにアクセスするためのプロトコル. 
+
+  - [[http://e-words.jp/w/LDAP.html][LDAP とは 【 Lightweight Directory Access Protocol 】]]
+
+*** ディレクトリサービス
+    ディレクトリサービスとは, ネットワークを利用するユーザのメール
+    アドレスや環境に関する情報を管理するサービスのことで, ユーザ名
+    からこれらの情報を検索することができる.
+
+    - 読み取りが高速
+    - 分散型の情報格納モデル
+    - 高度な検索機能を持つ
+
+    メールアドレス管理とかも. 
+
 ** NTLM 認証
+   Windows NT 4.0 以前の Windows NT シリーズの OS で標準的に使われていた,
+   ネットワークログオンのためのユーザ認証方式. NT 4.0 の後継にあたる
+   Windows 2000 からはデフォルトの認証方式に Kerberos 認証が採用されたが,
+   旧環境との互換性を保つため NTLM 認証も利用可能となっている.
+
+  - [[http://e-words.jp/w/NTLME8AA8DE8A8BC.html][NTLM 認証とは 【 Windows NT LAN Manager authentication 】 ]]
+  - [[http://www.st.rim.or.jp/~shio/csm/ntlm/][Windows NTLM 認証とマン・イン・ザ・ミドル攻撃]]
+
+*** チャレンジ/ レスポンス方式
+    - クライアントがサーバに対し, ユーザ認証の要求を発行する
+    - サーバは認証要求を受け, ランダムなバイト列「チャレンジ」を送り返す
+    - クライアントは, チャレンジとパスワード情報に基づいて「レスポンス」
+      を生成し, サーバに送る
+    - サーバ側でも先ほど送ったチャレンジとパスワード情報を基にレスポンスを生成する
+    - クライアントから送られたレスポンスと, 自ら生成したレスポンスを比
+      較することにより, クライアント側とサーバ側両方のパスワード情報が
+      同一であることを確認する
+    - パスワード情報の同一性が確認できた場合, クライアントにログオン許可を与える
+    - クライアント側ではログオン許可を受け, ログオン処理を実行する    
+
 ** ケルベロス認証
+   共通鍵暗号によって暗号化.
+
+   - [[http://ja.wikipedia.org/wiki/%E3%82%B1%E3%83%AB%E3%83%99%E3%83%AD%E3%82%B9%E8%AA%8D%E8%A8%BC][ケルベロス認証 - Wikipedia]]
+   - [[http://itpro.nikkeibp.co.jp/article/Keyword/20140114/529698/][Network キーワード - Kerberos 認証:ITpro]]
+
+   このページにアニメーションつきの鍵のやりとりがある.
+
+   - [[http://www5e.biglobe.ne.jp/%257eaji/3min/ex/sup05.html][3 Minutes Networking Supplement No.05]]
