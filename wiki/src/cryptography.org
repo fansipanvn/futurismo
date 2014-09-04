@@ -151,3 +151,24 @@
    このページにアニメーションつきの鍵のやりとりがある.
 
    - [[http://www5e.biglobe.ne.jp/%257eaji/3min/ex/sup05.html][3 Minutes Networking Supplement No.05]]
+** OAuth
+   API 利用側が, ユーザ認証を API 提供サービス側にやってもらうための仕様.
+
+   - [[http://ja.wikipedia.org/wiki/OAuth][OAuth - Wikipedia]]
+   - [[http://yuroyoro.hatenablog.com/entry/20100506/1273137673][OAuth プロトコルの中身をざっくり解説してみるよ ]]
+
+
+   OAuth は, 以下の特徴を持つ「認可情報の委譲」のための仕様です.
+
+   - あらかじめ信頼関係を構築したサービス間で
+   - ユーザの同意のもとに
+   - セキュアにユーザの権限を受け渡しする
+
+*** 登場人物
+   - 1 つ目は OAuth Service Provider と呼ばれる, 
+     ユーザの認可情報を第三者に渡すサービス. 
+   - 2 つ目は OAuth Consumer と呼ばれる, Service Provider から認可情報を受け取り, 
+     ユーザに代っていろいろな情報にアクセスしたり変更/ 追加を行ったりするサービス.
+   - 3 つめが, User です. 
+     User は Service Provider が Consumer に認可情報を渡すことを許可したり, 
+     すでに受け渡した認可情報を無効にするといったことができます

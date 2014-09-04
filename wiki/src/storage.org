@@ -244,6 +244,15 @@
      き場]]
 
 
+* イレージャーコーディング
+  RAID のような, データ保護技術.誤り訂正, 検出技術.
+
+  QR コードと同じ, リード・ソロモン符号アルゴリズムを利用している.
+
+ - [[http://news.livedoor.com/article/detail/9145853/#][大容量データ保護の福音イレージャーコーディングで「 RAID は不要になる」 - ライブドアニュース]]
+ - [[http://www.ctc-g.co.jp/~ctcsp//sp/ostf_02.html][新たな潮流, オブジェクトストレージとは?  『オブジェクトストレージが求められる背景』]]
+ - [[http://raven.air-nifty.com/night/2011/01/erasure-coding.html][Erasure coding: 私家版 IT プロフェッショナルの仕事術]]
+ - [[http://www.jdsf.gr.jp/backup/stm/201007.html][JDSF | データ・ストレージに関する総合情報サイト | Japan Data Storage Forum]]
 
 * 用語
 ** アドバンスド・コピー

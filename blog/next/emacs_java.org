@@ -1,0 +1,22 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: 
+
+* Motivation
+  以前, eclim による Emacs Java 環境を
+
+ - [[http://futurismo.biz/archives/2462][Eclim で Emacs と Eclipse のいいとこどり!Emacs で Java 開発環境を構築した (副題 打倒 Eclipse!) | Futurismo]]
+
+* Elips
+** タグジャンプ
+** 自動補完
+
+
+** Environment
+** Special Thanks
+   - [[https://github.com/toshikiw/qiita/blob/master/malabar-mode%E3%81%A6%E3%82%99java%E3%82%92%E6%9B%B8%E3%81%8F.md][qiita/malabar-mode でjava を書く.md at master · toshikiw/qiita]]
+   - [[http://epian-wiki.appspot.com/wiki/Emacs/JDEE][Emacs/JDEE - epian-wiki]]
+   - [[http://www.02.246.ne.jp/~torutk/jdee/jdee.html][JDEE:Java Development Environment for Emacs]]
+   - [[http://jdee.sourceforge.net/][Java Development Environment for Emacs]]

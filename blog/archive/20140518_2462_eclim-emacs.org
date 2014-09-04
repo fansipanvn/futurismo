@@ -4,8 +4,8 @@
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
 #+CATEGORY: Emacs, 技術メモ, Eclipse
 #+TAGS: Java
-#+DESCRIPTION: EclimでJava開発環境をつくったメモです
-#+TITLE: EclimでEmacsとEclipseのいいとこどり！EmacsでJava開発環境を構築した(副題 打倒Eclipse!)
+#+DESCRIPTION: Eclim で Java 開発環境をつくったメモです
+#+TITLE: Eclim で Emacs と Eclipse のいいとこどり!Emacs で Java 開発環境を構築した (副題 打倒 Eclipse!)
 
 #+BEGIN_HTML
 <img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
@@ -14,118 +14,149 @@
 [toc]
 
 * はじめに
-よし、認めよう。私は、Eclipseフリークだった。
+よし, 認めよう. 私は, Eclipse フリークだった.
 
-Eclipseですべての開発環境の統合を夢見て、あらゆるプラグインを試した。
+Eclipse ですべての開発環境の統合を夢見て, あらゆるプラグインを試した.
 
-[[http://futurismo.biz/eclipsecdt4cpp][全C/C++プログラマに捧ぐ！Eclipse CDTを使う時のオススメ機能/プラグインまとめ | Futurismo]]
+[[http://futurismo.biz/eclipsecdt4cpp][全 C/C++ プログラマに捧ぐ!Eclipse CDT を使う時のオススメ機能/ プラグインまとめ | Futurismo]]
 
-歳をとるにつれて、若かりし誤った考えを改めた。真の統合開発環境はEmacsなのでは？
+歳をとるにつれて, 若かりし誤った考えを改めた. 真の統合開発環境は Emacs なのでは?
 
-いや、うすうすは気づいている。Java開発ではEclipseが最強なことくらい。
+いや, うすうすは気づいている. Java 開発では Eclipse が最強なことくらい.
 
-しかし、それを分かっていてあえてEmacsを使うことは美しい行為ではないか？
+しかし, それを分かっていてあえて Emacs を使うことは美しい行為ではないか?
 
-それは、死を覚悟して決戦に挑む武士のように。
+それは, 死を覚悟して決戦に挑む武士のように.
 
-この記事は、そんな不安と挑戦の記録です。
+この記事は, そんな不安と挑戦の記録です.
 
 ** Environment
 - Linux Mint 16
 - Eclipe 4.3 Kepler
 - Emacs 24
 
-* Java開発環境について
-まずは、EmacsにおけるJava開発環境を調べた。
+* Java 開発環境について
+まずは, Emacs における Java 開発環境を調べた.
 
-以下の3つが選択肢としてある。詳細な解説はリンク先に譲る。
+以下の 3 つが選択肢としてある. 詳細な解説はリンク先に譲る.
 
 ** JDEE
-CEDETベースのツール。あまりメンテナンスされていないようだ。
+CEDET ベースのツール. あまりメンテナンスされていないようだ.
 
-- [[http://mikio.github.io/article/2012/12/23_emacsjdeejava.html][Emacs中毒者に贈るJDEEによるJava開発環境の構築|ざる魂]]
+- [[http://mikio.github.io/article/2012/12/23_emacsjdeejava.html][Emacs 中毒者に贈る JDEE による Java 開発環境の構築|ざる魂]]
 - [[http://epian-wiki.appspot.com/wiki/Emacs/JDEEEmacs/JDEE - epian-wiki]]
 - [[http://www.emacswiki.org/emacs/JavaDevelopmentEnvironment][EmacsWiki: Java Development Environment]]
 
 ** malabar-mode
-JDEEにかわってでてきたモダンなjavaのメジャーモード。
+JDEE にかわってでてきたモダンな java のメジャーモード.
 
-- [[http://d.hatena.ne.jp/nekop/20101215/1292380225][EmacsでJavaを書く - nekopの日記]]
-- [[http://d.hatena.ne.jp/lranran123/20130404/1365088550][EmacsでJava の環境構築、CEDETとyasnippetとmalabar-mode - 趣味プログラマがまれになんかしたことの記録]]
+- [[http://d.hatena.ne.jp/nekop/20101215/1292380225][Emacs で Java を書く - nekop の日記]]
+- [[http://d.hatena.ne.jp/lranran123/20130404/1365088550][Emacs で Java の環境構築, CEDET と yasnippet と malabar-mode - 趣味プログラマがまれになんかしたことの記録]]
 
 ** Eclim
-Emacsから Eclipseをつかう。その発想があったか！
+Emacs から Eclipse をつかう. その発想があったか!
 
-- [[http://sleepboy-zzz.blogspot.jp/2014/02/emacsjava_22.html][memo: EmacsでJavaの設定]]
+- [[http://sleepboy-zzz.blogspot.jp/2014/02/emacsjava_22.html][memo: Emacs で Java の設定]]
 - [[http://d.hatena.ne.jp/clairvy/20100630/1277854580][Emacs-Eclim を試す - クラなんとか or くらなんとか or cla なんとかの日記]]
 
 ** 選定する
-選ぶに当たって重視する機能は、
+選ぶに当たって重視する機能は,
 
-- JUnit連携機能
+- JUnit 連携機能
 - リファクタリング
 - コード補完・タグジャンプ
-- Android開発連携
+- Android 開発連携
 
-malabar-modeに挑戦したが、mavenがよくわからずに挫折。
+malabar-mode に挑戦したが, maven がよくわからずに挫折.
 
-なので、eclimを試す。
+なので, eclim を試す.
 
 * 開発環境を整える
 ** eclim
-インストーラがあるので、指示にしたがって入れればよい。
+   インストーラがあるので, 指示にしたがって入れればよい.
 
-[[http://eclim.org/install.html][Download / Install — eclim (eclipse + vim)]]
+   - [[http://eclim.org/install.html][Download / Install - eclim (eclipse + vim)]]
 
 ** eclim-emacs
-emacsから利用するためには、eclim-emacsを入れる。
+  emacs から利用するためには, eclim-emacs を入れる.
+   
+  - [[https://github.com/senny/emacs-eclim][senny/emacs-eclim]]
 
-- [[https://github.com/senny/emacs-eclim][senny/emacs-eclim]]
+* 使い方
+  設定ファイルに以下を追記.
 
-** .emacsの設定
-こんな感じ。詳しくは、README参照。まだ、あんまりいじくりまわしていない。
-
-#+begin_src language
+#+begin_src emacs-lisp
 (require 'eclim)
-(global-eclim-mode)
-
-;; eclim daemon
 (require 'eclimd)
 
-;; regular auto-complete initialization
-;;(require 'auto-complete-config)
-;;(ac-config-default)
+;; java-mode で有効
+(add-hook 'java-mode-hook 'eclim-mode)
+#+end_src
 
+  M-x start-eclimd で eclipse を eclim デーモンとして起動.
+
+  M-x eclim-project-mode で workspace にあるプロジェクト一覧が表示される.
+
+  適当にソースを選んでごにょごにょ.
+  詳しくは, README 参照. まだ, あんまりいじくりまわしていない.
+
+  M-x stop-eclimd で eclipse を eclim デーモンを終了.
+
+  このページがとても詳しいのでリンクをはっておきます.
+
+  - [[http://www.skybert.net/emacs/java/][.:: skybert.net :: emacs :: java ::.]]
+
+** auto-complete/company-mode で自動補完
+   auto-complete/company-mode で eclipse の補完機能と連携できる.
+
+#+begin_src emacs-lisp
+;; regular auto-complete initialization
+(require 'auto-complete-config)
+(ac-config-default)
 ;; add the emacs-eclim source
 (require 'ac-emacs-eclim-source)
 (ac-emacs-eclim-config)
 
-(setq eclim-eclipse-dirs "/opt/eclipse/kepler")
-(setq eclim-executable "/opt/eclipse/kepler/eclim")
-(setq eclimd-executable "/opt/eclipse/kepler/eclimd")
-(setq eclimd-default-workspace "/mnt/win/src/coursera")
+;; for company-mode
+;; (require 'company-emacs-eclim)
+;; (company-emacs-eclim-setup)
 #+end_src
 
-* 使い方
-M-x start-eclimdで eclipseを eclimデーモンとして起動。
+** タグジャンプ
+   'eclim-java-find-references で定義元にジャンプできる.
+   しかし, gtags をしてもいい.
 
-M-x eclim-project-modeで workspaceにあるプロジェクト一覧が表示される。
+#+begin_src elisp
+(define-key eclim-mode-map (kbd "C-c C-e l") 'eclim-java-find-references)
+#+end_src   
 
-適当にソースを選んでごにょごにょ。
-詳しくは、README参照。まだ、あんまりいじくりまわしていない。
+** Program 起動
+   org.eclim.java.run.mainclass にメインクラスを設定.
 
-M-x stop-eclimdで eclipseを eclimデーモンを終了。
+   - [[http://eclim.org/vim/java/java.html][Java / Jps - eclim (eclipse + vim)]]
+   - [[http://eclim.org/vim/settings.html][Settings - eclim (eclipse + vim)]]
+   - [[http://stackoverflow.com/questions/7394811/eclim-what-to-set-org-eclim-java-run-mainclass-to][vim - Eclim - What to set org.eclim.java.run.mainclass to? - Stack Overflow]]
 
-このページがとても詳しいのでリンクをはっておきます。
 
-[[http://www.skybert.net/emacs/java/][.:: skybert.net :: emacs :: java ::.]]
+  設定方法は, .settings/org.eclim.prefs というファイルを作成して,以下を書き込む
 
-* JUnitを動かす
-これでJUnitが動いた。これはいいな。
+  #+begin_src language
+  org.eclim.java.run.mainclass=<Class Name>
+  #+end_src
 
-https://groups.google.com/forum/#!topic/emacs-eclim/Bj0kyZ2mUSk
+  しかし, これだけでは動作しなかった. main メソッドの場所で
+  eclim-run-class を実行すると, ようやく eclim 経由で java program が起動.
+  
+  起動は, eclim の機能を利用するのではなくて,
+  別のビルドツールを利用したほうがいいな.
 
-#+begin_src language
+
+** JUnit を動かす
+   これで JUnit が動いた. これはいいな.
+   
+   - https://groups.google.com/forum/#!topic/emacs-eclim/Bj0kyZ2mUSk
+
+#+begin_src elisp
 (defun eclim-run-test ()
   (interactive)
   (if (not (string= major-mode "java-mode"))
@@ -134,6 +165,56 @@ https://groups.google.com/forum/#!topic/emacs-eclim/Bj0kyZ2mUSk
 #+end_src
 
 * 最後に
-使いこなすには、時間がかかりそうな。
+  使いこなすには, 時間がかかりそうな.
 
-今は、まだeclipseのほうがいいと思っている。いや、負けるなEmacs！
+  今は, まだ eclipse のほうがいいと思っている. いや, 負けるな Emacs!
+
+** .emacs の設定
+   最後に設定を張り付けておく.
+
+#+begin_src emacs-lisp
+(require 'eclim)
+
+;; java-mode で有効
+(add-hook 'java-mode-hook 'eclim-mode)
+
+;; eclim daemon
+(require 'eclimd)
+
+;; regular auto-complete initialization
+(require 'auto-complete-config)
+(ac-config-default)
+;; add the emacs-eclim source
+(require 'ac-emacs-eclim-source)
+(ac-emacs-eclim-config)
+
+;; for company-mode
+;; (require 'company-emacs-eclim)
+;; (company-emacs-eclim-setup)
+
+;; Displaying compilation error messages in the echo area
+(setq help-at-pt-display-when-idle t)
+(setq help-at-pt-timer-delay 0.1)
+(help-at-pt-set-timer)
+
+;; add keybinds
+(define-key eclim-mode-map (kbd "C-c C-e p q") 'eclim-problems)
+(define-key eclim-mode-map (kbd "C-c C-e p o") 'eclim-problems-open)
+(define-key eclim-mode-map (kbd "C-c C-e p n") 'eclim-problems-next)
+(define-key eclim-mode-map (kbd "C-c C-e p p") 'eclim-problems-previous)
+;; Re-map `eclim-project-create' to C so that I can use c for
+;; `eclim-problems-correct'
+(define-key eclim-mode-map (kbd "C-c C-e p C") 'eclim-project-create)
+(define-key eclim-mode-map (kbd "C-c C-e p c") 'eclim-problems-correct)
+(define-key eclim-mode-map (kbd "M-.") 'eclim-java-find-declaration)
+;; find-references = list-callers.
+(define-key eclim-mode-map (kbd "C-c C-e l") 'eclim-java-find-references)
+
+;; skip warning error
+(setq compilation-skip-threshold 2)
+
+(setq eclim-eclipse-dirs "/opt/eclipse/kepler")
+(setq eclim-executable "/opt/eclipse/kepler/eclim")
+(setq eclimd-executable "/opt/eclipse/kepler/eclimd")
+(setq eclimd-default-workspace "/mnt/win/src/coursera")
+#+end_src

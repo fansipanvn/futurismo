@@ -8,7 +8,13 @@
 
   - [[http://ja.wikipedia.org/wiki/OpenStack][OpenStack - Wikipedia]]
 
-  オープンソースで構成されるクラウド・インフラストラクチャー
+  - オープンソースで構成されるクラウド・インフラストラクチャー.
+  - クラウドに・インフラに関わるすべてのことが, 共通化されて自動化される.
+  - 20 年前の Linux のような存在
+  - バイナリの API ではなく Web API で呼び出せるため,
+    それぞれは独立性が担保され, 柔軟で開発しやすく使いやすい.
+  - Apache ライセンスを採用.
+  - IBM や HP など, 大企業が開発を牽引している.
   
   OpenStack の背景には, 「 IaaS (Infrastructure as a Service) 基盤を
   オープンソースで作りたい! 」という明確な動機があります.
@@ -22,15 +28,43 @@
   OpenStack を使って構築したクラウド環境は, 統一した API や認証を使って管理できる.
   また, IaaS のパブリッククラウドサービスで最大手である Amazon EC2 と互換性を持つ.
 
-  - [[http://itpro.nikkeibp.co.jp/article/Keyword/20121029/433321/][Network キーワード - OpenStack とは:ITpro]]
-  - [[http://cloud.watch.impress.co.jp/docs/column/cloud/20140404_642748.html][【クラウド特捜部】プレーヤーがそろい表舞台に立つ OpenStack - クラウド Watch]] 
+** OpenStack の特徴
+  - オープンソースで構成されるクラウド・インフラストラクチャー.
+  - クラウドに・インフラに関わるすべてのことが, 共通化されて自動化される.
+  - バイナリの API ではなく Web API で呼び出せるため,
+    それぞれは独立性が担保され, 柔軟で開発しやすく使いやすい.
+  - Apache ライセンスを採用.
+  - IBM や HP など, 大企業が開発を牽引している.
+  - AWS クラウド コンピューティングに対するロックイン回避
+
+*** 20 年前の Linux のような存在
+    Linux は OpenStack のように, オープンソースであることによって,
+    早い成長を遂げている.しかし, Linux とおなじではない.
+
+    - 草の根 vs 大企業: Linux はコミュニティが作り, その後ベンダーに採用されたテクノロジ.
+    OpenStack は商業的なプロジェクトで, その後コミュニティに公開されたもの.
+
+    [[https://jp.linux.com/news/linuxcom-exclusive/406215-lco201307029][リアリティ チェック: Openstack は第二の Linux ではない]]
+
+*** 参考
+   - [[http://ja.wikipedia.org/wiki/OpenStack][OpenStack - Wikipedia]]
+   - [[http://www.atmarkit.co.jp/ait/articles/1406/10/news039.html][NEC の柴田氏に聞く:OpenStack はなぜこれまで成功してきたのか - ＠ IT]]
+   - [[http://itpro.nikkeibp.co.jp/article/Keyword/20121029/433321/][Network キーワード - OpenStack とは:ITpro]]
+   - [[http://cloud.watch.impress.co.jp/docs/column/cloud/20140404_642748.html][【クラウド特捜部】プレーヤーがそろい表舞台に立つ OpenStack - クラウド Watch]] 
+
+** OpenStack のアーキテクチャ
+   複数のサービスコンポーネントが Web ベースの RestAPI でつながっている.
+   詳細は, 別ページ参照.
+   
+   - [[http://thinkit.co.jp/story/2014/06/10/4999][OpenStack のアーキテクチャを理解しよう | Think IT (シンクイット)]]
+   - [[http://docs.openstack.org/ja/trunk/install-guide/install/apt-debian/content/ch_overview.html][第 1 章 アーキテクチャー - OpenStack インストールガイド Debian 7.0 (Wheezy) 版  - juno]]   
 
 * Swift
   オブジェクト・ストア.
 
   - [[http://www.ibm.com/developerworks/jp/cloud/library/cl-openstack-swift-cinder/][OpenStack について学ぶ: ストレージ関連コンポーネントの Swift と Cinder]]
   - [[http://docs.openstack.org/developer/swift/][Welcome to Swift's documentation! - swift 2.0.0.115.g698919e documentation]]
-
+    
 * Cinder
 
 * Links
