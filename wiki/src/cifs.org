@@ -52,3 +52,34 @@
 ** Links
   - [[http://futurismo.biz/archives/1390][CentOS 上で SAMBA サーバを立ちあげて Windows からアクセスするためのメモ]]
 
+
+* Storage との関係
+** CIFS 対応の Storage 製品
+*** NAS (ETERNUS NR)
+    NAS では, 装置内にファイルシステムを持っており, 
+    サーバは NFS あるいは CIFS プロトコルにより, ファイルとしてアクセスする.
+
+   - [[http://storage-system.fujitsu.com/jp/lib-f/tech/beginner/nas/][ストレージ ETERNUS ストレージ技術解説 NAS (ナス) とは  : 富士通]]
+   - [[http://storage-system.fujitsu.com/jp/products/nwdiskarray/nr1000f/][ストレージ FUJITSU Storage ETERNUS NR1000F series ネットワークディスクアレイ : 富士通]]
+
+*** Unified Storage (ETERNUS DX S3)
+    ユニファイドストレージとは, 1 台で SAN と NAS の両方に対応するストレージ製品.
+    NAS は, ネットワークに直接接続するストレージです. LAN (Ethernet) に接続し,
+    NFS や CIFS などのプロトコルを介してファイル単位でのアクセスを行う.
+
+    - [[http://storage-system.fujitsu.com/jp/products/diskarray/feature/unified/][ストレージ FUJITSU Storage ETERNUS SAN/NAS 統合ストレージ環境のサポート ユニファイド対応 ETERNUS DX S3 : 富士通]]
+
+*** Software-Defined Storage (???)
+    決められたポリシーに従って動的にストレージサービスを構築する製品.
+    仮想 NAS がポリシーによって生成されて,
+    NFS や CIFS などのプロトコルを介して生成されたファイルサービスにアクセスする.
+    (のではないか?)
+
+    - [[http://chucksblog.typepad.com/chucks_blog/2014/04/building-an-sds-conceptual-model-part-1.html][Building A SDS Conceptual Model - Part 1 - Chuck's Blog]]
+
+** SNIA は CIFS に関する情報がたくさんある
+   - SNIA はそもそも Storage Networking Industory Association.
+     というくらいなので, ストレージネットワーキングの促進団体だったことが判明!
+
+   - SDC の資料が公開されていて, そのなかに CIFS の資料がたくさんあった.
+   [[http://www.snia.org/events/storage-developer/archive][Storage Developer Conference Archives | Storage Networking Industry Association]]

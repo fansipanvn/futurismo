@@ -150,7 +150,6 @@
     - [[https://wiki.archlinux.org/index.php/Systemd_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][systemd (日本語) - ArchWiki]]
 * FileSystems
   コンピュータのリソースを操作するための, オペレーティングシステム (OS) が持つ機能の一つ.
-
   - [[http://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0][ファイルシステム - Wikipedia]]
 
 ** FileSystems の種類
@@ -220,9 +219,38 @@
     - LVM + mirror はホストの CPU を利用する.
     - RAID はディスクアレイの CPU を利用する.
 
+** Network FileSystem
+   NFS
+    - NFS on the Server
+      sudo service nfs start.
+      /etc/exports に共有するディレクトリを書く.
+
+    - NFS on the Client
+      /etc/fstab に NFS Server の共有ディレクトリとマウントポイントを書く.
+
+** Proc FileSystem
+   /proc は, プロセスやメモリーなどの Linux システム上のリソース関連情報を, 
+   あたかもファイルであるかのように配置した仮想的なファイル・システム.
+   
+   - [[http://www.itmedia.co.jp/enterprise/articles/0803/04/news006.html][Linux Hacks:/proc ディレクトリを活用する (1/4) - ITmedia エンタープライズ]]
+
 * GNU/Unix-Base Commands
 ** 圧縮・解凍
    - [[http://uguisu.skr.jp/Windows/tar.html][tar コマンドで解凍・圧縮する linux 一覧まとめ (gz, zip, tar.xz など)]]
+
+** patch
+*** patch 作成
+#+begin_src bash
+$ diff -Nur originalfile newfile > patchfile
+#+end_src
+
+*** patch 適用
+
+#+begin_src bash
+$ patch -p1 < patchfile
+# or 
+$ patch originalfile patchfile
+#+end_src
 
 * Shell
   zsh だけしっとけ!

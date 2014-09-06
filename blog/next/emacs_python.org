@@ -1,0 +1,127 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: Python で Emacs 開発環境を構築
+* はじめに
+  これから coursera で挑戦する講座が 2 つとも Python を利用する予定.
+  - [[https://www.coursera.org/course/compinvesting1][Computational Investing, Part I | Coursera]]
+  - [[https://www.coursera.org/course/musictech][Survey of Music Technology | Coursera]]
+
+  なので, まずは Emacs で開発環境をつくるところから始めてみました.
+
+* 入力支援
+  python.el は公式, python-mode.el は Python コミュニティによって作成されたもの.
+  
+** python
+   Emacs の標準実装.
+
+** python-mode
+   Python コミュニティによって作成されたもの.
+   - [[https://github.com/emacsmirror/python-mode][emacsmirror/python-mode]]   
+   - [[https://launchpad.net/python-mode/][python-mode.el in Launchpad]]
+   - [[http://tnt.math.se.tmu.ac.jp/~tetsushi/nzmath/emacs-python-mode.html][Guide - Software - Emacs - python-mode]]
+
+   ショートカットがまとまっている.
+   - [[http://ikautimituaki.hatenablog.com/entry/20111120/1321806070][python-mode の便利なショートカットまとめ - まったりいんふぉまてぃくすめもらんだむ]]
+
+** TODO インデント
+** TODO とじ括弧挿入
+
+* コードリーディング
+** helm-etags-plus
+   ダグジャンプ. ctags を利用する.
+   そして, ctags を Emacs から利用するために, 
+   最近は helm-etags-plus なるものを使っていたりする.
+
+   - [[https://github.com/jixiuf/helm-etags-plus][jixiuf/helm-etags-plus]]
+
+#+begin_src emacs-lisp
+(require 'helm-etags+)
+#+end_src
+
+#+begin_src bash
+$ ctags -o TAGS *.py
+#+end_src
+
+** swoop
+   ctags はメソッドの定義にはジャンプできるけど, 
+   変数の宣言にジャンプできない.
+
+   変数の宣言に飛びたいときは, swoop が最近は大のお気に入り.
+
+   - [[http://fukuyama.co/emacs-swoop][Emacs バッファ内高速ナビゲーション Swoop.el を作りました. - Web 学び]]
+
+   #+begin_src emacs-lisp
+(require 'swoop)
+(global-set-key (kbd "M-o")   'swoop)
+(global-set-key (kbd "C-M-o") 'swoop-multi)
+;; (global-set-key (kbd "M-o")   'swoop-pcre-regexp)
+(global-set-key (kbd "C-S-o") 'swoop-back-to-last-position)
+
+(define-key isearch-mode-map (kbd "M-o") 'swoop-from-isearch)
+(define-key swoop-map (kbd "M-o") 'swoop-multi-from-swoop)
+p	
+;; サイズ変更禁止
+(setq swoop-font-size-change: nil)
+   #+end_src
+
+* リファクタリング
+  主に名前変更の Elisp を導入.
+
+  参考リンク:
+  - [[http://stackoverflow.com/questions/28796/what-refactoring-tools-do-you-use-for-python][What refactoring tools do you use for Python? - Stack Overflow]]
+  
+** anzu
+   インタラクティブな補完.
+   - [[https://github.com/syohex/emacs-anzu][syohex/emacs-anzu]]
+
+** iedit
+   C-:から気軽に同じキーワードを編集できる.
+   - [[http://www.emacswiki.org/emacs/Iedit][EmacsWiki: Iedit]]
+
+** TODO Ropemacs
+   Python 用のリファクタリングツール.
+   - [[http://rope.sourceforge.net/ropemacs.html][ropemacs, rope in emacs]]
+   
+* コーディング支援
+** TODO jedi
+   Python のオムニ補完 (かしこい補完) をしてくれる.
+  - [[http://qiita.com/yuu116atlab/items/2a62cb880ac863dcc8ef][emacs-jedi の install - Qiita]]
+
+** TODO Pydoc
+
+** TODO ac-python
+   auto-complete の python 強化版.
+
+** TODO smart compile
+   Emacs から Python コードを実行.
+   - http://www.emacswiki.org/emacs/download/smart-compile.el
+
+   quickrun.el というのもある.なかなか乗り換えられずにいる.
+   - https://github.com/syohex/emacs-quickrun
+
+** TODO iPython
+   インタラクティブなデバッグ環境.
+
+* 静的解析
+** TODO flymake
+** TODO pyflakes
+** TODO PyLint
+
+
+* さいごに
+** Environment
+   - ArchLinux
+   - Emacs 24.4
+
+** Special Thanks
+   - [[http://www.emacswiki.org/PythonProgrammingInEmacs][EmacsWiki: Python Programming In Emacs]]
+   - [[http://www.jesshamrick.com/2012/09/18/emacs-as-a-python-ide/][Emacs as a Python IDE - Jessica Hamrick]]
+   - [[http://pedrokroger.net/configuring-emacs-python-ide/][Configuring Emacs as a Python IDE - Pedro Kroger]]
+   - [[http://uchikoshi22.hatenadiary.jp/entry/20110925/1316936253][Emacs を Python 用 IDE としてセットアップ - uchikoshi22's blog]]
+   - [[http://d.hatena.ne.jp/cou929_la/20110525/1306321857][emacs の python 開発環境を整える - フリーフォーム フリークアウト]]
+   - [[http://blog.kzfmix.com/entry/1334218401][Emacs の Python 開発環境を整えた]]
+   - [[http://lambdalisue.hatenablog.com/entry/2013/06/23/071344][Vim を最強の Python 開発環境にする 2 - Λ Lisue's blog]]
+   - [[https://github.com/gabrielelanaro/emacs-for-python][gabrielelanaro/emacs-for-python]]
+
