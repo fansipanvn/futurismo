@@ -70,8 +70,7 @@
   とても参考になるリンク. POSA2.
   [[http://www.dre.vanderbilt.edu/~schmidt/POSA/POSA2/][Pattern-Oriented Software Architecture: Patterns for Concurrent and Networked Objects]]
 
-* Multi-Thread Programming Pattern
-平行性に関するパターン. Wikipedia よりもってきた.
+  平行性に関するパターン. Wikipedia よりもってきた.
 
 ** Active Object (Actor) 
    メソッドの呼び出しとメソッドの実際の実行を分離することで並行性を導入する.
@@ -147,5 +146,14 @@
 * POSA-4
 * POSA-5
    
+* Network Architecture Patterns
+  Working with TCP Sockets から.
 
+** Serial
+** Process per connection
+** Thread per connection
+** Preforking
+** Thread Pool
+** Evented (Reactor)
+** Hybrids
 

@@ -1,4 +1,7 @@
 #+OPTIONS: toc:nil
+* Storage
+  ストレージ技術について
+
 * Block-Based Storage
   ブロックストレージ.NFS や CIFS で OS からドライブやマウントポイント
   として見ることができる.
