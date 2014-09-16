@@ -1,0 +1,102 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Network, Windows
+#+DESCRIPTION: Windows8 で Loopback Adapter を利用するためのメモ
+#+TITLE: Windows8 で Loopback Adapter を利用するためのメモ
+
+* はじめに
+  仕事では, windows 環境でネットワークの開発をしている.
+
+  開発用には  ローカルホストがあると便利だけれども,
+  Windows では Linux のように簡単にはローカルホストを利用できなかった.
+
+  LoopBack Adapter というものを利用するとよいことを知ったので,
+  導入手順をメモします.
+
+  WireShark で LoopBack Adapter をみる方法もメモします.
+
+** Environment
+   - Windows8
+
+* Loopback Adapter とは
+** Loopback とは
+  ip アドレスは必ずしもリモートホストと関連付けられている必要はない.
+  得に開発環境では, ローカルな IP アドレスが役に立つ.
+
+  自端末に対して通信することを LoopBack という.
+  LoopBack で指定するアドレスを Loopback Address という.
+  
+   - ハードウェアと関係ない, 論理的なインタフェース.
+   - Linux では, localhost と言われている. IP は 127.0.0.1
+
+   [[http://e-words.jp/w/E383ABE383BCE38397E38390E38383E382AF.html][ループバックとは 〔 ローカルループバック 〕]]
+
+** Windows LoopBack Adapter とは
+   Windows で Loopback Address を利用するためのアダプター.
+   Microsoft から無料で提供されている.
+
+  - [[http://support.microsoft.com/kb/236869/ja][Microsoft Loopback Adapter をインストールする方法]]
+
+* Loopback Adapter をインストールする
+  以下のページに画像付きの手順があるので参考にした.
+
+  - [[http://blogs.yahoo.co.jp/akio_myau/45048512.html][Windows 8 Loopback アダプターを設定する - みゃうのリカバリーをする前に - Yahoo! ブログ]]
+
+  Windows7 とほぼ手順はおなじだけれども,
+  インストールする際の名称が Microsoft KM-TEST Loopback Adapter だった.
+
+* Loopback Adapter を設定する
+以下のページに画像付きの手順があるので参考にした.
+
+  - [[http://mizupc8.bio.mie-u.ac.jp/pukiwiki/index.php?TIPS%2FMS%20Windows%2F015][TIPS/MS Windows/015 - PukiWiki]]
+
+  IP はとりあえず以下を利用.
+
+  - ip: 10.0.0.2
+  - subnet: 255.255.255.0
+  - gateway: 10.0.0.1
+  - DNS: 127.0.0.1
+
+* WireShark でパケットキャプチャーする
+  WireShark Wiki ページによると, 3 つの方法があるようだ.
+  - route add
+  - Proxocket
+  - RawCap
+
+  [[http://wiki.wireshark.org/CaptureSetup/Loopback][CaptureSetup/Loopback - The Wireshark Wiki]]
+
+  結論としては, RawCap がうまくいった.
+
+** ローカルマシンに route add する方法
+   Add a route to your local machine going through the network gateway
+  
+#+begin_src language
+route add <your_IP> mask 255.255.255.255 <the_gateway> metric 1
+#+end_src
+
+   自分の環境で頑張ってみたのだが, どうも動かなかった.
+   Gateway の設定が違う気がするが...
+
+   以下の記事によると, Loopback Adapter より先に WireShark を
+   インストールしていた場合は, WireShark の再インストールが必要?
+
+   - [[http://stackoverflow.com/questions/5847168/wireshark-localhost-traffic-capture][Wireshark localhost traffic capture - Stack Overflow]]
+
+** Proxocket をつかう方法
+   Proxocket という dll を キャプチャしたいアプリと同じフォルダにいれて
+   おくと, パケットキャプチャできるらしい. これは自分は未検証.
+
+   - [[http://www.netresec.com/?page=Blog&month=2011-01&post=Proxocket---A-Winsock-Proxy-Sniffer][Proxocket - A Winsock Proxy Sniffer - NETRESEC Blog]]
+    
+** RawCap
+   唯一うまくいった方法.RawCap というツールを使う.
+
+   - [[http://www.netresec.com/?page=RawCap][RawCap - A raw socket sniffer for Windows]]   
+
+   使い方は簡単. 
+   ダブルクリックで起動して, キャプチャしたいインタフェースを選択するだけ.
+   
+   キャプチャを終了するときには, Ctrl+C で終了させる. pcap 形式のファイ
+   ルが作成されるため, これを wireshark で開けばよい.
+
+   [[file:./../img/SnapCrab_NoName_2014-9-16_12-31-47_No-00.png]]
