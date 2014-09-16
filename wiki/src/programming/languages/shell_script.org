@@ -5,15 +5,15 @@
 - [[http://www.xmisao.com/2013/09/01/how-to-use-find-and-xargs.html][find と xargs の基本的な使い方 -- ぺけみさお]]
 
 *** -exec と xargs の違い
-- exec は各行にたいして処理が実施される.
-- args はすべての行にたいして処理が実施される.
+    - exec は各行にたいして処理が実施される.
+    - args はすべての行にたいして処理が実施される.
 
-#+begin_src sh
+#+begin_src bash
 find . -name "*.txt" -exec wc -l {} \;
 find . -name "*.txt" | xargs wc -l
 #+end_src
 
--type f でファイルのみ. ディレクトリ無視.
+    -type f でファイルのみ. ディレクトリ無視.
 
 ** sed
 
@@ -23,7 +23,6 @@ find . -name "*.txt" | xargs wc -l
 - sed に i オプションをつけて実行
 
 *** ヘッダの挿入
-
 #+begin_src sh
 sed -i '1s/^/test\n/' filename
 sed -i '1i\test' filename
@@ -36,6 +35,32 @@ find . -name "*.org" -exec sed -i '1i\#+OPTIONS: toc:nil' {} \;
 #+end_src
 
 * シェルスクリプト
+** 関数
+   引数は, $1, $2 で参照できる.
+
+   #+begin_src bash
+   display () {
+     echo "This is a sample function"
+   }
+   #+end_src
+   
+** コマンド置換
+   `` または, $() を利用する.
+
+   #+begin_src bash
+   $ cd /lib/modules/$(uname -r)/
+   #+end_src
+
+** 引数
+
+| Parameter    | Meaning                       |
+|--------------+-------------------------------|
+| $0           | Script name                   |
+| $1           | First parameter               |
+| $2, $3, etc. | Second, third parameter, etc. |
+| $*           | All parameters                |
+| $#           | Number of arguments           |
+
 ** 引数チェック
 *** 引数の数をチェック
 
@@ -55,7 +80,101 @@ else
     # 存在しない場合
 fi
 #+end_src
+** Statements
+*** if
+    In compact form, the syntax of an if statement is:
 
+    #+begin_src bash
+    if TEST-COMMANDS; then CONSEQUENT-COMMANDS; fi
+    #+end_src
+
+    A more general definition is:
+
+    #+begin_src bash
+    if condition
+    then # if condition; then
+      statements
+    else
+      statements
+    fi
+    #+end_src
+
+**** condition
+     |-----------+----------------------------------------|
+     | Condition | Meaning                                |
+     |-----------+----------------------------------------|
+     | -e file   | Check if the file exists.              |
+     | -d file   | Check if the file is a directory.      |
+     | -f file   | Check if the file is a regular file    |
+     | -s file   | Check if the file is of non-zero size. |
+     | -g file   | Check if the file has sgid set.        |
+     | -u file   | Check if the file has suid set.        |
+     | -r file   | Check if the file is readable.         |
+     | -w file   | Check if the file is writable.         |
+     | -x file   | Check if the file is executable.       |
+     |-----------+----------------------------------------|
+
+**** numerical tests
+
+     |----------+--------------------------|
+     | Operator | Meaning                  |
+     |----------+--------------------------|
+     | -eq      | Equal to                 |
+     | -ne      | Not equal to             |
+     | -gt      | Greater than             |
+     | -lt      | Less than                |
+     | -ge      | Greater than or equal to |
+     | -le      | Less than or equal to    |
+     |----------+--------------------------|
+*** case 
+    #+begin_src bash
+    case expression in
+       pattern1) execute commands;;
+       pattern2) execute commands;;
+       pattern3) execute commands;;
+       pattern4) execute commands;;
+       * )       execute some default commands or nothing ;;
+    esac
+    #+end_src
+
+*** for
+    #+begin_src bash
+    for variable-name in list
+    do
+      execute one iteration for each item in the
+      list until the list is finished
+    done
+    #+end_src
+
+**** コマンドラインから連番のフォルダ作成
+   - [[http://shellscript.sunone.me/for.html][for 文の使用方法 - UNIX & Linux コマンド・シェルスクリプト リファレンス]]
+
+   この程度はさらっと書きたいところだね.
+     
+   #+begin_src bash
+     % for i in `seq 1 18`
+     > do
+     > mkdir $i
+     > done 
+   #+end_src
+
+*** while
+    #+begin_src bash
+    while condition is true
+    do
+        Commands for execution
+        ----
+    done
+    #+end_src
+
+*** until
+    #+begin_src bash
+    until condition is false
+    do
+        Commands for execution
+        ----
+    done
+    #+end_src
 ** ファイル・ディレクトリ操作
 
    - [[http://d.hatena.ne.jp/zariganitosh/20100921/get_file_name_ext_dir][ファイルパスからファイル名や拡張子を自由に取り出す - ザリガニが見ていた.... ]]
@@ -84,7 +203,6 @@ $ echo $fdir
 /a/b
 #+end_src
 
-
 ** 日時操作
 `date xxx `でかこんで実行する.
 
@@ -105,16 +223,14 @@ DATE=`date -d "$1" '+%s'`
 | hh:mm:ss (24 時間制)       | date '+%T'            |
 | hh:mm:ss AM PM (12 時間制) | date '+%r'            |
 
-** for
-*** コマンドラインから連番のフォルダ作成
-    - [[http://shellscript.sunone.me/for.html][for 文の使用方法 - UNIX & Linux コマンド・シェルスクリプト リファレンス]]
+** temp ファイル作成
+   - TEMP=$(mktemp /tmp/tempfile.XXXXXXXX) 	To create a temporary file
+   - TEMPDIR=$(mktemp -d /tmp/tempdir.XXXXXXXX) To create a temporary directory
 
-    この程度はさらっと書きたいところだね.
-
-    #+begin_src sh
-    % for i in `seq 1 18`
-    > do
-    > mkdir $i
-    > done 
-    #+end_src
-
+** String
+   - ${string:0:1} のように書くと, 0-1 文字目を抜きだし.
+   - ${#abc}のように書くと, 文字数を抜きだし.
+   - [ string1 == string2 ] 文字列の比較.
+** Debug
+  - set -x    # turns on debugging
+  - set +x    # turns off debugging

@@ -1,0 +1,51 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: POSA, coursera
+#+DESCRIPTION: Wrapper Facade Pattern について調べてみたまとめです.
+#+TITLE: Wrapper Facade Pattern について調べてみたまとめ
+
+coursera で受けている, POSA の講義で出てきた Wrapper Facade Pattern
+について調べてみたまとめです.
+
+ - [[https://www.coursera.org/course/mobilecloud][Programming Cloud Services for Android Handheld Systems | Coursera]]
+
+** Wrapper Facade とは
+   ソケットなどの OS に依存するような 
+   native methods に対してラッパーライブラリを作成すること.
+
+#+begin_src language
+encapsulate low-level functions and data
+structures with object-oriented (OO) class interfaces.
+#+end_src
+
+** メリット
+   以下のメリットがある.
+
+   - Non-OOP 言語が OOP で利用できたり (Type-safe I/F)
+   - OS 依存がなくなったり, (Portable)
+   - コンパイル時にエラーをチェックする機能を作り込んだりして,
+     API error-prone (誤りがちな) を防ぐ.
+
+   Facade や Bridge と異なり, 
+   薄く, Light weight な実装でオーバヘッドがないことが特徴.
+
+   coursera の posa 講義で出てきたパターン. Doug 氏 の論文.
+   - http://www.cs.wustl.edu/~schmidt/PDF/wrapper-facade.pdf
+
+** Ruby のソケットライブラリの例
+   Ruby の Socket Library がよい例.
+   bind や listen を TCPServer メソッドで隠している.
+   言語レベルでサポートされていることが多い?
+
+#+begin_src ruby
+server = TCPServer.new (4481)
+
+# => 
+server = Socket.new (:INET, :STREAM)
+addr = Socket.pack_sockaddr_in (4481, "0.0.0.0")
+server.bind (addr)
+server.listen (5)
+#+end_src
+
+** Special Thanks
+   - [[http://stackoverflow.com/questions/15000095/wrapper-facade-pattern][java - Wrapper Facade Pattern - Stack Overflow]]

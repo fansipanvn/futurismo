@@ -1,0 +1,110 @@
+#+BLOG: Futurismo
+#+POSTID: 2616
+#+DATE: [2014-09-14 日 14:02]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: POSA, Ruby
+#+DESCRIPTION: Reactor Pattern について調べてみたまとめです.
+#+TITLE: Reactor Pattern について調べてみたまとめ
+
+coursera で受けている, POSA の講義で出てきた Reactor Pattern
+について調べてみたまとめです.
+
+ - [[https://www.coursera.org/course/mobilecloud][Programming Cloud Services for Android Handheld Systems | Coursera]]
+
+* Reactor Pattern とは
+  イベント駆動のためのデザインパターン.
+
+#+begin_src language
+The reactor design pattern is an event handling pattern 
+for handling service requests delivered concurrently 
+to a service handler by one or more inputs.
+#+end_src
+
+   - [[http://en.wikipedia.org/wiki/Reactor_pattern][Reactor pattern - Wikipedia, the free encyclopedia]]
+
+** 特徴
+   - イベント (入力データ) を,
+     処理や状態を表すハンドラ (メソッド or サブクラス) にディスパッチ (結びつける) する.
+   - ハンドラごとに責務を分割できるので OOP 向き.
+   - ハンドラ以外の部分はフレームワークに隠蔽されていることがおおい.
+
+  EventMachine は Reactor パターンの高性能な実装さ.
+  - [[http://keijinsonyaban.blogspot.jp/2010/12/eventmachine.html][見えないチカラ: 【翻訳】 EventMachine 入門]]
+
+  Android は状態ごとにハンドラが呼び出される.
+  - onCreate ()
+  - onResume ()
+  - onDestory ()
+
+  Spring Framework では, GET や POST の HTTP request は, 
+  それぞれ対応するメソッドにコールバックされる.
+
+** Structure
+   - Resources: 入力データ
+   - Synchronous Event Demultiplexer:入力データを拾うためのイベントループ.
+		 シングルスレッドで loop していることが特徴 (Synchronous).
+   - Dispatcher: ハンドラを管理する. Demultiplexer から通知を受けたら,
+		 Resource を Handler に Dispatch する (select など)
+   - Handler: Resource に関連付けられた処理.
+
+* Socket Programming における Reactor Pattern
+  Socket Programming ででてくる Reactor は, 狭義の Reactor Pattern のようだ.
+
+** 特徴
+   - すべての処理をシングルスレッドで実施する.
+   - マルチスレッドを利用しなくても, 非同期処理がかける.
+   - スレッドやプロセス数の制限なしに, クライアントからの要求に答えることができる.
+     
+** 実装方法
+   - ソケットを select で監視する.
+     読み取り可能, 書き込み可能なソケットのみに対して処理を実施する.
+   - 遅い回線があるときに, その回線に引きずられて Reactor が他の処理をできない.
+     すべての処理が Blocking される.そんなときは, non-blocking write を利用する.
+
+** sample
+   以下のリンクのサンプルをそのまま写経しました.
+   - [[http://gihyo.jp/dev/serial/01/ruby/0030?page=1][第 29 回  Reactor で非同期処理をやってみよう (1):Ruby Freaks Lounge|gihyo.jp … 技術評論社]]
+
+#+begin_src ruby
+write_socks = hosts.map do |host|
+  TCPSocket.new (host, 80)
+end
+read_socks = []
+
+# handler
+write_proc = lambda{|sock|
+  sock.write (request)
+}
+
+# handler
+read_proc = lambda{|sock|
+  sock.read
+  sock.close
+}
+
+# Reactor
+until (write_socks + read_socks).empty?
+
+  # Demultiplexer
+  r_socks, w_socks, e_socks = IO.select (read_socks, write_socks)
+
+  # Dispatcher
+  if ws = w_socks.first
+    write_proc.call (ws)
+    read_socks << ws
+    write_socks.delete (ws)
+  end
+
+  # Dispatcher
+  if rs = r_socks.first
+    read_proc.call (rs)
+    read_socks.delete (rs)
+  end
+end
+#+end_src
+
+  Working With TCP Socket における Reactor Pattern.
+  - [[http://futurismo.biz/archives/2572][TCP/IP ソケットプログラミングの基礎を集中学習! Working with TCP sockets を読んでる | Futurismo]]
+
+  - gist: https://gist.github.com/tsu-nera/0a0930175a3f23641848

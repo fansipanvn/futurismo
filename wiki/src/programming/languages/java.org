@@ -1,5 +1,37 @@
 #+OPTIONS: toc:nil
 * Java
+** Java プログラム実行方法
+*** コンパイル
+    - javac コマンドでコンパイル.
+    - .java から .class ファイルを生成する.
+
+#+begin_src bash
+javac -cp jar/netty-3.6.10.Final.jar src/Program.java
+#+end_src
+
+*** 実行
+    - java コマンドで実行.
+    - -cp で classpath を指定.
+
+#+begin_src bash
+java -cp .:jar/netty-3.6.10.Final.jar:src Program
+#+end_src
+
+    [[http://www.syboos.jp/java/doc/java-classpath-and-execute-by-sample.html][サンプルから学ぶ classpath の設定と Java プログラムの実行 - Java 入門]]
+
+** ビルドツール
+*** Apatch Ant
+*** Apatch Maven
+*** Gradle
+**** 特徴
+    次から引用: [[http://www.atmarkit.co.jp/ait/articles/1403/14/news034.html][ビルドツール Gradle のインストールと使い方 - ＠ IT]]
+
+    - Groovy でビルド手順を記述
+    - Apache Ivy ベースの強力な依存関係管理
+    - 人気の IDE (Eclipse, NetBeans) でも使える
+    - Ant ビルドの呼び出しもできる
+
+* Java 文法
 ** interface
    内容に抽象メソッドしか持たないクラスのようなもの.
 
@@ -60,9 +92,6 @@ class InterfaceImpl implements Interface1, interface2, interface3 {
    データを操作する処理
 
    - [[http://en.wikipedia.org/wiki/Marshalling_(computer_science)][Marshalling (computer science) - Wikipedia, the free encyclopedia]]
-* Spring
-  - 公式; http://projects.spring.io/spring-framework/
-  - [[http://ja.wikipedia.org/wiki/Spring_Framework][Spring Framework - Wikipedia]]
 
 * Java Annotation
   クラスやメソッド, パッケージに対してメタデータとして注釈を記入する.
@@ -74,23 +103,31 @@ class InterfaceImpl implements Interface1, interface2, interface3 {
   - マーカー・アノテーション ・・・ データが無く名前だけを持つアノテーション.
   - 単一値アノテーション ・・・ データを一つだけ持つアノテーション. 見かけはメソッド呼び出しに似ている.
   - フル・アノテーション ・・・複数のデータを持つアノテーション.
+* Framework
+** Spring
+   - 公式; http://projects.spring.io/spring-framework/
+   - [[http://ja.wikipedia.org/wiki/Spring_Framework][Spring Framework - Wikipedia]]
+
+** Netty
+   Netty is an asynchronous event-driven network application framework
+   for rapid development of maintainable high performance protocol servers & clients. 
+
+   - http://netty.io/index.html
+
+*** 特徴
+   - Java NIO フレームワーク.
+   NIO はファイルにアクセスするための Java library.
+   - 簡単に TCP/IP のサーバが作れる.
+
+*** Documents
+    http://docs.jboss.org/netty/3.2/guide/html/
+
+    Getting Started の日本語訳.素晴らしい!
+    [[http://d.hatena.ne.jp/sifue/20121013/1350140603#][Java でノンブロッキング IO を使ったネットワークアプリを学ぶのに最適な Netty 3.5 系の Getting Started を日本語訳しました - しふーのブログ]]
+
+*** Links
+  - [[http://acro-engineer.hatenablog.com/entry/20130321/1363881318][イベントドリブンで通信処理を行える Netty 導入編 - Taste of Tech Topics]]
 
 * 開発環境・ツール
 ** Emacs
-- [[http://futurismo.biz/archives/2462][Eclim で Emacs と Eclipse のいいとこどり!Emacs で Java 開発環境を構築した]]
-
-** ビルドツール
-
-*** Apatch Ant
-
-*** Apatch Maven
-
-*** Gradle
-**** 特徴
-    次から引用: [[http://www.atmarkit.co.jp/ait/articles/1403/14/news034.html][ビルドツール Gradle のインストールと使い方 - ＠ IT]]
-
-    - Groovy でビルド手順を記述
-    - Apache Ivy ベースの強力な依存関係管理
-    - 人気の IDE (Eclipse, NetBeans) でも使える
-    - Ant ビルドの呼び出しもできる
-    
+ - [[http://futurismo.biz/archives/2462][Eclim で Emacs と Eclipse のいいとこどり!Emacs で Java 開発環境を構築した]]
