@@ -116,17 +116,20 @@ class InterfaceImpl implements Interface1, interface2, interface3 {
 
 *** 特徴
    - Java NIO フレームワーク.
-   NIO はファイルにアクセスするための Java library.
    - 簡単に TCP/IP のサーバが作れる.
 
+   NIO はファイルにアクセスするための Java library.
+
 *** Documents
-    http://docs.jboss.org/netty/3.2/guide/html/
+    - 公式 Document: http://docs.jboss.org/netty/3.2/guide/html/
 
     Getting Started の日本語訳.素晴らしい!
-    [[http://d.hatena.ne.jp/sifue/20121013/1350140603#][Java でノンブロッキング IO を使ったネットワークアプリを学ぶのに最適な Netty 3.5 系の Getting Started を日本語訳しました - しふーのブログ]]
+
+    - [[http://d.hatena.ne.jp/sifue/20121013/1350140603#][Java でノンブロッキング IO を使ったネットワークアプリを学ぶのに最適な Netty 3.5 系の Getting Started を日本語訳しました - しふーのブログ]]
 
 *** Links
-  - [[http://acro-engineer.hatenablog.com/entry/20130321/1363881318][イベントドリブンで通信処理を行える Netty 導入編 - Taste of Tech Topics]]
+    - [[http://acro-engineer.hatenablog.com/entry/20130321/1363881318][イベントドリブンで通信処理を行える Netty 導入編 - Taste of Tech Topics]]
+    - [[http://d.hatena.ne.jp/Kazuhira/20120325/1332675858#][Netty の Pipeline と ChannelHandler の関係を学ぶ - Starlight]]
 
 * 開発環境・ツール
 ** Emacs

@@ -1,0 +1,69 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Windows
+#+TAGS: Emacs,
+#+DESCRIPTION: Eclim を Windows で利用するためのメモ
+#+TITLE: Eclim を Windows で利用するためのメモ
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+Emacs から Eclipse を利用するためにつかうのが Eclim.
+動くまで少しハマったので, インストール方法をメモ.
+
+前回の記事は以下.
+
+- [[http://futurismo.biz/archives/2462][Eclim で Emacs と Eclipse のいいとこどり!Emacs で Java 開発環境を構築した (副題 打倒 Eclipse!) | Futurismo]]
+
+** Environment
+   - Windows 7 64bit
+
+* eclim 
+  インストーラがあるので, ダウンロードする.
+  - [[http://eclim.org/install.html][Download / Install - eclim (eclipse + vim)]]
+
+  コマンドプロンプトから以下で起動.または, ダブルクリックでも起動した.
+
+  #+begin_src language
+$ java -jar eclim_2.4.0.jar
+  #+end_src
+
+  インストーラの指示にしたがいインストール.
+
+* eclim-emacs
+  Emacs から利用するためには, eclim-emacs を入れる.
+
+  - [[https://github.com/senny/emacs-eclim][senny/emacs-eclim]]
+
+  設定ファイルに以下を追記. 
+  
+#+begin_src elisp
+(require 'eclim)
+(global-eclim-mode)
+#+end_src
+
+* 使い方
+** デーモン起動.
+  インストールが完了すると, 
+  Eclipse のフォルダに, eclimd.bat があるのでダブルクリックで起動する.
+
+  これで, eclim デーモンが起動する. 127.0.0.1 の port 9091 で起動する.
+
+** Emacs からアクセス
+   Cygwin 上の Emacs から利用するならば, 以下を追加.
+   パスは各自の設定で.
+
+   #+begin_src emacs-lisp
+   (setq eclim-eclipse-dirs "/cygdrive/c/eclipse/luna")
+   (setq eclim-executable "/cygdrive/c/eclipse/luna/eclim.bat")
+   (setq eclim-port 9091)
+   #+end_src
+
+   GUI 上の Emacs から利用するならば, 以下を追加.
+   bat ファイルを Emacs から直接実行できなかった.
+
+   #+begin_src emacs-lisp
+   (setq eclim-eclipse-dirs "C:/eclipse/luna")
+   (setq eclim-executable "C:/eclipse/luna/ng.exe --nailgun-port 9091 org.eclim.command.Main")
+   (setq eclim-port 9091)
+   #+end_src

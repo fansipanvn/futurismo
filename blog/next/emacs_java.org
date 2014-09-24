@@ -5,18 +5,24 @@
 #+TITLE: 
 
 * Motivation
-  以前, eclim による Emacs Java 環境を
+  以前, eclim による Emacs Java 環境を構築した.
+  - [[http://futurismo.biz/archives/2462][Eclim で Emacs と Eclipse のいいとこどり!Emacs で Java 開発環境を構築した (副題 打倒 Eclipse!) | Futurismo]]
 
- - [[http://futurismo.biz/archives/2462][Eclim で Emacs と Eclipse のいいとこどり!Emacs で Java 開発環境を構築した (副題 打倒 Eclipse!) | Futurismo]]
+  でもでも, 使ってみると, やっぱり重さや遅さが気になる!
+  イライライライ.....
 
-* Elips
-** タグジャンプ
-** 自動補完
+  そこで, JDEE が使えるかどうか評価してみることにした.
+   - [[http://jdee.sourceforge.net/][Java Development Environment for Emacs]]
 
-
-** Environment
 ** Special Thanks
-   - [[https://github.com/toshikiw/qiita/blob/master/malabar-mode%E3%81%A6%E3%82%99java%E3%82%92%E6%9B%B8%E3%81%8F.md][qiita/malabar-mode でjava を書く.md at master · toshikiw/qiita]]
+   - [[http://mikio.github.io/article/2012/12/23_emacsjdeejava.html][Emacs 中毒者に贈る JDEE による Java 開発環境の構築|ざる魂]]
    - [[http://epian-wiki.appspot.com/wiki/Emacs/JDEE][Emacs/JDEE - epian-wiki]]
    - [[http://www.02.246.ne.jp/~torutk/jdee/jdee.html][JDEE:Java Development Environment for Emacs]]
-   - [[http://jdee.sourceforge.net/][Java Development Environment for Emacs]]
+   - [[https://github.com/toshikiw/qiita/blob/master/malabar-mode%E3%81%A6%E3%82%99java%E3%82%92%E6%9B%B8%E3%81%8F.md][qiita/malabar-mode でjava を書く.md at master · toshikiw/qiita]]
+   - [[https://www.youtube.com/watch?v=wsqzBEJoHLY][▶ My Java Emacs environment - YouTube]]
+
+* Settings
+** JDEE
+   
+** タグジャンプ
+** 自動補完

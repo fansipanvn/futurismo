@@ -1,73 +1,66 @@
 #+OPTIONS: toc:nil
 * Concurrenct Programming
 
-複数の相互作用を及ぼす計算タスクの（同時）並行的実行をおこなうパラダイム。
+  複数の相互作用を及ぼす計算タスクの (同時) 並行的実行をおこなうパラダイム.
 
-平行プログラミング。(並列プログラミングではない)。
+  平行プログラミング. (並列プログラミングではない).
 
-- [[http://ja.wikipedia.org/wiki/%E4%B8%A6%E8%A1%8C%E8%A8%88%E7%AE%97][並行計算 - Wikipedia]]
-- [[http://ja.wikipedia.org/wiki/%E4%B8%A6%E5%88%97%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0][並列計算 - Wikipedia]]
+  - [[http://ja.wikipedia.org/wiki/%E4%B8%A6%E8%A1%8C%E8%A8%88%E7%AE%97][並行計算 - Wikipedia]]
+  - [[http://ja.wikipedia.org/wiki/%E4%B8%A6%E5%88%97%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0][並列計算 - Wikipedia]]
 
-Multiple progressing activities that exist at the same time
-Activities that can communicate and synchronize
+  Multiple progressing activities that exist at the same time
+  Activities that can communicate and synchronize
 
-- Communicate: information passes from one activity to another
-- Synchronize: an activity waits for another to perform a specific action
+  - Communicate: information passes from one activity to another
+  - Synchronize: an activity waits for another to perform a specific action
 
-平行プログラミングには3つの代表的なパラダイムがある。
+  平行プログラミングには 3 つの代表的なパラダイムがある.
 
-- Detarministic Dataflow
-- Message-passing concurrency(Erlang and Scala actor)
-- Shared-State concurrency(Java monitors)
+  - Detarministic Dataflow
+  - Message-passing concurrency (Erlang and Scala actor)
+  - Shared-State concurrency (Java monitors)
 
-その他、並列実行の競合をさけるためには、以下ようなパラダイムもある。
+  その他, 並列実行の競合をさけるためには, 以下ようなパラダイムもある.
 
-- Lazy Deterministic Dataflow
-- Constraint Programming
+  - Lazy Deterministic Dataflow
+  - Constraint Programming
+
+** Thread Safe
+   複数のスレッドからどのような順番でアクセスされても正しくふるまうこ
+   とである.呼び出し側にアクセス順番を考慮させたり, 同期化を求めるよう
+   なことはしてはならない.
 
 ** Mutual exclusion locks
-排他制御。
+   排他制御.
 
-- [[http://ja.wikipedia.org/wiki/%E6%8E%92%E4%BB%96%E5%88%B6%E5%BE%A1][排他制御 - Wikipedia]]
+   - [[http://ja.wikipedia.org/wiki/%E6%8E%92%E4%BB%96%E5%88%B6%E5%BE%A1][排他制御 - Wikipedia]]
 
-define a "critical section" that can only be executed by one thread at a time
+   define a "critical section" that can only be executed by one thread at a time
 
 *** Reentrant
-    リエントラント。
+    リエントラント.
 
-    プログラムやサブルーチンが、実行の途中で割り込まれ、
-    その実行が完了する前に再び呼び出され実行されても安全だという性質。
+    プログラムやサブルーチンが, 実行の途中で割り込まれ,
+    その実行が完了する前に再び呼び出され実行されても安全だという性質.
 
-   - [[http://ja.wikipedia.org/wiki/%E3%83%AA%E3%82%A8%E3%83%B3%E3%83%88%E3%83%A9%E3%83%B3%E3%83%88][リエントラント - Wikipedia]]
+    - [[http://ja.wikipedia.org/wiki/%E3%83%AA%E3%82%A8%E3%83%B3%E3%83%88%E3%83%A9%E3%83%B3%E3%83%88][リエントラント - Wikipedia]]
 
-   複数のスレッドから同時に呼び出されても正しく動作する関数。
+    複数のスレッドから同時に呼び出されても正しく動作する関数.
 
 *** Spin Lock
-    スピンロック。
+    スピンロック.
 
-    スレッドがロックを獲得できるまで単純にループ（スピン）
-    して定期的にロックをチェックしながら待つ方式。
+    スレッドがロックを獲得できるまで単純にループ (スピン)
+    して定期的にロックをチェックしながら待つ方式.
     
-   - [[http://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%94%E3%83%B3%E3%83%AD%E3%83%83%E3%82%AF][スピンロック - Wikipedia]]
+    - [[http://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%94%E3%83%B3%E3%83%AD%E3%83%83%E3%82%AF][スピンロック - Wikipedia]]
 
 *** Reentrant Lock
-    再入可能ロック。Sleep Lock
+    再入可能ロック. Sleep Lock
 
     Android API:  [[http://developer.android.com/reference/java/util/concurrent/locks/ReentrantLock.html][ReentrantLock | Android Developers]]
 
-** Blocking/NonBlocking
-   通信制御の方式。
 
-   Blockingモードは、相手との通信を同期する。
-   
-   - [[http://e-words.jp/w/E38396E383ADE38383E382ADE383B3E382B0E9809AE4BFA1.html][ブロッキング通信とは]]
-
-   Non-Blockingモードは、相手との通信を同期しない。
-
-   - [[http://e-words.jp/w/E3838EE383B3E38396E383ADE38383E382ADE383B3E382B0E9809AE4BFA1.html][ノンブロッキング通信とは 〔 ノンブロッキングモード 〕]]
-
-* Detarministic Dataflow
-* Message-passing concurrency
 * Shared-State concurrency
 ** ReentrantLock 
    A reentrant mutual exclusion lock that extends 
@@ -76,7 +69,7 @@ define a "critical section" that can only be executed by one thread at a time
    - http://developer.android.com/reference/java/util/concurrent/locks/ReentrantLock.html
 
 ** ReadWriteLock
-   Readers-Writerlock, ともいわれる。
+   Readers-Writerlock, ともいわれる.
 
    WriteLock Improves performance when resources are read 
    much more often than written.
@@ -97,48 +90,51 @@ define a "critical section" that can only be executed by one thread at a time
    アクセスするのを制御する際の単純だが便利な抽象化を
    提供する変数または抽象データ型
 
-- [[http://ja.wikipedia.org/wiki/%E3%82%BB%E3%83%9E%E3%83%95%E3%82%A9][セマフォ - Wikipedia]]
+   - [[http://ja.wikipedia.org/wiki/%E3%82%BB%E3%83%9E%E3%83%95%E3%82%A9][セマフォ - Wikipedia]]
 
-語源は、腕木式信号機。
+   語源は, 腕木式信号機.
 
 *** Counting Semaphores
-    カウンティングセマフォ。任意個の資源を扱うセマフォ
+    カウンティングセマフォ. 任意個の資源を扱うセマフォ
 
 *** Binary Semaphores
-    バイナリセマフォ。
-    値が0と1に制限されている（ロック/アンロック、
-    使用可能/使用不可の意味がある）セマフォ。
+    バイナリセマフォ.
+    値が 0 と 1 に制限されている (ロック/ アンロック,
+    使用可能/ 使用不可の意味がある) セマフォ.
 
-    ミューテックスとも。
+    ミューテックスとも.
     
 ** ConditionObject 
 *** Condition Value
-    条件変数。UNIXの用語。
-    ミューテックスと一緒に使用し、
-    スレッドをブロックして別のスレッドからのシグナルを待たせる。
+    条件変数. UNIX の用語.
+    ミューテックスと一緒に使用し,
+    スレッドをブロックして別のスレッドからのシグナルを待たせる.
 
-    通知がくることがポイント。
+    通知がくることがポイント.
 
-- [[http://hiroakiuno.hatenablog.com/entry/20070321/p1][ミューテックス、セマフォ、条件変数、違いを整理してみよう - Schi Heil と叫ぶために]]
+    - [[http://hiroakiuno.hatenablog.com/entry/20070321/p1][ミューテックス, セマフォ, 条件変数, 違いを整理してみよう - Schi Heil と叫ぶために]]
 
-  Block thread(s) until some condition(s) becomes true
+    Block thread (s) until some condition (s) becomes true
 
-  Javaでは、ConditionObjectとして提供される。
+    Java では, ConditionObject として提供される.
 
-  - wait
-  - signal
-  - signalAll
+    - wait
+    - signal
+    - signalAll
     
 ** CountDownLatch 
    Allows one or more threads to wait until a set of
    operations being performed in other threads complete
 
 *** Barriers
-    他のスレッドをある地点でまち合わせて、一度にさせること。
-    競馬のスタートバーのようなイメージ。
+    他のスレッドをある地点でまち合わせて, 一度にさせること.
+    競馬のスタートバーのようなイメージ.
 
-    または、旅行のツアーガイド。集合時間が決められていてる。
+    または, 旅行のツアーガイド. 集合時間が決められていてる.
 
 ** Java Links
    http://tutorials.jenkov.com/java-concurrency/read-write-locks.html
+
+* Detarministic Dataflow
+* Message-passing concurrency
   

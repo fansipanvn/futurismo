@@ -234,3 +234,23 @@ DATE=`date -d "$1" '+%s'`
 ** Debug
   - set -x    # turns on debugging
   - set +x    # turns off debugging
+** 入力待ち
+   read を利用する.
+   
+#+begin_src bash
+#!/bin/bash
+while read KEY
+do
+    case $KEY in
+	"boy" )
+	    echo Hey,boy!!
+	    break;;
+	"girl" )
+	    echo Hey,girl!!
+	    break;;
+	,*)
+	    echo Typing boy or girl;;
+    esac
+done
+#+end_src
+

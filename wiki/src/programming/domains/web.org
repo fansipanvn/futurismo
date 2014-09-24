@@ -38,7 +38,7 @@
    さまざまなフォーマット (書式) を扱えるようにする規格.マイム.
    
    [[http://ja.wikipedia.org/wiki/Multipurpose_Internet_Mail_Extensions][- Multipurpose Internet Mail Extensions - Wikipedia]]
-
+   
 ** Cookies
    HTTP におけるウェブサーバとウェブブラウザ間で状態を管理するプロトコル, 
    またそこで用いられるウェブブラウザに保存された情報のことを指す. 
@@ -90,13 +90,13 @@
    クラス名は Controller, Action.
 
 *** Presentation
-  Presentation Layer の構成要素は以下.
+    Presentation Layer の構成要素は以下.
 
-  - HTML (構造)
-  - CSS (表現)
-  - JavaScript (動作)
+    - HTML (構造)
+    - CSS (表現)
+    - JavaScript (動作)
 
-  これらは絶対に, 絶対に, 絶対に, 分けなければいけないと強調される.
+    これらは絶対に, 絶対に, 絶対に, 分けなければいけないと強調される.
 
 *** Controller
     画面遷移や画面でボタンが押されたときの動作制御やセッション管理など.

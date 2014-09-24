@@ -70,9 +70,31 @@
 *** ブロッキング
     送受信の完了を待ってから他の処理を開始する通信方法.
 
+#+begin_src ruby
+require 'socket'
+server = TCPServer.new (2803)
+while client = server.accept
+  input = client.readline
+  client.write "You said: #{input}"
+  client.close
+end
+#+end_src
+
 *** ノン・ブロッキング
     データの送受信を行う際に, 送受信の完了を待たず, 他の処理を開始する通信方法.
      - [[http://e-words.jp/w/E3838EE383B3E38396E383ADE38383E382ADE383B3E382B0E9809AE4BFA1.html][ノンブロッキング通信とは 〔 ノンブロッキングモード 〕]]
+
+#+begin_src ruby
+require 'socket'
+server = TCPServer.new (2803)
+loop do
+  Thread.new (server.accept){ |client|
+    input = client.readline
+    client.write "You said: #{input}"
+    client.close
+  }
+end
+#+end_src
 
 ** Example Ruby
 *** Server Lifecycle

@@ -1,70 +1,108 @@
+#+OPTIONS: toc:nil
 * Object-Oriented Programming
-オブジェクト指向型プログラミング。
+  オブジェクト指向型プログラミング.
 
-- [[http://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][オブジェクト指向プログラミング - Wikipedia]]
+  - [[http://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][オブジェクト指向プログラミング - Wikipedia]]
 
   CTMCP, Chapter 6,7
 
 ** Data abstraction
-   データ抽象。3つの構成要素がある。
+   データ抽象. 3 つの構成要素がある.
 
    - Input
    - Output
    - Interface
 
-   データ抽象は内部と外部からなるプログラムかつ、両者がインターフェースを通じてやりとりするもの。
+   データ抽象は内部と外部からなるプログラムかつ, 
+   両者がインターフェースを通じてやりとりするもの.
 
    A data abstraction is a part of a program that has an inside, an outside,
    and an interface in between The inside is hidden from the outside.
 
 *** Input/Output
-内部は外部からは隠蔽されている。-> カプセル化という。
+    内部は外部からは隠蔽されている. -> カプセル化という.
 
-The inside is hidden from the outside
+    The inside is hidden from the outside
 
 *** Interface
-The interface is a set of operations that an be used according to certain rules.
+    The interface is a set of operations that an be used according to certain rules.
 
-データ抽象には、主に二つの方法がある。
+    データ抽象には, 主に二つの方法がある.
 
-- Abstract Data Type(ADT) keeps values and operations separate.
-- Object groups together value and operations in a single entity.
+    - Abstract Data Type (ADT) keeps values and operations separate.
+    - Object groups together value and operations in a single entity.
 
 *** Encapsulation
-プログラムと内部と内部をインタフェースで分けること。
+    プログラムと内部と内部をインタフェースで分けること.
 
-カプセル化のメリットは大規模開発をシンプルにする。
+    カプセル化のメリットは大規模開発をシンプルにする.
 
-- 正しさを保証する。
-- 複雑さを解消する。
-  
+    - 正しさを保証する.
+    - 複雑さを解消する.
+
+**** カプセル化とはあらゆるものを隠蔽すること
+     カプセル化がデータ隠蔽というのは狭義の定義.
+
+     カプセル化とはあらゆるものを隠蔽すること.
+     - データ
+     - メソッド
+     - 実装
+     - 派生クラス
+     - 設計の詳細
+     - 実体化の規則
+     - 型
+
+     流動的要素を探し出してカプセル化する
+
+     この観点から, デザインパターンをとらえ直すと,
+
+     |----------------+-----------------------------------------------|
+     | 流動的要素     | Pattern                                       |
+     |----------------+-----------------------------------------------|
+     | アルゴリズム   | Strategy ,Visitor                             |
+     | 動作, 要求     | Command                                       |
+     | 実装           | Bridge                                        |
+     | 変化への反応   | Observer                                      |
+     | 相互作用       | Mediator                                      |
+     | 生成           | Factory Method, Abstract Factory , Prototype  |
+     | 構造の生成     | Builder                                       |
+     | 集合の巡回構造 | Iterator                                      |
+     | インタフェース | Adapter                                       |
+     | システム       | Facade                                        |
+     | 振る舞い       | Decorator , State                             |
+     | 設計の詳細     | Template Method                               |
+     |----------------+-----------------------------------------------|
+
+     - [[http://bleis-tift.hatenablog.com/entry/20090201/1233426011#][カプセル化, 情報隠蔽, データ隠蔽 - ぐるぐる~]]
+
 *** Abstract Data Type
-抽象データ型。ADTと略されることも。
+    抽象データ型. ADT と略されることも.
 
-構造化プログラミングは仮想機械モデルに基づく段階的詳細化法（stepwise refinement）をもたらしたが、
-データ構造の変更を行うと変更部分がソースコード中に散在してしまうという弱点があった。
-データ抽象の概念はその欠点を補完するものであった
+    構造化プログラミングは仮想機械モデルに基づく
+    段階的詳細化法 (stepwise refinement) をもたらしたが,
+    データ構造の変更を行うと変更部分がソースコード中に散在してしまうという弱点があった.
+    データ抽象の概念はその欠点を補完するものであった
 
-- [[http://ja.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][抽象データ型 - Wikipedia]]
+    - [[http://ja.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][抽象データ型 - Wikipedia]]
 
-An ADT consists of a set of values and  a set of operations.
+    An ADT consists of a set of values and  a set of operations.
 
-- Integer型
- - Value:1,2,3
- - Operation:+
-- Stack型
- - Value: elemtent
- - Operation: push, pop, ...
+    - Integer 型
+    - Value:1,2,3
+    - Operation:+
+    - Stack 型
+    - Value: elemtent
+    - Operation: push, pop, ...
 
-ValueとOperationそれ自体はStateを持たない。
+    Value と Operation それ自体は State を持たない.
 
-CTM, p433
+    CTM, p433
 
-Diference between ADT and Object。Stackをつかった実装の違い。
+    Diference between ADT and Object. Stack をつかった実装の違い.
 
-- ADT
+    - ADT
 
-#+begin_src oz
+    #+begin_src oz
 local Wrap Unwrap in
   {NewWrapper Wrap Unwrap}
   fun {NewStack} {Wrap nil} end
@@ -72,105 +110,150 @@ local Wrap Unwrap in
   fun {Pop W X} S={Unwrap W} in X=S.1 {Wrap S.2} end
   fun {IsEmpty W} {Unwrap W}==nil end
 end
-#+end_src
+    #+end_src
 
-この手法はStateful ADTという。
+    この手法は Stateful ADT という.
 
-そして、C言語では、こうやってデータ抽象化を行うことがおおい。
-もちろん関数ポインタ配列を使えばC言語でもObjectをつくることができるが、
-実際にはそこまでやらない。(面倒)
+    そして, C 言語では, こうやってデータ抽象化を行うことがおおい.
+    もちろん関数ポインタ配列を使えば C 言語でも Object をつくることができるが,
+    実際にはそこまでやらない. (面倒)
 
-- Object
-オブジェクトでは、データに対する操作はプロシージャ変数として扱われることに注目。
+    - Object
+    オブジェクトでは, データに対する操作はプロシージャ変数として扱われることに注目.
 
-#+begin_src oz
+    #+begin_src oz
 fun {NewStack}
   C={NewCell nil}
   proc {Push X} C:=X|@C end
   proc {Pop X} S=@C in X=S.1 C:=S.2 end
   fun {IsEmpty} @C==nil end
 in
-  stack(push:Push pop:Pop isEmpty:IsEmpty)
+  stack (push:Push pop:Pop isEmpty:IsEmpty)
 end
-#+end_src
+    #+end_src
 
-オブジェクト指向言語は、
-単にObjectをサポートする言語ではなくて、Abstruct Data Typeも強力にサポートしている。
+    オブジェクト指向言語は,
+    単に Object をサポートする言語ではなくて, Abstruct Data Type も強力にサポートしている.
 
-ObjectとADTの意味がごっちゃにつかわれているのが現実の現状。
+    Object と ADT の意味がごっちゃにつかわれているのが現実の現状.
 
 ** Object
-   値と操作をひとつのまとまりとしたもの。以下の構成要素をもつ。
+   値と操作をひとつのまとまりとしたもの. 以下の構成要素をもつ.
 
-   - 値 ・・・Explicite State(明示的状態)
-   - 操作 ・・・Procedural Data Abstruction(手続的データ抽象)
+   - 値 ・・・ Explicite State (明示的状態)
+   - 操作 ・・・ Procedural Data Abstruction (手続的データ抽象)
 
-   以下の能力を備えている。
+   以下の能力を備えている.
 
 *** Data Abstruction
-    オブジェクトは内部と外部はインタフェースを通じてやりとりされる。
-    内部の明示的状態をAttributes,インタフェースをMethodsという。
+    オブジェクトは内部と外部はインタフェースを通じてやりとりされる.
+    内部の明示的状態を Attributes,インタフェースを Methods という.
 
 *** Procedure Dispatch
-    オブジェクトは単一なエントリポイントをもつ。(エントリポイント = 呼び出し口)
-    エントリポイントに渡される引数をメッセージという。
+    オブジェクトは単一なエントリポイントをもつ. (エントリポイント = 呼び出し口)
+    エントリポイントに渡される引数をメッセージという.
 
-    下の例だと、Counterがエントリポイント。エントリポイントにinc,getメッセージを送る。
+    下の例だと, Counter がエントリポイント. エントリポイントに inc,get メッセージを送る.
 
     #+begin_src oz
    {Counter inc}
-   {Counter get(X)}
+   {Counter get (X)}
     #+end_src
 
-    エントリポイントから、メッセージに対応するプロシージャが呼びだされる。
+    エントリポイントから, メッセージに対応するプロシージャが呼びだされる.
 
-    メッセージとプロシシージャはあらかじめDispatch(バンドリング)されている。
+    メッセージとプロシシージャはあらかじめ Dispatch (バンドリング) されている.
 
 *** Instantiation
-    オブジェクトは一つのメソッドで、
-    異なる属性をもつ複数のオブジェクトを生成できる。
+    オブジェクトは一つのメソッドで,
+    異なる属性をもつ複数のオブジェクトを生成できる.
     
-    この能力をInstantiation(インスタンス化）という。
+    この能力を Instantiation (インスタンス化) という.
     
 *** Classes
-    メソッドと属性を定義する特別なシンタックスをClassという。
-    属性とメソッドはレコードデータ構造によって管理されているだけである！
-    Classという概念によって、オブジェクトの"宣言"と"生成(new)"を分離する。
+    メソッドと属性を定義する特別なシンタックスを Class という.
+    属性とメソッドはレコードデータ構造によって管理されているだけである!
+    Class という概念によって, オブジェクトの"宣言"と"生成 (new)"を分離する.
 
 ** Polymorphism
-
    [[http://ja.wikipedia.org/wiki/%E3%83%9D%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%95%E3%82%A3%E3%82%BA%E3%83%A0][- ポリモーフィズム - Wikipedia]]
 
 ** Inheritance
-   継承。あるオブジェクトが他のオブジェクトの特性を引き継ぐこと。
+   継承. あるオブジェクトが他のオブジェクトの特性を引き継ぐこと.
 
    - [[http://ja.wikipedia.org/wiki/%E7%B6%99%E6%89%BF_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0)][継承 (プログラミング) - Wikipedia]]
 
 *** Composition
-コンポジション。新たなクラスに、既存クラスのインスタンスを保持する。
-has-a の関係(not is-a)
+    コンポジション. 新たなクラスに, 既存クラスのインスタンスを保持する.
+    has-a の関係 (not is-a)
 
-Prefer Composition over inheritance(Effective Java).
+    Prefer Composition over inheritance (Effective Java).
 
 *** Delegation
-移譲。
+    移譲.
    
+** 手続き型とオブジェクト指向の違い
+*** 機能分解
+    ある問題を小さな機能にブレークダウンすることで, 
+    その問題を構成する機能要素の洗い出しをすることを機能分解と呼ぶ.
+    
+**** 構造化プログラミング的アプローチ
+      - (手続き的な) 機能を適切な順序で呼び出す「メイン」プログラムが必要になる.
+      - メインプログラムにはすべてを正しく動作させる, 
+        すなわち機能の組み合わせと呼び出し順序を制御するあまりに大きな責任が課せられる
+      - 結果的にソースコードは複雑になる
+	 
+**** オブジェクト指向的アプローチ
+       - 部分機能に対してそれ自体の振舞いに関する責任を持たせ, 
+         実行指示を行うだけであと任せておく. 
+       - これが委譲 (delegation) という考え方.
 
+
+* オブジェクト指向のこころより
+** OOP の 2 大原則
+   オブジェクト指向のこころとは, ズバリ以下だ.
+
+    - 流動的要素を探し出してカプセル化する
+    - クラス継承よりもオブジェクトの集約を多用する
+
+** オブジェクト指向設計
+   - [[http://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E5%88%86%E6%9E%90%E8%A8%AD%E8%A8%88][オブジェクト指向分析設計 - Wikipedia]]
+
+*** 名詞/ 動詞 抽出法
+    - 問題領域に存在する名詞を洗い出し,
+      それらを表現するオブジェクトを生成する.
+    - 名詞に関連した動詞を洗い出し,
+      それらを表現するメソッドを追加する
+
+*** 共通性/ 可変性 分析法
+    - 共通性分析:時間が経っても変化しにくい構造を見つけるもの
+      共通性分析によってまとめられた概念を抽象クラスによって表現
+    - 可変性分析:変化しやすい構造を洗い出すもの
+      可変性分析で得た流動的要素は抽象クラスの派生クラスによって実装される
+
+    設計手順:
+    - (抽象クラス) このクラスが持つ責務をすべて全うするにはどうようなインターフェイスが必要か?
+    - (派生クラス) この特定実装の中でどうのようにして与えられた仕様を実装できるのか?
+
+    Jim Coplien が提唱. p235 第 15 章から抜粋.
+
+**** Links
+    - [[http://d.hatena.ne.jp/asakichy/20090428/1240878836][オブジェクト指向の本懐 (7) ・オブジェクト指向分析 - Strategic Choice]]
+    - [[http://shoheik.hatenablog.com/entry/20120917/1347838230][共通性・可変性分析 (commonality/variavility analysis) - Debuginfo]]
 
 * Bookmarks
+  - [[http://qiita.com/hirokidaichi/items/591ad96ab12938878fe1][新人プログラマに知っておいてもらいたい人類がオブジェクト指向を手に入れるまでの軌跡 - Qiita]]
 
-- [[http://qiita.com/hirokidaichi/items/591ad96ab12938878fe1][新人プログラマに知っておいてもらいたい人類がオブジェクト指向を手に入れるまでの軌跡 - Qiita]]
+  #+BEGIN_QUOTE
+  むだに Hoge インタフェースと HogeImpl クラスがあったり,
+  むだに new するだけの create メソッドがあったり,
+  どこで値が設定されてるかわからないオブジェクトがひきまわされてたり,
+  ソースコードを追いにくくするためにやってるとしか思えない,
+  オブジェクト指向なコードをよく目にする.
 
-#+BEGIN_QUOTE
-むだにHogeインタフェースとHogeImplクラスがあったり、
-むだにnewするだけのcreateメソッドがあったり、
-どこで値が設定されてるかわからないオブジェクトがひきまわされてたり、
-ソースコードを追いにくくするためにやってるとしか思えない、
-オブジェクト指向なコードをよく目にする。
+  クラスは単にユーザー定義型であり,
+  継承は部分型と差分プログラミングを実現する仕組みだととらえるのがいい.
+  オブジェクトがメッセージを送りあうとかメルヘンの世界には入らず, 機能だけ考えるのがいい.
+  #+END_QUOTE
 
-クラスは単にユーザー定義型であり、
-継承は部分型と差分プログラミングを実現する仕組みだととらえるのがいい。
-オブジェクトがメッセージを送りあうとかメルヘンの世界には入らず、機能だけ考えるのがいい。
-#+END_QUOTE
-
-- [[http://d.hatena.ne.jp/nowokay/20140718#1405691217][オブジェクト指向は禁止するべき - きしだのはてな]]
+  - [[http://d.hatena.ne.jp/nowokay/20140718#1405691217][オブジェクト指向は禁止するべき - きしだのはてな]]

@@ -56,3 +56,6 @@
   - [[http://ja.wikipedia.org/wiki/%E8%A3%81%E5%AE%9A%E5%8F%96%E5%BC%95][裁定取引 - Wikipedia]]
 
    人類の歴史は, アービトラージの歴史であった, といっても過言では無いかもしれない.
+** CAPM
+   ボートフォリオのための理論.
+   - [[http://ja.wikipedia.org/wiki/%E8%B3%87%E6%9C%AC%E8%B3%87%E7%94%A3%E4%BE%A1%E6%A0%BC%E3%83%A2%E3%83%87%E3%83%AB][資本資産価格モデル - Wikipedia]]

@@ -1,3 +1,6 @@
+#+BLOG: Futurismo
+#+POSTID: 2619
+#+DATE: [2014-09-16 火 21:40]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
 #+CATEGORY: 技術メモ
 #+TAGS: Network, Windows
@@ -100,3 +103,5 @@ route add <your_IP> mask 255.255.255.255 <the_gateway> metric 1
    ルが作成されるため, これを wireshark で開けばよい.
 
    [[file:./../img/SnapCrab_NoName_2014-9-16_12-31-47_No-00.png]]
+
+# ./../img/SnapCrab_NoName_2014-9-16_12-31-47_No-00.png http://futurismo.biz/wp-content/uploads/wpid-SnapCrab_NoName_2014-9-16_12-31-47_No-00.png
