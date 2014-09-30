@@ -14,7 +14,7 @@ javac -cp jar/netty-3.6.10.Final.jar src/Program.java
     - -cp で classpath を指定.
 
 #+begin_src bash
-java -cp .:jar/netty-3.6.10.Final.jar:src Program
+java -cp .;jar/netty-3.6.10.Final.jar;src Program
 #+end_src
 
     [[http://www.syboos.jp/java/doc/java-classpath-and-execute-by-sample.html][サンプルから学ぶ classpath の設定と Java プログラムの実行 - Java 入門]]
