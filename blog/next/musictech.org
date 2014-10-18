@@ -4,6 +4,39 @@
 #+DESCRIPTION:
 #+TITLE: 
 
+* はじめに
+  最近 perfume がすごく好きになったので, よく perfume の曲をきいてる.
+
+  そんな中, DTM の講座を coursera で見つけたので, 受けてみた. 
+
+  中田ヤスタカさんのような曲がいつかつくれるようになる?!
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/XaT2_0hE8_Y" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+* Reaper
+  DAW (digital audio workstation) として , 講義では Reaper を利用する. 
+  60 日間限定の free 版.
+
+  - [[http://reaper.fm/][REAPER | Audio Production Without Limits]]
+
+  Windows 版と Mac 版しかなくて, Linux では利用できなさそうだったので,
+  Windows 環境で作業することにした. 
+  Linux でも Wine を利用すればできそうだが..
+
+  日本語化パッチ
+  - [[https://github.com/chiepomme/REAPERJapanesePatcher/wiki][Home · chiepomme/REAPERJapanesePatcher Wiki · GitHub]]
+
+* API
+  - [[http://earsketch.gatech.edu/learning/earsketch-sample-library][Reference: EarSketch Sound Library « EarSketch]]
+
+* 音源
+  - http://freesound.org
+  - http://ccmixter.org
+  - http://www.djyoungguru.com
+  - http://devinesound.net
+
 * SoundScape Composition
   サウンドスケープという概念にしたがって, 作曲をおこなう.
 

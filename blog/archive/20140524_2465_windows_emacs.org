@@ -1,32 +1,43 @@
+#+BLOG: Futurismo
+#+POSTID: 2465
+#+DATE: [2014-10-18 土 10:53]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
 #+CATEGORY: Emacs, Windows, 技術メモ
 #+TAGS:
-#+DESCRIPTION:Windows用のEmacsを入れてみることにした
-#+TITLE: WindowsでEmacsを利用する
+#+DESCRIPTION:Windows 用の Emacs を入れてみることにした
+#+TITLE: Windows で Emacs を利用する
 
 #+BEGIN_HTML
 <img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
 #+END_HTML
 
 * はじめに
-Windows上では、CygwinでインストールしたEmacsを今まで利用していたのだが、
-CygwinのEmacsだと文字のレンダリングがズレルことがしばしばある。
+Windows 上では, Cygwin でインストールした Emacs を今まで利用していたのだが,
+Cygwin の Emacs だと文字のレンダリングがズレルことがしばしばある.
 
-さすがにイライラしてきたので、Windows用のEmacsを入れてみることにした。
+さすがにイライラしてきたので, Windows 用の Emacs を入れてみることにした.
 
 * Emacs for Windows
-Windows用にコンパイルされたEmacsのバイナリが以下から手に入る。
-32bit用はあるけど、64bitはみつからないな^^;。まあいいや。最新版を取得する。
+  Windows 用にコンパイルされた Emacs のバイナリが以下から手に入る.
+  32bit 用はあるけど, 64bit はみつからないな^^;. まあいいや. 最新版を取得する.
 
-- [[http://ftp.gnu.org/gnu/emacs/windows/][GNU Project Archives]]
+  - [[http://ftp.gnu.org/gnu/emacs/windows/][GNU Project Archives]]
   - emacs-24.3-bin-i386.zip
 
-適当な所に解凍(C:\emacs-24.3)。
-binフォルダの中にあるrunemacs.exeを起動してEmacsが立ち上がれば成功。
-runemacs.exeはデスクトップなどにショートカットを作成。
+  適当な所に解凍 (C:\emacs-24.3).
+  bin フォルダの中にある runemacs.exe を起動して Emacs が立ち上がれば成功.
+  runemacs.exe はデスクトップなどにショートカットを作成.
 
-* 設定ファイル(.emacs)の場所を指定
-.emacs.dをCygwinと共有したい。init fileの参照方法は以下のようだ。
+** 14/10/18 追記
+   Windows 版 64bit のバイナリを発見!
+
+   - [[http://sourceforge.net/projects/emacsbinw64/?source=typ_redirect][emacs-w64 | SourceForge.net]]
+   - [[http://emacsbinw64.sourceforge.net/][emacs-w64 | 64-Bit GNU Emacs for MS Windows with optimization]]
+     
+   git リポジトリからつねに最新のバイナリを作成している.現在, version は 25.0??
+
+* 設定ファイル (.emacs) の場所を指定
+.emacs.d を Cygwin と共有したい. init file の参照方法は以下のようだ.
 
 #+BEGIN_HTML
 <blockquote>
@@ -40,20 +51,21 @@ runemacs.exeはデスクトップなどにショートカットを作成。
 
 - [[http://www.gnu.org/software/emacs/manual/html_node/efaq-w32/Location-of-init-file.html#Location-of-init-file][Location of init file - GNU Emacs FAQ For MS Windows]]
 
-HKCU\SOFTWARE\GNU\Emacs\HOMEというレジスタにパスを設定することにした。
-Win+R でファイル名を指定して実行を起動して、regeditと入力。
-レジストリエディタが起動するので、対象のレジストリを作成。
-GNUとEmacsキーを作成。HOMEの文字列値として以下を書いた。
+HKCU\SOFTWARE\GNU\Emacs\HOME というレジスタにパスを設定することにした.
+Win+R でファイル名を指定して実行を起動して, regedit と入力.
+レジストリエディタが起動するので, 対象のレジストリを作成.
+GNU と Emacs キーを作成. HOME の文字列値として以下を書いた.
 
 #+begin_src language
 C:\cygwin\home\TSUNEMICHI\dotfiles
 #+end_src
 
-また、環境変数からHOMEを削除。
+また, 環境変数から HOME を削除.
 
-これで、cygwinの.emacs.dを参照するようになった。
+これで, cygwin の.emacs.d を参照するようになった.
 
 ** Special Thanks
 Official Site
 
 - [[http://www.gnu.org/software/emacs/manual/html_node/efaq-w32/index.html][GNU Emacs FAQ For MS Windows]]
+  
