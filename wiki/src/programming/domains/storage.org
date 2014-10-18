@@ -214,8 +214,10 @@
     Or is our goal to re-invent the model of how things get done?
 
 ** 製品
-   EMC ViPR
-   IBM Elastic Storage
+*** EMC ViPR
+   - [[http://www.atmarkit.co.jp/ait/articles/1408/18/news006.html][単なる運用管理ツールではない! Software-Defined Storage を使う意味とメリットとは? - ＠ IT]]
+
+*** IBM Elastic Storage
 
 * SMI-S
   ストレージ"管理"のための API.

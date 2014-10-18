@@ -8,8 +8,10 @@
   以前, eclim による Emacs Java 環境を構築した.
   - [[http://futurismo.biz/archives/2462][Eclim で Emacs と Eclipse のいいとこどり!Emacs で Java 開発環境を構築した (副題 打倒 Eclipse!) | Futurismo]]
 
-  でもでも, 使ってみると, やっぱり重さや遅さが気になる!
-  イライライライ.....
+  でもでも, 使ってみると, やっぱり重さや遅さが気になる.
+
+  お試しようの Java Code を書くときも Eclipse を立ち上げなければ
+  いけないなんて, ヤダ.
 
   そこで, JDEE が使えるかどうか評価してみることにした.
    - [[http://jdee.sourceforge.net/][Java Development Environment for Emacs]]
@@ -23,6 +25,7 @@
 
 * Settings
 ** JDEE
+** 自動補完
    
 ** タグジャンプ
-** 自動補完
+   

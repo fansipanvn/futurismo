@@ -1,0 +1,14 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: 
+
+* SoundScape Composition
+  サウンドスケープという概念にしたがって, 作曲をおこなう.
+
+  - [[http://ja.wikipedia.org/wiki/%E3%82%B5%E3%82%A6%E3%83%B3%E3%83%89%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97][サウンドスケープ - Wikipedia]]
+  - [[http://www.ted.com/talks/bernie_krause_the_voice_of_the_natural_world?language=ja][バーニー・クラウス: 自然界からの声 | Talk Video | TED.com]]
+
+** Environment
+** Special Thanks

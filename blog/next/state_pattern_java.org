@@ -1,0 +1,250 @@
+#+BLOG: Futurismo
+#+POSTID: 2649
+#+DATE: [2014-10-18 土 12:36]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Gof
+#+DESCRIPTION: いろんなパラダイムでのステートパターン
+#+TITLE: 手続き型・オブジェクト指向型・関数型 3 つのパラダイムでステートパターン (Java)
+
+* はじめに
+  Java でステート・パターン (State Pattern) を実装してみた.
+
+  よく見かける OOP のステートパターンに加えて,
+  手続き型パラダイム, 関数型パラダイムのステートパターンも実装した.
+
+  そもそも, ステートパターンはオブジェクト指向において,状態をカプセル化することなので, 
+  関数型で表現することはステートパターンではない気がするが...
+
+  OOP との比較をしたいので,手続き型, 関数型ともに ,
+  class を利用して状態をあらわした.
+
+  ステートパターンの詳しい説明は以下.
+  - [[http://ja.wikipedia.org/wiki/State_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][State パターン - Wikipedia]]
+
+* オブジェクト指向パラダイム
+  まずは, よく見かける表現.特徴は,
+
+  - context は 状態 (state) をもつ.
+  - 状態 (state) は context への参照を保持する.
+
+#+begin_src java
+class StatePatternImperative {
+	private State state;
+
+	public StatePatternImperative () {
+		this.state = new Morning ();
+	}
+
+	public void setState (State newState) { 
+		this.state = newState; 
+	}	
+
+	public void greeting () {
+		state.greeting (this);
+	}
+
+	public boolean isDone () {
+		return (state == null) ? true : false;
+	}
+		
+	public interface State {
+			public void greeting (StatePatternImperative context);
+		}
+
+	public class Morning implements State {
+
+		public Morning () {
+			System.out.println (" === It's 09:00 ===");
+		}
+			
+		public void greeting (StatePatternImperative context) {
+			System.out.println ("Good morning!! ('▽`)");
+			context.setState (new Afternoon ());
+		}
+	}
+
+	public class Afternoon implements State {
+
+		public Afternoon () {
+			System.out.println (" === It's 15:00 ===");
+		}
+			
+		public void greeting (StatePatternImperative context) {
+			System.out.println ("Good afternoon!! ('▽`)");
+			context.setState (new Evening ());
+		}
+	}
+
+	public class Evening implements State {
+
+		public Evening () {
+			System.out.println (" === It's 20:00 ===");
+		}
+			
+		public void greeting (StatePatternImperative context) {
+			System.out.println ("Good evening!! ('▽`)");
+			context.setState (null);
+		}
+	}
+	
+	public static void main (String[] args) {
+		StatePatternImperative context = new StatePatternImperative ();
+
+		while (!context.isDone ()) {
+			context.greeting ();
+		}
+	}
+}
+#+end_src
+
+* 手続き型パラダイム
+  次は手続き型. OOP との違いは,
+  
+  - 状態を保持する context はない.
+  - 次の状態は戻り値で外部に返す.
+
+#+begin_src java
+class StatePatternImperative {
+
+	public interface State {
+		public State greeting ();
+	}
+
+	public static class Morning implements State {
+
+		public Morning () {
+			System.out.println (" === It's 09:00 ===");
+		}
+			
+		public State greeting () {
+			System.out.println ("Good morning!! ('▽`)");
+			return new Afternoon ();
+		}
+	}
+
+	public static class Afternoon implements State {
+
+		public Afternoon () {
+			System.out.println (" === It's 15:00 ===");
+		}
+			
+		public State greeting () {
+			System.out.println ("Good afternoon!! ('▽`)");
+			return new Evening ();
+		}
+	}
+
+	public static class Evening implements State {
+
+		public Evening () {
+			System.out.println (" === It's 20:00 ===");
+		}
+			
+		public State greeting () {
+			System.out.println ("Good evening!! ('▽`)");
+			return null;
+		}
+	}
+
+	public static boolean isDone (State state) {
+		return state == null;
+	}
+
+	public static void main (String[] args) {
+		State state = new Morning ();
+		
+		while (!isDone (state)) {
+			state = state.greeting ();
+		}
+	}
+}
+#+end_src
+
+  main () を context とみなせば, OOP とも言えなくはないが...
+
+* 関数型パラダイム
+  最後に関数型. 手続き型との違いは,
+
+  - 再帰的に処理する (末尾再帰)
+
+  具体的には,以下の違いかある.
+
+#+begin_src java
+        // functional paradium
+	public static void run (State state) {
+		if (isDone (state)) return;
+		else run (state.greeting ());
+	}
+	
+	public static void main (String[] args) {
+		run (new Morning ());
+	}
+
+	// imperative paradium
+	public static void main (String[] args) {
+		State state = new Morning ();
+		
+		while (!isDone (state)) {
+			state = state.greeting ();
+		}
+	}
+#+end_src
+
+#+begin_src java
+class StatePatternFunctional {
+
+	public interface State {
+		public State greeting ();
+	}
+
+	public static class Morning implements State {
+
+		public Morning () {
+			System.out.println (" === It's 09:00 ===");
+		}
+			
+		public State greeting () {
+			System.out.println ("Good morning!! ('▽`)");
+			return new Afternoon ();
+		}
+	}
+
+	public static class Afternoon implements State {
+
+		public Afternoon () {
+			System.out.println (" === It's 15:00 ===");
+		}
+			
+		public State greeting () {
+			System.out.println ("Good afternoon!! ('▽`)");
+			return new Evening ();
+		}
+	}
+
+	public static class Evening implements State {
+
+		public Evening () {
+			System.out.println (" === It's 20:00 ===");
+		}
+			
+		public State greeting () {
+			System.out.println ("Good evening!! ('▽`)");
+			return null;
+		}
+	}
+
+	public static boolean isDone (State state) {
+		return state == null;
+	}
+
+	public static void run (State state) {
+		if (isDone (state)) return;
+		else run (state.greeting ());
+	}
+	
+	public static void main (String[] args) {
+		run (new Morning ());
+	}
+}
+#+end_src

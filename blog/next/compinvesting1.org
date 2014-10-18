@@ -1,0 +1,21 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: 
+
+* 背景
+  競馬ソフト億万長者くん
+
+* Python & QSTK
+  当方は, Python がはじめて.
+
+* Links
+** Books
+   Ruby によるシステムトレード本:
+   - [[http://www.amazon.co.jp/Ruby%E3%81%A7%E3%81%AF%E3%81%98%E3%82%81%E3%82%8B%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%83%88%E3%83%AC%E3%83%BC%E3%83%89-%E7%8F%BE%E4%BB%A3%E3%81%AE%E9%8C%AC%E9%87%91%E8%A1%93%E5%B8%AB%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA-%E5%9D%82%E6%9C%AC%E3%82%BF%E3%82%AF%E3%83%9E/dp/4775991280/ref=pd_sim_b_1?ie=UTF8&refRID=1RXNRYY640CBNJB4AVE8][Amazon.co.jp: Ruby ではじめるシステムトレード (現代の錬金術師シリーズ): 坂本タクマ: 本]]
+     - [[http://moneyzine.jp/article/corner/7][坂本タクマの絶対システムトレード原論:株/FX ・投資と経済がよくわかる MONEYzine]]
+
+   NumPy や pandas の参考書:
+   - [[http://www.amazon.co.jp/Python%E3%81%AB%E3%82%88%E3%82%8B%E3%83%87%E3%83%BC%E3%82%BF%E5%88%86%E6%9E%90%E5%85%A5%E9%96%80-%E2%80%95NumPy%E3%80%81pandas%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E3%83%87%E3%83%BC%E3%82%BF%E5%87%A6%E7%90%86-Wes-McKinney/dp/4873116554/ref=pd_rhf_dp_s_cp_11_NKWA?ie=UTF8&refRID=1RXNRYY640CBNJB4AVE8][Amazon.co.jp: Python によるデータ分析入門 -NumPy, pandas を使ったデータ処理: Wes McKinney, 小林 儀匡, 鈴木 宏尚, 瀬戸山 雅人, 滝口 開資, 野上 大介: 本]]
+

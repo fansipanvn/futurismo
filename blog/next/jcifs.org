@@ -1,13 +1,13 @@
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
 #+CATEGORY: 技術メモ
 #+TAGS: Java, CIFS
-#+DESCRIPTION:Windowsで JCIFSを利用してみる
-#+TITLE: Windowsで JCIFSを利用してみる
+#+DESCRIPTION:Windows で JCIFS を利用してみる
+#+TITLE: Windows で JCIFS を利用してみる
 
-CIFSを Javaから利用するためのライブラリ JCIFSを試してみたメモです.
+CIFS を Java から利用するためのライブラリ JCIFS を試してみたメモです.
 
-* JCIFSとは
-JCIFSは Javaで書かれた CIFS/SMBクライアントライブラリ.
+* JCIFS とは
+JCIFS は Java で書かれた CIFS/SMB クライアントライブラリ.
 
 - http://jcifs.samba.org/
 - github: https://github.com/kohsuke/jcifs
@@ -26,22 +26,22 @@ import jcifs.smb.SmbFileInputStream;
 import jcifs.smb.SmbFileOutputStream;
 
 public class JCIFSSample {
-  public static void main(String[] args) throws IOException {
+  public static void main (String[] args) throws IOException {
 
-    Properties prop = new Properties();
-    prop.setProperty("jcifs.smb.client.username", "TSUNEMICHI");
-    prop.setProperty("jcifs.smb.client.password", "****************");
-    Config.setProperties(prop);
+    Properties prop = new Properties ();
+    prop.setProperty ("jcifs.smb.client.username", "TSUNEMICHI");
+    prop.setProperty ("jcifs.smb.client.password", "****************");
+    Config.setProperties (prop);
 
-    SmbFileInputStream sfis = new SmbFileInputStream("smb://TSUNEMICHI-VAIO/Users/TSUNEMICHI/temp/test.txt");
-    BufferedReader br = new BufferedReader(new InputStreamReader(sfis));
+    SmbFileInputStream sfis = new SmbFileInputStream ("smb://TSUNEMICHI-VAIO/Users/TSUNEMICHI/temp/test.txt");
+    BufferedReader br = new BufferedReader (new InputStreamReader (sfis));
         
     String line = null;
         
-    while((line = br.readLine())!=null){
-      System.out.println(line);
+    while ((line = br.readLine ())!=null){
+      System.out.println (line);
     }
-    br.close();
+    br.close ();
   }
 }
 #+end_src
@@ -91,21 +91,20 @@ import jcifs.Config;
 import jcifs.smb.SmbFileOutputStream;
 
 public class FileWrite {
-  public static void main(String[] args) throws IOException {
+  public static void main (String[] args) throws IOException {
 
-    Properties prop = new Properties();
-    prop.setProperty("jcifs.smb.client.username", "TSUNEMICHI");
-    prop.setProperty("jcifs.smb.client.password", "****************");
-    Config.setProperties(prop);
+    Properties prop = new Properties ();
+    prop.setProperty ("jcifs.smb.client.username", "TSUNEMICHI");
+    prop.setProperty ("jcifs.smb.client.password", "****************");
+    Config.setProperties (prop);
 
-    SmbFileOutputStream sfos = new SmbFileOutputStream("smb://TSUNEMICHI-VAIO/Users/TSUNEMICHI/temp/test.txt");
-    PrintWriter pw = new PrintWriter(sfos);
-    pw.println("GoodBye JCIFS");
-    pw.close();
+    SmbFileOutputStream sfos = new SmbFileOutputStream ("smb://TSUNEMICHI-VAIO/Users/TSUNEMICHI/temp/test.txt");
+    PrintWriter pw = new PrintWriter (sfos);
+    pw.println ("GoodBye JCIFS");
+    pw.close ();
   }
 }
 #+end_src
-
 
 ** WireShark
 
@@ -130,7 +129,7 @@ public class FileWrite {
   ローカルファイルとネットワーク上のファイルを
   同じように扱う方法がわからなかった.
 
-  以下のような方法があるようだが、自分の環境では動作せず.
+  以下のような方法があるようだが, 自分の環境では動作せず.
 
   - [[http://stackoverflow.com/questions/14749434/how-to-copy-file-from-smb-share-to-local-drive-not-in-domain-with-jcifs][How to copy file from SMB share to local drive not in domain with JCIFS - Stack Overflow]]
   - [[http://stackoverflow.com/questions/13359164/how-to-copy-file-from-smb-share-to-local-drive-using-jcifs-in-java?rq=1][How to copy file from smb share to local drive using jcifs in Java? - Stack Overflow]]

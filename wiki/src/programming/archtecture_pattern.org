@@ -149,6 +149,12 @@ to a service handler by one or more inputs.
                    Resource を Handler に Dispatch する (select など)
      - Handler: Resource に関連付けられた処理.
 
+**** Links
+     - [[https://today.java.net/article/2007/02/08/architecture-highly-scalable-nio-based-server][Architecture of a Highly Scalable NIO-Based Server | Java.net]]
+     - [[http://jeewanthad.blogspot.jp/2013/02/reactor-pattern-explained-part-1.html][Tech Stuff: Reactor Pattern Explained - Part 1]]
+     - [[http://blog.genuine.com/2013/07/nio-based-reactor/][NIO-based Reactor | Genuine Blog]]
+     - http://gee.cs.oswego.edu/dl/cpjslides/nio.pdf
+
 *** Proactor
     非同期なイベント処理.
     - [[http://en.wikipedia.org/wiki/Proactor_pattern][Proactor pattern - Wikipedia, the free encyclopedia]]

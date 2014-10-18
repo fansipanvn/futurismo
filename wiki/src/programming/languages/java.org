@@ -19,6 +19,16 @@ java -cp .;jar/netty-3.6.10.Final.jar;src Program
 
     [[http://www.syboos.jp/java/doc/java-classpath-and-execute-by-sample.html][サンプルから学ぶ classpath の設定と Java プログラムの実行 - Java 入門]]
 
+** Hello World
+
+   #+begin_src java
+public class HelloWorld {
+  public static void main (String[] args) {
+    System.out.println ("Hello World !!");
+  }
+} 
+   #+end_src
+
 ** ビルドツール
 *** Apatch Ant
 *** Apatch Maven

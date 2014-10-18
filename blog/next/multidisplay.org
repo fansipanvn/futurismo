@@ -1,0 +1,137 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION: Linux と Windows で デュアルディスプレイをする
+#+TITLE:  VNC Server を利用して Linux-Windows or iPad でデュアルディスプレイをする方法
+* 引越しをした
+  引越しをした.
+
+  今までは, ずっと東京都民・市民だったけれども, これからは神奈川県民だ.
+  こころのどこかでずっと東京の神奈川に対する優位性と差別意識を抱いてきたけれども,
+  それも本日で改めねば!
+
+  今まで利用していたデスクトップ PC だが, 
+  4 年も利用していると起動が遅くて使いものにならなくなってきた.
+
+  そこで, この使えない デスクトップ PC を ,
+  現在メインで利用しているノート PC のサブディスプレイとして
+  利用できないかどうか, 調べてみた.
+
+** Environment
+   - Main PC: Panasonic Let's Note, ArchLinux
+   - Sub PC: Fujitsu ESPRIMO, Windows 7
+
+* インストール
+  以下の 2 つが必要なので, インストール.
+  - tigervnc
+  - x2vnc (AUR)
+
+#+begin_src sh
+% sudo pacman -S tigervnc
+% yaourt -S x2vnc
+#+end_src
+
+** Vncserver の起動
+   vncserver の初回起動でパスワードが設定できるため,
+   パスワード設定のために vncserver を起動.
+   
+   このパスワードは client からアクセスするときに必要.
+
+#+begin_src bash
+% vncserver :1
+
+You will require a password to access your desktops.
+
+Password:
+Verify:
+
+New 'localhost:1 (tsu-nera)' desktop is localhost:1
+
+Creating default startup script /home/tsu-nera/.vnc/xstartup
+Starting applications specified in /home/tsu-nera/.vnc/xstartup
+Log file is /home/tsu-nera/.vnc/localhost:1.log
+#+end_src
+
+パスワード設定したら, 一旦 vncserver を停止する.
+
+#+begin_src bash
+% vncserver -kill :1
+#+end_src
+
+vncserver のスタートアップスクリプト ~/.vnc/xstartup を編集して,
+スタートアップで.xinitrc を利用するようにする.
+
+if [ -x /etc/X11/xinit/xinitrc ]; then の手前に以下のコードを追加. 
+
+#+begin_src bash
+if [ -f ~/.xinitrc ]; then
+  exec sh ~/.xinitrc
+fi
+#+end_src
+
+これで準備完了.以下のコマンドで起動.
+
+#+begin_src bash
+vncserver :1 -alwaysshared 
+#+end_src
+
+vncserver は解像度や画面の大きさも設定できる.
+デフォルトでは, -depth 16 -geometry 1024x768 が設定されている.
+-depth が解像度, -geometory が大きさ.
+
+- http://www.obenri.com/_vnc/vnc_server2.html
+
+** x2vnc の起動
+   x2vnc は, ディスプレイ間でマウスやキーボード操作を共有するツール.
+
+   以下のコマンドで起動する.
+
+#+begin_src bash
+% x2vnc -shared -east localhost:1
+
+x2vnc: VNC server supports protocol version 3.8 (viewer 3.3)
+Password: 
+
+x2vnc: VNC authentication succeeded
+x2vnc: Desktop name "localhost:1 (tsu-nera)"
+x2vnc: Connected to VNC server, using protocol version 3.3
+x2vnc: VNC server default format:
+screen[0] pos=1603
+Xinerama detected, x2vnc will use screen 1.
+x2vnc: pointer multiplier: 1.719312
+#+end_src
+
+   Password は vncserver に設定したもの. 
+   
+   表示させたい位置をオプションで指定できる. [-north] [-south] [-east] [-west]
+
+* VNC Viewer から接続
+** ESPRIMO から接続
+   ESPRIMO に VNC Viewer を入れて, アクセスする.
+
+   - https://www.realvnc.com/download/viewer/
+
+   Address の入力欄には "(IP アドレス):1"というように:1 をつける.
+
+   [[file:./../img/IMG_3851.jpg]]
+
+** iPad からの接続
+   クライアントを iPad にもできる. 
+   これで, 外出中もデュアルディスプレイ!
+
+   iPad 用の VNC Client "VNC Viewer" を iPad にインストール.
+
+   - [[https://itunes.apple.com/jp/app/vnc-viewer/id352019548?mt=8][iTunes の App Store で配信中の iPhone, iPod touch, iPad 用 VNC Viewer]]
+
+     AddressBook タブの右上にある + を押して, パソコンを登録する.
+     Address の入力欄には "(IP アドレス):1"というように:1 をつける.
+
+   これで, iPad からも接続できた.
+
+   [[file:./../img/IMG_3850.jpg]]
+
+** Special Thanks
+   - [[http://d.hatena.ne.jp/kiwanami/20110514/1305388379][Linux で iPad をセカンドモニターにする - 技術日記＠ kiwanami]]
+   - [[https://wiki.archlinux.org/index.php/Vncserver_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Vncserver (日本語) - ArchWiki]]
+   - [[http://pocke.hatenablog.com/entry/2014/01/18/155859][Android タブレットを Linux のディスプレイにしよう - pockestrap]]
+   - [[http://nosada.hatenablog.com/entry/2012/09/11/144300][VNC を使って Android 端末をサブディスプレイにする - テクニカルプア]]

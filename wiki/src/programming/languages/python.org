@@ -1,0 +1,24 @@
+#+OPTIONS: toc:nil
+* Python
+* 文法
+** Links
+   - [[http://docs.python.jp/2.7/reference/index.html][Python 言語リファレンス - Python 2.7ja1 documentation]]
+   - [[http://www.python-izm.com/][Python 入門から応用までの学習サイト]]
+   - [[http://daemon.ice.uec.ac.jp/~shouno/2012.Programming/index.html][2012 年度プログラミング言語演習 Python - 2012.ProgramingLanguage 0.1 documentation]]
+* NumPy
+  数値計算を効率的に行うための拡張モジュール. http://www.numpy.org/
+
+  - 多次元配列計算に優れる.
+  - Python と NumPy の組み合わせは MATLAB に近い機能性を提供する.
+  - 内部は C 言語で記述されているため, 高速.
+
+** Links
+  - [[http://rest-term.com/archives/2999/][Python の数値計算ライブラリ NumPy 入門 « Rest Term]]
+  - [[http://ja.wikipedia.org/wiki/NumPy][NumPy - Wikipedia]]
+  - [[http://wiki.scipy.org/Tentative_NumPy_Tutorial][Tentative NumPy Tutorial -]]
+  - [[http://www.kamishima.net/mlmpyja/nbayes1/ndarray.html][NumPy 配列の基礎 - 機械学習の Python との出会い]]
+  - [[http://daemon.ice.uec.ac.jp/~shouno/2012.Programming/NumpyBasic.html][4. Numpy によるデータ行列の取り扱い - 2012.ProgramingLanguage 0.1 documentation]]
+
+* Pandas
+  Python Data Analysis Library.http://pandas.pydata.org/
+  

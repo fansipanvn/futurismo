@@ -5,27 +5,33 @@
 
 * Base Concepts
 ** Valiables
-変数の構成要素は以下の 2 つ.
+   変数の構成要素は以下の 2 つ.
 
-- 識別子 (Identifier)
-- 格納域実体 (Store entity)
+   - 識別子 (Identifier)
+   - 格納域実体 (Store entity)
 
 *** Identifires and Store Entity
-x = 1 ということはどういうことかを説明する概念.
+    x = 1 ということはどういうことかを説明する概念.
 
-数学的な写像関係で x = 1 を説明しようとしている. { X -> x1=1 }みたいな感じ.
-x1 がメモリ上の実際の (束縛された) 値で, X がそれを指し示す識別子.
+    数学的な写像関係で x = 1 を説明しようとしている. { X -> x1=1 }みたいな感じ.
+    x1 がメモリ上の実際の (束縛された) 値で, X がそれを指し示す識別子.
 
 *** environments
-識別子と変数の写像関係を環境という.
+    識別子と変数の写像関係を環境という.
+
+*** single-assignment store
+    単一代入格納域. 
+    一度一つの値を束縛したら変更できない変数の集合.定数.
+
+    関数型プログラミングでは, この変数が当たり前.
 
 ** Scope
-Valiable の有効範囲.
+   Valiable の有効範囲.
 
 - [[http://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%97][スコープ - Wikipedia]]
 
 *** Lexical Scope
-静的スコープ. 変数はブロックの内側のみ有効.
+    静的スコープ. 変数はブロックの内側のみ有効. Static Scoping とも.xs
 
 *** Dynamic Scope
 
@@ -141,10 +147,12 @@ CE={Fact → fact}. ( Contectual Environment)
 * Declarative Programming
   宣言型プログラミング.
 
-  第 1 の意味は,
+  - 広義:
   処理方法ではなく対象の性質などを宣言することでプログラミングするパラダイム.
-  第 2 の意味は,
+  
+  - 狭義:
   純粋関数型プログラミング, 論理プログラミング, 制約プログラミングの総称.
+  数学のための言語. 状態を持たない.
 
   - [[http://ja.wikipedia.org/wiki/%E5%AE%A3%E8%A8%80%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][宣言型プログラミング - Wikipedia]]
 
@@ -152,15 +160,12 @@ CE={Fact → fact}. ( Contectual Environment)
   Imperative vs Declaretive is also Stateful vs Stateless
   
   HTML は Stateless, Declarative Programming language.
-  状態はクッキーを導入してしばしば実現する.
 
-** 主な言語
-- HTML
-- MySQL
+  状態はクッキーを導入してしばしば実現する.
 
 * Functional Programming
   -> 記事独立.
-  [[file:FunctionalProgramming.org]]
+  [[file:functional_programming.org]]
 
 * Imperative Programming
 命令型プログラミング.

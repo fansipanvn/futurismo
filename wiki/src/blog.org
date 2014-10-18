@@ -114,6 +114,14 @@
    - 行動目標
 
 * Tools
+** 画像リサイズ
+   - [[http://o.inchiki.jp/obbr/125][ImageMagick で画像をリサイズする時のメモ ]]
+
+#+begin_src bash
+% convert -resize 640x before.jpg after.jpg
+#+end_src
+
+
 ** 画面キャプチャ
 *** scrot
     Linux 用の画面キャプチャ

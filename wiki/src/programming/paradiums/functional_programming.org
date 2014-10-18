@@ -1,57 +1,57 @@
 #+OPTIONS: toc:nil
 * Functional Programmming
-関数型プログラミング。
+関数型プログラミング.
 
 - [[http://ja.wikipedia.org/wiki/%E9%96%A2%E6%95%B0%E5%9E%8B%E8%A8%80%E8%AA%9E][関数型言語 - Wikipedia]]
 
-すべての計算や処理などを関数の定義の組み合わせとして記述していくタイプのプログラミング言語。
+すべての計算や処理などを関数の定義の組み合わせとして記述していくタイプのプログラミング言語.
 
 「同じ入力には必ず同じ出力を返す」「関数の評価が他の関数に影響を及ぼさない」など
-数学における関数と似た性質を持った関数の定義としてプログラミングを行い、
-プログラムの実行は記述された関数群の評価として行われる。
+数学における関数と似た性質を持った関数の定義としてプログラミングを行い,
+プログラムの実行は記述された関数群の評価として行われる.
 
-- [[http://e-words.jp/w/E996A2E695B0E59E8BE8A880E8AA9E.html][関数型言語とは 【 functional language 】： IT用語辞典]]
+- [[http://e-words.jp/w/E996A2E695B0E59E8BE8A880E8AA9E.html][関数型言語とは 【 functional language 】: IT 用語辞典]]
 
-広義の意味では、Whatをコンピュータに示すもの（Howを示さない）。
-狭義の意味では、プログラミングの中で数学を用いたもの(Function, Relation)。
+広義の意味では, What をコンピュータに示すもの (How を示さない).
+狭義の意味では, プログラミングの中で数学を用いたもの (Function, Relation).
 
-- 式と関数でプログラムを組み上げる(Use of MathMatics)
-- 関数を値として扱える(Higher-order programming)
-- 副作用を起こさない(Impliclite State, Stateless)
+- 式と関数でプログラムを組み上げる (Use of MathMatics)
+- 関数を値として扱える (Higher-order programming)
+- 副作用を起こさない (Impliclite State, Stateless)
 
-- [[http://itpro.nikkeibp.co.jp/article/COLUMN/20110411/359286/?ST=develop&P=3][3つのプログラミングのパラダイムを押さえておこう：ITpro]]
+- [[http://itpro.nikkeibp.co.jp/article/COLUMN/20110411/359286/?ST=develop&P=3][3 つのプログラミングのパラダイムを押さえておこう:ITpro]]
 
 CTMCP, Capter 2
 
-狭義の意味では、以下。
+狭義の意味では, 以下.
 
 - 状態をもたない
 - 一時変数を持たない
-- loopを持たない
+- loop を持たない
 - 手続的制御構造を持たない
 
-広義の意味では、関数にforcusingしたプログラミング。
+広義の意味では, 関数に forcusing したプログラミング.
 
 Coursera functional programming
 
 ** Languaages
 - 狭義の意味では Lisp, XPath, Haskell,,,
-- 広義の意味では、Scheme, Clojure, ocame, F#, Scala, Smalltalk, Ruby...
+- 広義の意味では, Scheme, Clojure, ocame, F#, Scala, Smalltalk, Ruby...
 
 * Immunity
 副作用を起こさない
 
-** Impliclite(declarative) State
-暗黙的状態。宣言的状態ともいう。
+** Impliclite (declarative) State
+暗黙的状態. 宣言的状態ともいう.
 
 - 関数の実行結果が値をもつ
-- 同じ入力には必ず同じ出力を返す。
-- Explicite Stateとの対概念。
-- 参照透明性。
+- 同じ入力には必ず同じ出力を返す.
+- Explicite State との対概念.
+- 参照透明性.
 
 ** Stateless
 
-** impelative paradigmとの違い
+** impelative paradigm との違い
 
 *** impelative paradium
 - ループで反復構造を実行
@@ -59,46 +59,46 @@ Coursera functional programming
 
 #+begin_src scala
 var i = 0
-while(i < args.length) {
+while (i < args.length) {
   if (i != 0) {
-    print(" ");
+    print (" ");
   }
-  print(args(i));
+  print (args (i));
   i += 1;
 }
-println();
+println ();
 
 #+end_src
 
 *** functional paradium
 - 再帰で反復構造を実行
-- argは変数ではなくて、不変な定数
+- arg は変数ではなくて, 不変な定数
 
 #+begin_src scala
-args.foreach(arg => println(arg))
+args.foreach (arg => println (arg))
 
 for (arg <- args)
-  println(arg)
+  println (arg)
 #+end_src
 
 * Higher-order programming
-高階プログラミング。
+高階プログラミング.
 
-procedure valueをサポートしている言語でのプログラミング技術。
-関数を引数としてわたす能力。
+procedure value をサポートしている言語でのプログラミング技術.
+関数を引数としてわたす能力.
 
-Rubyではlambda, procなど。C言語には関数ポインタがある。C言語は2階。
+Ruby では lambda, proc など. C 言語には関数ポインタがある. C 言語は 2 階.
 
 ** Annonimous Functions
 名前付けされずに定義された関数.
 
-Function Literal(関数リテラル)、匿名関数といわれることもある。
+Function Literal (関数リテラル), 匿名関数といわれることもある.
 
 - [[http://ja.wikipedia.org/wiki/%E7%84%A1%E5%90%8D%E9%96%A2%E6%95%B0][無名関数 - Wikipedia]]
 
 *** メリット
-- 一度しか使わない関数の名前を付けなくて済む。
-- 名前の衝突を考えなくて済む。
+- 一度しか使わない関数の名前を付けなくて済む.
+- 名前の衝突を考えなくて済む.
 - 関数の引数などに直接渡せる
 
 *** Language
@@ -106,50 +106,43 @@ Function Literal(関数リテラル)、匿名関数といわれることもあ�
 - Scala (x :Int, y :Int) =>  x + y , (x, y) => x + y
 
 ** Currying
-カリー化。複数の引数をとる関数を、
+カリー化. 複数の引数をとる関数を,
 
 - 引数が「もとの関数の最初の引数」で
 - 戻り値が「もとの関数の残りの引数を取り結果を返す関数」
 
-であるような関数にすること。
+であるような関数にすること.
 
 - [[http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%AA%E3%83%BC%E5%8C%96][カリー化 - Wikipedia]]
 
-部分適用を容易にすることが可能になるというメリットがある。
+部分適用を容易にすることが可能になるというメリットがある.
 
-* Recursion
-再帰的プログラミング。
+* invariant programming
+  不変式プログラミング. 再帰的に呼ばれる度に, 数学的に真になる式.
 
-** accumulater
-C++の、numericライブラリ(accumuulateなど)で利用されている。
+- [[http://ja.wikipedia.org/wiki/%E4%B8%8D%E5%A4%89%E6%9D%A1%E4%BB%B6][不変条件 - Wikipedia]]
 
-スタックのサイズが均一なことが特徴的。
+** Recursion
+再帰的プログラミング.
 
 ** tail-recursion
-末尾再帰。
+   末尾再帰.
 
-その中にただ1つの再帰呼び出しがあり、
-かつその呼び出しが手続き本体の最後にあるもの。
+   その中にただ 1 つの再帰呼び出しがあり,
+   かつその呼び出しが手続き本体の最後にあるもの.
 
-#+begin_src C++
-state whileLoop(state s) {
-  while (!isDone(s)) // 終了条件
-    s = transform(s) // 再帰
-  return s;
-}
-#+end_src
 
-関数がそれ自身を最後の処理で呼び、
-かつ、関数のスタックが再利用されるもの。
+   関数がそれ自身を最後の処理で呼び,
+   かつ, 関数のスタックが再利用されるもの.
 
-tail-recursionの例。Factorial
+   tail-recursion の例. Factorial
 
 #+begin_src oz
 declare
 fun {Fact N}
    local Fact1 in
-      % tail-recursiveでない
-      % 計算のたびにスタックがたまる。
+      % tail-recursive でない
+      % 計算のたびにスタックがたまる.
       fun{Fact1 N}
 	 if N==1 then 1
 	 else N*{Fact1 N-1}
@@ -158,7 +151,7 @@ fun {Fact N}
    
       local Aux in
       % tail-recursive
-      % 計算のたびにスタックがたまらない。
+      % 計算のたびにスタックがたまらない.
 	 fun {Aux N Acc}
 	    if N==0 then Acc
 	    else {Aux N-1 {Fact1 N}|Acc}  % call Fact on N here!!!
@@ -170,9 +163,45 @@ fun {Fact N}
 end
 #+end_src
 
-** invariant programming
-不変式プログラミング。再帰的に呼ばれる度に、数学的に真になる式。
+*** State pattern
+    関数型パラダイムでの実装
 
-- [[http://ja.wikipedia.org/wiki/%E4%B8%8D%E5%A4%89%E6%9D%A1%E4%BB%B6][不変条件 - Wikipedia]]
+#+begin_src oz
+fun {While S}
+  if {isDone S} then S
+  else {While {Transform S}} end /* tail recursion */
+end
+#+end_src
+
+手続き型パラダイムでの実装
+
+   #+begin_src C++
+state whileLoop (state s) {
+  while (!isDone (s)) // 終了条件
+    s = transform (s) // 再帰
+  return s;
+}
+   #+end_src
+
+** Accumulator
+C++ の, numeric ライブラリ (accumuulate など) で利用されている.
+
+スタックのサイズが均一なことが特徴的.
+
+** Specification
+
+** Principle of communicating vases
   
+#+begin_src oz
+% principle of communicationg vases
+% n! = i! * a
+%    = i * (i-1)! * a
+%    = (i-1)! * (i*a)
+% We have: i' = i-1 and a' = i*a
+declare
+fun {Fact2 I A}
+   if I==0 then A
+   else {Fact I-1 I*A} end
+end
+#+end_src
 

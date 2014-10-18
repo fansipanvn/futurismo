@@ -1,0 +1,18 @@
+#+OPTIONS: toc:nil
+* エレクトロニカ
+  電子音楽や, 電子音楽に影響を受けている音楽全般を包括的に表す言葉.
+  - [[http://ja.wikipedia.org/wiki/%E3%82%A8%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AD%E3%83%8B%E3%82%AB][エレクトロニカ - Wikipedia]]
+
+** 音の構成要素
+   - Wafeform ... 波形
+   - Amplitude ... 振幅
+   - Frequency ... 周波数
+   - Phase ... 相
+
+* 電子音楽
+** Sound-Scape
+   音風景, 音景.
+   - [[http://ja.wikipedia.org/wiki/%E3%82%B5%E3%82%A6%E3%83%B3%E3%83%89%E3%82%B9%E3%82%B1%E3%83%BC%E3%83%97][サウンドスケープ - Wikipedia]]
+
+*** Bookmarks
+   - [[http://www.ted.com/talks/bernie_krause_the_voice_of_the_natural_world?language=ja][バーニー・クラウス: 自然界からの声 | Talk Video | TED.com]]

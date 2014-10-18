@@ -3,6 +3,7 @@
 #+TAGS:
 #+DESCRIPTION:
 #+TITLE: Python で Emacs 開発環境を構築
+
 * はじめに
   これから coursera で挑戦する講座が 2 つとも Python を利用する予定.
   - [[https://www.coursera.org/course/compinvesting1][Computational Investing, Part I | Coursera]]
@@ -14,7 +15,7 @@
   python.el は公式, python-mode.el は Python コミュニティによって作成されたもの.
   
 ** python
-   Emacs の標準実装.
+   Emacs にデフォルトではいっているやつ.
 
 ** python-mode
    Python コミュニティによって作成されたもの.
@@ -25,7 +26,18 @@
    ショートカットがまとまっている.
    - [[http://ikautimituaki.hatenablog.com/entry/20111120/1321806070][python-mode の便利なショートカットまとめ - まったりいんふぉまてぃくすめもらんだむ]]
 
-** TODO インデント
+** インデント設定
+   4 で設定.
+
+#+begin_src emacs-lisp
+(add-hook 'python-mode-hook
+                   '(lambda ()
+                        (setq indent-tabs-mode nil)
+                        (setq indent-level 4)
+                        (setq python-indent 4)
+                        (setq tab-width 4)))
+#+end_src
+
 ** TODO とじ括弧挿入
 
 * コードリーディング
@@ -61,7 +73,7 @@ $ ctags -o TAGS *.py
 
 (define-key isearch-mode-map (kbd "M-o") 'swoop-from-isearch)
 (define-key swoop-map (kbd "M-o") 'swoop-multi-from-swoop)
-p	
+	
 ;; サイズ変更禁止
 (setq swoop-font-size-change: nil)
    #+end_src
@@ -94,12 +106,18 @@ p
 ** TODO ac-python
    auto-complete の python 強化版.
 
-** TODO smart compile
-   Emacs から Python コードを実行.
-   - http://www.emacswiki.org/emacs/download/smart-compile.el
-
-   quickrun.el というのもある.なかなか乗り換えられずにいる.
+** TODO quickrun
+   quickrun を利用すれば, python コードを Emacs から実行可能.
    - https://github.com/syohex/emacs-quickrun
+
+   システムの version が 3 で, Emacs からは 2 を利用したいときは,
+   以下のようにすれば実行コマンドをオーバライドできる.
+   
+#+begin_src emacs-lisp
+(quickrun-add-command "python"
+		      '((:command . "python2"))
+		      :override t)
+#+end_src
 
 ** TODO iPython
    インタラクティブなデバッグ環境.
@@ -124,4 +142,3 @@ p
    - [[http://blog.kzfmix.com/entry/1334218401][Emacs の Python 開発環境を整えた]]
    - [[http://lambdalisue.hatenablog.com/entry/2013/06/23/071344][Vim を最強の Python 開発環境にする 2 - Λ Lisue's blog]]
    - [[https://github.com/gabrielelanaro/emacs-for-python][gabrielelanaro/emacs-for-python]]
-

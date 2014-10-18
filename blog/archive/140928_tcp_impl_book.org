@@ -1,0 +1,46 @@
+#+BLOG: Futurismo
+#+POSTID: 2633
+#+DATE: [2014-09-28 日 13:59]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Book
+#+TAGS: Networking
+#+DESCRIPTION:TCP の仕組みを学ぶために本を一冊読んだ.
+#+TITLE: TCP のしくみと実装という本を読んだ
+
+TCP の仕組みを学ぶために本を一冊読んだ.
+
+#+BEGIN_HTML
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/TCP%E3%81%AE%E3%81%97%E3%81%8F%E3%81%BF%E3%81%A8%E5%AE%9F%E8%A3%85%E2%80%95RFC%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%81%8B%E3%82%89%E5%AE%9F%E8%A3%85%E7%B3%BB%E3%81%AE%E8%A7%A3%E6%9E%90%E3%81%BE%E3%81%A7-TCPIP%E5%9F%BA%E7%A4%8E%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA-%E5%A5%A5%E5%B1%B1-%E5%BE%B9/dp/478981873X%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D478981873X' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/51JC0P86MCL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/TCP%E3%81%AE%E3%81%97%E3%81%8F%E3%81%BF%E3%81%A8%E5%AE%9F%E8%A3%85%E2%80%95RFC%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%81%8B%E3%82%89%E5%AE%9F%E8%A3%85%E7%B3%BB%E3%81%AE%E8%A7%A3%E6%9E%90%E3%81%BE%E3%81%A7-TCPIP%E5%9F%BA%E7%A4%8E%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA-%E5%A5%A5%E5%B1%B1-%E5%BE%B9/dp/478981873X%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D478981873X' rel='nofollow' target='_blank'>TCP のしくみと実装-RFC の詳細から実装系の解析まで (TCPIP 基礎シリーズ)</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 14.09.28</div><div class='amazlink-detail'>奥山 徹<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/TCP%E3%81%AE%E3%81%97%E3%81%8F%E3%81%BF%E3%81%A8%E5%AE%9F%E8%A3%85%E2%80%95RFC%E3%81%AE%E8%A9%B3%E7%B4%B0%E3%81%8B%E3%82%89%E5%AE%9F%E8%A3%85%E7%B3%BB%E3%81%AE%E8%A7%A3%E6%9E%90%E3%81%BE%E3%81%A7-TCPIP%E5%9F%BA%E7%A4%8E%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA-%E5%A5%A5%E5%B1%B1-%E5%BE%B9/dp/478981873X%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D478981873X' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00q0724.n763w947.g00q0724.n763x2b4/?pc=http%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F10203663%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Frms%2Fmsv%2FItem%3Fn%3D10203663%26surl%3Dbook' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
+#+END_HTML
+
+* Motivation
+WireShark とにらめっこをする日々が続くが,
+不具合の原因を推測するためには 
+TCP 制御の仕組みを理解する必要があると考えた.
+
+よくわからないことが起こったとき, 
+TCP の知識がないとまったく太刀打ちできないことがこの一ヶ月に何度もあった.
+
+Web 上でもいくつかよくまとまっているページがあるけれども,
+書籍でまとめて学ぶために読んだ.
+
+* 内容について
+TCP と IP がセットで一冊の本になっていることがほとんどだけれども,
+この本は TCP に特化しているところがよかった. 
+
+前半は, TCP についての一通りのことがコンパクトにまとめられているので,
+あまり時間をかけずに読むことができる.
+
+   - バイトストリームコネクション
+   - マルチプレクシング (多重化)
+   - 信頼性の確保
+     - ACK 応答
+     - 再送制御
+     - 順序制御 (シーケンス番号)
+     - ウィンドウ方式
+   - フロー制御
+     - ウィンドウ制御
+
+後半はかなりマニアック.
+TCP の実装モデルについてサンプルコードをウォークスルーで解説される.
+ここまで詳しい知識は必要ないので自分は読まなかった.
