@@ -1,0 +1,44 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: 
+
+* Motivation
+WireShark でパケットキャプチャしたログから,
+実際のパケットを生成したい.
+
+それができれば, テストが自動化できそうだ.
+
+というわけで, それを実現するツールを調べてみた.
+
+Ostinato という OSS が利用できそうだ.
+
+- [[https://code.google.com/p/ostinato/][ostinato - Packet/Traffic Generator and Analyzer - Google Project Hosting]]
+
+** Environment
+   - Windows 8.1
+
+* Ostinato
+  Ostinato は, OSS のパケット生成ツール.
+
+  クロスプラットフォームだ.以下からダウロード. Windows はバイナリが提供
+  されている.
+
+  - [[https://code.google.com/p/ostinato/wiki/Downloads?tm=2][Downloads - ostinato]]
+
+* Ostinato をつかってみる
+** 前準備
+  1. CIFS サーバに, test.txt ファイルをアップロード.test.txt には, Hello という文字列がかかれている.
+  2. そのパケットを WireShark で保存. ここで大事なことは, .pcap 形式で
+     保存すること.
+
+  CIFS サーバは以下の方法で立ち上げた.
+  - [[http://futurismo.biz/archives/2667][iPhone を CIFS サーバにするアプリ CIFS NQ | Futurismo]]
+  
+** Ostinato をつかう
+  - ostinato.exe を起動.
+
+* Special Thanks
+  - [[http://troushoo.blog.fc2.com/blog-entry-93.html][Wireshark でキャプチャしたパケットを編集し送信 - Ostinato]]
+  - [[http://trycatch.be/blogs/decaluwet/archive/2011/10/31/ostinato-capture-gt-edit-gt-replay.aspx][Ostinato capture > edit > replay - Tom Decaluw é]]

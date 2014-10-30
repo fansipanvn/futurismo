@@ -1,0 +1,61 @@
+#+BLOG: Futurismo
+#+POSTID: 2667
+#+DATE: [2014-10-30 木 12:38]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: CIFS, SMB, iPhone
+#+DESCRIPTION:iPhone を CIFS サーバにするアプリ CIFS NQ
+#+TITLE: iPhone を CIFS サーバにするアプリ CIFS NQ
+
+仕事で CIFS をつかっている.
+
+たとえば, カフェでダラダラしているときに, 
+急に CIFS のパケットが気になってしょうがなくなったとしよう.
+
+NotePC には Windows がはいっている.
+しかし, Windows のクライアントがあっても接続する CIFS サーバがないと,
+CIFS のパケットを見ることができない!
+
+VirtualBox に CentOS を入れて, その上に Samba サービスを立ち上げるとい
+うことを以前やった.
+
+- [[http://futurismo.biz/archives/1390][CentOS 上で SAMBA サーバを立ちあげて Windows からアクセスするためのメモ | Futurismo]]
+
+しかし, 今は仮想マシンを立ち上げる容量がないという不幸な状況.
+
+そんなもどかしさに悶え苦しんでいるひとのために朗報!
+
+iPhone を CIFS サーバにすればよい
+
+* iPhone を CIFS サーバにするアプリ
+** GoodReader
+   仕事効率化の定番アプリ, GoodReader に エクスプローラからアクセスする
+   ことができる.以下, リンク参照.
+
+   - [[http://samulife.com/iPhone/goodreader-webdav][iPhone GoodReader を PC のネットワークドライブに割り当てる方法!! ドラッグ&ドロップでファイル転送できる]]
+
+   しかし, この手順で Windows のエクスプローラからアクセスすると, 都合が
+   わるいことに気づく.それは, GoodReader のサポートしている SMB のバージョ
+   ンが 1 だったこと.
+
+   自分は, SMB2 のパケットが見たかった....
+
+** CIFS NQ
+   ということで, 次に探したのがこれ. CIFS NQ.
+   - [[https://itunes.apple.com/jp/app/id806015001][iTunes の App Store で配信中の iPhone, iPod touch, iPad 用 CIFS NQ]]
+     
+   開発した会社は, CIFS/SMB のリーディングカンパニーとか.
+   - [[http://www.visualitynq.com/?lang=jp][Visuality Systems - ホーム]]
+   
+   無料なので, さっそくインストールしてみた.
+   設定画面からサーバステータスを ON に設定することで, CIFS サーバ起動.
+
+   エクスプローラの URL 欄に IP を打ち込んで乗り込む. WireShark でパケッ
+   トキャプチャをすると, SMB2 だった.
+
+   おもわずニヤリ. 
+
+   これで, カフェで SMB2 のパケットをみることができるよになった.
+   
+* さいごに
+  誰トクな記事なんだろう....
