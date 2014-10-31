@@ -883,3 +883,11 @@ www.google.co.jp [173.194.126.216] へのルートをトレースしています
     何も通信を行わないでいると, 無通信で回線が切断されてしまったり, 
     TCP 接続がタイムアウトして切断されてしまったりするので, 
     キープ・アライブでこれを防ぐことができる.
+
+* ツール
+** Ostinato
+   Ostinato は, OSS のパケット生成ツール.
+
+   - [[https://code.google.com/p/ostinato/][ostinato - Packet/Traffic Generator and Analyzer - Google Project Hosting]]
+   - [[http://troushoo.blog.fc2.com/blog-entry-93.html][Wireshark でキャプチャしたパケットを編集し送信 - Ostinato]]
+   - [[http://trycatch.be/blogs/decaluwet/archive/2011/10/31/ostinato-capture-gt-edit-gt-replay.aspx][Ostinato capture > edit > replay - Tom Decaluw é]]

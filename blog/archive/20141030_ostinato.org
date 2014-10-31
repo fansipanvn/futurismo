@@ -14,16 +14,15 @@ WireShark でパケットキャプチャしたログから,
 
 Ostinato という OSS が利用できそうだ.
 
-- [[https://code.google.com/p/ostinato/][ostinato - Packet/Traffic Generator and Analyzer - Google Project Hosting]]
-
 ** Environment
    - Windows 8.1
 
 * Ostinato
   Ostinato は, OSS のパケット生成ツール.
 
-  クロスプラットフォームだ.以下からダウロード. Windows はバイナリが提供
-  されている.
+  - [[https://code.google.com/p/ostinato/][ostinato - Packet/Traffic Generator and Analyzer - Google Project Hosting]]
+
+  クロスプラットフォームだ.以下からダウロード. Windows はバイナリが提供されている.
 
   - [[https://code.google.com/p/ostinato/wiki/Downloads?tm=2][Downloads - ostinato]]
 
