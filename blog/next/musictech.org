@@ -7,7 +7,7 @@
 * はじめに
   最近 perfume がすごく好きになったので, よく perfume の曲をきいてる.
 
-  そんな中, DTM の講座を coursera で見つけたので, 受けてみた. 
+  そんな中, DTM の講座を coursera で見つけたので, Try してみた.
 
   中田ヤスタカさんのような曲がいつかつくれるようになる?!
 
@@ -28,8 +28,34 @@
   日本語化パッチ
   - [[https://github.com/chiepomme/REAPERJapanesePatcher/wiki][Home · chiepomme/REAPERJapanesePatcher Wiki · GitHub]]
 
-* API
-  - [[http://earsketch.gatech.edu/learning/earsketch-sample-library][Reference: EarSketch Sound Library « EarSketch]]
+* EarSketch
+ 音楽をつくるための Python API. 
+ - [[http://earsketch.gatech.edu/learning/earsketch-sample-library][Reference: EarSketch Sound Library « EarSketch]]
+ - http://earsketch.gatech.edu/earsketch2/
+
+ - My Account: http://earsketch.gatech.edu/media/profiles/view/2626
+
+** Desktop 環境
+   EarSketch は Online で動作するが, ローカル PC でも動作する.
+   以下に手順がある.
+   - [[http://earsketch.gatech.edu/uncategorized/archived-earsketch-downloads-2][Archived EarSketch Downloads « EarSketch]]
+
+** Hello world
+   もっとも基本的な記述.
+
+#+begin_src python
+from earsketch import * 
+
+init () 
+setTempo (120) 
+
+mySound = TECHNO_CLUB5THPAD_001
+fitMedia (mySound, 1, 1, 5)
+
+print 'Hello world!'
+
+finish () 
+#+end_src
 
 * 音源
   - http://freesound.org
@@ -47,5 +73,12 @@
 ** Special Thanks
 
 * memo
-  自動 piano 音楽.
+  自動 piano 音楽:
   - [[https://www.youtube.com/watch?v=f2gVhBxwRqg][Conlon Nancarrow, Study for Player Piano No. 21 (Canon X) - YouTube]]
+
+  世界初のコンピュータミュージック: イリアック組曲
+  - [[https://www.youtube.com/watch?v=n0njBFLQSk8&list=PL48E509DBEE4010DB&index=1][Lejaren Hiller - Illiac Suite for String Quartet - YouTube]]
+
+  Process Music スティーブ・ライヒ:
+  - [[http://www.youtube.com/watch?v=AnC5DhNqZ6w][Steve Reich's "Piano Phase" played by Blair McMillen and Stephen Gosling - YouTube]]
+  - 八重奏曲: [[http://www.youtube.com/watch?v=cGfUfu9vsj4#t=208][Steve Reich, Octet, Full Version, Jackson Pollock - YouTube]]
