@@ -1,0 +1,19 @@
+#+OPTIONS: toc:nil
+* Emacs Lisp
+
+* 遅延評価
+  - [[http://d.hatena.ne.jp/sugyan/20120103/1325594116][起動時に必ず読み込む必要ない関数なら autoload を使う - すぎゃーんメモ]]
+
+これだと, Emacs 起動時に require される.
+
+#+begin_src emacs-lisp
+(require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+#+end_src
+
+これだと, .js を開いたときに require される.
+
+#+begin_src emacs-lisp
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+#+end_src

@@ -151,6 +151,8 @@
 * Computational Investing
   アルゴリズム取引.
 
+  [[http://en.wikipedia.org/wiki/Algorithmic_trading][Algorithmic trading - Wikipedia, the free encyclopedia]]
+
 ** Motivations
    売買するときに「ためらい」や「迷い」がなく, 
    短時間の売買でもタイミングを逃さないというメリットがある一方,
@@ -170,15 +172,97 @@
    - [[http://www.itmedia.co.jp/enterprise/articles/0503/18/news107.html][優勝者は年利 332%--カブロボ・コンテストが残したもの - ITmedia エンタープライズ]]
    - [[http://www.jcfia.gr.jp/channel/gm_report/gm_report3.html][第 3 回 アルゴリズム取引がやってくる]]
 
+
+* テクニカル指標
+  過去のチャートから次の値動きの目安になる情報を抽出するための計算アルゴリズム.
+
+  トレンド・偏差・最高価格からの比率・市場心理等
+  様々な観点から指標が作成されて発表されている.
+
+  - [[http://ja.wikipedia.org/wiki/%E3%83%86%E3%82%AF%E3%83%8B%E3%82%AB%E3%83%AB%E6%8C%87%E6%A8%99%E4%B8%80%E8%A6%A7][テクニカル指標一覧 - Wikipedia]]
+
+** トレンド系指標
+   トレンドの方向性を判定する. 移動平均から派生した物など.
+
+** オシレーター系指標
+   過去の値動きから, 今の価格が高い位置にいるのか安い位置にいるのかを判定する. 
+   トレンドの転換点を判定する. パーセントで表示する物が多い.
+
+*** Bollinger Bands
+    今後の相場のレンジ (値幅) や反転を判断する指標です.
+    上下に一本づつバンドが引かれ上下幅は移動平均線を基準とした標準偏差で決まります.
+
+    買われすぎや売られすぎを判断することが出来る有効なテクニカル指標.
+    - [[http://www.k3.dion.ne.jp/~forex/tc/bl.htm][ボリンジャーバンド (Bollinger bands)-テクニカル分析指標解説]]
+    - [[http://www.gaitameonline.com/academy_chart02.jsp][FX 実戦チャート術 第 2 回 ボリンジャーバンド・ MACD|FX|外為オンライン  FX 取引 - あなたの為の, 外為を. ]]
+
+#+begin_src python
+Bollinger_val = (price - rolling_mean) / (rolling_std)
+#+end_src
+
 * 用語集
-** Retrun
-   投資を行うことで得られる収益.
+** adjusted close
+   調整後終値. 株式分割を考慮した株価.
 
-** Risk
-   リスク.
+   - [[http://www.yahoo-help.jp/app/answers/detail/p/546/a_id/45316/~/%E8%AA%BF%E6%95%B4%E5%BE%8C%E7%B5%82%E5%80%A4%E3%81%A8%E3%81%AF][Yahoo! ファイナンスヘルプ - 調整後終値とは]]
+   - [[http://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q10112859395][株について教えてください. 株価において「終値」と「修正後終値」があ... - Yahoo! 知恵袋]]
+** Back Test
+   バックテスト (Back Test) とは, システムトレードなどを利用する場合に
+   プログラムなどを利用して当該ストラテジーを過去の為替レートや株価な
+   どに当てはめた場合にどのような動きをするのかをチェックするテストのこと.
 
-   - リターン (収益) の振れ幅.
-   - 標準偏差.
+   - [[http://www.finance-dictionay.com/2012/02/post_886.html][バックテストとは]]
+
+** CAPM
+   ボートフォリオのための理論.
+   - [[http://ja.wikipedia.org/wiki/%E8%B3%87%E6%9C%AC%E8%B3%87%E7%94%A3%E4%BE%A1%E6%A0%BC%E3%83%A2%E3%83%87%E3%83%AB][資本資産価格モデル - Wikipedia]]
+
+#+begin_src language
+E (r)  =  rf  +  β (rM-rf )
+
+E (r):  任意の株式の期待リターン
+rf:  リスクフリー・レート
+β:  任意の株式のβ値
+rM-rf:マーケットリスク・プレミアム
+#+end_src
+
+
+*** 説明
+   ある資産の分散可能でないリスクが既に分かっていて, 
+   その資産をすでによく分散されたポートフォリオに組み入れる時に, 
+   要求されるリターンの理論的に適切な値 
+   (および, その資産の将来のキャッシュフローの期待値を見積もることが
+   できるならばその資産の価格) を決定するために用いられる.
+
+*** 資産価格
+   理論的には, その資産の価格の観測値が, 
+   CAPM によって導出された割引率を使って計算された価値と等しいならば, 
+   資産は適正に価格付けされている. 価格の観測値が計算された価値よりも高ければ,
+   その資産は過大評価されている. 
+   価格の観測値が計算された価値よりも低ければ, その資産は過小評価されている.
+** Efficient-market hypothesis.
+  効率的市場仮説.
+
+  市場参加者は利用可能なすべての情報を迅速に取り入れており, 
+  新規情報によって他の市場参加者より有利になるという状況は生じないため, 
+  市場の挙動はランダムウォークになるという仮説.
+
+  - [[http://en.wikipedia.org/wiki/Efficient-market_hypothesis][Efficient-market hypothesis - Wikipedia, the free encyclopedia]]
+  - [[http://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E5%B8%82%E5%A0%B4#.E5.8A.B9.E7.8E.87.E7.9A.84.E5.B8.82.E5.A0.B4.E4.BB.AE.E8.AA.AC][人工市場 - Wikipedia]]
+
+** Event study
+   企業の活動に関する何らかの情報の発表が, 
+   その企業の市場価値にどのような影響を与えるかという問題を分析・研究すること.
+
+   1. 影響を与える期間を設定する
+   2. 推定するモデルを決めて, 『起こらなかった状態』を推定する
+   3. 『実際に起こった状態』と 2. を比較する
+   4. 仮説検定する
+   5. 解釈する
+
+   参考:
+   - [[http://miyazakidesu.hatenablog.com/entry/2014/08/04/111449][(データ分析) イベント・スタディ ~ イベントが企業価値に与える影響を計る~ - 駆け出しコンサル日記. ]]
+   - [[http://money.infobank.co.jp/contents/A200098.htm][イベント・スタディ ~ インフォバンク  マネー百科]]
 
 ** Sharp Ratio
     シャープレシオ.
@@ -198,33 +282,22 @@
 
 *** Links
     - [[http://allabout.co.jp/gm/gc/8879/][シャープレシオは投資の効率性を示す指標 All About]]
-
 ** Short Selling
    投資対象である現物を所有せずに, 対象物を (将来的に) 売る契約を結ぶ行為.
 
    - [[http://ja.wikipedia.org/wiki/%E7%A9%BA%E5%A3%B2%E3%82%8A][空売り - Wikipedia]]
 
-** CAPM
-   ボートフォリオのための理論.
-   - [[http://ja.wikipedia.org/wiki/%E8%B3%87%E6%9C%AC%E8%B3%87%E7%94%A3%E4%BE%A1%E6%A0%BC%E3%83%A2%E3%83%87%E3%83%AB][資本資産価格モデル - Wikipedia]]
 ** Sytem Trade
    裁量を排し一定売買ルールに従って売買を行う方法.
    - [[http://ja.wikipedia.org/wiki/%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%83%88%E3%83%AC%E3%83%BC%E3%83%89][システムトレード - Wikipedia]]
-** Efficient-market hypothesis.
-  効率的市場仮説.
+** Retrun
+   投資を行うことで得られる収益.
 
-  市場参加者は利用可能なすべての情報を迅速に取り入れており, 
-  新規情報によって他の市場参加者より有利になるという状況は生じないため, 
-  市場の挙動はランダムウォークになるという仮説.
+** Risk
+   リスク.
 
-  - [[http://en.wikipedia.org/wiki/Efficient-market_hypothesis][Efficient-market hypothesis - Wikipedia, the free encyclopedia]]
-  - [[http://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E5%B8%82%E5%A0%B4#.E5.8A.B9.E7.8E.87.E7.9A.84.E5.B8.82.E5.A0.B4.E4.BB.AE.E8.AA.AC][人工市場 - Wikipedia]]
-
-** adjusted close
-   調整後終値. 株式分割を考慮した株価.
-
-   - [[http://www.yahoo-help.jp/app/answers/detail/p/546/a_id/45316/~/%E8%AA%BF%E6%95%B4%E5%BE%8C%E7%B5%82%E5%80%A4%E3%81%A8%E3%81%AF][Yahoo! ファイナンスヘルプ - 調整後終値とは]]
-   - [[http://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q10112859395][株について教えてください. 株価において「終値」と「修正後終値」があ... - Yahoo! 知恵袋]]
+   - リターン (収益) の振れ幅.
+   - 標準偏差.
 
 * 現代ポートフォリオ理論 (MPT)
   ハリー・マーコウィッツの論文からはじまった理論

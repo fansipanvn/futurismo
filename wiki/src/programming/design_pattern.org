@@ -258,6 +258,14 @@ struct FSM {
 #+end_src
 
 * Functional Programming
+** recursion
+   list 型のデータ構造を扱うときの手法.
+*** tail recursive
+
+** pattern matching
+   tuple 型のデータ構造を扱うときの手法.
+
+** Links
   - [[http://patternsinfp.wordpress.com/][Patterns in Functional Programming | Exploiting the relationship between data structure and program structure]]
 
 * Links

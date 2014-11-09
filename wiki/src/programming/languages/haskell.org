@@ -1,0 +1,76 @@
+#+OPTIONS: toc:nil
+* Haskell
+  純粋関数型言語.
+  - [[http://ja.wikipedia.org/wiki/Haskell][Haskell - Wikipedia]]
+
+* 文法
+** List
+
+#+begin_src haskell
+Prelude> head[1,2,3,4,5]
+1
+Prelude> tail [1,2,3,4,5]
+[2,3,4,5]
+Prelude> [1,2,3,4,5] !! 2
+3
+Prelude> take 3 [1,2,3,4,5]
+[1,2,3]
+Prelude> drop 3 [1,2,3,4,5]
+[4,5]
+Prelude> length [1,2,3,4,5]
+5
+Prelude> sum [1,2,3,4,5]
+15
+Prelude> [1,2,3] ++ [4,5]
+[1,2,3,4,5]
+Prelude> reverse[1,2,3,4,5]
+[5,4,3,2,1]
+#+end_src
+
+* ツール
+** Haskell Platform
+   Haskell 開発用の環境.
+  -  [[http://www.haskell.org/platform/doc/2013.2.0.0/start.html][Haskell Platform]]
+
+  ArchLinux には, haskell platform がない??
+  - [[https://wiki.archlinux.org/index.php/haskell][Haskell - ArchWiki]]
+  - [[https://sites.google.com/site/sbwhitecap/blog/2012/0401a][ArchLinux Haskell の開発環境を構築する - 白帽子研究室]]
+  - [[http://orumin.blogspot.jp/2013/12/archlinuxhaskell-platform.html][技術者見習いの独り言: ArchLinux で Haskell Platform!]]
+
+  AUR の haskell-platform を利用するのではなくて, 
+  以下をここにインストールするのがよいと, Arch Wiki には書いてある.
+
+ - ghc (ghc) - The compiler
+ - cabal-install (cabal-install) - A command line interface for Cabal and Hackage
+ - haddock (haddock) - Tools for generating documentation
+ - happy (happy) - Parser generator
+ - alex (alex) - Lexical analyzer generator
+
+#+begin_src bash
+% sudo pacman -S ghc cabal-install haddock happy alex
+#+end_src
+
+** ghc
+   Haskell コンパイラ.
+
+#+begin_src bash
+% sudo pacman -S ghc
+#+end_src
+
+** ghci
+   Haskell のコマンドラインインタプリタ.
+
+#+begin_src bash
+# 起動
+ghci test.hs
+
+# 再読み込み
+> :reload
+#+end_src
+
+** cabal
+   パッケージマネージャー.
+
+
+* Bookmarks
+  - [[http://www.slideshare.net/konn/haskell-6-32258528][数学プログラムを Haskell で書くべき 6 の理由]]

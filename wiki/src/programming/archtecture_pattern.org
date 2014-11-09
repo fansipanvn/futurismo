@@ -366,7 +366,7 @@ to a service handler by one or more inputs.
 ** Balking - 必要なかったら, やめちゃおう 
    前提条件が満たされていない場合は, (その時点での) 処理の実行をあきらめる.
 
-** Producer-Consumer - わたしが作り, あなたが使う 
+** Producer-Consumer
    スレッド間で処理の待ち合わせを行いながら処理を実行できる.
 
    「生産者」 (producer) スレッド群がデータを生成して「通信路」に追加し,
@@ -385,6 +385,10 @@ to a service handler by one or more inputs.
    - [[http://omiya6048.hatenablog.com/entry/2013/05/29/145253][Java で Producer-Consumer パターンを実践! - omiya6048's blog]]
    - [[http://en.wikipedia.org/wiki/Producer%E2%80%93consumer_problem][Producer – consumer problem - Wikipedia, the free encyclopedia]]
    - [[http://d.hatena.ne.jp/asakichy/20090701/1246407927#20090701f1][Publisher-Subscriber - Strategic Choice]]
+
+   POSA の課題では, BlockingQueue を利用した.
+   - [[http://e-class.center.yuge.ac.jp/jdk_docs/ja/api/java/util/concurrent/BlockingQueue.html][BlockingQueue (Java Platform SE 6)]]
+   - [[http://omiya6048.hatenablog.com/entry/2013/05/29/145253][Java で Producer-Consumer パターンを実践! - omiya6048's blog]]
 
    Ruby の例がある. Ruby では ConditionVariable の wait, broadcast を利用.
 

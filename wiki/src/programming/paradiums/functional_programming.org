@@ -1,63 +1,68 @@
 #+OPTIONS: toc:nil
 * Functional Programmming
-関数型プログラミング.
+  関数型プログラミング.
 
-- [[http://ja.wikipedia.org/wiki/%E9%96%A2%E6%95%B0%E5%9E%8B%E8%A8%80%E8%AA%9E][関数型言語 - Wikipedia]]
+  - [[http://ja.wikipedia.org/wiki/%E9%96%A2%E6%95%B0%E5%9E%8B%E8%A8%80%E8%AA%9E][関数型言語 - Wikipedia]]
 
-すべての計算や処理などを関数の定義の組み合わせとして記述していくタイプのプログラミング言語.
+  すべての計算や処理などを関数の定義の組み合わせとして
+  記述していくタイプのプログラミング言語.
 
-「同じ入力には必ず同じ出力を返す」「関数の評価が他の関数に影響を及ぼさない」など
-数学における関数と似た性質を持った関数の定義としてプログラミングを行い,
-プログラムの実行は記述された関数群の評価として行われる.
+  「同じ入力には必ず同じ出力を返す」「関数の評価が他の関数に影響を及ぼさない」など
+  数学における関数と似た性質を持った関数の定義としてプログラミングを行い,
+  プログラムの実行は記述された関数群の評価として行われる.
 
-- [[http://e-words.jp/w/E996A2E695B0E59E8BE8A880E8AA9E.html][関数型言語とは 【 functional language 】: IT 用語辞典]]
+  - [[http://e-words.jp/w/E996A2E695B0E59E8BE8A880E8AA9E.html][関数型言語とは 【 functional language 】: IT 用語辞典]]
 
-広義の意味では, What をコンピュータに示すもの (How を示さない).
-狭義の意味では, プログラミングの中で数学を用いたもの (Function, Relation).
+  広義の意味では, What をコンピュータに示すもの (How を示さない).
+  狭義の意味では, プログラミングの中で数学を用いたもの (Function, Relation).
 
-- 式と関数でプログラムを組み上げる (Use of MathMatics)
-- 関数を値として扱える (Higher-order programming)
-- 副作用を起こさない (Impliclite State, Stateless)
+  - 式と関数でプログラムを組み上げる (Use of MathMatics)
+  - 関数を値として扱える (Higher-order programming)
+  - 副作用を起こさない (Impliclite State, Stateless)
 
-- [[http://itpro.nikkeibp.co.jp/article/COLUMN/20110411/359286/?ST=develop&P=3][3 つのプログラミングのパラダイムを押さえておこう:ITpro]]
+  - [[http://itpro.nikkeibp.co.jp/article/COLUMN/20110411/359286/?ST=develop&P=3][3 つのプログラミングのパラダイムを押さえておこう:ITpro]]
 
-CTMCP, Capter 2
+  CTMCP, Capter 2
 
-狭義の意味では, 以下.
+** 定義
+   狭義の意味では,
+   - 状態をもたない
+   - 一時変数を持たない
+   - loop を持たない
+   - 手続的制御構造を持たない
 
-- 状態をもたない
-- 一時変数を持たない
-- loop を持たない
-- 手続的制御構造を持たない
+   広義の意味では, 
+   - 関数に forcusing したプログラミング.
 
-広義の意味では, 関数に forcusing したプログラミング.
+** 計算の考え方
+   命令型では, 計算の基本は蓄えられている値を変えること.
 
-Coursera functional programming
+   関数型では, 計算の基本は引数に関数を適用すること.
 
 ** Languaages
-- 狭義の意味では Lisp, XPath, Haskell,,,
-- 広義の意味では, Scheme, Clojure, ocame, F#, Scala, Smalltalk, Ruby...
+   - 狭義の意味では Lisp, XPath, Haskell,,,
+   - 広義の意味では, Scheme, Clojure, ocame, F#, Scala, Smalltalk, Ruby...
 
 * Immunity
-副作用を起こさない
+  副作用を起こさない
 
 ** Impliclite (declarative) State
-暗黙的状態. 宣言的状態ともいう.
+   暗黙的状態. 宣言的状態ともいう.
 
-- 関数の実行結果が値をもつ
-- 同じ入力には必ず同じ出力を返す.
-- Explicite State との対概念.
-- 参照透明性.
+   - 関数の実行結果が値をもつ
+   - 同じ入力には必ず同じ出力を返す.
+   - Explicite State との対概念.
+   - 参照透明性.
 
 ** Stateless
 
 ** impelative paradigm との違い
 
 *** impelative paradium
-- ループで反復構造を実行
-- 異なる関数の間で共有する状態を変更
+    - ループで反復構造を実行
+    - 異なる関数の間で共有する状態を変更
 
-#+begin_src scala
+    #+begin_src scala
 var i = 0
 while (i < args.length) {
   if (i != 0) {
@@ -67,63 +72,147 @@ while (i < args.length) {
   i += 1;
 }
 println ();
-
-#+end_src
+    #+end_src
 
 *** functional paradium
-- 再帰で反復構造を実行
-- arg は変数ではなくて, 不変な定数
+    - 再帰で反復構造を実行
+    - arg は変数ではなくて, 不変な定数
 
-#+begin_src scala
+    #+begin_src scala
 args.foreach (arg => println (arg))
 
 for (arg <- args)
   println (arg)
-#+end_src
+    #+end_src
+
+** List Comprehensions
+   リスト内包表記.
+   既存の集合から新しい集合を生成する.
+
+   - 生成器 ... 集合からの取り出しかたの定義
+   - ガード ... 生成する条件
 
 * Higher-order programming
-高階プログラミング.
+  高階プログラミング.
 
-procedure value をサポートしている言語でのプログラミング技術.
-関数を引数としてわたす能力.
+  procedure value をサポートしている言語でのプログラミング技術.
+  関数を引数としてわたす能力.
 
-Ruby では lambda, proc など. C 言語には関数ポインタがある. C 言語は 2 階.
+** クロージャ
+   引数以外の変数を実行時の環境ではなく, 
+   自身が定義された環境 (Static Scope) において解決する.
+  - [[http://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AD%E3%83%BC%E3%82%B8%E3%83%A3][クロージャ - Wikipedia]]
+
+  Procedure Value (Oz), Lexical Scoped Closure ともいう.
+
+  関数とそれを評価する環境のペアとも言える.
+  Procedure value は ペアでメモリ上の値にバインドされる.
+  - Procedure code
+  - Contextual environment
+
+*** Contextual environments
+    関数の内部で参照されていて, 関数の外部で宣言されているすべての
+    識別子の集合を,その関数の contextual environments という.
+
+*** Procedure code
+
+** 関数の order
+   帰納的な定義.
+
+   - first order
+   A function whose inputs and output are not functions.
+   - Nth order
+   if its inputs and output contain a function of maximum order N.
+
+   C 言語には関数ポインタがある. 
+   C 言語は 第二級オブジェクト. 2 階関数.
+
+*** 第一級オブジェクト
+    たとえば生成, 代入, 演算, (引数・戻り値としての) 受け渡しといった
+    その言語における基本的な操作を制限なしに使用できる対象のこと.
+   - [[http://ja.wikipedia.org/wiki/%E7%AC%AC%E4%B8%80%E7%B4%9A%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88][第一級オブジェクト - Wikipedia]]
+
+*** Genericity
+    引数に関数を受け取るもの.
+
+    #+begin_src oz
+declare
+fun {Map F L}
+   case L of nil then nil
+   [] H|T then {F H}{Map F T}
+   end
+end
+    #+end_src
+
+*** Instantiation
+    戻り値に関数を渡すもの.
+
+#+begin_src oz
+declare
+fun {MakeAdd A}
+   fun {$ X} X+A end
+end
+#+end_src
+
+** 関数オブジェクト.
+  関数をオブジェクトとしたもの.
+  関数閉包. 関数オブジェクト (function object) とも言う.
+  - [[http://ja.wikipedia.org/wiki/%E9%96%A2%E6%95%B0%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88][関数オブジェクト - Wikipedia]]
+
+*** ラムダ式
+
+**** Language
+     - Ruby: lambda{|x, y| x + y}
+     - Scala:
+     - Haskell:
+
+*** デリゲート
+    オブジェクトへの参照と関数オブジェクトへの参照をペアにして持つもの.
+    C#, Visual Basic .NET などの, .NET Framework のプログラミング言語にある機能.
+    - [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%AA%E3%82%B2%E3%83%BC%E3%83%88_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0)][デリゲート (プログラミング) - Wikipedia]]
 
 ** Annonimous Functions
-名前付けされずに定義された関数.
+   無名関数. 名前付けされずに定義された関数.
+   Function Literal (関数リテラル), 匿名関数といわれることもある.
 
-Function Literal (関数リテラル), 匿名関数といわれることもある.
-
-- [[http://ja.wikipedia.org/wiki/%E7%84%A1%E5%90%8D%E9%96%A2%E6%95%B0][無名関数 - Wikipedia]]
+   - [[http://ja.wikipedia.org/wiki/%E7%84%A1%E5%90%8D%E9%96%A2%E6%95%B0][無名関数 - Wikipedia]]
 
 *** メリット
-- 一度しか使わない関数の名前を付けなくて済む.
-- 名前の衝突を考えなくて済む.
-- 関数の引数などに直接渡せる
+    - 一度しか使わない関数の名前を付けなくて済む.
+    - 名前の衝突を考えなくて済む.
+    - 関数の引数などに直接渡せる
 
 *** Language
-- Ruby {|x, y| x + y}
-- Scala (x :Int, y :Int) =>  x + y , (x, y) => x + y
+    - Ruby {|x, y| x + y}
+    - Scala (x :Int, y :Int) =>  x + y , (x, y) => x + y
+    - Haskell \ x y -> x + y
+
+** 関数値, 関数オブジェクト, クロージャ, ラムダ式, 無名関数の整理
+   - 関数値:
+   - 関数オブジェクト:
+   - クロージャ: 変数束縛が閉じられた関数オブジェクト
+   - ラムダ式:
+   - 無名関数:
 
 ** Currying
-カリー化. 複数の引数をとる関数を,
+   カリー化. 複数の引数をとる関数を,
 
-- 引数が「もとの関数の最初の引数」で
-- 戻り値が「もとの関数の残りの引数を取り結果を返す関数」
+   - 引数が「もとの関数の最初の引数」で
+   - 戻り値が「もとの関数の残りの引数を取り結果を返す関数」
 
-であるような関数にすること.
+   であるような関数にすること.
 
-- [[http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%AA%E3%83%BC%E5%8C%96][カリー化 - Wikipedia]]
+   - [[http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%AA%E3%83%BC%E5%8C%96][カリー化 - Wikipedia]]
 
-部分適用を容易にすることが可能になるというメリットがある.
+   部分適用を容易にすることが可能になるというメリットがある.
 
 * invariant programming
   不変式プログラミング. 再帰的に呼ばれる度に, 数学的に真になる式.
 
-- [[http://ja.wikipedia.org/wiki/%E4%B8%8D%E5%A4%89%E6%9D%A1%E4%BB%B6][不変条件 - Wikipedia]]
+  - [[http://ja.wikipedia.org/wiki/%E4%B8%8D%E5%A4%89%E6%9D%A1%E4%BB%B6][不変条件 - Wikipedia]]
 
 ** Recursion
-再帰的プログラミング.
+   再帰的プログラミング.
 
 ** tail-recursion
    末尾再帰.
@@ -137,7 +226,7 @@ Function Literal (関数リテラル), 匿名関数といわれることもあ�
 
    tail-recursion の例. Factorial
 
-#+begin_src oz
+   #+begin_src oz
 declare
 fun {Fact N}
    local Fact1 in
@@ -161,38 +250,38 @@ fun {Fact N}
       end
    end
 end
-#+end_src
+   #+end_src
 
 *** State pattern
     関数型パラダイムでの実装
 
-#+begin_src oz
+    #+begin_src oz
 fun {While S}
   if {isDone S} then S
   else {While {Transform S}} end /* tail recursion */
 end
-#+end_src
+    #+end_src
 
-手続き型パラダイムでの実装
+    手続き型パラダイムでの実装
 
-   #+begin_src C++
+    #+begin_src C++
 state whileLoop (state s) {
   while (!isDone (s)) // 終了条件
     s = transform (s) // 再帰
   return s;
 }
-   #+end_src
+    #+end_src
 
 ** Accumulator
-C++ の, numeric ライブラリ (accumuulate など) で利用されている.
+   C++ の, numeric ライブラリ (accumuulate など) で利用されている.
 
-スタックのサイズが均一なことが特徴的.
+   スタックのサイズが均一なことが特徴的.
 
 ** Specification
 
 ** Principle of communicating vases
   
-#+begin_src oz
+   #+begin_src oz
 % principle of communicationg vases
 % n! = i! * a
 %    = i * (i-1)! * a
@@ -203,5 +292,19 @@ fun {Fact2 I A}
    if I==0 then A
    else {Fact I-1 I*A} end
 end
-#+end_src
+   #+end_src
+
+
+* Bookmarks
+  - [[https://docs.google.com/viewer?url=http://www.mew.org/~kazu/material/2010-func.pdf][Haskell 脳と Emacs Lisp 脳]]
+  - [[http://postd.cc/who-teaches-functional-programming/][【翻訳】 US トップ大学でも関数型プログラミングが余り教えられていない現実 | POSTD]]  
+
+  #+BEGIN_QUOTE
+  関数型言語でプログラミングすることで, 学生は, データが帰納的に定義出来
+  ることや, たくさんの興味深いアプリケーションが基本的にデータ型のパター
+  ンマッチを使っていることや, コードは本質的にデータとは異なることや, 副
+  作用を最小限に抑えることで連結が楽になることなど, 重要な見識を広げます.
+  これらは例えあなたが Java や C++ でプログラミングするつもりであったとして
+  も有用な見識なのです
+  #+END_QUOTE
 

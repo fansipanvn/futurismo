@@ -1,7 +1,10 @@
 #+OPTIONS: toc:nil
 * プログラミングパラダイム
+  - [[http://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%83%91%E3%83%A9%E3%83%80%E3%82%A4%E3%83%A0][プログラミングパラダイム - Wikipedia]]
 
-[[http://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%83%91%E3%83%A9%E3%83%80%E3%82%A4%E3%83%A0][プログラミングパラダイム - Wikipedia]]
+** 分類図
+   - [[http://www.info.ucl.ac.be/~pvr/paradigms.html][Classification of the principal programming paradigms]]
+     - https://docs.google.com/viewer?url=http://www.info.ucl.ac.be/people/PVR/paradigmsDIAGRAMeng108.pdf
 
 * Base Concepts
 ** Valiables
@@ -12,96 +15,44 @@
 
 *** Identifires and Store Entity
     x = 1 ということはどういうことかを説明する概念.
-
+    
     数学的な写像関係で x = 1 を説明しようとしている. { X -> x1=1 }みたいな感じ.
     x1 がメモリ上の実際の (束縛された) 値で, X がそれを指し示す識別子.
-
+    
 *** environments
     識別子と変数の写像関係を環境という.
-
+    
 *** single-assignment store
     単一代入格納域. 
     一度一つの値を束縛したら変更できない変数の集合.定数.
-
+    
     関数型プログラミングでは, この変数が当たり前.
-
+    
 ** Scope
    Valiable の有効範囲.
 
-- [[http://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%97][スコープ - Wikipedia]]
+  - [[http://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%97][スコープ - Wikipedia]]
 
 *** Lexical Scope
-    静的スコープ. 変数はブロックの内側のみ有効. Static Scoping とも.xs
+    静的スコープ. 変数はブロックの内側のみ有効. Static Scoping とも.
 
 *** Dynamic Scope
 
 ** State
-State (状態) とは, 必要とされる計算の途中結果を含む, 値の時系列.
-(sequence of values calculated progressively,
-which contains the intermediate results of a computation)
+   State (状態) とは, 必要とされる計算の途中結果を含む, 値の時系列.
+   (sequence of values calculated progressively,
+   which contains the intermediate results of a computation)
 
-状態の導入によって, プログラムに時間の概念を与える.
-
-** Operational Semantics
-wikipedia: [[http://ja.wikipedia.org/wiki/%E6%93%8D%E4%BD%9C%E7%9A%84%E6%84%8F%E5%91%B3%E8%AB%96][操作的意味論 - Wikipedia]]
-    
-プログラムの正しさを数学的に証明することを目指す.
-
-- Specification ・・・ プログラムの入力と出力を定義したものを
-- Program ・・・ プログラミング言語によってかかれたデータ
-
-Program が Specification を満たしているかを証明する. そのために,
-
-- Semantic (意味の対応付け)
-- Abstruct Machine (抽象化された実行環境)
-
-という概念を導入する. Program は kernel Language に分解され, Kernel Language
-の構成要素が Abstruct Machine と対応付けられる.
-
-#+begin_src language
-                             Semanitic 
-    Program --> kernel Language ----->  Specification
-                            Abstrucut Machine
-#+end_src
-
-プログラミングが正しいことは, 数学的帰納法 (mathematical induction) で証明する.
-
-*** example
-**** Specification
-      
-#+begin_src language
-0! = 1
-n! = n × (n-1)!  when n>0
-#+end_src
-
-**** Program
-
-#+begin_src oz
-fun {Fact N}
-   if N==0 then 1 else N*{Fact N-1} end
-end
-#+end_src
-
-**** Semanitc Expression
-
-#+begin_src language
-E={Fact → fact, N → n, R → r} (AbstcutMachine)
-σ={fact=(proc ... end,CE),n=0,r} (memory)
-CE={Fact → fact}. ( Contectual Environment)
-
-{Fact N R}, E, σ
-#+end_src
-
-広義の意味では, 関数に forcusing したプログラミング.
+   状態の導入によって, プログラムに時間の概念を与える.
 
 ** Evaluation Strategy
-評価戦略.
+   評価戦略.
 
-プログラミング言語や, ラムダ計算のような式から成る計算模型において,
-如何なる手順で, 評価すなわち式から値を得るか,
-という (通常決定的な) 規則群.
+   プログラミング言語や, ラムダ計算のような式から成る計算模型において,
+   如何なる手順で, 評価すなわち式から値を得るか,
+   という (通常決定的な) 規則群.
 
-[[http://ja.wikipedia.org/wiki/%E8%A9%95%E4%BE%A1%E6%88%A6%E7%95%A5][評価戦略 - Wikipedia]]
+   - [[http://ja.wikipedia.org/wiki/%E8%A9%95%E4%BE%A1%E6%88%A6%E7%95%A5][評価戦略 - Wikipedia]]
 
 *** Call-by-Name (名前呼び)
 *** Call-by-Value (値呼び)
@@ -144,6 +95,149 @@ CE={Fact → fact}. ( Contectual Environment)
       - Faults: リカバリ可能な例外, page fault, segmentation fault
       - Aborts: リカバリ不可能な例外, プログラムは強制終了.
 
+** Function
+   関数.
+
+*** CPMCP での定義
+    Procedure is a procedure value with a contextual environment.
+
+    Since procedures (and functions) are values, we can pass them 
+    as inputs to other functions and return them as outputs.
+
+*** C 言語 (手続き型パラダイム)
+    戻り値つきのサブルーチン.
+    - [[http://ja.wikipedia.org/wiki/C%E8%A8%80%E8%AA%9E#.E7.B6.99.E6.89.BF.E3.83.BB.E6.8B.A1.E5.BC.B5.E3.83.BB.E9.83.A8.E5.88.86.E9.9B.86.E5.90.88.28subset.29][C 言語 - Wikipedia]]
+
+    プログラム中で意味や内容がまとまっている作業をひとつの手続きとしたもの.
+    - [[http://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%96%E3%83%AB%E3%83%BC%E3%83%81%E3%83%B3][サブルーチン - Wikipedia]]
+
+*** Java (オブジェクト指向パラダイム)
+    あるクラスないしオブジェクトに所属するサブルーチン.
+    - [[http://ja.wikipedia.org/wiki/%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89_(%E8%A8%88%E7%AE%97%E6%A9%9F%E7%A7%91%E5%AD%A6)][メソッド (計算機科学) - Wikipedia]]
+
+    各オブジェクトが持っている自身に対する操作. 
+    オブジェクトは「データ」と「手続き」から成っているが, 
+    その「手続き」の部分に当たる.
+    - [[http://e-words.jp/w/E383A1E382BDE38383E38389.html][メソッドとは 〔 メンバ関数 〕 【 method 】 - 意味/ 解説/ 説明/ 定義 : IT 用語辞典]]
+
+*** Haskell (関数型パラダイム)
+    関数は, ある型の引数を他の型の引数の結果に変換する.
+    型とは, 互いに関連する値の集合.
+
+    - 参考: [[http://www.amazon.co.jp/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Haskell-Graham-Hutton/dp/4274067815][Amazon.co.jp: プログラミング Haskell: Graham Hutton, 山本 和彦: 本]]
+
+    数学に置ける関数の概念に近い. ある集合から集合への写像.
+    - [[http://ja.wikipedia.org/wiki/%E9%96%A2%E6%95%B0_(%E6%95%B0%E5%AD%A6)][関数 (数学) - Wikipedia]]
+    
+* Semantics
+  プログラム意味論. 
+  formal semantics, mathmatical semantics ともいう.
+
+  プログラムの正しさや正確さを理論づけるための方法.
+  - [[http://ja.wikipedia.org/wiki/%E5%BD%A2%E5%BC%8F%E7%9A%84%E6%A4%9C%E8%A8%BC][形式的検証 - Wikipedia]]
+
+  4 つのアプローチがある.
+
+** Operational semantics: 操作的意味論 
+   Explains a program in terms of its execution
+   on a rigorously defined abstract machine 
+
+   どのパラダイムにおいても適用できる.
+   - Kernel Language
+   - Abstract Machine
+
+   wikipedia: [[http://ja.wikipedia.org/wiki/%E6%93%8D%E4%BD%9C%E7%9A%84%E6%84%8F%E5%91%B3%E8%AB%96][操作的意味論 - Wikipedia]]
+    
+   プログラムの正しさを数学的に証明することを目指す.
+   - Specification ・・・ プログラムの入力と出力を定義したものを
+   - Program ・・・ プログラミング言語によってかかれたデータ
+
+   Program が Specification を満たしているかを証明する. そのために,
+   - Semantic (意味の対応付け)
+   - Abstruct Machine (抽象化された実行環境)
+
+   という概念を導入する. 
+   Program は kernel Language に分解され, 
+   Kernel Language の構成要素が Abstruct Machine と対応付けられる.
+
+   #+begin_src language
+                             Semanitic 
+    Program --> kernel Language ----->  Specification
+                            Abstrucut Machine
+   #+end_src
+
+   コンピュータの理論は, 
+   Kernel Language と Abstruct Machine によって
+   離散数学 (Discrete Mathmatics) を元に議論することが可能になる.
+
+*** Mathematical induction
+   recursive function (再帰関数) の正しさは,
+   数学的帰納法 (mathematical induction) で証明する.
+
+*** example
+**** Specification
+#+begin_src language
+0! = 1
+n! = n × (n-1)!  when n>0
+#+end_src
+
+**** Program
+#+begin_src oz
+fun {Fact N}
+   if N==0 then 1 else N*{Fact N-1} end
+end
+#+end_src
+
+**** Semanitc Expression
+#+begin_src language
+E={Fact → fact, N → n, R → r} (AbstcutMachine)
+σ={fact=(proc ... end,CE),n=0,r} (memory)
+CE={Fact → fact}. ( Contectual Environment)
+
+{Fact N R}, E, σ
+#+end_src
+
+  広義の意味では, 関数に forcusing したプログラミング.
+
+** Axiomatic semantics: 公理的意味論
+   Explains a program as an implication: if
+   certain propertieshold before the execution, then some other
+   properties will hold after the execution
+
+   状態があるモデルに適している.ステートマシンの証明.
+   数理論理学に基づいてプログラムの正当性を証明する手法.
+   - [[http://ja.wikipedia.org/wiki/%E5%85%AC%E7%90%86%E7%9A%84%E6%84%8F%E5%91%B3%E8%AB%96][公理的意味論 - Wikipedia]]
+
+*** Coq
+    定理証明支援系言語.
+    - [[http://ja.wikipedia.org/wiki/Coq][Coq - Wikipedia]]
+    - [[http://www.iij-ii.co.jp/lab/techdoc/coqt/][プログラミング Coq]]
+    - [[http://qnighy.hatenablog.com/entry/20101220/1292829222][Coq で独習するならどのページがいい? と聞かれたときのメモ - 簡潔な Q]]
+
+*** モデル検査
+   - [[http://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%87%E3%83%AB%E6%A4%9C%E6%9F%BB][モデル検査 - Wikipedia]]
+
+**** VDM
+     モデル検査用のソフトウェア
+    - [[http://www.vdmtools.jp/modules/tinyd1/index.php?id=1][VDM information web site - VDM とは?]]
+
+*** Proof-Driven Development (証明駆動開発)
+
+
+** Denotational semantics: 記述的意味論
+   Explains a program as a function over an
+   abstract domain, which simplifies certain kinds of mathematical
+   analysis of the program 
+
+   宣言的プログラミングの証明に適する.
+
+** Logical semantics: 論理的意味論
+   Explains a program as a logical model of a set
+   of logicalaxioms, so program execution is deduction: the result of
+   a program is a true property derived from the axioms
+
+   宣言的計算モデルに適する.
+
 * Declarative Programming
   宣言型プログラミング.
 
@@ -168,30 +262,38 @@ CE={Fact → fact}. ( Contectual Environment)
   [[file:functional_programming.org]]
 
 * Imperative Programming
-命令型プログラミング.
-計算をプログラム状態を変化させる文の列で記述するパラダイム.
+  命令型プログラミング.
+  計算をプログラム状態を変化させる文の列で記述するパラダイム.
 
-- [[http://ja.wikipedia.org/wiki/%E5%91%BD%E4%BB%A4%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][命令型プログラミング - Wikipedia]]
+  - [[http://ja.wikipedia.org/wiki/%E5%91%BD%E4%BB%A4%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][命令型プログラミング - Wikipedia]]
 
-[[Imperative Programming]] とは, Function paradigm に Cell の概念を加えたもの.
+  [[Imperative Programming]] とは, Function paradigm に Cell の概念を加えたもの.
 
-- Declarative Programing の対になる概念.
-  Imperative vs Declaretive is also Stateful vs Stateless
+  - Declarative Programing の対になる概念.
+    Imperative vs Declaretive is also Stateful vs Stateless
 
-#+begin_src language
-Imperative programming = Function paradigm + Cell
-#+end_src
+  #+begin_src language
+  Imperative programming = Function paradigm + Cell
+  #+end_src
 
-- 実行するたびに, 内部の状態によって結果がことなる.
+  - 実行するたびに, 内部の状態によって結果がことなる.
 
-- 手続き型と同義のこともある. (Procedural programming)
-手順やチェックリストはプログラムではないが,
-命令型プログラミングのスタイルに似たコンセプトである.
-それらのステップが命令であり, 実世界が状態を保持している.
+  - 械語は命令から構成される
+  低レベルから見た場合,
+  プログラムの状態はメモリの内容によって定義され, 文としては機械語の命令が相当する.
 
-- 械語は命令から構成される
-低レベルから見た場合,
-プログラムの状態はメモリの内容によって定義され, 文としては機械語の命令が相当する.
+
+** Procedural Programming
+  手続き型プログラミングと同義のこともある.
+
+  手順やチェックリストはプログラムではないが,
+  命令型プログラミングのスタイルに似たコンセプトである.
+  それらのステップが命令であり, 実世界が状態を保持している.
+
+  - [[http://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%96%E3%83%AB%E3%83%BC%E3%83%81%E3%83%B3][サブルーチン - Wikipedia]]
+
+  - 関数 (かんすう) 引数をとり結果として値を返すもの.
+  - 手続き (てつづき) 結果として値を返さないもの
 
 ** Explicite State
 明示的状態.
@@ -320,6 +422,8 @@ Function Paradigms と Imperative Paradigm の違いは,
 * Object-Oriented Programming
   オブジェクト指向型プログラミング.
   -> 記事独立.
+
+  [[file:object-oriented_programming.org]]
 
 * Detarministic Dataflow Programming
 決定性データフロープログラミング.
@@ -456,14 +560,14 @@ Distributed System ともいう.
 CTMCP, Chapter 5
 
 ** Port
-ボート. Named Steram.名前のつけられたストリーム.
+   ボート. Named Steram.名前のつけられたストリーム.
 
-以下の操作をもつ, Abstruct Data Structure.
+   以下の操作をもつ, Abstruct Data Structure.
 
-- Port Creation
-- Message Sending
-  - Asyncronize
-  - Syncronize
+   - Port Creation
+   - Message Sending
+     - Asyncronize
+     - Syncronize
 
 ** Agents
 通信モデルは大きく 2 つに分けられる.
@@ -562,6 +666,10 @@ Object-Oriented Programming と Multi-Agent Programming の 2 つのパラダイ
 English の Wikipedia に OOP と AOP の対応比較表がある.
 
 - http://en.wikipedia.org/wiki/Agent-oriented_programming
+
+* Mathmatics
+  数学との関係性.
+  - [[http://quanty.sakura.ne.jp/blog/2014/04/post-53.html][コンピュータと数学について - quanty のブログ]]
 
 * Books
 * Links

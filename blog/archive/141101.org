@@ -1,0 +1,83 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Linux
+#+TAGS: ArchLinux
+#+DESCRIPTION: ArchLinux でノート PC のバッテリを長持ちさせる方法
+#+TITLE: ArchLinux でノート PC のバッテリを長持ちさせる方法
+  最近引越しをした. 引っ越す前の町には電源カフェがたくさんあったのだが,
+  引越し先では, 電源が利用できるカフェが少ない.
+
+  なので, ノート PC (ArchLinux) のバッテリを長持ちさせる方法を模索してみた.
+
+  - [[https://wiki.archlinux.org/index.php/Power_Management_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Power Management (日本語) - ArchWiki]]
+
+* バッテリ確認
+** 残りバッテリーを調べる
+   apci コマンドで, バッテリ状態を見ることができる.
+
+   - [[https://wiki.archlinux.org/index.php/Laptop_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Laptop (日本語) - ArchWiki]]    
+
+   #+begin_src bash
+   $ apci -b
+   #+end_src
+
+** cbatticon
+   システムトレイ用のバッテリアイコン.
+
+* エコの設定
+  - [[https://wiki.archlinux.org/index.php/Power_saving][Power saving - ArchWiki]]
+  - [[http://en.kioskea.net/faq/2800-linux-extend-your-laptop-s-battery-life#laptop-mode-tools-functions][Linux – Extend your laptop's battery life]]
+
+** 明るさ調整
+   明るさを低くすることで, バッテリを長持ちできる.
+   - [[https://wiki.archlinux.org/index.php/Backlight_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Backlight (日本語) - ArchWiki]]
+
+*** xcalib
+    xcalib で, コマンドラインから明るさを調整できる.
+
+    #+begin_src bash
+    # 設定クリア
+    $ xcalib -c 
+
+    # 明るさを 70
+    $ xcalib -co 70 -a
+    #+end_src
+
+** laptop-mode-tools
+   laptop-mode-tools は, ラップトップ PC の電源を, 
+   使用状態に応じて適切に調整してくれるツール.
+
+   - Official: [[http://samwel.tk/laptop_mode/][Laptop Mode Tools]]
+   - [[https://wiki.archlinux.org/index.php/Laptop_Mode_Tools][Laptop Mode Tools - ArchWiki]]
+   - [[http://wiki.gentoo.org/wiki/Power_management/HOWTO/ja][電力管理/ ハウツー - Gentoo ]]
+
+   初期設定はここ. /etc/laptop-mode/laptop-mode.conf
+
+*** 起動方法
+    #+begin_src bash
+    # サービス登録
+    $ sudo systemctl enable laptop-mode
+    # 再起動
+    $ sudo systemctl restart laptop-mode
+
+    # 手動起動
+    $ sudo laptop-mode auto
+    # ステータス確認
+    $ sudo laptop-mode status
+    #+end_src
+
+*** 追加インストール
+   - apcid で laptop-mode-tools から 電源管理. 
+   - hdparm で Hard Disk の回転数をセーブ.
+
+** バッテリーが少なくなったらサスペンド
+   以下を記述することで, バッテリが少なくなったときに,
+   自動的にサスペンド状態にする.
+
+   #+begin_src bash
+   /etc/udev/rules.d/99-lowbat.rules
+
+   # Suspend the system when battery level drops to 2% or lower
+   SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="2", RUN+="/usr/bin/systemctl suspend"
+   SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="1", RUN+="/usr/bin/systemctl suspend"
+   SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="0", RUN+="/usr/bin/systemctl suspend"
+   #+end_src

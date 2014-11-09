@@ -75,18 +75,41 @@ class InterfaceImpl implements Interface1, interface2, interface3 {
    - [[http://www.javaroad.jp/java_thread3.htm][Java の道:スレッド (3. スレッドの作成)]]
 
 *** Thread の継承
+    Thread クラスを利用する.
+    #+begin_src java
+public class MyThread extends Thread {
+	public void run () {
+		// code to run
+	}
+}
+
+Mythread myThread = new MyThread ();
+myThread.start ();
+    #+end_src
+
 *** Runnable I/F の実装
-    スレッドを実装するクラスが別のクラスのサブクラスでなければならない
-    時に Runnable インタフェースを使用. Java は多重継承をサポートしていない.
+    スレッドを実装するクラスが
+    別のクラスのサブクラスでなければならない時に Runnable インタフェースを使用する. 
+    Java は多重継承をサポートしていないので.
 
-1. Runnable インタフェースを実装したクラスを作成する.
-2. そのクラスで run メソッドを実装する.
-3. そのクラスのインスタンスを作成する.
-4. そのインスタンスを引数としたコンストラクタで Thread クラスのインスタンスを作成する.
-5. その Thread クラスのインスタンスの start メソッドを呼び出す.
+#+begin_src java
+public interface Runnable {
+	public void run ();
+}
 
-    [[http://www.techscore.com/tech/Java/JavaSE/Thread/2-2/][2. スレッドの実行 (2) | TECHSCORE (テックスコア)]]
-  
+public class Myrunnable implements Runnable {
+	public void run () {
+		// code to run
+	}
+}
+
+Myrunnable myRunnable = new Myrunnable ();
+new Thread (myRunnable).start ();
+#+end_src
+
+
+    - [[http://www.techscore.com/tech/Java/JavaSE/Thread/2-2/][2. スレッドの実行 (2) | TECHSCORE (テックスコア)]]
+
 * Java Servlets
   サーバ上でウェブページなどを動的に生成したりデータ処理を行うために,
   Java で作成されたプログラム及びその仕様.JSP.

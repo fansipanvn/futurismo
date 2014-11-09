@@ -1,0 +1,108 @@
+#+BLOG: Futurismo
+#+POSTID: 2675
+#+DATE: [2014-11-08 土 15:26]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: Java,JUnit
+#+DESCRIPTION:コマンドラインから JUnit を利用する方法を調べてみた.
+#+TITLE: コマンドラインから JUnit を使う方法
+
+最近, Eclipse が嫌いになってしまったので, 
+コマンドラインから JUnit を利用する方法を調べてみた.
+
+** Environment
+  - ArchLinux
+  - JUnit 4.11
+
+* 事前準備
+  JUnit をダウンロード.
+  - [[https://github.com/junit-team/junit/wiki/Download-and-Install][Download and Install · junit-team/junit Wiki · GitHub]]
+
+  適当なフォルダに junit.jar を配置したあとに, CLASSPATH を通す.
+
+  #+begin_src bash
+export JUNIT_HOME = /usr/share/java
+export CLASSPATH = $JUNIT_HOME/junit.jar:$CLASSPATH
+#+end_src
+
+* コマンドラインから実行
+  以下のソースを動かしてみる. ここでは, Lab2Test.java というファイル名.
+
+#+begin_src java
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+public class Lab2Test {
+	public static int num () {
+		return 10;
+	}
+
+	@Test
+	public void test () {
+		assertEquals (10, num ());
+	}
+}
+#+end_src
+
+コンパイルは普通に実施.
+
+#+begin_src bash
+javac Lab2Test.java
+#+end_src
+
+コマンドラインから実行するには, 
+java org.junit.runner.JUnitCore [クラス名] という書き方をして実行する.
+
+#+begin_src bash
+$ java org.junit.runner.JUnitCore Lab2Test
+JUnit version 4.11
+.
+Time: 0.004
+
+OK (1 test)
+#+end_src
+
+クラスが増えてきたら, プログラムにクラス名を書く方法もある.
+以下, 参照.
+
+- https://github.com/junit-team/junit/wiki/Test-runners
+
+* Ant を利用する
+  すこし大きなコードを扱うときはビルドツールとの連携が役に立つ.
+  ここでは, ant を利用してみる.
+
+  build.xml を作成.
+
+  JUnit で必要な情報は, ここが詳しい.
+  - [[http://www.techscore.com/tech/Java/ApacheJakarta/Ant/7-2/][7. 基本的なタスク (2) | TECHSCORE (テックスコア)]]
+
+#+begin_src xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Lab2" default="compile" basedir=".">
+  <target name="compile">
+    <javac srcdir="."/> 
+  </target>
+
+  <target name="test" depends="compile" >
+    <junit>
+      <formatter type="plain" usefile="false" />      
+      <classpath>
+      	<pathelement location="." />
+      </classpath>
+      <test name="Lab2Test" />
+    </junit>
+  </target>
+</project>
+#+end_src
+
+エラー詳細を表示するためには,
+<formatter type="plain" usefile="false" /> の 1 行が必要.
+
+** Emacs で利用する
+   Emacs で ant を実行するときは, -emacs オプションをつける
+
+   #+begin_src bash
+   $ ant -emacs test
+   #+end_src
+
+   エラーした場合, エラー箇所にジャンプできる.

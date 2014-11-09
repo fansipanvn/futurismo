@@ -1,5 +1,5 @@
+#+OPTIONS: toc:nil
 * ArchLinux
-
 ** システムログ
    syslog-ng を入れる. /var/log/xxx にログされる.
    
@@ -9,4 +9,237 @@ $ sudo systemctl enable syslog-ng
 $ sudo reboot
 #+end_src
 
+* システム管理
+** systemd
 
+    システム管理のためのライブラリ
+   - [[https://wiki.archlinux.org/index.php/Systemd_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][systemd (日本語) - ArchWiki]]
+
+** システム情報ビューア
+*** alsi 
+    Arch Linux のシステム情報ツール.
+
+    #+begin_src yaml :tangle yes
+    - name: install alsi
+      pacman: name=alsi
+    #+end_src
+
+** 電源管理
+   - [[https://wiki.archlinux.org/index.php/Power_Management_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Power Management (日本語) - ArchWiki]]
+
+*** エコ
+    - [[https://wiki.archlinux.org/index.php/Power_saving][Power saving - ArchWiki]]
+    - [[http://en.kioskea.net/faq/2800-linux-extend-your-laptop-s-battery-life#laptop-mode-tools-functions][Linux – Extend your laptop's battery life]]
+
+*** laptop-mode-tools
+    - Official: [[http://samwel.tk/laptop_mode/][Laptop Mode Tools]]
+    - [[https://wiki.archlinux.org/index.php/Laptop_Mode_Tools][Laptop Mode Tools - ArchWiki]]
+    - [[http://wiki.gentoo.org/wiki/Power_management/HOWTO/ja][電力管理/ ハウツー - Gentoo ]]
+
+    初期設定はここ. /etc/laptop-mode/laptop-mode.conf
+
+**** 起動方法
+     #+begin_src bash
+     # サービス登録
+     $ sudo systemctl enable laptop-mode
+     # 再起動
+     $ sudo systemctl restart laptop-mode
+
+     # 手動起動
+     $ sudo laptop-mode auto
+     # ステータス確認
+     $ sudo laptop-mode status
+     #+end_src
+
+**** 追加インストール
+    - apcid で laptop-mode-tools から 電源管理. 
+    - hdparm で Hard Disk の回転数をセーブ.
+
+*** 残りバッテリーを調べる
+    - [[https://wiki.archlinux.org/index.php/Laptop_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Laptop (日本語) - ArchWiki]]    
+
+    #+begin_src bash
+    $ apci -b
+    #+end_src
+
+*** バッテリーが少なくなったらサスペンド
+
+    #+begin_src bash
+    /etc/udev/rules.d/99-lowbat.rules
+
+    # Suspend the system when battery level drops to 2% or lower
+    SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="2", RUN+="/usr/bin/systemctl suspend"
+    SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="1", RUN+="/usr/bin/systemctl suspend"
+    SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="0", RUN+="/usr/bin/systemctl suspend"
+    #+end_src
+
+    apcid を入れる.
+
+    #+begin_src bash
+    $ sudo pacman -S acpid
+    $ sudo systemctl enable acpid
+    #+end_src
+
+** 明るさ調整
+   - [[https://wiki.archlinux.org/index.php/Backlight_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Backlight (日本語) - ArchWiki]]
+
+*** xcalib
+    xbacklight が動かないので, こっちを入れた.
+
+    #+begin_src bash
+    # 設定クリア
+    $ xcalib -c 
+
+    # 明るさを 70
+    $ xcalib -co 70 -a
+    #+end_src
+
+*** cbatticon
+    システムトレイ用のバッテリアイコン.
+
+* Applications/Utilities
+  主にユーティリティ管理. 簡単な備忘録をする.
+
+  - [[https://wiki.archlinux.org/index.php/List_of_Applications/Utilities_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][List of Applications/Utilities (日本語) - ArchWiki]]
+
+** FTP
+*** FileZilla
+   GUI の FTP クライアント.
+
+#+begin_src yaml :tangle yes
+    - name: install FileZilla
+      pacman: name=filezilla
+#+end_src
+
+*** ncftp
+   CLI の FCP クライアント.
+
+  - [[http://www.pxt.jp/ja/diary/article/228/][pxt ncftp コマンドでフォルダ以下全部を再帰的に一括アップロードする]]
+  - http://www.ncftp.com/ncftp/doc/ncftpput.html
+  - [[http://kazmax.zpp.jp/cmd/n/ncftp.1.html][ncftp - コマンド (プログラム) の説明 - Linux コマンド集 一覧表]]
+
+#+begin_src yaml :tangle yes
+    - name: install ncftp
+      pacman: name=ncftp
+#+end_src
+
+接続したあとに bookmark で保存.
+
+#+begin_src language
+ncftp -u username -p passoword hostname
+#+end_src
+
+** PDF
+*** pdfgrep
+    PDF を grep するツール.
+
+    #+begin_src yaml :tangle yes
+    - name: install pdfgrep
+      pacman: name=pdfgrep
+    #+end_src
+** ブラウザ
+*** Firefox
+    - [[https://wiki.archlinux.org/index.php/Firefox_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][Firefox (日本語) - ArchWiki]]
+
+    HTML5 で音が出ないときは, gstreamer0.10-ffmpeg を入れる
+
+    #+begin_src yaml :tangle yes
+    - name: install gstreamer0.10-ffmpeg
+      pacman: name=gstreamer0.10-ffmpeg
+    #+end_src
+** スクリーンショット
+*** scrot
+    - [[https://www.archlinux.org/packages/community/i686/scrot/][Arch Linux - scrot 0.8-7 (i686)]]
+
+    #+begin_src yaml :tangle yes
+    - name: install scrot
+      pacman: name=scrot
+    #+end_src
+
+** クリップボード管理
+*** anamnesis
+    yaourt から. これは, xclip も必要.
+
+** 圧縮・解凍
+*** zip 
+    圧縮ツール
+    #+begin_src yaml :tangle yes
+    - name: install zip
+      pacman: name=zip
+    #+end_src
+
+*** unzip
+    定番ツール. zip 拡張子の解凍.
+
+    #+begin_src yaml :tangle yes
+    - name: install unzip
+      pacman: name=unzip
+    #+end_src
+
+*** p7zip
+    7-zip のコマンドライン. 7z 拡張子の解凍で必要.
+
+    - [[https://wiki.archlinux.org/index.php/P7zip_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][p7zip (日本語) - ArchWiki]]
+
+    #+begin_src yaml :tangle yes
+    - name: install p7zip
+      pacman: name=p7zip
+    #+end_src
+
+** Instant Messenger
+*** bitlbee
+    - [[https://wiki.archlinux.org/index.php/bitlbee][Bitlbee - ArchWiki]]
+    - [[http://www.emacswiki.org/emacs/BitlBee][EmacsWiki: Bitl Bee]]
+
+** ツールバー
+*** trayer
+
+    #+begin_src yaml :tangle yes
+    - name: install trayer
+      pacman: name=trayer
+    #+end_src
+
+    .profile に追記.
+
+    #+begin_src language
+    trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --width 10 --transparent true --tint 0x000000 --height 14 &
+    #+end_src
+
+*** NetworkManager
+    - [[https://wiki.archlinux.org/index.php/NetworkManager_(%E6%97%A5%E6%9C%AC%E8%AA%9E)][NetworkManager (日本語) - ArchWiki]]
+
+    #+begin_src yaml :tangle yes
+    - name: install networkmanager
+      pacman: name=networkmanager
+    #+end_src
+
+    GUI として, GNOME の network-manager-applet を入れる.
+
+    gnome-keyring でパスワード保存.
+
+    #+begin_src yaml :tangle yes
+    - name: install network-manager-applet
+      pacman: name=network-manager-applet, gnome-keyring
+    #+end_src
+
+** ファイルマネージャ
+*** worker
+    x window system のためのファイラ
+
+    - [[http://www.boomerangsworld.de/cms/worker/index.html][Worker file manager]]
+** Office
+*** LibreOffice
+    定番の Office Tools
+
+    #+begin_src yaml :tangle yes
+    - name: install LibreOffice
+      pacman: name=libreoffice-ja
+    #+end_src
+
+** 未分類
+*** IM
+    ibus-anthy
+
+*** ag 
+   The Silver Searcher. 高速 grep
+  - https://github.com/ggreer/the_silver_searcher

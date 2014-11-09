@@ -45,3 +45,40 @@ development kit という, mingw をベースにしたパッケージを入れ�
 
 http://rubyinstaller.org/downloads/
 
+
+* Functional Programming
+  Ruby で関数型っぽいことをする.
+
+** list, tuple
+   Ruby には, Array しかない. [] で表現.
+
+*** list comprehension
+    - [[http://www.xmisao.com/2013/11/21/learning-haskell-10.html][もし Rubyist が Haskell を学んだら (10) リスト内包表記 -- ぺけみさお]]
+
+*** collect, map, select
+    条件にあう配列を生成する.
+
+#+begin_src ruby
+def sum100_i
+  rslt = 0
+  for i in 0..100 do
+    rslt += i * i
+  end
+  rslt
+end
+
+def sum100_f
+  (0..100).collect {|i| i * i }.inject (:+)
+end
+#+end_src
+
+** proc, lambda, curry
+   Ruby における closure.
+   - [[http://futurismo.biz/archives/2472][Ruby の無名関数についての整理メモ | Futurismo]]
+
+** pattern match
+   - [[http://qiita.com/egisatoshi/items/38f7f8aef32ac67ccd4b][Ruby に Haskell よりも強力なパターンマッチを実装した - Qiita]]
+
+** Bookmark
+   - [[http://yuroyoro.hatenablog.com/entry/2012/08/08/201720][「関数型 Ruby 」という病 (1) - Symbol#to_proc, Object#method - ( ꒪⌓꒪) ゆるよろ日記]]
+   - [[http://www.xmisao.com/tags/learning_haskell/][learning_haskell タグのエントリ一覧 -- ぺけみさお]]

@@ -18,7 +18,19 @@
   - [[http://wiki.scipy.org/Tentative_NumPy_Tutorial][Tentative NumPy Tutorial -]]
   - [[http://www.kamishima.net/mlmpyja/nbayes1/ndarray.html][NumPy 配列の基礎 - 機械学習の Python との出会い]]
   - [[http://daemon.ice.uec.ac.jp/~shouno/2012.Programming/NumpyBasic.html][4. Numpy によるデータ行列の取り扱い - 2012.ProgramingLanguage 0.1 documentation]]
+  - [[http://qiita.com/ynakayama/items/8ed2854bcc3c3633345b][無料で読めるデータ分析に役立つ Python の電子書籍まとめ - Qiita]]
 
 * Pandas
   Python Data Analysis Library.http://pandas.pydata.org/
-  
+
+  Ruby の R でできることを Python で実現するためのライブラリ.
+  Pandas の内部で Numpy を利用していて,
+  Numpy は C 言語でかかれているため, R よりも計算が高速.
+
+** dataframe
+   行列をあつかうための pandas の機能.
+   - 公式: [[http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html][pandas.DataFrame - pandas 0.14.1 documentation]]
+
+   - [[http://blog.kzfmix.com/entry/1388138505][逆引き Pandas (DataFrame 編)]]
+   - [[http://qiita.com/wwacky/items/095bcac7cc450dc3232a][Pandas でデータフレームを条件指定で参照する - Qiita]]
+   - [[http://tanopy.blog79.fc2.com/blog-entry-105.html][たのしい Python Pandas.DataFrame に行や列を追加する]]

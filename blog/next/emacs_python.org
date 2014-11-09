@@ -38,7 +38,6 @@
                         (setq tab-width 4)))
 #+end_src
 
-** TODO とじ括弧挿入
 
 * コードリーディング
 ** helm-etags-plus
@@ -89,7 +88,7 @@ $ ctags -o TAGS *.py
    - [[https://github.com/syohex/emacs-anzu][syohex/emacs-anzu]]
 
 ** iedit
-   C-:から気軽に同じキーワードを編集できる.
+   C-;から気軽に同じキーワードを編集できる.
    - [[http://www.emacswiki.org/emacs/Iedit][EmacsWiki: Iedit]]
 
 ** TODO Ropemacs
@@ -102,11 +101,10 @@ $ ctags -o TAGS *.py
   - [[http://qiita.com/yuu116atlab/items/2a62cb880ac863dcc8ef][emacs-jedi の install - Qiita]]
 
 ** TODO Pydoc
-
 ** TODO ac-python
    auto-complete の python 強化版.
 
-** TODO quickrun
+** quickrun
    quickrun を利用すれば, python コードを Emacs から実行可能.
    - https://github.com/syohex/emacs-quickrun
 
@@ -126,7 +124,6 @@ $ ctags -o TAGS *.py
 ** TODO flymake
 ** TODO pyflakes
 ** TODO PyLint
-
 
 * さいごに
 ** Environment

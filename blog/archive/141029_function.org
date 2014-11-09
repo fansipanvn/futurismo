@@ -1,0 +1,84 @@
+#+BLOG: Futurismo
+#+POSTID: 2664
+#+DATE: [2014-10-29 水 22:29]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 日記
+#+TAGS: Haskell, 数学
+#+DESCRIPTION:  数学での関数とプログラミングでの関数についての気づき
+#+TITLE: 数学での関数とプログラミングでの関数
+
+* 関数についての違和感
+  大学では, 応用数学を専攻していた.
+  
+  大学でならった関数の定義は, ある集合から別の集合への写像だった.
+  - [[http://ja.wikipedia.org/wiki/%E9%96%A2%E6%95%B0_(%E6%95%B0%E5%AD%A6)][関数 (数学) - Wikipedia]]
+
+  就職して, C 言語でプログラムを書くようになってからずっと,
+  どうも関数にたいして違和感を抱いてきた.
+
+  なんでこれが関数なんだ?? 
+
+  #+begin_src c
+  int main (void) {
+    printf ("Hello, World!");
+    return 0;
+  }
+  #+end_src
+  
+* Haskell における関数の定義
+  最近, プログラミング Haskell という本を読んだ.
+
+#+BEGIN_HTML
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Haskell-Graham-Hutton/dp/4274067815%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4274067815' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/41pybn9bpCL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Haskell-Graham-Hutton/dp/4274067815%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4274067815' rel='nofollow' target='_blank'>プログラミング Haskell</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 14.10.29</div><div class='amazlink-detail'>Graham Hutton<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Haskell-Graham-Hutton/dp/4274067815%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4274067815' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00q0724.n763w947.g00q0724.n763x2b4/?pc=http%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F6239337%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Frms%2Fmsv%2FItem%3Fn%3D6239337%26surl%3Dbook' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
+#+END_HTML
+
+  その中での関数の定義を読み, 自分が思ってきた関数のイメージと一致した.
+
+#+BEGIN_QUOTE
+    関数は, ある型の引数を他の型の引数の結果に変換する.
+    型とは, 互いに関連する値の集合.
+#+END_QUOTE
+  
+  これだ! と思った. 
+
+  これが大学でならった関数の定義だ.
+  関数型言語というのは数学に近いときいていたが, それを感じた瞬間だった. 
+
+  うれしかったので, 今回の記事にしてみた.
+  もっと, 関数型言語について知りたいと思った.
+
+* C 言語と Java における関数の定義
+  C 言語 (手続き型) と Java (オブジェクト指向型) における関数の定義について
+  も, Wikipedia で調べてみたので, 書いておく.
+
+  関数型における関数とは, 意味するところは違う.
+  これが, 違和感の正体だった.
+
+** C 言語 (手続き型パラダイム)
+
+#+BEGIN_QUOTE
+戻り値つきのサブルーチン.
+#+END_QUOTE
+
+   - [[http://ja.wikipedia.org/wiki/C%E8%A8%80%E8%AA%9E#.E7.B6.99.E6.89.BF.E3.83.BB.E6.8B.A1.E5.BC.B5.E3.83.BB.E9.83.A8.E5.88.86.E9.9B.86.E5.90.88.28subset.29][C 言語 - Wikipedia]]
+
+
+#+BEGIN_QUOTE
+プログラム中で意味や内容がまとまっている作業をひとつの手続きとしたもの.
+#+END_QUOTE
+   
+   - [[http://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%96%E3%83%AB%E3%83%BC%E3%83%81%E3%83%B3][サブルーチン - Wikipedia]]
+
+** Java (オブジェクト指向パラダイム)
+#+BEGIN_QUOTE
+あるクラスないしオブジェクトに所属するサブルーチン.
+#+END_QUOTE
+   
+   - [[http://ja.wikipedia.org/wiki/%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89_(%E8%A8%88%E7%AE%97%E6%A9%9F%E7%A7%91%E5%AD%A6)][メソッド (計算機科学) - Wikipedia]]
+
+#+BEGIN_QUOTE
+各オブジェクトが持っている自身に対する操作. 
+オブジェクトは「データ」と「手続き」から成っているが, その「手続き」の部分に当たる.
+#+END_QUOTE
+
+   - [[http://e-words.jp/w/E383A1E382BDE38383E38389.html][メソッドとは 〔 メンバ関数 〕 【 method 】 - 意味/ 解説/ 説明/ 定義 : IT 用語辞典]]

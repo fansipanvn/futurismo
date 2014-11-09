@@ -1,0 +1,8 @@
+#+OPTIONS: toc:nil
+* Algorithms
+
+* Bookmarks
+** coursera Algorithms
+  - Source: [[http://algs4.cs.princeton.edu/code/][Java Algorithms and Clients]]
+  - eBook: [[http://algs4.cs.princeton.edu/home/][ Algorithms, 4th Edition by Robert Sedgewick and Kevin Wayne]]
+

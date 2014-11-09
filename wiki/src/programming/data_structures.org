@@ -1,15 +1,54 @@
 #+OPTIONS: toc:nil
 * データ構造
+  プログラミングにおける代表的なデータ構造についてまとめる.
+
+** データ構造とは
+   データの集まりをコンピュータの中で効果的に扱うため, 
+   一定の形式に系統立てて格納するときの形式.
+
+  - [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%BC%E3%82%BF%E6%A7%8B%E9%80%A0][データ構造 - Wikipedia]]
+
+** index
+    - 配列
+      - スタック
+      - キュー
+      - 連想配列
+        データと別のデータやデータ構造を一対一に関連付けて格納する
+        - ハッシュテーブル
+        - ルックアップテーブル
+    - 線形リスト
+      データが次の (あるいは前の) データへの参照を持つ.
+      - グラフ
+        データが任意の他のデータへの参照を持つ.
+        - 木構造
+          一つの頂点から樹状に枝分かれしたグラフ.
+
+* Record
+  データと別のデータやデータ構造を一対一に関連付けて格納するもの.
+
+  もっとも基本的なデータ型.
+  - Atom
+  - Tuple
+  - List
 
 * List
+* Tuple,Struct
+  異なるデータ型であっても格納できる.
+  ベクトルやリストは型がすべて同じものしか格納できない.
+  - [[http://ja.wikipedia.org/wiki/%E3%82%BF%E3%83%97%E3%83%AB][タプル - Wikipedia]]
+
+  Record, Struct, 構造体と同義で利用されることもある.
+  - [[http://ja.wikipedia.org/wiki/%E6%A7%8B%E9%80%A0%E4%BD%93][構造体 - Wikipedia]]
+  - [[http://stackoverflow.com/questions/4212265/tuples-vs-records][data structures - tuples vs records - Stack Overflow]]
 * Tree
+   
 * Stream
-要素は遅延評価される。そのため、ストリームは無限の長さをもつことができる。
+  要素は遅延評価される. そのため, ストリームは無限の長さをもつことができる.
 
-- [[http://docs.scala-lang.org/ja/overviews/collections/concrete-immutable-collection-classes.html][具象不変コレクションクラス - Scala Documentation]]
+  - [[http://docs.scala-lang.org/ja/overviews/collections/concrete-immutable-collection-classes.html][具象不変コレクションクラス - Scala Documentation]]
 
-For streams, this is a by-name parameter. 
-That’s why the second argument to Stream.cons is not evaluated atthe point of call.
+  For streams, this is a by-name parameter. 
+  That's why the second argument to Stream.cons is not evaluated atthe point of call.
 
-Instead, it will be evaluated each time someone calls
-tail on a Stream object.
+  Instead, it will be evaluated each time someone calls
+  tail on a Stream object.
