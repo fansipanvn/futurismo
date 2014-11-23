@@ -1,0 +1,106 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Java, 
+#+DESCRIPTION: Java でスレッドプールを実装してみた
+#+TITLE: Java でスレッドプールを実装してみた
+
+* はじめに
+  仕事でスレッドプールを利用する機会があるので,
+  Java でスレッドプールをつかう方法を調べてみた.
+
+  Java には, JDK1.5 から 
+  ExecutorService という便利なライブラリがあるようだ.
+  - [[https://docs.oracle.com/javase/jp/6/api/java/util/concurrent/ExecutorService.html][ExecutorService (Java Platform SE 6)]]
+
+* スレッドプールとは
+  はじめに, スレッドプールについての一般的な説明.
+
+  スレッドプールとは, 
+  複数のスレッドをあらかじめ作成して待機させておき,
+  タスクが来たら待っているスレッドにタスクを割り当てて
+  処理を開始させる仕組み.
+  
+  スレッドの作成と破棄は, それなりにオーバーヘッドがある.
+  そこで, スレッドは暇な時に作成しておいて,
+  必要になったときにスレッドに処理を割り当てることで,
+  コンテキストスイッチ程度の軽いオーバヘッドで済ますことができる.
+
+  また, システム内のメモリは有限なので,
+  無限にスレッドを作成することはできない.
+  一度に利用できるスレッド数を制限することで,
+  システムのリソースを制限することができるようになる.
+
+* Java でのスレッドプール実装
+** Executors
+   - [[https://docs.oracle.com/javase/jp/6/api/java/util/concurrent/Executors.html][Executors (Java Platform SE 6)]]
+
+  Executors クラスは, ExecutorService 生成のための
+  static ファクトリーメソッドをもつ ユーティリティクラス.
+
+  主に, 以下のメソッドを用いる.
+  | newFixedThreadPool               | 指定数スレッドを確保                          |
+  | newSingleThreadExecutor          | 単一スレッドを確保                            |
+  | newSingleThreadScheduledExecutor | 指定期間おきに実行するスレッド (単一スレッド) |
+  | newScheduledThreadPool           | 指定時間おきに実行するスレッド                |
+
+** ExecutorService
+   - [[https://docs.oracle.com/javase/jp/6/api/java/util/concurrent/ExecutorService.html][ExecutorService (Java Platform SE 6)]]
+
+   ExecutorService キューをもつ,スレッドプール.
+
+  主に, 以下のメソッドを用いる.
+  | execute  | タスクを送信する.                                                  |
+  | submit   | タスクの計算結果や状態を取得するための, Future オブジェクトを返す. |
+  | shutdown | シャットダウンを実行. 以前に送信したタスクは実行, 新規タスクは拒否 |
+
+  ちなみに, Executor というものもある.
+  - [[https://docs.oracle.com/javase/jp/6/api/java/util/concurrent/Executor.html][Executor (Java Platform SE 6)]]
+
+  ExecutorService は Executor を継承している. 
+  Executor は execute メソッドしかもたない.
+
+  Execotor にコマンドパターンを実装したものが ExecutorService.
+  - [[http://stackoverflow.com/questions/15052317/whats-the-difference-between-executor-and-executorservice][java - what's the difference between Executor and ExecutorService? - Stack Overflow]]
+  - [[http://futurismo.biz/archives/2703][Java で Command Pattern を実装してみた | Futurismo]]
+
+** ちなみに
+   ちなみに, coursera の POSA でスレッドプールの Assignment がある.
+   - https://github.com/douglascraigschmidt/POSA-14/blob/master/assignments/week-6-assignment-5/W6-A5-ThreadedDownloads-StartedServices/src/edu/vuum/mocca/ThreadPoolDownloadService.java
+
+* Code
+#+begin_src java
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+import java.lang.Thread;
+
+class SampleThreadPool {
+	
+  private static class Action implements Runnable {
+    @Override
+    public void run () {
+      System.out.println ("Hello!!");
+			try { Thread.sleep (1000);	} catch (InterruptedException e){}
+    }
+  }
+ 
+  public static void main (String[] args) {
+		// Create Single Thread Pool
+    ExecutorService executor = Executors.newSingleThreadExecutor ();
+
+		// Execute Tasks
+    executor.execute (new Action ());
+    executor.execute (new Action ());
+
+		// End
+    executor.shutdown ();
+  }
+}	
+#+end_src
+
+* Bookmarks
+  - [[http://java.keicode.com/lang/multithreading-executor.php][ExecutorService の使い方 - Java 入門]]
+  - [[http://www.techscore.com/tech/Java/JavaSE/Thread/7/][7. java.util.concurrent パッケージ | TECHSCORE (テックスコア)]]
+  - [[http://www.techscore.com/tech/Java/JavaSE/Thread/7-2/#thr7-3][7. java.util.concurrent パッケージ (2) | TECHSCORE (テックスコア)]]
+  - [[http://www.ibm.com/developerworks/jp/java/library/j-jtp0730/][Java の理論と実践: スレッド・プールとワーク・キュー]]
+  - [[http://java-code.jp/293][Executors クラス | Java コード入門]]
+  - [[http://itpro.nikkeibp.co.jp/article/COLUMN/20071001/283395/][Java 技術最前線 - 「 Java SE 6 完全攻略」第 49 回 Concurrency Utilities の変更点 その 1:ITpro]]

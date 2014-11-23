@@ -1,0 +1,100 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, デザインパターン
+#+TAGS: java, Gof
+#+DESCRIPTION: Java のユーティリティクラスについて
+#+TITLE: Java のユーティリティクラスでシングルトンパターンをためす
+
+* はじめに
+  今日から仕事ではじめて Java の開発をはじめることになったので, 
+  とてもうれしい.
+  
+  Java の常識あるあるのなかに, ユーティリティクラスというものがある.
+  みんな当たり前のように話しているけれども, 自分は知らないので調べた.
+
+* ユーティリティクラスとは
+  以下の特徴をもつ.
+
+  - いろんなところで繰り返し利用される処理をまとめたクラス.
+  - インスタンス化されない.
+  - すべてのメソッドは static で宣言される.
+  - 状態を持たない処理をユーティリティにすることが多い.
+
+  C 言語 とかでよくライブラリと呼ばれているのを見かけたことがある.
+  オブジェクト指向っぽくない.
+  そんなことを考えたら, 同じような意見をちらほら発見した.
+  - [[http://anopara.matrix.jp/2014/06/03/%E3%83%A6%E3%83%BC%E3%83%86%E3%82%A3%E3%83%AA%E3%83%86%E3%82%A3%E3%82%AF%E3%83%A9%E3%82%B9%E4%B8%8D%E8%A6%81%E8%AB%96/][ユーティリティクラス不要論 | anopara]]
+  - [[http://www.arksystems.co.jp/closeupit/object_oriented/0401.html][関数とユーティリティクラスは禁止 - 株式会社アークシステム (infoARK)]]
+  - [[http://www.atmarkit.co.jp/bbs/phpBB/viewtopic.php?topic=22377&forum=12&start=16][ユーティリティクラスを Singleton にしたときのデメリット - Java Solution - ＠ IT]]
+
+* 実現方法
+** メソッドには static をつける
+   static をつけることで, クラスをインスタンスすることなく
+   メソッドを利用できる.
+
+#+begin_src java
+class SampleSingleton {
+	static class SampleUtil {
+		private SampleUtil () {} // インスタンス化を禁止するテクニック
+		public static int plus (int x, int y) { return x + y; }
+		public static int minus (int x, int y) { return x - y; }		
+	}
+	public static void main (String[] args) {
+		System.out.println (SampleUtil.plus (1,1));
+		System.out.println (SampleUtil.minus (2,1));		
+	}
+}
+#+end_src
+
+** 状態をもつ場合は, シングルトンパターンを適用する
+   なにかの値を保持する場合は,
+   デザインパターンであるシングルトンパターンを利用する.
+
+   一般的なシングルトンパターンの実装方法は以下.
+   - private な 定数に オブジェクトを保存
+   - オブジェクトは getInstance () メソッドで取得
+
+   または,
+
+   - private な 変数に オブジェクトを保存.
+   - オブジェクトが存在すれば, getInstance で渡す.
+     オブジェクトが存在しなければ, オブジェクトを作成して getInstance で渡す.
+
+#+begin_src java
+class SampleSingleton {
+	static class SingletonUtil {
+		private static final SingletonUtil INSTANCE = new SingletonUtil ();
+
+		public static SingletonUtil getInstance (){ return INSTANCE; }
+		public static int plus (int x, int y) { return x + y; }
+		public static int minus (int x, int y) { return x - y; }		
+	}
+	
+	
+	public static void main (String[] args) {
+		System.out.println (SingletonUtil.getInstance ().plus (1,1));
+		System.out.println (SingletonUtil.getInstance ().minus (2,1));		
+	}
+}
+#+end_src
+
+または, Enum を利用するとという手もある.
+Effective Java の本では, この方法を推奨している.
+
+#+begin_src java
+class SampleSingleton {
+	static public enum EnumUtil {
+		INSTANCE;
+		
+		public static int plus (int x, int y) { return x + y; }
+		public static int minus (int x, int y) { return x - y; }		
+	}
+	
+	public static void main (String[] args) {
+		System.out.println (EnumUtil.INSTANCE.plus (1,1));
+		System.out.println (EnumUtil.INSTANCE.minus (2,1));		
+	}
+}
+#+end_src
+
+* Special Thanks
+  - [[http://www.nulab.co.jp/designPatterns/designPatterns4/designPatterns4-1.html][サルでもわかる 逆引きデザインパターン  第 4 章 逆引きカタログ  その他  ユーティリティークラス]]

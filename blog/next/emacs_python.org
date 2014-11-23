@@ -1,15 +1,18 @@
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
-#+CATEGORY: 技術メモ
-#+TAGS:
-#+DESCRIPTION:
-#+TITLE: Python で Emacs 開発環境を構築
-
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: Python
+#+DESCRIPTION:Emacs で Python 開発環境を構築
+#+TITLE: Emacs で Python 開発環境を構築
 * はじめに
-  これから coursera で挑戦する講座が 2 つとも Python を利用する予定.
+  coursera で Python をつかう講座を 2 つとった.
   - [[https://www.coursera.org/course/compinvesting1][Computational Investing, Part I | Coursera]]
   - [[https://www.coursera.org/course/musictech][Survey of Music Technology | Coursera]]
 
-  なので, まずは Emacs で開発環境をつくるところから始めてみました.
+  もちろん Emacs で開発環境をつくったので, 構築メモ.
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
 
 * 入力支援
   python.el は公式, python-mode.el は Python コミュニティによって作成されたもの.
@@ -37,7 +40,6 @@
                         (setq python-indent 4)
                         (setq tab-width 4)))
 #+end_src
-
 
 * コードリーディング
 ** helm-etags-plus
@@ -77,6 +79,18 @@ $ ctags -o TAGS *.py
 (setq swoop-font-size-change: nil)
    #+end_src
 
+** imenu
+   関数一覧を表示する.
+   そのままだと動かなかったので, いかのリンクを参考にした.
+   - [[http://qiita.com/lambdasakura@github/items/ceb9bc6fb008c959ec4b][Emacs の Python 開発環境構築メモ - Qiita]]
+
+#+begin_src emacs-lisp
+(semantic-mode 1) 
+(add-hook 'python-mode-hook
+  (lambda ()
+    (setq imenu-create-index-function 'python-imenu-create-index)))
+#+end_src
+
 * リファクタリング
   主に名前変更の Elisp を導入.
 
@@ -91,18 +105,22 @@ $ ctags -o TAGS *.py
    C-;から気軽に同じキーワードを編集できる.
    - [[http://www.emacswiki.org/emacs/Iedit][EmacsWiki: Iedit]]
 
-** TODO Ropemacs
+** Ropemacs
    Python 用のリファクタリングツール.
    - [[http://rope.sourceforge.net/ropemacs.html][ropemacs, rope in emacs]]
    
 * コーディング支援
-** TODO jedi
+** jedi
    Python のオムニ補完 (かしこい補完) をしてくれる.
   - [[http://qiita.com/yuu116atlab/items/2a62cb880ac863dcc8ef][emacs-jedi の install - Qiita]]
 
-** TODO Pydoc
-** TODO ac-python
+** ac-python
    auto-complete の python 強化版.
+
+#+begin_src emacs-lisp
+ (require 'ac-python)
+ (add-to-list 'ac-modes 'python-2-mode)
+#+end_src
 
 ** quickrun
    quickrun を利用すれば, python コードを Emacs から実行可能.
@@ -117,13 +135,32 @@ $ ctags -o TAGS *.py
 		      :override t)
 #+end_src
 
-** TODO iPython
-   インタラクティブなデバッグ環境.
-
 * 静的解析
-** TODO flymake
-** TODO pyflakes
-** TODO PyLint
+** flymake
+   flymake でエラーチェックを実施. 
+   エラーチェックのエンジンに pyflakes を利用する.
+
+   #+begin_src bash
+   $ sudo pip install pyflakes
+   #+end_src
+
+   Emacswiki を参考に設定.
+   - [[http://www.emacswiki.org/PythonProgrammingInEmacs][EmacsWiki: Python Programming In Emacs]]
+
+#+begin_src emacs-lisp
+(when (load "flymake" t)
+  (defun flymake-pyflakes-init ()
+     ; Make sure it's not a remote buffer or flymake would not work
+     (when (not (subsetp (list (current-buffer)) (tramp-list-remote-buffers)))
+      (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                         'flymake-create-temp-inplace))
+             (local-file (file-relative-name
+                          temp-file
+                          (file-name-directory buffer-file-name))))
+        (list "pyflakes" (list local-file)))))
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.py\\'" flymake-pyflakes-init)))
+#+end_src
 
 * さいごに
 ** Environment

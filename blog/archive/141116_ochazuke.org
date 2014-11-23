@@ -1,0 +1,123 @@
+#+BLOG: Futurismo
+#+POSTID: 2696
+#+DATE: [2014-11-16 日 08:11]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: ライフハック
+#+TAGS:
+#+DESCRIPTION: 一人暮らしの朝にお茶漬けがオススメな理由をまとめ
+#+TITLE: 一人暮らしのひと必見!! 忙しい朝にインスタントお茶漬けが最強な 6 つの理由
+
+[[file:./../img/2014-11-16-chazuke.jpg]]
+
+* はじめに
+  朝はお茶漬けがとてもおすすめ.私は毎日朝茶漬け.
+
+  そこで今回は, なぜ一人暮らしの朝のお茶漬けがオススメなのかを書いてみる.
+
+* 理由 1: あっという間につくれる
+  お茶漬けはつくるのがとても簡単.時間が節約できる.
+
+  1. お湯を沸かす
+  2. ご飯にインスタント茶漬けをかける
+  3. ご飯に追加の具を入れる
+  4. お湯をかける
+
+ たったこれだけだ. 作業時間は 1 分!
+
+ 自分はかなり寝坊が得意なのだが, そんな自分でも,
+ 目覚めてから 10 分で, 朝食も食べつつ家を飛び出せる.
+
+ 1.のお湯沸かしには, 安物の電気ケトルを利用している.
+
+ #+BEGIN_HTML
+ <div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/DRETEC-%E9%9B%BB%E6%B0%97%E3%82%B1%E3%83%88%E3%83%AB-%E3%83%87%E3%82%A3%E3%83%B3%E3%83%96%E3%83%A9-%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF-PO-121BK/dp/B008TJRF6Q%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB008TJRF6Q' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/410qD-YMLuL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/DRETEC-%E9%9B%BB%E6%B0%97%E3%82%B1%E3%83%88%E3%83%AB-%E3%83%87%E3%82%A3%E3%83%B3%E3%83%96%E3%83%A9-%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF-PO-121BK/dp/B008TJRF6Q%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB008TJRF6Q' rel='nofollow' target='_blank'>DRETEC 電気ケトル ディンブラ ブラック PO-121BK</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 14.11.16</div><div class='amazlink-detail'>DRETEC (ドリテック)<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/DRETEC-%E9%9B%BB%E6%B0%97%E3%82%B1%E3%83%88%E3%83%AB-%E3%83%87%E3%82%A3%E3%83%B3%E3%83%96%E3%83%A9-%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF-PO-121BK/dp/B008TJRF6Q%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB008TJRF6Q' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00r7dm4.n763w000.g00r7dm4.n763xe5d/?pc=http%3A%2F%2Fitem.rakuten.co.jp%2F1st-priority%2F4536117015713%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2F1st-priority%2Fi%2F10005941%2F' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
+ #+END_HTML
+
+ 2.3.の手順をもっと簡単にするために, 
+ ビニールの小袋にあらかじめ 1 週間分の材料をわけておくのもよい.
+
+ この方法は, ココイチのバイトでやっていたことを真似た.
+
+* 理由 2: あっという間に食べれる
+  お茶漬けは食べるのも早い.時間が節約できる.
+  なぜなら, あまり噛まずに飲み込めるからだ.
+
+  これには, 賛美両論あることはみとめる.
+
+  アゴを動かすことによって, 目が覚めるし, 歯も頑丈になる.
+  噛まない習慣を加速するというデメリットがある.
+
+  しかし, 熱いお湯を胃のなかに注ぎ込むと,とても目が覚める.
+
+  熱すぎるのも問題だ.自分の場合は,
+  完全にお湯が沸騰しない程度に調整している.
+  そうすると, 熱さにためらうことなく, 食べることができる.
+
+* 理由 3: レパートリーが豊富
+  なんでも混ぜられ, それなりにおいしいのだ.
+  アイデア次第で, 無限の可能性を秘めているのが魅力的だ.
+
+  スーパーに買い物にいくと, 
+  調理済みの様々な缶詰やパックされたものがある.
+  
+  のり, わかめ, 魚, ごま, 調味料...などなど.
+
+  毎週, 新しい材料を買って, それをお茶漬けに入れてみる.大抵, うまい.
+  また, ネット上にもレシピはいくらでも検索で引っかかる.
+
+  私が, お茶漬けが好きで, 飽きない理由は, ここにある.
+  
+* 理由 4: 栄養満点!
+  お茶漬けでは, 栄養がとれないというのは偏見.
+
+  なんでも混ぜられて, それなりにおいしいので, 
+  とれない栄養はないといっても過言ではないのだ!!
+
+  - ごまは, 活性酸素を撃退!!
+  - カルシウムを補うために, 煮干しを入れている.
+  - 卵をおとすことで, たんぱく質を摂取.
+  - 海の海草類をまぜれば, ミネラル豊富.
+
+  実は, 野菜を調理するのは朝から手間なので, 
+  そういうときは野菜ジュースで補ったりする...
+  
+* 理由 5: 冷えたご飯をおいしく食べられる
+  朝は半合のご飯を食べている. 1 合では多いので.
+
+  一晩で, 1 合のご飯をたく. 
+  半合をその日に食べて, 残りは冷蔵庫に入れる.
+  そうすると, 2 日目のご飯は, 冷たく固くなっている.
+
+  そんなご飯でさえ, やや熱めの熱湯を注ぎ込むことで,
+  まったく違和感を感じることがなく, 食べることができる.
+
+  一人暮らしの食料管理には, とても最適なのだ.
+  
+* 理由 6: 残飯整理ができる
+  子供のころ, 親戚のおばさんの家に犬かいた.
+  
+  毎日のワンワンの食事は, 
+  おばさんの家であまった残飯とドッグフードを混ぜたもの.
+
+  たとえが悪いかもしれないが, 
+  冷蔵庫で余っている食材を入れることで残飯整理にもなる.
+  
+  一人暮らしだと, 材料があまることがとても多いのだが,
+  そんなときは, 夜に簡単に火を通しておいて, 朝にお茶漬けに入れる.
+
+* 最後に
+  どうだろうか? お茶漬けを食べたくなってきただろうか?
+
+  私が疑問に思うのは, お茶やお茶漬けは日本に昔からある文化なのに,
+  それを専門にする食事のお店が少ないことだ.
+
+  なぜ, コーヒーを提供する喫茶店はたくさんあるのに,
+  日本茶を提供する喫茶店は皆無なのだろうか?
+
+  なぜ, 牛丼やそば, うどんなどのファーストフード店はたくさんあるのに,
+  もっともファーストなお茶漬けのファーストフード店は皆無なのだろうか?
+  (だし茶漬けえん というチェーン店は好き)
+
+  結論としては, お茶漬けがもっと世の中でもてはやされるべきということだ.
+
+# ./../img/2014-11-16-chazuke.jpg http://futurismo.biz/wp-content/uploads/wpid-2014-11-16-chazuke.jpg

@@ -1,8 +1,8 @@
 #+OPTIONS: toc:nil
 * Android
-Android開発。
+Android 開発.
 
-Android Frameworkの4大要素は以下。
+Android Framework の 4 大要素は以下.
 
 - Activity
 - Service
@@ -13,81 +13,81 @@ Android Frameworkの4大要素は以下。
   An activity is a single, focused thing that the user can do
   http://developer.android.com/reference/android/app/Activity.html
 
-  Activityとは、“Androidアプリの画面”
-  [[http://www.atmarkit.co.jp/ait/articles/0901/19/news122.html][Androidで動く携帯Javaアプリ作成入門（2）：Androidアプリ作成の基本“Activity”とは何か？ (1/2) - ＠IT]]
+  Activity とは, "Android アプリの画面"
+  [[http://www.atmarkit.co.jp/ait/articles/0901/19/news122.html][Android で動く携帯 Java アプリ作成入門 (2):Android アプリ作成の基本"Activity"とは何か? (1/2) - ＠ IT]]
 
   Provides a visual interface for user interaction.
   [[http://android.keicode.com/basics/activity.php][アクティビティ - Android 開発入門]]
 
 ** Lifecycle
-   [[http://www.javadrive.jp/android/activity/index2.html][アクティビティのライフサイクル - Android入門]]
+   [[http://www.javadrive.jp/android/activity/index2.html][アクティビティのライフサイクル - Android 入門]]
 
-   Template-Method Patternが利用されている。
+   Template-Method Pattern が利用されている.
 
 * Intent
   An intent is an abstract description of an operation to be performed.
   [[http://developer.android.com/reference/android/content/Intent.html][Intent | Android Developers]]
 
-  アクティビティは別のアクティビティを呼び出し、
-  ユーザーが行いたがっている情報を渡すためのクラス。
+  アクティビティは別のアクティビティを呼び出し,
+  ユーザーが行いたがっている情報を渡すためのクラス.
 
-  インテントは、アクティビティ同士が起動し合える、緩い結合システムの基礎を形成
+  インテントは, アクティビティ同士が起動し合える, 緩い結合システムの基礎を形成
 
-  Command PatternのCommandに相当。
+  Command Pattern の Command に相当.
 
 ** Explicite Intent
    明示的インテント, アクティビティを直接指定して起動させる
 
 ** Implicite Intent
-   暗黙的インテント, アクティビティは指定しない。
-   サービスが決められたアクティビティを起動する。
+   暗黙的インテント, アクティビティは指定しない.
+   サービスが決められたアクティビティを起動する.
 
-   決められたルールをインテントフィルタという。
+   決められたルールをインテントフィルタという.
 
 ** 明示的インテントと暗黙的インテントの自分の理解
-   Windowsではある拡張子のファイルをダブルクリックしたときに、
-   起動されるデフォルトのアプリケーションが決まっている。
-   ダブルクリックがInpliciteに相当。
+   Windows ではある拡張子のファイルをダブルクリックしたときに,
+   起動されるデフォルトのアプリケーションが決まっている.
+   ダブルクリックが Inplicite に相当.
 
-   ファイルを右クリックして、アプリケーションを指定して実行することもできる。
-   右クリックでアプリケーションを指定することがExpliciteに相当。
+   ファイルを右クリックして, アプリケーションを指定して実行することもできる.
+   右クリックでアプリケーションを指定することが Explicite に相当.
 
   [[http://android.keicode.com/basics/intent-type.php][明示的インテントと暗黙的インテント - Android 開発入門]]
 
 * Service
-  常駐型アプリケーションには、Serviceを利用する。
-  [[http://techbooster.org/android/application/3270/][Androidでの常駐型Serviceを使う方法（LocalServiceによる常駐アプリ） | Tech Booster]]
+  常駐型アプリケーションには, Service を利用する.
+  [[http://techbooster.org/android/application/3270/][Android での常駐型 Service を使う方法 (LocalService による常駐アプリ) | Tech Booster]]
 
   バックグラウンドで動くプログラム.
 
   Runs in background to perform long-running operations or to access remote resource
 
-** Serviceのライフサイクル
+** Service のライフサイクル
    - onCreate
    - onStartCommand
    - onDestroy
 
-** Serviceの実行方法
-   2種類の方法がある。
+** Service の実行方法
+   2 種類の方法がある.
 
 *** Started Serveces
     startService/stopService.
 
-    - onCreate()
-    - onDestroy()
-    - onStartCommand()
+    - onCreate ()
+    - onDestroy ()
+    - onStartCommand ()
 
 *** Bound Services
     bindService/unbindService.
 
-    - onCreate()
-    - onDestroy()
+    - onCreate ()
+    - onDestroy ()
     - onBind/onUnbind
 
-    Bound Serviceは Server-ClientモデルにおけるServer.
+    Bound Service は Server-Client モデルにおける Server.
 
 * BroadCast Reciever
-  アプリケーションが配信するインテントの監視が複数のグループで行える。
+  アプリケーションが配信するインテントの監視が複数のグループで行える.
 
 Observer Pattern.
 
@@ -96,10 +96,10 @@ Observer Pattern.
 
 * Cuncurrency Framework
 ** HaMeR FrameWork
-   以下の3つからなるフレームワーク
+   以下の 3 つからなるフレームワーク
 
   - Message
-  Contains a description of a message’s type & an arbitrary 
+  Contains a description of a message's type & an arbitrary 
   data object that can  sent to  Handler via a MessageQueue
 
   Message are created by Factory Method.
@@ -113,7 +113,7 @@ Observer Pattern.
   - Runnable
   Represents a command that can be executed.
 
-  これは、Procedure Value.
+  これは, Procedure Value.
 
 ** AsyncTask Framework
    [[http://android.keicode.com/basics/async-asynctask.php][AsyncTask を利用した非同期処理 - Android 開発入門]]
@@ -124,44 +124,36 @@ Observer Pattern.
 ** IntentService
    サービスの停止はキュー内の作業が全て終わったときに自動的に行われます.
 
-   - [[http://android.keicode.com/basics/services-intentservice.php][IntentService - 非同期、自動終了、キュー・・・便利なサービスの実装 - Android 開発入門]]
+   - [[http://android.keicode.com/basics/services-intentservice.php][IntentService - 非同期, 自動終了, キュー・・・便利なサービスの実装 - Android 開発入門]]
    - [[http://developer.android.com/reference/android/app/IntentService.html][IntentService | Android Developers]]
-   - [[http://techbooster.jpn.org/andriod/application/1570/][IntentServiceを使って非同期処理を行う « Tech Booster]]
-
-** ExecuterService
-   [[http://java.keicode.com/lang/multithreading-executor.php][ExecutorService の使い方 - Java 入門]]
-
-*** ThreadPool
-   複数のスレッドをあらかじめ作成して待機させておき、
-   タスクが来たら待っているスレッドにタスクを割り当てて
-   処理を開始させる仕組みをスレッドプールと言います
+   - [[http://techbooster.jpn.org/andriod/application/1570/][IntentService を使って非同期処理を行う « Tech Booster]]
 
 ** AIDL
-   プロセス間通信。Android Interface Definition Language.
+   プロセス間通信. Android Interface Definition Language.
 
    [[http://developer.android.com/guide/components/aidl.html][Android Interface Definition Language (AIDL) | Android Developers]]
 
-- AIDLファイルにIPCのインターフェイスを記述する
-- Serviceにインターフェイスを実装する
-- ActivityからServiceにBindし、インターフェイスを叩く
+- AIDL ファイルに IPC のインターフェイスを記述する
+- Service にインターフェイスを実装する
+- Activity から Service に Bind し, インターフェイスを叩く
 
-[[http://xfutures.jp/2009/07/18/60/][AIDLによるプロセス間通信 | xFutures]]
+[[http://xfutures.jp/2009/07/18/60/][AIDL によるプロセス間通信 | xFutures]]
 
-複数のアプリから使用される可能性のある処理を独立したプロセスとして切り離し、
-それぞれのアプリから使用できるようにサービス化しておくこと、
+複数のアプリから使用される可能性のある処理を独立したプロセスとして切り離し,
+それぞれのアプリから使用できるようにサービス化しておくこと,
 そのサービスを利用すること」がプロセス間通信の目的.
 
-身近なAIDLを使用するサービスの1つとして「アプリ内課金」があります.
+身近な AIDL を使用するサービスの 1 つとして「アプリ内課金」があります.
 
-[[http://www.atmarkit.co.jp/ait/articles/1206/15/news124.html][Androidのプロセス間通信を自由自在にするAIDL (1/3) - ＠IT]]
+[[http://www.atmarkit.co.jp/ait/articles/1206/15/news124.html][Android のプロセス間通信を自由自在にする AIDL (1/3) - ＠ IT]]
 
 * 開発環境
 ** Futurismo
-- [[http://futurismo.biz/archives/2025][Eclipse ADTでつくるAndroidエミュレータ開発環境構築メモ(Windows) | Futurismo]]
-- [[http://futurismo.biz/archives/2181][Courseraの「Creative, Serious and Playful Science of Android Apps」を受けた ]]
-- [[http://futurismo.biz/archives/2344][Programming Mobile Applications for Android Handheld SystemsでAndoroidアーキテクチャの基礎を体系的に学んだ]]
+- [[http://futurismo.biz/archives/2025][Eclipse ADT でつくる Android エミュレータ開発環境構築メモ (Windows) | Futurismo]]
+- [[http://futurismo.biz/archives/2181][Coursera の「 Creative, Serious and Playful Science of Android Apps 」を受けた ]]
+- [[http://futurismo.biz/archives/2344][Programming Mobile Applications for Android Handheld Systems で Andoroid アーキテクチャの基礎を体系的に学んだ]]
 
 * Links
-「Androidの教科書」をつくるオープンソースプロジェクト.
+「 Android の教科書」をつくるオープンソースプロジェクト.
 - https://github.com/TechBooster/AndroidOpenTextbook
 

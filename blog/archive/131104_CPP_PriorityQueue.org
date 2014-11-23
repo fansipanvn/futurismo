@@ -1,0 +1,133 @@
+#+BLOG: Futurismo
+#+POSTID: 1981
+#+DATE: [2013-11-04 火 23:46]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: C++, STL
+#+DESCRIPTION: C++ での優先順位付きキューの使い方まとめ (PriorityQueue)
+#+TITLE: C++ での優先順位付きキューの使い方まとめ (PriorityQueue)
+
+* はじめに
+優先順位付きキューのを PriorityQueue という.
+
+キューの中で最大 (最小) のものを抜き出す場合などに利用する.
+
+* 使い方
+** 宣言
+
+デフォルトでは大きい順で pop されるので, 最小のものを pop で取り出すには, greater を宣言時に追記する.
+
+#+begin_src cpp
+#include <queue>
+using namespace std;
+
+priority_queue <int> maxpq; // default 大きい順
+priority_queue<int, vector<int>, greater<int> > minpq; // 小さい順
+#+end_src
+
+** 関数
+*** 要素を追加する (push)
+
+#+begin_src cpp
+pq.push (1);
+#+end_src
+
+*** 先頭の要素を取り出す
+    最大 (または最小) の先頭を取り出します.
+
+#+begin_src cpp
+pq.pop ();
+#+end_src
+
+*** 要素を調べる
+
+#+begin_src cpp
+// キューがからかどうかを調べる
+pq.empty ()
+
+//  要素数をしらべる
+pq.size ();
+
+// 次に取り出される要素を調べる
+pq.top ();
+#+end_src
+
+
+* Sample
+** 昇順に取り出す
+
+#+begin_src cpp
+#include <queue>
+#include <iostream>
+using namespace std;
+
+int main ()
+{
+  priority_queue<int> pq;
+
+  pq.push ( 2 );
+  pq.push ( 1 );
+  pq.push ( 3 );
+
+  cout << pq.top () << endl;
+  pq.pop ();
+  cout << pq.top () << endl;
+  pq.pop ();
+  cout << pq.top () << endl;
+  pq.pop ();
+
+  return 0;
+}
+#+end_src
+
+*** 実行結果
+
+#+begin_src language
+3
+2
+1
+#+end_src
+
+** 降順に取り出す
+
+#+begin_src cpp
+#include <queue>
+#include <iostream>
+using namespace std;
+
+int main ()
+{
+  priority_queue<int, vector<int>, greater<int> > pq;
+
+  pq.push ( 2 );
+  pq.push ( 1 );
+  pq.push ( 3 );
+
+  cout << pq.top () << endl;
+  pq.pop ();
+  cout << pq.top () << endl;
+  pq.pop ();
+  cout << pq.top () << endl;
+  pq.pop ();
+
+  return 0;
+}
+#+end_src
+
+*** 実行結果
+
+#+begin_src language
+1
+2
+3
+#+end_src
+
+* おまけ
+ダイクストラ法の実装をする際に, C++ の STL があるとは知らずに, 
+自前で最小優先キューを実装しました. STL を利用すればよかった.
+
+この Java Sourse を参考に C++ に書きなおした.
+- ftp://ftp.cs.princeton.edu/pub/cs226/bins/MinPQ.java
+
+MinPQ:
+ - https://gist.github.com/tsu-nera/7302383

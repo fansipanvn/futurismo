@@ -72,5 +72,12 @@ ghci test.hs
    パッケージマネージャー.
 
 
+* High-order function
+
 * Bookmarks
   - [[http://www.slideshare.net/konn/haskell-6-32258528][数学プログラムを Haskell で書くべき 6 の理由]]
+
+* Book
+** Programming haskell
+   解答.
+  - [[http://www.cs.nott.ac.uk/~gmh/book.html][Programming in Haskell]]

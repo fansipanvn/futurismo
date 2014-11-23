@@ -1,0 +1,151 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Java
+#+DESCRIPTION: Java のリフレクション機能について調べたメモ
+#+TITLE: Java のリフレクションでインスタンスやメソッドを動的生成する
+
+#+BEGIN_HTML
+<a href="http://futurismo.biz/wp-content/uploads/java.png"><img alt="" src="http://futurismo.biz/wp-content/uploads/java.png" width="256" height="256" /></a>
+#+END_HTML
+
+* リフレクションとは
+  リフレクションとは, プログラム実行中に,
+  クラス名やメソッド名を動的に指定することができる技術.
+
+  以下, Wikipedia のソースをそのまま引用します.
+   - [[http://ja.wikipedia.org/wiki/%E3%83%AA%E3%83%95%E3%83%AC%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3_(%E6%83%85%E5%A0%B1%E5%B7%A5%E5%AD%A6)][リフレクション (情報工学) - Wikipedia]]
+
+#+begin_src java
+// リフレクションなし
+Foo foo = new Foo ();
+foo.hello ();
+
+// リフレクション
+Class cl = Class.forName ("Foo");
+Method method = cl.getMethod ("hello");
+method.invoke (cl.newInstance ());
+#+end_src
+
+* リフレクションのデメリット
+** リフレクションはカプセル化を壊す?
+   リフレクションを利用すると, 
+   クラス内部のメソッドやフィールドをみたり,
+   フィールドを書き換えたりできるという, ハッカー的な機能.
+   - [[http://javatechnology.net/diary/reflection/][実は怖い java リフレクションの話 | ジャイアントモリンキーの java テック]]
+   - [[http://www.atmarkit.co.jp/ait/articles/0805/08/news152_5.html][プログラマーの常識を Java で身につける (11):いまさら聞けない Java によるオブジェクト指向の常識 (5/5) - ＠ IT]]
+
+   こういうオブジェクト指向に反する機能は, 
+   ユーティリティクラスのメソッド呼び出しに効果的である.
+   - [[http://futurismo.biz/archives/2709][Java のユーティリティクラスでシングルトンパターンをためす | Futurismo]]
+
+** リフレクションは遅い??
+   リフレクションは遅いということがいわれている.以下のサイトが参考になる.
+   - [[http://blog.liris.org/2014/04/java.html][Emerge Technology: あれから Java のリフレクションのスピードはどうなったのか?]]
+
+#+BEGIN_QUOTE
+- リフレクションでのオブジェクトの作成はオーバーヘッドがほとんどない
+- メンバーフィールドにアクセスするのは遅すぎるのでやらないほうがいい.
+- メソッド呼び出しは 5 から 20 倍遅いので, 使う場合は注意する
+#+END_QUOTE
+
+  - [[http://blog.gumu-lab.com/archives/184][【 Java 】リフレクションを限界まで高速化する | Gumu-Lab.]]
+  - [[http://d.hatena.ne.jp/unageanu/20071029/1193666275][リフレクションはやっぱり遅いのか? - うなの日記]]
+  - [[http://www.ibm.com/developerworks/jp/java/library/j-dyn0603/][Java プログラミングのダイナミックス: 第 2 回 リフレクション入門]]
+
+** コンパイル時の型チェックができない
+   リフレクションはプログラム実行時にメソッド呼び出し方法が決まるので,
+   コンパイル時の事前型チェックができない.
+
+** リフレクションよりもインタフェースを選ぶ
+   Effective Java p233 にのっている助言.
+
+* Java でのリフレクション
+  java.lang.reflect というパッケージがある.
+   - [[https://docs.oracle.com/javase/jp/6/api/java/lang/reflect/package-summary.html][java.lang.reflect (Java Platform SE 6)]]
+     
+** リフレクションでインスタンス生成
+   - Class.forName ("クラス名") で クラス生成
+   - newInstance () で インスタンス生成
+
+#+begin_src java
+Class clazz = Class.forName ("Foo");
+Foo foo = (Foo) clazz.newInstance ();
+#+end_src
+
+** リフレクションでメソッド呼び出し
+  - getMethod ("メソッド名") でメソッド定義
+  - invoke (object) でメソッド呼び出し
+
+#+begin_src java
+Foo foo2 = new Foo ();
+Method method = foo2.getClass ().getMethod ("bar");
+method.invoke (foo2);
+#+end_src
+
+* Code
+#+begin_src java
+import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
+
+public class ReflectionSample {  
+	public static void main (String []args) {  
+		try {  
+			Class clazz = Class.forName ("Foo");
+			Foo foo = (Foo) clazz.newInstance ();
+			foo.bar ();
+		} catch (ClassNotFoundException e) {
+			// クラスが存在しない
+			e.printStackTrace ();  
+		} catch (InstantiationException e) {
+			// インスタンス作成不可
+			e.printStackTrace ();  
+		} catch (IllegalAccessException e) {
+			// 呼び出し:アクセス違反, 保護されている			
+			e.printStackTrace ();  
+		}
+
+		Foo foo2 = new Foo ();
+		try {
+			// 引数なし
+			Method method = foo2.getClass ().getMethod ("bar");
+			method.invoke (foo2);
+
+			// 引数あり
+			Method method2 = foo2.getClass ().getMethod ("pee", int.class);
+			method2.invoke (foo2, 1);
+		} catch (NoSuchMethodException e) {
+			// メソッドが存在しない
+			e.printStackTrace ();
+		} catch (IllegalArgumentException e) {
+			// 呼び出し:引数が異なる
+			e.printStackTrace ();
+		} catch (IllegalAccessException e) {
+			// 呼び出し:アクセス違反, 保護されている
+			e.printStackTrace ();
+		} catch (InvocationTargetException e) {
+			// ターゲットとなるメソッド自身の例外処理
+			e.printStackTrace ();
+		}
+	}
+}
+      
+class Foo {
+	public Foo () {
+		System.out.println ("Constructor is called");
+	}
+		
+	public void bar () {
+		System.out.println ("method is called");
+	}
+
+	public void pee (int i) {
+		System.out.println (i);
+	}
+}
+#+end_src
+
+* Special Thanks
+  - [[http://www.ne.jp/asahi/hishidama/home/tech/java/reflection.html#h2_Method][Java リフレクションメモ (Hishidama's Java Reflection Memo)]]
+  - [[http://java.keicode.com/lang/reflection.php][リフレクション - Java 入門]]
+  - [[http://promamo.com/?p=3079][Java におけるリフレクションについて]]
+  - Effective Java 第 2 版 p233

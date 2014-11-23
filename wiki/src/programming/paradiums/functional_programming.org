@@ -96,7 +96,8 @@ for (arg <- args)
   高階プログラミング.
 
   procedure value をサポートしている言語でのプログラミング技術.
-  関数を引数としてわたす能力.
+  - 関数を引数としてわたす能力.
+  - 関数を戻り値としてかえす能力.
 
 ** クロージャ
    引数以外の変数を実行時の環境ではなく, 
@@ -154,6 +155,25 @@ fun {MakeAdd A}
 end
 #+end_src
 
+** 有名な例
+*** map
+    リストの各要素に関数を適用する.
+
+#+begin_src haskell
+Prelude> map (+1) [1,3,5,7]
+[2,4,6,8]
+#+end_src
+
+*** filter
+    リストの各要素で条件に一致したものを取り出す.
+
+#+begin_src haskell
+Prelude> filter even [1..10]
+[2,4,6,8,10]
+#+end_src
+
+*** fold
+
 ** 関数オブジェクト.
   関数をオブジェクトとしたもの.
   関数閉包. 関数オブジェクト (function object) とも言う.
@@ -174,7 +194,6 @@ end
 ** Annonimous Functions
    無名関数. 名前付けされずに定義された関数.
    Function Literal (関数リテラル), 匿名関数といわれることもある.
-
    - [[http://ja.wikipedia.org/wiki/%E7%84%A1%E5%90%8D%E9%96%A2%E6%95%B0][無名関数 - Wikipedia]]
 
 *** メリット

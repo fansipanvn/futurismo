@@ -150,7 +150,6 @@
 
 * Computational Investing
   アルゴリズム取引.
-
   [[http://en.wikipedia.org/wiki/Algorithmic_trading][Algorithmic trading - Wikipedia, the free encyclopedia]]
 
 ** Motivations

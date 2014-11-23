@@ -1,91 +1,131 @@
 #+OPTIONS: toc:nil
 * Object-Oriented Programming
   オブジェクト指向型プログラミング.
-
   - [[http://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][オブジェクト指向プログラミング - Wikipedia]]
 
   CTMCP, Chapter 6,7
 
-** Data abstraction
-   データ抽象. 3 つの構成要素がある.
+** 手続き型とオブジェクト指向の違い
+*** 機能分解
+    ある問題を小さな機能にブレークダウンすることで, 
+    その問題を構成する機能要素の洗い出しをすることを機能分解と呼ぶ.
+    
+**** 構造化プログラミング的アプローチ
+      - (手続き的な) 機能を適切な順序で呼び出す「メイン」プログラムが必要になる.
+      - メインプログラムにはすべてを正しく動作させる, 
+       	すなわち機能の組み合わせと呼び出し順序を制御するあまりに大きな責任が課せられる
+      - 結果的にソースコードは複雑になる
+	 
+**** オブジェクト指向的アプローチ
+     - 部分機能に対してそれ自体の振舞いに関する責任を持たせ, 
+       実行指示を行うだけであと任せておく. 
+     - これが委譲 (delegation) という考え方.
 
-   - Input
-   - Output
-   - Interface
+* Data abstraction
+  データ抽象. 3 つの構成要素がある.
+  - Input
+  - Output
+  - Interface
 
-   データ抽象は内部と外部からなるプログラムかつ, 
-   両者がインターフェースを通じてやりとりするもの.
+  データ抽象は内部と外部からなるプログラムかつ, 
+  両者がインターフェースを通じてやりとりするもの.
 
-   A data abstraction is a part of a program that has an inside, an outside,
-   and an interface in between The inside is hidden from the outside.
+  A data abstraction is a part of a program that has an inside, an outside,
+  and an interface in between The inside is hidden from the outside.
 
-*** Input/Output
-    内部は外部からは隠蔽されている. -> カプセル化という.
+  以下のコンセプトに支えられている
+  - High-order Programming (高階関数)
+  - Static Scoping (クロージャ)
+  - Explicit State (明示的状態)
 
-    The inside is hidden from the outside
+  Data Abstruction は 2 つの実現方法がある
+  - Abstruct Data Type (ADT)
+    値と操作をベツベツに保持する
+  - Object
+    値と操作を一緒に保持する
 
-*** Interface
-    The interface is a set of operations that an be used according to certain rules.
+** Input/Output
+   内部は外部からは隠蔽されている. -> カプセル化という.
 
-    データ抽象には, 主に二つの方法がある.
-    - Abstract Data Type (ADT) keeps values and operations separate.
-    - Object groups together value and operations in a single entity.
+   The inside is hidden from the outside
 
-*** Encapsulation
-    プログラムと内部と内部をインタフェースで分けること.
+** Interface
+   The interface is a set of operations that an be used according to certain rules.
 
-    カプセル化のメリットは大規模開発をシンプルにする.
+   データ抽象には, 主に二つの方法がある.
+   - Abstract Data Type (ADT) keeps values and operations separate.
+   - Object groups together value and operations in a single entity.
 
-    - 正しさを保証する.
-    - 複雑さを解消する.
+** Encapsulation
+   プログラムと内部と内部をインタフェースで分けること.
+   カプセル化のメリットは大規模開発をシンプルにする.
+   - 正しさを保証する.
+   - 複雑さを解消する.
 
-**** カプセル化とはあらゆるものを隠蔽すること
-     カプセル化がデータ隠蔽というのは狭義の定義.
+*** カプセル化とはあらゆるものを隠蔽すること
+    カプセル化がデータ隠蔽というのは狭義の定義.
 
-     カプセル化とはあらゆるものを隠蔽すること.
-     - データ
-     - メソッド
-     - 実装
-     - 派生クラス
-     - 設計の詳細
-     - 実体化の規則
-     - 型
+    カプセル化とはあらゆるものを隠蔽すること.
+    - データ
+    - メソッド
+    - 実装
+    - 派生クラス
+    - 設計の詳細
+    - 実体化の規則
+    - 型
 
-     流動的要素を探し出してカプセル化する
+    流動的要素を探し出してカプセル化する
 
-     この観点から, デザインパターンをとらえ直すと,
+    この観点から, デザインパターンをとらえ直すと,
 
-     |----------------+-----------------------------------------------|
-     | 流動的要素     | Pattern                                       |
-     |----------------+-----------------------------------------------|
-     | アルゴリズム   | Strategy ,Visitor                             |
-     | 動作, 要求     | Command                                       |
-     | 実装           | Bridge                                        |
-     | 変化への反応   | Observer                                      |
-     | 相互作用       | Mediator                                      |
-     | 生成           | Factory Method, Abstract Factory , Prototype  |
-     | 構造の生成     | Builder                                       |
-     | 集合の巡回構造 | Iterator                                      |
-     | インタフェース | Adapter                                       |
-     | システム       | Facade                                        |
-     | 振る舞い       | Decorator , State                             |
-     | 設計の詳細     | Template Method                               |
-     |----------------+-----------------------------------------------|
+    |----------------+----------------------------------------------|
+    | 流動的要素     | Pattern                                      |
+    |----------------+----------------------------------------------|
+    | アルゴリズム   | Strategy                                     |
+    | パターンマッチ | Visitor                                      |
+    | 動作, 要求     | Command                                      |
+    | 実装           | Bridge                                       |
+    | 変化への反応   | Observer                                     |
+    | 相互作用       | Mediator                                     |
+    | 生成           | Factory Method, Abstract Factory , Prototype |
+    | 構造の生成     | Builder                                      |
+    | 集合の巡回構造 | Iterator                                     |
+    | インタフェース | Adapter                                      |
+    | システム       | Facade                                       |
+    | 振る舞い       | Decorator , State                            |
+    | 設計の詳細     | Template Method                              |
+    |----------------+----------------------------------------------|
 
-     - [[http://bleis-tift.hatenablog.com/entry/20090201/1233426011#][カプセル化, 情報隠蔽, データ隠蔽 - ぐるぐる~]]
+    - [[http://bleis-tift.hatenablog.com/entry/20090201/1233426011#][カプセル化, 情報隠蔽, データ隠蔽 - ぐるぐる~]]
 
-*** Abstract Data Type
-    抽象データ型. ADT と略されることも.
+*** 某 氏の発言
+    ある目的をもったモノの集合.(N 氏)
+    モノには特性 (属性と操作) がある.
+  
+    アプリケーションを設計するということは,
+    まずそのアプリケーションで利用される
+    データ型を定義するということからはじめる. 
+    (AplInteger, AplString みたいなもの)
 
-    構造化プログラミングは仮想機械モデルに基づく
-    段階的詳細化法 (stepwise refinement) をもたらしたが,
-    データ構造の変更を行うと変更部分がソースコード中に散在してしまうという弱点があった.
-    データ抽象の概念はその欠点を補完するものであった
+    その後, 自分が定義したデータ型を操作するインタプリタを設計する.
 
-    - [[http://ja.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][抽象データ型 - Wikipedia]]
+    実装では, Java をつかっているものの,
+    Java はそれらの抽象データ型のインタプリタでしかない.
 
-    An ADT consists of a set of values and  a set of operations.
+    抽象データとインタプリタを設計することが設計.
+    ->(内部 DSL のこと?? ドメインモデル設計)
 
+* Abstract Data Type
+  抽象データ型. ADT と略されることも.
+  
+  構造化プログラミングは仮想機械モデルに基づく
+  段階的詳細化法 (stepwise refinement) をもたらしたが,
+  データ構造の変更を行うと変更部分がソースコード中に散在してしまうという弱点があった.
+  データ抽象の概念はその欠点を補完するものであった
+  
+  - [[http://ja.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][抽象データ型 - Wikipedia]]
+
+  An ADT consists of a set of values and a set of operations.
     - Integer 型
     - Value:1,2,3
     - Operation:+
@@ -94,13 +134,11 @@
     - Operation: push, pop, ...
 
     Value と Operation それ自体は State を持たない.
-
     CTM, p433
 
+** Example
     Diference between ADT and Object. Stack をつかった実装の違い.
-
-    - ADT
-
+*** ADT
     #+begin_src oz
 local Wrap Unwrap in
   {NewWrapper Wrap Unwrap}
@@ -117,7 +155,7 @@ end
     もちろん関数ポインタ配列を使えば C 言語でも Object をつくることができるが,
     実際にはそこまでやらない. (面倒)
 
-    - Object
+*** Object
     オブジェクトでは, データに対する操作はプロシージャ変数として扱われることに注目.
 
     #+begin_src oz
@@ -137,76 +175,168 @@ end
 
     Object と ADT の意味がごっちゃにつかわれているのが現実の現状.
 
+
+** Bookmarks
+   - 比較的わかりやすい: [[http://www.hitachi.co.jp/Prod/comp/soft1/manual/pc/d645140/W4510070.HTM][抽象データ型]
+
+
+* Object-Oriented Paradiums
+  以下の要素をそなえもつ
+  - Data Abstraction
+  - Inheritance
+  - Polymorphism
+
+  現在オブジェクト指向言語と呼ばれているものは,実際には,
+  - Abstruct Data Type (Java Integer 型)
+  - オブジェクト (Java Object 型)
+  の 2 つを合わせもっている.
+
+  その意味で, オブジェクト指向言語と言うよりは,
+  抽象データ言語というほうが正しい.
+
 ** Object
    値と操作をひとつのまとまりとしたもの. 以下の構成要素をもつ.
-
    - 値 ・・・ Explicite State (明示的状態)
    - 操作 ・・・ Procedural Data Abstruction (手続的データ抽象)
 
-   以下の能力を備えている.
-
-*** Data Abstruction
+*** メソッドと属性
     オブジェクトは内部と外部はインタフェースを通じてやりとりされる.
-    内部の明示的状態を Attributes, インタフェースを Methods という.
+    内部の明示的状態を Attributes (属性), 
+    インタフェースを Methods (メソッド) という.
+   
+    たとえば, A1 を属性, M1 をメソッドという.
 
-*** Procedure Dispatch
-    オブジェクトは単一なエントリポイントをもつ. (エントリポイント = 呼び出し口)
-    エントリポイントに渡される引数をメッセージという.
+#+begin_src oz
+declare
+local
+   A1={NewCell 0}
+in
+   proc {M1 Hoge} end
+end
+#+end_src
 
-    下の例だと, Counter がエントリポイント. エントリポイントに inc,get メッセージを送る.
+  これはクラスでもインスタンスでもないことに注意!!
 
-    #+begin_src oz
+** Class
+   抽象データからなるデータ構造.
+
+   メソッドと属性を定義する特別なシンタックスを Class という.
+   属性とメソッドはレコードデータ構造によって管理されているだけである!
+
+   Class とは, Pair ( attrs[属性の集合] : methods[メソッドの集合]) )
+   
+   または, Java ならば, こうかいてもいい.
+
+   #+begin_src java
+   HashMap<String, HashSet<String>> attrs = new HashMap<String, HashSet<String>>();
+   HashMap<String, HashSet<String>> methods = new HashMap<String, HashSet<String>>();
+
+   attrs.add ("Hoge", new HashSet (Arrays.asList ("attr1", "attr2")));
+   methods.add ("Hoge", new HashSet (Arrays.asList ("method1", "method2")));
+   #+end_src
+
+   Class という概念によって, オブジェクトの"宣言"と"生成 (new)"を分離する.
+   - [[http://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%A9%E3%82%B9_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF)][クラス (コンピュータ) - Wikipedia]]
+
+   クラスは, 継承・ポリモーフィズム・カプセル化などの, 
+   オブジェクト指向プログラミングにおける重要な概念を実現する強力な手段.
+
+** Instantiation
+   オブジェクトは一つのメソッドで,
+   異なる属性をもつ複数のオブジェクトを生成できる.
+   
+   この能力を Instantiation (インスタンス化) という.
+
+** Procedure Dispatch
+   オブジェクトは単一なエントリポイントをもつ. (エントリポイント = 呼び出し口)
+   エントリポイントに渡される引数をメッセージという.
+
+   下の例だと, Counter がエントリポイント. エントリポイントに inc,get メッセージを送る.
+
+   #+begin_src oz
    {Counter inc}
    {Counter get (X)}
-    #+end_src
+   #+end_src
 
-    エントリポイントから, メッセージに対応するプロシージャが呼びだされる.
+   エントリポイントから, メッセージに対応するプロシージャが呼びだされる.
 
-    メッセージとプロシージャはあらかじめ Dispatch (バンドリング) されている.
-
-*** Instantiation
-    オブジェクトは一つのメソッドで,
-    異なる属性をもつ複数のオブジェクトを生成できる.
-    
-    この能力を Instantiation (インスタンス化) という.
-    
-*** Classes
-    メソッドと属性を定義する特別なシンタックスを Class という.
-    属性とメソッドはレコードデータ構造によって管理されているだけである!
-    Class という概念によって, オブジェクトの"宣言"と"生成 (new)"を分離する.
+   メッセージとプロシージャはあらかじめ Dispatch (バンドリング) されている.
 
 ** Polymorphism
-   [[http://ja.wikipedia.org/wiki/%E3%83%9D%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%95%E3%82%A3%E3%82%BA%E3%83%A0][- ポリモーフィズム - Wikipedia]]
+   各要素 (定数, 変数, 式, オブジェクト, 関数, メソッドなど) 
+   についてそれらが複数の型に属することを許すという性質.
+   - [[http://ja.wikipedia.org/wiki/%E3%83%9D%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%95%E3%82%A3%E3%82%BA%E3%83%A0][ポリモーフィズム - Wikipedia]]
 
+*** interface
+    抽象データ型のメソッド.
+
+    Object 型を分類し,
+    同じカテゴリに属するクラスに共通のインターフェイスを取り決める.
+    - [[http://homepage1.nifty.com/CavalierLab/lab/vb/clsmdl/polymorphism_02.html][ポリモーフィズムとインターフェイス]]
+      
 ** Inheritance
    継承. あるオブジェクトが他のオブジェクトの特性を引き継ぐこと.
 
    - [[http://ja.wikipedia.org/wiki/%E7%B6%99%E6%89%BF_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0)][継承 (プログラミング) - Wikipedia]]
 
-*** Composition
-    コンポジション. 新たなクラスに, 既存クラスのインスタンスを保持する.
-    has-a の関係 (not is-a)
+** Composition
+   コンポジション. 新たなクラスに, 既存クラスのインスタンスを保持する.
+   has-a の関係 (not is-a)
 
-    Prefer Composition over inheritance (Effective Java).
+   Prefer Composition over inheritance (Effective Java).
 
-*** Delegation
-    移譲.
+** Delegation
+   移譲.
+
+* ドメイン駆動設計
+  Eric Evans の提示した設計手法. DDD と略す.
+  - [[http://ja.wikipedia.org/wiki/%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E9%A7%86%E5%8B%95%E8%A8%AD%E8%A8%88][ドメイン駆動設計 - Wikipedia]]
+
+** ドメイン駆動設計の構成要素
+   とりあえず Wikipedia から引用.
+
+  - エンティティ (参照オブジェクト): 
+  ドメインモデル内のオブジェクトであり, 
+  その属性によってではなく, 連続性と識別性によって定義される.
+
+  - 値オブジェクト: 
+  事物の特性を記述するオブジェクトである. 
+  値オブジェクトは特に識別する情報はない. 
+  通例読み出し専用のオブジェクトであり, 
+  Flyweight パターンを用いて共有できる.
+
+  - サービス: 
+  操作がオブジェクトに属さない場合に, 
+  問題の自然な解決策として, 操作をサービスとして実現することができる. 
+  サービスの概念は GRASP において"純粋人工物"と呼ばれるものである.
+
+  - リポジトリ:
+  ドメインオブジェクトを取得するメソッドは, 
+  記憶域の実装を簡単に切り替えられるようにするため, 
+  専門のリポジトリオブジェクトに処理を委譲するべきである.
+
+  - ファクトリー : 
+  ドメインオブジェクトを生成するメソッドは, 
+  実装を簡単に切り替えられるようにするため, 
+  専門のファクトリーオブジェクトに処理を委譲するべきである.
+
+** DSL
+   特定のタスク向けに設計されたコンピュータ言語.
+   - [[http://ja.wikipedia.org/wiki/%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E5%9B%BA%E6%9C%89%E8%A8%80%E8%AA%9E][ドメイン固有言語 - Wikipedia]]
+
+   DSL は大きく 2 つに分類出来る.
+   - 内部 DSL
+   - 外部 DSL
    
-** 手続き型とオブジェクト指向の違い
-*** 機能分解
-    ある問題を小さな機能にブレークダウンすることで, 
-    その問題を構成する機能要素の洗い出しをすることを機能分解と呼ぶ.
+*** 内部 DSL
+    汎用プログラミング言語 (Java, Ruby, Scala...などなど) をベースにしてつくるもの.
     
-**** 構造化プログラミング的アプローチ
-      - (手続き的な) 機能を適切な順序で呼び出す「メイン」プログラムが必要になる.
-      - メインプログラムにはすべてを正しく動作させる, 
-        すなわち機能の組み合わせと呼び出し順序を制御するあまりに大きな責任が課せられる
-      - 結果的にソースコードは複雑になる
-	 
-**** オブジェクト指向的アプローチ
-       - 部分機能に対してそれ自体の振舞いに関する責任を持たせ, 
-         実行指示を行うだけであと任せておく. 
-       - これが委譲 (delegation) という考え方.
+*** 外部 DSL
+    まったくの独自文法とインタプリタによってつくるもの.
+
+** Bookmarks
+  - オージス総研のページ [[https://www.ogis-ri.co.jp/otc/hiroba/technical/DDDEssence/chap2.html][ 技術講座 Domain-Driven Design のエッセンス 第 2 回|オブジェクトの広場]]
+  - 解説 PDF [[http://www.slideshare.net/masuda220/ss-26583161][ドメイン駆動設計入門]]
 
 
 * オブジェクト指向のこころより
@@ -241,7 +371,9 @@ end
     - [[http://d.hatena.ne.jp/asakichy/20090428/1240878836][オブジェクト指向の本懐 (7) ・オブジェクト指向分析 - Strategic Choice]]
     - [[http://shoheik.hatenablog.com/entry/20120917/1347838230][共通性・可変性分析 (commonality/variavility analysis) - Debuginfo]]
 
+
 * Bookmarks
+  ものすごくよい記事.歴史が端的にまとまっている.
   - [[http://qiita.com/hirokidaichi/items/591ad96ab12938878fe1][新人プログラマに知っておいてもらいたい人類がオブジェクト指向を手に入れるまでの軌跡 - Qiita]]
 
   #+BEGIN_QUOTE
@@ -258,11 +390,11 @@ end
 
   - [[http://d.hatena.ne.jp/nowokay/20140718#1405691217][オブジェクト指向は禁止するべき - きしだのはてな]]
 
-** Rees Re:OO
+** Rees
   - [[http://practical-scheme.net/trans/reesoo-j.html#][Rees Re: OO]]
 
-  オブジェクト指向というのは, このリストのいろいろなサブセットとして 定義されているようだ.
-  つまり, 「オブジェクト指向」というのはちゃんと定義された概念ではない!
+ オブジェクト指向というのは, このリストのいろいろなサブセットとして 定義されているようだ.
+ つまり, 「オブジェクト指向」というのはちゃんと定義された概念ではない!
 
 *** カプセル化
     型の実装を構文的に隠蔽できること. 例えば C や Pascal では何かが構造体
@@ -274,7 +406,7 @@ end
     ふるまいさえ変えなければ, 実装を変更しても型の使用者に 影響を与えな
     いことが保障でき, またパスワードのような情報が漏れ出さないように す
     ることもできる.
- 
+
 *** アドホックポリモルフィズム
     関数やパラメータつきデータ構造が たくさんの異なる型の値をとることができる.
 
@@ -285,7 +417,7 @@ end
     
 *** 全てはオブジェクトなり 
     全ての値はオブジェクト. Smalltalk では真だが, Java では (int 等のため) 真ではない.
- 
+
 *** メッセージを送ることだけができる (All you can do is send a message,
     AYCDISAM) = Actor モデル 
     オブジェクトを直接いじることはできず, それと通信する, もしくはそれを
@@ -304,5 +436,3 @@ end
 *** 「関数の積和 (sum-of-product-of-function) 」パターン 
     オブジェクトは (実質的に) 有限の簡単な名前の集合から選ばれるキー引数
     を第一引数に取り, それによってメソッドを呼び出す関数として動作する.
-
- 

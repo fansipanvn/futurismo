@@ -1,0 +1,163 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: LiveCoding, まとめ
+#+DESCRIPTION: ライブコーディングについて調べたメモ
+#+TITLE: プログラミングで ミュージックライブ?! Live Coding について調べたまとめ
+* はじめに
+  coursera の講義でライブコーディング (Live Coding) というものを知った.
+  - [[https://www.coursera.org/course/musictech][Survey of Music Technology | Coursera]]
+
+  正直, なんじゃこりゃ? といった不思議な世界.
+
+  日本語の情報はほとんどないのだが, 海外では有名っぽい.
+  というわけで, 情報をまとめてみる.
+
+* Live Coding とは
+  TopLap のページから引用.  ([[http://toplap.org/about/][About | TOPLAP]])
+
+#+BEGIN_QUOTE
+"Live coding is a new direction in electronic music 
+and video, and is starting to get somewhere 
+interesting. Live coders expose and rewire the 
+innards of software while it generates improvised 
+music and/or visuals. All code manipulation is 
+projected for your pleasure." 
+#+END_QUOTE
+
+  on-the-fly programming, just in time programming ともいう.
+  - [[http://en.wikipedia.org/wiki/Live_coding][Live coding - Wikipedia, the free encyclopedia]]
+
+  coursera からの表現を借りると,
+  - パフォーマンスとしてのアルゴリズム作曲.
+    - 編集過程を聴衆に見せる.
+    - リアルタイムで編集する.
+
+** TopLap
+   Live Coding のためのコミュニティ.
+   - http://toplap.org/
+
+* アルゴリズム作曲用プログラミング言語
+  TOPLAP のベージに情報がまとまっている.
+  - [[http://toplap.org/category/software/][Software | TOPLAP]]
+
+  coursera の講義を参考にまとめてみた.
+
+** Supercollider
+   Smalltalk like な言語. OSS
+   - [[http://supercollider.github.io/][SuperCollider » SuperCollider]]
+   - [[https://github.com/supercollider/supercollider][supercollider/supercollider · GitHub]]
+
+   開発盛ん.
+   - [[http://d.hatena.ne.jp/sc3onlinux/20100206/1265449076][SuperCollider 基礎文法最速マスター - sc3onlinux の日記]]
+   - [[http://yoppa.org/blog/4042.html][SuperCollider 自主練 – 基本編 | yoppa org]]
+
+** ChucK
+   C - like な言語.
+   - [[http://chuck.cs.princeton.edu/release/][ChucK : ]]
+   - [[http://vimeo.com/2994084][Algorithmic Composition on ChucK on Vimeo]]
+
+   ChucK を学ぶ coursera のコース. 
+   [[https://www.coursera.org/course/chuck101][Introduction to Programming for Musicians and Digital Artists | Coursera]]
+
+   ChucK を解説した本.
+   [[http://www.manning.com/kapur/][Manning: Programming for Musicians and Digital Artists]]
+
+** Csound
+   C - like な言語. 開発は盛ん. (2014)
+   - [[http://www.csounds.com/][Csound: A C-Based Audio Programming Language]]
+   - [[http://csound.github.io/][Csound github.io]]
+
+** Impromptu
+   Mac OS のための live coding 言語. Lisp 系の言語.
+   Andrew Sorensen さんがつくった.
+   - [[http://impromptu.moso.com.au/][impromptu]]
+   - [[http://en.wikipedia.org/wiki/Impromptu_(programming_environment)][Impromptu (programming environment) - Wikipedia, the free encyclopedia]]
+
+** Overtone
+   OSS の Clojure API.
+
+   A Clojure API to the SuperCollider synthesis engine.
+   - [[https://github.com/overtone/overtone][overtone/overtone]]
+   - [[http://overtone.github.io/][Overtone - Collaborative Programmable Music]]
+
+** MAX/MSP
+   有料のソフト.
+   - [[http://ja.wikipedia.org/wiki/Max_(%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2)][Max (ソフトウェア) - Wikipedia]]   
+
+** Pure Data
+   オリジナルの開発者ミラー・パケットによるフリーソフトウェアプログラム.
+   Max/Msp の OSS 版. Pd と略す.
+   - [[http://ja.wikipedia.org/wiki/Pure_Data][Pure Data - Wikipedia]]
+
+
+
+* 動画
+  Live Coding で検索して引っかかったやつで,気になるやつを集めてみる.
+
+  TOPLAP のページに example がまとまっている.
+  - [[http://toplap.org/about/][About | TOPLAP]]
+
+** Andrew Sorensen  
+   Live Coding の世界で有名な人.
+
+*** Andrew Sorensen OSCON 2014 Keynote: "The Concert Programmer" 
+   Andrew Sorensen さんの ライブコーディング.
+
+   オライリーのイベント? のなかで, 解説を交えながらのコーディング.
+
+   #+BEGIN_HTML
+   <iframe width="560" height="315" src="//www.youtube.com/embed/yY1FSsUV-8c?rel=0" frameborder="0" allowfullscreen></iframe>
+   #+END_HTML
+
+*** ComputeMusic (now): Andrew Sorensen at TEDxQUT
+    これも, Andrew Sorensen さんの TED 講演.
+
+    #+BEGIN_HTML
+    <iframe width="560" height="315" src="//www.youtube.com/embed/GSGKEy8vHqg" frameborder="0" allowfullscreen></iframe>
+    #+END_HTML
+
+*** A Study In Keith    
+    #+BEGIN_HTML
+    <iframe width="420" height="315" src="//www.youtube.com/embed/b-8Cmd6k4_M" frameborder="0" allowfullscreen></iframe>
+    #+END_HTML
+
+
+** Overtone
+   Clojure でのライブ.
+
+   なにかの講演.後半から実演している.
+   - [[https://www.youtube.com/watch?v=imoWGsipe4k][Programming Music with Overtone - Sam Aaron - YouTube]]
+
+*** Meta-eX
+    Overtone を利用したミュージシャンデュオ
+    - [[http://meta-ex.com/][Meta-eX - Live Coding Duo]]
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/bMP-7POtML0" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+** SuperCollider
+
+#+BEGIN_HTML
+<iframe width="420" height="315" src="//www.youtube.com/embed/wNWFSIadAH8" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+** ChucK
+   なんか, 初心者っぽい.
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/TwkSCPvjQb8" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+** Haskell
+   Haskell?? の Live Coding
+
+#+BEGIN_HTML
+<iframe width="420" height="315" src="//www.youtube.com/embed/FenTeBMkAsQ" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+* 最後に
+  なんだか意味不明だが, かっこいい. 
+
+  新しい世界を見た.
+  
+  個人的には, Emacs 上で音楽が鳴らせる Overtune に惹かれる.

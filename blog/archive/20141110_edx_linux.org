@@ -1,0 +1,184 @@
+#+BLOG: Futurismo
+#+POSTID: 2682
+#+DATE: [2014-11-10 月 22:12]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: MOOC, 技術メモ, Linux
+#+TAGS: edX, LPIC
+#+DESCRIPTION: edX の Introduction to Linux の感想
+#+TITLE: LinuxFoundation が MOOC に進出! edX で Introduction to Linux を受ける.
+
+* はじめに
+  会社で LPIC の資格をとれという, パワーハラスメントにあっている.
+  ストレスで嫌だったらありゃしない.
+
+  なので, しぶしぶと Linux の勉強をするために, 
+  MOOC の Linux 講座を受講してみた.
+
+  - [[https://www.edx.org/course/linuxfoundationx/linuxfoundationx-lfs101x-2-introduction-5386#.VGC3FFsvCCg][Introduction to Linux | edX]]
+
+* Linux 生みの親登場
+  この edX の講座は, LinuxFoundation が主催.
+  LinuxFoundation というのは Linux 普及のための教育期間.
+  University 以外の機関が MOOC への参加を発表したことは, 
+  少し話題になった.
+
+  - [[http://www.linuxfoundation.org/news-media/announcements/2014/03/linux-foundation-build-massive-open-online-course-program-edx][Linux Foundation to Build Massive Open Online Course Program with edX, Increase Access to Linux Training for All | The Linux Foundation]]
+  - [[http://lifehacker.com/learn-linux-with-this-free-edx-course-from-the-linux-fo-1612770920][Learn Linux with This Free edX Course from the Linux Foundation]]
+
+  すごいと思ったのは, このイントロ動画.
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/BmDricQGK6w" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+  Linux 生みの親, リーナス・トーバルズ直々の宣伝活動だ.
+
+#+BEGIN_HTML
+<blockquote class="twitter-tweet" data-cards="hidden" lang="ja"><p>動画にうつっているのは linux 作者だった. びっくり. edX | LinuxFoundationX: Introduction to Linux: XLFS101x About Video <a href="http://t.co/kpaohcIiRt">http://t.co/kpaohcIiRt</a></p>&mdash; きつね (@tsu_nera) <a href="https://twitter.com/tsu_nera/status/491586114629545985">2014, 7 月 22</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+#+END_HTML
+
+* 結構期待はずれだった...
+  結論から書くと, 期待はずれ.
+
+  なぜかというと, 知っていることばかりだったから.
+
+  Linux に触れたことがまったくない人のための, 
+  本当の初心者をターゲットにしているように思う.
+
+  なので自分のような, 仕事で Linux をつかったり,
+  自宅のノート PC に ArchLinux を入れて遊んでいるような人にとっては,
+  常識的なことばかりが書いてあるので, まったくつまらない.
+
+  自分にとっては, この講座は意味がなかったな...
+
+  いやいや, そういう屁理屈は, LPIC L1 の試験に合格してから言わねば...
+
+* LPIC L1 の試験対策になるかな. .ならない
+  edX で勉強しても, それが対策にはならないというのが感想.
+
+  LPIC という試験は, 問題を暗記すると受かる試験なので.
+  LPIC の勉強は, 問題集や ping-t をとくのがよい.
+
+  ただし, Linux に触れたことがないひとには, 
+  この edX の講座はいいかもしれない.
+  毎週, Lab という項目で, 実際に手を動かして Linux にふれる課題が出される.
+
+  暗記すれば, 試験には受かるが, 知識としてはすぐにわすれてしまう.
+  手を動かすと, 知識は体に残る.
+
+* LPIC L1 と Introduction to Linux の対応
+  最後に, LPIC L1 の出題範囲と, 今回の edX の講座の対応をかいておく.
+
+** 101 試験
+
+#+begin_src language
+
+  * 主題 101:システムアーキテクチャ
+    101.1 ハードウェア設定の決定と構成
+    101.2 システムのブート
+    101.3 ランレベルの変更とシステムのシャットダウンまたはリブート
+
+    Chapter 01: The Linux Foundation 				
+    Chapter 02: Linux Philosophy and Concepts 			
+
+    主題 102:Linux のインストールとパッケージ管理
+
+    102.1 ハードディスクのレイアウト設計
+    102.2 ブートマネージャのインストール
+    102.3 共有ライブラリを管理する
+    102.4 Debian パッケージ管理を使用する
+    102.5 RPM および YUM パッケージ管理を使用する
+
+    Chapter 03: Linux Structure and Installation 		
+    Chapter 07: Finding Linux Documentation
+
+  * 主題 103:GNU と Unix のコマンド
+
+    103.1 コマンドラインで操作する
+    103.2 フィルタを使ってテキストストリームを処理する
+    103.3 基本的なファイル管理を行う
+    103.4 ストリーム, パイプ, リダイレクトを使う
+    103.5 プロセスを生成, 監視, 終了する
+    103.6 プロセスの実行優先度を変更する
+    103.7 正規表現を使用してテキストファイルを検索する
+    103.8 vi を使って基本的なファイル編集を行う
+
+    Chapter 06: Command Line Operations
+    Chapter 10: Text Editors
+    Chapter 13: Manipulating Text
+    Chapter 17: Processes
+
+  * 主題 104:デバイス, Linux ファイルシステム, ファイルシステム階層標準
+
+    104.1 パーティションとファイルシステムの作成
+    104.2 ファイルシステムの整合性を保持する
+    104.3 ファイルシステムのマウントとアンマウントをコントロールする
+    104.4 ディスククォータを管理する
+    104.5 ファイルのパーミッションと所有者を管理する
+    104.6 ハードリンクとシンボリックリンクを作成・変更する
+    104.7 システムファイルを見つける, 適切な位置にファイルを配置する
+
+    Chapter 08: File Operations
+
+#+end_src
+
+** 102 試験
+
+#+begin_src language
+
+  * 主題 105:シェル, スクリプト, およびデータ管理
+
+    105.1 シェル環境のカスタマイズと使用
+    105.2 簡単なスクリプトをカスタマイズまたは作成する
+    105.3 SQL データ管理
+
+    Chapter 15 : Bash Shell Scripting
+    Chapter 16: Advanced Bash Scripting
+
+  * 主題 106:ユーザインターフェイスとデスクトップ
+
+    106.1 X11 のインストールと設定
+    106.2 ディスプレイマネージャの設定
+    106.3 アクセシビリティ
+    
+    Chapter 04: Graphical Interface
+    Chapter 18: Common Applications
+
+  * 主題 107:管理業務
+
+    107.1 ユーザアカウント, グループアカウント, および関連するシステムファイルを管理する
+    107.2 ジョブスケジューリングによるシステム管理業務の自動化
+    107.3 ローカライゼーションと国際化
+
+    Chapter 05: System Configuration from the Graphical Interface
+    Chapter 09: User Environment
+
+  * 主題 108:重要なシステムサービス
+
+    108.1 システム時刻を維持する
+    108.2 システムのログ
+    108.3 メール転送エージェント (MTA) の基本
+    108.4 プリンターと印刷を管理する
+
+    Chapter 14: Printing
+
+  * 主題 109:ネットワークの基礎
+
+    109.1 インターネットプロトコルの基礎
+    109.2 基本的なネットワーク構成
+    109.3 基本的なネットワークの問題解決
+    109.4 クライアント側の DNS 設定
+
+    Chapter 12: Network Operations
+
+  * 主題 110:セキュリティ
+
+    110.1 セキュリティ管理業務を実施する
+    110.2 ホストのセキュリティ設定
+    110.3 暗号化によるデータの保護
+
+    Chapter11: Local Security Principles
+
+#+end_src
+

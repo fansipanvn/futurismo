@@ -45,6 +45,12 @@
 
    状態の導入によって, プログラムに時間の概念を与える.
 
+*** modular
+    ある部分を変更しても, 別の部分には変更が加わらないとき,
+    それをモジュール性という.
+    
+    Function Paradium ではできない. State があればできる.
+
 ** Evaluation Strategy
    評価戦略.
 
@@ -94,6 +100,21 @@
       - Traps: 意図的に OS が止める breakpont, systemcall, file open
       - Faults: リカバリ可能な例外, page fault, segmentation fault
       - Aborts: リカバリ不可能な例外, プログラムは強制終了.
+** Type
+   型, データ型.
+  - [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][データ型 - Wikipedia]]
+
+   互いに関係する値の集合.
+   (OOP においては) 値の集合と値に対する操作の集合を一緒にしたもの.
+
+    - 基本型: 言語でサポートされた型.
+      -> [[http://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AA%E3%83%9F%E3%83%86%E3%82%A3%E3%83%96%E5%9E%8B][プリミティブ型 - Wikipedia]]
+
+    - 抽象データ型 (ADT): 自身で定義した型.
+      + 構造体
+      + クラス
+      + インタフェース
+      -> 詳細は, OOP のページへ [[http://ja.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][抽象データ型 - Wikipedia]]
 
 ** Function
    関数.
@@ -123,11 +144,13 @@
 *** Haskell (関数型パラダイム)
     関数は, ある型の引数を他の型の引数の結果に変換する.
     型とは, 互いに関連する値の集合.
-
     - 参考: [[http://www.amazon.co.jp/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0Haskell-Graham-Hutton/dp/4274067815][Amazon.co.jp: プログラミング Haskell: Graham Hutton, 山本 和彦: 本]]
 
     数学に置ける関数の概念に近い. ある集合から集合への写像.
     - [[http://ja.wikipedia.org/wiki/%E9%96%A2%E6%95%B0_(%E6%95%B0%E5%AD%A6)][関数 (数学) - Wikipedia]]
+
+** Class
+   共通のメソッドを提供する型の集合.
     
 * Semantics
   プログラム意味論. 

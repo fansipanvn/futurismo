@@ -1,0 +1,8 @@
+#+OPTIONS: toc:nil
+* R
+  統計のための Ruby ベースの言語.
+  - [[http://www.r-project.org/][The R Project for Statistical Computing]]
+
+* 文法
+** ブックマーク
+   - [[http://www.okada.jp.org/RWiki/index.php?RjpWiki][RjpWiki - RjpWiki]]

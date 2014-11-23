@@ -1,0 +1,46 @@
+#+OPTIONS: toc:nil
+* Statistics
+  統計学.
+
+* Population and Sample
+  母集合と 標本.
+  - [[http://ja.wikipedia.org/wiki/%E6%AF%8D%E9%9B%86%E5%9B%A3][母集団 - Wikipedia]]
+  - [[http://ja.wikipedia.org/wiki/%E6%A8%99%E6%9C%AC_(%E7%B5%B1%E8%A8%88%E5%AD%A6)][標本 (統計学) - Wikipedia]]
+
+** Variables
+   変数. 
+
+   - Categorical Values , qualitative variable.
+     定性的変数. カデゴリわけされた変数.
+
+   - Numerical Values
+     定量的変数. 測定可能変数.
+     + 連続
+     + 離散
+
+* levels of measurement
+  データの尺度. それぞれ性質がある.
+  - [[http://ja.wikipedia.org/wiki/%E5%B0%BA%E5%BA%A6%E6%B0%B4%E6%BA%96][尺度水準 - Wikipedia]]
+  - [[http://www.koka.ac.jp/morigiwa/sjs/les10102.htm][データの種類と尺度水準]]
+
+  以下の分類は, スタンレー・スティーヴンズに提唱されたもの.
+
+** 質的データ-本来数値化できないデータ
+*** 名義尺度-同一性を表現 (nominal scale)
+    測定対象の違いをカテゴリーごとに数値へ割り当てます.
+    例:男性と女性の区別を 1 と 2 に割り当てるような場合です.
+
+*** 順序尺度-同一性・順序性を表現 (ordinal scale)
+    測定対象の差を測定値間の大小関係で表します.
+    例:水の美味しさを示すのに, 
+    一番美味しい水から順に 1,2,3,・・・と割り当てるような場合です.
+  
+** 量的データ-数値化可能なデータ
+*** 間隔尺度-同一性・順序性・加法性を表現 (interval scale)
+    測定対象の差を測定値間の等間隔の数値として表します.
+    例:温度, 湿度, 好悪の程度を 1 (非常に嫌い)~5 (非常に好き) の 5 段階に割り当てる ような場合です.
+    評定値 1 と 2 の差 は評定値 4 と 5 の差 と等間隔とみなしています.
+
+*** 比率尺度-同一性・順序性・加法性・等比性を表現 (ratio scale)
+    間隔尺度との違いは絶対原点 0 (ゼロ) があることです.
+    例:身長, 体重, 高度, 深度などです.

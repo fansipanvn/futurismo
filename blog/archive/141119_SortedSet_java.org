@@ -1,0 +1,177 @@
+#+BLOG: Futurismo
+#+POSTID: 2725
+#+DATE: [2014-11-20 木 00:15]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Java
+#+DESCRIPTION: Java で TreeSet と Comparator を実装した
+#+TITLE: Java で TreeSet と Comparator を実装した
+
+#+BEGIN_HTML
+<a href="http://futurismo.biz/wp-content/uploads/java.png"><img alt="" src="http://futurismo.biz/wp-content/uploads/java.png" width="256" height="256" /></a>
+#+END_HTML
+
+* はじめに
+  Java で, 順序づけをした集合をイテレーティブに処理したい.
+
+  ちなみに, PriorityQueue では, 実現できなかった...
+  - [[http://futurismo.biz/archives/2723][Java での優先順位付きキューの使い方まとめ (PriorityQueue) | Futurismo]]
+
+* TreeSet
+  SortedSet, TreeSet を利用する.
+  - [[https://docs.oracle.com/javase/jp/6/api/java/util/TreeSet.html][TreeSet (Java Platform SE 6)]]
+  - [[https://docs.oracle.com/javase/jp/6/api/java/util/SortedSet.html][SortedSet (Java Platform SE 6)]]
+
+  SortedSet はインタフェース, TreeSet は クラスという違いがある.
+
+* Comparator
+  順序をつけるために java.util.Comparator インタフェースを利用する.
+  これは,コレクションの順序づけをおこなうための比較関数,compare をもつ.
+  - [[https://docs.oracle.com/javase/jp/6/api/java/util/Comparator.html][Comparator (Java Platform SE 6)]]
+
+  以下の記事が詳しい.
+   - [[http://www.techscore.com/tech/Java/JavaSE/Utility/3-2/][3. Set (2) | TECHSCORE (テックスコア)]]
+
+* 具体例
+  優先度をもつ以下のようなオブジェクトを TreeSet に格納することを考える.
+
+#+begin_src java
+class MyClass {
+	private char a;
+	private int priority;
+	
+	public MyClass (char a, int priority) {
+		this.a = a;
+		this.priority = priority;
+	}
+
+	public int getPriority () {
+		return priority;
+	}
+
+	public String toString () {
+		return "char: " + a + " priority: " + priority;
+	}
+}
+#+end_src
+ 
+  まずは, Comparator を作成する.
+
+#+begin_src java
+import java.util.Comparator;
+
+class MyComparator implements Comparator {
+	@Override
+	public int compare (Object arg0, Object arg1) {
+		MyClass x = (MyClass) arg0;
+		MyClass y = (MyClass) arg1;
+
+		int xp = x.getPriority ();
+		int yp = y.getPriority ();		
+		
+		if (xp < yp) {
+			return 1;
+		} else if (xp > yp) {
+			return -1;
+		} else{
+			return 0;
+		}
+	}
+}
+#+end_src
+
+最後に TreeSet の実装.
+
+#+begin_src java
+import java.util.TreeSet;
+
+public class SortedSetSample {
+	public static void main (String[] args) {
+		MyClass A = new MyClass ('a', 3);		
+		MyClass B = new MyClass ('b', 1);
+		MyClass C = new MyClass ('c', 2);
+
+		TreeSet<MyClass> set = new TreeSet<MyClass>(new MyComparator ());
+		
+		set.add (A);
+		set.add (B);
+		set.add (C);
+
+		for (MyClass obj: set) {
+			System.out.println (obj);
+		}
+	}
+}
+#+end_src
+
+** 実行結果
+#+begin_src language
+char: a priority: 3
+char: c priority: 2
+char: b priority: 1
+#+end_src
+
+** Full Code
+
+#+begin_src java
+import java.util.Comparator;
+import java.util.TreeSet;
+
+public class SortedSetSample {
+	public static void main (String[] args) {
+		MyClass A = new MyClass ('a', 3);		
+		MyClass B = new MyClass ('b', 1);
+		MyClass C = new MyClass ('c', 2);
+
+		TreeSet<MyClass> set = new TreeSet<MyClass>(new MyComparator ());
+		
+		set.add (A);
+		set.add (B);
+		set.add (C);
+
+		for (MyClass obj: set) {
+			System.out.println (obj);
+		}
+	}
+}
+
+class MyComparator implements Comparator {
+	@Override
+	public int compare (Object arg0, Object arg1) {
+		MyClass x = (MyClass) arg0;
+		MyClass y = (MyClass) arg1;
+
+		int xp = x.getPriority ();
+		int yp = y.getPriority ();		
+		
+		if (xp < yp) {
+			return 1;
+		} else if (xp > yp) {
+			return -1;
+		} else{
+			return 0;
+		}
+	}
+}
+
+class MyClass {
+	private char a;
+	private int priority;
+	
+	public MyClass (char a, int priority) {
+		this.a = a;
+		this.priority = priority;
+	}
+
+	public int getPriority () {
+		return priority;
+	}
+
+	public String toString () {
+		return "char: " + a + " priority: " + priority;
+	}
+}
+#+end_src
+
+* Special Thanks
+  - [[http://www.techscore.com/tech/Java/JavaSE/Utility/3-3/][3. Set (3) | TECHSCORE (テックスコア)]]

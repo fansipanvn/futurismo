@@ -68,10 +68,10 @@ class InterfaceImpl implements Interface1, interface2, interface3 {
    たら, 別の暮らすは interface として宣言して, implements として Mix-in
    する 必要がある. Ruby でいうところの, < と include の関係と同じ.
 
+
 * Cuncurrency 
 ** Thread
    Java で Thread を利用する方法は 2 つある.
-
    - [[http://www.javaroad.jp/java_thread3.htm][Java の道:スレッド (3. スレッドの作成)]]
 
 *** Thread の継承
@@ -110,6 +110,15 @@ new Thread (myRunnable).start ();
 
     - [[http://www.techscore.com/tech/Java/JavaSE/Thread/2-2/][2. スレッドの実行 (2) | TECHSCORE (テックスコア)]]
 
+
+** ExecuterService
+   - [[http://java.keicode.com/lang/multithreading-executor.php][ExecutorService の使い方 - Java 入門]]
+
+*** ThreadPool
+   複数のスレッドをあらかじめ作成して待機させておき,
+   タスクが来たら待っているスレッドにタスクを割り当てて
+   処理を開始させる仕組みをスレッドプールと言います
+   
 * Java Servlets
   サーバ上でウェブページなどを動的に生成したりデータ処理を行うために,
   Java で作成されたプログラム及びその仕様.JSP.
@@ -167,3 +176,19 @@ new Thread (myRunnable).start ();
 * 開発環境・ツール
 ** Emacs
  - [[http://futurismo.biz/archives/2462][Eclim で Emacs と Eclipse のいいとこどり!Emacs で Java 開発環境を構築した]]
+
+* Effective Java[Book]
+  - [[http://www001.upp.so-net.ne.jp/yshibata/myhomepage/errata/ej2eerrata.html][『 Effective Java 第 2 版』正誤表]]
+  - Effective Java のソース: [[https://github.com/marhan/effective-java-examples][marhan/effective-java-examples]]
+  - [[http://qiita.com/disc99/items/ccdcbe797b077dd0c54d][Effective Java のまとめのまとめ - Qiita]]
+
+** 第 2 章 オブジェクトの生成と消滅 (項目 1 〜 項目 7)
+** 第 3 章 すべてのオブジェクトに共通のメソッド (項目 8 〜 項目 12)
+** 第 4 章 クラスとインタフェース (項目 13 〜項目 22)
+** 第 5 章 ジェネリックス (項目 23 〜 29)
+** 第 6 章 enum とアノテーション (項目 30 〜 項目 37)
+** 第 7 章 メソッド (項目 38 〜 項目 44)
+** 第 8 章 プログラミング一般 (項目 45 〜 項目 56)
+** 第 9 章 例外 (項目 57 〜 項目 65)
+** 第 10 章 並行性 (項目 66 〜 項目 73)
+** 第 11 章 シリアライズ (項目 74 〜 項目 78)

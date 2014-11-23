@@ -17,14 +17,46 @@
    - [[http://jdee.sourceforge.net/][Java Development Environment for Emacs]]
 
 ** Special Thanks
+   - 公式: [[http://jdee.sourceforge.net/][Java Development Environment for Emacs]]
+   - github:mirror https://github.com/emacsmirror/jdee/
+
    - [[http://mikio.github.io/article/2012/12/23_emacsjdeejava.html][Emacs 中毒者に贈る JDEE による Java 開発環境の構築|ざる魂]]
-   - [[http://epian-wiki.appspot.com/wiki/Emacs/JDEE][Emacs/JDEE - epian-wiki]]
    - [[http://www.02.246.ne.jp/~torutk/jdee/jdee.html][JDEE:Java Development Environment for Emacs]]
+   - [[http://epian-wiki.appspot.com/wiki/Emacs/JDEE][Emacs/JDEE - epian-wiki]]
    - [[https://github.com/toshikiw/qiita/blob/master/malabar-mode%E3%81%A6%E3%82%99java%E3%82%92%E6%9B%B8%E3%81%8F.md][qiita/malabar-mode でjava を書く.md at master · toshikiw/qiita]]
    - [[https://www.youtube.com/watch?v=wsqzBEJoHLY][▶ My Java Emacs environment - YouTube]]
 
-* Settings
-** JDEE
-** 自動補完
-** タグジャンプ
+** Environment
+   - ArchLinux
+   - Emacs 25.0
+   - JDEE 2.4.1
 
+* JDEE
+** Install
+   公式ページにしたがう.
+   - [[http://jdee.sourceforge.net/][Java Development Environment for Emacs]]
+
+   ソースからビルドする方法と, バイナリをインストール方法がある.
+   自分は, バイナリを取ってきた.
+   - [[http://sourceforge.net/projects/jdee/files/][JDEE - Browse Files at SourceForge.net]]
+
+   ダウンロードしたら, .emacs.d/ 配下に配置. init ファイルに以下を追記.
+
+#+begin_src emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/jdee/lisp")
+(autoload 'jde-mode "jde" "Java Development Environment for Emacs." t)
+(setq auto-mode-alist (cons '("\.java$" . jde-mode) auto-mode-alist))
+#+end_src
+
+** 自動補完
+   jde-complete で補完候補を表示できる.
+   通常は, C-c C-v C-.にバインドされている. 
+
+** JUnit
+
+#+begin_src emacs-lisp
+;; JUnit4
+(setq jde-junit-testrunner-type "org.junit.runner.JUnitCore")
+#+end_src
+
+** タグジャンプ

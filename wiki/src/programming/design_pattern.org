@@ -70,24 +70,29 @@ int main (void) {
 
 *** Builder 
     オブジェクトの生成手順が複雑な場合に, その生成過程をカプセル化する.
+    [[http://futurismo.biz/archives/2706][- エレガントな Effective Java の Builder Pattern を実装してみた | Futurismo]]
 
 *** Prototype
     生成するオブジェクトの原型をコピーして新しいオブジェクトを生成する.
 
 *** Singleton 
     システム内で生成可能なインスタンス数をひとつだけに制限する.
+    - [[http://futurismo.biz/archives/2709][Java のユーティリティクラスでシングルトンパターンをためす | Futurismo]]
 
 ** 構造に関するパターン
 *** Adapter 
-    インタフェースを変換することにより, インタフェースに互換性がない クラス同士を接続する.
+    インタフェースを変換することにより, 
+    インタフェースに互換性がない クラス同士を接続する.
 
 *** Bridge 
-    クライアントがアクセスするクラス (インタフェース) と実装クラスを分離して, それぞれを独立に変更できるようにする.
+    クライアントがアクセスするクラス (インタフェース) と実装クラスを分離して, 
+    それぞれを独立に変更できるようにする.
 
 *** Composite 
     部分-全体階層を表現するために, クラスの木構造に組み立てる. 同一の
     クラスから派生したサブクラスを木構造のノードとし, クライアントは木
     構造の任意の部分を同一のインタフェースで扱える.
+    - [[http://futurismo.biz/archives/2288][コンポジット・パターン (Composite Pattern) と TkComposite についてしらべた | Futurismo]]
 
 *** Decorator 
     サブクラス化ではなく委譲により, クラスに新しい機能を追加する.
@@ -104,6 +109,7 @@ int main (void) {
 ** 振る舞いに関するパターン
 *** Command 
     要求をオブジェクトとしてカプセル化し, 要求の発生と実際の処理を分離する.
+    - [[http://futurismo.biz/archives/2703][Java で Command Pattern を実装してみた | Futurismo]]
 
 *** Chain of Responsibility 
     クライアントからの要求を複数のオブジェクトでたらいまわしにする.
@@ -128,10 +134,13 @@ int main (void) {
 *** Observer 
     あるオブジェクトに依存した複数のオブジェクトがある場合に,
     被依存オブジェクトの状態変化を, 依存オブジェクトに通知する.
+    - [[http://futurismo.biz/archives/2283][オブザーバ・パターン (Observer) でサブウィンドウから情報を取得する | Futurismo]]
 
 *** State 
     状態に応じてオブジェクトの振る舞いを変更したいときに,
     振る舞いを別オブジェクトにカプセル化する.
+    - [[http://futurismo.biz/archives/2302][簡潔さは力なり!Ruby でステートパターン (State Pattern) を実装する | Futurismo]]
+    - [[http://futurismo.biz/archives/2649][手続き型・オブジェクト指向型・関数型 3 つのパラダイムでステートパターン (Java) | Futurismo]]    
     
 *** Strategy 
     アルゴリズムをカプセル化して, アルゴリズムを交換可能にする.
@@ -170,7 +179,6 @@ int main (void) {
     システムのフレームワークを構築するための手段としてよく活用される.
 
     Factory Method パターンは, 内部に Template Method パターンを包含することが多い
-
     - [[http://ja.wikipedia.org/wiki/Template_Method_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Template Method パターン - Wikipedia]]
 
 #+begin_src ruby
@@ -195,6 +203,7 @@ end
     複数のオブジェクトからなるオブジェクト構造があるときに, 
     それぞれのオブジェクト要素に処理を追加または
     オブジェクト要素の処理を変更するため, Visitor クラスを用意する.
+    - [[http://futurismo.biz/archives/2689][Java で Visitor Pattern を実装してみた | Futurismo]]
 
 ** Links
   概要がかかれたページ
