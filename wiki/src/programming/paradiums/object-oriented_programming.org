@@ -21,6 +21,7 @@
        実行指示を行うだけであと任せておく. 
      - これが委譲 (delegation) という考え方.
 
+
 * Data abstraction
   データ抽象. 3 つの構成要素がある.
   - Input
@@ -33,14 +34,21 @@
   A data abstraction is a part of a program that has an inside, an outside,
   and an interface in between The inside is hidden from the outside.
 
+  データを抽象的に使う, 使い方.実装にとらわれずにデータを使うこと.
+  インタフェースと呼ばれる規則にしたがって使用される具体化の集合.
+
+  データ抽象を型 (Type) といって済ますこともある.
+  抽象データ型 (ADT) は, 特殊なデータ抽象.
+  値の集合と, それに関する操作の集合.(CPMCP p431)
+
   以下のコンセプトに支えられている
   - High-order Programming (高階関数)
   - Static Scoping (クロージャ)
   - Explicit State (明示的状態)
 
-  Data Abstruction は 2 つの実現方法がある
+  Data Abstruction は 2 つの実現方法がある.
   - Abstruct Data Type (ADT)
-    値と操作をベツベツに保持する
+    値と操作をベツベツに保持する.
   - Object
     値と操作を一緒に保持する
 
@@ -136,6 +144,46 @@
     Value と Operation それ自体は State を持たない.
     CTM, p433
 
+  バンドルされていないデータ抽象.
+
+** ラッパー
+   ADT に アクセスするための key (キー) を導入することで,
+   安全にアクセスすることができる.
+   
+   
+   値の集合に直接アクセスさせないための操作.(CPMCP p210)
+   - 値を安全に保持するためには, 
+      鍵 (key) を利用して (包む) 操作を追加すればよい.
+      
+#+begin_src oz
+Key={NewName}
+SS={Chunk.new w (Key:S)}
+#+end_src
+
+    包み, ほどきを行うデータ抽象をラッパーと定義する.
+
+    #+begin_src oz
+proc {NewWrapper ?Wrap ?Unwrap}
+   Key={NewName} in
+   fun {Wrap X}
+      {Chunk.new w{Key:X}}
+   end
+   fun {Unwrap X}
+      try W.Key catch _ then raise error (unwrap (W)) end end
+   end
+end
+    #+end_src
+
+以下のように, Wrap, Unwrap する.
+
+#+begin_src oz
+S={a b c}
+SS={Wrap S}
+S={Unwrap SS}
+#+end_src
+
+
+
 ** Example
     Diference between ADT and Object. Stack をつかった実装の違い.
 *** ADT
@@ -174,7 +222,6 @@ end
     Abstruct Data Type も強力にサポートしている.
 
     Object と ADT の意味がごっちゃにつかわれているのが現実の現状.
-
 
 ** Bookmarks
    - 比較的わかりやすい: [[http://www.hitachi.co.jp/Prod/comp/soft1/manual/pc/d645140/W4510070.HTM][抽象データ型]
@@ -231,8 +278,8 @@ end
    HashMap<String, HashSet<String>> attrs = new HashMap<String, HashSet<String>>();
    HashMap<String, HashSet<String>> methods = new HashMap<String, HashSet<String>>();
 
-   attrs.add ("Hoge", new HashSet (Arrays.asList ("attr1", "attr2")));
-   methods.add ("Hoge", new HashSet (Arrays.asList ("method1", "method2")));
+   attrs.put ("Hoge", new HashSet (Arrays.asList ("attr1", "attr2")));
+   methods.put ("Hoge", new HashSet (Arrays.asList ("method1", "method2")));
    #+end_src
 
    Class という概念によって, オブジェクトの"宣言"と"生成 (new)"を分離する.
