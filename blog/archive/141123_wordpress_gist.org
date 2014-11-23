@@ -1,0 +1,51 @@
+#+BLOG: Futurismo
+#+POSTID: 2739
+#+DATE: [2014-11-24 月 00:29]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, WordPress
+#+TAGS: CSS
+#+DESCRIPTION: WordPress の埋め込み gist のスタイルシート (CSS) の設定メモ
+#+TITLE: WordPress の埋め込み gist のスタイルシート (CSS) の設定メモ
+
+* はじめに
+最近すごく気になってたのだが, ブログでの gist の表示が崩れまくっている
+ので, 直し方を調べたのでメモする.
+
+以下の過去記事も参照.
+  - [[http://futurismo.biz/archives/1633][賢威 6 で gist が表示できないときの解決方法 | Futurismo]]
+
+* CSS の調べ方
+** 要素を調べる
+   ブラウザのツールを利用して, CSS の要素を調べる.
+   - Chrome ならばディベロッパーツール,
+   - firefox ならば右クリックから要素を検索
+
+   編集画面で該当箇所の css に辿り着いたら, そこを編集する.
+   すると, リアルタイムで変更が確認できる.
+
+** class="gist" class"gist-file" で囲まれている
+   調べてみると, 
+   gist では, <div class="gist"> などで囲まれていることがわかる.
+
+   以下のような StyleSheet に追加する.
+
+#+begin_src css
+/* for gist */
+.gist {
+    font-size: 16px;
+}
+.gist-file div{
+	background-color: black!important;
+}
+
+.gist-file .pl-vo{
+	color: white!important;
+}
+
+.gist-file .highlight{
+	color: white!important;
+}
+#+end_src
+
+* BookMarks
+  - [[http://wpsites.net/tools/how-to-style-github-gist-code-embeds-in-wordpress/][How To Style Github Gist Code Embeds in WordPress]]

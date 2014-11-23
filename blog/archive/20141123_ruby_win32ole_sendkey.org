@@ -1,0 +1,121 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Ruby, Windows
+#+DESCRIPTION: Ruby の win32ole で Windows GUI アプリのキー操作を自動化する
+#+TITLE: Ruby の win32ole で Windows GUI アプリのキー操作を自動化する
+
+* はじめに
+  Windows 上のアプリをキーボード操作で自動化したいと考えた.
+
+  Ruby の win32ole を利用すれば, 実現できそうなので, 調べた.
+
+* Win32ole とは
+Windows 版の Ruby には, win32ole というライブラリがある.
+- [[http://docs.ruby-lang.org/ja/1.9.3/class/WIN32OLE.html][class WIN32OLE]]
+
+これを利用すると, Ruby から Windows のいろいろなアプリを操作できる.
+(Excel,iExplore などなど...)
+
+Windows アプリにキーを送ることができるので, 
+キー操作で完結するアプリならば, 操作を自動化できる, というわけだ.
+
+以前, Excel の操作で win32ole を利用した.以下, 過去記事参照.
+- [[http://futurismo.biz/archives/2330][Ruby から Excel を操作する方法について | Futurismo]]
+
+今回は, キーボード操作関連の情報をまとめる.
+
+* WSHShell を操作
+  WSHShell とは, Windows のシェル. 
+  これを Ruby から制御する.手順は 2 つ.
+
+  - あるウィンドウをアクティブにできる
+  - アクティブなウィンドウにキーコードを送る
+
+** 事前準備
+  以下の 2 行で, まずは wsh オブジェクト生成.
+
+#+begin_src ruby
+require 'win32ole'
+wsh = WIN32OLE.new ('Wscript.Shell')
+#+end_src
+
+** プログラム起動
+   Run メソッドでプログラムを起動できる.
+
+#+begin_src ruby
+wsh.Run ('notepad.exe')
+#+end_src
+
+** ウィンドウをアクティブにする
+   AppActivate メソッドで ウィンドウをアクティブにできる.
+
+   アプリのタイトルを指定する.
+   成功すると, ture が返る. 失敗すると, false が返る. 
+
+#+begin_src ruby
+wsh.AppActivate ('Title')
+#+end_src
+
+** ウィンドウにキーコードを送る
+   SendKeys メソッドで ウィンドウにキーを送る.
+   
+#+begin_src ruby
+wsh.SendKeys ('A')
+#+end_src
+   
+   詳細な SendKey コードはここにある.
+   - [[http://msdn.microsoft.com/en-us/library/8c6yea83.aspx][SendKeys Method]]
+
+* Sample
+** notepad
+  メモ帳起動してなにか書く. Popup メソッドでメッセージ表示.
+
+#+begin_src ruby
+require 'win32ole'
+
+wsh = WIN32OLE.new ('Wscript.Shell')
+wsh.Run ('notepad.exe')
+wsh.AppActivate ('無題')
+
+wsh.SendKeys ('Hello')
+
+wsh.Popup ('Happy Hacking!!')
+#+end_src
+
+** explorer
+   C:\Users\tsu-nera\Desktop\test フォルダをコピーして 
+   test2 フォルダを作成する.
+
+#+begin_src ruby
+# coding: utf-8
+require 'win32ole'
+
+wsh = WIN32OLE.new ('Wscript.Shell')
+wsh.Run 'explorer C:\Users\tsu-nera\Desktop'
+
+sleep (3)
+
+wsh.AppActivate ('Desktop')
+
+# テストフォルダ選択
+wsh.SendKeys ('t')
+
+sleep (0.5)
+
+# コピー & ペースト
+wsh.SendKeys ('^c^v')
+
+sleep (0.5)
+
+# リーネム
+wsh.SendKeys ('{F2}test2{ENTER}')
+
+# popup
+wsh.Popup ('Copy Success!!')
+sleep (3)
+wsh.SendKeys ('{ENTER}')
+#+end_src
+
+* Special Thanks
+  - [[http://www.tech-notes.dyndns.org/win32ole/wsh_shell.html][Ruby から WSHShell オブジェクトを使う]]
+  - [[http://rubyonwindows.blogspot.jp/2007/05/automating-applications-with-ruby.html][Ruby on Windows: Automating Applications with Ruby & The Windows Script Host]]

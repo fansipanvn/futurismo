@@ -1,0 +1,87 @@
+#+BLOG: Futurismo
+#+POSTID: 2735
+#+DATE: [2014-11-23 日 15:35]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Windows
+#+DESCRIPTION:Windows での コマンドラインからコピーする方法を調べた.
+#+TITLE: Windows での コマンドラインからコピーするコマンドまとめ (xcopy, robocopy, copy)
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/Windows_7_Vertical_Logo_Web.jpg"/>
+#+END_HTML
+
+* はじめに
+コマンドプロンプトからフォルダのコピーがしたかったので, 調べてみた.
+
+* Windows 標準コピーコマンド
+  Windows8 には, 標準で以下のコマンドが利用できる.
+
+- copy
+- xcopy
+- robocopy
+
+** copy
+   Windows 標準のファイルコピーコマンド.
+   - [[http://www.k-tanaka.net/cmd/copy.php][コマンドプロンプト copy - ファイルをコピーする]]  
+
+** xcopy
+   copy の改良版. copy よりも高機能. 
+   - [[http://www.k-tanaka.net/cmd/xcopy.php][コマンドプロンプト xcopy - ファイルをディレクトリ構造ごとコピーする]]
+
+   ディレクトリツリーごとコピーできるところが, copy との最大の違い.
+   xcopy があれば, copy はいらない.
+
+   copy は内部コマンド, xcopy は外部コマンド.
+
+#+begin_src bash
+xcopy /e "C:\Users\tsu-nera\Desktop\test" "\\192.168.100.100\共有"
+#+end_src
+
+** robocopy
+   xcopy よりも高機能なコマンド. リモート間のフォルダ同期ができる.
+   バックアップならば, robocpy が適している.
+   - [[http://www.atmarkit.co.jp/ait/articles/0704/20/news130.html][Windows TIPS:robocopy でフォルダをバックアップ/ 同期させる - ＠ IT]]
+
+* 速度について
+** xcopy と robocopy
+   比較動画をみつけた. robocopy の勝利.
+
+#+BEGIN_HTML
+<iframe width="420" height="315" src="//www.youtube.com/embed/1y7vmIvK2z8" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+** Explore での手動コピーとの違い
+   調べてみると, xcopy のほうが手動コピーよりも早いらしい.
+   - [[http://okwave.jp/qa/q6547486.html][通常コピーと CMD でコピー速度の差の理由は? 【 OKWave 】]]
+   
+   ちなみに, explore.exe にもコマンドラインオブションはある.
+   コマンドプロンプトから指定したフォルダを開くことがてきる.
+   コピーや移動はできないみたい.
+   - [[http://support.microsoft.com/kb/152457/ja][Windows エクスプローラのコマンドライン オプション]]
+
+** FastCopy
+   ためしていないけれども, FastCopy というものがあるらしい.
+   なんでも, robocopy, xcopy よりも高速とか.
+   - [[http://www.se-support.com/server/fileserver-copy.html][高速コピーツール「 FastCopy 」はホントに早かった! ファイルサーバー移行テスト]]
+
+
+* おまけ
+  ダミー用データ作成.以下を参考に .
+  - [[http://www.atmarkit.co.jp/ait/articles/0209/28/news002.html][Windows TIPS:巨大なサイズのファイルを簡単に作る方法 - ＠ IT]]
+
+#+begin_src bash
+# 1KB のファイル作成.
+fsutil file createnew 1K_test 1024
+
+# 1MB のファイル作成.
+fsutil file createnew 1M_test 1048576
+
+# 1GB のファイル作成.
+fsutil file createnew 1G_test 1073741824
+#+end_src
+
+** xcopy
+#+begin_src bash
+xcopy /e "C:\Users\tsu-nera\Desktop\test" "\\192.168.100.100\共有"
+#+end_src

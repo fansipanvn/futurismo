@@ -45,6 +45,13 @@
     以下に手順がある.
     - [[http://earsketch.gatech.edu/uncategorized/archived-earsketch-downloads-2][Archived EarSketch Downloads « EarSketch]]
 
+*** Spec
+    - API: [[http://earsketch.gatech.edu/category/learning/reference/earsketch-api][EarSketch API « EarSketch]]
+    - エフェクト: [[http://earsketch.gatech.edu/category/learning/reference/every-effect-explained][Every Effect Explained in Detail « EarSketch]]
+      - エフェクト例:
+      - [[http://earsketch.gatech.edu/category/effect-case-studies-2][Effect Case Studies « EarSketch]]
+      - [[http://earsketch.gatech.edu/uncategorized/unit-4][Unit 4: Lists, Effects in More Detail, Musical Form « EarSketch]]
+
 ** MAX/MSP
    有料のソフト. 一番有名??
    - [[http://ja.wikipedia.org/wiki/Max_(%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2)][Max (ソフトウェア) - Wikipedia]]   
