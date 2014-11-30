@@ -4,8 +4,16 @@
   - [[http://ja.wikipedia.org/wiki/Haskell][Haskell - Wikipedia]]
 
 * 文法
-** List
+  標準ライブラリ
+  - [[https://downloads.haskell.org/~ghc/latest/docs/html/libraries/base/Prelude.html][Prelude]]
 
+  分からないときは, Hoogle で調べる. source タブを押せば定義が見れる.
+  - [[https://www.haskell.org/hoogle/][Hoogle]]
+
+  すごい Haskell を楽しく学ぼうがオンラインで無料で読める.
+  - [[http://learnyouahaskell.com/chapters][Chapters - Learn You a Haskell for Great Good!]]
+
+** List
 #+begin_src haskell
 Prelude> head[1,2,3,4,5]
 1
@@ -26,6 +34,87 @@ Prelude> [1,2,3] ++ [4,5]
 Prelude> reverse[1,2,3,4,5]
 [5,4,3,2,1]
 #+end_src
+
+** Monad
+
+#+begin_src bash
+cabal update
+cabal install mtl
+#+end_src
+
+*** IO Action
+    Haskell でプログラミングするときに副作用があるような処理, あるいは
+    外部に対して働きかけるような処理を書きたいときは アクションを使います.
+
+    なにも返さない場合は, () を返す.(トークンという)
+    - [[https://www.haskell.org/haskellwiki/Hakell_I/O%E3%82%A2%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E7%B4%B9%E4%BB%8B][Hakell I/O アクションの紹介 - HaskellWiki]]
+
+   Haskell では,モナドは
+
+   1. 型構築子 
+      慣習的に, m と呼ばれている.
+   2. その型の値を構築する関数 (a -> m a), 
+      慣習的に,return 
+   3. その型の値とその型の値を生成する計算とを組合せて, 
+      その型の新しい計算を 生成する関数 (m a -> (a -> m b) -> m b) 
+      bind という. >>= とかく.
+
+      で表現されます.
+
+      1. モナドの型構築子は計算の型を定義
+      2. return 関数はこの計算の型のプリミティブな値を生成
+      3. >>= はこの型の計算を組み合わせる
+
+      この型のより複雑な計算を作り出します
+
+      #+begin_src haskell
+-- モナド m の型
+data m a = ... 
+
+-- return はモナドのインスタンスを作る型構築子 
+return :: a -> m a
+
+-- bind はモナドのインスタンス m a と,
+-- a から別のモナドのインスタンス m b を作る計算と
+-- を組み合わせて新しいモナドのインスタンス m b を作る
+(>>=) :: m a -> (a -> m b) -> m b
+      #+end_src
+
+*** do 記法
+
+#+begin_src haskell
+main = do
+  s <- getLine
+  print s
+#+end_src
+    - <- 演算子で, 値に IO の結果を 束縛 (bind) できる. 
+   - [[https://docs.google.com/presentation/d/1WDgqxk9RF0uYYFQnzBfspT_2sxFiKKikMWqyZoLDYXw/edit#slide=id.p][Haskell を不浄にする魔法たち - Google スライド]]
+
+     do ブロックは通常の関数と異なるのでアクションと呼ばれます. do ブ
+     ロックから外部に値を返すには return を用います. return a とすると
+     外部には IO a が返ります
+
+    do ブロックの結果は do ブロックの最後のアクションの結果となります.
+    return で do ブロックの結果 (アクション) を外部に返すことができます.
+
+    IO a を a に換えるには, do ブロックの中で <- を使います
+
+    - [[https://www.shido.info/hs/haskell5.html][IO in Haskell]]
+
+*** Bookmarks
+    Ruby での解説:
+    - [[http://d.hatena.ne.jp/gnarl/20111222/1324483790][モナドという言葉を使うことなく 純粋関数型言語の入出力を解説する]]
+    - [[http://www.h6.dion.ne.jp/~machan/misc/FPwithRuby.html][Ruby による関数型プログラミング]]
+
+   Haskell におけるモナドの解説ページ:
+   - [[http://www.sampou.org/haskell/a-a-monads/html/][All About Monads]]
+   - [[https://www.shido.info/hs/haskell8.html][Easy Monad]]
+   - [[http://jutememo.blogspot.jp/2010/03/haskell-sequecne-foldr.html][Haskell の sequence 関数 - foldr をイメージして | すぐに忘れる脳みそのためのメモ]]
+   - [[http://jutememo.blogspot.jp/2010/03/haskell-mapm-foldr.html][Haskell の mapM_ – foldr と (>>) を意識して | すぐに忘れる脳みそのためのメモ]]
+
+   edX のページ:
+   - http://www.cs.nott.ac.uk/~gmh/monads
+
 
 * ツール
 ** Haskell Platform
@@ -74,8 +163,23 @@ ghci test.hs
 
 * High-order function
 
+* テスト
+  メジャーなものは以下
+  - doctest
+  - QuickCheck
+  - HUnit
+
+** Bookmarks
+  - [[http://d.hatena.ne.jp/kazu-yamamoto/20121205/1354692144][Haskell の単体テスト最前線 - あどけない話]]
+  - [[http://itpro.nikkeibp.co.jp/article/COLUMN/20080108/290605/][本物のプログラマは Haskell を使う - 第 16 回  Haskell でのテストの自動化を考える:ITpro]]
+
+*** HUnit
+   - [[http://qiita.com/7shi/items/9fb326a87de6c3083784][Haskell - HUnit 超入門 - Qiita]]
+
 * Bookmarks
   - [[http://www.slideshare.net/konn/haskell-6-32258528][数学プログラムを Haskell で書くべき 6 の理由]]
+  - 文法まとめ: [[http://www.sampou.org/haskell/report-revised-j/index.html][The Haskell 98 Language Report]]
+  - [[http://qiita.com/7shi/items/145f1234f8ec2af923ef][Haskell 超入門 - Qiita]]
 
 * Book
 ** Programming haskell

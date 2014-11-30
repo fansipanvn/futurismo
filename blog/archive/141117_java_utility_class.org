@@ -1,8 +1,11 @@
+#+BLOG: Futurismo
+#+POSTID: 2709
+#+DATE: [2014-11-17 水 23:25]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
 #+CATEGORY: 技術メモ, デザインパターン
 #+TAGS: java, Gof
 #+DESCRIPTION: Java のユーティリティクラスについて
-#+TITLE: Java のユーティリティクラスでシングルトンパターンをためす
+#+TITLE: Java のユーティリティクラスはシングルトンパターン/ フライウェイトパターンで実装する
 
 * はじめに
   今日から仕事ではじめて Java の開発をはじめることになったので, 
@@ -48,17 +51,23 @@ class SampleSingleton {
 ** 状態をもつ場合は, シングルトンパターンを適用する
    なにかの値を保持する場合は,
    デザインパターンであるシングルトンパターンを利用する.
-
+   - [[http://ja.wikipedia.org/wiki/Singleton_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Singleton パターン - Wikipedia]]
+   
    一般的なシングルトンパターンの実装方法は以下.
    - private な 定数に オブジェクトを保存
    - オブジェクトは getInstance () メソッドで取得
 
-   または,
+** フライウェイトパターンで改良する
+   シングルトンパターンは 
+   フライウェイトパターンと合わせて利用されることがおおい.
+   - [[http://ja.wikipedia.org/wiki/Flyweight_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Flyweight パターン - Wikipedia]]
 
+   特徴は, 
    - private な 変数に オブジェクトを保存.
    - オブジェクトが存在すれば, getInstance で渡す.
      オブジェクトが存在しなければ, オブジェクトを作成して getInstance で渡す.
 
+* 実装例
 #+begin_src java
 class SampleSingleton {
 	static class SingletonUtil {

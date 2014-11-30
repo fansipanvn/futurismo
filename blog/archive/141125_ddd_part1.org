@@ -1,18 +1,68 @@
-#+OPTIONS: toc:nil
-* DesignPrinciple
-  設計原則. 設計手法.
+#+BLOG: Futurismo
+#+POSTID: 2745
+#+DATE: [2014-11-24 月 23:25]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Book
+#+TAGS: DDD, OOP
+#+DESCRIPTION: ドメイン駆動設計の本の前半を読んだ感想
+#+TITLE: 抽象データ型とドメイン駆動設計の関係について
+* はじめに
+  この記事の続きです.
+  - [[http://futurismo.biz/archives/2730][データ抽象と抽象データ型 (ADT) について調べたまとめ (Java) | Futurismo]]
 
-* TDD
-  Test-Driven Development. テスト駆動開発.
-* BDD
-  振る舞い駆動開発.
-* DDD
-  Domain-Driven Design.Eric Evans 氏の唱えた設計手法.
+* 設計とはデータ型を決めること
+  前回の記事を引用すると,
+
+#+BEGIN_QUOTE
+アプリケーションを設計するということは, 
+まずそのアプリケーションで利用されるデータ型を定義するということ
+
+その後, 自分が定義したデータ型を操作するインタプリタを設計する. 
+
+Java をつかっているものの, 
+Java はそれらのデータ型のインタプリタでしかない
+#+END_QUOTE
+
+  オブジェクト指向設計とはなんだろうか?
+
+  そんなことを考えていたとき, 
+  オブジェクト指向設計の本としてもっとも名高い本,
+  エリック・エバンズのドメイン駆動設計が本屋にあった
+
+  思わず衝動買いした.
+  
+* ドメイン駆動設計
+  ドメイン駆動設計とは, Eric Evans の提示した設計手法. DDD と略す.
   - [[http://ja.wikipedia.org/wiki/%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E9%A7%86%E5%8B%95%E8%A8%AD%E8%A8%88][ドメイン駆動設計 - Wikipedia]]
 
-** 特徴
-   - 複雑なドメインの設計はモデルベースで行うべき
-   - システムを実装するための特定の技術ではなくドメインそのものとドメインのロジックに焦点を置くべき
+  本はこれ.
+#+BEGIN_HTML
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E3%82%A8%E3%83%AA%E3%83%83%E3%82%AF%E3%83%BB%E3%82%A8%E3%83%B4%E3%82%A1%E3%83%B3%E3%82%B9%E3%81%AE%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E9%A7%86%E5%8B%95%E8%A8%AD%E8%A8%88-IT-Architects%E2%80%99Archive-%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%AE%9F%E8%B7%B5-%E3%82%A8%E3%83%AA%E3%83%83%E3%82%AF%E3%83%BB%E3%82%A8%E3%83%B4%E3%82%A1%E3%83%B3%E3%82%B9/dp/4798121967%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798121967' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/51f7WXHJYCL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E3%82%A8%E3%83%AA%E3%83%83%E3%82%AF%E3%83%BB%E3%82%A8%E3%83%B4%E3%82%A1%E3%83%B3%E3%82%B9%E3%81%AE%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E9%A7%86%E5%8B%95%E8%A8%AD%E8%A8%88-IT-Architects%E2%80%99Archive-%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%AE%9F%E8%B7%B5-%E3%82%A8%E3%83%AA%E3%83%83%E3%82%AF%E3%83%BB%E3%82%A8%E3%83%B4%E3%82%A1%E3%83%B3%E3%82%B9/dp/4798121967%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798121967' rel='nofollow' target='_blank'>エリック・エヴァンスのドメイン駆動設計 (IT Architects'Archive ソフトウェア開発の実践)</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 14.11.24</div><div class='amazlink-detail'>エリック・エヴァンス<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E3%82%A8%E3%83%AA%E3%83%83%E3%82%AF%E3%83%BB%E3%82%A8%E3%83%B4%E3%82%A1%E3%83%B3%E3%82%B9%E3%81%AE%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E9%A7%86%E5%8B%95%E8%A8%AD%E8%A8%88-IT-Architects%E2%80%99Archive-%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%AE%9F%E8%B7%B5-%E3%82%A8%E3%83%AA%E3%83%83%E3%82%AF%E3%83%BB%E3%82%A8%E3%83%B4%E3%82%A1%E3%83%B3%E3%82%B9/dp/4798121967%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798121967' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00q0724.n763w947.g00q0724.n763x2b4/?pc=http%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F11146351%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Frms%2Fmsv%2FItem%3Fn%3D11146351%26surl%3Dbook' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
+#+END_HTML
+
+* データ型の設計とは
+  抽象データ型については前回の記事でまとめた.
+  - [[http://futurismo.biz/archives/2730][データ抽象と抽象データ型 (ADT) について調べたまとめ (Java) | Futurismo]]
+
+  抽象データ型もオブジェクトも性質と操作の管理の仕方が異なるだけで,
+  性質や操作自体は同一だ.
+
+  抽象データ型を設計して, 型のインタプリタを作成すること.
+
+  DDD でいえば, エンティティと値オブジェクトを決めて,
+  それを操作するサービスや集約, 生成方法を決定すること.
+
+  両者はおなじことを言っているように感じた.
+  アプリケーションで扱う型を決めるということは,
+  ドメイン層における, エンティティと値オブジェクトを決めるということ.
+
+  これが, とりありず前半部分を読んだ感想だ.
+
+* DDD 本の前半まとめ
+  以下 DDD 本の読書メモ.
+
+  とくに, リポジトリの章は,
+  明日まさに仕事で考えないといけないことなので, とても参考になった.
 
 ** 基本原則 (前書きより)
    - コアドメインに集中すること
@@ -205,55 +255,3 @@
       るコレクションが, メモリ上にあると錯覚させるようにできるようにすること.
     - 実際に直接的なアクセスを必要とする集約ルートに対してのみ,
       リポジトリを提供すること.
-
-** DSL
-   特定のタスク向けに設計されたコンピュータ言語.
-   - [[http://ja.wikipedia.org/wiki/%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E5%9B%BA%E6%9C%89%E8%A8%80%E8%AA%9E][ドメイン固有言語 - Wikipedia]]
-
-   DSL は大きく 2 つに分類出来る.
-   - 内部 DSL
-   - 外部 DSL
-   
-*** 内部 DSL
-    汎用プログラミング言語 (Java, Ruby, Scala...などなど) をベースにしてつくるもの.
-    
-*** 外部 DSL
-    まったくの独自文法とインタプリタによってつくるもの.
-
-** Bookmarks
-   Amazon
-   - [[http://www.amazon.co.jp/%E3%82%A8%E3%83%AA%E3%83%83%E3%82%AF%E3%83%BB%E3%82%A8%E3%83%B4%E3%82%A1%E3%83%B3%E3%82%B9%E3%81%AE%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E9%A7%86%E5%8B%95%E8%A8%AD%E8%A8%88-IT-Architects%E2%80%99Archive-%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%AE%9F%E8%B7%B5-%E3%82%A8%E3%83%AA%E3%83%83%E3%82%AF%E3%83%BB%E3%82%A8%E3%83%B4%E3%82%A1%E3%83%B3%E3%82%B9/dp/4798121967][Amazon.co.jp: エリック・エヴァンスのドメイン駆動設計]]
-
-   エッセイ:
-   - [[http://d.hatena.ne.jp/takaxi/20130330/1364645339][「ドメイン駆動設計」は新人 SE の必修項目でいいと思う - flairDays - てさぐりの日々]]
-
-#+BEGIN_QUOTE
-そもそも「ぼくらは, 何のためのソフトウェア作るの? 」
-決して, コンパイルを通すことが目的ではなくて,
-あるドメインを IT によって実現するためですよね.
-#+END_QUOTE
-
-   オージス総研 パターンの分類:
-  - [[https://www.ogis-ri.co.jp/otc/hiroba/technical/DDDEssence/chap1.html][Domain-Driven Design のエッセンス 第 1 回|オブジェクトの広場]]
-  - [[https://www.ogis-ri.co.jp/otc/hiroba/technical/DDDEssence/chap2.html][Domain-Driven Design のエッセンス 第 2 回|オブジェクトの広場]]
-  - [[https://www.ogis-ri.co.jp/otc/hiroba/technical/DDDEssence/chap3.html][Domain-Driven Design のエッセンス 第 3 回|オブジェクトの広場]]
-
-    コード (Java) からのアプローチ.
-  - [[http://www.slideshare.net/j5ik2o/ss-6227801][コードで学ぶドメイン駆動設計入門]]
-  - [[http://d.hatena.ne.jp/j5ik2o/20101228/1293551861][コードで学ぶドメイン駆動設計入門 ~エンティティとバリューオブジェクト編~ - じゅんいち☆かとうの技術日誌]]
-  - [[http://d.hatena.ne.jp/j5ik2o/20101229/1293642673][コードで学ぶドメイン駆動設計入門 ~リポジトリ編~ - じゅんいち☆かとうの技術日誌]]
-
-  解説 PDF
-  - [[http://www.slideshare.net/masuda220/ss-26583161][ドメイン駆動設計入門]]
-
-* MDD
-  モデル駆動開発. 組み込み業界で熱い??
-** ツール
-   
-  - [[http://www.fujitsu.com/jp/group/fct/products/bricrobo/][BricRobo : 富士通コンピュータテクノロジーズ]]
-
-* DRY
-  Don't Repeat Yourself
-
-* YAGNI
-* REST

@@ -68,7 +68,202 @@ class InterfaceImpl implements Interface1, interface2, interface3 {
    たら, 別の暮らすは interface として宣言して, implements として Mix-in
    する 必要がある. Ruby でいうところの, < と include の関係と同じ.
 
+** Enum
+   識別子をそのまま有限集合として持つ抽象データ型.
+   とくに, Java では Enum は特殊なクラス.
+   
+   Effective Java での Enum まとめ.
 
+*** int enum パターン
+    名前つき int 定数のグループを宣言すること.バッドノウハウ.
+
+#+begin_src java
+public static final int FOO = 0;
+public static final int BAR = 1;
+#+end_src
+
+    - コンパイラによる型検査の恩恵を受けることができない.
+    - 同じ名前がついたものを名前空間で区別することができない.
+    - 変更により再コンパイルが必要.
+    - 表示可能な文字列へ変換する方法かない.
+    - int と enum では実効速度はそれほどかわらない.
+
+*** 定数固有メソッド実装 (constant-specific method implementation)
+    enum 定数に対して振る舞いを関連付けるための方法.
+
+    パターン適用前.
+
+    #+begin_src java
+public enum Operation {
+	PLUS, MINUS;
+
+	double apply (double x, double y) {
+		switch (this) {
+		case PLUS:  return x + y;
+		case MINUS: return x - y;
+		}
+		throw new AssertionError () ("Unknown op:" + this);
+	}
+}
+    #+end_src
+
+    パターン適用後. enum 型で抽象メソッドを宣言して,
+    定数固有クラス本体で, 定数ごとに具象メソッドで
+    その抽象メソッドをオーバーライド.
+
+    switch 文を排除するので, エレガント!! 抽象メソッドによって実装をカプセル化.
+
+#+begin_src java
+public enum Operation {
+	PLUS  { double apply (double x, double y) {return x + y;} },
+	MINUS { double apply (double x, double y) {return x - y;} };
+
+	abstract double apply (double x, double y);
+}
+#+end_src
+
+*** 定数固有クラス
+    さらに, 定数固有データと実装を組み合わせることで, 強力な表現力を.
+
+#+begin_src java
+public enum Operation {
+	PLUS ("+")  { double apply (double x, double y) {return x + y;} },
+	MINUS ("-") { double apply (double x, double y) {return x - y;} };
+
+	private final String symbol;
+	Operation (String symbol) { this.symbol = symbol; }
+	@Override public String toString () { return symbol; }
+
+	abstract double apply (double x, double y);
+}
+#+end_src
+
+   Enum の toString は定数表現は 文字列へ変換することもできる.
+   
+*** 戦略 Enum (Strategy Enum)
+    抽象メソッドをクラスに変更して外部から与えてやるようにすれば,
+    これはいわゆる Strategy Pattern だ.
+
+    評価戦略を外部から与えて, Operation は委譲で評価をする.
+
+#+begin_src java
+public enum Operation {
+	PLUS (StrategyType.PLUS), MINUS (StrategyType.MINUS);
+
+	private final Strategy strategy;
+
+	Operation (EvaluateType type) { 
+		this.type = type;
+	}
+
+	double apply (double x, double y) {
+		return type.evaluate (x, y);
+	}
+
+	// Strategy Enum Type
+	private enum EvaluateType {
+		PLUS  { double apply (double x, double y) {return x + y;} },
+		MINUS { double apply (double x, double y) {return x - y;} };
+
+		abstract double apply (double x, double y);		
+	}
+}
+#+end_src
+
+*** enum 定数と値の関連付けに ordinal をつかわないこと
+    enum と関連付けられた int 値を取得する
+    メソッドとして ordinal メソッドがある.
+
+    これを定数と値を関連付けるときには, 使わない.
+    なぜなら, コードの修正で, 振られる番号が変わるから.
+
+#+begin_src java
+public enum Number {
+	ONE, TWE;
+	public int getNumber{ return ordinal () + 1; }
+}
+#+end_src
+
+   代わりにインスタンスフィールドを利用すればよい.
+
+#+begin_src java
+public enum Number {
+	ONE (1), TWE (2);
+	private final int number;
+	Number (int number) { this.number = number;}
+	public int getNumber{ return number; }
+}
+#+end_src
+
+*** 集合と集合の対応づけに序数インデックス (配列) をつかわない
+    2 つの集合を対応付けるときには, 配列をつかうよりもいい方法がある.
+
+    それは, EnumMap. EnumMap は内部実装は配列でされているものの,
+    インデックスを意識する必要がないというメリットがある.
+
+    配列をインデックスするために序数を使用することが適切であることはほ
+    とんどない.代わりに, EnumMap を使用すること.
+
+    関連が多次元ならば, EnumMap<..., EnumMap<...>> 
+    というように連なっていく.
+
+#+begin_src java
+Map<Herb.Type, Set<Herb>> herbsByType =
+	new EnumMap<Herb.Type, Set<Herb>>(Herb.Type.class);
+for (Herb.Type t : Herb.Type.values ())
+	herbsByType.put (t, new HashSet<Herb>());
+for (herb h: garden)
+	herbsBytpe.get (h.type).add (h);
+#+end_src
+     
+** 内部クラス: Inner Class
+   他のクラスの内部に宣言されたクラス. ネストクラスともいう.
+
+   以下の 4 つに分類できる
+   - static メンバクラス
+   - 非 static メンバクラス
+   - 無名クラス
+   - ローカルクラス
+
+   内部クラスの主な役割は, 外側のクラスの Utility.
+
+*** static メンバクラス
+    とくに理由がない限り, 内部クラスは private static をつける.
+
+    static をつけないと, 親のクラスがインスタンス化されるとともに,
+    子もインスタンス化される.
+
+    それはすなわち, 不必要な時間とメモリの消費になるので.
+    
+*** 非 static メンバクラス
+    主な使いどころは, Adapter パターンを委譲で実現するとき.
+    - [[http://ja.wikipedia.org/wiki/Adapter_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Adapter パターン - Wikipedia]].
+
+    たとえば, そのオフジェクトが
+    内部で TreeSet を利用するか HashSet を利用するかを
+    オブジェクトの生成時に切り替えるような場合に利用する.
+
+    ジェネリックスも合わせて利用される.
+
+    以下の例では, BlockingQueue を入れ替えている.
+    - [[http://futurismo.biz/archives/2656][Java で Producer-Consumer Pattern を実装してみた | Futurismo]]
+
+*** 無名クラス
+    主な使用目的は, 関数オブジェクトを生成するため.
+    
+    Java7 以前は, Java でクロージャを実現するためには,
+    無名クラスを利用する必要がある. 
+
+    Java8 だと lambda があるので, 無名クラスの使いどころがないかも.
+
+    無名クラスは, プログラムの途中にかかれるので,
+    可読性のためには, せいぜい 10 行程度の短いものが適切.
+
+    - [[http://futurismo.biz/archives/2752][Java の無名クラスにパラメータを渡す方法のメモ | Futurismo]]
+
+*** ローカルクラス
+    あまりつかわない.
+    
 * Cuncurrency 
 ** Thread
    Java で Thread を利用する方法は 2 つある.
@@ -185,6 +380,28 @@ new Thread (myRunnable).start ();
 ** 第 2 章 オブジェクトの生成と消滅 (項目 1 〜 項目 7)
 ** 第 3 章 すべてのオブジェクトに共通のメソッド (項目 8 〜 項目 12)
 ** 第 4 章 クラスとインタフェース (項目 13 〜項目 22)
+   継承をやたらと敵対視している
+   - 継承よりもコンポジションを選ぶ
+     継承は不必要なメソッドを公開する.
+     つまり, 継承はカプセル化を破る.
+     
+   - 継承をつかうならば設計を文書化する, でなければ禁止だ.
+
+   - 抽象クラスよりもインタフェースを選ぶ
+     実装の観点では,
+     + 抽象クラスはメソッドに対する実装を含むことを許されている.
+     + インタフェースはメソッドに対する実装を含むことを許されていない.
+
+     機能の観点では,
+     + 抽象クラスはある機能の実装を強制する.
+     + インタフェースは任意の機能を混ぜ合わせる.
+
+     階層化の観点では, 
+     + 抽象クラスは物事を階層化することに優れる.
+     + インタフェースは階層を持たないものをまとめることに優れる.
+
+     インタフェースは, 階層を持たない型システムを構築する.
+
 ** 第 5 章 ジェネリックス (項目 23 〜 29)
 ** 第 6 章 enum とアノテーション (項目 30 〜 項目 37)
 ** 第 7 章 メソッド (項目 38 〜 項目 44)

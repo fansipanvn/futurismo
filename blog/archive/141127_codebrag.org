@@ -1,0 +1,115 @@
+#+BLOG: Futurismo
+#+POSTID: 2756
+#+DATE: [2014-11-27 木 22:58]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: 
+#+DESCRIPTION: コードレビューツール, codebrag を試してみた
+#+TITLE: お手軽お気楽コードレビューシステム! codebrag に驚いた
+
+* はじめに
+  Subversion をつかっていて, 
+  ソースコードレビューでコードにコメントを書きたいと思った.
+
+  なにか, お手軽にためせるツールはないか探して見たところ, 
+  Codebrag というものを見つけたので試す.
+  - [[http://codebrag.com/][Codebrag - your daily code review tool]]
+
+* Codebrag とは
+  オープンソースのコードレビューツール.
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/PxQflI7Bgxc?rel=0" frameborder="0" allowfullscreen></iframe>  
+#+END_HTML
+
+  サーバにインストールして, Web 画面からコードレビューができる.
+
+  Git と Subversion に対応しているようだ. 
+  Subversion は, git-svn をつかって使えるようにしているようだ.
+
+* インストール
+  インストール手順は以下にある.
+  - https://github.com/softwaremill/codebrag/wiki/Installation
+
+  以下から, ダウンロード. 
+  ダウンロードでメールアドレスを入れないといけないのがちょっといやだ.
+  - [[http://codebrag.com/][Codebrag - your daily code revwtool]]
+   
+  もしかしたら, wget でとれるかも..未検証.
+  
+#+begin_src language
+wget http://codebrag.com/latest/codebrag.zip
+unzip codebrag.zip
+#+end_src
+
+* 設定
+** リポジトリクローン
+  まずは, ダウンロードした zip を解凍.その後, repos ディレクトリに移動.
+
+  repos ディレクトリにリポジトリを clone する. 
+  - Git: git clone
+  - Subversion: git svn clone
+
+#+begin_src language
+cd codebrag-2.3/repos
+git clone git@github.com:tsu-nera/tdd_by_example.git
+#+end_src
+
+** 設定ファイル編集
+  codebrag.conf を編集する.
+  リポジトリ認証のための設定を記述.
+
+#+begin_src language
+repository {
+    username = "hogehoge"
+    password = "password"
+}
+
+#+end_src
+
+  サンプルの.conf
+  - https://github.com/softwaremill/codebrag/wiki/Sample-codebrag.conf
+  
+* 起動
+  以下で起動.
+#+begin_src bash
+./codebrag.sh start         # Unix/OS X
+codebrag.bat                # Windows
+#+end_src
+
+  URL にアクセス. Default は http://localhost:8080
+
+  しばらく時間がかかるからコーヒーでも飲んでなさいというメッセージのあ
+  とに, ログイン画面が出てくる.
+
+  画面リフレッシュ後, ログイン. UI はかなりオシャレ!!
+
+  [[file:./../img/2014-11-27-224643_746x419_scrot.png]]
+
+  コードに対して, コメントやイイネ! をすることができる! すごい!
+
+  [[file:./../img/2014-11-27-224801_527x463_scrot.png]]
+
+  
+* 感想
+  正直, こんなに簡単に導入できて, おしゃれなツールだったので驚いている.
+
+  昔, ReviewBoard をインストールしようとしたが, ものすごく苦労した.
+  - [[http://futurismo.biz/archives/798][ReviewBoard インストール手順まとめ (Ubuntu) | Futurismo]] 
+
+  これは, インストールがとても簡単なところが気に入った.
+  
+  gitbucket という,github を模倣して
+  簡単に github サーバをローカルに立てるツールがあるが, 
+  それと同じくらいに簡単. ライバルくらい, 簡単.
+  - https://github.com/takezoe/gitbucket
+
+  仕事で使いたいな・・・使わせてくれるかな・・・
+
+  下っ端で権力がないので無理かな...へぇ.
+     
+* Bookmarks
+ - [[http://www.moongift.jp/2013/12/codebrag-subversiongit%E5%AF%BE%E5%BF%9C%E3%81%AE%E3%82%B3%E3%83%BC%E3%83%89%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0/][Codebrag · Subversion/Git 対応のコードレビューシステム MOONGIFT]]
+
+# ./../img/2014-11-27-224643_746x419_scrot.png http://futurismo.biz/wp-content/uploads/wpid-2014-11-27-224643_746x419_scrot.png
+# ./../img/2014-11-27-224801_527x463_scrot.png http://futurismo.biz/wp-content/uploads/wpid-2014-11-27-224801_527x463_scrot.png

@@ -1,6 +1,17 @@
 #+OPTIONS: toc:nil
 * Algorithms
+* Parser
+  パーサー. 構文解析器. 文字列をうけとって, 構文木を生成する関数.
+  - [[http://ja.wikipedia.org/wiki/%E6%A7%8B%E6%96%87%E8%A7%A3%E6%9E%90%E5%99%A8][構文解析器 - Wikipedia]]
 
+** Haskell
+   Programming Haskell のパーサ章の解説スライド:
+   - [[http://www.slideshare.net/RuiccRail/programming-haskell-chapter8][Programming Haskell Chapter8]]
+
+** Ruby
+   ripper ライブラリがある.
+   - [[http://futurismo.biz/archives/2277][Ruby のコードを ripper でパースする方法 | Futurismo]]
+  
 * Bookmarks
 ** coursera Algorithms
   - Source: [[http://algs4.cs.princeton.edu/code/][Java Algorithms and Clients]]

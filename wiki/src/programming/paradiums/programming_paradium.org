@@ -1,5 +1,5 @@
 #+OPTIONS: toc:nil
-* プログラミングパラダイム
+* Programming Paradigm: プログラミングパラダイム
   - [[http://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%83%91%E3%83%A9%E3%83%80%E3%82%A4%E3%83%A0][プログラミングパラダイム - Wikipedia]]
 
 ** 分類図
@@ -7,13 +7,20 @@
      - https://docs.google.com/viewer?url=http://www.info.ucl.ac.be/people/PVR/paradigmsDIAGRAMeng108.pdf
 
 * Base Concepts
-** Valiables
-   変数の構成要素は以下の 2 つ.
+** Program: プログラム
+   - [[http://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF)][プログラム (コンピュータ) - Wikipedia]]
 
+   パラダイムによって, 定義がことなる.
+   - 命令型パラダイム ... コンピュータが行うべき命令の列
+   - オブジェクト指向型パラダイム ... オブジェクトとメッセージング
+   - 関数型パラダイム ... 関数そのもの.
+    
+** Valuables: 変数
+   変数の構成要素は以下の 2 つ.
    - 識別子 (Identifier)
    - 格納域実体 (Store entity)
 
-*** Identifires and Store Entity
+*** Identifiers and Store Entity
     x = 1 ということはどういうことかを説明する概念.
     
     数学的な写像関係で x = 1 を説明しようとしている. { X -> x1=1 }みたいな感じ.
@@ -107,14 +114,30 @@
    互いに関係する値の集合.
    (OOP においては) 値の集合と値に対する操作の集合を一緒にしたもの.
 
-    - 基本型: 言語でサポートされた型.
-      -> [[http://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AA%E3%83%9F%E3%83%86%E3%82%A3%E3%83%96%E5%9E%8B][プリミティブ型 - Wikipedia]]
+*** 型の分類
+    型があるかないかよる分類
+    - 型なし (untyped)
+    - 型あり (typed)
 
+    動的片付けと静的片付けよる分類    
+    - 動的片付け .. 実行時に型検査
+    - 静的片付け .. コンパイル時に型検査
+
+    データによる分類    
+    - 基本型: 言語でサポートされた型.
+	-> [[http://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AA%E3%83%9F%E3%83%86%E3%82%A3%E3%83%96%E5%9E%8B][プリミティブ型 - Wikipedia]]
     - 抽象データ型 (ADT): 自身で定義した型.
-      + 構造体
-      + クラス
-      + インタフェース
-      -> 詳細は, OOP のページへ [[http://ja.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][抽象データ型 - Wikipedia]]
+	+ 構造体
+	+ クラス
+	+ インタフェース
+	-> 詳細は, OOP のページへ [[http://ja.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][抽象データ型 - Wikipedia]]
+
+	Java インタフェースは, 階層を持たない型システムを構築する.
+
+*** Type Checking: 型検査
+    プログラムが型に整合性があるかどうかをチェックすること.
+    - コンパイルエラー: 静的
+    - ランタイムエラー: 動的
 
 ** Function
    関数.
@@ -131,6 +154,9 @@
 
     プログラム中で意味や内容がまとまっている作業をひとつの手続きとしたもの.
     - [[http://ja.wikipedia.org/wiki/%E3%82%B5%E3%83%96%E3%83%AB%E3%83%BC%E3%83%81%E3%83%B3][サブルーチン - Wikipedia]]
+
+    手続きにつけられたラベル.アセンブラのラベルと同義.
+    (関数プログラミング実践入門)
 
 *** Java (オブジェクト指向パラダイム)
     あるクラスないしオブジェクトに所属するサブルーチン.
@@ -151,7 +177,11 @@
 
 ** Class
    共通のメソッドを提供する型の集合.
-    
+
+** Generics
+   データ形式に依存しないコンピュータプログラミング方式.
+   - [[http://ja.wikipedia.org/wiki/%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AA%E3%83%83%E3%82%AF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][ジェネリックプログラミング - Wikipedia]]
+
 * Semantics
   プログラム意味論. 
   formal semantics, mathmatical semantics ともいう.
@@ -263,8 +293,7 @@ CE={Fact → fact}. ( Contectual Environment)
 
 * Declarative Programming
   宣言型プログラミング.
-
-  - 広義:
+ - 広義:
   処理方法ではなく対象の性質などを宣言することでプログラミングするパラダイム.
   
   - 狭義:
@@ -290,21 +319,21 @@ CE={Fact → fact}. ( Contectual Environment)
 
   - [[http://ja.wikipedia.org/wiki/%E5%91%BD%E4%BB%A4%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][命令型プログラミング - Wikipedia]]
 
-  [[Imperative Programming]] とは, Function paradigm に Cell の概念を加えたもの.
-
-  - Declarative Programing の対になる概念.
-    Imperative vs Declaretive is also Stateful vs Stateless
+  [[Imperative Programming]] とは, Function paradigm に Cell (状態) の概念を加えたもの.
 
   #+begin_src language
   Imperative programming = Function paradigm + Cell
   #+end_src
 
-  - 実行するたびに, 内部の状態によって結果がことなる.
+  - Declarative Programing の対になる概念.
+    Imperative vs Declaretive is also Stateful vs Stateless
+
+  - 実行するたびに, 内部の状態によって結果がことなる.(副作用)
 
   - 械語は命令から構成される
   低レベルから見た場合,
-  プログラムの状態はメモリの内容によって定義され, 文としては機械語の命令が相当する.
-
+  プログラムの状態はメモリの内容によって定義され, 
+  文としては機械語の命令が相当する. 
 
 ** Procedural Programming
   手続き型プログラミングと同義のこともある.
@@ -319,21 +348,21 @@ CE={Fact → fact}. ( Contectual Environment)
   - 手続き (てつづき) 結果として値を返さないもの
 
 ** Explicite State
-明示的状態.
+   明示的状態.
 
-- 生存期間が 2 度以上の手続的呼び出しに渡るような一つの状態.
-- 関数の実行の中に値をもつ.
-- 手続きの引数に現れないもの.
+   - 生存期間が 2 度以上の手続的呼び出しに渡るような一つの状態.
+   - 関数の実行の中に値をもつ.
+   - 手続きの引数に現れないもの.
 
-同様なことを関数型パラダイムで実現するためには, 仮引数に状態を持たないといけない.
+   同様なことを関数型パラダイムで実現するためには, 仮引数に状態を持たないといけない.
 
 ** Cell
-Explicite State (明示的状態) を表す基本型. 二つの構成要素からなる.
+   Explicite State (明示的状態) を表す基本型. 二つの構成要素からなる.
 
-- 名前値 (Vaiue)
-- 単一代入格納域への参照 (Identifier)
+   - 名前値 (Vaiue)
+   - 単一代入格納域への参照 (Identifier)
 
-#+begin_src oz
+   #+begin_src oz
 declare
 fun {Reverse L}
    % 空リストの cell を生成
@@ -350,19 +379,20 @@ in
 end
 
 {Show {Reverse [1 2 3 4]}}
-#+end_src
+   #+end_src
 
-Function Paradigms と Imperative Paradigm の違いは,
+   Function Paradigms と Imperative Paradigm の違いは,
 
-- Function 
-  - 状態変化しない (Immunity)
-  - 機能追加時にインタフェースの変更の影響度がおおきい.
-- Inperative
-  - 機能追加時にインタフェースの変更の影響度がない. (モジュール性, モジュールプログラミング)
-  - 状態変化する.
+   - Function 
+     - 状態変化しない (Immunity)
+     - 機能追加時にインタフェースの変更の影響度がおおきい.
+   - Inperative
+     - 機能追加時にインタフェースの変更の影響度がない. (モジュール性, モジュールプログラミング)
+     - 状態変化する.
 
 ** Languaages
-- C 言語
+  - C 言語
+  - アセンブリ言語
 
 * Event-Driven Programming
 イベント駆動プログラミング.
@@ -663,15 +693,13 @@ Message の送信と受信のルール.
 [[http://en.wikipedia.org/wiki/Contract_Net_Protocol][Contract Net Protocol - Wikipedia, the free encyclopedia]]
 
 ** Ozma
- Multi-agent dataflow programmming を実現するための言語. Scala と Oz を合体させた.
+   Multi-agent dataflow programmming を実現するための言語. Scala と Oz を合体させた.
 
-ピーターバンロイさん直々の説明動画は以下で見れる.
+   ピーターバンロイさん直々の説明動画は以下で見れる.
+   - [[http://www.infoq.com/presentations/Ozma-Extending-Scala-with-Oz-Concurrency][Ozma: Extending Scala with Oz Concurrency]]
 
-- [[http://www.infoq.com/presentations/Ozma-Extending-Scala-with-Oz-Concurrency][Ozma: Extending Scala with Oz Concurrency]]
-
-github repository.
-
-- [[https://github.com/sjrd/ozma][sjrd/ozma]]
+   github repository.
+   - [[https://github.com/sjrd/ozma][sjrd/ozma]]
 
 * Active Objects Programming (Object-Based Agent)
 オブジェクト指向におけるオブジェクトを,
@@ -693,6 +721,17 @@ English の Wikipedia に OOP と AOP の対応比較表がある.
 * Mathmatics
   数学との関係性.
   - [[http://quanty.sakura.ne.jp/blog/2014/04/post-53.html][コンピュータと数学について - quanty のブログ]]
+
+  関数型言語のベースには数学がある.
+  - 群論
+  - 圏論
+
+** Links
+   - [[http://d.hatena.ne.jp/x76789/20100527/1274923567][代数とプログラミング・モデリングの関係とは? - x76789 の研究メモ]]
+   - [[http://ja.wikibooks.org/wiki/Haskell/%E5%9C%8F%E8%AB%96][Haskell/ 圏論 - Wikibooks]]
+   - [[http://www.iij-ii.co.jp/lab/techdoc/category/][プログラマのための圏論の基礎]]
+   - [[http://usrnameu1.tumblr.com/post/43282442181][数学が専攻でないプログラマー屋さんが「それでも圏論を勉強したい」というのならば, まず意識改革が必要だと... - ktkr!!!]]
+   - https://github.com/scalajp/introduction-to-category-theory-in-scala-jp/wiki
 
 * Books
 * Links

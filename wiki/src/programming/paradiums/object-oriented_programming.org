@@ -64,6 +64,31 @@
    - Abstract Data Type (ADT) keeps values and operations separate.
    - Object groups together value and operations in a single entity.
 
+   Java インタフェースは, 階層を持たない型システムを構築する.
+   (Effective Java p91 抽象クラスよりもインタフェースを選ぶ)
+
+*** 抽象クラスよりもインタフェースを選ぶ
+    Effective Java (p93)
+     実装の観点では,
+     + 抽象クラスはメソッドに対する実装を含むことを許されている.
+     + インタフェースはメソッドに対する実装を含むことを許されていない.
+
+     機能の観点では,
+     + 抽象クラスはある機能の実装を強制する.
+     + インタフェースは任意の機能を混ぜ合わせる.
+
+     階層化の観点では, 
+     + 抽象クラスは物事を階層化することに優れる.
+     + インタフェースは階層を持たないものをまとめることに優れる.
+
+     インタフェースは, 階層を持たない型システムを構築する.
+
+     - インタフェースは型を定義するために利用する
+     - インタフェースは定数を提供するために使用しない
+       + Enum を検討する
+       + Util クラスを検討する
+       + 関連するクラスのメンバを検討する
+
 ** Encapsulation
    プログラムと内部と内部をインタフェースで分けること.
    カプセル化のメリットは大規模開発をシンプルにする.
@@ -83,28 +108,6 @@
     - 型
 
     流動的要素を探し出してカプセル化する
-
-    この観点から, デザインパターンをとらえ直すと,
-
-    |----------------+----------------------------------------------|
-    | 流動的要素     | Pattern                                      |
-    |----------------+----------------------------------------------|
-    | アルゴリズム   | Strategy                                     |
-    | パターンマッチ | Visitor                                      |
-    | 動作, 要求     | Command                                      |
-    | 実装           | Bridge                                       |
-    | 変化への反応   | Observer                                     |
-    | 相互作用       | Mediator                                     |
-    | 生成           | Factory Method, Abstract Factory , Prototype |
-    | 構造の生成     | Builder                                      |
-    | 集合の巡回構造 | Iterator                                     |
-    | インタフェース | Adapter                                      |
-    | システム       | Facade                                       |
-    | 振る舞い       | Decorator , State                            |
-    | 設計の詳細     | Template Method                              |
-    |----------------+----------------------------------------------|
-
-    - [[http://bleis-tift.hatenablog.com/entry/20090201/1233426011#][カプセル化, 情報隠蔽, データ隠蔽 - ぐるぐる~]]
 
 *** 某 氏の発言
     ある目的をもったモノの集合.(N 氏)
@@ -182,8 +185,6 @@ SS={Wrap S}
 S={Unwrap SS}
 #+end_src
 
-
-
 ** Example
     Diference between ADT and Object. Stack をつかった実装の違い.
 *** ADT
@@ -226,6 +227,16 @@ end
 ** Bookmarks
    - 比較的わかりやすい: [[http://www.hitachi.co.jp/Prod/comp/soft1/manual/pc/d645140/W4510070.HTM][抽象データ型]
 
+
+** Enum: 列挙型
+   プログラマが選んだ各々の識別子をそのまま有限集合として持つ抽象データ型.
+   - [[http://ja.wikipedia.org/wiki/%E5%88%97%E6%8C%99%E5%9E%8B][列挙型 - Wikipedia]]
+
+   番号を持たないカテゴリ変数. 一意の文字.
+
+   
+   実行時には, 番号が振られることが覆いが, 
+   言語によっては番号はプログラマに見えないこともある.
 
 * Object-Oriented Paradiums
   以下の要素をそなえもつ
@@ -326,70 +337,60 @@ end
 
    - [[http://ja.wikipedia.org/wiki/%E7%B6%99%E6%89%BF_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0)][継承 (プログラミング) - Wikipedia]]
 
-** Composition
-   コンポジション. 新たなクラスに, 既存クラスのインスタンスを保持する.
-   has-a の関係 (not is-a)
-
-   Prefer Composition over inheritance (Effective Java).
-
 ** Delegation
-   移譲.
+   委譲.あるオブジェクトの操作を一部他のオブジェクトに代替させる手法.
+   - [[http://ja.wikipedia.org/wiki/%E5%A7%94%E8%AD%B2][委譲 - Wikipedia]]
 
-* ドメイン駆動設計
-  Eric Evans の提示した設計手法. DDD と略す.
-  - [[http://ja.wikipedia.org/wiki/%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E9%A7%86%E5%8B%95%E8%A8%AD%E8%A8%88][ドメイン駆動設計 - Wikipedia]]
+*** 特徴
+    - 委譲を行うオブジェクトは委譲先オブジェクトへの参照を持つ
+    - 必要に応じてその参照を切り替える事で動作にバリエーションを持たせる事ができる
+    - プラグイン機構
 
-** ドメイン駆動設計の構成要素
-   とりあえず Wikipedia から引用.
+*** コンポジショントデリゲーション
+    - 委譲の実現には多くの場合コンポジションを使用する.
+      委譲は「目的」であり, コンポジションはその「手段」.
 
-  - エンティティ (参照オブジェクト): 
-  ドメインモデル内のオブジェクトであり, 
-  その属性によってではなく, 連続性と識別性によって定義される.
+    参考:
+    - [[http://d.hatena.ne.jp/earu/20100525/1274794979][コンポジションとデリゲーション - とある技術メモブログ]]
 
-  - 値オブジェクト: 
-  事物の特性を記述するオブジェクトである. 
-  値オブジェクトは特に識別する情報はない. 
-  通例読み出し専用のオブジェクトであり, 
-  Flyweight パターンを用いて共有できる.
+**** Composition
+     コンポジション. 新たなクラスに, 既存クラスのインスタンスを保持する.
+     has-a の関係 (not is-a)
 
-  - サービス: 
-  操作がオブジェクトに属さない場合に, 
-  問題の自然な解決策として, 操作をサービスとして実現することができる. 
-  サービスの概念は GRASP において"純粋人工物"と呼ばれるものである.
+     Prefer Composition over inheritance (Effective Java).
 
-  - リポジトリ:
-  ドメインオブジェクトを取得するメソッドは, 
-  記憶域の実装を簡単に切り替えられるようにするため, 
-  専門のリポジトリオブジェクトに処理を委譲するべきである.
+*** 継承との比較
+**** メリット
+    - Java の場合継承は一クラスしかできないが, 委譲なら複数可能
+    - 継承なら親クラスのメソッドが全て公開されてしまうが, 
+      委譲なら必要なものだけ公開できる
+**** デメリット
+    - 継承に比べてコードの記述量が多くなる.
+      継承は何も書かなければ親クラスの機能が使える.
+      委譲はメソッドの呼び出しを実装しなくてはならない.
 
-  - ファクトリー : 
-  ドメインオブジェクトを生成するメソッドは, 
-  実装を簡単に切り替えられるようにするため, 
-  専門のファクトリーオブジェクトに処理を委譲するべきである.
+    - eclipse では, 右クリック→ソース→委譲メソッドで簡単に作成できる.
+    - Ruby には delegation のライブラリがある.
+      [[http://qiita.com/w650/items/671cc9c49b2ebf60620d][Ruby で delegation (委譲) を簡単にする 2 つの方法 - Qiita]]
 
-** DSL
-   特定のタスク向けに設計されたコンピュータ言語.
-   - [[http://ja.wikipedia.org/wiki/%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E5%9B%BA%E6%9C%89%E8%A8%80%E8%AA%9E][ドメイン固有言語 - Wikipedia]]
+   参考:
+    - [[http://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q14103428069][オブジェクト指向で. 継承の他に, 委譲といのが出てきますが. これは具... - Yahoo! 知恵袋]]
 
-   DSL は大きく 2 つに分類出来る.
-   - 内部 DSL
-   - 外部 DSL
-   
-*** 内部 DSL
-    汎用プログラミング言語 (Java, Ruby, Scala...などなど) をベースにしてつくるもの.
-    
-*** 外部 DSL
-    まったくの独自文法とインタプリタによってつくるもの.
+*** 関連する Design Pattern
+    - Adapter
+    - Proxy
+    - Facade
+    - State
+    - Strategy
+    - Decorator
+    - ほかにもあるかな...
 
-** Bookmarks
-  - オージス総研のページ [[https://www.ogis-ri.co.jp/otc/hiroba/technical/DDDEssence/chap2.html][ 技術講座 Domain-Driven Design のエッセンス 第 2 回|オブジェクトの広場]]
-  - 解説 PDF [[http://www.slideshare.net/masuda220/ss-26583161][ドメイン駆動設計入門]]
+    参考:[[http://lab.tricorn.co.jp/toda/1088][Tricorn Labs » State パターンと Strategy パターンは何が違うのか考える]]
 
 
 * オブジェクト指向のこころより
 ** OOP の 2 大原則
    オブジェクト指向のこころとは, ズバリ以下だ.
-
     - 流動的要素を探し出してカプセル化する
     - クラス継承よりもオブジェクトの集約を多用する
 
@@ -417,7 +418,6 @@ end
 **** Links
     - [[http://d.hatena.ne.jp/asakichy/20090428/1240878836][オブジェクト指向の本懐 (7) ・オブジェクト指向分析 - Strategic Choice]]
     - [[http://shoheik.hatenablog.com/entry/20120917/1347838230][共通性・可変性分析 (commonality/variavility analysis) - Debuginfo]]
-
 
 * Bookmarks
   ものすごくよい記事.歴史が端的にまとまっている.

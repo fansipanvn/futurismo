@@ -24,26 +24,23 @@
 #+END_HTML
 
     角谷信太郎さんのおもしろいはなしの youtube 動画も見つけた.
-
     - https://www.youtube.com/watch?v=SctvxjoKDGA
 
 *** 無名の質
     生き生きとした建築や街が備えている特性. 古い街並みに潜む住みやすさや美しさ.
 
 * Design Pattern
-   Gof Degign Pattern
-   [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3_(%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2)][デザインパターン (ソフトウェア) - Wikipedia]]
-
+  Gof Degign Pattern
+  - [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3_(%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2)][デザインパターン (ソフトウェア) - Wikipedia]]
+   
 ** 生成に関するパターン
 *** Factory Method 
     オブジェクトの生成を行う時のインタフェースを規定して,
     インスタンス化するクラスを決定するのはサブクラスに任せる.
-
     - [[http://ja.wikipedia.org/wiki/Factory_Method_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Factory Method パターン - Wikipedia]]
 
 **** C 言語での応用
      C 言語で Abstruct Data Type な設計をつかうときの常套手段.
-
 #+begin_src c
 int createInstance (void) {
   return calloc (4);
@@ -65,43 +62,108 @@ int main (void) {
     関連するオブジェクト群を, 
     その具象クラスを明確にせずに生成するための インタフェースを提供する.
 
+    Factory Method 自体のカプセル化.
+
 **** 名前のつけかた
      xxxFactory
 
 *** Builder 
     オブジェクトの生成手順が複雑な場合に, その生成過程をカプセル化する.
-    [[http://futurismo.biz/archives/2706][- エレガントな Effective Java の Builder Pattern を実装してみた | Futurismo]]
+    - [[http://futurismo.biz/archives/2706][エレガントな Effective Java の Builder Pattern を実装してみた | Futurismo]]
 
 *** Prototype
     生成するオブジェクトの原型をコピーして新しいオブジェクトを生成する.
+    - [[http://ja.wikipedia.org/wiki/Prototype_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Prototype パターン - Wikipedia]]
+
+    Abstract Factory と似ている.
+    - new でオブジェクトを生成すれば Abstract Factory.
+    - clone をつかう場合の Prototype.
 
 *** Singleton 
     システム内で生成可能なインスタンス数をひとつだけに制限する.
+    - [[http://ja.wikipedia.org/wiki/Singleton_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Singleton パターン - Wikipedia]]
     - [[http://futurismo.biz/archives/2709][Java のユーティリティクラスでシングルトンパターンをためす | Futurismo]]
+   
+  一般的なシングルトンパターンの実装方法は以下.
+   - static method
+   - private な 定数に オブジェクトを保存
+   - オブジェクトは getInstance () メソッドで取得
 
 ** 構造に関するパターン
 *** Adapter 
     インタフェースを変換することにより, 
     インタフェースに互換性がない クラス同士を接続する.
 
+    単なるラッパークラスとも言える.
+
+    ラッパー方法は 2 つ.
+    - 継承でラッパーする.
+    - 委譲でラッパーする.
+
+    ここでは, ConcurrentLinkedQueue と ConcurrentArrayQueue を
+    生成時に交換するために, Adapter をつかっている.
+    - [[http://futurismo.biz/archives/2656][Java で Producer-Consumer Pattern を実装してみた | Futurismo]]
+
 *** Bridge 
     クライアントがアクセスするクラス (インタフェース) と実装クラスを分離して, 
     それぞれを独立に変更できるようにする.
 
+    オブジェクト指向のこころの本にとても詳しく書いてある.
+    - [[http://ja.wikipedia.org/wiki/Bridge_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Bridge パターン - Wikipedia]]
+
+    これぞ, オブジェクト指向の本質! みたいな.
+    - インタフェースを用いて設計する.
+
 *** Composite 
     部分-全体階層を表現するために, クラスの木構造に組み立てる. 同一の
-    クラスから派生したサブクラスを木構造のノードとし, クライアントは木
-    構造の任意の部分を同一のインタフェースで扱える.
+    クラスから派生したサブクラスを木構造のノードとし, 
+    クライアントは木構造の任意の部分を同一のインタフェースで扱える.
     - [[http://futurismo.biz/archives/2288][コンポジット・パターン (Composite Pattern) と TkComposite についてしらべた | Futurismo]]
 
+    別名, フォルダパターン. 
+    フォルダには, フォルダとファイルがある.
+    こっちの名前のがわかりやすいし, 覚えやすい.
+    
 *** Decorator 
     サブクラス化ではなく委譲により, クラスに新しい機能を追加する.
 
+    ポイントは, オブジェクトの委譲方法が,
+    - 集約ではなくてコンポジション
+    - 継承ではなくてコンポジション
+
+    コンポジションなので, 機能の入れ替えは不可.
+    といったところが, 他のパターンとの違いだろうか??
+
+    ラッパークラス.
+
 *** Facade 
-    複数のクラス群からなるサブシステムにアクセスするためのインタフェースを提供する.
+    複数のクラス群からなるサブシステムにアクセスするための, 
+    インタフェースを提供する.
+    - [[http://ja.wikipedia.org/wiki/Facade_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Facade パターン - Wikipedia]]
+
+    これは, 委譲を言い換えただけのように見えるが...
 
 *** Flyweight 
     一度生成したインスタンスはプーリングしておき, 必要なときに取り出して使う.
+    - [[http://ja.wikipedia.org/wiki/Flyweight_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Flyweight パターン - Wikipedia]]
+
+   シングルトンパターンは 
+   フライウェイトパターンと合わせて利用されることがおおい.
+
+   特徴は, 
+   - private な 変数に オブジェクトを保存.
+   - オブジェクトが存在すれば, getInstance で渡す.
+     オブジェクトが存在しなければ, オブジェクトを作成して getInstance で渡す.
+
+**** wikipedia から説明引用
+    その時点で対象のインスタンスが生成されていない場合
+    - 対象のインスタンスを新たに生成する.
+    - 生成したインスタンスをプールする (言い換えると, メンバのコンテナオブジェクトに格納する).
+    - 生成されたインスタンスを返す.
+
+    対象のインスタンスが既に生成されていた場合
+    - 対象のインスタンスをプールから呼び出す.
+    - 対象のインスタンスを返す.
 
 *** Proxy 
     オブジェクトへのアクセスをフックするための代理オブジェクトを提供する.
@@ -134,8 +196,12 @@ int main (void) {
 *** Observer 
     あるオブジェクトに依存した複数のオブジェクトがある場合に,
     被依存オブジェクトの状態変化を, 依存オブジェクトに通知する.
+    
+    Ruby ではライブラリがある.
     - [[http://futurismo.biz/archives/2283][オブザーバ・パターン (Observer) でサブウィンドウから情報を取得する | Futurismo]]
 
+    イベントリスナ.
+    
 *** State 
     状態に応じてオブジェクトの振る舞いを変更したいときに,
     振る舞いを別オブジェクトにカプセル化する.
@@ -147,9 +213,9 @@ int main (void) {
     ひとつの入力データに対して, アルゴリズム毎に異なる結果を出力する.
     
     - [[http://ja.wikipedia.org/wiki/Strategy_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Strategy パターン - Wikipedia]]
+    - [[http://futurismo.biz/archives/2748][委譲のまとめと Strategy パターンの実装 (Java) | Futurismo]]
 
     アプリケーションで使用されるアルゴリズムを動的に切り替える必要がある際に有用.
-
     - Android
     - Windows
     - Linux
@@ -168,18 +234,31 @@ int main (void) {
 
      クラスに分離する際は, 継承をさけて集約を多用する.
 
+**** Effective Java から
+     p101 戦略を表現するために関数オブジェクトを使用する
+     
+     - 戦略を現すインタフェースを用意
+     - 個々の具象戦略に関してそのインタフェースを実装しているクラスを定義.
+       + 具象戦略が一度しか利用されないならば, 無名クラスで作成
+       + 繰り返し利用されるならば, public static final の
+         フィールド or static factory method を通じて提供.
+
 **** 名前のつけかた
      xxxStrategy
+
      
 *** Template Method 
+    単なる継承.
+
     アルゴリズムを複数のステップに分解し,
     それぞれのステップを抽象メソッドにする.
     各ステップでのメソッドの実装はサブクラスで定義する.
+    - [[http://ja.wikipedia.org/wiki/Template_Method_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Template Method パターン - Wikipedia]]
 
     システムのフレームワークを構築するための手段としてよく活用される.
 
-    Factory Method パターンは, 内部に Template Method パターンを包含することが多い
-    - [[http://ja.wikipedia.org/wiki/Template_Method_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Template Method パターン - Wikipedia]]
+    Factory Method パターンは, 
+    内部に Template Method パターンを包含することが多い
 
 #+begin_src ruby
 class A
@@ -205,11 +284,49 @@ end
     オブジェクト要素の処理を変更するため, Visitor クラスを用意する.
     - [[http://futurismo.biz/archives/2689][Java で Visitor Pattern を実装してみた | Futurismo]]
 
+** カプセル化の視点で整理
+   カプセル化がデータ隠蔽というのは狭義の定義.
+   
+   カプセル化とはあらゆるものを隠蔽すること.
+   - データ
+   - メソッド
+   - 実装
+   - 派生クラス
+   - 設計の詳細
+   - 実体化の規則
+   - 型
+
+   流動的要素を探し出してカプセル化する. 委譲は手段.
+
+   この観点から, デザインパターンをとらえ直すと,
+
+   |--------------------+----------------------------------------------|
+   | 流動的要素         | Pattern                                      |
+   |--------------------+----------------------------------------------|
+   | アルゴリズム       | Strategy                                     |
+   | 状態               | State                                        |
+   | 振る舞い           | Decorator                                    |
+   | パターンマッチ, 型 | Visitor                                      |
+   | 動作, 要求         | Command                                      |
+   | 実装               | Bridge                                       |
+   | 変化への反応       | Observer                                     |
+   | 相互作用           | Mediator                                     |
+   | 生成               | Factory Method, Abstract Factory , Prototype |
+   | 一意性             | Singleton, Flyweight                         |
+   | 構造の生成         | Builder                                      |
+   | 集合の巡回構造     | Iterator                                     |
+   | インタフェース     | Adapter                                      |
+   | システム           | Facade                                       |
+   | 設計の詳細         | Template Method                              |
+   |--------------------+----------------------------------------------|
+
+     - [[http://bleis-tift.hatenablog.com/entry/20090201/1233426011#][カプセル化, 情報隠蔽, データ隠蔽 - ぐるぐる~]]
+
 ** Links
   概要がかかれたページ
   - http://homepage3.nifty.com/satoshis/oo/patterns.html
 
-  噛み砕かれた, わかりやすい説明.
+  噛み砕かれた, わかりやすい説明. 
   - [[http://d.hatena.ne.jp/language_and_engineering/20120330/p1][GoF の 23 のデザインパターンを, Java で活用するための一覧表  (パターンごとの要約コメント付き) - 主に言語とシステム開発に関して]]
 
   図解で解説されている.
@@ -269,8 +386,8 @@ struct FSM {
 * Functional Programming
 ** recursion
    list 型のデータ構造を扱うときの手法.
-*** tail recursive
 
+*** tail recursive
 ** pattern matching
    tuple 型のデータ構造を扱うときの手法.
 
@@ -280,5 +397,4 @@ struct FSM {
 * Links
   結城浩さんの並列・平行プログラミングのパターン紹介
   - [[http://www.hyuki.com/dp/dpinfo.html][デザインパターン紹介]]
-  
   - [[http://www.amazon.co.jp/%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E3%80%81Wiki%E3%80%81XP-~%E6%99%82%E3%82%92%E8%B6%85%E3%81%88%E3%81%9F%E5%89%B5%E9%80%A0%E3%81%AE%E5%8E%9F%E5%89%87-WEB-PRESS-plus%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/dp/4774138975][Amazon.co.jp: パターン, Wiki, XP ~時を超えた創造の原則 (WEB+DB PRESS plus シリーズ): 江渡 浩一郎: 本]]

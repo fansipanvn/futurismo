@@ -1,5 +1,5 @@
 #+OPTIONS: toc:nil
-* Functional Programmming
+* Functional Programming
   関数型プログラミング.
 
   - [[http://ja.wikipedia.org/wiki/%E9%96%A2%E6%95%B0%E5%9E%8B%E8%A8%80%E8%AA%9E][関数型言語 - Wikipedia]]
@@ -22,7 +22,9 @@
 
   - [[http://itpro.nikkeibp.co.jp/article/COLUMN/20110411/359286/?ST=develop&P=3][3 つのプログラミングのパラダイムを押さえておこう:ITpro]]
 
-  CTMCP, Capter 2
+  CTMCP, Captor 2
+
+  関数が第一級オブジェクトである言語.
 
 ** 定義
    狭義の意味では,
@@ -32,29 +34,93 @@
    - 手続的制御構造を持たない
 
    広義の意味では, 
-   - 関数に forcusing したプログラミング.
+   - 関数に focusing したプログラミング.
 
 ** 計算の考え方
    命令型では, 計算の基本は蓄えられている値を変えること.
 
    関数型では, 計算の基本は引数に関数を適用すること.
 
-** Languaages
+** Languages
    - 狭義の意味では Lisp, XPath, Haskell,,,
    - 広義の意味では, Scheme, Clojure, ocame, F#, Scala, Smalltalk, Ruby...
 
-* Immunity
-  副作用を起こさない
+** メリット
+   関数プログラミング実践入門からの引用
+   - コード量が少なくなる 
+   - 最適化がしやすい 
+   - 並列処理が書きやすい 
+   - バグりにくい
+   - ドキュメントが少なくなる
 
-** Impliclite (declarative) State
-   暗黙的状態. 宣言的状態ともいう.
+* Immunity
+  副作用を起こさない.
+
+** Implicate (declarative) State
+   暗黙的状態. 宣言的状態, Stateless, ともいう.
 
    - 関数の実行結果が値をもつ
    - 同じ入力には必ず同じ出力を返す.
    - Explicite State との対概念.
    - 参照透明性.
 
-** Stateless
+*** Referential Transparency: 参照透過性
+    式の値はその構成要素 (例えば変数や関数) によってのみ定まる.
+    - [[http://ja.wikipedia.org/wiki/%E5%8F%82%E7%85%A7%E9%80%8F%E9%81%8E%E6%80%A7][参照透過性 - Wikipedia]]
+
+**** example
+   - 変数の値は最初に定義した値と常に同じ
+   - 関数は同じ変数を引数として与えられれば同じ値を返す
+
+*** pure function: 純粋関数
+    同じ引数を渡す限り, 
+    どのような順番で何度呼んでも同じ結果が返るような関数.
+
+    同じ式を評価すると, いつも同じ結果になる参照透過性を持っていること.
+
+    副作用がある関数の対概念.
+
+** Side effect: 副作用
+   ある機能がコンピュータの (論理的な) 状態を変化させ, 
+   それ以降で得られる結果に影響を与えること.
+  - [[http://ja.wikipedia.org/wiki/%E5%89%AF%E4%BD%9C%E7%94%A8_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0)][副作用 (プログラム) - Wikipedia]]
+
+  あるいは,
+  - 状態を参照することで出力が変化すること
+  - 状態に変化を与えることで出力が変化すること
+
+  例としては,
+   - 破壊的代入
+   - I/O 制御 (write/print 等)
+
+*** 破壊的代入
+    代入というのは, 「右辺にあるものを左辺に代入する」という意味. 
+
+    左辺にある変数内のデータを消し, 
+    新しく右辺にあるデータを代入する」とも言い換えられます. 
+    この仕組みのことを「破壊的代入」という.
+
+** モナド
+   wikipedia, なにいっているかわからない.
+   - [[http://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%8A%E3%83%89_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0)][モナド (プログラミング) - Wikipedia]] 
+
+   以下のような問題は, という概念で説明できるらしいが, 結局よくわからない.
+   - 入出力等をもたらすプログラム
+   - 例外を返すプログラム
+   - 引数に対して値を返さない (停止しない) プログラム
+   - 同じ引数でも返り値が異なる可能性のあるプログラム
+
+   値およびその値を使う計算の並びという観点からいえば, 計算を構造化 する方法
+   - [[http://www.sampou.org/haskell/a-a-monads/html/introduction.html][Introduction]]
+
+   -> 詳細は Haskell の章に移動.
+
+** List Comprehensions
+   リスト内包表記.
+   既存の集合から新しい集合を生成する.
+
+   - 生成器 ... 集合からの取り出しかたの定義
+   - ガード ... 生成する条件
 
 ** impelative paradigm との違い
 
@@ -85,13 +151,6 @@ for (arg <- args)
   println (arg)
     #+end_src
 
-** List Comprehensions
-   リスト内包表記.
-   既存の集合から新しい集合を生成する.
-
-   - 生成器 ... 集合からの取り出しかたの定義
-   - ガード ... 生成する条件
-
 * Higher-order programming
   高階プログラミング.
 
@@ -115,7 +174,8 @@ for (arg <- args)
     関数の内部で参照されていて, 関数の外部で宣言されているすべての
     識別子の集合を,その関数の contextual environments という.
 
-*** Procedure code
+*** 各言語での実現方法
+    - Java ... 無名クラス
 
 ** 関数の order
    帰納的な定義.
@@ -128,10 +188,19 @@ for (arg <- args)
    C 言語には関数ポインタがある. 
    C 言語は 第二級オブジェクト. 2 階関数.
 
-*** 第一級オブジェクト
+*** First Class:  第一級オブジェクト
     たとえば生成, 代入, 演算, (引数・戻り値としての) 受け渡しといった
     その言語における基本的な操作を制限なしに使用できる対象のこと.
-   - [[http://ja.wikipedia.org/wiki/%E7%AC%AC%E4%B8%80%E7%B4%9A%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88][第一級オブジェクト - Wikipedia]]
+    - [[http://ja.wikipedia.org/wiki/%E7%AC%AC%E4%B8%80%E7%B4%9A%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88][第一級オブジェクト - Wikipedia]]
+
+    以下のような特徴をもつ (関数プログラミング実践入門)
+    - リテラルがある
+    - 実行時に生成できる
+    - 変数に入れて扱える
+    - 手続きや関数の引数として与えることができる
+    - 手続きや関数のの結果として返すことができる.
+
+    関数型言語とは, 関数が第一級オブジェクトであること.
 
 *** Genericity
     引数に関数を受け取るもの.
@@ -313,7 +382,6 @@ fun {Fact2 I A}
 end
    #+end_src
 
-
 * Bookmarks
   - [[https://docs.google.com/viewer?url=http://www.mew.org/~kazu/material/2010-func.pdf][Haskell 脳と Emacs Lisp 脳]]
   - [[http://postd.cc/who-teaches-functional-programming/][【翻訳】 US トップ大学でも関数型プログラミングが余り教えられていない現実 | POSTD]]  
@@ -327,3 +395,4 @@ end
   も有用な見識なのです
   #+END_QUOTE
 
+  - [[http://www.sampou.org/haskell/article/whyfp.html][なぜ関数プログラミングは重要か]]

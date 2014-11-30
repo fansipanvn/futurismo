@@ -1,0 +1,249 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Java
+#+DESCRIPTION: Java でのジェネリックスの使い方まとめ
+#+TITLE: Java でのジェネリックスの使い方まとめ
+
+#+BEGIN_HTML
+<a href="http://futurismo.biz/wp-content/uploads/java.png"><img alt="" src="http://futurismo.biz/wp-content/uploads/java.png" width="256" height="256" /></a>
+#+END_HTML
+
+* はじめに
+  異なる型のオブジェクトを Set に入れる方法を調べた.
+
+* Object 型
+  すべてのクラスの頂点にたつ Object 型を利用すれば, 
+  どんな型だっていれることができる.
+
+  ジェネリックスを利用しない場合は, Collection は Object 型で代入される.
+
+#+begin_src java
+
+class A {
+	public void show () {
+		System.out.println ("I'm A");
+	}
+}
+
+class B  {
+	public void show () {
+		System.out.println ("I'm B");
+	}
+}
+public class GenericSample {
+	public static void main (String[] args) {
+		HashSet set = new HashSet ();
+		A a = new A ();
+		B b = new B ();
+		
+		set.add (a);
+		set.add (b);
+
+		for (Object x: set) {
+			if (x instanceof A) {
+				A xx = (A) x;
+				xx.show ();
+			}
+			if (x instanceof B) {
+				B xx = (B) x;
+				xx.show ();
+			}
+		}
+	}
+}
+#+end_src
+
+  欠点は, set に入れるときに Object 型にキャストされるので,
+  メソッド利用時に, 再度 キャストする必要がある.
+
+#+begin_src java
+		for (Object x: set) {
+			if (x instanceof A) {
+				A xx = (A) x;
+				xx.show ();
+			}
+			if (x instanceof B) {
+				B xx = (B) x;
+				xx.show ();
+			}
+		}
+#+end_src
+
+* ジェネリックス型
+  利用時にキャストするのが面倒.
+  そんな面倒くささを払拭するのが, Java のジェネリックスという機能.
+  - [[http://ja.wikipedia.org/wiki/%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AA%E3%83%83%E3%82%AF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][ジェネリックプログラミング - Wikipedia]]
+
+  コンパイル時にのみ型チェックが行われるが, 
+  コードとしてキャストをかかなくていいというメリットがある.    
+
+* ジェネリック利用 共通の親クラス
+  共通の親クラスを継承させることで,Object の範囲をもう少し狭くする.
+
+#+begin_src java 
+import java.util.HashSet;
+
+public class GenericSample {
+
+	public static void main (String[] args) {
+		HashSet<C> set = new HashSet<C>();
+		D d = new D ();
+		E e = new E ();
+		
+		set.add (d);
+		set.add (e);
+
+		for (C x: set) {
+		  x.show ();
+		}
+	}
+}
+
+abstract class C {
+	public abstract void show ();
+}
+
+class D extends C  {
+	public void show () {
+		System.out.println ("I'm D");
+	}
+}
+
+class E extends C  {
+	public void show () {
+		System.out.println ("I'm E");
+	}
+}
+#+end_src
+
+これだと, instanceof やキャストを省略できる.
+
+* ジェネリック型を定義する
+  ジェネリック型を定義してみる.
+
+  定義をするためには,
+  - <> で囲まれた記号をクラス名の定義につける
+  - <> で囲んだ記号で, 型を置き換える.
+
+** Example
+   下の例では, ジェネリックスクラスを自分で定義することで,
+   C,D クラスを E クラス一つで表現している.
+
+#+begin_src java
+import java.util.HashSet;
+import java.util.Set;
+
+public class GenericsSample2 {
+	public static void main (String[] args) {
+		C c = new C ();
+		c.add (1);
+		System.out.println (c.get ());
+		
+		D d = new D ();
+		d.add ("Hello");
+		System.out.println (d.get ());
+
+		E e = new E ();
+		e.add (1);
+		System.out.println (e.get ());
+		e.add ("Hello");
+		System.out.println (e.get ());
+	}
+}
+
+class C {
+	private Set<Integer> set = new HashSet<Integer>();
+
+	void add (Integer i) {
+		set.add (i);
+	}
+
+	Integer get () {
+		for (Integer i : set) {
+			return i;
+		}
+		return -1;
+	}
+}
+
+class D {
+	private Set<String> set = new HashSet<String>();
+
+	void add (String str) {
+		set.add (str);
+	}
+
+	String get () {
+		for (String s : set) {
+			return s;
+		}
+		return null;
+	}
+}
+
+class E<T> {
+	private Set<T> set = new HashSet<T>();
+
+	void add (T i) {
+		set.add (i);
+	}
+
+	T get () {
+		for (T i : set) {
+			set.clear ();
+			return i;
+		}
+		return null;
+	}
+}
+#+end_src
+
+** ジェネリックスの名前付け
+   慣例があるようだ.
+   - [[http://java.keicode.com/lang/generics-naming.php][名前付けルール - Java 入門]]
+
+* 異種コンテナの実装
+  最後に, Effective Java から, エレガントなジェネリックスの使い方の引用.
+
+#+begin_src java
+import java.util.Map;
+import java.util.HashMap;
+
+public class GenericsSample3 {
+	public static void main (String[] args) {
+		Favorites f = new Favorites ();
+		f.putFavorite (String.class, "Java");
+		f.putFavorite (Integer.class, 0xcafebebe);
+
+		String s = f.getFavorite (String.class);
+		int i = f.getFavorite (Integer.class);
+
+		System.out.println (s + i);
+	}
+}
+
+class Favorites {
+	private Map<Class<?>, Object> favorites =
+		new HashMap<Class<?>, Object>();
+		
+	public <T> void putFavorite (Class<T> type, T instance) {
+			if (type == null)
+				throw new NullPointerException ();
+			favorites.put (type, instance);
+	}
+		
+	public <T> T getFavorite (Class<T> type) {
+		return type.cast (favorites.get (type));
+	}
+}
+
+
+#+end_src
+
+
+* Environment
+  - Java 1.7
+
+* Special Thanks
+  - [[http://java.keicode.com/lang/generics.php][ジェネリックス - Java 入門]]
+  - [[http://www.ne.jp/asahi/hishidama/home/tech/java/generics.html][Java 総称型メモ (Hishidama's Java Generics Memo)]]

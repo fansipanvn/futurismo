@@ -1,0 +1,185 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Java
+#+DESCRIPTION: Java の無名クラスにパラメータを渡す方法のメモ
+#+TITLE: Java の無名クラスにパラメータを渡す方法のメモ
+
+* はじめに
+  Java で, オブジェクト自体にタイムアウト機能を持たせることを考えた.
+  (普通ならば, 外部のオブジェクトが監視するのかな??)
+
+** コード
+   こんなコードを書いた. 
+   タイムアウトになったら, 自分自身を Set から削除する.
+
+#+begin_src java
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Collections;
+
+public class TimeoutObjectSample {
+	public static void main (String[] args) {
+		new B ();
+	}
+}
+
+class B {
+	Set<A> set;
+	
+	public B () {
+		set = Collections.synchronizedSet ( new HashSet<A>() );
+		A a = new A (this);
+
+		set.add (a);
+		System.out.println ("size is " + set.size ());
+		a.start ();
+	}
+
+	public synchronized Set<A> getSet () {
+		return set;
+	}
+	
+}
+
+class A {
+	B parent;
+
+	public A (B parent) {
+		this.parent = parent;
+	}
+	
+	void start () {
+		System.out.println ("start");
+
+		new Thread (new Runnable () {
+
+				public void run () {
+					try{
+						Thread.sleep (1000);
+					} catch (InterruptedException e){
+					} finally {
+						Set<A> set = parent.getSet ();
+						System.out.println ("I will die");
+						set.remove (this);
+						System.out.println ("size is " + set.size ());
+					}
+				}
+			}).start ();
+	}
+}
+#+end_src
+
+  しかし, これがうまく動かない... 
+  期待値は最後に Set の要素数が 0 になること.
+
+#+begin_src language
+size is 1
+start
+I will die
+size is 1
+#+end_src
+
+  もう少し調べてみる. 以下を Thread の内部と外に仕込んだ.
+
+#+begin_src java
+System.out.println (this);
+System.out.println (this.getClass ());
+#+end_src
+
+どうも Runnable () クラスの内部と外部では,
+  this を呼んでも別のクラスをさしているようだ.
+
+#+begin_src language
+size is 1
+start
+A@5df86e79
+class A
+A$1@5f92b8f5
+class A$1
+I will die
+size is 1
+#+end_src
+
+* 無名クラスに引数を渡す
+  this でさす内容が違うならば, this をしなければよいのでは??
+  ということで, 無名クラスにパラメータを渡す方法をしらべる.
+
+  どうやら, 無名クラスのなかに, メソッドを定義すればよいようだ.
+  - [[http://www58.atwiki.jp/chapati4it/pages/61.html][ちゃぱてぃ商店 IT 部 @ ウィキ - Java/ サンプル/ 無名クラスにパラメータを渡す]]
+
+  ということで以下を変更
+  - 無名クラスのなかに, パラメータをうけとる属性を作成
+  - 無名クラスのメソッドでパラメータをセットする setter を作成.
+    このメソッドは自分自身 (Runnnable) を返す.
+  - スレッドを起動する前に, パラメータをセットする.
+
+#+begin_src java
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Collections;
+
+public class TimeoutObjectSample {
+	public static void main (String[] args) {
+		new B ();
+	}
+}
+
+class B {
+	Set<A> set;
+	
+	public B () {
+		set = Collections.synchronizedSet ( new HashSet<A>() );
+		A a = new A (this);
+
+		set.add (a);
+		System.out.println ("size is " + set.size ());
+		a.start ();
+	}
+
+	public synchronized Set<A> getSet () {
+		return set;
+	}
+	
+}
+
+class A {
+	B parent;
+
+	public A (B parent) {
+		this.parent = parent;
+	}
+	
+	void start () {
+		System.out.println ("start");
+		System.out.println (this);
+		System.out.println (this.getClass ());
+
+		new Thread (new Runnable () {
+				A a;
+				int time;
+
+				public Runnable setParam (A a, int time) {
+					this.a = a;
+					this.time = time;
+					// 自分自身を返す.
+					return this;
+				}
+
+				public void run () {
+					try{
+						Thread.sleep (time);
+					} catch (InterruptedException e){
+					} finally {
+						Set<A> set = parent.getSet ();
+						System.out.println ("I will die");
+						set.remove (a);
+						System.out.println ("size is " + set.size ());
+					}
+				}
+			}.setParam (this, 1000)
+			).start ();
+	}
+}
+#+end_src
+
+これでうまくいきました.
