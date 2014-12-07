@@ -15,6 +15,14 @@
    - オブジェクト指向型パラダイム ... オブジェクトとメッセージング
    - 関数型パラダイム ... 関数そのもの.
     
+** literal: リテラル
+   即値 (英: Immediate) ともいい, ソースコード内に値を直接表記したもの.
+   - [[http://ja.wikipedia.org/wiki/%E3%83%AA%E3%83%86%E3%83%A9%E3%83%AB#.E3.82.B3.E3.83.B3.E3.83.94.E3.83.A5.E3.83.BC.E3.82.BF.E3.83.97.E3.83.AD.E3.82.B0.E3.83.A9.E3.83.9F.E3.83.B3.E3.82.B0][リテラル - Wikipedia]]
+
+   静的に構文解析が可能なことが多い.
+
+   変数の対義語. 変更されない値.
+
 ** Valuables: 変数
    変数の構成要素は以下の 2 つ.
    - 識別子 (Identifier)
@@ -34,6 +42,9 @@
     一度一つの値を束縛したら変更できない変数の集合.定数.
     
     関数型プログラミングでは, この変数が当たり前.
+
+** Type: 型
+   -> データ構造・型のページへ移動
     
 ** Scope
    Valiable の有効範囲.
@@ -143,8 +154,6 @@
     数学に置ける関数の概念に近い. ある集合から集合への写像.
     - [[http://ja.wikipedia.org/wiki/%E9%96%A2%E6%95%B0_(%E6%95%B0%E5%AD%A6)][関数 (数学) - Wikipedia]]
 
-** Type, Class
-   -> データ構造・型のページへ移動
 
 * Semantics
   プログラム意味論. 
@@ -458,7 +467,6 @@ end
   NonDeterminism の制御を機能追加したから.
 
   (Deterministic Dataflow Programming に, Port という明示的状態をくわえた)
-
   - [[http://ja.wikipedia.org/wiki/%E3%83%9E%E3%83%AB%E3%83%81%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0][マルチエージェントシステム - Wikipedia]]
 
   Distributed System ともいう.
@@ -578,7 +586,10 @@ end
   - 群論
   - 圏論
 
+  代数はプログラミング/ モデリングの数学的な基礎理論.
+
 ** Links
+   
    - [[http://d.hatena.ne.jp/x76789/20100527/1274923567][代数とプログラミング・モデリングの関係とは? - x76789 の研究メモ]]
    - [[http://ja.wikibooks.org/wiki/Haskell/%E5%9C%8F%E8%AB%96][Haskell/ 圏論 - Wikibooks]]
    - [[http://www.iij-ii.co.jp/lab/techdoc/category/][プログラマのための圏論の基礎]]

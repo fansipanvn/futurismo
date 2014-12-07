@@ -42,6 +42,7 @@
    Record, Struct, 構造体と同義で利用されることもある.
    - [[http://ja.wikipedia.org/wiki/%E6%A7%8B%E9%80%A0%E4%BD%93][構造体 - Wikipedia]]
    - [[http://stackoverflow.com/questions/4212265/tuples-vs-records][data structures - tuples vs records - Stack Overflow]]
+
 ** Tree
     
 ** Stream
@@ -102,6 +103,30 @@
    - コンパイルエラー: 静的
    - ランタイムエラー: 動的
 
+* Polymophism: 多相性
+  各要素 (定数, 変数, 式, オブジェクト, 関数, メソッドなど) 
+  についてそれらが複数の型に属することを許すという性質.
+  - [[http://ja.wikipedia.org/wiki/%E3%83%9D%E3%83%AA%E3%83%A2%E3%83%BC%E3%83%95%E3%82%A3%E3%82%BA%E3%83%A0][ポリモーフィズム - Wikipedia]]
+
+  同種のクラスをカテゴリに分類してまとめ, 
+  基本的な動作・設計部分を統一することで, 
+  オブジェクトインスタンスの扱いに柔軟性と規律を持たせるための機能.
+  - [[http://homepage1.nifty.com/CavalierLab/lab/vb/clsmdl/polymorphism.html][ポリモーフィズム]]
+  
+  多相型は いくつか分類できる
+  - アドホック多相: 関数を適用する型を制限する
+  - パラメータ多相: 具体的な型について言及しないことにより, 新しい型に対応できるようにする
+  - サブタイプ多相: 
+
+  たとえば Java だと
+  - アドホック多相: オーバーロード
+  - パラメータ多相: ジェネリクス
+  - サブタイプ多相: 継承
+
+ 参考:
+ - [[http://en.wikipedia.org/wiki/Polymorphism_(computer_science)#Ad-hoc_polymorphism][Polymorphism (computer science) - Wikipedia, the free encyclopedia]]
+ - [[https://www.haskell.org/tutorial/classes.html][A Gentle Introduction to Haskell: Classes]]
+
 ** Polymorphic type: 多相型
    データ構造のコンテナ.
 
@@ -109,22 +134,92 @@
    プログラミングという.
    - [[http://ja.wikipedia.org/wiki/%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AA%E3%83%83%E3%82%AF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][ジェネリックプログラミング - Wikipedia]]
 
-** 型変数
-   多相型は宣言されたクラス, 関数に対して,
-   利用時に具体的な型を与える. これを型変数 (Type variable) という.
+** アドホック多相
+   オブジェクト指向におけるアドホック多相とは, オーバーロードに相当する.
+   多重定義ともいう.
+   - [[http://ja.wikipedia.org/wiki/%E5%A4%9A%E9%87%8D%E5%AE%9A%E7%BE%A9][多重定義 - Wikipedia]]
 
-   Java の名前つけルールがあるらしい.
-   - [[http://java.keicode.com/lang/generics-naming.php][名前付けルール - Java 入門]]
+** パラメータ多相
+*** 型変数
+    多相型は宣言されたクラス, 関数に対して,
+    利用時に具体的な型を与える. これを型変数 (Type variable) という.
 
-** 言語ごとの実現方法
-  - Java: ジェネリクス, ワイルドカード
-    + [[http://futurismo.biz/archives/2750][Java でのジェネリックスの使い方まとめ | Futurismo]]
-  - C++:  テンプレート
-  - Haskell:
-    + リスト
-    + タプル
-    + Either
-    + Maybe
+    Java の名前つけルールがあるらしい.
+    - [[http://java.keicode.com/lang/generics-naming.php][名前付けルール - Java 入門]]
+
+*** Generic Type: 総称型
+    型付けされたプログラミング言語において
+    データ型の定義とそれを参照する式 (型式) の一部にパラメタを許すことによって
+    類似した構造を持つ複数のデータ型を一括して定義して, それらを選択利用する仕組み.
+    - [[http://ja.wikipedia.org/wiki/%E7%B7%8F%E7%A7%B0%E5%9E%8B][総称型 - Wikipedia]]
+
+   オーバーロード (overload),
+   継承 (inheritance) と並んでプログラミング言語において
+   ポリモーフィズムを実現するための一つの手段.
+
+*** 言語ごとの実現方法
+   - Java: ジェネリクス, ワイルドカード
+     + [[http://futurismo.biz/archives/2750][Java でのジェネリックスの使い方まとめ | Futurismo]]
+   - C++:  テンプレート
+   - Haskell:
+     + リスト
+     + タプル
+     + Either
+     + Maybe
+
+** Subtyping: 派生型
+   データ型 S が他のデータ型 T と is-a 関係にあるとき, 
+   S を T の派生型 (はせいがた, subtype) であるという.
+   - [[http://ja.wikipedia.org/wiki/%E6%B4%BE%E7%94%9F%E5%9E%8B][派生型 - Wikipedia]]
+
+   基本型のデータを処理するように作られたプログラムは, 
+   その派生型のデータでも正しく処理することができる.
+
+   基本型-派生型関係ではリスコフの置換原則 
+   (Liskov Substitution Principle) が成り立つ.
+   
+   2 つの方法がある
+   - インタフェース: 型をグループで分類
+   - 継承: 型を階層構造で分類
+
+*** inheritance: 継承
+   ほとんどのクラスベースオブジェクト指向言語では, 
+   サブクラス (インヘリタンス) が派生型の概念を実現している.
+   - [[http://ja.wikipedia.org/wiki/%E7%B6%99%E6%89%BF_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0)][継承 (プログラミング) - Wikipedia]]
+
+*** override: オーバーライド
+    オブジェクト指向プログラミングにおいてオーバーライド (override) とは, 
+    スーパークラスで定義されたメソッドをサブクラスで定義しなおし,
+    動作を上書きすること.
+    - [[http://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%83%90%E3%83%BC%E3%83%A9%E3%82%A4%E3%83%89][オーバーライド - Wikipedia]]
+
+*** interface: インタフェース
+    抽象データ型のメソッド.
+
+    Object 型を分類し,
+    同じカテゴリに属するクラスに共通のインターフェイスを取り決める.
+
+    implements ステートメントは, クラスたちのカテゴリ分類を明確にする方法.
+
+    変数の型としてカテゴリクラスを指定すると, 
+    そのカテゴリを Implements したクラス (つまり, カテゴリに属するクラス) 
+    のインスタンスも格納できるようになる.
+    - [[http://homepage1.nifty.com/CavalierLab/lab/vb/clsmdl/polymorphism_02.html][ポリモーフィズムとインターフェイス]]
+
+    オブジェクトが, 共通のインターフェイスを実装している場合, 
+    他のオブジェクトに置き換えることができる.
+    
+*** 型クラス
+     Haskell の概念.
+     1. 型は値をグループ化する.
+     2. 型クラスは, 型をグループ化する.
+     3. その結果, 型クラスの制約が付いた関数は, その型クラスのグループに属していない型には適用できない.
+     4. インスタンス化とは当該の型クラスに所属する宣言.
+
+     この説明はわかりやすい.
+     - [[http://jutememo.blogspot.jp/2009/05/haskell.html][Haskell のモジュールの階層化と, 型クラス - パラメータ多相とアドホック多相 | すぐに忘れる脳みそのためのメモ]]
+
+     型を分類する点でいえば, Java のインタフェースと同義.
 
 ** OOP との比較
     - オブジェクト指向はクラスでインヘリタンス
@@ -158,21 +253,48 @@
    実行時には, 番号が振られることが覆いが, 
    言語によっては番号はプログラマに見えないこともある.
 
+** Struct: 直積型
+   内部に値を持つ型です. 他言語の構造体に相当.
+
+** Union: 直和型:
+   列挙型にフィールドを付加することで, 複数の直積型を定義したものです. 
+   列挙型と直積型の両方の特徴を併せ持っています.
+
+   C 言語では共用体に相当しますが, 
+   C 言語のように共用体のフィールドを選ぶことで解釈を変えることはできません.
+
+    参考:
+    - [[http://qiita.com/7shi/items/1ce76bde464b4a55c143][Haskell 代数的データ型 超入門 - Qiita]]
+
 ** 各言語について
 *** Visual Basic
     Variant 型. なんでも入れることが出来る型だが, 
     メモリ使用量が多いので乱用はさける.
     - [[http://e-words.jp/w/VariantE59E8B.html][Variant 型とは 〔 バリアント型 〕 - 意味/ 解説/ 説明/ 定義 : IT 用語辞典]]
 
-*** Haskell
-    Haskell では, 以下を合わせて代数データ型と呼ぶ
-    - 列挙型
-      他の言語における enum
-    - 直積型
-    - 直和型
     
-    参考:
-    - [[http://qiita.com/7shi/items/1ce76bde464b4a55c143][Haskell 代数的データ型 超入門 - Qiita]]
+** 抽象データ型との比較
+   Wikipedia より. 
+
+   関数型言語で抽象データ型を実現する手法のひとつに, 
+   モジュールシステムによるスコープ制限を利用して, 
+   コンストラクタを掩蔽し, 型のみを公開する, という手法がある. 
+
+   データコンストラクタそのものの代わりに, 
+   相当する引数をとって, 目的の型の値を返すような, 
+   コンストラクタを抽象化した関数を定義し, そちらの関数を公開する. 
+
+   この関数が, オブジェクト指向言語におけるコンストラクタに相当する.
+   - [[http://jutememo.blogspot.jp/2008/07/haskell-instance.html][Haskell の代数的データ型と型クラス, instance 宣言の関係 | すぐに忘れる脳みそのためのメモ]]
+
+   CPMCP より.
+   カプセル化と多様体をあわせると, ADT になる.
+
+
+   オブジェクト型では, 内部状態を持つのに対して, 
+   Haskell のような代数的データ型では,
+   値の集合を定義するのみで, 操作を定義する場合, 別に関数定義する.
+   - [[http://jutememo.blogspot.jp/2009/05/haskell.html][Haskell のモジュールの階層化と, 型クラス - パラメータ多相とアドホック多相 | すぐに忘れる脳みそのためのメモ]]
 
 * Abstract data type: 抽象データ型
   抽象データ型. ADT と略されることも.
@@ -279,3 +401,4 @@ end
 ** Bookmarks
    - 比較的わかりやすい: [[http://www.hitachi.co.jp/Prod/comp/soft1/manual/pc/d645140/W4510070.HTM][抽象データ型]]
 
+     
