@@ -1,0 +1,220 @@
+#+BLOG: Futurismo
+#+POSTID: 2776
+#+DATE: [2014-12-04 木 23:39]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: 
+#+DESCRIPTION: IRC クライアントとして Emacs をつかう
+#+TITLE: IRC クライアントとして Emacs をつかいたい! ERC を試す
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* はじめに
+  仕事で IRC をコミュケーションツールとして利用しはじめた.
+
+  Emacs のなかで生きているので, IRC も Emacs から接続したい.
+  ということで, Emacs の IRC クライアントを調べる.
+
+* IRC とは
+  Internet Relay Chat の略.インターネットを利用したチャット専用システム.
+  - [[http://ja.wikipedia.org/wiki/Internet_Relay_Chat][Internet Relay Chat - Wikipedia]]
+
+  詳細は, 以下のページ参照.
+  - [[http://irc.nahi.to/what.html][IRC 普及委員会/IRC ってなんですか?]]
+    
+* Emacs 用 IRC クライアント
+  Emacs Wiki によると, いつくも種類があるようだ.
+  - [[http://www.emacswiki.org/emacs/InternetRelayChat][EmacsWiki: Internet Relay Chat]]
+
+  Emacs にデフォルトで入っていて, ネット上でも情報のおおい ERC を試す.
+
+* IRC サーバを用意
+  なんでもよかったのだが, 有名そうな ngiIRCd をいれる.
+  - [[http://ngircd.barton.de/][ngIRCd: Next Generation IRC Daemon]]
+
+  設定はひとまず Default 設定で起動.
+
+  #+begin_src bash
+  $ sudo ngircd
+  #+end_src
+
+* Emacs 
+  まずは, Emacs 上で M-x erc で ERC を起動.
+
+  ERC の Web マニュアル.
+  - [[http://mwolson.org/static/doc/erc/][ERC Manual]]
+
+  まずは, default の サーバに接続
+  - IRC Server: rc.freenode.net
+  - port: 6667
+  - username: tsu-nera
+  - password: はじめは未設定.
+
+  つづいて, /join #emacs とタイプすると, emacs のチャットに参加できる.
+
+  ログアウトは, M-x erc-quit-server (C-c C-x).
+
+* ngircd を利用
+  自分で用意したサーバでもう少し遊ぶ.
+  
+** ログイン
+  - IRC Server: localhost
+  - port: 6667
+  - username: tsu-nera
+  - password: はじめは未設定.
+
+  これで, ログインできる.
+
+  設定ファイルにログイン情報を書くとログインが簡単になる.
+
+#+begin_src emacs-lisp
+(setq erc-server "localhost")
+(setq erc-port "6667")
+(setq erc-nick "tsu-nera")
+;; (setq erc-password "")
+#+end_src
+  - [[http://stackoverflow.com/questions/19038704/emacs-erc-login][elisp - Emacs ERC login - Stack Overflow]]
+
+  オートログインもできる. 以下を書いて, M-x erc-opn
+
+#+begin_src emacs-lisp
+(autoload 'erc "erc" "" t)
+(defmacro de-erc-connect (command server port nick)
+  "Create interactive command `command', for connecting to an IRC server. The
+command uses interactive mode if passed an argument."
+  (fset command
+	`(lambda (arg)
+	   (interactive "p")
+	   (if (not (= 1 arg))
+	       (call-interactively 'erc)
+	     (erc :server ,server :port ,port :nick ,nick)))))
+
+(de-erc-connect erc-opn "localhost" 6667 "tsu-nera")
+#+end_src
+
+#+begin_src bash
+#  Channel 接続 /JOIN or /j
+/j #test
+
+# 直接話す
+/query <nick>
+#+end_src
+
+これでも Chanel に接続 できる.
+
+#+begin_src emacs-lisp
+(setq erc-autojoin-channels-alist
+      '(("localhost" "#test")))
+;;	("oftc.net" "#bitlbee")))
+(erc :server "localhost" :port 6667 :nick "tsu-nera")
+#+end_src
+
+** ログアウト
+
+#+begin_src bash
+# Channel からぬける
+/PART
+
+# メッセージを残してサーバをさる
+/QUIT msg
+#+end_src
+
+#+begin_src emacs-lisp
+;; Kill buffers for channels after /part
+(setq erc-kill-buffer-on-part t)
+#+end_src
+
+** Highlight
+#+begin_src emacs-lisp
+(require 'erc-match)
+(setq erc-keywords '("tsu-nera"))
+#+end_src
+
+** erc-highlight-nicknames
+   ニックネームをハイライト
+   - [[http://www.emacswiki.org/ErcHighlightNicknames][EmacsWiki: Erc Highlight Nicknames]]
+
+#+begin_src emacs-lisp
+(and
+  (require 'erc-highlight-nicknames)
+  (add-to-list 'erc-modules 'highlight-nicknames)
+  (erc-update-modules))
+#+end_src
+
+** erc-hl-nicks
+    erc-highlight-nicknames の改良版か?
+  - https://github.com/leathekd/erc-hl-nicks
+
+#+begin_src emacs-lisp
+(require 'erc-hl-nicks)
+#+end_src
+
+** nerc-nick-notify
+   ニックネームが呼ばれたら反応する.
+  - [[http://www.emacswiki.org/emacs/ErcNickNotify][EmacsWiki: Erc Nick Notify]]
+
+#+begin_src emacs-lisp
+(autoload 'erc-nick-notify-mode "erc-nick-notify"
+  "Minor mode that calls `erc-nick-notify-cmd' when his nick gets
+mentioned in an erc channel" t)
+(eval-after-load 'erc '(erc-nick-notify-mode t))
+#+end_src
+
+** Encoding
+   こんな感じか?
+   #+begin_src emacs-lisp
+   ;; UTF-8
+   (setq  erc-server-coding-system '(utf-8 . utf-8))
+
+   ;; Shift-JIS
+   (setq erc-server-coding-system に (iso-2022-jp . iso-2022-jp))
+   #+end_src
+
+** Color
+   ダークにはデフォルトのいろがみずらい
+  - https://github.com/emacs-jp/replace-colorthemes/blob/master/blue-erc-theme.el
+  - https://github.com/emacs-jp/replace-colorthemes/blob/master/dark-erc-theme.el
+
+  #+begin_src emacs-lisp
+ (add-to-list 'custom-theme-load-path "~/.emacs.d/elisp")
+ (load-theme 'blue-erc t t)
+ (enable-theme 'blue-erc)
+ #+end_src
+
+* Bookmarks
+  IRC について.
+  - [[http://irc.nahi.to/][IRC 普及委員会 HOME]]
+
+  Windows で一番有名? な IRC クライアント.
+  - [[http://limechat.net/][LimeChat]]
+
+  IRC Client の比較.
+  - [[http://en.wikipedia.org/wiki/Comparison_of_Internet_Relay_Chat_clients][Comparison of Internet Relay Chat clients - Wikipedia, the free encyclopedia]]
+
+** ERC
+   Emacs にデフォルトで入っている.
+  - [[http://www.emacswiki.org/ERC][EmacsWiki: ERC]]
+  - [[http://en.wikipedia.org/wiki/ERC_(software)][ERC (software) - Wikipedia, the free encyclopedia]]
+  - [[http://emacs-fu.blogspot.jp/2009/06/erc-emacs-irc-client.html][emacs-fu: ERC: the emacs IRC client]]
+  - [[http://sleepboy-zzz.blogspot.jp/2013/07/emacs-ercirc.html][memo: Emacs ERC で IRC を試してみた]]
+
+** Riece
+  Cabon Emacs にデフォルトで入っている.リースと読む.
+  - [[http://www.nongnu.org/riece/index.html.ja][Riece]]
+
+** Circe
+  けっこう最近 (2013) にでてきたやつ. 開発は盛ん.
+  - [[http://www.nongnu.org/circe/][Circe - Yet Another Client for IRC in Emacs]]
+  - https://github.com/jorgenschaefer/circe/wiki
+  - [[http://blog.danielgempesaw.com/post/45559530477/circe-an-alternative-to-erc][elisp solves problems - circe - an alternative to erc :)]]
+
+** weechat.el
+  最近でてきた CUI 用 IRC Client, weechat を Emacs から利用する.
+  - [[https://weechat.org/][WeeChat, the extensible chat client]]
+  - [[http://qiita.com/taketin/items/dd91ba59dceda96c94aa][IRC - weechat のススメ (導入〜設定) - Qiita]]
+  - https://github.com/the-kenny/weechat.el
+
+** ngircd
+   - [[http://assimane.blog.so-net.ne.jp/2012-11-24][CentOS5.8 (x64) で irc サーバ (ngircd) を構築してチャットをやってみよう:アシマネのドタバタ奮闘日記:So-net ブログ]]

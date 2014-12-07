@@ -5,7 +5,7 @@
 ** 分類図
    - [[http://www.info.ucl.ac.be/~pvr/paradigms.html][Classification of the principal programming paradigms]]
      - https://docs.google.com/viewer?url=http://www.info.ucl.ac.be/people/PVR/paradigmsDIAGRAMeng108.pdf
-
+       
 * Base Concepts
 ** Program: プログラム
    - [[http://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF)][プログラム (コンピュータ) - Wikipedia]]
@@ -107,38 +107,6 @@
       - Traps: 意図的に OS が止める breakpont, systemcall, file open
       - Faults: リカバリ可能な例外, page fault, segmentation fault
       - Aborts: リカバリ不可能な例外, プログラムは強制終了.
-** Type
-   型, データ型.
-  - [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][データ型 - Wikipedia]]
-
-   互いに関係する値の集合.
-   (OOP においては) 値の集合と値に対する操作の集合を一緒にしたもの.
-
-*** 型の分類
-    型があるかないかよる分類
-    - 型なし (untyped)
-    - 型あり (typed)
-
-    動的片付けと静的片付けよる分類    
-    - 動的片付け .. 実行時に型検査
-    - 静的片付け .. コンパイル時に型検査
-
-    データによる分類    
-    - 基本型: 言語でサポートされた型.
-	-> [[http://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AA%E3%83%9F%E3%83%86%E3%82%A3%E3%83%96%E5%9E%8B][プリミティブ型 - Wikipedia]]
-    - 抽象データ型 (ADT): 自身で定義した型.
-	+ 構造体
-	+ クラス
-	+ インタフェース
-	-> 詳細は, OOP のページへ [[http://ja.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][抽象データ型 - Wikipedia]]
-
-	Java インタフェースは, 階層を持たない型システムを構築する.
-
-*** Type Checking: 型検査
-    プログラムが型に整合性があるかどうかをチェックすること.
-    - コンパイルエラー: 静的
-    - ランタイムエラー: 動的
-
 ** Function
    関数.
 
@@ -175,12 +143,8 @@
     数学に置ける関数の概念に近い. ある集合から集合への写像.
     - [[http://ja.wikipedia.org/wiki/%E9%96%A2%E6%95%B0_(%E6%95%B0%E5%AD%A6)][関数 (数学) - Wikipedia]]
 
-** Class
-   共通のメソッドを提供する型の集合.
-
-** Generics
-   データ形式に依存しないコンピュータプログラミング方式.
-   - [[http://ja.wikipedia.org/wiki/%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AA%E3%83%83%E3%82%AF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][ジェネリックプログラミング - Wikipedia]]
+** Type, Class
+   -> データ構造・型のページへ移動
 
 * Semantics
   プログラム意味論. 
@@ -475,142 +439,31 @@ end
 * Object-Oriented Programming
   オブジェクト指向型プログラミング.
   -> 記事独立.
-
   [[file:object-oriented_programming.org]]
 
 * Detarministic Dataflow Programming
-決定性データフロープログラミング.
-
-関数型パラダイムをべースにしている.
-
-- [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%95%E3%83%AD%E3%83%BC%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][データフロープログラミング - Wikipedia]]
-
-スレッド処理, 時間経過をともなうのにも関わらず, 実行結果はつねに一定!
-これが, Deterministic と名づけられた所以.
-
-Deerministic is not Obsarbable.
-
-アイデア自体は 70 年代に提示されたアイデアのに, 今まで忘れ去れれていた.
-
-- MultiCore, ManyCore Processing (マルチコア, メニーコア)
-- Destributed Computing
-- Concurrent Deployment
-- BigData Computing
-
-以上のようなキーワードとともに,
-21 世紀の今こそ注目をあびるべき, 次世代プログラミングパラダイム!
-(とピーターバンロイさんがいっていた)
-
-CTMCP, Chapter 4
-
-** Detarministic Dataflow
-*** Unbound Value
-メモリ上に値が存在しないが, 宣言された変数.
-
-- C/C++ では, ゴミ (不定データ) が格納されている.
-- Java は 0 初期化されている.
-- Prolog は実行時にエラー終了する.
-- Oz は値が bind されるまでまちあわせる.
-
-*** DataFlow Value
-Unbound Value が bind されるまでプログラムの実行を待ち合わせるような宣言的変数.
-
-Bind されたときの実行を Dataflow Execution という.
-
-このデータフロー変数によって, No Race Conditions (非強豪状態) を実現する!
-(これがもっともこのパラダイムで大事)
-
-- [[http://ja.wikipedia.org/wiki/%E7%AB%B6%E5%90%88%E7%8A%B6%E6%85%8B][競合状態 - Wikipedia]]
-
-** Threads
-プログラムの処理の単位 (Thread of Program)
-
-- Each thread is sequential.
-- Each thread is independent of the others.
-- Two threads can communicate if they share a variable
-
-Wikipedia では CPU のひとつの処理単位と定義されている.
-
-[[http://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%AC%E3%83%83%E3%83%89_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF)][- スレッド (コンピュータ) - Wikipedia]]
-
-** Streams
-リストの終端が Unbound Variable であるもの.
-
-Streams は 2 つの Thread 間の通信チャネルとして利用できる.
-
-Stream の構成要素は以下.
-
-- Producer
-  ストリームのデータを生成.
-
-- Consumer
-  Producer から生成されたストリームのデータを受け取ってアクションを起こす.
-
-- Transformer
-  Producer と Consumer との間を仲介する.
-
-- Pipeline
-  Producer と Consumer と Transformer の間を仲介する.
-
-単一格納変数 (single-assined value) の性質 (一度しか代入できない)
-を同期のスレッド間通信のための手段にする.
-
-平行スレッドのなかで Stream を読み書きするものを Agents という.
-
-n#+begin_src language
-          S1=1|2|3..              S2=1|4|9..
-  Produce ----------> Transformer --------> Consuemer
- S1={Prod 1}          S2={Trans S1}         {Disp S2}
-#+end_src
-
-** NonDeterminism
-非決定性. プログラムの実行結果を決定ことができるシステムの能力.
-
-Nondeterminism は managed されることが必須!
-しかし, 制御がとても難しい.
-だからこそ, Determinism が重要なのだと.
-
-*** Scheduler
-どのスレッドを実行するかを決める, システムの一部をスケジューラという.
-
-** Concurrency Transparency
-平行透過性.
-
-複数のユーザーが 1 つのリソースを共有して使用するとき,
-それらユーザーに競合状態を気づかせてはならない.
-
-- [[http://ja.wikipedia.org/wiki/%E9%80%8F%E9%81%8E%E6%80%A7_(%E6%83%85%E5%A0%B1%E5%B7%A5%E5%AD%A6)][透過性 (情報工学) - Wikipedia]]
-
-*** concurrency for dummies
-平行性のためのダミースレッド.
-
-平行透過性のためには, いくらスレッドを動的に追加しようとも, 削除しようとも,
-最終的に得られる結果はかわらない (Deterministic!)
-
-それは, スレッドの各処理を incremental に動作させることで*.
-
-可能となる 
+  -> 記事独立.
+  [[file:concurrent_programming.org::*Detarministic%20Dataflow:%20%E6%B1%BA%E5%AE%9A%E6%80%A7%E3%83%87%E3%83%BC%E3%82%BF%E3%83%95%E3%83%AD%E3%83%BC%E3%83%A2%E3%83%87%E3%83%AB][Detarministic Dataflow: 決定性データフローモデル]]
 
 * Concurrent Programming
-
-[[file:ConcurrentProgramming.org][Concurrent Programming]]
+  -> 別ページへ移動.
 
 * Multi-agent dataflow programmming
-マルチエジェーントデータフロープログラミング.
+  マルチエジェーントデータフロープログラミング.
 
-Concurrency を解決するためのいろいろなパラダイムのなかで,
-最強のパラダイムがこれだとピーターバンロイさんはいう.
+  Concurrency を解決するためのいろいろなパラダイムのなかで,
+  最強のパラダイムがこれだとピーターバンロイさんはいう.
 
-なぜなら, Deterministic Dataflow Programming をベースに,
-NonDeterminism の制御を機能追加したから.
+  なぜなら, Deterministic Dataflow Programming をベースに,
+  NonDeterminism の制御を機能追加したから.
 
-(Deterministic Dataflow Programming に, Port という明示的状態をくわえた)
+  (Deterministic Dataflow Programming に, Port という明示的状態をくわえた)
 
-- [[http://ja.wikipedia.org/wiki/%E3%83%9E%E3%83%AB%E3%83%81%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0][マルチエージェントシステム - Wikipedia]]
+  - [[http://ja.wikipedia.org/wiki/%E3%83%9E%E3%83%AB%E3%83%81%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0][マルチエージェントシステム - Wikipedia]]
 
-Distributed System ともいう.
+  Distributed System ともいう.
 
-CTMCP, Chapter 5
+  CTMCP, Chapter 5
 
 ** Port
    ボート. Named Steram.名前のつけられたストリーム.
@@ -623,75 +476,74 @@ CTMCP, Chapter 5
      - Syncronize
 
 ** Agents
-通信モデルは大きく 2 つに分けられる.
+   通信モデルは大きく 2 つに分けられる.
 
-- Client-Server Architectures
-- Pear-to-Pear Architectures
+   - Client-Server Architectures
+   - Pear-to-Pear Architectures
 
-Client,Server,Pear を Agent という.
+   Client,Server,Pear を Agent という.
 
-- [[http://ja.wikipedia.org/wiki/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88][ソフトウェアエージェント - Wikipedia]]
+   - [[http://ja.wikipedia.org/wiki/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%83%88][ソフトウェアエージェント - Wikipedia]]
 
-以下の構成要素をもつ.
+   以下の構成要素をもつ.
 
-- have identity     ... mail address
-- recieve messages  ... mailbox
-- process messeges  ... orderd mailbox
-- reply to messeges ... pre-addressed return letter
+   - have identity     ... mail address
+   - recieve messages  ... mailbox
+   - process messeges  ... orderd mailbox
+   - reply to messeges ... pre-addressed return letter
 
-エージェントは独立実体で, 自身の局所的な目的を目指して仕事をする.
-相互作用が適切に設計されていればエージェントは大局的仕事も達成する.
+   エージェントは独立実体で, 自身の局所的な目的を目指して仕事をする.
+   相互作用が適切に設計されていればエージェントは大局的仕事も達成する.
 
-CTMCP, Chapter 5 より.
+   CTMCP, Chapter 5 より.
 
-Agent をもちいるプログラミングを,
-Object-Oriented Programming と対比されて,
-Agent-Oriented Programming ということもある.
+   Agent をもちいるプログラミングを,
+   Object-Oriented Programming と対比されて,
+   Agent-Oriented Programming ということもある.
 
-ただし, Agent は必ずしも Object でなくてもよい. 2 つのうちのどちらか.
+   ただし, Agent は必ずしも Object でなくてもよい. 2 つのうちのどちらか.
 
-- Object
-- Transition state-functions
+   - Object
+   - Transition state-functions
 
 *** Coordinator
-Agent のなかでほかの Agent をまとめる Agent を Coordinator という. 以下の性質をもつ.
+    Agent のなかでほかの Agent をまとめる Agent を Coordinator という. 以下の性質をもつ.
 
-- 代理性 ・・・他の Agent の代理をして処理をおこなう. 処理の結果を Agent に通知.
-- 知性   ・・・ 他の Agent から情報をあつめを代表して判断を下す.
-- 移動性 ・・・他の Agent を代表して判断を下す.
+    - 代理性 ・・・他の Agent の代理をして処理をおこなう. 処理の結果を Agent に通知.
+    - 知性   ・・・ 他の Agent から情報をあつめを代表して判断を下す.
+    - 移動性 ・・・他の Agent を代表して判断を下す.
 
-Master (Coordinator)-Slave Archtecture.
-
-- [[http://ja.wikipedia.org/wiki/%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%BC%E3%82%B9%E3%83%AC%E3%83%BC%E3%83%96][マスタースレーブ - Wikipedia]]
+    Master (Coordinator)-Slave Archtecture.
+    - [[http://ja.wikipedia.org/wiki/%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%BC%E3%82%B9%E3%83%AC%E3%83%BC%E3%83%96][マスタースレーブ - Wikipedia]]
 
 *** Stateless Agent
-あるメッセージを受信したときに, そのメッセージに応じてアクションをとる Agents.
-アクションは受信メッセージに依存する.
+    あるメッセージを受信したときに, そのメッセージに応じてアクションをとる Agents.
+    アクションは受信メッセージに依存する.
 
-Agent はひとつのスレッドと複数のポートをもつ. ボートは明示的変数 (Cell) と同義.
+    Agent はひとつのスレッドと複数のポートをもつ. ボートは明示的変数 (Cell) と同義.
 
-この Port 以外は Immutable なデータ構造. Port のみがメモリ上に確保される.
+    この Port 以外は Immutable なデータ構造. Port のみがメモリ上に確保される.
 
 *** State with Agent
-ポートの他に State (明示的状態) をもつこともある.
+    ポートの他に State (明示的状態) をもつこともある.
 
-処理の実行自体は Stream データ構造に入った function のプロシージャごとに実施する
-(Immutable and incremental) が, State によって Reply の方法を変える.
+    処理の実行自体は Stream データ構造に入った function のプロシージャごとに実施する
+    (Immutable and incremental) が, State によって Reply の方法を変える.
 
 ** Protocol
-Message の送信と受信のルール.
+   Message の送信と受信のルール.
 
-[[http://ja.wikipedia.org/wiki/%E9%80%9A%E4%BF%A1%E3%83%97%E3%83%AD%E3%83%88%E3%82%B3%E3%83%AB][- 通信プロトコル - Wikipedia]]
+   [[http://ja.wikipedia.org/wiki/%E9%80%9A%E4%BF%A1%E3%83%97%E3%83%AD%E3%83%88%E3%82%B3%E3%83%AB][- 通信プロトコル - Wikipedia]]
 
-プロトコルにしたがうことで, デッドロックを防ぐ.
+   プロトコルにしたがうことで, デッドロックを防ぐ.
 
 *** BroadCast
-他の複数のエージェント (Multi-Agent) に通信を送る.
+    他の複数のエージェント (Multi-Agent) に通信を送る.
 
 *** Contract Net
-契約ネットプロトコル.
-[[http://en.wikipedia.org/wiki/Contract_Net_Protocol][Contract Net Protocol - Wikipedia, the free encyclopedia]]
-
+    契約ネットプロトコル.
+    - [[http://en.wikipedia.org/wiki/Contract_Net_Protocol][Contract Net Protocol - Wikipedia, the free encyclopedia]]
+    
 ** Ozma
    Multi-agent dataflow programmming を実現するための言語. Scala と Oz を合体させた.
 
@@ -702,21 +554,21 @@ Message の送信と受信のルール.
    - [[https://github.com/sjrd/ozma][sjrd/ozma]]
 
 * Active Objects Programming (Object-Based Agent)
-オブジェクト指向におけるオブジェクトを,
-自ら判断し処理できる機能を持ったエージェントと呼ばれるモジュールに
-置き換えたもの.
+  オブジェクト指向におけるオブジェクトを,
+  自ら判断し処理できる機能を持ったエージェントと呼ばれるモジュールに
+  置き換えたもの.
 
-Object-Oriented Programming と Multi-Agent Programming の 2 つのパラダイムを
-合体させてできたパラダイム.
+  Object-Oriented Programming と Multi-Agent Programming の 2 つのパラダイムを
+  合体させてできたパラダイム.
 
-オブジェクトの属性ではなくて振る舞いが重要視される.
+  オブジェクトの属性ではなくて振る舞いが重要視される.
 
-- [[http://itpro.nikkeibp.co.jp/word/page/10024992/][「エージェント指向」とは:ITpro]]
-- [[http://www.ogis-ri.co.jp/otc/hiroba/technical/agent/article/index.html][エージェント指向が目指すもの -INDEX-]]
+  - [[http://itpro.nikkeibp.co.jp/word/page/10024992/][「エージェント指向」とは:ITpro]]
+  - [[http://www.ogis-ri.co.jp/otc/hiroba/technical/agent/article/index.html][エージェント指向が目指すもの -INDEX-]]
 
-English の Wikipedia に OOP と AOP の対応比較表がある.
+  English の Wikipedia に OOP と AOP の対応比較表がある.
 
-- http://en.wikipedia.org/wiki/Agent-oriented_programming
+  - http://en.wikipedia.org/wiki/Agent-oriented_programming
 
 * Mathmatics
   数学との関係性.

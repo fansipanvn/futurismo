@@ -296,7 +296,6 @@ Prelude> filter even [1..10]
 
 * invariant programming
   不変式プログラミング. 再帰的に呼ばれる度に, 数学的に真になる式.
-
   - [[http://ja.wikipedia.org/wiki/%E4%B8%8D%E5%A4%89%E6%9D%A1%E4%BB%B6][不変条件 - Wikipedia]]
 
 ** Recursion
@@ -381,6 +380,42 @@ fun {Fact2 I A}
    else {Fact I-1 I*A} end
 end
    #+end_src
+
+* Type: 型
+** Algebraic data type: 代数データ型
+   関数型パラダイムで利用される.
+   - [[http://ja.wikipedia.org/wiki/%E4%BB%A3%E6%95%B0%E7%9A%84%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][代数的データ型 - Wikipedia]]
+
+   それぞれの代数的データ型の値には,以下をもっている.
+   - 1 個以上のコンストラクタ
+   - 各コンストラクタには 0 個以上の引数
+
+   2 引数で与えられた他のデータ型の値を, コンストラクタで包んだようなもの.
+   - [[http://webcache.googleusercontent.com/search?q=cache:ZD5pznr5pjMJ:http://d.hatena.ne.jp/Lost_dog/20130616/1371416584%2B%E4%BB%A3%E6%95%B0%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B&hl=ja&&ct=clnk][Java で代数的データ型 - いじわるだねっ]]
+
+*** Visual Basic
+    Variant 型. なんでも入れることが出来る型だが, 
+    メモリ使用量が多いので乱用はさける.
+    - [[http://e-words.jp/w/VariantE59E8B.html][Variant 型とは 〔 バリアント型 〕 - 意味/ 解説/ 説明/ 定義 : IT 用語辞典]]
+
+*** Haskell
+    Haskell では, 以下を合わせて代数データ型と呼ぶ
+    - 列挙型
+      他の言語における enum
+    - 直積型
+    - 直和型
+    
+    参考:
+    - [[http://qiita.com/7shi/items/1ce76bde464b4a55c143][Haskell 代数的データ型 超入門 - Qiita]]
+
+** Enum: 列挙型
+   プログラマが選んだ各々の識別子をそのまま有限集合として持つ抽象データ型.
+   - [[http://ja.wikipedia.org/wiki/%E5%88%97%E6%8C%99%E5%9E%8B][列挙型 - Wikipedia]]
+
+   番号を持たないカテゴリ変数. 一意の文字.
+   
+   実行時には, 番号が振られることが覆いが, 
+   言語によっては番号はプログラマに見えないこともある.
 
 * Bookmarks
   - [[https://docs.google.com/viewer?url=http://www.mew.org/~kazu/material/2010-func.pdf][Haskell 脳と Emacs Lisp 脳]]

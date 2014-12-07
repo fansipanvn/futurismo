@@ -1,6 +1,5 @@
 #+OPTIONS: toc:nil
-* Object-Oriented Programming
-  オブジェクト指向型プログラミング.
+* Object-Oriented Programming: オブジェクト指向型プログラミング
   - [[http://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][オブジェクト指向プログラミング - Wikipedia]]
 
   CTMCP, Chapter 6,7
@@ -20,7 +19,6 @@
      - 部分機能に対してそれ自体の振舞いに関する責任を持たせ, 
        実行指示を行うだけであと任せておく. 
      - これが委譲 (delegation) という考え方.
-
 
 * Data abstraction
   データ抽象. 3 つの構成要素がある.
@@ -56,7 +54,7 @@
    内部は外部からは隠蔽されている. -> カプセル化という.
 
    The inside is hidden from the outside
-
+   
 ** Interface
    The interface is a set of operations that an be used according to certain rules.
 
@@ -127,116 +125,8 @@
     ->(内部 DSL のこと?? ドメインモデル設計)
 
 * Abstract Data Type
-  抽象データ型. ADT と略されることも.
-  
-  構造化プログラミングは仮想機械モデルに基づく
-  段階的詳細化法 (stepwise refinement) をもたらしたが,
-  データ構造の変更を行うと変更部分がソースコード中に散在してしまうという弱点があった.
-  データ抽象の概念はその欠点を補完するものであった
-  
-  - [[http://ja.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][抽象データ型 - Wikipedia]]
-
-  An ADT consists of a set of values and a set of operations.
-    - Integer 型
-    - Value:1,2,3
-    - Operation:+
-    - Stack 型
-    - Value: elemtent
-    - Operation: push, pop, ...
-
-    Value と Operation それ自体は State を持たない.
-    CTM, p433
-
-  バンドルされていないデータ抽象.
-
-** ラッパー
-   ADT に アクセスするための key (キー) を導入することで,
-   安全にアクセスすることができる.
-   
-   
-   値の集合に直接アクセスさせないための操作.(CPMCP p210)
-   - 値を安全に保持するためには, 
-      鍵 (key) を利用して (包む) 操作を追加すればよい.
-      
-#+begin_src oz
-Key={NewName}
-SS={Chunk.new w (Key:S)}
-#+end_src
-
-    包み, ほどきを行うデータ抽象をラッパーと定義する.
-
-    #+begin_src oz
-proc {NewWrapper ?Wrap ?Unwrap}
-   Key={NewName} in
-   fun {Wrap X}
-      {Chunk.new w{Key:X}}
-   end
-   fun {Unwrap X}
-      try W.Key catch _ then raise error (unwrap (W)) end end
-   end
-end
-    #+end_src
-
-以下のように, Wrap, Unwrap する.
-
-#+begin_src oz
-S={a b c}
-SS={Wrap S}
-S={Unwrap SS}
-#+end_src
-
-** Example
-    Diference between ADT and Object. Stack をつかった実装の違い.
-*** ADT
-    #+begin_src oz
-local Wrap Unwrap in
-  {NewWrapper Wrap Unwrap}
-  fun {NewStack} {Wrap nil} end
-  fun {Push W X} {Wrap X|{Unwrap W}} end
-  fun {Pop W X} S={Unwrap W} in X=S.1 {Wrap S.2} end
-  fun {IsEmpty W} {Unwrap W}==nil end
-end
-    #+end_src
-
-    この手法は Stateful ADT という.
-
-    そして, C 言語では, こうやってデータ抽象化を行うことがおおい.
-    もちろん関数ポインタ配列を使えば C 言語でも Object をつくることができるが,
-    実際にはそこまでやらない. (面倒)
-
-*** Object
-    オブジェクトでは, データに対する操作はプロシージャ変数として扱われることに注目.
-
-    #+begin_src oz
-fun {NewStack}
-  C={NewCell nil}
-  proc {Push X} C:=X|@C end
-  proc {Pop X} S=@C in X=S.1 C:=S.2 end
-  fun {IsEmpty} @C==nil end
-in
-  stack (push:Push pop:Pop isEmpty:IsEmpty)
-end
-    #+end_src
-
-    オブジェクト指向言語は,
-    単に Object をサポートする言語ではなくて, 
-    Abstruct Data Type も強力にサポートしている.
-
-    Object と ADT の意味がごっちゃにつかわれているのが現実の現状.
-
-** Bookmarks
-   - 比較的わかりやすい: [[http://www.hitachi.co.jp/Prod/comp/soft1/manual/pc/d645140/W4510070.HTM][抽象データ型]
-
-
-** Enum: 列挙型
-   プログラマが選んだ各々の識別子をそのまま有限集合として持つ抽象データ型.
-   - [[http://ja.wikipedia.org/wiki/%E5%88%97%E6%8C%99%E5%9E%8B][列挙型 - Wikipedia]]
-
-   番号を持たないカテゴリ変数. 一意の文字.
-
-   
-   実行時には, 番号が振られることが覆いが, 
-   言語によっては番号はプログラマに見えないこともある.
+  OOP を語る上では理解をさけられない.
+  -> データ構造と型のページへ移動.
 
 * Object-Oriented Paradiums
   以下の要素をそなえもつ
@@ -334,9 +224,18 @@ end
       
 ** Inheritance
    継承. あるオブジェクトが他のオブジェクトの特性を引き継ぐこと.
-
    - [[http://ja.wikipedia.org/wiki/%E7%B6%99%E6%89%BF_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0)][継承 (プログラミング) - Wikipedia]]
 
+   継承は単に特殊化と再利用を実現する手段ではない.
+   オブジェクトを分類するための手段である.
+
+*** どう分類するか?
+    - 共通性: 時がたっても変わらないものを抽象クラスに
+    - 可変性: 流動的要素を具象クラスに.
+
+    クラスの集合がもつすべての責務を真っ当するために,
+    インタフェースを用意する.
+    
 ** Delegation
    委譲.あるオブジェクトの操作を一部他のオブジェクトに代替させる手法.
    - [[http://ja.wikipedia.org/wiki/%E5%A7%94%E8%AD%B2][委譲 - Wikipedia]]
@@ -386,7 +285,6 @@ end
     - ほかにもあるかな...
 
     参考:[[http://lab.tricorn.co.jp/toda/1088][Tricorn Labs » State パターンと Strategy パターンは何が違うのか考える]]
-
 
 * オブジェクト指向のこころより
 ** OOP の 2 大原則
@@ -483,3 +381,9 @@ end
 *** 「関数の積和 (sum-of-product-of-function) 」パターン 
     オブジェクトは (実質的に) 有限の簡単な名前の集合から選ばれるキー引数
     を第一引数に取り, それによってメソッドを呼び出す関数として動作する.
+
+* Books
+** オブジェクト指向入門
+ 上下巻あるみたい.
+ - [[http://www.amazon.co.jp/%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E5%85%A5%E9%96%80-%E7%AC%AC2%E7%89%88-%E5%8E%9F%E5%89%87%E3%83%BB%E3%82%B3%E3%83%B3%E3%82%BB%E3%83%97%E3%83%88-Architect%E2%80%99Archive-%E3%82%AF%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AF%E3%83%A2%E3%83%80%E3%83%B3%E3%83%BB%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/dp/4798111112][Amazon.co.jp: オブジェクト指向入門 第 2 版 原則・コンセプト ]]
+ - [[http://www.amazon.co.jp/%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E5%85%A5%E9%96%80-%E6%96%B9%E6%B3%95%E8%AB%96%E3%83%BB%E5%AE%9F%E8%B7%B5-Architects%E2%80%99Archive-CLASSIC-MODER/dp/4798111120/ref=pd_sim_b_1?ie=UTF8&refRID=10TRKTN3AGS2XRK96A2Q][Amazon.co.jp: オブジェクト指向入門 第 2 版 方法論・実践]]

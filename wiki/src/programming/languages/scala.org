@@ -74,3 +74,5 @@ Scala の match 式:
 - CheetSheet: http://docs.scala-lang.org/cheatsheets/    
 
 * BookMarks
+  Effective Java の Scala 版. ネットで日本語で無料.
+  - [[http://twitter.github.io/effectivescala/index-ja.html#][Effective Scala]]

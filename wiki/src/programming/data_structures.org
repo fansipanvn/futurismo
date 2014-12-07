@@ -1,11 +1,13 @@
 #+OPTIONS: toc:nil
-* データ構造
+* データ構造・型
   プログラミングにおける代表的なデータ構造についてまとめる.
 
+  また, それらをまとめるための型システムもこのページでまとめる.
+
+* データ構造
 ** データ構造とは
    データの集まりをコンピュータの中で効果的に扱うため, 
    一定の形式に系統立てて格納するときの形式.
-
   - [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%BC%E3%82%BF%E6%A7%8B%E9%80%A0][データ構造 - Wikipedia]]
 
 ** index
@@ -23,32 +25,257 @@
         - 木構造
           一つの頂点から樹状に枝分かれしたグラフ.
 
-* Record
-  データと別のデータやデータ構造を一対一に関連付けて格納するもの.
+** Record
+   データと別のデータやデータ構造を一対一に関連付けて格納するもの.
 
-  もっとも基本的なデータ型.
-  - Atom
-  - Tuple
-  - List
+   もっとも基本的なデータ型.
+   - Atom
+   - Tuple
+   - List
 
-* List
-* Tuple,Struct
-  異なるデータ型であっても格納できる.
-  ベクトルやリストは型がすべて同じものしか格納できない.
-  - [[http://ja.wikipedia.org/wiki/%E3%82%BF%E3%83%97%E3%83%AB][タプル - Wikipedia]]
+** List
+** Tuple,Struct
+   異なるデータ型であっても格納できる.
+   ベクトルやリストは型がすべて同じものしか格納できない.
+   - [[http://ja.wikipedia.org/wiki/%E3%82%BF%E3%83%97%E3%83%AB][タプル - Wikipedia]]
 
-  Record, Struct, 構造体と同義で利用されることもある.
-  - [[http://ja.wikipedia.org/wiki/%E6%A7%8B%E9%80%A0%E4%BD%93][構造体 - Wikipedia]]
-  - [[http://stackoverflow.com/questions/4212265/tuples-vs-records][data structures - tuples vs records - Stack Overflow]]
-* Tree
+   Record, Struct, 構造体と同義で利用されることもある.
+   - [[http://ja.wikipedia.org/wiki/%E6%A7%8B%E9%80%A0%E4%BD%93][構造体 - Wikipedia]]
+   - [[http://stackoverflow.com/questions/4212265/tuples-vs-records][data structures - tuples vs records - Stack Overflow]]
+** Tree
+    
+** Stream
+   要素は遅延評価される. そのため, ストリームは無限の長さをもつことができる.
+
+   - [[http://docs.scala-lang.org/ja/overviews/collections/concrete-immutable-collection-classes.html][具象不変コレクションクラス - Scala Documentation]]
+
+   For streams, this is a by-name parameter. 
+   That's why the second argument to Stream.cons is not evaluated atthe point of call.
+
+   Instead, it will be evaluated each time someone calls
+   tail on a Stream object.
+
+* Type: 型
+  型, データ型.
+ - [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][データ型 - Wikipedia]]
+
+  互いに関係する値の集合.
+  (OOP においては) 値の集合と値に対する操作の集合を一緒にしたもの.
+
+* Type System: 型システム
+   プログラミング言語において, その式などの部分が持つ値を, 
+   その種類 (型 (type)) に沿って分類し, プログラムが正しく振る舞うこと, 
+   といった性質について保証する手法である. 
+
+   型システムは, 型理論に基づいており, 
+   プログラミング言語の理論において最も確立された軽量形式手法である.
+   - [[http://ja.wikipedia.org/wiki/%E5%9E%8B%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0][型システム - Wikipedia]]
+
+** 型の分類
+   型があるかないかよる分類
+   - 型なし (untyped)
+   - 型あり (typed)
+
+   動的片付けと静的片付けよる分類    
+   - 動的片付け .. 実行時に型検査
+   - 静的片付け .. コンパイル時に型検査
+
+   データによる分類    
+   - 基本型: 言語でサポートされた型.
+       -> [[http://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AA%E3%83%9F%E3%83%86%E3%82%A3%E3%83%96%E5%9E%8B][プリミティブ型 - Wikipedia]]
+   - 抽象データ型 (ADT): 自身で定義した型.
+     + 代数データ型: 
+       + 列挙型: [[http://ja.wikipedia.org/wiki/%E5%88%97%E6%8C%99%E5%9E%8B][列挙型 - Wikipedia]]
+       + 直和型:
+       + 直積型:
+       -> 詳細は functional programming のページへ. [[http://ja.wikipedia.org/wiki/%E4%BB%A3%E6%95%B0%E7%9A%84%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][代数的データ型 - Wikipedia]]
+     + 抽象データ型
+       + 構造体:
+       + クラス:
+       + インタフェース:
+       -> 詳細は, OOP のページへ [[http://ja.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][抽象データ型 - Wikipedia]]
+
+     Java インタフェースは, 階層を持たない型システムを構築する.
+
+** Type Checking: 型検査
+   プログラムが型に整合性があるかどうかをチェックすること.
+   - コンパイルエラー: 静的
+   - ランタイムエラー: 動的
+
+** Polymorphic type: 多相型
+   データ構造のコンテナ.
+
+   データ形式に依存しないコンピュータプログラミング方式をジェネリクス
+   プログラミングという.
+   - [[http://ja.wikipedia.org/wiki/%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AA%E3%83%83%E3%82%AF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][ジェネリックプログラミング - Wikipedia]]
+
+** 型変数
+   多相型は宣言されたクラス, 関数に対して,
+   利用時に具体的な型を与える. これを型変数 (Type variable) という.
+
+   Java の名前つけルールがあるらしい.
+   - [[http://java.keicode.com/lang/generics-naming.php][名前付けルール - Java 入門]]
+
+** 言語ごとの実現方法
+  - Java: ジェネリクス, ワイルドカード
+    + [[http://futurismo.biz/archives/2750][Java でのジェネリックスの使い方まとめ | Futurismo]]
+  - C++:  テンプレート
+  - Haskell:
+    + リスト
+    + タプル
+    + Either
+    + Maybe
+
+** OOP との比較
+    - オブジェクト指向はクラスでインヘリタンス
+    - 関数型は代数的データ型で選択
+    - [[http://modegramming.blogspot.jp/2012/07/30-2.html][Modegramming Style: クラウド温泉 3.0 (2) / 代数的データ型]]
+    - [[http://modegramming.blogspot.jp/2012/07/30-3-on-scala.html][Modegramming Style: クラウド温泉 3.0 (3) / 代数的データ型 on Scala]]
+
+** Books
+*** 型システム入門
+   - [[http://www.amazon.co.jp/%E5%9E%8B%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E5%85%A5%E9%96%80-%E2%88%92%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E%E3%81%A8%E5%9E%8B%E3%81%AE%E7%90%86%E8%AB%96%E2%88%92-Benjamin-C-Pierce/dp/4274069117][Amazon.co.jp: 型システム入門 -プログラミング言語と型の理論-: Benjamin C. Pierce,]]
+   - [[http://tapl.proofcafe.org/][型システム入門 サポートページ]]
+   - [[http://zoetrope.hatenablog.jp/entry/2013/07/24/204613][数学初心者のための「型システム入門」入門 - 廻る技術の覗き穴]]
+    
+* Algebraic data type: 代数データ型
+  関数型パラダイムで利用される.
+  - [[http://ja.wikipedia.org/wiki/%E4%BB%A3%E6%95%B0%E7%9A%84%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][代数的データ型 - Wikipedia]]
+
+  それぞれの代数的データ型の値には,以下をもっている.
+  - 1 個以上のコンストラクタ
+  - 各コンストラクタには 0 個以上の引数
+
+  2 引数で与えられた他のデータ型の値を, コンストラクタで包んだようなもの.
+  - [[http://webcache.googleusercontent.com/search?q=cache:ZD5pznr5pjMJ:http://d.hatena.ne.jp/Lost_dog/20130616/1371416584%2B%E4%BB%A3%E6%95%B0%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B&hl=ja&&ct=clnk][Java で代数的データ型 - いじわるだねっ]]
+
+** Enum: 列挙型
+   プログラマが選んだ各々の識別子をそのまま有限集合として持つ抽象データ型.
+   - [[http://ja.wikipedia.org/wiki/%E5%88%97%E6%8C%99%E5%9E%8B][列挙型 - Wikipedia]]
+
+   番号を持たないカテゴリ変数. 一意の文字.
    
-* Stream
-  要素は遅延評価される. そのため, ストリームは無限の長さをもつことができる.
+   実行時には, 番号が振られることが覆いが, 
+   言語によっては番号はプログラマに見えないこともある.
 
-  - [[http://docs.scala-lang.org/ja/overviews/collections/concrete-immutable-collection-classes.html][具象不変コレクションクラス - Scala Documentation]]
+** 各言語について
+*** Visual Basic
+    Variant 型. なんでも入れることが出来る型だが, 
+    メモリ使用量が多いので乱用はさける.
+    - [[http://e-words.jp/w/VariantE59E8B.html][Variant 型とは 〔 バリアント型 〕 - 意味/ 解説/ 説明/ 定義 : IT 用語辞典]]
 
-  For streams, this is a by-name parameter. 
-  That's why the second argument to Stream.cons is not evaluated atthe point of call.
+*** Haskell
+    Haskell では, 以下を合わせて代数データ型と呼ぶ
+    - 列挙型
+      他の言語における enum
+    - 直積型
+    - 直和型
+    
+    参考:
+    - [[http://qiita.com/7shi/items/1ce76bde464b4a55c143][Haskell 代数的データ型 超入門 - Qiita]]
 
-  Instead, it will be evaluated each time someone calls
-  tail on a Stream object.
+* Abstract data type: 抽象データ型
+  抽象データ型. ADT と略されることも.
+  
+  構造化プログラミングは仮想機械モデルに基づく
+  段階的詳細化法 (stepwise refinement) をもたらしたが,
+  データ構造の変更を行うと変更部分がソースコード中に散在してしまうという弱点があった.
+  データ抽象の概念はその欠点を補完するものであった
+  
+  - [[http://ja.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][抽象データ型 - Wikipedia]]
+
+  An ADT consists of a set of values and a set of operations.
+    - Integer 型
+    - Value:1,2,3
+    - Operation:+
+    - Stack 型
+    - Value: elemtent
+    - Operation: push, pop, ...
+
+    Value と Operation それ自体は State を持たない.
+    CTM, p433
+
+  バンドルされていないデータ抽象.
+
+** ラッパー
+   ADT に アクセスするための key (キー) を導入することで,
+   安全にアクセスすることができる.
+   
+   
+   値の集合に直接アクセスさせないための操作.(CPMCP p210)
+   - 値を安全に保持するためには, 
+      鍵 (key) を利用して (包む) 操作を追加すればよい.
+      
+#+begin_src oz
+Key={NewName}
+SS={Chunk.new w (Key:S)}
+#+end_src
+
+    包み, ほどきを行うデータ抽象をラッパーと定義する.
+
+    #+begin_src oz
+proc {NewWrapper ?Wrap ?Unwrap}
+   Key={NewName} in
+   fun {Wrap X}
+      {Chunk.new w{Key:X}}
+   end
+   fun {Unwrap X}
+      try W.Key catch _ then raise error (unwrap (W)) end end
+   end
+end
+    #+end_src
+
+以下のように, Wrap, Unwrap する.
+
+#+begin_src oz
+S={a b c}
+SS={Wrap S}
+S={Unwrap SS}
+#+end_src
+
+** Example
+    Diference between ADT and Object. Stack をつかった実装の違い.
+
+*** ADT
+    #+begin_src oz
+local Wrap Unwrap in
+  {NewWrapper Wrap Unwrap}
+  fun {NewStack} {Wrap nil} end
+  fun {Push W X} {Wrap X|{Unwrap W}} end
+  fun {Pop W X} S={Unwrap W} in X=S.1 {Wrap S.2} end
+  fun {IsEmpty W} {Unwrap W}==nil end
+end
+    #+end_src
+
+    この手法は Stateful ADT という.
+
+    そして, C 言語では, こうやってデータ抽象化を行うことがおおい.
+    もちろん関数ポインタ配列を使えば C 言語でも Object をつくることができるが,
+    実際にはそこまでやらない. (面倒)
+
+*** Object
+    オブジェクトでは, データに対する操作はプロシージャ変数として扱われることに注目.
+
+    #+begin_src oz
+fun {NewStack}
+  C={NewCell nil}
+  proc {Push X} C:=X|@C end
+  proc {Pop X} S=@C in X=S.1 C:=S.2 end
+  fun {IsEmpty} @C==nil end
+in
+  stack (push:Push pop:Pop isEmpty:IsEmpty)
+end
+    #+end_src
+
+    オブジェクト指向言語は,
+    単に Object をサポートする言語ではなくて, 
+    Abstruct Data Type も強力にサポートしている.
+
+    Object と ADT の意味がごっちゃにつかわれているのが現実の現状.
+
+** Class
+   共通のメソッドを提供する型の集合.
+   
+** Bookmarks
+   - 比較的わかりやすい: [[http://www.hitachi.co.jp/Prod/comp/soft1/manual/pc/d645140/W4510070.HTM][抽象データ型]]
+

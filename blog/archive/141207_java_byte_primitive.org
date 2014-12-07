@@ -1,0 +1,105 @@
+#+BLOG: Futurismo
+#+POSTID: 2784
+#+DATE: [2014-12-07 日 13:20]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Java
+#+DESCRIPTION:Java で プリミティブ型から byte 型配列へ変換する方法のメモ
+#+TITLE: Java で プリミティブ型から byte 型配列へ変換する
+
+#+BEGIN_HTML
+<a href="http://futurismo.biz/wp-content/uploads/java.png"><img alt="" src="http://futurismo.biz/wp-content/uploads/java.png" width="256" height="256" /></a>
+#+END_HTML
+
+* はじめに
+  Java で byte 型を扱う方法を調べてみたのでまとめてみる.
+
+* ByteBuffer クラスをつかう
+  ByteBuffer クラスを利用すると, 
+  byte 型に対するいろいろな操作が簡単にできる.
+  - [[https://docs.oracle.com/javase/jp/6/api/java/nio/ByteBuffer.html][ByteBuffer (Java Platform SE 6)]]
+
+* 他のプリミティブ型から byte 型配列 に変換
+  手順は以下.
+  1. ByteBuffer.allocate (size) でメモリ獲得.
+  2. putXXX メソッドで獲得したメモリに値を挿入
+  3. array () で byte 配列に変換
+
+#+begin_src java
+  ByteBuffer buffer = ByteBuffer.allocate (arraySize);
+  buffer = buffer.putXXXX (value)
+  byte[] bytes = buffer.array ();
+#+end_src
+
+** Sample
+
+#+begin_src java
+import java.nio.ByteBuffer;
+
+class ByteSample {
+	
+	public static void main (String args[]) {
+		showBytes (short2Byte ((short) 10));
+		showBytes (int2Byte (10));		
+		showBytes (int2ByteN (10));
+		showBytes (long2Byte (10L));		
+	}
+
+	public static byte[] short2Byte (short value) {
+		return ByteBuffer.allocate (Short.SIZE/Byte.SIZE).putShort (value).array ();
+	}
+
+	public static byte[] int2Byte (int value) {
+		return ByteBuffer.allocate (Integer.SIZE/Byte.SIZE).putInt (value).array ();
+	}
+
+	public static byte[] long2Byte (long value) {
+		return ByteBuffer.allocate (Long.SIZE/Byte.SIZE).putLong (value).array ();
+	}
+	
+	static void showBytes (byte[] bytes) {
+		for (int i=0; i < bytes.length; i++)
+			System.out.printf (Integer.toHexString (bytes[i] &0xff));			
+		System.out.println ("");
+	}
+}
+#+end_src
+
+出力結果
+
+#+begin_src sh
+0a
+000a
+0000000a
+#+end_src
+
+* エンディアン対応
+  ByteBuffer の初期順序は, BIG_ENDIAN.
+
+ - ビッグエンディアン
+複数バイトのデータを上位バイトから順番に格納する方式です. 
+0x1234ABCD を 0x12,0x34,0xAB,0xCD という順番で保存します.
+
+ - リトルエンディアン
+複数バイトのデータを下位バイトから順番に格納する方式です. 
+0x1234ABCD を 0xCD,0xAB,0x34,0x12 という順番で保存します.
+
+ - [[http://www.techscore.com/tech/Java/JavaSE/NIO/2-3/][2. バッファの操作 (3) | TECHSCORE (テックスコア)]]
+
+
+  リトルエンディアン (ネットワークバイトオーダー) に対応するためには,
+  java.nio.ByteOrder クラスと order メソッドを利用する.
+  - [[https://docs.oracle.com/javase/jp/6/api/java/nio/ByteOrder.html][ByteOrder (Java Platform SE 6)]]
+
+#+begin_src java
+	public static byte[] int2ByteN (int value) {
+		ByteBuffer byteBuffer = ByteBuffer.allocate (Integer.SIZE/Byte.SIZE);
+		byteBuffer.order (ByteOrder.LITTLE_ENDIAN);
+		byteBuffer.putInt (value);
+		return byteBuffer.array ();
+	}
+#+end_src
+
+* Bookmarks
+  - [[http://lifeofsnufkin.blog63.fc2.com/blog-entry-354.html#][Java で int や double などのプリミティブ型を byte 配列に変換する]]
+

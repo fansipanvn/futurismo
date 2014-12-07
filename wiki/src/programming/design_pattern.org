@@ -131,11 +131,9 @@ int main (void) {
     - 集約ではなくてコンポジション
     - 継承ではなくてコンポジション
 
-    コンポジションなので, 機能の入れ替えは不可.
-    といったところが, 他のパターンとの違いだろうか??
-
-    ラッパークラス.
-
+    LinkedList 構造.
+    - [[http://futurismo.biz/archives/2780][動的に機能追加!Java で Decolator パターンを実装してみた | Futurismo]]
+    
 *** Facade 
     複数のクラス群からなるサブシステムにアクセスするための, 
     インタフェースを提供する.
@@ -393,6 +391,7 @@ struct FSM {
 
 ** Links
   - [[http://patternsinfp.wordpress.com/][Patterns in Functional Programming | Exploiting the relationship between data structure and program structure]]
+  - [[http://www.slideshare.net/ScottWlaschin/fp-patterns-buildstufflt][Functional Programming Patterns (BuildStuff '14)]]
 
 * Links
   結城浩さんの並列・平行プログラミングのパターン紹介

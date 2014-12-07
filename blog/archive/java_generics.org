@@ -143,11 +143,13 @@ public class GenericsSample2 {
 		d.add ("Hello");
 		System.out.println (d.get ());
 
-		E e = new E ();
+		E<Integer> e = new E<Integer>();
 		e.add (1);
 		System.out.println (e.get ());
-		e.add ("Hello");
-		System.out.println (e.get ());
+
+		E<String> f = new E<String>();
+		f.add ("Hello");
+		System.out.println (f.get ());
 	}
 }
 

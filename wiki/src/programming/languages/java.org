@@ -239,14 +239,7 @@ for (herb h: garden)
     主な使いどころは, Adapter パターンを委譲で実現するとき.
     - [[http://ja.wikipedia.org/wiki/Adapter_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Adapter パターン - Wikipedia]].
 
-    たとえば, そのオフジェクトが
-    内部で TreeSet を利用するか HashSet を利用するかを
-    オブジェクトの生成時に切り替えるような場合に利用する.
-
     ジェネリックスも合わせて利用される.
-
-    以下の例では, BlockingQueue を入れ替えている.
-    - [[http://futurismo.biz/archives/2656][Java で Producer-Consumer Pattern を実装してみた | Futurismo]]
 
 *** 無名クラス
     主な使用目的は, 関数オブジェクトを生成するため.
@@ -304,7 +297,6 @@ new Thread (myRunnable).start ();
 
 
     - [[http://www.techscore.com/tech/Java/JavaSE/Thread/2-2/][2. スレッドの実行 (2) | TECHSCORE (テックスコア)]]
-
 
 ** ExecuterService
    - [[http://java.keicode.com/lang/multithreading-executor.php][ExecutorService の使い方 - Java 入門]]

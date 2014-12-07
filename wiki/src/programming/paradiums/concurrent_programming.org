@@ -1,6 +1,5 @@
 #+OPTIONS: toc:nil
 * Concurrenct Programming
-
   複数の相互作用を及ぼす計算タスクの (同時) 並行的実行をおこなうパラダイム.
 
   平行プログラミング. (並列プログラミングではない).
@@ -61,7 +60,7 @@
     Android API:  [[http://developer.android.com/reference/java/util/concurrent/locks/ReentrantLock.html][ReentrantLock | Android Developers]]
 
 
-* Shared-State concurrency
+* Shared-State concurrency: 共有メモリモデル
 ** ReentrantLock 
    A reentrant mutual exclusion lock that extends 
    the built-in monitor lock capabilities.
@@ -141,6 +140,125 @@
    - [[http://builder.japan.zdnet.com/sp_oracle/weblogic_2013/35034509/][Java EE 7 で並列処理がケタ違いに速くなる! 使いこなしのポイントは? ── Java Day Tokyo 2013 レポート - builder by ZDNet Japan]]
    - [[http://www.ibm.com/developerworks/jp/java/library/j-5things5.html#ibm-pcon][今まで知らなかった 5 つの事項: java.util.concurrent 第 2 回]]
 
-* Detarministic Dataflow
-* Message-passing concurrency
-  
+* Message-passing concurrency: メッセージ伝達モデル
+  Scala や Erlang で採用されている方法.
+
+* Detarministic Dataflow: 決定性データフローモデル
+  決定性データフロープログラミング.
+
+  関数型パラダイムをべースにしている.
+  - [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%95%E3%83%AD%E3%83%BC%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0][データフロープログラミング - Wikipedia]]
+
+  スレッド処理, 時間経過をともなうのにも関わらず, 実行結果はつねに一定!
+  これが, Deterministic と名づけられた所以.
+
+  Deerministic is not Obsarbable.
+
+  アイデア自体は 70 年代に提示されたアイデアのに, 今まで忘れ去れれていた.
+
+  - MultiCore, ManyCore Processing (マルチコア, メニーコア)
+  - Destributed Computing
+  - Concurrent Deployment
+  - BigData Computing
+
+  以上のようなキーワードとともに,
+  21 世紀の今こそ注目をあびるべき, 次世代プログラミングパラダイム!
+  (とピーターバンロイさんがいっていた)
+
+  CTMCP, Chapter 4
+
+** Detarministic Dataflow
+*** Unbound Value
+    メモリ上に値が存在しないが, 宣言された変数.
+
+    - C/C++ では, ゴミ (不定データ) が格納されている.
+    - Java は 0 初期化されている.
+    - Prolog は実行時にエラー終了する.
+    - Oz は値が bind されるまでまちあわせる.
+
+*** DataFlow Value
+    Unbound Value が bind されるまでプログラムの実行を待ち合わせるような宣言的変数.
+
+    Bind されたときの実行を Dataflow Execution という.
+
+    このデータフロー変数によって, No Race Conditions (非強豪状態) を実現する!
+    (これがもっともこのパラダイムで大事)
+
+    - [[http://ja.wikipedia.org/wiki/%E7%AB%B6%E5%90%88%E7%8A%B6%E6%85%8B][競合状態 - Wikipedia]]
+
+** Threads
+   プログラムの処理の単位 (Thread of Program)
+
+   - Each thread is sequential.
+   - Each thread is independent of the others.
+   - Two threads can communicate if they share a variable
+
+   Wikipedia では CPU のひとつの処理単位と定義されている.
+
+   [[http://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%AC%E3%83%83%E3%83%89_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF)][- スレッド (コンピュータ) - Wikipedia]]
+
+** Streams
+   リストの終端が Unbound Variable であるもの.
+
+   Streams は 2 つの Thread 間の通信チャネルとして利用できる.
+
+   Stream の構成要素は以下.
+
+   - Producer
+     ストリームのデータを生成.
+
+   - Consumer
+     Producer から生成されたストリームのデータを受け取ってアクションを起こす.
+
+   - Transformer
+     Producer と Consumer との間を仲介する.
+
+   - Pipeline
+     Producer と Consumer と Transformer の間を仲介する.
+
+   単一格納変数 (single-assined value) の性質 (一度しか代入できない)
+   を同期のスレッド間通信のための手段にする.
+
+   平行スレッドのなかで Stream を読み書きするものを Agents という.
+
+   #+begin_src language
+   S1=1|2|3..              S2=1|4|9..
+   Produce ----------> Transformer --------> Consuemer
+   S1={Prod 1}          S2={Trans S1}         {Disp S2}
+   #+end_src
+
+** NonDeterminism
+   非決定性. プログラムの実行結果を決定ことができるシステムの能力.
+
+   Nondeterminism は managed されることが必須!
+   しかし, 制御がとても難しい.
+   だからこそ, Determinism が重要なのだと.
+
+*** Scheduler
+    どのスレッドを実行するかを決める, システムの一部をスケジューラという.
+
+** Concurrency Transparency
+   平行透過性.
+
+   複数のユーザーが 1 つのリソースを共有して使用するとき,
+   それらユーザーに競合状態を気づかせてはならない.
+
+   - [[http://ja.wikipedia.org/wiki/%E9%80%8F%E9%81%8E%E6%80%A7_(%E6%83%85%E5%A0%B1%E5%B7%A5%E5%AD%A6)][透過性 (情報工学) - Wikipedia]]
+
+*** concurrency for dummies
+    平行性のためのダミースレッド.
+
+    平行透過性のためには, いくらスレッドを動的に追加しようとも, 削除しようとも,
+    最終的に得られる結果はかわらない (Deterministic!)
+
+    それは, スレッドの各処理を incremental に動作させることで可能となる 
+
+* Books
+** Archtecture Patterns
+   Archtecture Patterns のページも参照のこと.
+
+  POSA2
+  - [[http://www.dre.vanderbilt.edu/~schmidt/POSA/POSA2/][Pattern-Oriented Software Architecture: Patterns for Concurrent and Networked Objects]]
+
+  結城先生のマルチスレッドに関する本. 内容は POSA2 の真似.
+  - [[http://www.hyuki.com/dp/dp2.html][『増補改訂版 Java 言語で学ぶデザインパターン入門マルチスレッド編』]]  
