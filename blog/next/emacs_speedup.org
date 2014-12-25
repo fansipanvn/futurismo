@@ -22,7 +22,7 @@
    | Machine    | Time |
    |------------+------|
    | Arch Linux | 12.1 |
-   |            |      |
+   | Windows    | 29.6 |
 
 ** esup をつかう
    esup を利用すると, 詳細な起動時間がわかる.
@@ -50,9 +50,44 @@
    elisp の管理には init-loader.el を利用してる.
    init log を確認すると, 各処理における読み込み時間がわかる.
 
-   一番おそい Cygwin における時間.
+   Windows における時間.
+
+#+begin_src bash
+loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/00_el-get.elc. 0.0
+loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/01_global.el. 2.2812822
+loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/03_display.el. 1.0277368
+loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/20_text.elc. 4.8438096999999996
+loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/30_programming.elc. 1.8992336
+loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/31_c_cpp.elc. 0.1406281
+loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/31_haskell.elc. 0.2656291
+loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/31_java.elc. 0.3750235
+loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/31_python.elc. 1.9972729
+loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/31_ruby.elc. 0.3281107
+loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/33_minorlang.elc. 2.2702037
+loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/40_helm.elc. 1.1719071
+loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/50_org-mode.elc. 1.2500322
+loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/60_utility.el. 7.3733458
+loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/61_wanderlust.elc. 0.13878569999999998
+loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/90_color.elc. 0.7656375
+loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/99_windows8.elc. 0.171875
+loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/windows-init.elc. 0.1406362
+#+end_src
 
 * 分析
+  - utility が一番のボトルネック
+    + 利用していないものはコメントアウト.
+
+  - プログラミング言語に関する lisp 
+    は普段利用しないのに読み込みに時間かかかっている.
+    + 遅延ロードをすべてに適用する
+
+  - text 編集関係に時間がかかっている.
+    + 利用しないものはコメントアウト
+
+** 課題
+ 当たり前の結果だけれども, 以下の 2 点に絞られるようだ.
+ - 遅延評価の積極的適用
+ - 不要な行の削除
 
 * カイゼン
 ** emacsclient をつかう
@@ -123,20 +158,46 @@ init-loader で自動バイトコンパイル機能があるようだ.
 
   有効にしたが, イマイチ使い方がよくわからない.
 
-** idle-require.el をつかう
-  - [[http://sheephead.homelinux.org/2010/11/12/6288/][idle-require.el で Emacs の起動を高速にする | sheephead]]
-  - [[http://nschum.de/src/emacs/idle-require/][idle-require]]
+** 遅延ロードを適用する
+*** autoload をつかう
+    ライブラリを起動時にロードする必要がない場合は, autoload を利用する.
+    xxx-command を利用するときになって初めて"xxx"がロードされる.
 
-** 遅延読み込みをつかう
-*** auto-load をつかう
-*** eval-after-load つかう
-*** lazyload をつかう
-   - [[http://d.hatena.ne.jp/pogin/20121230/1356880875][Emacs の起動時間を短縮する方法 #Emacs #AdventCalendar - プログラムとかのの blog]]
+#+begin_src emacs-lisp
+(autoload 'xxx-command "xxx")
+#+end_src
 
+    起動時にロードしないことで, 高速化.
+
+*** eval-after-load/hook つかう
+    あるモードでのみ利用するものは, eval-after-load or hook を利用する.
+
+#+begin_src emacs-lisp
+;; hook
+(add-hook 'c-mode-common-hook
+	  '(lambda ()
+	     (gtags-mode 1)
+	     (gtags-make-complete-list)))
+
+;;eval-after-load
+(eval-after-load "isearch"
+  '(progn
+     (require 'isearch-dabbrev)
+     (define-key isearch-mode-map (kbd "<tab>") 'isearch-dabbrev-expand)))
+#+end_src
+    
+    2 つの違いは以下が詳しい.
+    - [[http://d.hatena.ne.jp/syohex/20141004/1412385064][eval-after-load 設定すべきもの, hook で設定すべきもの - Life is very short]]
+
+    要約すると,
+    - 一度だけ設定すればよいものは eval-after-load
+    - バッファを開くたびに設定したいもの hook
+
+    Emacs24.4 からは with-eval-after-load という関数がある.
+    これも以下の記事が詳しい.
+    - [[http://d.hatena.ne.jp/syohex/20141004/1412385064][eval-after-load 設定すべきもの, hook で設定すべきもの - Life is very short]]
 
 ** use-package をつかう
+   autoload/eval-after-load の記述を簡潔に書くための elisp.
    - [[http://qiita.com/kai2nenobu/items/5dfae3767514584f5220][Emacs - use-package で可読性の高い init.el を書く - Qiita]]
 
-* Special Thanks
-  - [[http://sheephead.homelinux.org/2010/11/12/6288/][idle-require.el で Emacs の起動を高速にする | sheephead]]
-  - [[https://gist.github.com/zk-phi/9935048][setup.el で安全・爆速な init.el を書く]]

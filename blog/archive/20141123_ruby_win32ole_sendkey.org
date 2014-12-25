@@ -1,3 +1,4 @@
+#+DATE: [2014-11-24 月 01:58]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
 #+CATEGORY: 技術メモ
 #+TAGS: Ruby, Windows
