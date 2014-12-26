@@ -1,0 +1,136 @@
+#+BLOG: Futurismo
+#+POSTID: 2840
+#+DATE: [2014-12-22 月 22:23]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: R
+#+DESCRIPTION:  Emacs で R 言語を利用するための設定メモ (ESS)
+#+TITLE: Emacs で R 言語を利用するための設定メモ (ESS)
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* はじめに
+  最近, 統計学と R 言語をさわり始めた.
+
+  なぜなら, 本屋にいくとビッグデータやら, データマイニングやら,
+  データサイエンティストやら, そんな単語がポンポン目に入るから.
+
+  ということで, まずは Emacs で R 言語を快適に利用するための設定をしてみた.
+
+  もちろん, RStudio なんて便利なものは知っているがね.
+
+* ESS
+  Emacs を統計用 IDE にするツール. デファクトスタンダードと言えよう.
+
+  - Official: [[http://ess.r-project.org/][ESS - Emacs Speaks Statistics]]
+  - github: https://github.com/emacs-ess/ESS
+  - メチャクチャ詳しい: [[http://www.okada.jp.org/RWiki/?ESS][ESS - RjpWiki]]
+  - [[http://www.emacswiki.org/emacs/EmacsSpeaksStatistics][EmacsWiki: Emacs Speaks Statistics]]
+  - [[http://d.hatena.ne.jp/a_bicky/20120415/1334490586][ESS で快適 R ライフ ~設定編~(2012 年度版) - あらびき日記]]
+  - [[http://d.hatena.ne.jp/a_bicky/20120422/1335086814][ESS で快適 R ライフ ~操作編~(2012 年度版) - あらびき日記]]
+
+  起動は M-x R.
+    
+  #+begin_src emacs-lisp
+(setq load-path (cons "/usr/share/emacs/site-lisp/ess" load-path))
+(when (locate-library "ess-site")
+  (require 'ess-site)
+
+(setq auto-mode-alist
+      (cons (cons "\\.[rR]$" 'R-mode) auto-mode-alist))
+(autoload 'R-mode "ess-site" "Emacs Speaks Statistics mode" t)
+
+
+;; R 起動時にワーキングディレクトリを訊ねない
+(setq ess-ask-for-ess-directory nil)
+  #+end_src
+
+* ESS Auto-complete
+  R 言語の入力自動補完をするために, auto-complete を利用する.
+	- [[http://www.emacswiki.org/emacs/ESSAuto-complete][EmacsWiki: ESSAuto-complete]]   
+
+	  ac-R.el はふるいっぽい.
+	  - [[http://www.emacswiki.org/emacs/AutoCompleteSources#toc2][EmacsWiki: Auto Complete Sources]]
+	  - [[http://stackoverflow.com/questions/4682459/emacs-autocomplete-mode-extension-for-ess-and-r][Emacs autocomplete-mode extension for ESS and R - Stack Overflow]]
+	  - [[http://kozo2.hatenablog.com/entry/2012/04/14/050121][ESS の auto-complete を試す - kozo2's blog]]
+
+	#+begin_src emacs-lisp
+(when (locate-library "ess-site")
+(setq ess-use-auto-complete t)
+;; (setq ess-use-auto-complete 'script-only)
+)
+	#+end_src
+
+* ESS R Data View
+  データの中身がみれる.
+  - [[http://sheephead.homelinux.org/2013/05/10/7019/][R のデータビューワ ess-R-data-view.el というのを作りました - sheephead]]
+  - https://github.com/myuhe/ess-R-data-view.el
+
+  #+begin_src emacs-lisp
+;; (define-key ess-mode-map (kbd "C-c v") 'ess-R-dv-ctable)
+(define-key ess-mode-map (kbd "C-c v") 'ess-R-dv-pprint)
+  #+end_src
+
+  popwin と組み合わせると便利.
+   
+* ess-R-object-popup
+  オブジェクトの中身をポップアップで表示.
+  - https://github.com/myuhe/ess-R-object-popup.el
+  - [[http://sheephead.homelinux.org/2010/03/02/1807/][popup.el を使って R オブジェクトの情報を popup する ess-R-object-popup.el - sheephead]]
+
+  #+begin_src emacs-lisp
+(when (locate-library "ess-site")
+(require 'ess-R-object-popup)
+(define-key ess-mode-map "\C-c\C-g" 'ess-R-object-popup)
+)
+  #+end_src
+
+  gist 版は古いようだ.
+  - https://gist.github.com/myuhe/318365
+
+  no ESS process is associated with this buffer というエラー
+  がでたら C-c C-s を叩く.
+  - [[http://stackoverflow.com/questions/13930713/ess-rdired-i-get-this-error-no-ess-process-is-associated-with-this-buffer-now][r - ess-rdired: I get this error "no ESS process is associated with this buffer now" - Stack Overflow]]
+
+* helm-R
+  helm インタフェースで 関数のヘルプをひくことができる.
+  - [[http://sheephead.homelinux.org/2010/05/24/1846/][R のための anything インターフェイス, anything-R.el を作った. - sheephead]]
+  - https://github.com/emacs-helm/helm-R
+
+  #+begin_src emacs-lisp
+(when (locate-library "ess-site")
+(require 'helm-R)
+(define-key ess-mode-map "\C-ch" 'helm-for-R)
+(define-key inferior-ess-mode-map "\C-ch" 'helm-for-R)
+)
+  #+end_src
+
+* org-babel-R
+   org-mode で R を利用する.
+   - [[http://d.hatena.ne.jp/tamura70/20100315/org][Emacs org-mode を使ってみる: (40) org-babel-R を使う 1/2 - 屯遁のパズルとプログラミングの日記]]
+   - [[http://d.hatena.ne.jp/tamura70/20100316/org][Emacs org-mode を使ってみる: (41) org-babel-R を使う 2/2 - 屯遁のパズルとプログラミングの日記]]
+   - [[http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html][R Source Code Blocks in Org Mode]]
+
+#+begin_src emacs-lisp
+(when (locate-library "ess-site")
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((R . t)))
+)
+#+end_src
+
+ R 言語と org-mode で Reproducible Research を.
+ - https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org
+
+ 以下のようにタグでソースを加工する. C-c C-c で評価する.
+
+#+begin_src org-mode
+  #+begin_src R :file age_at_intake.png :width 400 :height 400 :results graphics
+  #+end_src
+#+end_src
+
+* おわりに
+  半分以上のパッケージが myuhe さんが作成したものだと気づく.
+  すごい. Special Thanks!

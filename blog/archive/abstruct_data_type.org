@@ -1,0 +1,256 @@
+#+BLOG: Futurismo
+#+POSTID: 2730
+#+DATE: [2014-11-23 日 22:14]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Java, Oz
+#+DESCRIPTION: 抽象データと抽象データ型について調べたまとめ
+#+TITLE: データ抽象と抽象データ型 (ADT) について調べたまとめ (Java)
+
+#+BEGIN_HTML
+<a href="http://futurismo.biz/wp-content/uploads/java.png"><img alt="" src="http://futurismo.biz/wp-content/uploads/java.png" width="256" height="256" /></a>
+#+END_HTML
+
+* はじめに
+  仕事の開発プロジェクトのメンバ (正確にはメンバではなくてアドバイザー) 
+  でこわーい人がいて,毎日のようにおびやかされてビクビクしている.
+
+  その人が書いたクラス図の意味がわからなかったから質問しにいったときのお話.
+
+** やりとり
+  (hoge さん) 「このクラスがなにを現しているか, そもそもわかってる?? 」
+
+  (Me) (わかっていないから質問をしにいった)
+
+  (Me) 「データとそれを扱うための便利な操作をまとめたクラスですか? 」
+
+  (hoge さん) 「それって, ただオブジェクト指向の一般論を言っているだけでは? 」
+  
+  (Me) (にが笑い...)
+
+  (hoge さん) 「わかってないのに, わかったふりをしているよね? 」
+
+  (hoge さん) 「便利な操作ってなに? そんなことだから, いつも考え方が手続的なんだ!! 」
+
+  そんなこんなで, 今回もひどい目にあい, 
+  あたくしは週末に心療内科にいって坑うつ剤を増量してもらうはめになった.
+
+** Answer
+  その人のいうことには,
+
+  「このクラスは, アプリケーションのためのデータ型. 
+    アプリケーションのベースになるもの.
+    Integer 型や String 型と同じようなもの. 」
+
+  「アプリケーションを設計するということは,
+  まずそのアプリケーションで利用される
+  データ型を定義するということからはじめる.」
+
+  「その後, 自分が定義したデータ型を操作するインタプリタを設計する.
+  Java をつかっているものの,
+  Java はそれらのデータ型のインタプリタでしかない」
+  
+  だそうだ.というわけで, 今回は抽象データ型について調べてみた.
+
+  情報元は, Wikipedia だったり, CPMCP 本だったり.
+
+* データ型とは
+  互いに関係する値の集合.
+  - [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][データ型 - Wikipedia]]
+
+  大きく, 2 種類に分けられる.
+    - 基本型: 言語でサポートされた型.
+      -> [[http://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AA%E3%83%9F%E3%83%86%E3%82%A3%E3%83%96%E5%9E%8B][プリミティブ型 - Wikipedia]]
+
+    - 抽象データ型 (ADT): 自身で定義した型.
+      ->  [[http://ja.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][抽象データ型 - Wikipedia]]
+
+   基本型は, よく知っているので, 今回は抽象データ型に注目.
+
+* 抽象データ型とは
+  - 自身で定義した型. 
+  - 状態を持たない.
+  - Abstract Data Type (ADT) という.
+  - 値の集合とそれらに関係する操作の集合, それぞれ別々に保持しているもの.
+    (別々というところが Object の違い)
+
+*** ラッパー
+    値の集合に直接アクセスさせないための操作.(CPMCP p210)
+    - 値を安全に保持するためには, 
+      鍵 (key) を利用して (包む) 操作を追加する.
+
+#+begin_src bash
+Key={NewName}
+SS={Chunk.new w (Key:S)}
+#+end_src
+
+    包み, ほどきを行うデータ抽象をラッパーと定義する.
+
+#+begin_src bash
+proc {NewWrapper ?Wrap ?Unwrap}
+   Key={NewName} in
+   fun {Wrap X}
+      {Chunk.new w{Key:X}}
+   end
+   fun {Unwrap X}
+      try W.Key catch _ then raise error (unwrap (W)) end end
+   end
+end
+    #+end_src
+
+以下のように, Wrap, Unwrap する.
+
+#+begin_src bash
+S={a b c}
+SS={Wrap S}
+S={Unwrap SS}
+#+end_src
+
+* データ抽象 (Data Abstraction)
+  データを抽象的に使う, 使い方.実装にとらわれずにデータを使うこと.
+  インタフェースと呼ばれる規則にしたがって使用される具体化の集合.
+
+  データ抽象を型 (Type) といって済ますこともある.
+  抽象データ型 (ADT) は, 特殊なデータ抽象.
+  値の集合と, それに関する操作の集合.(CPMCP p431)
+
+  Data Abstruction は 操作が値にバインディングされているかいなかで,
+  2 つの種類に分けられる.
+  - Abstruct Data Type (ADT)
+    値と操作をベツベツに保持する
+  - Object
+    値と操作を一緒に保持する.
+
+** オブジェクト
+  値と操作をひとつのまとまりとしたもの. 
+
+  現在オブジェクト指向言語と呼ばれているものは,実際には,
+  - Abstruct Data Type (Java Integer 型)
+  - オブジェクト (Java Object 型)
+  の 2 つを合わせもっている.
+  
+  その意味で, オブジェクト指向言語と言うよりは,
+  抽象データ言語というほうが正しい.
+  
+** クラス
+   抽象データからなるデータ構造.
+
+   属性とメソッドはレコードデータ構造によって管理されているだけ.
+
+   Class とは, Pair ( attrs[属性の集合] : methods[メソッドの集合]) )
+
+   Class の 生成 (new) メソッドで オブジェクトが生成される.(インスタンス化)
+
+   Class という概念によって, オブジェクトの"宣言"と"生成 (new)"を分離する.
+
+
+* 実例
+  オブジェクト指向における, メソッドの動的ディスパッチを自力で実装.
+  なんてめんどいんだ.
+
+  本来ならば, Operation クラスで保持するものは, 
+  String ではなくてクロージャだけど, Java7 では実現できない.
+  
+  hoge さんから提示されたクラス図も, 大体はこんな感じで,
+  HashMap に値やらメソッドやらを保持していた.
+
+#+begin_src java
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+public class ADTSample {
+	public static void main (String[] args) throws IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException,
+			NoSuchMethodException, SecurityException {
+		ObjectSample obj = new ObjectSample ();
+		System.out.println (obj.getAttr1 () + " " + obj.getAttr2 ());
+
+		ObjectSample2 obj2 = new ObjectSample2 ();
+		System.out.println (obj2.call (Key.NUM) + " " + obj2.call (Key.STRING));
+	}
+}
+
+class ObjectSample {
+	int  attr1 = 3;
+	String attr2 = "hello";
+	
+	public int getAttr1 () {
+		return attr1;
+	}
+	
+	public String getAttr2 () {
+		return attr2;
+	}
+
+	public void setAttr2 (String attr2) {
+		this.attr2 = attr2;
+	}
+}
+
+enum Type {
+	INT,
+	STRING
+}
+
+enum Key {
+	NUM,
+	STRING
+}
+
+class ObjectSample2 {
+	private Map<Key, Attribute> attrs = new HashMap<Key, Attribute>();
+	private Map<Key, Operation> methods = new HashMap<Key,  Operation>();	
+
+	public ObjectSample2 () {
+		// Attributes
+		attrs.put (Key.NUM, new Attribute (3, Type.INT));
+		attrs.put (Key.STRING, new Attribute ("hello", Type.STRING));
+
+		// Operations
+		methods.put (Key.NUM, new Operation ("getAttr1"));
+		methods.put (Key.STRING, new Operation ("getAttr2"));
+	}
+
+	public Object call (Key key) throws IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException,
+			NoSuchMethodException, SecurityException {
+		
+		Operation ope = methods.get (key);
+		Method method = this.getClass ().getMethod (ope.method, Key.class);
+		return method.invoke (this, key);
+	}
+
+	public Object getAttr1 (Key key) {
+		Attribute attr = attrs.get (key);
+		return attr.value;
+	}
+
+	public Object getAttr2 (Key key) {
+		Attribute attr = attrs.get (key);
+		return attr.value;
+	}
+}
+
+class Attribute {
+	Object value;
+	Type type;
+
+	public Attribute (Object value, Type type) {
+		this.value = value;
+		this.type = type;
+	}
+}
+
+class Operation {
+	String method;
+
+	public Operation (String method) {
+		this.method = method;
+	}
+}
+#+end_src
+

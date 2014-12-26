@@ -1,0 +1,169 @@
+#+BLOG: Futurismo
+#+POSTID: 2808
+#+DATE: [2014-12-12 金 00:30]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, TDD
+#+TAGS: JUnit, Java
+#+DESCRIPTION: JUnit のテストケースをステートフルで利用する
+#+TITLE: JUnit のテストケースをステートフルで利用する
+
+#+BEGIN_HTML
+<a href="http://futurismo.biz/wp-content/uploads/java.png"><img alt="" src="http://futurismo.biz/wp-content/uploads/java.png" width="256" height="256" /></a>
+#+END_HTML
+
+* はじめに
+  JUnit で, 結合テスト (Integration test), シナリオテストを書きたい.
+
+  トランザクションごとに長いテストを書く必要がある.
+
+  複数のトランザクションを順に処理していったときに,
+  オブジェクトの状態の変化を検証したい.
+
+* JUnit はテストケースが独立
+  はじめ, トランザクションごとにテストケースを書いていたが,
+  うまく動かない.. オブジェクトの状態が初期化されてしまう.
+
+  これは, JUnit の設計思想だった.
+
+  つまり, 各テストケースは独立だということ.
+  テストで使用するオブジェクトはテストケース内で生成されて,
+  テストケース内で消滅する.
+
+** たとえば
+   たとえば, このテストは失敗する. number は 0 が入っている.
+
+#+begin_src java
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class MemoryTest {
+	
+	static int number;
+
+	@Test
+	public void test () {
+		number = 1;
+	}
+
+	@Test
+	public void test2 () {
+		assertEquals (1, number);
+	}
+}
+#+end_src
+
+  
+* static を利用する
+  テスト間で状態を引き継ぐためには, 変数に static 修飾子をつける.
+
+  こうすると, 各テストケースの独立を破ることができる.
+
+#+begin_src java
+package test;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class MemoryTest {
+	
+	static int number;
+	static Foo foo;
+	static Foo bar;	
+	static Foo pee;		
+
+	@Test
+	public void test () {
+		number = 1;
+		foo = new Foo (1);
+		bar = new Foo (foo);
+		pee = new Foo ();		
+	}
+
+	@Test
+	public void test2 () {
+		assertEquals (1, number);
+		assertEquals (1, foo.i);
+		assertEquals (1, bar.foo.i);		
+		assertEquals (2, pee.foo.i);
+		foo.plus (3);
+	}
+	
+	@Test
+	public void test3 () {
+		assertEquals (4, foo.i);
+	}
+	
+}
+
+class Foo {
+	public int i;
+	public Foo foo;
+	
+	public Foo (int i) {
+		this.i = i;
+	}
+	
+	public Foo () {
+		this.foo = new Foo (2);
+	}
+	
+	public Foo (Foo foo) {
+		this.foo = foo;
+	}
+	
+	public void plus (int i){
+		this.i += i;
+	}
+}
+#+end_src
+
+* テストの実行順序を制御する
+  JUnit のテストが実行される順番はランダム.
+  
+  これだと, ステートフルなテストには不向きだ.
+
+  テストの実行順序を指定するには, 以下の方法がある
+
+  - @FixMethodOrder (MethodSorters.NAME_ASCENDING) をクラスの頭に設定
+  - メソッド名を 実行したいものから abc 順に変更.
+  
+#+begin_src java
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+import org.junit.FixMethodOrder;
+
+@FixMethodOrder (MethodSorters.NAME_ASCENDING)
+public class MemoryTest {
+	
+	static int number;
+	static Foo foo;
+	static Foo bar;	
+	static Foo pee;		
+
+	@Test
+	public void test () {
+		number = 1;
+		foo = new Foo (1);
+		bar = new Foo (foo);
+		pee = new Foo ();		
+	}
+
+	@Test
+	public void test2 () {
+		assertEquals (1, number);
+		assertEquals (1, foo.i);
+		assertEquals (1, bar.foo.i);		
+		assertEquals (2, pee.foo.i);
+		foo.plus (3);
+	}
+	
+	@Test
+	public void test3 () {
+		assertEquals (4, foo.i);
+	}
+	
+}
+#+end_src
+

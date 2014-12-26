@@ -1,0 +1,100 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Java
+#+DESCRIPTION: Java で Pair を実装
+#+TITLE: Java に Pair はないの?
+
+#+BEGIN_HTML
+<a href="http://futurismo.biz/wp-content/uploads/java.png"><img alt="" src="http://futurismo.biz/wp-content/uploads/java.png" width="256" height="256" /></a>
+#+END_HTML
+
+* はじめに
+  2 つの Key をもつ Map を利用したい.
+
+  たしか, C++ には Pair があった. Java にはないの?
+
+* 結論
+  ない.
+
+** じゃあどうするか?
+   自分で作成するしかない!
+
+#+begin_src java
+class Pair<F, S> {
+	public final F first;
+	public final S second;
+
+	Pair (F first, S second) {
+		this.first = first;
+		this.second = second;
+	}
+}
+#+end_src
+
+  しかし, これでは 2 つの Key をもつ Map としてうまく動作しない.
+
+#+begin_src java
+import java.util.Map;
+import java.util.HashMap;
+
+public class PairSample {
+	public static void main (String[] args) {
+		Map<Pair<Integer,Integer>, String> map = new HashMap<Pair<Integer,Integer>, String>();
+
+		Pair pair = new Pair (1,2);
+		Pair pair2 = new Pair (1,2);		
+		map.put (pair, "a");
+
+		if (map.containsKey (pair2)) {
+			System.out.println ("equal");
+		}
+		else {
+			System.out.println ("not equal");			
+		}
+	}
+}
+#+end_src
+
+  秘密は, equals と hashCode にあった.
+
+* 同一性と同値性
+  2 つのオブジェクトが同じ時, それらは同一性をもつという. 
+  hashCode () メソッドで検証する.
+
+  2 つのオブジェクトが保持する属性が同じとき, それらは同値性をもつという. 
+  equals () メソッドで検証する.
+
+  equals, hashCode はともに Object 型のメソッド.
+  - [[https://docs.oracle.com/javase/jp/6/api/java/lang/Object.html][Object (Java Platform SE 6)]]
+
+  以下のページが図つきでわかりやすい.
+  - [[http://education.yachinco.net/tips/java/01/2.html][Java における equals と hashCode - 同一性と同値性の違い]]
+  
+  Map で二つのオブジェクトが同値だと判断するときは, equals メソッドをも
+  ちいている.なので, このメソッドをオーバーロードして独自定義する必要がある.
+  
+** 実装例
+   今回やりたいことは, 同値性の確認なので, hashCode はなくてもいい.
+
+   ドキュメントによると, 
+   Hashcode があったほうが, HashMap の性能が上がるらしい.
+
+#+begin_src java
+	@Override
+	public boolean equals (Object obj) {
+		if (! (obj instanceof Pair))
+			return false;
+		Pair pair = (Pair) obj;
+		return (first.equals (pair.first) && second.equals (pair.second));
+	}
+
+	@Override
+	public int hashCode () {
+		return first.hashCode () ^ second.hashCode ();
+	}
+#+end_src
+
+* Special Thanks
+  - [[http://stackoverflow.com/questions/156275/what-is-the-equivalent-of-the-c-pairl-r-in-java][What is the equivalent of the C++ Pair<L,R> in Java? - Stack Overflow]]
+  - [[http://stackoverflow.com/questions/822322/how-to-implement-a-map-with-multiple-keys][java - How to implement a Map with multiple keys? - Stack Overflow]]
+  - [[http://d.hatena.ne.jp/Kappuccino/20080815/1218806830][HashMap の注意点 - プログラマはサイコロを振らない]]

@@ -1,0 +1,137 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Oz, Java, POSA
+#+DESCRIPTION: Oz のもつ決定性データフローモデルを利用して Producer-Consumer Pattern を 実装
+#+TITLE: データフロー変数 (Oz) で実現する Producer-Consumer Pattern
+
+* はじめに
+  以下の記事の続編です.
+  - [[http://futurismo.biz/archives/2656][Java で Producer-Consumer Pattern を実装してみた | Futurismo]]
+
+  前回は, Java の 共有メモリモデルを利用して 
+  Producer-Consumer Pattern を実装した.
+  
+  今回は, Oz のもつ決定性データフローモデルを利用して実装してみる.
+
+* 決定性データフローモデル
+  データフロー変数をもつモデル.
+
+** データフロー変数 
+  変数に値が束縛されるまでプログラムの実行を待ち合わせるような宣言的変数.
+
+  あるスレッドがデータフロー変数を利用しようとしたとき,
+  その変数に値が束縛されていない場合は, 
+  別のスレッドが束縛するまで待ち合わせを行う.
+
+  束縛されたときの実行を データフロー実行 という.
+
+* 実行例
+** Java
+   まずは, Java でのサンプル. 
+   平行性を実現するためには, キューを共有する.
+
+   結構コードがながくなってしまった...
+
+#+begin_src java
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.LinkedList;
+import java.util.List;
+
+public class ProducerConsumerPattern {
+	public static void main (String args[]) {
+		BlockingQueue<List<Integer>> queue = new LinkedBlockingQueue<List<Integer>>();
+
+		Producer producer = new Producer (queue, 10);
+		Consumer consumer = new Consumer (queue);
+
+		producer.start ();
+		consumer.start ();		
+	}
+}
+
+class Producer extends Thread {
+	BlockingQueue<List<Integer>> queue;
+	List<Integer> list;
+	int limit;
+	
+	public Producer (BlockingQueue<List<Integer>> queue, int limit) {
+		this.queue = queue;
+		this.limit = limit;
+		list = new LinkedList<Integer>();
+	}
+
+	public void run () {
+		try {
+			for (int i=1; i <= limit; i++) {
+				System.out.println (i);
+				sleep (1000);
+				list.add (i);
+			}
+			queue.put (list);
+		}
+		catch (Exception e) {}
+	}
+}
+
+class Consumer extends Thread {
+	BlockingQueue<List<Integer>> queue;
+	Integer sum;
+	public Consumer (BlockingQueue<List<Integer>> queue) {
+		this.queue = queue;
+		this.sum = 0;
+	}
+
+	public void run () {
+		try {
+			List<Integer> list = queue.take ();
+			for (Integer i: list) {
+				sum += i;
+			}
+			System.out.println (sum);
+		}
+		catch (Exception e) {}
+	}
+}
+
+#+end_src
+
+** Oz
+   つづいて, データフロー変数をサポートする Oz.
+
+   とてもシンプルにかつ安全に書くことができる.
+   データフロー変数の未来を感じることができるコード.
+
+#+begin_src oz
+declare
+fun {Producer N}
+   fun {Producer1 X N}
+      {Delay 1000}
+      if X < N+1 then
+	 {Show X}
+	 X|{Producer1 X+1 N}
+      else nil
+      end
+   end
+in
+   {Producer1 1 N}
+end
+
+fun {Consumer S}
+   fun {Sum S Acc}
+      case S of X|Xr then {Sum Xr Acc+X}
+      [] nil then Acc
+      end
+   end
+in
+   {Sum S 0}
+end
+
+local Xs Ys S in
+   thread Xs = {Producer 10} end
+   thread
+      Ys = {Consumer Xs}
+      {Show Ys}
+   end
+end
+#+end_src

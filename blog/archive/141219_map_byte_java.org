@@ -1,0 +1,128 @@
+#+BLOG: Futurismo
+#+POSTID: 2837
+#+DATE: [2014-12-19 金 21:18]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Java
+#+DESCRIPTION:Java の Map で byte 配列をキーにするときの注意点
+#+TITLE: Java の Map で byte 配列をキーにするときの注意点
+
+#+BEGIN_HTML
+<a href="http://futurismo.biz/wp-content/uploads/java.png"><img alt="" src="http://futurismo.biz/wp-content/uploads/java.png" width="256" height="256" /></a>
+#+END_HTML
+
+* はじめに
+  Java で HashMap のキーに byte[] 配列を利用したら, 
+  key を put しても containsKey で key がないよといわれてしまった.
+
+#+begin_src java
+	static void testbyteMap () {
+		Map<byte[], Integer> map = new HashMap<byte[], Integer>();
+		byte[] key = {1,2,3};
+		byte[] key2 = {4,5,6};
+		byte[] key3 = {1,2,3};
+
+		map.put (key,1);
+		map.put (key2,2);
+		
+		System.out.println (map.containsKey (key));
+		System.out.println (map.containsKey (key2));
+		System.out.println (map.containsKey (key3));
+	}
+#+end_src
+
+** 結果
+
+   #+begin_src java
+   true
+   true
+   false
+   #+end_src
+
+
+* 調査
+  どうも配列を入れても, うまく検出できないようだ.
+
+  同一オブジェクトだと, 大丈夫だが, 値が同じでも違うオブジェクトだとだめ.
+  
+
+#+begin_src java
+	static void testIntMap () {
+		Map<int[], Integer> map = new HashMap<int[], Integer>();
+		int[] key = {1,2,3};
+		int[] key2 = {4,5,6};;
+		int[] key3 = {1,2,3};;
+
+		map.put (key,1);
+		map.put (key2,2);
+		
+		System.out.println (map.containsKey (key));
+		System.out.println (map.containsKey (key2));
+		System.out.println (map.containsKey (key3));
+	}
+#+end_src
+
+* 解決策
+  原因は, byte[] が 大小比較できないから.
+   - [[http://stackoverflow.com/questions/1058149/using-a-byte-array-as-hashmap-key-java][Using a byte array as HashMap key (Java) - Stack Overflow]]
+
+   Stack Overflow によると
+   - byte[] を String に変換
+   - byte[] をを List<Byte>に変換
+   - equals と hashmap を実装した ラッパーデータ型を作成
+
+** String 変換を試す
+   一番お手軽なのは, String 変換か?
+
+   #+begin_src java
+   	static void testStringMap () throws UnsupportedEncodingException {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		byte[] key = {1,2,3};
+		byte[] key2 = {4,5,6};
+		byte[] key3 = {1,2,3};
+		
+		String keyStr = new String (key, "UTF-8");
+		String keyStr2 = new String (key2, "UTF-8");
+		String keyStr3 = new String (key3, "UTF-8");		
+
+		map.put (keyStr,1);
+		map.put (keyStr2,2);
+		
+		System.out.println (map.containsKey (keyStr));
+		System.out.println (map.containsKey (keyStr2));
+		System.out.println (map.containsKey (keyStr3));
+	}
+
+	static void testStringMap2 () throws UnsupportedEncodingException {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		byte[] key = {1,2,3};
+		byte[] key2 = {4,5,6};
+		byte[] key3 = {1,2,3};
+		
+		String keyStr = Arrays.toString (key);
+		String keyStr2 = Arrays.toString (key2);
+		String keyStr3 = Arrays.toString (key3);		
+
+		map.put (keyStr,1);
+		map.put (keyStr2,2);
+		
+		System.out.println (map.containsKey (keyStr));
+		System.out.println (map.containsKey (keyStr2));
+		System.out.println (map.containsKey (keyStr3));
+	}
+   #+end_src
+
+** 結果
+   これで OK.
+
+   #+begin_src java
+   true
+   true
+   true
+   #+end_src
+
+* Special Thanks
+  - [[http://stackoverflow.com/questions/1058149/using-a-byte-array-as-hashmap-key-java][Using a byte array as HashMap key (Java) - Stack Overflow]]
+  - [[http://www.thecodingforums.com/threads/byte-array-as-hashmap-key.141717/][byte array as HashMap key? | Coding Forums]]
+  - [[http://www.syboos.jp/java/doc/byte-string.html][Java で String と byte 配列のとの相互変換 - Java]]
+

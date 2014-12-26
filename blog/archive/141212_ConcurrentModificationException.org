@@ -1,0 +1,89 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Java
+#+DESCRIPTION: ConcurrentModificationException が Java で発生したときの対処方法
+#+TITLE: ConcurrentModificationException が Java で発生したときの対処方法
+
+#+BEGIN_HTML
+<a href="http://futurismo.biz/wp-content/uploads/java.png"><img alt="" src="http://futurismo.biz/wp-content/uploads/java.png" width="256" height="256" /></a>
+#+END_HTML
+
+* はじめに
+  ConcurrentModificationException が Java で発生したときの対処方法.
+
+  以下のようなコードを実行すると, 例外発生.
+
+#+begin_src java
+import java.util.Set;
+import java.util.HashSet;
+
+public class ConcurrentModification {
+	public static void main (String[] args) {
+		Set<Integer> set = new HashSet<Integer>();
+		for (int i = 0; i < 5; i++)
+			set.add (i);
+
+		for (Integer i: set) {
+			if (i == 3) {
+				set.remove (i);
+			}
+		}
+	}
+}
+#+end_src
+
+#+begin_src bash
+ Exception in thread "main" java.util.ConcurrentModificationException
+ 	at java.util.HashMap$HashIterator.nextEntry (HashMap.java:922)
+ 	at java.util.HashMap$KeyIterator.next (HashMap.java:956)
+ 	at ConcurrentModification.main (ConcurrentModification.java:10)
+#+end_src
+
+  原因は, iterater で for 文を回している時に, 要素を削除しようとしたから.
+  - [[http://e-class.center.yuge.ac.jp/jdk_docs/ja/api/java/util/ConcurrentModificationException.html][ConcurrentModificationException (Java Platform SE 6)]]
+
+* 回避方法
+** その 1: イテレータを利用しない
+   イテレータなんてつかってかっこつけているのが悪い.
+   Index で for 文をまわす
+
+#+begin_src java
+for (int i=0; i < set.size (); i++) {
+	if (i == 3) {
+		set.remove (i);
+	}
+}
+#+end_src
+
+** その 2 Concurrent ライブラリを利用する
+   ConcurrentHashMap を利用する.
+   ただし, ConcurrentHashSet はない...以下のように対応
+
+#+begin_src java
+Set<Integer> set = Collections.newSetFromMap (new ConcurrentHashMap<Integer, Boolean>());
+#+end_src
+
+** その 3 コレクションをコピーして回す
+   すこし冗長か?
+
+#+begin_src java
+		Set<Integer> set = new HashSet<Integer>();
+		for (int i = 0; i < 5; i++)
+			set.add (i);
+
+		Set<Integer> set2 = new HashSet<Integer>();
+		set2.addAll (set);
+
+		for (Integer i: set2) {
+			if (i == 3) {
+				set.remove (i);
+			}
+		}
+#+end_src
+
+* おわりに
+  やりかたはいろいろある. 1 がいいかな...
+  
+* BookMark
+  - [[http://www.javacodegeeks.com/2011/05/avoid-concurrentmodificationexception.html][How to Avoid ConcurrentModificationException when using an Iterator | Java Code Geeks]]
+  - [[http://stackoverflow.com/questions/6992608/why-there-is-no-concurrenthashset-against-concurrenthashmap][java - Why there is no ConcurrentHashSet against ConcurrentHashMap - Stack Overflow]]

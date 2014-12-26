@@ -1,0 +1,146 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, MOOC, Book
+#+TAGS: Oz, 
+#+DESCRIPTION: 2014 年のプログラミング言語の勉強まとめ
+#+TITLE: プロクラミングパラダイムの意義と 2014 年のプログラミング言語の勉強まとめ
+
+* はじめに
+  edX で プログラミングパラダイムの講義を受けたのでその記録.
+  - [[https://www.edx.org/course/paradigms-computer-programming-louvainx-louv1-1x#.VJqn275MKc][Paradigms of Computer Programming – Fundamentals | edX]]
+  - [[https://www.edx.org/course/paradigms-computer-programming-louvainx-louv1-2x#.VJqn7L5MKc][Paradigms of Computer Programming – Abstraction and Concurrency | edX]]
+
+  実は, この講座は受講が今回で 2 回目だ.前回受けたときの記録は以下.
+  - [[http://futurismo.biz/archives/2427][プログラミングの世界観を変える衝撃!Paradigms of Computer Programming で震えるほどの知的感動を体験した | Futurismo]]
+
+** なぜ 2 回も受けた?  
+   理由は以下だ, 前回の講座で,
+
+   - 単位を落とした...
+   - 内容があまりにも素晴らしかった
+   - 内容の理解をもっと深めたかった.
+
+* 内容
+  内容は, 前回とまったく同じだった. スライドも動画も, そして問題も.
+
+  前回は 12week 連続で講義があったのに対して,
+  今回は 6week x 2 というように 2 つの講座に分かれていた.
+
+** あらためてパラダイムの整理
+   以下のようなパラダイムとコンセプトを順に説明していく.
+
+   | Paradigms                          | Concepts     | Features                    |
+   |------------------------------------+--------------+-----------------------------|
+   | Functional Programming             |              | Functions and recursion     |
+   |                                    |              | Hihger-order programming    |
+   |                                    |              | Single-assigned variables   |
+   |------------------------------------+--------------+-----------------------------|
+   | Object-Oriented Programming        | + cell       | Data Abstraction            |
+   |                                    |              | Polimorphism                |
+   |                                    |              | Inheritance                 |
+   |------------------------------------+--------------+-----------------------------|
+   | Deterministic Dataflow Programming | + thread     | No race conditions          |
+   |                                    |              | Concurrent transparency     |
+   |                                    |              | Streams and agents          |
+   |------------------------------------+--------------+-----------------------------|
+   | Multiagent Dataflow Programming    | + port       | Deterministic dataflow      |
+   |                                    |              | Nondeterminism where needed |
+   |------------------------------------+--------------+-----------------------------|
+   | Active Object Programming          | + local cell | Object-oriented programming |
+   |                                    |              | Multi-agent dataflow        |
+
+* パラダイムを身につけることでどんな言語にも対応できる
+** この一年での言語の勉強記録
+  この 1 年で, たくさんの言語に触れた.
+
+  - VBA (1 月)
+  - Oz (3-4 月)
+  - Scala (5 -6  月)
+  - x86-x64 Assembly (7-8 月)
+  - Python (9-10 月)
+  - Haskell (11,12 月)
+  - R (12 月)
+
+  2 ヶ月に 1 回は, 新しい言語に挑戦していた気がする.
+
+  また, 仕事で Ruby と Java をつかうようになって, オブジェクト指向言語を
+  利用することに対して抵抗がなくなった.
+
+** 2 年前は C 言語しかできなかった
+  思い返せば, 2 年前は C 言語ただ一つしか使いこなすことができなかった.
+
+  このブログを始めたのが 2 年半前くらい. 
+  なんとなく, このままではダメだと思っていた.
+
+  去年はオブジェクト指向言語に触れようと思い, 
+  C++ と Ruby を独学で学んだ.
+
+  今年は関数型言語に触れようと思い, 
+  Scala や Haskell に触れた.
+
+  今では, 2 年前に感じていたような, 
+  単一言語しかしらない劣等感がなくなっていた.
+
+** プログラミングを極める最良の方法とは
+  一つ一つ, 新しい言語に触れる度に, 
+  理解するまでの時間が短くなっていくことを感じた.
+  言語のもつコンセプトの差異や共通点が見えてくるのが楽しい.
+
+  そして, そういう言語の妙を味わうための審美眼は, 
+  間違いなくこの講座を受けることによって得たものだった.
+
+  プログラミング言語のコンセプトやパラダイムを身につけることが,
+  数多くの言語を身につけたり, 言語の本質を理解するための
+  効率のよい方法だということを, たくさんの言語に触れることで実感した.
+
+  この 1 年の最大の出会いは, CTMCP 本 (ガウディ本) に出会ったことだった.
+
+* これからどうするか?
+** CTMCP 本はいったん寝かせる
+  さらにプログラミングのコンセプトの理解を深めていきたい.
+
+  CTMCP 本を 2 回繰りかえして読んだのだが,
+  まだまだ理解したとはいえない. 後半の方は読んでもいない.
+
+  #+BEGIN_HTML
+  <div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E6%A6%82%E5%BF%B5%E3%83%BB%E6%8A%80%E6%B3%95%E3%83%BB%E3%83%A2%E3%83%87%E3%83%AB-Architect-Archive%E3%82%AF%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AF%E3%83%A2%E3%83%80%E3%83%B3%E3%83%BB%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B06-Architects%E2%80%99Archive-CLASSIC/dp/4798113468%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798113468' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/51iXhiKTamL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E6%A6%82%E5%BF%B5%E3%83%BB%E6%8A%80%E6%B3%95%E3%83%BB%E3%83%A2%E3%83%87%E3%83%AB-Architect-Archive%E3%82%AF%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AF%E3%83%A2%E3%83%80%E3%83%B3%E3%83%BB%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B06-Architects%E2%80%99Archive-CLASSIC/dp/4798113468%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798113468' rel='nofollow' target='_blank'>コンピュータプログラミングの概念・技法・モデル (IT Architect' Archive クラシックモダン・コンピューティング 6) (IT Architects'Archive CLASSIC MODER)</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 14.12.24</div><div class='amazlink-detail'>セイフ・ハリディ<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E6%A6%82%E5%BF%B5%E3%83%BB%E6%8A%80%E6%B3%95%E3%83%BB%E3%83%A2%E3%83%87%E3%83%AB-Architect-Archive%E3%82%AF%E3%83%A9%E3%82%B7%E3%83%83%E3%82%AF%E3%83%A2%E3%83%80%E3%83%B3%E3%83%BB%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B06-Architects%E2%80%99Archive-CLASSIC/dp/4798113468%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798113468' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00q0724.n763w947.g00q0724.n763x2b4/?pc=http%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F5079035%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Frms%2Fmsv%2FItem%3Fn%3D5079035%26surl%3Dbook' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
+  #+END_HTML
+
+  ただ, edX があったからこそ読み進めることができたけれども,
+  一人じゃなんだかこの先を読むにも心が折れて挫折しそうだ.
+
+  この本は, この先も何度も何度も読み返していくことになるだろう.
+  なので, いったん読むのを止めて, 別の本を読んでみようと思う.
+  
+** 最近発売された軽めの本
+   最近, コーディングを支える技術という本の電子書籍版
+   が出たのでこれを読んでみる.
+   
+#+BEGIN_HTML
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%82%92%E6%94%AF%E3%81%88%E3%82%8B%E6%8A%80%E8%A1%93-%7E%E6%88%90%E3%82%8A%E7%AB%8B%E3%81%A1%E3%81%8B%E3%82%89%E5%AD%A6%E3%81%B6%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E4%BD%9C%E6%B3%95-WEB-PRESS-plus/dp/477415654X%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D477415654X' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/51nXP3TKXVL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%82%92%E6%94%AF%E3%81%88%E3%82%8B%E6%8A%80%E8%A1%93-%7E%E6%88%90%E3%82%8A%E7%AB%8B%E3%81%A1%E3%81%8B%E3%82%89%E5%AD%A6%E3%81%B6%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E4%BD%9C%E6%B3%95-WEB-PRESS-plus/dp/477415654X%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D477415654X' rel='nofollow' target='_blank'>コーディングを支える技術 ~成り立ちから学ぶプログラミング作法 (WEB+DB PRESS plus)</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 14.12.24</div><div class='amazlink-detail'>西尾 泰和<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E3%82%92%E6%94%AF%E3%81%88%E3%82%8B%E6%8A%80%E8%A1%93-%7E%E6%88%90%E3%82%8A%E7%AB%8B%E3%81%A1%E3%81%8B%E3%82%89%E5%AD%A6%E3%81%B6%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E4%BD%9C%E6%B3%95-WEB-PRESS-plus/dp/477415654X%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D477415654X' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00q0724.n763w947.g00q0724.n763x2b4/?pc=http%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F12272396%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Frms%2Fmsv%2FItem%3Fn%3D12272396%26surl%3Dbook' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
+#+END_HTML
+
+   電子書籍版は技術評論社の HP から.
+   -  https://gihyo.jp/dp/ebook/2014/978-4-7741-7029-9
+
+  目次を読む限り, 内容的にも重量的にも軽そうだ.
+
+** ガウディ本のライバル魔術師本
+  この CTMCP 本の前に出版された, 
+  似たようなコンセプトでかかれた本がある.
+
+#+BEGIN_HTML
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E8%A8%88%E7%AE%97%E6%A9%9F%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E6%A7%8B%E9%80%A0%E3%81%A8%E8%A7%A3%E9%87%88-%E3%82%B8%E3%82%A7%E3%83%A9%E3%83%AB%E3%83%89%E3%83%BB%E3%82%B8%E3%82%A7%E3%82%A4-%E3%82%B5%E3%82%B9%E3%83%9E%E3%83%B3/dp/489471163X%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D489471163X' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/51ZSMEJ9Y2L._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E8%A8%88%E7%AE%97%E6%A9%9F%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E6%A7%8B%E9%80%A0%E3%81%A8%E8%A7%A3%E9%87%88-%E3%82%B8%E3%82%A7%E3%83%A9%E3%83%AB%E3%83%89%E3%83%BB%E3%82%B8%E3%82%A7%E3%82%A4-%E3%82%B5%E3%82%B9%E3%83%9E%E3%83%B3/dp/489471163X%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D489471163X' rel='nofollow' target='_blank'>計算機プログラムの構造と解釈</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 14.12.24</div><div class='amazlink-detail'>ジェラルド・ジェイ サスマン<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E8%A8%88%E7%AE%97%E6%A9%9F%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E6%A7%8B%E9%80%A0%E3%81%A8%E8%A7%A3%E9%87%88-%E3%82%B8%E3%82%A7%E3%83%A9%E3%83%AB%E3%83%89%E3%83%BB%E3%82%B8%E3%82%A7%E3%82%A4-%E3%82%B5%E3%82%B9%E3%83%9E%E3%83%B3/dp/489471163X%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D489471163X' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00q0724.n763w947.g00q0724.n763x2b4/?pc=http%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F1128857%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Frms%2Fmsv%2FItem%3Fn%3D1128857%26surl%3Dbook' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
+#+END_HTML
+
+  通称, SICP 本, 魔術資本.これを来年読んでみる.
+
+  この本を扱った edX の講座と MIT のオンライン講義を見つけた.
+  この講座のどちらかをベースにしつつ, 読んでみるつもりだ.
+
+  UC Berkeley: CS 61AS Structure and Interpretation of Computer Programs :SICP:
+  - https://edge.edx.org/courses/uc-berkeley/cs61as-1x/SICP/courseware/
+
+  MIT courseware: Structure and Interpretation of Computer Programs
+    - [[http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/index.htm][Structure and Interpretation of Computer Programs | Electrical Engineering and Computer Science | MIT OpenCourseWare]]
+    - [[http://devblog.me/sicp.html][SICP and Me]]
+

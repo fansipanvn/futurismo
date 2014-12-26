@@ -1,0 +1,257 @@
+#+BLOG: Futurismo
+#+POSTID: 2795
+#+DATE: [2014-12-08 月 00:33]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Java, Gof
+#+DESCRIPTION:Java で Chain of Responsibility Pattern メモ
+#+TITLE: Java で Chain of Responsibility Pattern を 末尾再帰で実装した
+
+#+BEGIN_HTML
+<a href="http://futurismo.biz/wp-content/uploads/java.png"><img alt="" src="http://futurismo.biz/wp-content/uploads/java.png" width="256" height="256" /></a>
+#+END_HTML
+
+* はじめに
+  Chain of Responsibility Pattern という,
+  マイナーな Gof のパターンがある.
+
+  本をよんでみて, これって再帰関数を利用すればもっとシンプルにかけるん
+  じゃないかとおもって, 試してみた.
+
+* Chain of Responsibility Pattern
+  責務を持たせたオブジェクトの Chain に 要求を渡していく.
+  - [[http://ja.wikipedia.org/wiki/Chain_of_Responsibility_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Chain of Responsibility パターン - Wikipedia]]
+
+  要求は,
+  - そのオブジェクトで処理できればそこで処理する
+  - そのオブジェクトで処理できなければ, 次のオブジェクトに渡す.
+
+* パターン未適用
+ #+begin_src java
+import java.util.List;
+import java.util.LinkedList;
+
+public class ChainOfResponsibilitySample {
+  public static void main (String[] args) {
+    List<Handler> chain = new LinkedList<Handler>();
+    chain.add (new A ());
+    chain.add (new B ());
+    chain.add (new C ());
+    
+    for (Handler handler : chain) {
+      if (handler.isMatch ('b')) {
+        handler.execute ();
+        break;
+      }
+    }
+  }
+}
+
+abstract class Handler {
+   public abstract boolean isMatch (char c);
+   public abstract void execute ();  
+}
+
+class A extends Handler {
+  public boolean isMatch (char c) { return c == 'a'; }
+  public void execute () { System.out.println ("a hit"); }
+}
+
+class B extends Handler {
+  public boolean isMatch (char c) { return c == 'b'; }
+  public void execute () { System.out.println ("b hit"); }
+}
+
+class C extends Handler {
+  public boolean isMatch (char c) { return c == 'c'; }
+  public void execute () { System.out.println ("c hit"); }
+}
+ #+end_src
+
+
+** 絶望ポイント
+   ここがきたない.
+
+   制御側からいちいち判定用メソッドを読んだり, 
+   マッチしたらアクションを起動している.これが面倒.
+
+#+begin_src java
+    for (Handler handler : chain) {
+      if (handler.isMatch ('b')) {
+        handler.execute ();
+        break;
+      }
+    }
+#+end_src
+
+  できれば, ひとつメソッドをよんだら, あとは好き勝手に処理されればいい.
+
+  Amazon で本を注文するときは, 
+  ポチったら, あとはコンビニに勝手に届いて入ればいい.
+  
+* パターン適用
+** メリット
+   要求を出す側と, 要求を処理する側の結びつきが弱まる.
+
+   具体的にいえば, ループを回さなくてすむ.
+
+** コード
+
+#+begin_src java
+public class ChainOfResponsibilitySample {
+  public static void main (String[] args) {
+    Handler chain = new A (new B (new C (null)));
+    chain.handle ('b');
+  }
+}
+
+abstract class Handler {
+  private Handler next;
+
+  public Handler (Handler next) {
+    this.next = next;
+  }
+
+  public void handle (char c) {
+    if (isMatch (c))
+      execute ();
+    else
+      next.handle (c);
+  }
+  
+  abstract boolean isMatch (char c);
+  abstract void execute ();  
+}
+
+class A extends Handler {
+  public A (Handler next){ super (next); }
+  boolean isMatch (char c) { return c == 'a'; }
+  void execute () { System.out.println ("a hit"); }
+}
+
+class B extends Handler {
+  public B (Handler next){ super (next); }
+  boolean isMatch (char c) { return c == 'b'; }
+  void execute () { System.out.println ("b hit"); }
+}
+
+class C extends Handler {
+  public C (Handler next){ super (next); }
+  boolean isMatch (char c) { return c == 'c'; }
+  void execute () { System.out.println ("c hit"); }
+}
+#+end_src
+
+** 感動のポイント
+   みよ! このシンプルさを.
+
+#+begin_src java
+  public static void main (String[] args) {
+    Handler chain = new A (new B (new C (null)));
+    chain.handle ('b');
+  }
+#+end_src
+
+* こんなの, 関数型の考え方でかけば当たり前だ!
+  この主張をしたいがために, この記事を書いた.
+  
+  関数型っぽくかけば, こんなの当たり前の方法.
+
+#+begin_src java
+public class ChainOfResponsibilityFinctional {
+  public static void main (String[] args) {
+		
+    LinkedList<Handler> chain = new LinkedList<Handler>();
+    chain.add (new A ());
+    chain.add (new B ());
+    chain.add (new C ());
+
+		handle (chain, 'b');
+  }
+
+	static void handle (LinkedList<Handler> chain, char c) {
+		Handler head = chain.element ();
+		chain.removeFirst ();
+		LinkedList<Handler> tail = chain;
+		if (head == null)
+			return;
+		else {
+			if (head.isMatch (c)) {
+				head.execute ();
+				return;
+			}
+			else
+				handle (tail, c);
+		}
+	}
+}
+
+abstract class Handler {
+   public abstract boolean isMatch (char c);
+   public abstract void execute ();  
+}
+
+class A extends Handler {
+  public boolean isMatch (char c) { return c == 'a'; }
+  public void execute () { System.out.println ("a hit"); }
+}
+
+class B extends Handler {
+  public boolean isMatch (char c) { return c == 'b'; }
+  public void execute () { System.out.println ("b hit"); }
+}
+
+class C extends Handler {
+  public boolean isMatch (char c) { return c == 'c'; }
+  public void execute () { System.out.println ("c hit"); }
+}
+#+end_src
+
+** 感動のポイント
+   一行で一応処理できている.
+
+#+begin_src java
+handle (chain, 'b');
+#+end_src
+
+   末尾再帰を利用している. しかし, あんまりシンプルにかけないな...
+
+#+begin_src java
+	static void handle (LinkedList<Handler> chain, char c) {
+		Handler head = chain.element ();
+		chain.removeFirst ();
+		LinkedList<Handler> tail = chain;
+		if (head == null)
+			return;
+		else {
+			if (head.isMatch (c)) {
+				head.execute ();
+				return;
+			}
+			else
+				handle (tail, c);
+		}
+	}
+#+end_src
+
+  ただし, 
+  呼び元で Handler に対してメッセージをおくっているところはかわらないか.
+
+  Chain of responsibility は, 
+  chain のリスト構造のなかに, 責務をカプセル化している.
+
+* おわりに
+  デコレータパターンやコンポジットパターンでも感じるが,
+  Gof のデザインパターンは, 関数型で書いたほうが便利なことを
+  がんばって OOP で書いているように思えるのだが.
+
+  - [[http://futurismo.biz/archives/2780][動的に機能追加!Java で Decolator パターンを実装してみた | Futurismo]]
+
+** 関数型デザインパターン
+  ネットで調べたら, やはり同じことを考えている人はいるようだ.
+  - [[http://sujitpal.blogspot.jp/2013/06/functional-chain-of-responsibility.html][Salmon Run: Functional Chain of Responsibility implementation in Scala]]
+
+  以下の二つは関数型パラダイムでのデザインパターンにもなりえると思う.
+  - Decorator Pattern
+  - Chain of Responsibility Pattern
+  

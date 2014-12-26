@@ -1,0 +1,206 @@
+#+BLOG: Futurismo
+#+POSTID: 2800
+#+DATE: [2014-12-09 火 00:49]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Gof, デザインパターン, Java
+#+DESCRIPTION: Java で Prototype Pattern を実装してみた
+#+TITLE: 状態ありはプロトタイプパターンで, 状態なしはファクトリメソッドで実装 (Java)
+
+#+BEGIN_HTML
+<a href="http://futurismo.biz/wp-content/uploads/java.png"><img alt="" src="http://futurismo.biz/wp-content/uploads/java.png" width="256" height="256" /></a>
+#+END_HTML
+
+* はじめに
+  だんだん, タイトルが毎回同じになってきた.
+
+  今回はプロトタイプパターンの実装を Java で実施してみた.
+
+* Prototype パターン
+  生成するオブジェクトの原型をコピーして新しいオブジェクトを生成する.
+  - [[http://ja.wikipedia.org/wiki/Prototype_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Prototype パターン - Wikipedia]]
+
+  Abstract Factory と似ている.
+  - new でオブジェクトを生成すれば Abstract Factory./ Factory Method.
+  - clone をつかう場合の Prototype.
+
+  複製を作成するためのメソッドを用意する. といういたって単純なもの.
+
+  プロトタイプ が複製を担当し, 
+  それ以外の生成における操作をクライアントが 担っている.
+
+  Map にテンプレートを登録しておいて, 利用するときに複製する.
+  バイナリデータをマップにいれておいて, キーとなる名前をつけて管理する,など.
+
+  (実際に仕事では, バイナリのパケットをテンプレートから生成する処理につかった)
+  
+** メリット
+   インスタンスのコンストラクタ引数で差分を渡すことで,
+   クラスの数をかなり減らすことができる.
+
+   Java には, Clonable インタフェースがある.
+   -  [[https://docs.oracle.com/javase/jp/6/api/java/lang/Cloneable.html][Cloneable (Java Platform SE 6)]]
+
+** 利用シーン
+   - Abstract Factory パターンでなされるように, 
+   クライアント・アプリケーションにおいて
+   オブジェクトの生成者をサブクラスにすることを回避する
+   - 標準的な方法 (例えば'new') で新しいオブジェクトを作ることによる
+   固有のコストが所与のアプリケーションにとって高すぎる時にそれを回避する.
+
+* サンプルコード
+
+#+begin_src java
+import java.util.HashMap;
+import java.util.Map;
+
+public class PrototypeSample {
+	public static void main (String args[]) {
+		printerFacotry factory = new printerFacotry ();
+		Printer printer;
+		
+		printer = factory.create ("type a");
+		printer.printMessage ();
+		printer = factory.create ("type b");
+		printer.printMessage ();
+		printer = factory.create ("type c");
+		printer.printMessage ();
+	}
+}
+
+class Printer implements Cloneable {
+	String str;
+	
+	public Printer (String str) {
+		this.str = str;
+	}
+	
+	public void printMessage () {
+		System.out.println (str);
+	}
+	
+	@Override
+	public Printer clone () {
+		Printer cloned = null;
+		try {
+			cloned = (Printer) super.clone ();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace ();
+		}
+		return cloned;
+	}
+}
+
+class printerFacotry {
+	Map<String, Printer> protoMap; 
+
+	public printerFacotry (){
+		protoMap = new HashMap<String, Printer>();
+		protoMap.put ("type a", new Printer ("a"));
+		protoMap.put ("type b", new Printer ("b"));
+		protoMap.put ("type c", new Printer ("c"));
+	}
+
+	public Printer create (String type) {
+		return protoMap.get (type).clone ();
+	}
+}
+#+end_src
+
+* 状態をもたないならば, プロトタイプは不要
+  無名クラスをクローンできるのかと思ったが, できなかった.
+  そもそも, 無名クラスは状態を持たないので, クローンする必要がなかった.
+
+  この比較から以下のことが分かる.
+
+  - 状態をもつオブジェクトをコピーするのはプロトタイプパターンが有用.
+  - 状態をもたないオブジェクトは new で生成する
+     ファクトリメソッドパターンが有用.
+  
+** クロージャをわたす
+   Map のなかにクロージャを入れて, 好きな時に取り出すようにした.
+   
+   これはけっこういいパターンかもしれない. 個人的に気に入った.
+
+   
+#+begin_src java
+import java.util.HashMap;
+import java.util.Map;
+
+public class PrototypeSample {
+	public static void main (String args[]) {
+		printerFacotry factory = new printerFacotry ();
+		Printer printer;
+		
+		printer = factory.create ("type a");
+		printer.printMessage ();
+		printer = factory.create ("type b");
+		printer.printMessage ();
+		printer = factory.create ("type c");
+		printer.printMessage ();
+	}
+}
+
+interface Printer {
+	public void printMessage ();
+}
+
+class printerFacotry {
+	Map<String, Printer> protoMap; 
+	
+	public printerFacotry (){
+		protoMap = new HashMap<String, Printer>();
+		protoMap.put ("type a", new Printer (){
+			public void printMessage () { System.out.println ("a"); }
+		});
+		protoMap.put ("type b", new Printer (){
+			public void printMessage () { System.out.println ("b"); }
+		});
+		protoMap.put ("type c", new Printer (){
+			public void printMessage () { System.out.println ("c"); }
+		});
+	}
+	
+	public Printer create (String type) {
+		return protoMap.get (type);
+	}
+}
+#+end_src
+
+** クロージャ + 引数
+   さらに改良.
+
+   クロージャを Map に保存しておいて,
+   呼び出し時に外部から引数を与えるようにした.
+   
+   これで, さらにメソッドが柔軟になった.
+
+#+begin_src java
+interface Printer {
+	public void printMessage (String str);
+
+}
+
+class printerFacotry {
+	Map<String, Printer> protoMap; 
+	public printerFacotry (){
+		protoMap = new HashMap<String, Printer>();
+		protoMap.put ("type a", new Printer (){
+			public void printMessage (String str) { System.out.println ("**"+str+"**"); }
+		});
+		protoMap.put ("type b", new Printer (){
+			public void printMessage (String str) { System.out.println ("++"+str+"++"); }
+		});
+		protoMap.put ("type c", new Printer (){
+			public void printMessage (String str) { System.out.println ("=="+str+"=="); }
+		});
+	}
+	
+	public Printer create (String type) {
+		return protoMap.get (type);
+	}
+}
+
+#+end_src
+
+  もはや, プロトタイプパターンの記事ではなくなっているが....

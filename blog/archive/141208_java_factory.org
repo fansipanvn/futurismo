@@ -1,0 +1,21 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: Gof デザインパターンの生成パターン整理 (Factory)
+
+* はじめに
+  Gof デザインパターンで生成に関するパターンは以下.
+  - Facotry Method
+  - Abstract Factory
+  - Builder
+  - Prototype
+  - Singleton
+
+  Singleton おいといて, 
+  他の 4 つについての違いがわからなかったので,まとめてみた.
+
+
+
+** Environment
+** Special Thanks

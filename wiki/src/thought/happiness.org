@@ -1,0 +1,36 @@
+#+OPTIONS: toc:nil
+* 幸せ
+
+* edX: The Science of Happiness
+  edX1 の講義の記録
+
+** 幸せであることのメリット: by  Sonja Lyubomirsky
+  Why should we put forth all this effort in order to be happier?
+  - https://www.youtube.com/watch?v=IcUtVAeZwYo
+
+  幸せを感じる人と幸せを感じない人との間では, 
+  以下のような傾向が, 統計的に現れている.
+  - 健康で長生きをする.
+  - 社交的になる.
+  - 創造的になり, アイデアがわくようになる.
+
+  この本に書いてある.
+  - [[http://www.amazon.com/gp/product/0143114956?ie=UTF8&tag=gregooscicen-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0143114956][The How of Happiness: A New Approach to Getting the Life You Want: Sonja Lyubomirsky:]]
+
+  別の参考記事:
+  - [[http://greatergood.berkeley.edu/article/item/are_you_getting_enough_positivity_in_your_diet][Are You Getting Enough Positivity in Your Diet? | Greater Good]]
+
+** 幸せを持続させるためには: by  Sonja Lyubomirsky
+   結婚の幸せが持続するのは 2 年.
+   - https://www.youtube.com/watch?v=1axS_o4TBv0#t=93
+
+** exercise
+   その日にあったいいことを 3 つ書き出す.
+   - 出来事のタイトルをつける
+   - 何があったかをなるべく具体的に書く.
+   - その出来事をあとでどう思ったかを書く
+
+   参考記事:
+   - [[http://www.rieti.go.jp/jp/publications/nts/13j073.html][RIETI - 良いことを毎日 3 つ書くと幸せになれるか?]]
+
+
