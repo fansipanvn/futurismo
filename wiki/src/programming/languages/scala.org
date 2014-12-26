@@ -5,7 +5,8 @@
 - [[http://futurismo.biz/archives/2449][Emacs で Scala 開発環境を構築 (Ensime) | Futurismo]]
 
 * 評価戦略
-  Scala は通常 Call-by-Value だが, =>を用いることで Call-by-Name で評価する.
+  Scala は通常 Call-by-Value だが, 
+  =>を用いることで Call-by-Name で評価する.
 
 * High-Order Fuuction
 ** Function Type

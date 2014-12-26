@@ -10,7 +10,11 @@
    一定の形式に系統立てて格納するときの形式.
   - [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%BC%E3%82%BF%E6%A7%8B%E9%80%A0][データ構造 - Wikipedia]]
 
-** index
+** Container: コンテナ
+   コンテナとはオブジェクトの集まりを表現するデータ構造.
+   コレクションともいう.
+   - [[http://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A_(%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B)][コンテナ (データ型) - Wikipedia]]
+
     - 配列
       - スタック
       - キュー
@@ -25,6 +29,7 @@
         - 木構造
           一つの頂点から樹状に枝分かれしたグラフ.
 
+* 各データ構造の詳細
 ** Record
    データと別のデータやデータ構造を一対一に関連付けて格納するもの.
 
@@ -96,7 +101,10 @@
        + インタフェース:
        -> 詳細は, OOP のページへ [[http://ja.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][抽象データ型 - Wikipedia]]
 
-     Java インタフェースは, 階層を持たない型システムを構築する.
+   Java インタフェースは, 階層を持たない型システムを構築する.
+
+*** Bookmarks
+   - [[http://purelytheoretical.com/sywtltt.html#][So you want to learn type theory...]]
 
 ** Type Checking: 型検査
    プログラムが型に整合性があるかどうかをチェックすること.

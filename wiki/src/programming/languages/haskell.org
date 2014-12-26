@@ -13,6 +13,12 @@
   すごい Haskell を楽しく学ぼうがオンラインで無料で読める.
   - [[http://learnyouahaskell.com/chapters][Chapters - Learn You a Haskell for Great Good!]]
 
+  少し古い 98 仕様
+  - [[http://www.sampou.org/haskell/report-revised-j/index.html][The Haskell 98 Language Report]]
+
+  基礎がまとまっている.
+  - [[http://qiita.com/7shi/items/145f1234f8ec2af923ef][Haskell 超入門 - Qiita]]
+
 ** List
 #+begin_src haskell
 Prelude> head[1,2,3,4,5]
@@ -116,6 +122,20 @@ main = do
    - http://www.cs.nott.ac.uk/~gmh/monads
 
 
+** Tips
+*** n+k Pattern
+    + を文中で利用するには, ソースに以下を入れる.
+      
+    #+begin_src haskell
+    {-# LANGUAGE NPlusKPatterns #-}
+    #+end_src
+    
+    or 
+
+    #+begin_src bash
+    $ ghci -XNPlusKPatterns
+    #+end_src
+
 * ツール
 ** Haskell Platform
    Haskell 開発用の環境.
@@ -167,19 +187,128 @@ ghci test.hs
   メジャーなものは以下
   - doctest
   - QuickCheck
+  - HSpec
   - HUnit
+
+** doctest
+   コメントにテストを書くスタイルのツール.
+
+   Python の doctest を haskell に移植したものだとか.
+   - https://github.com/sol/doctest
+
+** QuickCheck
+   ランダムなテストデータによって関数の性質をテストする.
+   - [[http://hackage.haskell.org/package/QuickCheck][QuickCheck: Automatic testing of Haskell programs | Hackage]]   
+
+   xUnit とは異なるコンセプトをもつ.
+
+** HSpec
+   xSpec ライクなテストツール.
+   - [[https://hackage.haskell.org/package/hspec][hspec: A Testing Framework for Haskell | Hackage]]
+
+   Ruby の RSpec にインスパイヤされたらしい.
+   - [[http://hspec.github.io/][Hspec: A Testing Framework for Haskell]]
+
+   記法が BDD 的.
+
+** HUnit
+  xUnit ライクなテストツール. JUnit ライク.
+  - [[https://hackage.haskell.org/package/HUnit][HUnit: A unit testing framework for Haskell | Hackage]]
+  - [[http://qiita.com/7shi/items/9fb326a87de6c3083784][Haskell - HUnit 超入門 - Qiita]]
+  - [[http://d.hatena.ne.jp/E_Mattsan/20121020/1350707524][Haskell の UnitTest, HUnit について学ぶ - エンジニアのソフトウェア的愛情]]
+
+*** Install
+   #+begin_src bash
+   $ cabal install HUnit
+   #+end_src
+*** Usage
+    - [[http://hunit.sourceforge.net/HUnit-1.0/Guide.html][HUnit 1.0 User's Guide]]
+    - [[https://www.haskell.org/haskellwiki/HUnit_1.0_User%27s_Guide][HUnit 1.0 User's Guide - HaskellWiki]]
+  
+    Test.HUnit をインポート.
+
+#+begin_src haskell
+import Test.HUnit
+#+end_src
+
+*** テスト対象コード
+
+#+begin_src haskell
+import Data.List
+import Data.Char
+import Unsafe.Coerce
+
+data Nat = Zero
+         | Succ Nat
+         deriving Show
+
+natToInteger (Succ n) = natToInteger n + 1
+natToInteger Zero = 0
+#+end_src
+
+*** テストコード
+    記法は以下.
+
+#+begin_src haskell
+tests = TestList
+        [ "natToInteger 1" ~: natToInteger Zero ~?= 0
+        , "natToInteger 2" ~: natToInteger (Succ Zero) ~?= 1
+        , "natToInteger 3" ~: natToInteger (Succ (Succ Zero)) ~?= 2
+        ]
+
+h = tests
+#+end_src
+
+*** テスト実行
+    runTestTT (テスト関数名) でテスト実行.
+
+#+begin_src bash
+$ runTestTT tests
+Cases: 3  Tried: 3  Errors: 0  Failures: 0
+Counts {cases = 3, tried = 3, errors = 0, failures = 0}
+#+end_src
+
+わざと失敗させてみる.
+
+#+begin_src bash
+*Main> runTestTT tests
+### Failure in: 2:natToInteger 3
+expected: 1
+ but got: 2
+Cases: 3  Tried: 3  Errors: 0  Failures: 1
+Counts {cases = 3, tried = 3, errors = 0, failures = 1}
+#+end_src
+
+*** Tips
+    独自に型を定義したときは, Eq を継承する.
+
+#+begin_src haskell
+data Nat = Zero
+         | Succ Nat
+         deriving (Show, Eq)
+#+end_src
 
 ** Bookmarks
   - [[http://d.hatena.ne.jp/kazu-yamamoto/20121205/1354692144][Haskell の単体テスト最前線 - あどけない話]]
   - [[http://itpro.nikkeibp.co.jp/article/COLUMN/20080108/290605/][本物のプログラマは Haskell を使う - 第 16 回  Haskell でのテストの自動化を考える:ITpro]]
 
-*** HUnit
-   - [[http://qiita.com/7shi/items/9fb326a87de6c3083784][Haskell - HUnit 超入門 - Qiita]]
-
 * Bookmarks
   - [[http://www.slideshare.net/konn/haskell-6-32258528][数学プログラムを Haskell で書くべき 6 の理由]]
-  - 文法まとめ: [[http://www.sampou.org/haskell/report-revised-j/index.html][The Haskell 98 Language Report]]
-  - [[http://qiita.com/7shi/items/145f1234f8ec2af923ef][Haskell 超入門 - Qiita]]
+
+** Haskell を愛する若者たちへ 
+  - [[http://postd.cc/letter-to-a-young-haskell-enthusiast/][【翻訳】 Haskell を愛する若者たちへ | POSTD]]
+
+  #+BEGIN_QUOTE
+  人より知的で多くの知識を持っていると実感したいとか, また主流な言語に一
+  石投じることで, 自分がニッチな言語に執着しているのは間違いではないとい
+  う確証を得て安心したいのでしょうか?
+
+  Haskell を使うことでスマートなことができますが, だからといってこれが
+  賢い人のための言語というわけではありません. この言語はシンプルさとス
+  マートさを併せ持つ言語であり, 私たちは時にシンプルさを求め, 時にはス
+  マートさを求めます. でも私たちは賢くあることに特別に重きを置いてはい
+  ません.
+  #+END_QUOTE
 
 * Book
 ** Programming haskell

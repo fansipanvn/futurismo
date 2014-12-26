@@ -4,5 +4,12 @@
   - [[http://www.r-project.org/][The R Project for Statistical Computing]]
 
 * 文法
-** ブックマーク
-   - [[http://www.okada.jp.org/RWiki/index.php?RjpWiki][RjpWiki - RjpWiki]]
+** データフレーム
+  - [[http://www.okada.jp.org/RWiki/?%A5%C7%A1%BC%A5%BF%A5%D5%A5%EC%A1%BC%A5%E0Tips%C2%E7%C1%B4][データフレーム Tips 大全 - RjpWiki]]
+
+* ブックマーク
+** 文法
+  - [[http://cse.naro.affrc.go.jp/takezawa/r-tips/r.html][R-Tips]]
+  - [[http://www.okada.jp.org/RWiki/index.php?RjpWiki][RjpWiki - RjpWiki]]
+  - [[http://www.is.titech.ac.jp/is-wiki/?maselab%2FR][maselab/R- Dept. of Math. & Comput. Sci.]]
+    
