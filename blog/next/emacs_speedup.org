@@ -1,7 +1,7 @@
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
 #+CATEGORY: Emacs
-#+TAGS:
-#+DESCRIPTION:
+#+TAGS: 
+#+DESCRIPTION: Emacs 高速化起動にむけたカイゼンのとりくみ
 #+TITLE: Emacs 高速化起動にむけたカイゼンのとりくみ
 
 #+BEGIN_HTML
@@ -108,20 +108,20 @@ loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/windows-init.elc. 0.140
 
 ** バイトコンパイルをする
    パッケージ管理には el-get を利用してる. そして, elisp の管理には init-loader を使っている.
-
+   
    el-get で取得したものは自動的にバイトコンパイルされるのだが, 盲点があった. それが
-
+   
    1. el-get 自体
    2. init-loader 自体
    3. inits 配下の設定ファイル
-
+      
    1,2 については, el-get でいままで管理していなかった.
    これらを el-get 配下で管理するようにしていた.
-
+   
    さらに, inits 配下の設定ファイルについては
    編集するたびにバイトコンパイルするようにした.
    - [[http://fukuyama.co/emacsd][肥大化した.emacs.d を管理するために私が使っている elisp - Web 学び]] 
-
+     
    を参考にして, 以下を init.el に記述.
 
 #+begin_src emacs-lisp
@@ -144,12 +144,6 @@ loaded c:/cygwin64/home/tsu-nera/dotfiles/.emacs.d/inits/windows-init.elc. 0.140
 ;; nil t)))
 #+end_src
 
-また, 以下を評価して一括バイトコンパイル.
-
-#+begin_src emacs-lisp
-(byte-recompile-directory "~/.emacs.d/inits" t)
-#+end_src
-
 init-loader で自動バイトコンパイル機能があるようだ.
 
 #+begin_src emacs-lisp
@@ -157,6 +151,28 @@ init-loader で自動バイトコンパイル機能があるようだ.
 #+end_src
 
   有効にしたが, イマイチ使い方がよくわからない.
+
+*** 起動時にバイトコンパイル
+    野良 elisp もバイトコンパイルしておいた方が早い.
+
+    init.el に以下を追記する. 
+    末尾に 0 をつけることで, 起動時にバイトコンパイル.
+
+    #+begin_src emacs-lisp
+    (byte-recompile-directory "~/.emacs.d/myelisp" 0)
+    (byte-recompile-directory "~/.emacs.d/elisp" 0)
+    #+end_src
+
+*** 設定ファイルに直書きしている関数も外部ファイルに出してバイトコンパイル
+    これは結構効果的だった.
+
+    ステップ数の多い defun は別のファイルに分けた.さらに
+    - 末尾に (provide 'hogehoge) を追加
+    - gist に登録
+    - el-get で取得する recipe 作成
+
+    することで, gist で外部ファイルを管理することにした.
+    - https://gist.github.com/tsu-nera/2ac6ee1555bcf8597fa6
 
 ** 遅延ロードを適用する
 *** autoload をつかう
@@ -199,5 +215,17 @@ init-loader で自動バイトコンパイル機能があるようだ.
 
 ** use-package をつかう
    autoload/eval-after-load の記述を簡潔に書くための elisp.
-   - [[http://qiita.com/kai2nenobu/items/5dfae3767514584f5220][Emacs - use-package で可読性の高い init.el を書く - Qiita]]
+   - https://github.com/jwiegley/use-package
 
+   記述方法は以下の記事がとても詳しい. ここでは省略.
+   - [[http://qiita.com/kai2nenobu/items/5dfae3767514584f5220][Emacs - use-package で可読性の高い init.el を書く - Qiita]]
+   - [[http://rubikitch.com/2014/09/09/use-package/][emacs use-package.el : Emacs の世界的権威が行っている最先端ラクラク init.el 整理術]]
+** 起動時のエラーログや load ログを除去
+   起動時のログで怪しいものは極力調べて排除した.
+
+* 結果
+  
+   | Machine    | Time |
+   |------------+------|
+   | Arch Linux | 6.0  |
+   | Windows    | 29.6 |

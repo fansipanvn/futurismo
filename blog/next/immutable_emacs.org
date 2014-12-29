@@ -1,0 +1,110 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: Immutable Emacs
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* はじめに
+  今年になって, Immutable Infrastructure という言葉を知った.
+  - [[http://futurismo.biz/archives/2355][インフラ業界の気になるキーワードについて調べてみた | Futurismo]]
+
+  この概念を Emacs の管理に利用できないかなとという話.
+
+* 問題の分析
+** 問題
+   Emacs を家でも会社でも利用している.以下が簡単な環境.
+   - 自宅
+     - ArchLinux
+     - Widows 8 (GUI 版)
+   - 会社
+     - Widows 7 (GUI 版)
+     - Windows 7 (Cygwin 版)
+
+   設定を github にあげて, 設定を共有している.
+   会社で設定ファイルを更新するのは社内規程的に NG なので,
+   いつもは以下のような運用.
+   - 自宅で設定ファイルを git push
+   - 会社で設定ファイルを git pull
+
+   しかし, 自宅で設定したものが会社で動かなかったりすることがよくある.
+   
+   会社で Emacs の設定ファイルを更新した後は, 
+   朝の 30 分は毎回 Emacs と戯れているのはここだけのないしょだ.
+
+   しかし, 設定の同期作業も, 面倒なのでなんとか時間を短縮できないもの
+   か... というのが今回の解決したい問題.
+
+   また, 1 年に 1 回 くらいの頻度で Emacs 環境を一から再構築することがある.
+   このとき, Emacs の パッケージ管理は el-get を利用して管理しているので,
+   自動ですべてのパッケージを ネットから落としてきて動作するはず.
+
+   しかし, 必ず el-get のダウンロードで失敗するパッケージがたくさんでる.
+
+   会社だと, proxy という厄介なものがある. 
+   また, 設定の問題とは思うが, MELPA へアクセスできなく github からしか
+   elisp を取得できない.
+
+   まとめると,
+   - 会社で Emacs の設定ファイルを更新したときに
+     起動時のエラーを発生させなくするためには?
+   - Emacs 環境を一から再構築するときに
+     エラーを発生させなくするためには?
+    
+** 課題
+   よくあるあたふたケースは, 
+   - 自宅の Linux 環境で push したものを 会社の windows 環境で pull して動かなくなる.
+   - 会社で pull をするのが怖いのでしばらく放置した後, 久しぶりに pull すると
+     大量のエラーが発生する.
+
+   エラーがあっても放置してしまうのは, 頻繁に エラーの確認をしないから.
+   それは面倒だからしない. エラーの確認作業を自動化できたらうれしい.
+
+   ということで, 課題は以下.
+   - Linux 環境で push したら Windows 環境で pull してエラーチェックを
+     する作業を自動化する.
+   - 定期的に一から Emacs の設定を再構築する作業を自動化する.
+
+** 解決策
+   この 自動でエラーをチェックするところを
+   Immutable Infrastracture の概念と
+   組み合わせたらおもしろそうだと思った. 無駄な勉強にもなるし.
+
+*** Immutable Infrastructure とは
+    簡単に調べてみた.
+
+    一度サーバーを構築したらその後はサーバーのソフトウェアに変更を加えないこと.
+    - [[http://ja.wikipedia.org/wiki/Immutable_Infrastructure][Immutable Infrastructure - Wikipedia]]
+
+    以下の説明がとてもわかりやすい.
+    - [[http://www.publickey1.jp/blog/14/immutable_infrastructure_1.html][Immutable Infrastructure はアプリケーションのアーキテクチャを変えていく Publickey]]
+  
+  #+BEGIN_QUOTE
+  Windows って調子が悪くなると再インストールしてすっきりさせるじゃないで
+  すか. OS にいろんなソフトウェアをインストールしたりカスタマイズしたり
+  すると調子が悪くなりますが, 再インストールすれば戻ります.
+
+  だったら, そもそも毎回作り直せばシステムはすっきりするよね, というのが
+  簡単な Immutable Infrastructure の説明です.
+  #+END_QUOTE
+
+*** Action Plan
+    以下のようなアクションプランを考えた.
+    - AWS 上のサーバで Emacs 環境を構築する.
+    - AWS 上のサーバで エラチェックーを走らせる.
+    - チェックがおわったらサーバを破棄して終了.
+
+    さらにこの手順の自動化ができたらいいけど, これは大変そうなので今度.
+    - git push したら AWS 上で動く サーバで エラチェックーを走らせる.
+    - 毎週深夜に, Emacs 環境を自動で構築する.
+
+* 解決へのとりくみ
+** AWS を借りる
+   別記事に独立.
+   - [[http://futurismo.biz/archives/2847][AWS の Amazon EC2 で Windows サーバを立ち上げて リモートデスクトップ接続してみた | Futurismo]]
+
+** AWS 上のサーバで Emacs 環境を構築する
+** AWS 上でサーバで エラチェックーを走らせる

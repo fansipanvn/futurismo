@@ -105,6 +105,7 @@
 
 *** Bookmarks
    - [[http://purelytheoretical.com/sywtltt.html#][So you want to learn type theory...]]
+   - [[http://postd.cc/7-deadly-sins-of-talking-about-types/#][【翻訳】"型"を語る際の 7 つの重大な誤り | POSTD]]
 
 ** Type Checking: 型検査
    プログラムが型に整合性があるかどうかをチェックすること.

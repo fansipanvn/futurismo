@@ -1,6 +1,6 @@
 #+OPTIONS: toc:nil
 * Software Defined Infrastructure
-ソフトウェアを中心としたインフラ構築のビジョン.
+  ソフトウェアを中心としたインフラ構築のビジョン.
 
 #+BEGIN_HTML
 <blockquote>
@@ -104,6 +104,26 @@ OpenDaylight が開発したオープンソース コントローラ フレー�
 
 * Software-Defined Networking (SDN)
   -> [[file:networking.org::*SDN][Networking-SDN]]
+
+* Immutable Infrastructure
+  一度サーバーを構築したらその後はサーバーのソフトウェアに変更を加えないこと.
+  - [[http://ja.wikipedia.org/wiki/Immutable_Infrastructure][Immutable Infrastructure - Wikipedia]]
+
+  変更は設定がかかれた設定ファイル (Code) に加える.使い捨てサーバ.
+
+  以下の説明がとてもわかりやすい.
+  - [[http://www.publickey1.jp/blog/14/immutable_infrastructure_1.html][Immutable Infrastructure はアプリケーションのアーキテクチャを変えていく Publickey]]
+  
+#+BEGIN_QUOTE
+Windows って調子が悪くなると再インストールしてすっきりさせるじゃないで
+すか. OS にいろんなソフトウェアをインストールしたりカスタマイズしたり
+すると調子が悪くなりますが, 再インストールすれば戻ります.
+
+だったら, そもそも毎回作り直せばシステムはすっきりするよね, というのが
+簡単な Immutable Infrastructure の説明です.
+#+END_QUOTE
+
+* AWS
 
 * OpenStack
   -> [[file:openstack.org][OpenStack]]
