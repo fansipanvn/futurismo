@@ -1,10 +1,215 @@
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
-#+CATEGORY: 技術メモ
-#+TAGS:
-#+DESCRIPTION:
-#+TITLE: 
+#+CATEGORY: Book, 技術メモ
+#+TAGS: Java, UML, Gof, デザインパターン
+#+DESCRIPTION:オブジェクト指向のこころを読んだ読書メモ
+#+TITLE: パターンは暗記するものではなく導くもの! オブジェクト指向のこころを読んだ読書メモ
 
+* はじめに
+  オブジェクト指向の本質を学ぶために,
+  オブジェクト指向のこころを読みました.
 
+#+BEGIN_HTML
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E3%81%AE%E3%81%93%E3%81%93%E3%82%8D-SOFTWARE-PATTERNS-SERIES-%E3%82%A2%E3%83%A9%E3%83%B3%E3%83%BB%E3%82%B7%E3%83%A3%E3%83%AD%E3%82%A6%E3%82%A7%E3%82%A4/dp/4621066048%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4621066048' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/510uRnu%2BbYL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E3%81%AE%E3%81%93%E3%81%93%E3%82%8D-SOFTWARE-PATTERNS-SERIES-%E3%82%A2%E3%83%A9%E3%83%B3%E3%83%BB%E3%82%B7%E3%83%A3%E3%83%AD%E3%82%A6%E3%82%A7%E3%82%A4/dp/4621066048%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4621066048' rel='nofollow' target='_blank'>オブジェクト指向のこころ (SOFTWARE PATTERNS SERIES)</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 14.12.30</div><div class='amazlink-detail'>アラン・シャロウェイ<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E3%81%AE%E3%81%93%E3%81%93%E3%82%8D-SOFTWARE-PATTERNS-SERIES-%E3%82%A2%E3%83%A9%E3%83%B3%E3%83%BB%E3%82%B7%E3%83%A3%E3%83%AD%E3%82%A6%E3%82%A7%E3%82%A4/dp/4621066048%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4621066048' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00q0724.n763w947.g00q0724.n763x2b4/?pc=http%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F12699390%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Frms%2Fmsv%2FItem%3Fn%3D12699390%26surl%3Dbook' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
+#+END_HTML
 
-** Environment
-** Special Thanks
+* 読んだ理由
+  主な動機は,
+  - パターンの本質を身につけるため.
+  - パターンを適用するベースとなるオブジェクト指向を深く理解するため.
+
+  以下の記事の NextAction で選んだ本だった.
+  - [[http://futurismo.biz/archives/2527][オブジェクト指向設計と並列プログラミングを Andoird で学ぶ!Pattern-Oriented Software Architectures を受けた | Futurismo]]
+
+  オブジェクト指向の本質を学べる本として, 
+  ネットで評判が高かったので購入.
+
+  また, 今年の目標としてデザインパターンを理解することをあげていたので,
+  デザインパターンという言葉自体に惹かれた.
+
+* 内容
+** OOP の 2 大原則とは?!
+   オブジェクト指向のこころとは, ズバリ以下だ.
+    - 流動的要素を探し出してカプセル化する
+    - クラス継承よりもオブジェクトの集約を多用する
+
+   この 2 つの概念は書くページの至る所に現れる.
+   この 2 つの概念を説明するために, 
+   他のページが書かれているといってもいい.
+
+   そして, これを実現するための手段がデザインパターンだ.
+   本質から導いた結果を,
+
+#+BEGIN_QUOTE
+   "ほら, これが Gof では xxx パターンと名づけられているんだよ"
+#+END_QUOTE
+   
+   といわれる. これが *デザインパターンとともに学ぶ* という副題の意味.
+
+*** Bridge Pattern に OO の本質あり
+    そして, この原則を解説するために, Bridge Pattern が詳解されている.
+
+    Bridge Pattern については, こちらも参照.
+    - [[http://futurismo.biz/archives/2864][Java で Bridge パターンを実装をしてみた | Futurismo]]
+
+** 登場するパターン
+   すべてのパターンが出てくるわけではない.
+   オブジェクト指向のこころを解説するための例として,
+   パターンを引用しているに過ぎない.
+
+   - Facade
+   - Adapter
+   - Bridge
+   - Strategy
+   - Abstract Factory
+   - Decorator
+   - Observer
+   - Template Method
+   - Singleton
+   - Factory Method
+
+** パターンで考える
+  この本の独特な手法は, パターンで考える方法が載っていること.(第 13 章)
+
+  - Facade
+  - Adapter
+  - Bridge
+  - Abstract Factory
+
+ 以下がその手順.
+ - パターンの洗い出し ... コンテキストに存在するパターンをまずは列挙.
+ - パターンの分析・適用
+   ここで大事なのは, このコンテキストに置いて
+   + "なにか問題なのか?"
+   + "なにを解決したいのか?"
+   をかんがえること. 1-4 を繰り返す.
+   1) パターンの並べ替え 
+   2) パターンの選択と設計の拡張
+   3) 追加のパターンの洗い出し
+   4) 繰り返し
+ - 設計の詳細
+
+ 詳細は書籍を.
+
+** Java と UML の知識が必要
+   パターンを表現するために クラス図と
+   Java のサンプルコードもふんだんに載っている.
+
+   そのため, 本の前半には, UML を解説するページも少し割かれている.
+
+* 感想
+** なんども読み返した
+   読み始めたのは半年以上前.
+   興味がある部分からつまみ読みをはじめた.
+
+   一回読んでも大抵は忘れてしまう.
+   この本には, オブジェクト指向設計とはなにかについて,
+   凝縮した言葉でかかれているため,同じページを何度も読み返した.
+
+   Web での評判は本物.これからも折に触れて読み返すことになるだろう.
+
+** パターンは暗記するものではなく, 導出するもの
+   この本を読む前, デザインパターンは暗記してすぐに思い出せるように
+   しておく必要があると思っていた.
+
+   実はそうではなくて, 本質だけ押されておいて,
+   自然とデザインパターンは導き出すことが大事だと思った.
+
+   大学受験の数学も, ひたすら公式を暗記しても応用問題が解けない.
+   逆に理論的なところを抑えれば, 公式を暗記しなく立って導出できるし, 
+   応用も効くようになる.
+
+   それと同じことかもしれない.
+
+* 学習メモ
+** オブジェクト指向設計
+   - [[http://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91%E5%88%86%E6%9E%90%E8%A8%AD%E8%A8%88][オブジェクト指向分析設計 - Wikipedia]]
+
+*** 名詞/ 動詞 抽出法
+    - 問題領域に存在する名詞を洗い出し,
+      それらを表現するオブジェクトを生成する.
+    - 名詞に関連した動詞を洗い出し,
+      それらを表現するメソッドを追加する
+
+*** 共通性/ 可変性 分析法
+    - 共通性分析:時間が経っても変化しにくい構造を見つけるもの
+      共通性分析によってまとめられた概念を抽象クラスによって表現
+    - 可変性分析:変化しやすい構造を洗い出すもの
+      可変性分析で得た流動的要素は抽象クラスの派生クラスによって実装される
+
+    設計手順:
+    - (抽象クラス) このクラスが持つ責務をすべて全うするにはどうようなインターフェイスが必要か?
+    - (派生クラス) この特定実装の中でどうのようにして与えられた仕様を実装できるのか?
+
+    Jim Coplien が提唱. p235 第 15 章から抜粋.
+
+**** Links
+    - [[http://d.hatena.ne.jp/asakichy/20090428/1240878836][オブジェクト指向の本懐 (7) ・オブジェクト指向分析 - Strategic Choice]]
+    - [[http://shoheik.hatenablog.com/entry/20120917/1347838230][共通性・可変性分析 (commonality/variavility analysis) - Debuginfo]]
+
+** カプセル化の視点で整理
+   カプセル化がデータ隠蔽というのは狭義の定義.
+   
+   カプセル化とはあらゆるものを隠蔽すること.
+   - データ
+   - メソッド
+   - 実装
+   - 派生クラス
+   - 設計の詳細
+   - 実体化の規則
+   - 型
+
+   流動的要素を探し出してカプセル化する. 委譲は手段.
+
+   この観点から, デザインパターンをとらえ直すと,
+
+   |--------------------+----------------------------------------------|
+   | 流動的要素         | Pattern                                      |
+   |--------------------+----------------------------------------------|
+   | アルゴリズム       | Strategy                                     |
+   | 状態               | State                                        |
+   | 振る舞い           | Decorator                                    |
+   | パターンマッチ, 型 | Visitor                                      |
+   | 動作, 要求         | Command                                      |
+   | 実装               | Bridge                                       |
+   | 変化への反応       | Observer                                     |
+   | 相互作用           | Mediator                                     |
+   | 生成               | Factory Method, Abstract Factory , Prototype |
+   | 一意性             | Singleton, Flyweight                         |
+   | 構造の生成         | Builder                                      |
+   | 集合の巡回構造     | Iterator                                     |
+   | インタフェース     | Adapter                                      |
+   | システム           | Facade                                       |
+   | 設計の詳細         | Template Method                              |
+   |--------------------+----------------------------------------------|
+
+     - [[http://bleis-tift.hatenablog.com/entry/20090201/1233426011#][カプセル化, 情報隠蔽, データ隠蔽 - ぐるぐる~]]
+
+* これからどうするか
+** 暗記はやめよう
+  デザインパターンをただ暗記する態度は改めなければ.
+
+  本質から導けば, 覚える量も減るし, 応用も効くはず.
+
+  暗記ではなくて, 本質を繰り返し唱えること.
+
+** 問題を考えよう
+  何か問題でパターンによってなにが改善されるかを考える癖をつけよう.
+
+  デザインパターンは, 概して複雑. 
+  実際に仕事で利用するには,  *工数* との兼ね合いを考えるようにする.
+
+  保守なんてされないだろうコードを,
+  たくさん工数をかけてデザインパターンを駆使して書いても, 価値はない.
+
+  問題が保守性だとして, 
+  保守する必要がなければパターンは適用する必要はない.
+
+** OO から距離をおいてみてみる
+   今年の目標は OO を理解することだったので,
+   かなりの時間を OO に割いてきた.
+
+   来年の目標は関数型パラダイムを理解することなので,
+   一旦 OO の世界からは距離を置こうと思う.
+
+   OO と関数型を比較しつつ, 距離を追いてみることで,
+   また見える世界が変わるかもしれない.

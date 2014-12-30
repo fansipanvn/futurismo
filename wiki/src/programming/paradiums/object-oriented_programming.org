@@ -237,6 +237,12 @@ end
 
     クラスの集合がもつすべての責務を真っ当するために,
     インタフェースを用意する.
+
+*** 機能追加と機能実装の違い
+    - 「機能追加」 (スーパークラスが持っていない機能をサブクラスで追加) を目的としたもの
+    - 「機能実装」 (スーパークラスで定義したインタフェースをサブクラスで実装) を目的としたもの
+
+    参考:[[http://www.itsenka.com/contents/development/designpattern/bridge.html][Bridge パターン - デザインパターン入門 - IT 専科]]
     
 ** Delegation
    委譲.あるオブジェクトの操作を一部他のオブジェクトに代替させる手法.
@@ -318,6 +324,18 @@ end
 **** Links
     - [[http://d.hatena.ne.jp/asakichy/20090428/1240878836][オブジェクト指向の本懐 (7) ・オブジェクト指向分析 - Strategic Choice]]
     - [[http://shoheik.hatenablog.com/entry/20120917/1347838230][共通性・可変性分析 (commonality/variavility analysis) - Debuginfo]]
+
+* 未分類
+** Is-a, has-a
+*** Is-a: 継承関係
+    Is-a は 継承関係.
+    - [[http://ja.wikipedia.org/wiki/Is-a][is-a - Wikipedia]]
+
+    Is-a 信仰. なんでも継承すればいいという考え方.
+
+*** Has-a: 包含関係 
+    Has-a は 包含関係 (委譲)
+    - [[http://ja.wikipedia.org/wiki/Has-a][has-a - Wikipedia]]
 
 * Bookmarks
   ものすごくよい記事.歴史が端的にまとまっている.

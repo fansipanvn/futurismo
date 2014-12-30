@@ -1,0 +1,50 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS:
+#+DESCRIPTION: html ファイルを org ファイル形式に変換する方法
+#+TITLE: html ファイルを org ファイル形式に変換する方法メモ
+
+* はじめに
+  学生のときに Yahoo geocities で作成した
+  html によるサイトを [[http://futurismo.biz/dokuwiki/doku.php][Futurismo Wiki]] に移行したい.
+
+  なぜなら, Yahoo geocities は, 
+  いつサービスが停止してもおかしくない気がするからだ.(人気的に)
+  昔の思い出は失いたくない.
+
+  - 移行元サイトは完全な html 形式のファイル群
+  - 移行先 wiki は org 形式でデータを管理している
+
+  ということで, html から org へ変換する方法を調べた.
+
+* Pandoc が利用できそう
+  以前, pandoc を利用して,
+  markdown を org-mode へ変換することをやった. 
+  - [[http://futurismo.biz/archives/2403][org-mode で書いたテキストを Pandoc で Restructured Text に変換する | Futurismo]]
+
+  今回もこの pandoc を利用して変換しよう.
+  導入方法は過去記事参照.
+  - [[http://sky-y.github.io/site-pandoc-jp/users-guide/][Pandoc ユーザーズガイド 日本語版 - Japanese Pandoc User's Association]]
+
+** htlm を org 形式に変換するコマンド
+
+#+begin_src bash
+$ pandoc index.html -f html -t org -o index.org
+#+end_src
+
+** 文字コードを Shift-Jis から UTF-8 へ変換
+   pandoc は UTF-8 形式しか受け付けないので注意.
+   変換には nkf を利用するとよい.
+  
+#+begin_src bash
+$ nkf -w index.html | pandoc ....
+#+end_src
+
+* サイトを移行
+  FTP で接続してサイト取得.
+  - [[http://www.yahoo-help.jp/app/answers/detail/p/549/a_id/42377/~/ftp%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6][Yahoo! ジオシティーズヘルプ - FTP の設定について]]
+
+  とりあえずローカルに落として git 管理配下におく.
+  非公開で bitbucket へ upload.
+
+  これで若き青春の日々の日記はクラウド上で永遠の生命を得た.

@@ -12,6 +12,16 @@
    ripper ライブラリがある.
    - [[http://futurismo.biz/archives/2277][Ruby のコードを ripper でパースする方法 | Futurismo]]
   
+* 競技プログラミング
+** TopCoder
+** AtCoder
+   - http://atcoder.jp/
+
+** Langugages
+*** Haskell
+    - [[http://qiita.com/myuon_myon/items/ad006568bd187223f494][Haskell 競技プログラミング入門 - Qiita]]
+    - [[http://qiita.com/siquare/items/ec0c01c81c22ce060405][Haskell で競技プログラミングをするために --IO 編-- - Qiita]]
+
 * Bookmarks
 ** coursera Algorithms
   - Source: [[http://algs4.cs.princeton.edu/code/][Java Algorithms and Clients]]

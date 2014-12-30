@@ -17,12 +17,10 @@
 * メンテナンス
 ** アップグレード
   サイトをアップグレードするためプラグインを利用する.
-
   - [[https://www.dokuwiki.org/ja:install:upgrade][ja:install:upgrade]]
 
 ** 記事のアップロード
 *** org-wk で org 形式から dokuwiki 形式に変換
-
    - [[https://github.com/w-vi/ox-wk.el][w-vi/ox-wk.el]]   
 
    #+begin_src sh
@@ -51,9 +49,11 @@ emacs -Q --batch \
 $ ncftpput -R lolipop ./wordpress/dokuwiki/data pages
 #+end_src
 
+** ディレクトリ構造の整理
+   一旦すべてを削除したあとに, 再度アップロードする. 暫定対処.
+
 * プラグイン
   - [[https://www.dokuwiki.org/ja:plugins][ja:plugins]]
-
     プラグインマネージャーを利用する.(bundle).
 
   - [[https://www.dokuwiki.org/ja:plugin:plugin][ja:plugin:plugin]]

@@ -1,0 +1,122 @@
+#+BLOG: Futurismo
+#+POSTID: 2853
+#+DATE: [2014-12-29 月 21:03]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: 
+#+DESCRIPTION:  Emacs で ログ解析をするための便利機能まとめ
+#+TITLE: Emacs で ログ解析をするための便利機能まとめ
+
+#+BEGIN_HTML
+<a href="http://futurismo.biz/wp-content/uploads/java.png"><img alt="" src="http://futurismo.biz/wp-content/uploads/java.png" width="256" height="256" /></a>
+#+END_HTML
+
+* はじめに
+  前回の記事のつづき.
+  - [[http://futurismo.biz/archives/2833][Java で log4j の使ってみた (Eclipse, Emacs Viewer も) | Futurismo]]
+  
+  Java 開発で, log4j のログをみる機会がこれから増えそうだ.
+
+  ログといっても所詮はテキストなので, Emacs を使いたい.
+  そこで, ログ解析に便利そうな, 使えそうな機能をまとめてみた.
+
+  とくに, Java の log4j 専用というわけではなく, 
+  どんなテキストログの解析にも応用できればいいな.
+
+* 閲覧
+** Read Only Mode
+   ログなので, Read Only でファイルを開きたい.
+   - M-x toggle-read-only (C-x C-q) で現在開いているテキストを
+     読み取り専用にすることができる
+     
+   - M-x find-file-read-only で読み取り専用で開くことができる.
+     解除は, toggle-read-only で.
+
+   参考:
+   - [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Read-Only-Buffers.html][Read Only Buffers - GNU Emacs Lisp Reference Manual]]
+
+   #+begin_src emacs-lisp
+   (add-to-list 'auto-mode-alist '("\\.log$" . read-only-mode))
+   #+end_src
+
+** Tramp
+   ログはサーバからダウンロードする. 
+   Emacs からサーバに直接乗り込んで開くためには, Tramp を利用する.
+
+** tail -f 的な   
+   リアルタイムログ解析のためには, M-x auto-revert-tail-mode を利用.
+   これで, tail -f のようにファイルを更新することが可能になる.
+   - [[http://d.hatena.ne.jp/kitokitoki/20101211/p1][emacs 内でログファイルを tail -f する設定 - わからん]]
+
+* 検索
+** 複数ファイル検索: grep/ ag / helm-ag
+   検索は grep が基本.
+
+   最近は, grep よりも高速な検索ができる ag というものもある.
+   - https://github.com/Wilfred/ag.el
+
+   さらには, 絞り込みを helm I/F から利用するための helm-ag もある.
+   - https://github.com/syohex/emacs-helm-ag
+   
+** 単一ファイル検索: helm-swoop
+   helm-swoop を利用すると, 一文字打ち込む度に検索が走る.
+   ログサイズが小さいときや, 単一ファイルならば, grep よりも使いやすい.
+   - https://github.com/ShingoFukuyama/helm-swoop
+
+** インクリメンタル検索
+   isearch (C-s) が基本.
+
+   インクリメンタル検索である isearch と helm-swoop をつなぐ,
+   ace-isearch というものもある.
+   - [[http://rubikitch.com/2014/10/08/ace-isearch/][超 isearch=isearch+ace-jump-mode+helm-swoop  カーソル移動と検索を統合! ]]
+   
+* ブックマーク/ ハイライト
+** Bookmarks をハイライト
+  - [[https://github.com/joodland/bm][joodland/bm]]
+
+  行をハイライトできる.気になる行に色をつける.
+
+  本当は移動用なのだけれども, 色付けとして利用.
+
+** helm-all-mark-rings
+   C-SPC でマークをした場所を覚えておいて, helm で選択してジャンプできる.
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-SPC") 'helm-all-mark-rings)
+#+end_src
+
+** シンボルをハイライト
+   highlight-symbol/auto-highlight-symbol
+   - http://shibayu36.hatenablog.com/entry/2013/12/30/190354
+
+  シンボルをハイライトできる.気になる単語に色をつける.
+
+#+begin_src emacs-lisp
+(require 'auto-highlight-symbol-config)
+(require 'highlight-symbol)
+(setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
+
+(global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
+(global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
+#+end_src
+
+** hl-anything
+   永続的に, ハイライトを保持することが可能になる.
+   - https://github.com/boyw165/hl-anything
+   - M-x hl-save-highlights
+   - M-x hl-restore-highlights
+
+   以下の記事の解説が詳しい.
+   - http://rubikitch.com/2014/12/28/hl-anything/
+
+#+begin_src emacs-lisp
+(require 'hl-anything)
+(hl-highlight-mode 1)
+
+(global-set-key (kbd "<f2>") 'hl-highlight-thingatpt-local)
+(global-set-key (kbd "M-<f2>") 'hl-unhighlight-all-local)
+#+end_src
+
+* Java 
+  以下参照.
+  - [[http://futurismo.biz/archives/2833][Java で log4j の使ってみた (Eclipse, Emacs Viewer も) | Futurismo]]

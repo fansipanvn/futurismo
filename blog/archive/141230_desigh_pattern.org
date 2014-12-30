@@ -1,4 +1,88 @@
-#+OPTIONS: toc:nil
+#+BLOG: Futurismo
+#+POSTID: 2872
+#+DATE: [2014-12-30 火 17:14]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, 日記
+#+TAGS: Gof, Java, Ruby, デザインパターン
+#+DESCRIPTION: Gof デザインパターンの勉強メモとブックマークまとめ
+#+TITLE: Gof デザインパターンの勉強メモ記事とブックマークまとめ
+
+* はじめに
+  今年の目標は, デザインパターンの攻略!
+
+  ということで, 
+  この一年でまとめた情報や書いた記事のブックマークページです.
+
+  過去記事は, Ruby と Java が入り混じっていたり,
+  気まぐれでどんどん更新していったので, とてもまとまりがないとおもう.
+
+  強引に一つのページにまとめてみた感じ... (*'д`*)
+
+* 一年の振り返り
+** Rubyist になる
+   去年の 12 月から Rubyist になった.
+   - [[http://futurismo.biz/archives/2189][Rubyist になった日 | Futurismo]]
+
+   そして, オブジェクト指向開発に触れることになった.
+
+   楽しかったので, 何も考えずにデザインパターンを使ってみたりした.
+   しかし, これはのちに後悔することになった.
+
+   保守性よりもスピードを重視するべきだったのに,
+   デザインパターンをつかって, 仕事が遅れてしまったという悲しい思い出.
+
+** POSA を学ぶ 
+   coursera で POSA (Pattern Oriented Software Archtecture) をまなんだ.
+   - [[http://futurismo.biz/archives/2527][オブジェクト指向設計と並列プログラミングを Andoird で学ぶ!Pattern-Oriented Software Architectures を受けた | Futurismo]]
+   - [[http://futurismo.biz/archives/2623][Web サービスのアーキテクチャを学ぶ! coursera で Programming Cloud Services for Android Handheld Systems を受けた | Futurismo]]
+
+   ここで登場した Schmidt さん (POSA2 を書いた人) がとても情熱的に
+   Pattern を語るのをきき, パターンが素晴らしいと洗脳された.
+
+** Javaer になる
+   年の暮れごろに Javaer になった.
+
+   すると, 一緒に仕事する人にすごく怖くてパターンに詳しいひとがいた.
+
+#+BEGIN_HTML
+<blockquote class="twitter-tweet" lang="ja"><p>職場に, 異常に OOP やデザインパターンに詳しいけど, 毒舌なひとがいる. 毎日毎日, 脅されてビビりながらも, その人の言うことを理解して自分もステップアップするために頑張る. 今日は Visitor パターンを勉強した!</p>&mdash; きつね (@tsu_nera) <a href="https://twitter.com/tsu_nera/status/533283321468309504">2014, 11 月 14</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+#+END_HTML
+
+   OO でまともに設計した経験のない自分は, 
+   その人からしてみれば素人なので, 
+   レビューしているのだか教育をされているのだかわからない感じだった.
+
+   *そんなことだから考え方がいつも手続的なんだ* と, 
+   しょっちゅう罵倒された../ (._.)
+
+   毎日怯えつつ, あんなやついつかギャフンと言わせてやるという,
+   なかば憎悪に似た感情を抱きつつ??, パターンの勉強をしたのだった.
+
+* これからどうするか?
+** Gof デザインパターンは 20 年前のもの.
+  最近, おもしろい podcast を発見した.
+
+  Gang of Four のメンバが 20 年たった今, 
+  なにを感じているのかをインタビューした podcast.
+  - [[http://www.se-radio.net/2014/11/episode-215-gang-of-four-20-years-later/][Episode 215: Gang of Four – 20 Years Later : Software Engineering Radio]]
+
+  Gof デザインパターンは, 20 年も前のものなのだ.
+  
+  そして, 今や時代はオブジェクト指向から関数型へと向かっている.
+
+** OO から FP へ
+  デザインパターンを学習していると,
+  関数型だともっと簡潔にかける気がしてきた.
+
+  たとえば, これ.
+  - [[http://futurismo.biz/archives/2780][動的に機能追加!Java で Decolator パターンを実装してみた | Futurismo]]  
+  
+  というわけで, 来年は関数型言語を頑張る. 
+  関数型言語のパターンみたいなものはあるのかな??
+  - [[http://patternsinfp.wordpress.com/][Patterns in Functional Programming | Exploiting the relationship between data structure and program structure]]
+  - [[http://www.slideshare.net/ScottWlaschin/fp-patterns-buildstufflt][Functional Programming Patterns (BuildStuff '14)]]
+
 * Pattern
 ** パターン
    建築環境に繰り返し現れる課題を解決に導く具体的な方策を記述したもの.
@@ -456,6 +540,14 @@ end
     - [[http://ja.wikipedia.org/wiki/Visitor_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Visitor パターン - Wikipedia]]
     - [[http://futurismo.biz/archives/2689][Java で Visitor Pattern を実装してみた | Futurismo]]
 
+* OOP の 2 大原則
+  オブジェクト指向のこころとは, ズバリ以下だ.
+   - 流動的要素を探し出してカプセル化する
+   - クラス継承よりもオブジェクトの集約を多用する
+
+  デザインパターンとともに学ぶオブジェクト指向のこころより
+  - [[http://futurismo.biz/archives/2866][パターンは暗記するものではなく導くもの! オブジェクト指向のこころを読んだ読書メモ | Futurismo]]
+
 ** カプセル化の視点で整理
    カプセル化がデータ隠蔽というのは狭義の定義.
    
@@ -494,109 +586,16 @@ end
 
      - [[http://bleis-tift.hatenablog.com/entry/20090201/1233426011#][カプセル化, 情報隠蔽, データ隠蔽 - ぐるぐる~]]
 
-** パターンで考える
-   オブジェクト指向のこころ 13 章より.
-     - パターンの洗い出し ... ドメインに存在するパターンをまずは列挙.
-     - パターンの分析・適用 ... 1-4 を繰り返す.
-       1) パターンの並べ替え 
-       2) パターンの選択と設計の拡張
-       3) 追加のパターンの洗い出し
-       4) 繰り返し
-     - 設計の詳細
-
-** 関数型言語との関係
-   - [[http://codezine.jp/article/detail/8300][ラムダ式で Command パターンで書かれたコードをシンプルにする ~ ラムダ式使いへの第一歩 (1/5):CodeZine]]
-
-** Links
-  概要がかかれたページ
-  - http://homepage3.nifty.com/satoshis/oo/patterns.html
-
-  噛み砕かれた, わかりやすい説明. 
-  - [[http://d.hatena.ne.jp/language_and_engineering/20120330/p1][GoF の 23 のデザインパターンを, Java で活用するための一覧表  (パターンごとの要約コメント付き) - 主に言語とシステム開発に関して]]
-
-  図解で解説されている.
-  - [[http://www.nulab.co.jp/designPatterns/designPatterns1/designPatterns1-1.html][サルでもわかる 逆引きデザインパターン  第 1 章 はじめてのデザインパターン  はじめに]]
-
-  サンプルソースが豊富.
-  - [[http://www.techscore.com/tech/DesignPattern/index.html/][デザインパターン | TECHSCORE (テックスコア)]]
-
-  Gang Of Four のインタビュー
-  - [[http://www.se-radio.net/2014/11/episode-215-gang-of-four-20-years-later/][Episode 215: Gang of Four – 20 Years Later : Software Engineering Radio]]
-
-
-* Embedded System Programming
-  - [[http://www.dre.vanderbilt.edu/~schmidt/patterns-ace.html][Patterns for Distributed Real-time and Embedded Systems]]
-
-** Finate State Machine
-有限オートマン. 状態遷移のための制御方法.
-
-- [[http://ja.wikipedia.org/wiki/%E6%9C%89%E9%99%90%E3%82%AA%E3%83%BC%E3%83%88%E3%83%9E%E3%83%88%E3%83%B3][有限オートマトン - Wikipedia]]
-
-以下の 5 つの構成要素からなる.
-
-- Inputs
-- Outputs
-- States
-- State Transition Graph (STG)
- - Tree
- - Matrix
-- Output Determination
-
-*** Moore Machine
-ムーアマシン.
-出力が (入力によらず) 現在の状態によってのみ決定される有限オートマトン.
-
-#+begin_src language
-NextState = f (Input, CurrentState)
-Output = g (CurrentState)
-#+end_src
-
-*** Mealy Machine
-ミーリマシン.
-出力が現在状態と入力によって決定される有限オートマトン.
-
-#+begin_src language
-Output = h (Input, CurrentState)
-#+end_src
-
-*** 実装方法
-#+begin_src c
-
-#define N = 2
-
-typedef enum { yes, no} state;
-struct FSM {
-  unsigned char out;     /* レシジスタへの出力 */
-  unsigned char next[N]  /* 次の状態グラフ. ここでは Matrix */
-};
-
-#+end_src
-
-* Functional Programming
-** recursion
-   list 型のデータ構造を扱うときの手法.
-
-*** tail recursive
-** pattern matching
-   tuple 型のデータ構造を扱うときの手法.
-
-*** overlapping pattern: 重複パターン
-    ボリモーフィズムによってパターンマッチをする方法.
-    - [[http://stackoverflow.com/questions/27678078/meaning-of-overlapping-pattern-in-haskell][Meaning of overlapping pattern in Haskell - Stack Overflow]]
-
-    数学的帰納法によって, 定義される関数.
-
-#+begin_src haskell
-last :: [a] -> a
-last [x] = x
-last (_ : xs) = last xs
-#+end_src
-
-** Links
-  - [[http://patternsinfp.wordpress.com/][Patterns in Functional Programming | Exploiting the relationship between data structure and program structure]]
-  - [[http://www.slideshare.net/ScottWlaschin/fp-patterns-buildstufflt][Functional Programming Patterns (BuildStuff '14)]]
-
 * Links
-  結城浩さんの並列・平行プログラミングのパターン紹介
-  - [[http://www.hyuki.com/dp/dpinfo.html][デザインパターン紹介]]
-  - [[http://www.amazon.co.jp/%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E3%80%81Wiki%E3%80%81XP-~%E6%99%82%E3%82%92%E8%B6%85%E3%81%88%E3%81%9F%E5%89%B5%E9%80%A0%E3%81%AE%E5%8E%9F%E5%89%87-WEB-PRESS-plus%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/dp/4774138975][Amazon.co.jp: パターン, Wiki, XP ~時を超えた創造の原則 (WEB+DB PRESS plus シリーズ): 江渡 浩一郎: 本]]
+ 概要がかかれたページ
+ - http://homepage3.nifty.com/satoshis/oo/patterns.html
+
+ 噛み砕かれた, わかりやすい説明. 
+ - [[http://d.hatena.ne.jp/language_and_engineering/20120330/p1][GoF の 23 のデザインパターンを, Java で活用するための一覧表  (パターンごとの要約コメント付き) - 主に言語とシステム開発に関して]]
+
+ 図解で解説されている.
+ - [[http://www.nulab.co.jp/designPatterns/designPatterns1/designPatterns1-1.html][サルでもわかる 逆引きデザインパターン  第 1 章 はじめてのデザインパターン  はじめに]]
+
+ サンプルソースが豊富.
+ - [[http://www.techscore.com/tech/DesignPattern/index.html/][デザインパターン | TECHSCORE (テックスコア)]]
+

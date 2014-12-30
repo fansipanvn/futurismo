@@ -4,220 +4,203 @@
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
 #+CATEGORY: Emacs, 技術メモ
 #+TAGS: Sphinx
-#+DESCRIPTION: Emacs org-modeで書いたテキストをRestructured Textに変換する方法を調べました
-#+TITLE: org-modeで書いたテキストをPandocでRestructured Textに変換する
+#+DESCRIPTION: Emacs org-mode で書いたテキストを Restructured Text に変換する方法を調べました
+#+TITLE: org-mode で書いたテキストを Pandoc で Restructured Text に変換する
 
 #+BEGIN_HTML
 <img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
 #+END_HTML
 
 * やりたいこと
-org-modeで書いたテキストをRestructured Textに変換したい。
+  org-mode で書いたテキストを Restructured Text に変換したい.
 
-Pandocを利用すると、org-modeの文章を変換することができる。
+  Pandoc を利用すると, org-mode の文章を変換することができる.
 
-#+BEGIN_HTML
-<pre><code>入力(org-mode) -> 変換(Pandoc) -> 出力(Restructured Text)
-</code></pre>
-#+END_HTML
+#+begin_src text
+入力 (org-mode) -> 変換 (Pandoc) -> 出力 (Restructured Text)
+#+end_src
 
-* Pandocをつかう
-Pandocとは、汎用的なドキュメント変換ツール。
-ある形式から別の形式へドキュメントの形式を変換できる。
+* Pandoc をつかう
+  Pandoc とは, 汎用的なドキュメント変換ツール.
+  ある形式から別の形式へドキュメントの形式を変換できる.
+  - [[http://sky-y.github.io/site-pandoc-jp/users-guide/][Pandoc ユーザーズガイド 日本語版 - Japanese Pandoc User's Association]]
+  - [[http://qiita.com/sky_y/items/80bcd0f353ef5b8980ee][HTML - 多様なフォーマットに対応! ドキュメント変換ツール Pandoc を知ろう - Qiita]]
 
-- [[http://sky-y.github.io/site-pandoc-jp/users-guide/][Pandoc ユーザーズガイド 日本語版 - Japanese Pandoc User's Association]]
-- [[http://qiita.com/sky_y/items/80bcd0f353ef5b8980ee][HTML - 多様なフォーマットに対応！ドキュメント変換ツールPandocを知ろう - Qiita]]
+  org-mode の writer は以前からあったが, 
+  reader は最近ようやく pull request された.
 
-org-modeのwriterは以前からあったが、readerは最近ようやくpull requestされた。
+  - [[https://github.com/jgm/pandoc/issues/476][Org-Mode Reader · Issue #476 · jgm/pandoc]]
+  - https://github.com/jgm/pandoc/commit/b1e6ea80fde0c3a21336747cd34a3ab0ddfe3cfe
 
-- [[https://github.com/jgm/pandoc/issues/476][Org-Mode Reader · Issue #476 · jgm/pandoc]]
-- https://github.com/jgm/pandoc/commit/b1e6ea80fde0c3a21336747cd34a3ab0ddfe3cfe
+  ということで, 最新の Pandoc を試してみる. github からダウンロード.
 
-ということで、最新の Pandocを試してみる。githubからダウンロード。
+  - https://github.com/jgm/pandoc
 
-- https://github.com/jgm/pandoc
+  pandoc は haskell でかかれてるので, ビルドには haskell がひつよう.
+  - [[http://johnmacfarlane.net/pandoc/installing.html][Pandoc - Installing]]
 
-pandocはhaskellでかかれてるので、ビルドにはhaskellがひつよう。
+  以下を順々に実施.
 
-- [[http://johnmacfarlane.net/pandoc/installing.html][Pandoc - Installing]]
-
-以下を順々に実施。
-
-#+BEGIN_HTML
-<pre><code>cabal install alex happy
-cabal update
-cabal install pandoc
-git submodule update --init
+#+begin_src bash
+$ cabal update
+$ cabal install pandoc
 $ pandoc -v
 pandoc 1.12.3.3
 Compiled with texmath 0.6.6.1, highlighting-kate 0.5.6.1.
-</code></pre>
-#+END_HTML
+#+end_src
 
 ** 実験
-これがゴール。
+   これがゴール.
 
-#+BEGIN_HTML
-<blockquote>
+#+begin_src text
 Hello Sphinx
 ============
 
-テスト。
+テスト.
 
 テスト
 ======
 
-テストです。
-</blockquote>
-#+END_HTML
+テストです.
+#+end_src
 
-これを変換する。
+   これを変換する.
 
-#+BEGIN_HTML
-<blockquote>
+#+begin_src text
  * Hello Sphinx
 
- テスト。
+ テスト.
 
  * テスト
 
- テストです。
-</blockquote>
-#+END_HTML
+ テストです.
+#+end_src
 
-変換はコマンドラインから以下を実行
+  変換はコマンドラインから以下を実行
 
-#+BEGIN_HTML
-<pre><code>pandoc -f rst hello2.org
-</code></pre>
-#+END_HTML
+  #+begin_src bash
+  pandoc -f rst hello2.org
+  #+end_src
 
-こうなった。
+こうなった.
 
-#+BEGIN_HTML
-<pre><code>
+#+begin_src text
 -  Hello Sphinx
 
-テスト。
+テスト.
 
 -  テスト
 
-テストです。
-</code></pre>
-#+END_HTML
+テストです.
+#+end_src
 
-箇条がきではなくて、見出しなのだが。。。今後に期待ということで。
+  箇条がきではなくて, 見出しなのだが. . . 今後に期待ということで.
 
-* org-pandocをつかう
-org-pandocをというツールをつかっても、
-panodcに対応した色々なフォーマットに変換できる。
+* org-pandoc をつかう
+  org-pandoc をというツールをつかっても,
+  panodc に対応した色々なフォーマットに変換できる.
+  - [[https://github.com/robtillotson/org-pandoc][robtillotson/org-pandoc]]
 
-- [[https://github.com/robtillotson/org-pandoc][robtillotson/org-pandoc]]
-
-
-仕組みは、一度org-modeからmarkdownに変換して、
-markdownをpandocにかけるというもの。
+  仕組みは, 一度 org-mode から markdown に変換して,
+  markdown を pandoc にかけるというもの.
 
 ** 実験
-変換には、以下を評価したあとに、M-x org-pandoc-export-to-pandoc実行。
+   変換には, 以下を評価したあとに, M-x org-pandoc-export-to-pandoc 実
+   行.
 
-#+BEGIN_HTML
-<pre><code>(require 'ox-pandoc)
-(setq org-pandoc-export-format 'rst)
-</code></pre>
-#+END_HTML
+   #+begin_src emacs-lisp
+   (require 'ox-pandoc)
+   (setq org-pandoc-export-format 'rst)
+   #+end_src
 
-こうなった。
+   こうなった.
 
-#+BEGIN_HTML
-<blockquote>
-======
-hello2
-======
+#+begin_src text
+  ======
+  hello2
+  ======
+   
+  :Author: tsu-nera
+   
+  .. raw:: html
+   
+     <div id="table-of-contents">
+     \<h2\>
+   
+  Table of Contents
+   
+  .. raw:: html
+   
+     \</h2\>
+     <div id="text-table-of-contents">
+     <ul>
+     <li>
+   
+  1. Hello Sphinx
+   
+  .. raw:: html
+   
+     </li>
+     <li>
+   
+  2. テスト
+   
+  .. raw:: html
+   
+     </li>
+     </ul>
+     </div>
+     </div>
+   
+  Hello Sphinx
+  ============
+   
+  テスト.
+   
+  テスト
+  ======
+   
+  テストです.
+#+end_src
 
-:Author: tsu-nera
+  ヘッダによけいなものがたくさんつくものの, default pandoc よりいいな.
 
-.. raw:: html
+* org-mode から markdown 経由で reST へ変換する
+  Markdown から reST への変換は
+  いろいろな人がチャレンジして実績があるので, この道を考える.
 
-   <div id="table-of-contents">
-   \<h2\>
+  org-mode には, デフォルトで markdown 変換コマンドあり.
+  MarkDown どころか, HTML,Pandoc,LATex.. いろいろある.
+  - http://orgmode.org/manual/Markdown-export.html
 
-Table of Contents
+  詳しくは, org-export-dispatch (C-c C-e) を実行.
 
-.. raw:: html
+  さっきのゴミは, emacs-export 機能のオプションを利用すれば消せた.
 
-   \</h2\>
-   <div id="text-table-of-contents">
-   <ul>
-   <li>
+#+begin_src text
+  #+OPTIONS: toc:nil
+#+end_src
 
-1. Hello Sphinx
+ オプションの詳しい説明は, 以下.
 
-.. raw:: html
-
-   </li>
-   <li>
-
-2. テスト
-
-.. raw:: html
-
-   </li>
-   </ul>
-   </div>
-   </div>
-
-Hello Sphinx
-============
-
-テスト。
-
-テスト
-======
-
-テストです。
-</blockquote>
-#+END_HTML
-
-ヘッダによけいなものがたくさんつくものの、default pandocよりいいな。
-
-* org-mode から markdown経由で reSTへ変換する
-
-MarkdownからreSTへの変換はいろいろな人がチャレンジして実績があるので、この道を考える。
-
-org-modeには、デフォルトでmarkdown変換コマンドあり。 MarkDownどころか、HTML,Pandoc,LATex.. いろいろある。
-
-- http://orgmode.org/manual/Markdown-export.html
-
-詳しくは、org-export-dispatch(C-c C-e)を実行。
-
-さっきのゴミは、emacs-export機能のオプションを利用すれば消せた。
-
-#+BEGIN_HTML
-<pre><code>#+OPTIONS: toc:nil
-</code></pre>
-#+END_HTML
-
-オプションの詳しい説明は、以下。
-
-- [[http://orgmode.org/manual/Export-settings.html#Export-settings][Export settings - The Org Manual]]
-- [[http://d.hatena.ne.jp/tamura70/20100304/org][Emacs org-modeを使ってみる: (29) エクスポートオプション一覧 - 屯遁のパズルとプログラミングの日記]]
+  - [[http://orgmode.org/manual/Export-settings.html#Export-settings][Export settings - The Org Manual]]
+  - [[http://d.hatena.ne.jp/tamura70/20100304/org][Emacs org-mode を使ってみる: (29) エクスポートオプション一覧 - 屯遁のパズルとプログラミングの日記]]
 
 ** コマンドラインから変換したい
-上記の方法は、Emacsのなかで変換処理を行うのだが、
-複数ファイルを処理するとするとコマンドラインから変換処理を行いたい。
+   上記の方法は, Emacs のなかで変換処理を行うのだが,
+   複数ファイルを処理するとするとコマンドラインから変換処理を行いたい.
 
-調べたところ、emacsにはbatchという機能があるようだ。
+   調べたところ, emacs には batch という機能があるようだ.
 
-- [[http://d.hatena.ne.jp/rubikitch/20101107/org2html#][org-mode→HTML変換をする3つの方法 - (rubikitch loves (Emacs Ruby CUI Books))]]
-- [[http://shuzo-kino.hateblo.jp/entry/2014/01/02/012905][CLIでemacsのorg-modeを使ってhtml化する - Bye Bye Moore]]
-- [[http://www.bookshelf.jp/texi/emacs-20.6-man-jp/emacs_32.html#SEC490][GNU Emacsマニュアル: A. コマンド行引数]]
+   - [[http://d.hatena.ne.jp/rubikitch/20101107/org2html#][org-mode → HTML 変換をする 3 つの方法 - (rubikitch loves (Emacs Ruby CUI Books))]]
+   - [[http://shuzo-kino.hateblo.jp/entry/2014/01/02/012905][CLI で emacs の org-mode を使って html 化する - Bye Bye Moore]]
+   - [[http://www.bookshelf.jp/texi/emacs-20.6-man-jp/emacs_32.html#SEC490][GNU Emacs マニュアル: A. コマンド行引数]]
 
-batchについては今回はわからなかったので、次回に回す。外部ライブラリまわりで苦戦。
+  batch については今回はわからなかったので, 次回に回す. 
+  外部ライブラリまわりで苦戦.
 
-#+BEGIN_HTML
-<pre><code>emacs hello.org -f org-md-export-to-markdown
-</code></pre>
-#+END_HTML
+   #+begin_src bash
+   emacs hello.org -f org-md-export-to-markdown
+   #+end_src
 
-とりあえず、なんとなくできるという道が開けた気がした。
+   とりあえず, なんとなくできるという道が開けた気がした.
