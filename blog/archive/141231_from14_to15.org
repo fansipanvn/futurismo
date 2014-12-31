@@ -1,0 +1,80 @@
+#+BLOG: Futurismo
+#+POSTID: 2885
+#+DATE: [2014-12-31 水 13:54]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 日記
+#+TAGS: 
+#+DESCRIPTION: 2014 年の過去記事振り返りと 2015 年の目標
+#+TITLE: 2014 年の過去記事振り返りと 2015 年の目標
+
+* はじめに
+  2014 年にかいた過去記事を振り返りつつ, 2015 年の目標をたててみる.
+
+* 2014 年の目標
+  2014 年の主な目標は以下
+
+  - オブジェクト指向に慣れ親しむ
+  - デザインパターンを学ぶ
+  - 関数型言語に触れる
+  - MOOC をがんばる
+
+  新年の記事.
+  - [[http://futurismo.biz/archives/1142][2014 年の目標 | Futurismo]]
+
+* 2014 年のまとめ
+** Windows を捨てて Linux になった
+  去年, Windows 環境と決別することを決意した.
+  今年は, 上期は Mint Linux, 下期は ArchLinux を自分のノート PC に導入した.
+  - [[http://futurismo.biz/archives/2064][Windows と Mint Linux のデュアルブート環境を VAIO に構築した手順メモ | Futurismo]]
+  - [[http://futurismo.biz/archives/2482][Lets Note を買ったのでとりあえず Windows8 と ArchLinux のデュアルブートにしてみた | Futurismo]] 
+
+  と同時に, GUI 環境をすてて CUI 環境ですごすことにした.
+  - [[http://futurismo.biz/archives/2171][世界最高の開発環境~CUI のリズムとハーモニーが生み出す極上の交響楽 | Futurismo]]
+  - [[http://futurismo.biz/archives/2209][プレインテキストへの決意 ~for progmatic programmer~ | Futurismo]]
+
+** Eclipse を捨てて Emacs になった
+   テキスト環境にすんでいると, 自然に Emacs を利用するようになった.
+   そして, 気づけば, かなり Emacs の改造に熱がはいってしまった.
+   - https://github.com/tsu-nera/dotfiles/tree/master/.emacs.d/inits
+
+** C 言語を捨てて Rubist, Javaer になった. いろんな言語に触れた
+   仕事では, Ruby, Java をつかうようになった.
+
+   また, MOOC を利用することで, 多くのプログラミング言語をまなんだ.
+   - [[http://futurismo.biz/archives/2843][プロクラミングパラダイムの意義と 2014 年のプログラミング言語の勉強まとめ | Futurismo]]
+
+** オブジェクト指向とデザインパターンをまなんだ   
+   とくにデザインパターンを今年は努力した.
+   - [[http://futurismo.biz/archives/2872][Gof デザインパターンの勉強メモ記事とブックマークまとめ | Futurismo]]
+
+** 関数型言語にふれた
+   また, 関数型言語の Oz, Scala, Haskell を学んだ.
+   - [[http://futurismo.biz/archives/2510][Scala 作者直伝の講座!Functional Programming Principles in Scala を受けた | Futurismo]]
+
+** 一番がんばったのは MOOC
+   そしてなにより, 一番がんばったのは, MOOC だ.
+   - [[http://futurismo.biz/archives/2586][感動駆動学習こそ最強の学習法だ! MOOC をはじめて 1 年たったまとめ. | Futurismo]]
+
+* 2015 年の目標
+  旗があれば, そこにむけて進んでいける.2015 年のすすむ方向をきめる.
+
+  2015 年は統計解析と関数型言語の学習に力をいれたい.
+** 統計解析
+   統計学・データマイニング・機械学習・ビックデータ解析の知識に触れる.
+
+   もうこの記事がかかれてから 5 年が過ぎた.
+   - [[http://www.publickey1.jp/blog/10/10_3.html][次の 10 年, 「統計分析」こそテクノロジー分野でいちばんホットな職業になる - Publickey]]
+
+   今や本やさんにいくとデータサイエンティストやビッグデータという本でいっぱいだ.
+   - [[http://tjo.hatenablog.com/entry/2014/03/31/191907][社会人が統計学や機械学習を学ぶなら「落下傘方式」で - 銀座で働く Data Scientist のブログ]]
+
+   学習の手段は去年からの MOOC を考えている. 
+
+   Gakko とか, Coursera や edX に比べれば...と軽視していたけどこれやってみようかな.
+  - [[http://www.sankeibiz.jp/business/news/141219/prl1412191508090-n1.htm][日本政府初の MOOC 講座, 総務省統計局の「社会人のためのデータサイエンス入門」を「 gacco 」上で開講 - SankeiBiz (サンケイビズ)]]
+
+** 関数型言語
+   2014 年で関数型の考え方になれたので,
+   2015 年はより知識を深めていきたい.
+
+   できれば, Emacs Lisp のひとつやふたつは簡単にかけるようになりたい.
