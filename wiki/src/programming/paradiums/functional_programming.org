@@ -430,4 +430,9 @@ end
   も有用な見識なのです
   #+END_QUOTE
 
+  有名なページだけど理解できなかった. またあとで.
   - [[http://www.sampou.org/haskell/article/whyfp.html][なぜ関数プログラミングは重要か]]
+  - [[http://melborne.github.io/2013/01/21/why-fp-with-ruby/][Ruby を使って「なぜ関数プログラミングは重要か」を読み解く (改定) ─ 前編 ─ 但し後編の予定なし]]
+
+  普通のやつの先をゆけ. Hacker と画家, Lisper で有名な Paul Graham のエッセイ.
+  - [[http://practical-scheme.net/trans/beating-the-averages-j.html][Beating the Averages]]

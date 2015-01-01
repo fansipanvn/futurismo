@@ -1,0 +1,25 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: SICP を読むために Emacs で Scheme 環境を構築した
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* はじめに
+  2015 年は SICP 本をじっくり読もうと考えているので,
+  まずは Scheme が動作する環境を準備.
+
+
+* Scheme 文法
+  こんなのみつけた.
+  - [[http://www.sampou.org/scheme/t-y-scheme/t-y-scheme-Z-H-1.html][独習 Scheme 三週間 Teach Yourself Scheme in Fixnum Days]]
+
+* Special Thanks
+ - [[http://karetta.jp/book-node/gauche-hacks/004640][Emacs から Gauche を使う - karetta.jp]]
+
+ - [[http://qiita.com/da1/items/02f7d2f157c7145d58f2][Scheme - SICP を読むためにやっておくと便利かもしれないこと - Qiita]]  
+ - [[http://d.hatena.ne.jp/tequilasunset/20110220/p4][SICP 読むための設定とか - Clipboard]]
+ - [[http://d.hatena.ne.jp/mahata/20080921/1221958711][Emacs の info として SICP を読む - 大切なものは目に見えない - mahata の日記 (はてなブランチ)]]
