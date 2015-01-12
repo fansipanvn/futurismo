@@ -4,12 +4,166 @@
   - [[http://www.r-project.org/][The R Project for Statistical Computing]]
 
 * 文法
-** データフレーム
-  - [[http://www.okada.jp.org/RWiki/?%A5%C7%A1%BC%A5%BF%A5%D5%A5%EC%A1%BC%A5%E0Tips%C2%E7%C1%B4][データフレーム Tips 大全 - RjpWiki]]
+** データ
+*** 変数
+#+begin_src R
+x <- 5
+#+end_src
+
+*** ベクター
+#+begin_src R
+    myvariable <- c (72, 28, -9, 12, 11)
+#+end_src
+
+*** データフレーム
+   複数のベクトルからなるリスト.
+   - [[http://www.okada.jp.org/RWiki/?%A5%C7%A1%BC%A5%BF%A5%D5%A5%EC%A1%BC%A5%E0Tips%C2%E7%C1%B4][データフレーム Tips 大全 - RjpWiki]]
+   - [[http://qiita.com/14021939/items/3436a153119bb88d49df][Ruby - R のデータフレーム (data.frame) について - Qiita]]
+
+**** データの読み込み
+  #+begin_src R :session ex :export both
+  BikeData <- read.csv ("BikeData.csv")
+  #+end_src
+    
+**** 条件を指定してデータの抽出
+#+begin_src R
+adaltAnimalData <- animaldata[animaldata$Age.Intake>=1,]
+#+end_src
+
+**** フレームからベクターを抽出
+#+begin_src R :session ex :export both
+distance <-student$distance
+#+end_src
+
+** 計算系
+*** データ数
+#+begin_src R
+table (adaltAnimalData$Animal.Type)
+#+end_src
+
+#+RESULTS:
+
+*** 中央値・平均値・標準偏差
+#+begin_src R
+# 最大値
+max (maleage)
+
+# 平均値
+mean (animaldata$Age.Intake)
+
+# 中央値
+median (animaldata$Age.Intake)
+
+# 標準偏差: Standard Deviation
+sd (animaldata$Age.Intake)
+
+# fine number summery
+fivenum (animaldata$Age.Intake)
+#+end_src
+
+*** cor: 共分散
+#+begin_src R
+cor (bull$YearsPro, bull$BuckOuts)
+#+end_src
+
+*** マトリックスの作成    
+#+begin_src R
+myvars <- c ('YearsPro', 'Events', 'BuckOuts')
+cor (bull[,myvars])
+#+end_src
+
+** 検定
+*** zscore: Z 検定
+    
+#+begin_src R :session ex :export both
+zcat <- (13- mean (catWeight))/sd (catWeight)
+1-pnorm (zcat)
+#+end_src
+
+** 確率
+*** table
+    分割表 (Contingency Tables) を作成する. 要素数をカウントする.
+
+#+begin_src R :session ex :export both
+gtab <- table (acl$Grammy)
+#+end_src
+
+| N | 67 |
+| Y | 49 |
+
+*** prop
+    確率分布表 (marginal table) を作成する.
+
+#+begin_src R :session ex :export both
+ prop.table (gtab)
+#+end_src
+
+| N | 0.577586206896552 |
+| Y | 0.422413793103448 |
+
+#+begin_src R :session ex :export both
+gtab2 <- table (acl$Grammy, acl$Gender)
+prop.table (gtab2)
+#+end_src
+
+| 0.181034482758621 | 0.396551724137931 |
+| 0.120689655172414 | 0.301724137931034 |
+
+** 描画系
+*** plot :Scatter Plot を描写
+#+begin_src R
+plot (bull$YearsPro, bull$BuckOuts, xlab='Years Pro', ylab='Buckouts', main='Plot of Years Buckouts')
+#+end_src
+
+**** abline: 近似曲線をつける
+ #+begin_src R
+abline (lm (bull$BuckOuts~bull$YearsPro))
+ #+end_src
+
+*** hist: ヒストグラム
+#+begin_src R
+ hist (animaldata$Age.Intake, main="Histgram of Intage Ages",
+      xlab="Age at Intake")
+#+end_src
+
+** 回帰分析
+*** 線形回帰直線: linFit
+    linFit を利用する.
+
+#+begin_src R :session ex :export both
+linFit (mens800$Year, mens800$Record)
+#+end_src
+
+*** 指数回帰曲線
+    expFit を利用する.
+
+#+begin_src R :session ex :export both :results code
+expFit (time, mv)
+
+# 以下で数年後を予想
+expFitPrid (time, mv, 12)
+#+end_src
+
+
+*** ロジスティック回帰曲線
+    logisticFit を利用する.
+#+begin_src R :session ex :export both :results code
+logisticFit (time, mv)
+
+# 以下で数年後を予想
+logisticFitPrid (time, mv, 12)
+#+end_src
+#+end_src
+
+*** 3 つの回帰線を同時に表示する
+    tripleFit を利用する.
+
+#+begin_src R :session ex :export both :results code
+tripleFit (time, mv)
+#+end_src
 
 * ブックマーク
 ** 文法
   - [[http://cse.naro.affrc.go.jp/takezawa/r-tips/r.html][R-Tips]]
   - [[http://www.okada.jp.org/RWiki/index.php?RjpWiki][RjpWiki - RjpWiki]]
   - [[http://www.is.titech.ac.jp/is-wiki/?maselab%2FR][maselab/R- Dept. of Math. & Comput. Sci.]]
-    

@@ -1,5 +1,7 @@
 #+OPTIONS: toc:nil
 * Blog
+* WordPress
+  
 * SEO
 ** 効果的なタイトル
 * Logical Writing
@@ -128,4 +130,3 @@
 ** 動画編集
 *** recordMyDeskTop
     デスクトップキャプチャー
-

@@ -37,6 +37,11 @@
    - 命令型パラダイム ... コンピュータが行うべき命令の列
    - オブジェクト指向型パラダイム ... オブジェクトとメッセージング
    - 関数型パラダイム ... 関数そのもの.
+
+*** SICP
+    二つの要素をもつ.
+    - データ: 処理したいもの
+    - 手続き: データの処理方法
     
 ** literal: リテラル
    即値 (英: Immediate) ともいい, ソースコード内に値を直接表記したもの.
@@ -59,7 +64,7 @@
     
 *** environments
     識別子と変数の写像関係を環境という.
-    
+
 *** single-assignment store
     単一代入格納域. 
     一度一つの値を束縛したら変更できない変数の集合.定数.
@@ -69,17 +74,43 @@
 ** Type: 型
    -> データ構造・型のページへ移動
     
-** Scope
+** Scope: スコープ
    Valiable の有効範囲.
+   - [[http://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%97][スコープ - Wikipedia]]
 
-  - [[http://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%97][スコープ - Wikipedia]]
+*** Lexical Scope: 静的スコープ
+    静的スコープ.変数はブロックの内側のみ有効. 
+    Static Scoping とも. 字句的スコープともいう.
 
-*** Lexical Scope
-    静的スコープ. 変数はブロックの内側のみ有効. Static Scoping とも.
+**** ブロック構造 (block Structure)
+    手続きの仮引数は局所的である.
+    関数の定義は局所的でない.
+
+    手続きをブラックボックスにするためには,
+    利用者に必要のない関数は隠蔽する必要がある.
+
+    定義の入れ子を *ブロック構造* という.
+    ブロック構造の中で定義された関数は局所的である.
+
+    できるだけブロックを利用することで
+    巨大問題を, 扱える部品に分割できる.
+
+    SICP p17 より.
 
 *** Dynamic Scope
+    Emacs Lisp は ダイナミックスコープを採用している.
+    
+#+BEGIN_QUOTE
+Emacs Lisp は, アプリケーション・プログラミングで使われる方言群である
+Scheme や Common Lisp とは根本的に異なる. 大きな違いの 1 つは,
+デフォルトで字句的スコープではなく動的スコープを使うことである. つま
+り, 呼出し関数の局所変数は, ポインタや参照を渡さなくとも, 呼び出され
+た関数から参照できる.
+#+END_QUOTE
+ - [[http://ja.wikipedia.org/wiki/Emacs_Lisp][Emacs Lisp - Wikipedia]]
+ - [[http://jutememo.blogspot.jp/2012/03/blog-post.html][レキシカルスコープとダイナミックスコープ | すぐに忘れる脳みそのためのメモ]]
 
-** State
+** State: 状態
    State (状態) とは, 必要とされる計算の途中結果を含む, 値の時系列.
    (sequence of values calculated progressively,
    which contains the intermediate results of a computation)
@@ -93,12 +124,11 @@
     Function Paradium ではできない. State があればできる.
 
 ** Evaluation Strategy
-   評価戦略.
+   評価戦略. Substitutonal Rule (代入規則) とも.
 
    プログラミング言語や, ラムダ計算のような式から成る計算模型において,
    如何なる手順で, 評価すなわち式から値を得るか,
    という (通常決定的な) 規則群.
-
    - [[http://ja.wikipedia.org/wiki/%E8%A9%95%E4%BE%A1%E6%88%A6%E7%95%A5][評価戦略 - Wikipedia]]
 
 *** Call-by-Name (名前呼び)
@@ -146,7 +176,6 @@
 
    例外をつかわないと, コンテクストごとの結果を検証必要があり,
    case 文が乱立するうんこコードが出来る.
-
 *** 例外の種類
     - Asynchronous  Exceptions: 非同期例外
     - Synchronous  Exceptions: 同期例外
@@ -188,7 +217,6 @@
 
     数学に置ける関数の概念に近い. ある集合から集合への写像.
     - [[http://ja.wikipedia.org/wiki/%E9%96%A2%E6%95%B0_(%E6%95%B0%E5%AD%A6)][関数 (数学) - Wikipedia]]
-
 
 * Semantics
   プログラム意味論. 
@@ -283,7 +311,6 @@ CE={Fact → fact}. ( Contectual Environment)
     - [[http://www.vdmtools.jp/modules/tinyd1/index.php?id=1][VDM information web site - VDM とは?]]
 
 *** Proof-Driven Development (証明駆動開発)
-
 
 ** Denotational semantics: 記述的意味論
    Explains a program as a function over an
@@ -631,7 +658,56 @@ end
    - [[http://usrnameu1.tumblr.com/post/43282442181][数学が専攻でないプログラマー屋さんが「それでも圏論を勉強したい」というのならば, まず意識改革が必要だと... - ktkr!!!]]
    - https://github.com/scalajp/introduction-to-category-theory-in-scala-jp/wiki
 
-* Books
+* SICP
+** Chapter 1::        Building Abstractions with Procedures
+  手続きによる抽象
+  - 複数の単純な考えを合成して 1 つにする.
+  - 2 つの考えを同時に見えるように 1 つのもので繋ぐ.
+    その実在においてそれらに付随しているほかの考えからそれらを分離する
+
+  言語は以下の仕掛けを有している.
+
+  - primitive expressions 基本式: 
+     - which represent the simplest entities the language is concerned with,
+     - 言語が関わるもっとも単純なものを表す.
+
+#+begin_src emacs-lisp
+1
+#+end_src
+
+  - means of combination 組み合わせ法: 
+     - by which compound elements are built from simpler ones.
+     - より単純なものから合成物をつくる
+
+#+begin_src emacs-lisp
+(* 1 1)
+#+end_src
+
+  - means of abstraction 抽象化法: 
+     - by which compound elements can be named and manipulated as units.
+     - 合成物に名をつけ, 単一のもとして扱う.
+
+#+begin_src emacs-lisp
+(defun square (x) (* x x))
+#+end_src
+
+   これは, 以下の糖衣構文となっている. 
+   Lisp インタプリタは実際には以下のように解釈している.
+
+#+begin_src emacs-lisp
+(defun square
+    (lambda (x) (* x x))
+
+(square (square (square 2)))
+#+end_src
+
+   lmabda は procedure を生成する. 
+
+** Chapter 2::        Building Abstractions with Data
+** Chapter 3::        Modularity, Objects, and State
+** Chapter 4::        Metalinguistic Abstraction
+** Chapter 5::        Computing with Register Machines
+
 * Links
 - [[http://www.ibm.com/developerworks/jp/opensource/library/itm-progevo1/][プログラミング言語の進化を追え: 第 1 回 サルでも分かるプログラミング言語の新潮流 (前篇)]]
 - [[http://www.ibm.com/developerworks/jp/opensource/library/itm-progevo2/index.html][プログラミング言語の進化を追え: 第 2 回 サルでも分かるプログラミング言語の新潮流 (後篇)]]

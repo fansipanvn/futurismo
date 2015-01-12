@@ -3,83 +3,97 @@
 #+DATE: [2014-07-25 金 22:54]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
 #+CATEGORY: 技術メモ, Emacs
-#+TAGS: 
-#+DESCRIPTION: Emacsでpdf-toolsをうごかすのにいろいろハマったメモ
-#+TITLE: Emacsでpdf-toolsをうごかすのにいろいろハマったメモ
-
-Emacsでpdf-toolsを動かすのにいろいろハマったので、解決するまでのメモです。
+#+TAGS: pdf
+#+DESCRIPTION: Emacs で pdf-tools をうごかすのにいろいろハマったメモ
+#+TITLE: Emacs で pdf-tools をうごかすのにいろいろハマったメモ
 
 #+BEGIN_HTML
 <img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
 #+END_HTML
 
+* はじめに
+  Emacs で pdf-tools を動かすのにいろいろハマったので, 解決するまでのメモです.
+
 ** Environment
    - ArchLinux
    - Emacs 24.3.1
 
-* さて、コンパイルが通らない！
-今は、ArchLinuxをつかっているが、以前はLinux Mintを利用してた。
+* 苦難の道
+** さて, コンパイルが通らない!
+   *15/01/03 追記 この問題は最新版ではでない*
 
-その環境ではなんの問題もなくインストールできたのだが、
-環境かArchLinuxに変わったらコンパイルが通らなくなっちゃた。
+   今は, ArchLinux をつかっているが, 以前は Linux Mint を利用してた.
 
-forkして、いろいろいじくって、強引にコンパイルを通した。
+   その環境ではなんの問題もなくインストールできたのだが,
+   環境か ArchLinux に変わったらコンパイルが通らなくなっちゃた.
 
-- https://github.com/tsu-nera/pdf-tools
+   fork して, いろいろいじくって, 強引にコンパイルを通した.
+   - https://github.com/tsu-nera/pdf-tools
 
-#+begin_src 
+   #+begin_src 
 ./configure & make
 make install
-#+end_src
+   #+end_src
 
-* doc-view-modeが動かん！
-まず、doc-view-modeでPDFが見れない！
+** doc-view-mode が動かん!
+   まず, doc-view-mode で PDF が見れない!
 
-どうも、GhostScriptというものを入れる必要があるようだ。
+   どうも, GhostScript というものを入れる必要があるようだ.
+   - [[http://www.idryman.org/blog/2013/05/20/emacs-and-pdf/][Emacs and PDF - Carpe diem (Felix's blog)]]
 
-- [[http://www.idryman.org/blog/2013/05/20/emacs-and-pdf/][Emacs and PDF - Carpe diem (Felix's blog)]]
+   ということで, インストール.
 
-ということで、インストール。
-
-#+begin_src language
+ #+begin_src language
 sudo pacman -S ghostscript
-#+end_src
+ #+end_src
 
-* それでもPDFみれない！
-それでも、PDFが見れない。
+** それでも PDF みれない!
+ それでも, PDF が見れない.
 
-どうも、no windowsモードで閲覧しようとしたことが原因。
+ どうも, no windows モードで閲覧しようとしたことが原因.
 
-#+begin_src language
+ #+begin_src language
 emacsclient -nw
-#+end_src
+ #+end_src
 
-フレームを作成するモードで立ち上げる。
+ フレームを作成するモードで立ち上げる.
 
-#+begin_src language
+ #+begin_src language
 emacsclient -c
+ #+end_src
+
+ やっと, Emacs で PDF 見れた!!
+
+** めっちゃおそい!
+   閲覧には成功したけれども, 閲覧していると Emacs がものすごく重い!
+
+   これは, ストレスを通り越して, 使えないレベルだ. .
+   いろいろ調べると, linum-mode が悪さをしていることが判明.
+   - [[http://stackoverflow.com/questions/16132234/how-can-i-speed-up-emacs-docview-mode][How can I speed up Emacs DocView mode? - Stack Overflow]]
+
+
+   どうも, doc-view-mode がめちゃくちゃ遅い!linum-mode が有効なことが原因.
+   以下のページを参考に, major-mode が 
+   - doc-view-mode
+   - pdf-view-mode
+   のときは, linum-mode は disable に.
+   - [[http://stackoverflow.com/questions/16132234/how-can-i-speed-up-emacs-docview-mode][How can I speed up Emacs DocView mode? - Stack Overflow]]
+
+** pdf-info-epdfinfo-program error がでる.
+   pdf-info-epdfinfo-program の変数が設定されていないとのエラー.
+
+   リポジトリの src/epdfinfo のパスを設定.
+
+#+begin_src emacs-lisp
+(setq pdf-info-epdfinfo-program "/path/to/pdf-tools/src/epdfinfo")
 #+end_src
 
-やっと、EmacsでPDF見れた！！
-
-* めっちゃおそい！
-閲覧には成功したけれども、閲覧しているとEmacsがものすごく重い！
-
-これは、ストレスを通り越して、使えないレベルだ。。
-いろいろ調べると、linum-modeが悪さをしていることが判明。
-
-- [[http://stackoverflow.com/questions/16132234/how-can-i-speed-up-emacs-docview-mode][How can I speed up Emacs DocView mode? - Stack Overflow]]
-
-以下のページを参考に、major-modeが doc-view-modeのときは、linum-modeはdisableに。
-
-- [[https://github.com/Khady/emacs.d/blob/master/setup-linum.el][emacs.d/setup-linum.el at master · Khady/emacs.d]]
-
-* ついにPDFが見れるようになった～～！！
-というわけで、めちゃくちゃ茨の道だったものの、
-何とかPDFが快適にEmacsで閲覧できるようになりました。わーい ^^
+* おわりに
+** ついに PDF が見れるようになった~~!!
+   というわけで, めちゃくちゃ茨の道だったものの,
+   何とか PDF が快適に Emacs で閲覧できるようになりました. わーい ^^
 
 ** Special Thanks
-  pdf-tools自体のつかいかたは、この記事がとても参考になりました。
-  pdf-occurとか、pdf-isearchとか、便利。
-
-   - [[http://sheephead.homelinux.org/2014/03/17/7076/][Emacs上のPDFでisearch,occur,imenuとかなんでもしてしまうpdf-toolsの紹介 | sheephead]]
+  pdf-tools 自体のつかいかたは, この記事がとても参考になりました.
+  pdf-occur とか, pdf-isearch とか, 便利.
+   - [[http://sheephead.homelinux.org/2014/03/17/7076/][Emacs 上の PDF で isearch,occur,imenu とかなんでもしてしまう pdf-tools の紹介 | sheephead]]

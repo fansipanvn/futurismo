@@ -1,0 +1,12 @@
+#+OPTIONS: toc:nil
+* 確率
+  物事が発生する度合い. 
+  - [[http://ja.wikipedia.org/wiki/%E7%A2%BA%E7%8E%87][確率 - Wikipedia]]
+  
+** 確率と統計の違い
+   確率的な状況 (一般には確率変数の従う分布) が既知のものを扱うのが確率論.
+   確率的な状況が未知の場合に, 未知のものを予想するのが統計学.
+   - [[http://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q12102410782][統計学と確率論の違いは何ですか? - 例えばですが, 1 個のサイコ... - Yahoo! 知恵袋]]
+
+   理屈を述べるのが確率論で実際にデータをとって分析するのが統計学
+   -  [[http://oshiete.goo.ne.jp/qa/3265510.html][確率論と統計学について - 数学 - 教えて!goo]]

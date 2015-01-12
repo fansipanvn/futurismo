@@ -1,19 +1,195 @@
 #+OPTIONS: toc:nil
 * Emacs Lisp
+  2015 年 勉強開始!
 
-* 遅延評価
-  - [[http://d.hatena.ne.jp/sugyan/20120103/1325594116][起動時に必ず読み込む必要ない関数なら autoload を使う - すぎゃーんメモ]]
+* 特徴
+  - 末尾再帰の最適化をしない
+  - 動的スコープ
+    Emacs24 からは, 静的スコープも利用できる!
+    - [[http://sakito.jp/emacs/emacs24.html#emacs-lisp-lexical-binding][Emacs24 のインストールと新機能 : 紹介マニア]]
+  - 関数型言語ではない.
+    このひとがなんとか頑張っている.
+    - [[http://www.slideshare.net/takeshiokada184/20140511-34538055][XMonad-oid on Emacs & More functional Emacs Lisp | 関数型 LT 大会]]
 
-これだと, Emacs 起動時に require される.
+* 文法
+** インクリメント
+   1+ 1-という記法がある. また incf, decf という関数もある.
+   - [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Arithmetic-Operations.html][Arithmetic Operations - GNU Emacs Lisp Reference Manual]]
 
 #+begin_src emacs-lisp
+(setq test-value 0)
+(setq test-value (+ test-value 1))
+(setq test-value (1+ test-value))
+(incf test-value)
+
+(setq test-value (1- test-value))
+(decf test-value)
+#+end_src
+
+#+RESULTS:
+: 1
+
+** ガード処理
+   条件をみたさない場合は, 処理を途中で中断したい.
+   - return を 返すのは発想が手続き的.
+
+   if, when を利用する.
+   - [[http://stackoverflow.com/questions/16547908/elisp-function-return-value][emacs - Elisp function return value - Stack Overflow]]
+   
+** 遅延評価
+   - [[http://d.hatena.ne.jp/sugyan/20120103/1325594116][起動時に必ず読み込む必要ない関数なら autoload を使う - すぎゃーんメモ]]
+
+ これだと, Emacs 起動時に require される.
+
+ #+begin_src emacs-lisp
 (require 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-#+end_src
+ #+end_src
 
-これだと, .js を開いたときに require される.
+ これだと, .js を開いたときに require される.
 
-#+begin_src emacs-lisp
+ #+begin_src emacs-lisp
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+ #+end_src
+
+** Scope
+   Emacs の標準はダイナミックスコープ.
+   
+   しかし, Emacs24 からは, ファイルの先頭に以下を書くと,
+   setq で宣言した変数は本当の Lexical Scope になる.
+
+#+begin_src emacs-lisp
+-*- lexical-binding: t -*- 
 #+end_src
+
+** Bookmarks
+  - [[http://d.hatena.ne.jp/syohex/20121230/1356850677][よくある処理を Emacs Lisp で書く場合 - Life is very short]]
+
+* コーディング規約
+  どうも暗黙の規約のようなものがあるように思えてならない.
+
+  規約? のようなものを書きためていくことにする.
+  - [[http://www.bookshelf.jp/texi/elisp-manual/21-2-8/jp/elisp_42.html#SEC662][GNU Emacs Lisp リファレンスマニュアル: B. ヒントと慣習]]
+  - [[http://www.slideshare.net/hayato_hashimoto/lisp-1-12901654][kyotolisp#1 LT3 美しい Lisp の書き方 (1)]]
+
+** TODO ファイル形式
+   Yasnippet にする.
+
+#+begin_src emacs-lisp
+;;; filename --- description
+
+;; Header ....
+
+;;; Code:
+(require 'foo)
+
+(defgroup hogegroup nil
+  "Hoge in Emacs"
+  :prefix "hoge:"
+  :group 'hoge)
+
+(defcustom hoge:xxx nil
+  "Hoge valuable"
+  :group 'hoge
+  :type 'string)
+
+; ...
+
+(defvar hoge:foo nil)
+
+; ...
+
+(defun hoge:reset ()
+
+)
+
+; ...
+
+;;;###autoload
+(defun hoge:hoge-start ()
+  "public functions"
+)
+
+; ...
+
+(provide 'hoge)
+
+;;; filename ends here
+#+end_src
+
+*** ;; filename --- desc
+
+*** ;; ヘッダ情報
+    記述方法ががここにまとまっている.
+    - [[http://www.bookshelf.jp/texi/elisp-manual/21-2-8/jp/elisp_42.html#SEC662][GNU Emacs Lisp リファレンスマニュアル: B. ヒントと慣習]]
+
+*** ;;; Code:
+    コードをここから書き始める.;;; Code:をつける
+
+*** requiere
+    依存する elisp があれば, ここに書く.(目立つように)
+
+*** defgroup
+
+*** defcustom
+
+*** autoload
+    ユーザに公開する関数は, ファイルの末尾に書き溜める.
+
+    書き始めには以下の宣言を書く.
+   
+ #+begin_src emacs-lisp
+;;;###autoload
+ #+end_src
+
+*** provide
+    ユーザがよみこむための宣言.
+
+** 命名規約
+   Lisp 系言語は 
+   - 小文字.
+   - 単語と単語の間は - をいれる.
+
+** indent
+  カッコはまとめて閉じる.
+
+#+begin_src emacs-lisp
+(hoge
+(hoge
+(hoge)))
+#+end_src
+
+  M-x  indent-sexp で整える.
+
+* デバッグ/ テスト
+** print debug
+
+#+begin_src emacs-lisp
+# This is useful for printing values
+(message "Hello (%s)" foo)
+
+# but doesn't work so well for data structures. For that, use
+(prin1 list-foo)
+#+end_src
+   
+** edebug
+* モード作成
+** minor-mode
+   define-minor-mode を利用して作成する.
+   - [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Defining-Minor-Modes.html][Defining Minor Modes - GNU Emacs Lisp Reference Manual]]
+
+*** オブション
+   - :lighter -- the name, a string, to show in the modeline
+   - :keymap -- the mode's keymap
+   - :global -- specifies if the minor mode is global (default nil)
+
+*** Easy-Mmode 
+   Emacs に default で入っている.
+   - [[http://tech.feedforce.jp/emacs-minor-mode.html][Easy-Mmode を使って Emacs のマイナーモードを作る | feedforce Engineers' blog]]
+
+*** Bookmarks
+   簡単な例による説明.
+   - [[http://nullprogram.com/blog/2013/02/06/][How to Make an Emacs Minor Mode « null program]]
+   xxx-mode-map をどう定義するか?
+   - [[http://stackoverflow.com/questions/3115104/how-to-create-keybindings-for-a-custom-minor-mode-in-emacs][keyboard shortcuts - How to create keybindings for a custom minor mode in Emacs - Stack Overflow]]

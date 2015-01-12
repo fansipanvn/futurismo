@@ -26,7 +26,7 @@
  - [[http://natu.txt-nifty.com/natsutan/2007/09/sicp_by_a6a2.html][「計算機プログラムの構造と解釈 (SICP) 」を読み終えて by なつたん: なつたん]]
  - [[http://coder.lv9.org/rinks/sicp.html][SICP - 残業プログラマのためのスキルアップリンク集]]
 
-* Coursece
+* Coursera
 ** MIT courseware: Structure and Interpretation of Computer Programs
    MIT が提供する Online 講義.無料.
    なんと, 著者の Sussman and Abelson が説明を担当.

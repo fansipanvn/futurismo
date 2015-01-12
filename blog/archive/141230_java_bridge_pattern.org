@@ -1,3 +1,6 @@
+#+BLOG: Futurismo
+#+POSTID: 2864
+#+DATE: [2014-12-30 火 23:46]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
 #+CATEGORY: 技術メモ
 #+TAGS: Java, Gof, 
@@ -165,3 +168,8 @@ class English extends Language {
 	}
 }
 #+end_src
+* 実行結果
+
+#+BEGIN_HTML
+<iframe src="https://paiza.io/projects/e/XNAA0j3Cm_f5_VqFKgxOKg?theme=monokai" width="100%" height="500" scrolling="no" seamless="seamless"></iframe>
+#+END_HTML

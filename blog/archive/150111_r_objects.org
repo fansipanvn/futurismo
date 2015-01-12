@@ -1,0 +1,310 @@
+#+BLOG: Futurismo
+#+POSTID: 2926
+#+DATE: [2015-01-11 日 22:25]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: R
+#+DESCRIPTION:  R のオブジェクトについてのまとめ
+#+TITLE: R のオブジェクトについてのまとめ
+
+* はじめに
+  最近, R 言語を学び始めた. データ型について整理してみた.
+
+* Atomic Classes of Objects
+ R には 5 つのアトミックなオブジェクトがある.
+ - charactor
+ - numeric (real number)
+ - integer
+ - complex
+ - ligical (true/false)
+
+* Basic Objects
+  もっとも基本的なオブジェクトは vector.
+
+** vetor
+    c で vector を生成する.
+
+#+begin_src R :session ex :export both :results code
+  a <- c (0.5, 0.6)    # numeric
+  b <- c (TRUE, FALSE) # logial
+  c <- 0:5             # integer     
+  d <- c ("a", "b", "c") #chalactor
+#+end_src
+
+   型の混合も許す. tuple のような機能も併せ持つ.
+
+#+begin_src R :session ex :export both :results code
+a <- (1,7, "a")
+b <- (TRUE, "a")
+#+end_src
+
+#+begin_src R :session ex :export both :results code
+x <- 0:6
+class (x)
+#+end_src
+
+#+BEGIN_SRC R
+integer
+#+END_SRC
+
+** list
+    vector の特殊な形. 異なる型の vector を一つにまとめる.
+
+#+begin_src R :session ex :export both :results code
+x <- list (1, "a", TRUE, 1 + 4i)
+x
+#+end_src
+
+#+BEGIN_SRC R
+1	a	TRUE	1+4i
+#+END_SRC
+
+** Matrices
+    次元の性質をもつ vector. matrix 関数で生成.
+
+#+begin_src R :session ex :export both :results code
+m <- matrix (nrow = 2, ncol = 3)
+m
+#+end_src
+
+#+BEGIN_SRC R
+nil	nil	nil
+nil	nil	nil
+#+END_SRC
+
+#+begin_src R :session ex :export both :results code
+m <- matrix (1:6, nrow = 2, ncol = 3)
+m
+#+end_src
+
+#+BEGIN_SRC R
+1	3	5
+2	4	6
+#+END_SRC
+
+*** dim
+    dim 関数をつかうと vector に 次元の性質を与えることができる.
+
+#+begin_src R :session ex :export both :results code
+m <- 1:10
+dim (m) <- c (2,5)
+m
+#+end_src
+
+#+BEGIN_SRC R
+1	3	5	7	9
+2	4	6	8	10
+#+END_SRC
+
+*** cbind-ing and rbind-ing
+    cbind, rbind を利用しても, vector から matrix を生成できる.
+
+    #+begin_src R :session ex :export both :results code
+     x <- 1:3
+     y <- 10:12
+     cbind (x, y)
+    #+end_src
+
+     #+BEGIN_SRC R
+     1	10
+     2	11
+     3	12
+     #+END_SRC
+
+#+begin_src R :session ex :export both :results code
+rbind (x,y)
+#+end_src
+
+#+BEGIN_SRC R
+1	2	3
+10	11	12
+#+END_SRC
+
+** Factors
+   vector の特殊なかたち. categorical data を扱う.
+
+   integer vector について, それぞれの integer に label があるようなもの.
+
+   enum 列挙型 ともいえる.factor 関数で作成.
+
+#+begin_src R :session ex :export both :results code
+x <- factor (c ("yes", "no", "no", "yes", "no"), labels = c ("yes", "no"))
+table (x)
+#+end_src
+
+#+BEGIN_SRC R
+yes	3
+no	2
+#+END_SRC
+
+** Data Frame
+   list の特殊なかたち. list の list. 
+
+    - list のなかのすべての list が同じ length をもつ必要がある.
+    - list の中の list は column とみなされる.
+    - list の中の各要素の番号は row とみなされる.
+
+    - 通常は, rad.table (), read.csv によって生成される.
+    - data.matrix (x) によって matrix 型に変換できる.
+
+#+begin_src R :session ex :export both :results code
+x <- data.frame (foo = 1:4, bar = c (T,T,F,F))
+#+end_src
+
+#+BEGIN_SRC R
+1	TRUE
+2	TRUE
+3	FALSE
+4	FALSE
+#+END_SRC
+
+** names
+   オブジェクトには名前をつけることができる. 可読性を向上させる.
+
+#+begin_src R :session ex :export both :results code
+x <- 1:3
+names (x) <- c ("foo", "bar", "norf")
+#+end_src
+
+#+begin_src R :session ex :export both :results code
+x <- 1:3
+names (x) <- c ("foo", "bar", "norf")
+
+m <- matrix (1:4 nrow = 2, ncol = 2)
+dimname (m) <- list (c ("a", "b"), c ("c", "d"))
+#+end_src
+
+* Subsetting: 部分集合
+  サブセット (部分集合).
+
+** vector
+
+#+begin_src R :session ex :export both :results code
+x <- c ("a", "b", "c", "c", "d", "a")
+x[1:4]
+#+end_src
+
+#+BEGIN_SRC R
+a
+b
+c
+c
+#+END_SRC
+
+条件を指定して, 部分を抽出することができる.
+
+#+begin_src R :session ex :export both :results code
+x[x > "a"]
+#+end_src
+
+#+BEGIN_SRC R
+b
+c
+c
+d
+#+END_SRC
+
+** list
+
+#+begin_src R :session ex :export both :results code
+x <- list (foo = 1:4, bar = 0.6)
+
+# index で指定
+x[1]
+
+# $で指定
+x$bar
+#+end_src
+
+** Marix
+
+#+begin_src R :session ex :export both :results code
+x <- matrix (1:6, 2, 3)
+#+end_src
+
+#+BEGIN_SRC R
+1	3	5
+2	4	6
+#+END_SRC
+
+, を利用することで, 行や列だけを vector として抽出.
+
+#+begin_src R :session ex :export both :results code
+x[1,]
+#+end_src
+
+#+BEGIN_SRC R
+1
+3
+5
+#+END_SRC
+
+*** NA Values を取り除く
+    complete.cases で調べる.
+
+   #+begin_src R :session ex :export both :results code
+   x <- c (1, 2, NA, 4, NA, 5)
+   y <- c ("a", "b", NA, "d", NA, "f")
+   good <- complete.cases (x, y)
+   good
+   #+end_src
+
+   #+RESULTS:
+   #+BEGIN_SRC R
+   TRUE
+   TRUE
+   FALSE
+   TRUE
+   FALSE
+   TRUE
+   #+END_SRC
+
+#+begin_src R :session ex :export both :results code
+x[good]
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC R
+1
+2
+4
+5
+#+END_SRC
+    
+* Operations
+** vector
+#+begin_src R :session ex :export both :results code
+x <- 1:4, y <- 4:9
+x + y
+x * y
+x / y
+#+end_src
+
+#+begin_src R :session ex :export both :results code
+x <- matrix (1:4, 2, 2) 
+#+end_src
+
+#+BEGIN_SRC R
+1	3
+2	4
+#+END_SRC
+
+** matrix
+
+#+begin_src R :session ex :export both :results code
+y <- matrix (rep (10, 4), 2, 2)
+#+end_src
+
+#+BEGIN_SRC R
+10	10
+10	10
+#+END_SRC
+
+#+begin_src R :session ex :export both :results code
+x * y
+#+end_src
+
+#+BEGIN_SRC R
+10	30
+20	40
+#+END_SRC

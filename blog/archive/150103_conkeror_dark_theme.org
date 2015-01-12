@@ -1,0 +1,49 @@
+#+BLOG: Futurismo
+#+POSTID: 2902
+#+DATE: [2015-01-03 土 02:13]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: conkeror
+#+DESCRIPTION:conkeror の 黒背景 & ダークテーマの紹介
+#+TITLE: conkeror の 黒背景 & ダークテーマ で 目に優しいクールなブラウザをつかおう!
+
+* はじめに
+  ブラウザは conkeror を 利用しています.
+  - http://conkeror.org/
+
+  今回, 黒背景と黒テーマを偶然にも発見した.
+
+  設定したらあまりにもカッコ良かったのでメモする.
+
+** 黒 Google 検索
+   白い Google 検索が嫌いだった. 待ってたよ, Dark Google!!
+
+   - [[file:./../img/2015-01-03-021058_704x433_scrot.png]]
+
+* 黒背景
+  ここで手に入る.
+  https://github.com/scottjad/dotfiles/blob/master/.conkerorrc/color-theme.js
+
+  カスタマイズを解説した動画もある.
+  #+BEGIN_HTML
+  <iframe width="560" height="315" src="//www.youtube.com/embed/eh6BBcwx998?rel=0" frameborder="0" allowfullscreen></iframe>
+  #+END_HTML
+
+  .conkerorrc に color-theme.js に取得した color-theme.js を配置する.
+
+* 黒テーマ (zenburn)
+  ここで手に入る.
+  - https://github.com/ivoarch/conkeror-theme-zenburn
+
+  .conkerorrc/themes/ にチェックアウトした.
+
+  .conkerorrc ディレクトリ配下の *.js に以下を.
+
+  #+begin_src js
+  theme_load_paths.unshift ("~/.conkerorrc/themes/");
+  theme_unload ("default");
+  theme_load ("conkeror-theme-zenburn");
+  #+end_src
+
+
+# ./../img/2015-01-03-021058_704x433_scrot.png http://futurismo.biz/wp-content/uploads/wpid-2015-01-03-021058_704x433_scrot.png

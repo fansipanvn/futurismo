@@ -1,0 +1,86 @@
+#+BLOG: Futurismo
+#+POSTID: 2898
+#+DATE: [2015-01-03 土 00:41]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: Elisp, org-mode
+#+DESCRIPTION: Emacs Lisp をはじめて書いてみた 
+#+TITLE: 2015 年の書き初め! Emacs Lisp をはじめて書いてみた 
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* はじめに
+  今年の目標は, Emacs Lisp がかけるようになること. 
+
+  というわけで, 新年早々, Emacs Lisp をはじめて書いてみた.
+
+  書き初めみたいな. ちなみに, 初夢はなにもみなかった.
+
+** はじめて??
+  *はじめて* というと, 正確にはウソ.
+
+  今までは他人の書いた Code をコピペしたり,
+  部分的に書き換えたりしながらつかってきた.
+
+  今回は, コピペではなく, 
+  文法を理解しつつ書いたという意味で, はじめて.
+
+
+** 文法の勉強
+  まずは, 文法を知らないとなにもできないので,
+
+  以下の本のはじめのほうを読む.
+
+  #+BEGIN_HTML
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/Emacs-Lisp%E3%83%86%E3%82%AF%E3%83%8B%E3%83%83%E3%82%AF%E3%83%90%E3%82%A4%E3%83%96%E3%83%AB-%E3%82%8B%E3%81%B3%E3%81%8D%E3%81%A1/dp/4774148970%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774148970' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/51Wg39T8KAL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/Emacs-Lisp%E3%83%86%E3%82%AF%E3%83%8B%E3%83%83%E3%82%AF%E3%83%90%E3%82%A4%E3%83%96%E3%83%AB-%E3%82%8B%E3%81%B3%E3%81%8D%E3%81%A1/dp/4774148970%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774148970' rel='nofollow' target='_blank'>Emacs Lisp テクニックバイブル</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 15.01.03</div><div class='amazlink-detail'>るびきち<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/Emacs-Lisp%E3%83%86%E3%82%AF%E3%83%8B%E3%83%83%E3%82%AF%E3%83%90%E3%82%A4%E3%83%96%E3%83%AB-%E3%82%8B%E3%81%B3%E3%81%8D%E3%81%A1/dp/4774148970%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774148970' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00q0724.n763w947.g00q0724.n763x2b4/?pc=http%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F11411456%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Frms%2Fmsv%2FItem%3Fn%3D11411456%26surl%3Dbook' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
+  #+END_HTML
+
+* 書いたもの
+  もちろん, 他の人の書いたものをベースにして書いた.
+
+** ERC で キーワード が呼ばれたら, Growl で通知
+   Linux では erc-nick-notify があるのだけれども,
+   Windows 環境で 通知する elisp がなかったので,つくってみた.
+
+   つくってみたのだが, テストできないので, テストしていないという. . .
+   
+   元ネタはこれ.
+   - https://gist.github.com/danielsz/ac19353e718dde3dea72
+
+   Windows 環境での Growl の設定は以下を参考にした.
+   - [[http://qiita.com/rohinomiya/items/5e485d6700eac256af9f][Windows で Growl 通知を行う - Qiita]]
+
+   Growl を利用すると, Alt+x, Alt+Shift+x が利用できなくなるという
+   致命的な問題がある. なんと, M-x が利用できない!
+
+   %USERPROFILE%\Local Settings\Application Data\Growl\2.0.0.0\user.config
+
+   で Alt+X とかいてあるところをべつのものに修正すればいい.
+   - [[http://stackoverflow.com/questions/6495050/how-can-i-use-alt-as-meta-key-in-windows-for-emacs-23-especially-m-x][How can I use Alt as meta key in Windows for Emacs 23, especially M-x? - Stack Overflow]]
+   - https://groups.google.com/forum/#!topic/growl-for-windows/Yu3bo3EZ9SA
+
+*** つくったもの 
+   というわけで, 作成したのは以下. 
+   - https://github.com/tsu-nera/dotfiles/blob/master/.emacs.d/mylisp/my-growl-for-windows.el
+
+   初仕事は会社で elisp のデバッグだ!!
+
+** 休憩時間をタイマーではかる
+   休憩時間に休憩中というメッセージを画面に表示して,
+   休憩時間を計測する elisp.
+
+   こんな感じ.
+
+   [[file:./../img/150102_elisp.jpg]]
+
+   以下を参考にした.
+    - https://github.com/danieroux/emacs/blob/master/external/bh-org-mode.el
+    - https://github.com/syohex/emacs-utils/blob/master/pomodoro.el
+
+*** つくったもの 
+   - https://github.com/tsu-nera/dotfiles/blob/master/.emacs.d/mylisp/my-org-clockin-gtd.el
+
+
+# ./../img/150102_elisp.jpg http://futurismo.biz/wp-content/uploads/wpid-150102_elisp.jpg

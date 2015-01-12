@@ -1,0 +1,22 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: 
+
+* はじめに
+  今年の目標はデータ解析力を身につけること.
+
+  
+
+* Coursera の データサイエンティストシリーズの紹介の講座
+
+* データサイエンティストに必要なツールを身につける講座
+  - R
+  - RStudio
+  - git
+  - github
+
+** Environment
+** Special Thanks
+   

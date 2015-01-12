@@ -1,18 +1,26 @@
+#+BLOG: Futurismo
+#+POSTID: 2910
+#+DATE: [2015-01-05 月 00:00]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
-#+CATEGORY: 技術メモ
-#+TAGS:
-#+DESCRIPTION:
-#+TITLE: Immutable Emacs
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: AWS, インフラ, ansible, Ubuntu
+#+DESCRIPTION: AWS 上の Ubuntu サーバに ansible で Emacs 環境を自動構築する
+#+TITLE: Immutable Emacs! AWS 上の Ubuntu サーバに ansible で Emacs 環境を自動構築する
 
 #+BEGIN_HTML
 <img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
 #+END_HTML
 
 * はじめに
-  今年になって, Immutable Infrastructure という言葉を知った.
+  去年, Immutable Infrastructure という言葉を知った.
   - [[http://futurismo.biz/archives/2355][インフラ業界の気になるキーワードについて調べてみた | Futurismo]]
 
   この概念を Emacs の管理に利用できないかなとという話.
+
+  これをやろうと考えたのは, 去年の 6 月だった. この記事の延長が本記事.
+  - [[http://futurismo.biz/archives/2492][実行可能なドキュメント生成!Ansible と Org-mode で実現する Run Book Automation (RBA) | Futurismo]]
+
+  なかなか時間がとれなくて, 結局半年後の冬休みにようやくできた.
 
 * 問題の分析
 ** 問題
@@ -102,9 +110,192 @@
     - 毎週深夜に, Emacs 環境を自動で構築する.
 
 * 解決へのとりくみ
+  Windows 環境はなにかと難しいとおもったので,
+  まずは, Linux 環境を構築することにした.
+
+  というわけで, この記事のゴールは,
+
+  *AWS 上に Emacs と自分の Emacs の設定を自動でインストールすること* 
+
+  名づけて,
+
+  *Immutable Emacs!* 大作戦.
+
+  響きがとても気に入った!
+  
 ** AWS を借りる
    別記事に独立.
    - [[http://futurismo.biz/archives/2847][AWS の Amazon EC2 で Windows サーバを立ち上げて リモートデスクトップ接続してみた | Futurismo]]
 
-** AWS 上のサーバで Emacs 環境を構築する
-** AWS 上でサーバで エラチェックーを走らせる
+   ここでは, Ubuntu Server 14.04 LTS (HVM), SSD Volume Type をつかう.
+
+** ansible で Amazon AWS に SSH 接続
+   なれている, ansible を利用する.
+   - [[http://futurismo.biz/archives/2490][自分のデスクトップ環境の歴史を記録する!ansible で設定ファイルをクラウド管理する方法 | Futurismo]]
+
+#+begin_src bash
+mkdir -p  ~/.emacs.d/playbook
+cd ~/.emacs.d/playbook
+echo '54.65.121.127' >> hosts
+#+end_src
+
+   以下の作業はすべて,~/.emacs.d/playbook で実施.
+
+   ansible.cfg ファイルを作成.
+
+#+begin_src bash
+   [defaults]
+   hostfile = ./hosts
+   remote_user = ubuntu
+   private_key_file = ~/.ssh/archlinux.pem
+   host_key_checking = False
+#+end_src
+
+   ping する.
+
+#+begin_src bash
+ansible all -m ping -i hosts
+#+end_src
+
+#+begin_src bash
+54.64.58.11 | success >> {
+    "changed": false, 
+    "ping": "pong"
+}
+#+end_src
+
+* ansible playbook
+  org-mode で書いたものは, 以下のスクリプトで yaml に変換する.
+
+#+begin_src bash
+#!/bin/sh
+# -*- mode: shell-script -*-
+#
+# tangle files with org-mode
+# see: http://orgmode.org/manual/Batch-execution.html
+#
+DIR=`pwd`
+FILE=""
+
+for i in $@; do
+    # tangle org to yaml
+    emacs -Q --batch --eval "(progn
+     (add-to-list 'load-path \"/usr/share/emacs/site-lisp/org\")
+     (require 'org) (require 'ob) (require 'ob-tangle)
+     (setq org-src-preserve-indentation t)
+     (find-file (expand-file-name \"$i\" \"$DIR\"))
+     (org-babel-tangle)
+     (kill-buffer))" 2>&1 | grep tangled
+
+    # execute ansible command to yml file
+    string_filename=${i##*/}
+    string_filename_without_extension=${string_filename%.*}
+    string_path=${i%/*}
+
+    if test $string_filename = $i ; then
+	ansible-playbook ${string_filename_without_extension}.yaml -i hosts
+    else
+	ansible-playbook ${string_path}/${string_filename_without_extension}.yaml -i hosts
+    fi
+done
+#+end_src
+
+  ここからは実際の ansible playbook を書く.
+  - https://github.com/tsu-nera/dotfiles/blob/master/.emacs.d/playbook/amazon-aws-ubuntu.org
+
+** ansible settig
+
+#+begin_src text
+---
+- hosts: defaults
+  sudo: yes
+  vars:
+    home_dir: /home/ubuntu
+    emacs_dir: emacs
+    dotfiles_dir: dotfiles
+  tasks:
+#+end_src
+
+** initial tools
+   - libncurses5-dev は tputs error 対策
+   - gnutls-bin for el-get
+   - texinfo for makeinfo
+
+#+begin_src text
+    - name: apt-get update
+      command: apt-get update
+    - name: apt-get install git
+      apt: pkg=git
+    - name: apt-get install build tools
+      apt: pkg=build-essential,autoconf,automake,libncurses5-dev,gnutls-bin,texinfo
+#+end_src
+
+*** bookmarks
+   - [[http://gihyo.jp/admin/serial/01/ubuntu-recipe/0235][第 235 回  Ubuntu 12.04 で Emacs 24.1 を使う:Ubuntu Weekly Recipe|gihyo.jp … 技術評論社]]
+   - [[http://emacs.tsutomuonoda.com/emacs24-1-ubuntu-install/][Emacs24.1 を Ubuntu にインストールする | Emacs の elisp インストール・設定・使い方]]
+
+** install emacs
+  - [[http://qiita.com/seizans/items/f5f052aec1592c47767f][Ansible で git clone させる - Qiita]]
+
+    make -j オブションをつけたら, メモリ枯渇で make が停止した.
+
+#+begin_src text
+    - name: get emacs from git repository
+      git: repo=git://git.savannah.gnu.org/emacs.git dest={{home_dir}}/{{emacs_dir}} accept_hostkey=yes
+    - name: make emacs configure file
+      command: ./autogen.sh chdir={{home_dir}}/{{emacs_dir}}
+    - name: make emacs Makefile
+      command: ./configure --prefix=/usr/local --without-makeinfo --with-x-toolkit=no --without-all chdir={{home_dir}}/{{emacs_dir}}
+    - name: make emacs
+      command: make chdir={{home_dir}}/{{emacs_dir}}
+    - name: install emacs
+      command: make install chdir={{home_dir}}/{{emacs_dir}}
+#+end_src
+
+** install dotfiles
+#+begin_src text
+    - name: clone dotfiles
+      git: repo=https://github.com/tsu-nera/dotfiles.git dest={{home_dir}}/{{dotfiles_dir}}
+    - name: make lnlinks
+      command: ./make_lnlink chdir={{home_dir}}/{{dotfiles_dir}}
+      sudo: yes
+      sudo_user: ubuntu
+#+end_src
+
+** install additinal tools for emacs
+#+begin_src text
+    - name: install additinal tools for pdf-tools
+      apt: pkg=libpng-dev,libz-dev,libpoppler-glib-dev,libpoppler-private-dev 
+    - name: install additinal tools for magit
+      apt: pkg=texinfo
+    - name: install additinal tools for org2blog
+      apt: pkg=bzr
+    - name: install additinal tools for exectable-find
+      apt: pkg=mercurial
+    - name: install additinal tools for cmigemo
+      apt: pkg=cmigemo
+    - name: install additinal tools for ag
+      apt: pkg=silversearcher-ag
+#+end_src
+
+** boot emacs
+   Emacs の boot に, el-get を利用してパッケージを次々にダウンロードする.
+   - https://github.com/tsu-nera/dotfiles/blob/master/.emacs.d/inits/00_el-get.org
+
+#+begin_src text
+    - name: boot emacs first 
+      command: emacs --daemon
+      sudo: yes
+      sudo_user: ubuntu
+    # - name: reboot emacs
+    #   command: emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))' && emacs --daemon
+    #   command: emacs --daemon
+    #   sudo: yes
+#+end_src
+
+* おわりに
+  これで AWS 上で動く Ubuntu サーバに Emacs をインストールすることができた.
+  
+  まだまだ, 改良の余地は大ありだ.まだ, スタート地点.
+
+  dotfiles を育てるように, ansible のコードも育てていきたい.

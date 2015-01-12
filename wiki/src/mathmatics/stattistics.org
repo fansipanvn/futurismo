@@ -1,4 +1,5 @@
 #+OPTIONS: toc:nil
+#+TITLE: Statistics: 統計学
 * Statistics: 統計学
   経験的に得られたバラツキのあるデータから, 
   応用数学の手法を用いて数値上の性質や規則性あるいは不規則性を見いだす学問.
@@ -8,8 +9,8 @@
   - [[http://www.publickey1.jp/blog/10/10_3.html][次の 10 年, 「統計分析」こそテクノロジー分野でいちばんホットな職業になる - Publickey]]
 
   以下のように分類される
-  - 記述統計学
-  - 推定統計学
+  - Descriptive Statistics: 記述統計学
+  - Inferential Statistics: 推定統計学
 
 ** Population and Sample
    母集合と 標本.
@@ -108,11 +109,12 @@ fivenum (x)
     分散の平方根. ばらつきを現す統計量の一つ.
     - [[http://ja.wikipedia.org/wiki/%E6%A8%99%E6%BA%96%E5%81%8F%E5%B7%AE][標準偏差 - Wikipedia]]
 
-
 * Descriptive Statistics: 記述統計学
   収集したデータの平均や分散, 標準偏差などを計算し, 
   分布を明らかにすることで, データの傾向や性質を把握する分野.
   - [[http://ja.wikipedia.org/wiki/%E8%A6%81%E7%B4%84%E7%B5%B1%E8%A8%88%E9%87%8F][要約統計量 - Wikipedia]]
+
+  データの集合を記述することが目的.
 
 ** levels of measurement: 尺度
    データの尺度. それぞれ性質がある.
@@ -164,28 +166,22 @@ fivenum (x)
 *** 折れ線グラフ (Dot Plot)
     定量的変数を現す場合に利用される.
 
-* 推定統計学
+* 推定統計学: Inferential Statistics
   収集できたデータを全体のデータ (母集団) から得られた一部の集団と見なし, 
   その得られたサンプルデータから元の母集団の性質や傾向を推測する分野.
+  - [[http://ja.wikipedia.org/wiki/%E6%8E%A8%E8%A8%88%E7%B5%B1%E8%A8%88%E5%AD%A6][推計統計学 - Wikipedia]]
 
-** 確率分布
-*** Normal Distribution: 正規分布
-    平均値の付近に集積するようなデータの分布を表した
-    連続的な変数に関する確率分布.
-    - [[http://ja.wikipedia.org/wiki/%E6%AD%A3%E8%A6%8F%E5%88%86%E5%B8%83][正規分布 - Wikipedia]]
+  小さいサンプルから大きな母集団の性質や傾向を見つけることが目的.
 
-    確率変数 X が N (μ, σ 2) に従う時, 平均 μ からのずれが 
-    - ± 1 σ 以下の範囲に X が含まれる確率は 68.27%
-    - ± 2 σ 以下だと 95.45%,
-    - ± 3 σ だと 99.73% となる.
-
-   データが正規分布にしたがうとき, 以下の 2 つの統計量が役に立つ
-   - Mean: 平均
-   - Standard Deviation: 標準偏差
+  推定統計学は, さらに細かく以下に分けられる.
+  - Exploratory Data Analysis
+  - Predictive Data Analysis
+  - Casual Data Analysis
+  - Mechanistic Data Analysis
 
 ** 検定
 *** Z-Scores: Z 検定
-   Z 値, Z スコアとも. 
+    Z 値, Z スコアとも. 
    - [[http://ja.wikipedia.org/wiki/Z%E6%A4%9C%E5%AE%9A][Z 検定 - Wikipedia]]
 
 #+begin_src language
@@ -221,21 +217,150 @@ z=(取った得点-平均点)/ 標準偏差
 *** ピアソンの積率相関係数
     - [[http://www.weblio.jp/content/%E3%83%94%E3%82%A2%E3%82%BD%E3%83%B3%E3%81%AE%E7%A9%8D%E7%8E%87%E7%9B%B8%E9%96%A2%E4%BF%82%E6%95%B0][ピアソンの積率相関係数とは - 統計学用語 Weblio 辞書]]
 
+    この計算方法は線形な関係の時しか, 利用できない.
+
+    scatter plot によってまずは視覚化して適用できるかを見極める.
+
 ** 多変量解析
 *** bivariate data: 二変量データ
+**** Contingency Tables: 分割表
+     2 つ以上の変数 (名義尺度が一般的) の間の関係を記録し分析するためのもの.
+     - [[http://ja.wikipedia.org/wiki/%E5%88%86%E5%89%B2%E8%A1%A8][分割表 - Wikipedia]]
 
-* ビッグデータ
-** テクノロジの変化と統計学
-  - 従来では, 数量全体のデータ (全数データ) を得ることができなかった.
-    - 推測統計を活用して, 母集団の特性や傾向を把握し, 
-      その結果から知見や示唆を見出してきた
+     A contingency table or two-way table is used to organize data 
+     from multiple categories of two variables so that 
+     various assessments may be made.
 
-  - 現在では, データが蓄積され, データが大容量化することで
-    推測統計を実施する必要がなく, すべてが記述統計でまかなえるようになった
+**** marginal distribution: 確率分布
+     確率変数の各々の値に対して, その起こりやすさを記述するもの.
+     - [[http://ja.wikipedia.org/wiki/%E7%A2%BA%E7%8E%87%E5%88%86%E5%B8%83][確率分布 - Wikipedia]]
+
+     確率分布は値に確率を対応させる関数 (離散的な, Categorical)
+
+     A marginal distribution is the distribution of data 
+     "in the margin" of a table. It may also be described as the
+     distribution of the data for a single variable.
+     
+** 確率分布/ 統計モデル
+*** Normal Distribution: 正規分布
+    平均値の付近に集積するようなデータの分布を表した
+    連続的な変数に関する確率分布.
+    - [[http://ja.wikipedia.org/wiki/%E6%AD%A3%E8%A6%8F%E5%88%86%E5%B8%83][正規分布 - Wikipedia]]
+
+    確率変数 X が N (μ, σ 2) に従う時, 平均 μ からのずれが 
+    - ± 1 σ 以下の範囲に X が含まれる確率は 68.27%
+    - ± 2 σ 以下だと 95.45%,
+    - ± 3 σ だと 99.73% となる.
+
+   データが正規分布にしたがうとき, 以下の 2 つの統計量が役に立つ
+   - Mean: 平均
+   - Standard Deviation: 標準偏差
+
+*** 線形モデル
+   線形回帰曲線にしたがう確率変数をもつモデル.
+   - [[http://ja.wikipedia.org/wiki/%E4%B8%80%E8%88%AC%E7%B7%9A%E5%BD%A2%E3%83%A2%E3%83%87%E3%83%AB][一般線形モデル - Wikipedia]]
+
+*** 指数モデル: Exponential Models
+    指数関数 (分布) にしたがうモデル.
+    - [[http://ja.wikipedia.org/wiki/%E6%8C%87%E6%95%B0%E5%88%86%E5%B8%83][指数分布 - Wikipedia]]
+
+**** ポアソン分布.
+
+*** ロジスティックモデル: Logistic Models
+    対数関数にしたがうモデル.
+    ベルヌーイ分布に従う変数の統計的回帰モデル.
+    - [[http://ja.wikipedia.org/wiki/%E3%83%AD%E3%82%B8%E3%82%B9%E3%83%86%E3%82%A3%E3%83%83%E3%82%AF%E5%9B%9E%E5%B8%B0][ロジスティック回帰 - Wikipedia]]
+    
+** 回帰分析
+   従属変数 (目的変数) と連続尺度の独立変数 (説明変数) の間に式を当てはめ,
+   従属変数が独立変数によってどれくらい説明できるのかを定量的に分析すること
+
+*** 線形回帰
+   - [[http://ja.wikipedia.org/wiki/%E7%B7%9A%E5%BD%A2%E5%9B%9E%E5%B8%B0][線形回帰 - Wikipedia]]
+
+*** 回帰線: regression line
+    線形回帰直線. 事象と平均の最上二乗法で導出.
+
+* Exploratory Data Analysis: 探索的データ解析
+  未知の関係性を見つけることが目的.
+  - [[http://www.msi.co.jp/splus/products/eda.html][S-PLUS: EDA]]
+
+* Predictive Analysis: 予測解析
+  ある出来事を予測するためにデータを利用することが目的.
+  - [[http://en.wikipedia.org/wiki/Predictive_analytics][Predictive analytics - Wikipedia, the free encyclopedia]]
+
+  確証的データ解析, 仮説検定とも.
   
-* 未分類
+* Causal Data Analysis: 因果分析
+  ある変数が変化したとき, 
+  別の変数になにが起きるかを明かにすることが目的.
 
-   
+* Mechanistic Data Analysis: 機構的解析
+  ある出来事の変数に決定的な変化をもたらす別の出来事の変数を
+  理解することが目的.
+
+* データサイエンス
+  データに関する研究を行う学問.  
+  - [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%BC%E3%82%BF%E3%82%B5%E3%82%A4%E3%82%A8%E3%83%B3%E3%82%B9][データサイエンス - Wikipedia]]
+
+** データとは
+   Data is a set of values of qualitative or quantitative variables.
+   複数個の事象や数値の集合.
+   - [[http://en.wikipedia.org/wiki/Data][Data - Wikipedia, the free encyclopedia]]
+
+** ビッグデータ
+  市販されているデータベース管理ツールや従来のデータ処理アプリケーションで
+  処理することが困難なほど巨大で複雑な データ集合の集積物を表す用語.
+  - [[http://ja.wikipedia.org/wiki/%E3%83%93%E3%83%83%E3%82%B0%E3%83%87%E3%83%BC%E3%82%BF][ビッグデータ - Wikipedia]]
+
+  技術のフロンティア.
+ 
+  イノベーションはビッグデータから開ける可能性がある.
+
+*** テクノロジの変化と統計学
+   - 従来では, 数量全体のデータ (全数データ) を得ることができなかった.
+     - 推測統計を活用して, 母集団の特性や傾向を把握し, 
+       その結果から知見や示唆を見出してきた
+
+   - 現在では, データが蓄積され, データが大容量化することで
+     推測統計を実施する必要がなく, すべてが記述統計でまかなえるようになった
+
+** オープンデータ
+   インターネット上に公開されているデータ.
+
+   特定のデータが, 一切の著作権, 特許などの制御メカニズムの制限なしで,
+   全ての人が望むように利用・再掲載できるような形で入手できるべきであるというアイデア.
+   - [[http://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%BC%E3%83%97%E3%83%B3%E3%83%87%E3%83%BC%E3%82%BF][オープンデータ - Wikipedia]]
+
+** データサイエンティスト
+   データを元に様々な予測や判断を行うために必要な人
+
+   膨大なデータを指すビッグデータから, ビジネスに生きる知見を引き出す専門家.
+
+*** Data Scientist に必要なスキル
+   データサイエンティストに必要なスキルは以下
+   - Hacking Skills
+   - Math & Stastistics Knowledge
+   - Substantive Expertise
+
+   Drew Conway
+   - [[http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram][The Data Science Venn Diagram - Drew Conway]]
+
+*** Bookmarks
+   データサイエンティストを育てる協会
+   - [[http://www.datascientist.or.jp/][一般社団法人 データサイエンティスト協会]]
+
+   データサイエンティストは一過性の職業. 数年すればいなくなりますよ.
+
+   今後はビジネスの世界にいる人の多くがデータ分析の基本的なリテラシーを
+   身に付けるようになる. ツールが進化して, 
+   基本的な SQL 文が書ければ, 誰でも一通りの分析ができる.
+   - [[http://itpro.nikkeibp.co.jp/article/COLUMN/20131224/526910/][編集長が展望する 2014 年 - データサイエンティストがいなくなる?:ITpro]]
+
+   IT エンジニアのためのデータサイエンティスト養成講座
+   - [[http://www.itmedia.co.jp/keywords/ait_datascience.html][「 IT エンジニアのためのデータサイエンティスト養成講座」最新記事一覧 - ITmedia Keywords]]
+   - [[http://www.atmarkit.co.jp/ait/articles/1305/07/news003_2.html][IT エンジニアがデータサイエンティストを目指すには? (2/2) - ＠ IT]]
+
 * Bookmark
   - [[http://www.stat.go.jp/teacher/c2dic.htm][基本用語集|統計学習の指導のために (先生向け)]]
   - [[http://matome.naver.jp/odai/2134521035124482601][次の 10 年で一番熱い学問は統計学! 統計学を勉強する上で参考になるサイト・書籍まとめ - NAVER まとめ]]

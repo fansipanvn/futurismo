@@ -1,0 +1,6 @@
+#+OPTIONS: toc:nil
+#+title Ansible
+
+* Tips
+** 変更があったときのみ処理をする
+ - [[https://raymii.org/s/tutorials/Ansible_-_Only-do-something-if-another-action-changed.html][Ansible - Only do something if another action changed - Raymii.org]]

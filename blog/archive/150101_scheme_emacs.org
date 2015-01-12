@@ -1,3 +1,6 @@
+#+BLOG: Futurismo
+#+POSTID: 2888
+#+DATE: [2015-01-01 火 01:00]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
 #+CATEGORY: 技術メモ, Emacs
 #+TAGS: Scheme, SICP
@@ -79,6 +82,10 @@ gosh -V
 
   あまりに多機能すぎて使いこなす自信がないな..
 
+  覚えておきたいのは,
+  - かっこで囲む xx sp-pair M-(
+  - かっこを外す sp-unwrap C-M-s
+
 #+begin_src emacs-lisp
 (define-key sp-keymap (kbd "C-M-f") 'sp-forward-sexp)
 (define-key sp-keymap (kbd "C-M-b") 'sp-backward-sexp)
@@ -99,7 +106,7 @@ gosh -V
 (define-key sp-keymap (kbd "C-M-k") 'sp-kill-sexp)
 (define-key sp-keymap (kbd "C-M-w") 'sp-copy-sexp)
 
-(define-key sp-keymap (kbd "M-<delete>") 'sp-unwrap-sexp)
+(define-key sp-keymap (kbd "C-M-s") 'sp-unwrap-sexp)
 (define-key sp-keymap (kbd "M-<backspace>") 'sp-backward-unwrap-sexp)
 
 (define-key sp-keymap (kbd "C-<right>") 'sp-forward-slurp-sexp)
@@ -136,6 +143,8 @@ gosh -V
 ;;; lisp modes
 (sp-with-modes sp--lisp-modes
   (sp-local-pair "(" nil :bind "C-("))
+
+(sp-pair "(" ")" :wrap "M-(")
 #+end_src
 
 ** rainbow-delimiters
