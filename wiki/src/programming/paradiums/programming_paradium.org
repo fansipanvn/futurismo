@@ -39,10 +39,14 @@
    - 関数型パラダイム ... 関数そのもの.
 
 *** SICP
-    二つの要素をもつ.
-    - データ: 処理したいもの
-    - 手続き: データの処理方法
-    
+    プロセスは計算機のなかに潜む抽象的な存在.
+    プロセスはもう一つの抽象的な存在, データを操作する.
+    プロセスの進行は, 規則のパターン, プログラムにしたがう.
+
+    プログラムは二つの要素をもつ.
+    - 手続き: データの処理方法 (能動的)
+    - データ: 処理したいもの   (受動的)
+
 ** literal: リテラル
    即値 (英: Immediate) ともいい, ソースコード内に値を直接表記したもの.
    - [[http://ja.wikipedia.org/wiki/%E3%83%AA%E3%83%86%E3%83%A9%E3%83%AB#.E3.82.B3.E3.83.B3.E3.83.94.E3.83.A5.E3.83.BC.E3.82.BF.E3.83.97.E3.83.AD.E3.82.B0.E3.83.A9.E3.83.9F.E3.83.B3.E3.82.B0][リテラル - Wikipedia]]
@@ -107,6 +111,7 @@ Scheme や Common Lisp とは根本的に異なる. 大きな違いの 1 つは,
 り, 呼出し関数の局所変数は, ポインタや参照を渡さなくとも, 呼び出され
 た関数から参照できる.
 #+END_QUOTE
+
  - [[http://ja.wikipedia.org/wiki/Emacs_Lisp][Emacs Lisp - Wikipedia]]
  - [[http://jutememo.blogspot.jp/2012/03/blog-post.html][レキシカルスコープとダイナミックスコープ | すぐに忘れる脳みそのためのメモ]]
 
@@ -148,6 +153,15 @@ Scheme や Common Lisp とは根本的に異なる. 大きな違いの 1 つは,
     Haskell の評価戦略.
     - Outermost Reduction + shareing.
 
+*** 未整理 SICP より.
+    - 正規順序 (normal-order evaluation)
+      1. 演算子と非演算子を評価.
+      2. 演算子評価結果の手続きを非演算子評価結果の引数に作用させる.
+      
+    - 作用素的順序 (applicative-order evaluation)
+      その値が必要になるまで, 非演算子を評価しない.
+      遅延評価??
+
 ** SyntaxSuger
    糖衣構文.
    - [[http://ja.wikipedia.org/wiki/%E7%B3%96%E8%A1%A3%E6%A7%8B%E6%96%87][糖衣構文 - Wikipedia]]
@@ -174,14 +188,54 @@ Scheme や Common Lisp とは根本的に異なる. 大きな違いの 1 つは,
 
    CTM p93 参照.
 
-   例外をつかわないと, コンテクストごとの結果を検証必要があり,
-   case 文が乱立するうんこコードが出来る.
 *** 例外の種類
     - Asynchronous  Exceptions: 非同期例外
     - Synchronous  Exceptions: 同期例外
       - Traps: 意図的に OS が止める breakpont, systemcall, file open
       - Faults: リカバリ可能な例外, page fault, segmentation fault
       - Aborts: リカバリ不可能な例外, プログラムは強制終了.
+
+*** 例外がないと困ること
+    例外をつかわないと, コンテクストごとの結果を検証必要があり,
+    return 文 と case 文が乱立するうんこコードが出来る.
+
+    例えば, 下位のコンテキスト (A) で発生したエラーは,
+    return -> return -> して上位でも戻り値のエラーチェックが必要.
+
+ #+begin_src c
+#define ERROR -1
+#define OK 0
+
+int main (void) {
+  if (C ()==ERROR) {
+    printf ("Error\n");
+  }
+}
+
+int A () {
+  return ERROR;
+}
+
+int B () {
+  if (A () == ERROR) {
+    return ERROR;
+  }
+  else {
+    return OK;
+  }
+}
+
+int C () {
+  if (B () == ERROR) {
+    return ERROR;
+  }
+  else {
+    return OK;
+  }
+}
+ #+end_src
+
+
 ** Function
    関数.
 
@@ -217,6 +271,48 @@ Scheme や Common Lisp とは根本的に異なる. 大きな違いの 1 つは,
 
     数学に置ける関数の概念に近い. ある集合から集合への写像.
     - [[http://ja.wikipedia.org/wiki/%E9%96%A2%E6%95%B0_(%E6%95%B0%E5%AD%A6)][関数 (数学) - Wikipedia]]
+
+*** SICP
+    - Processs (プロセス)
+      計算機のなかに潜む抽象的な存在.
+
+    - Procedure (手続き・プロシージャ)
+      データの処理方法.
+
+**** Recursive: 再帰的
+     計算を実行するためには, 以前の計算結果を覚えておく必要がある.
+     計算効率と空間効率は x の大きさに比例する.
+
+     これを, 線形再帰プロセスという.
+
+#+begin_src emacs-lisp
+;; applicative-order evaluation
+;; linier recursion
+(defun plus (x y)
+  (if (= x 0)
+      y
+    (1+ (+ (1- x) y))))
+#+end_src
+
+**** Iterative: 反復的
+     計算効率は, 入力値に比例する.
+     空間効率は, 一定.
+
+     これを線形反復プロセスという.
+
+ #+begin_src emacs-lisp
+;; normal-order evaluation
+;; linier iteration
+(defun plus (x y)
+  (if (= x 0)
+      y
+    (+ (1- x) (1+ y))))
+#+end_src
+
+  以下からなる.
+  - 状態が一定個数の状態変数
+  - 状態が移ったときに状態変数をどう変化させるかの規則
+  - プロセスを終了させる条件.
 
 * Semantics
   プログラム意味論. 

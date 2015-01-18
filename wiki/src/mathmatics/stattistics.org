@@ -264,14 +264,46 @@ z=(取った得点-平均点)/ 標準偏差
     指数関数 (分布) にしたがうモデル.
     - [[http://ja.wikipedia.org/wiki/%E6%8C%87%E6%95%B0%E5%88%86%E5%B8%83][指数分布 - Wikipedia]]
 
+**** 数式
+     y = A * b^x
+
+   パラメータの意味は以下.
+    - A : initial value
+    - b : growth factor
+    - x : each time increase by 1
+
+   毎年 5% の growth rate だと, grouth factor = 1.0 + 0.05 = 1.05.
+
+**** residual: 残差
+    統計学において誤差の推定量.
+    数値解析において反復計算で連続する 2 回の計算の間の差.
+    - [[http://ja.wikipedia.org/wiki/%E6%AE%8B%E5%B7%AE][残差 pp - Wikipedia]]
+
 **** ポアソン分布.
 
-*** ロジスティックモデル: Logistic Models
+*** 対数モデル: Logistic (Growth) Models
     対数関数にしたがうモデル.
     ベルヌーイ分布に従う変数の統計的回帰モデル.
     - [[http://ja.wikipedia.org/wiki/%E3%83%AD%E3%82%B8%E3%82%B9%E3%83%86%E3%82%A3%E3%83%83%E3%82%AF%E5%9B%9E%E5%B8%B0][ロジスティック回帰 - Wikipedia]]
+
+    対数 (S-curve) モデルは, 自然の増加の成長を記述する.
+
+**** 数式
+     f (t) = C / (1 + a*b^(-t)) = C / 1 + a * e^(-k*t)
     
-** 回帰分析
+   パラメータの意味は以下.
+   - C : carrying capacity :the maximum value of function
+   - a : f (0) = C / (1 + a)
+   - b : b = e^k
+
+**** Infration Point
+     増加の傾きが正から負になる点.
+
+     his point occurs halfway to the carrying capacity.
+
+     f (t) = C / 2 <=> t = ln (a)/ln (b) = ln (a)/k
+
+** 回帰分析: Regression Analysis
    従属変数 (目的変数) と連続尺度の独立変数 (説明変数) の間に式を当てはめ,
    従属変数が独立変数によってどれくらい説明できるのかを定量的に分析すること
 
@@ -360,6 +392,50 @@ z=(取った得点-平均点)/ 標準偏差
    IT エンジニアのためのデータサイエンティスト養成講座
    - [[http://www.itmedia.co.jp/keywords/ait_datascience.html][「 IT エンジニアのためのデータサイエンティスト養成講座」最新記事一覧 - ITmedia Keywords]]
    - [[http://www.atmarkit.co.jp/ait/articles/1305/07/news003_2.html][IT エンジニアがデータサイエンティストを目指すには? (2/2) - ＠ IT]]
+
+* 品質管理と統計的手法
+  主な手法は以下のとおり
+  - 区間推定
+  - 標準偏差
+  - 相関分析
+  - 実験計画法
+
+** CMMI レベル  4 定量的に管理された組織
+
+#+begin_quote
+   成熟度レベル 4 の組織では, 正確な測定を行うことで,
+   - 管理側はソフトウェア開発などの有効性を効果的に制御することができる
+     プロジェクトに対してプロセスを調整し適合する道筋を同定することができる
+   - 組織は, ソフトウェア開発プロセスやソフトウェア保守などのための
+     定量的な品質の目標を設定する.
+
+   統計的な技法と他の定量的な技法により制御される.
+   プロセスの遂行は統計的な技法と他の定量的な技法により制御され, 定量的に予測可能である.
+#+end_quote
+
+  - [[http://ja.wikipedia.org/wiki/%E8%83%BD%E5%8A%9B%E6%88%90%E7%86%9F%E5%BA%A6%E3%83%A2%E3%83%87%E3%83%AB%E7%B5%B1%E5%90%88][能力成熟度モデル統合 - Wikipedia]]
+
+*** 富士通 
+    2003 年 10 月にシステムインテグレーション事業としては日本初のレベル 5 認定を取得. 
+    その後はプロセス改善の一環で数々の過労死裁判を引き起こし, 
+    富士通はデスマーチの雄として業界内で君臨するようになった.
+    - [[http://ja.uncyclopedia.info/wiki/%E8%83%BD%E5%8A%9B%E6%88%90%E7%86%9F%E5%BA%A6%E3%83%A2%E3%83%87%E3%83%AB%E7%B5%B1%E5%90%88][能力成熟度モデル統合 - アンサイクロペディア]]
+
+    CMMI で利益を享受出来るのはカーネギーメロン大学だけである.
+
+** bookmarks
+   ハードウェアでは, 品質管理に統計解析手法を活用することは常識.
+   - [[http://www.juse-sqip.jp/wp3/honne/backnumber_091/][ソフトウェア品質保証におけるデータ活用あれこれ|SQiP:Software Quality Profession]]
+   
+   もっともよく活用されるのは, 
+   - 多変量解析手法
+     - 相関分析
+       + 上流工程で摘出したバグ数とテスト工程でのバグ数との相関を調べて, 
+         レビューの有効性を検証.
+       + テスト工程のバグ数と出荷後のバグ数との相関から,
+         出荷品質確保のためにテスト工程で摘出すべきバグ数を求める
+
+   - 実験計画法の一元配置実験/ 分散分析.
 
 * Bookmark
   - [[http://www.stat.go.jp/teacher/c2dic.htm][基本用語集|統計学習の指導のために (先生向け)]]

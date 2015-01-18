@@ -1,6 +1,24 @@
 #+OPTIONS: toc:nil
 * Blog
 * WordPress
+* 画像
+** 素材
+  - [[http://coliss.com/articles/freebies/stock-photos-for-2015.html][ブックマークしておきたい, いい感じの写真画像がクレジット表記無しで無料利用できるサイトのまとめ | コリス]]
+
+** 画像リサイズ
+   - [[http://o.inchiki.jp/obbr/125][ImageMagick で画像をリサイズする時のメモ ]]
+
+#+begin_src bash
+% convert -resize 640x before.jpg after.jpg
+#+end_src
+
+** 画面キャプチャ
+*** scrot
+    Linux 用の画面キャプチャ
+
+#+begin_src bash
+scrot -s
+#+end_src
   
 * SEO
 ** 効果的なタイトル
@@ -116,16 +134,6 @@
    - 行動目標
 
 * Tools
-** 画像リサイズ
-   - [[http://o.inchiki.jp/obbr/125][ImageMagick で画像をリサイズする時のメモ ]]
-
-#+begin_src bash
-% convert -resize 640x before.jpg after.jpg
-#+end_src
-
-** 画面キャプチャ
-*** scrot
-    Linux 用の画面キャプチャ
 
 ** 動画編集
 *** recordMyDeskTop

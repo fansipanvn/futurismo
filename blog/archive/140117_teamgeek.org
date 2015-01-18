@@ -1,0 +1,83 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: Team Geek を読んだ
+
+* はじめに
+  とりたてて読む動機はなかったのだけれども, 
+  図書館でふとタイトルに止まったので借りて読んでみました.
+  
+  #+BEGIN_HTML
+  <div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/Team-Geek-%E2%80%95Google%E3%81%AE%E3%82%AE%E3%83%BC%E3%82%AF%E3%81%9F%E3%81%A1%E3%81%AF%E3%81%84%E3%81%8B%E3%81%AB%E3%81%97%E3%81%A6%E3%83%81%E3%83%BC%E3%83%A0%E3%82%92%E4%BD%9C%E3%82%8B%E3%81%AE%E3%81%8B-Brian-Fitzpatrick/dp/4873116309%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4873116309' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/41SlY0zvpKL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/Team-Geek-%E2%80%95Google%E3%81%AE%E3%82%AE%E3%83%BC%E3%82%AF%E3%81%9F%E3%81%A1%E3%81%AF%E3%81%84%E3%81%8B%E3%81%AB%E3%81%97%E3%81%A6%E3%83%81%E3%83%BC%E3%83%A0%E3%82%92%E4%BD%9C%E3%82%8B%E3%81%AE%E3%81%8B-Brian-Fitzpatrick/dp/4873116309%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4873116309' rel='nofollow' target='_blank'>Team Geek -Google のギークたちはいかにしてチームを作るのか</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 15.01.17</div><div class='amazlink-detail'>Brian W. Fitzpatrick<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/Team-Geek-%E2%80%95Google%E3%81%AE%E3%82%AE%E3%83%BC%E3%82%AF%E3%81%9F%E3%81%A1%E3%81%AF%E3%81%84%E3%81%8B%E3%81%AB%E3%81%97%E3%81%A6%E3%83%81%E3%83%BC%E3%83%A0%E3%82%92%E4%BD%9C%E3%82%8B%E3%81%AE%E3%81%8B-Brian-Fitzpatrick/dp/4873116309%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4873116309' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00q0724.n763w947.g00q0724.n763x2b4/?pc=http%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F12403745%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Frms%2Fmsv%2FItem%3Fn%3D12403745%26surl%3Dbook' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
+  #+END_HTML
+  
+* 内容
+  薄い本なのですぐ読める. 内容的に得るものがとても多かった.
+
+** 天才プログラマの神話
+   ソフトウエア開発は *チームスポーツ* である.
+
+   - 隠したらダメになる.いつも一人でやっているとリスクが高くなる.
+     成果を共有することで *バス係数* (冗長性) が高くなる.
+   - ソーシャルスキルの三本柱は以下.(HRT)
+     + 謙虚 (Humility)
+       世界の中心は君ではない. 君は全知全能ではないし, 絶対に正しいわ
+       けでもない.つねに自分を改善していこう.
+     + 尊敬 (respect)
+       一緒に働く人のことを心から思いやろう. 相手を 1 人の人間として扱い,
+       その能力や功績を高く評価しよう.
+     + 信頼 (Trust)
+       自分以外の人は有能であり, 正しいことをすると信じよう. そうすれ
+       ば, 仕事を任せることができる.
+
+** 素晴らしいチーム文化をつくる
+   コミュニケーションの原則は, 
+   *同期コミュニケーションの人数を減らし, 非同期コミュニケーションの人
+   数を増やすこと* である.
+
+*** コミュニケーションツール
+     - ミッションステートメント
+       + プロジェクトが目指す姿を短い言葉で表現して共有する.
+       + *方向性* と *スコープの制限* を明確にすること.
+       + 企業のわけのわからない抽象的な表現がミッションステートメント
+         をダメにしている.
+     - 効率的なミーティング
+       + ミーティングに 5 以上参加させてはいけない.意思決定者がいなけ
+         れば, 決まるものも決まらない.
+       + ミーティング中にノート PC をいじってメールチェックをしている人
+         は参加しなくていい人.
+       + ミーティングを開くときの簡単な 5 原則
+	 1. 絶対に必要な人だけを呼ぶ
+	 2. アジェンダを作ってミーティング開始前に配布する
+	 3. ミーティングのゴールを達成したら時間前でも終了する
+	 4. ミーティングを順調に進める
+	 5. ミーティングの開始時間を強制的に中断される時間の前に設定す
+            る (お昼休み, 就業時間)
+     - 設計文書
+       + 設計文書は 1 人が所持するもの.
+	 大勢の人がレビューして, 2,3 人の人が承認するもの.
+       + 何をどうしたいのかを低コストでチームに伝える手段.
+       + タスク分割につかうもの.
+       + プロジェクトが進むにしたがって更新するべきもの.
+     - メーリングリスト
+       + チームが同じフロアにいるのであれば, メーリングリストで議論す
+         る必要はない.
+       + 議事録・ミーティングメモ・決定事項・設計文書などをメーリング
+         リストに投稿して, 記録をまとめる.
+     - オンラインチャット
+       + 信じられないほど便利なツール. 
+         他人の作業を邪魔することなくリクエストを送信できる.
+       + IM では, チーム内での情報共有ができない.
+     - 課題管理ツール
+       + ただの掲示板. メーリングリストと同じ.
+       + バグの優先順位をつけることができる.
+     - コードレビュー
+       + すべてのコミットにコードレビューする.
+       + コードの監視方法をプロダクトに導入する.
+       + コードの行のスタイル・品質・ケアレスミスを第三者が確認するべき.
+      
+** 船にはキャプテンが必要
+
+
+* これからどうするか

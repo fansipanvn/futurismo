@@ -66,6 +66,14 @@
 ** Bookmarks
   - [[http://d.hatena.ne.jp/syohex/20121230/1356850677][よくある処理を Emacs Lisp で書く場合 - Life is very short]]
 
+* Utility
+  主に Emacs を操作するための関数をまとめる
+
+** カーソルの位置取得
+   things-at-point
+   - [[http://ergoemacs.org/emacs/elisp_thing-at-point.html][Emacs Lisp: Using thing-at-point]]
+   - [[http://d.hatena.ne.jp/tomoya/20101213/1292166026][カーソル位置の情報で遊ぼう. - 日々, とんは語る. ]]
+
 * コーディング規約
   どうも暗黙の規約のようなものがあるように思えてならない.
 
@@ -152,15 +160,131 @@
    - 単語と単語の間は - をいれる.
 
 ** indent
-  カッコはまとめて閉じる.
+   github のページが一番詳しい.
+   - https://github.com/bbatsov/emacs-lisp-style-guide     
+   - [[http://www.emacswiki.org/emacs/IndentingLisp][我的 Wiki:Indenting Lisp]]
+
+  以下で揃える
+  - indent-region (C-M-\)
+  - lisp-indent-line (tab key)
+  - indent-sexp (C-M-q) 
+
+  以下の英文記事からの抜粋.
+   - [[http://dept-info.labri.u-bordeaux.fr/~strandh/Teaching/PFS/Common/Strandh-Tutorial/indentation.html][Indenting Common Lisp]]
+
+*** Top-level functions
+    トップレベルの関数は 1 列目から開始.
+
+*** Closing parentheses
+  カッコはまとめて閉じる. 
+  まとめて閉じないのは C 系の言語に慣れ親しんだ人のやることだ.
 
 #+begin_src emacs-lisp
-(hoge
-(hoge
-(hoge)))
+;;; bad
+(defun f (x)
+  (when (< (g x) 3)
+    (h x 2)
+    )
+  )
+
+;;; good
+(defun f (x)
+  (when (< (g x) 3)
+    (h x 2)))
 #+end_src
 
-  M-x  indent-sexp で整える.
+*** Amount of indentation
+    indent のスペースは 2 つくらい.
+
+#+begin_src emacs-lisp
+;;; bad
+(defun f (x)
+    (when (< (g x) 3)
+        (h x 2)))
+
+;;; good
+(defun f (x)
+  (when (< (g x) 3)
+    (h x 2)))
+#+end_src
+
+*** Comments
+    シングルセミコロンは, コードに関する注意で コードと同ラインに書く.
+    
+#+begin_src emacs-lisp
+(if (< (g x) 2)     ; is it sufficiently small?
+    (top-level x)   ; if so, abandon everything
+    (h y))            ; otherwise try again
+#+end_src
+
+   2 つのセミコロンは, 数行のコードにかかるコメント.
+
+#+begin_src emacs-lisp
+(when (< (g x) 2)
+  ;; reinitialize and abandon everything
+  (setf *level-number* 0)
+  (top-level x))
+#+end_src
+
+  3 つのコメントは関数の説明時に利用.
+
+#+begin_src emacs-lisp
+;;; Compute the amount of space between symbols
+;;; as a list of floating point values.
+(defun compute-spaces (symbols)
+  (mapcar #'compute-single-space symbols (cdr symbols)))
+#+end_src
+
+***  Indenting special forms
+    スペシャルフォームはそれぞれ決まった indent のルールがある.
+
+****  Indenting the if special form
+     3 つの subexpressons をとる.
+
+#+begin_src emacs-lisp
+(if (= (f x) 4)
+    (top-level x)
+  (g x))
+#+end_src
+
+**** Indenting the when and unless special forms
+     はじめのラインは 条件判定にあたるので, はじめのラインに書く.
+     2 番目からのラインは, 条件判定ラインから 2 つ indent を下げて書く.
+
+#+begin_src emacs-lisp
+(when (= (f x) 4)
+  (setf *level-number* 0)
+  (unless *do-not-reinitialize*
+    (reinitialize-global-information x)
+    (reinitialize-local-information))
+  (top-level x))
+#+end_src
+
+**** Indenting the let and let* special forms
+     はじめのラインは変数の初期化で, 残りの部分がスペシャルフォームに
+     当たる. 変数の初期化は, はじめのに書く. 残りのラインは 2indent 下
+     げて書く.
+
+#+begin_src emacs-lisp
+(let* ((symbols (mapcar #'compute-symbol l))
+       (spaces (mapcar #'compute-space symbols (cdr symbols))))
+  (when (verify-spacing symbols spaces)
+    (make-spacing permanent spaces)))
+#+end_src
+
+****  Indenting the do and do* special forms
+     loop の開始条件, 終了条件は列を揃える.
+     残りの body は 2indent 下げる.
+
+#+begin_src emacs-lisp
+(do ((i 1 (1+ i))
+     (j (length l) (/ j 2)))
+    ((= j 0) i)
+  (iterate i j)
+  (when (= (f x) 4)
+    (setf *level-number* 0)
+    (top-level x)))
+#+end_src
 
 * デバッグ/ テスト
 ** print debug
@@ -174,6 +298,36 @@
 #+end_src
    
 ** edebug
+** trace-function
+   関数のトレースを出す. 
+
+#+begin_src emacs-lisp
+(defun f (x) (+ x 3))
+(defun g (x) (+ (f x) 7))
+#+end_src
+
+   - M-x trace-function で f を選択.
+   - M-: (g 3) C-x C-e
+
+   *trace-output* buffer に出力結果がでる.untrace-all で解除.
+
+   再帰関数の確認に便利.
+
+#+begin_src emacs-lisp
+(defun fact (n)
+      (if (= n 0) 1
+	(* n (fact (1- n)))))
+(fact 3)
+;; 1 -> (fact 3)
+;; | 2 -> (fact 2)
+;; | | 3 -> (fact 1)
+;; | | | 4 -> (fact 0)
+;; | | | 4 <- fact: 1
+;; | | 3 <- fact: 1
+;; | 2 <- fact: 2
+;; 1 <- fact: 6
+#+end_src
+
 * モード作成
 ** minor-mode
    define-minor-mode を利用して作成する.

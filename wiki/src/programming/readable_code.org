@@ -1,7 +1,7 @@
 #+OPTIONS: toc:nil
 * Readable Code
 
-** commit messageの1行目の書き方
+** commit message の 1 行目の書き方
 
 - そのコミットによってプログラムはどんな要件を満たすのかを書く
 - メッセージは プログラムを主語とする動詞句 で書く
@@ -22,13 +22,14 @@ Trim thumbnail images larger than 200x200 px (200x200 px より大きいサム�
 ** Commit Comment
 
 - [[http://qiita.com/ken_c_lo/items/4cb49f0fb74e8778804d][git - 英語コミットコメントに使えるオシャレフレーズ集 - Qiita]]
+- [[http://qiita.com/gogotanaka/items/b65e1b081fa976e5d754#][ネイティブと働いて分かった英語コミットメッセージの頻出動詞 10 つ - Qiita]]
 
 ** English Tips
+  - モデルの名前は名詞にする
+    - 単数形か複数形か
+    - 可算名詞か不可算名詞か
+  - 処理を実行するメソッドは 動詞のみ or 動詞 + 名詞にする
+  - 二つの単語を繋げてモデルを作る場合は 形容詞 + 名詞 or 名詞 + 名詞にする 
 
-- モデルの名前は名詞にする
-  - 単数形か複数形か
-  - 可算名詞か不可算名詞か
-- 処理を実行するメソッドは 動詞のみ or 動詞 + 名詞にする
-- 二つの単語を繋げてモデルを作る場合は 形容詞 + 名詞 or 名詞 + 名詞にする 
-
-[[http://qiita.com/jnchito/items/459d58ba652bf4763820][English - モデルやメソッドに名前を付けるときは英語の品詞に気をつけよう - Qiita]]
+  参考:
+  - [[http://qiita.com/jnchito/items/459d58ba652bf4763820][English - モデルやメソッドに名前を付けるときは英語の品詞に気をつけよう - Qiita]]

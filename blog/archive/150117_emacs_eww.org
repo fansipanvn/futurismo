@@ -1,0 +1,18 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: Emacs での テキストブラウザ eww を使えるレベルにする
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* はじめに
+  Emacs での テキストブラウザに eww というものがある. 
+  Emacs24.4 からデフォルトで Emacs にはいっている.
+
+
+
+** Environment
+** Special Thanks

@@ -1,0 +1,289 @@
+#+BLOG: Futurismo
+#+POSTID: 2935
+#+DATE: [2015-01-16 金 00:07]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Java
+#+DESCRIPTION: Java の例外処理について徹底的に調べてみた
+#+TITLE: Java の例外処理について徹底的に調べてみた
+
+#+BEGIN_HTML
+<a href="http://futurismo.biz/wp-content/uploads/java.png"><img alt="" src="http://futurismo.biz/wp-content/uploads/java.png" width="256" height="256" /></a>
+#+END_HTML
+
+* はじめに
+  Java 言語で開発をしていて, 例外処理をよく知らないため調べてみた.
+
+  自分が仕事で関わっている製品は,
+  (異常なくらい?) 高品質と高信頼性が求められているにも関わらず,
+  開発者がへなちょこだと, 安心してみんな銀行にお金をあずけられないからね.
+  
+* 例外処理 (Exceptions) とは
+  そもそも例外処理はなにかを Wikipedia から調べてみる.
+  - [[http://ja.wikipedia.org/wiki/%E4%BE%8B%E5%A4%96%E5%87%A6%E7%90%86][例外処理 - Wikipedia]]
+  
+  例外処理とは,
+
+#+begin_quote
+プログラムがある処理を実行している途中で, なんらかの異常が発生した場合に, 
+現在の処理を中断 (中止) して, 別の処理を行うこと. 
+#+end_quote
+
+** 言語サポートについて
+#+begin_quote
+幾つかのプログラミング言語では組み込みの例外処理機能を用意している.
+#+end_quote
+
+  言語のサポートがないものとして自分が知っているのは, C 言語.
+
+  以前 C 言語 & vxWorks で開発していたときは,
+  致命的なエラーが発生したら kernel の関数をコールすることで,
+  システムを緊急停止するようなことをしていた.
+
+  ここでのポイントは, 例外とはプログラミング技術の一つで,
+  すべての言語に応用できるということ.
+
+  この言語では, 例外処理をどうやってサポートしていて,
+  それが Java とはどう違うのかまで考えられるようになりたい.
+
+** CTMCP からの引用
+   - try  ・・・ 例外ハンドラをもつ例外補足コンテクストを生成.
+   - raise ・・・ もっとも内部の例外補足コンテキストへ jamp し, そこにある例外ハンドラを起動.
+
+   各コンテキストはスタックで管理され, try はスタックの 1 つに marker をつける.
+   raise は marker にジャンプして marker の場所に例外処理のコンテキストを挿入する.
+
+   CTM p93 参照.
+
+** 例外の種類
+   - Asynchronous  Exceptions: 非同期例外
+   - Synchronous  Exceptions: 同期例外
+     - Traps: 意図的に OS が止める breakpont, systemcall, file open
+     - Faults: リカバリ可能な例外, page fault, segmentation fault
+     - Aborts: リカバリ不可能な例外, プログラムは強制終了.
+
+** 例外がないと困ること
+   例外をつかわないと, コンテクストごとの結果を検証必要があり,
+   return 文 と case 文が乱立するうんこうんこコードが出来る.
+
+   例えば, 下位のコンテキスト (A) で発生したエラーは,
+   return -> return -> して上位でも戻り値のエラーチェックが必要.
+
+   C だど, メモリ獲得できたかの null チェックをよくする.
+
+#+begin_src c
+#define ERROR -1
+#define OK 0
+
+int main (void) {
+  if (C ()==ERROR) {
+    printf ("Error\n");
+  }
+}
+
+int A () {
+  return ERROR;
+}
+
+int B () {
+  int ret = A ();
+  
+  if (ret == ERROR) {
+    return ERROR;
+  }
+  else {
+    return OK;
+  }
+}
+
+int C () {
+  int ret = B ();
+  
+  if (ret == ERROR) {
+    return ERROR;
+  }
+  else {
+    return OK;
+  }
+}
+#+end_src
+
+  Java ならば, return 文のチェックをする必要がない.
+
+#+begin_src java
+public class ExceptionSample  {
+	static final int ERROR = -1;
+	static final int OK = 0;
+	
+	public static void main (String args[]) {
+		try {
+			C ();
+		}
+		catch (Throwable e) {
+      e.printStackTrace ();
+		}
+	}
+
+	public int A () {
+		throw new RuntimeException ("上位のメソッドへ一気にジャ~ンプ (￣, ￣) 丿");
+		return OK;
+	}
+
+	public int B () {
+		A ();
+		return OK;
+	}
+
+  public int C () {
+		B ();
+		return OK;
+	}
+}
+#+end_src
+
+* Java での例外
+  Java では例外はクラスとして実装する.
+
+** 文法
+*** try 
+    例外を捕まえるための範囲 (コンテキスト) を作る.
+    {}で囲まれた部分がコンテキストになる.
+
+*** catch
+    try{}で作成したコンテキスト内で発生した例外を捕まえたあとに
+    処理する内容を書く. エラーログを吐くとか.
+
+*** finally
+    最後にかならず実施したい処理を書く.
+    
+    例えば IO ファイルを Open して処理している途中で異常が発生したとき,
+    ファイルを閉じる処理など.
+
+*** try と catch の例
+    try 文には正常系を, catch 文には異常系を書く.
+
+    こうすることで,
+
+    *正常系のコードと異常系のコードを明確に分ける* 
+
+    ことができる (そして, 異常系は後回し...)
+    
+#+begin_src java
+try {
+  hoge ()
+} catch (FooException e1) { // 例外クラス 変数名
+  e1.printStackTrace ();
+} catch (BarException e2) { // 例外クラス 変数名
+  e2.printStackTrace ();
+} finally {
+  // 任意
+}
+#+end_src
+
+  printStackTrace () メソッドを書くと, 
+  例外発生時のスタックトレースを表示できる.
+
+*** throw
+   throw 文をつかうと, 自分で例外を投げることができる.
+   引数にメッセージをわたすこともできる.
+
+   #+begin_src java
+   throw new HogeException ("秘密のメッセージ");
+   #+end_src
+
+** 例外の種類
+   Throwable クラスを継承するかたちで, 各例外クラスが定義されている.
+   以下のようなサブクラスで小分類されている.
+   
+   | Error            |            | 処理の継続不可. 致命的なエラー.               |
+   | Exception        | 検査例外   | コンパイル時に例外処理の実装が強制される      |
+   | RuntimeException | 実行時例外 | コンパイル時に例外処理の実装が強制されません. |
+   
+** 独自定義の例外
+   Java の例外はクラスなので, 上のクラスを継承したクラスを定義することで, 
+   独自例外を作成できる.
+
+   Error と RuntimeException は, Java 仮想マシンが通知してくる特別な
+   例外なので, 一般のプログラマは, 以下のどちらかで定義.
+
+   - Java API で用意されている Exception のサブクラスを使う
+   - java.lang.Exception Exception のサブクラスを自分で定義する
+
+     #+begin_src java
+     class MyException extends Exception {}
+     #+end_src
+
+   こんな風にかけば, 上位のコンテキストにエラーコードを渡すことができ
+   る. catch ブロックで発生したエラーによって, 処理を分岐できる.
+
+   しかし, 分岐するならば, 例外クラスを定義した方がエレガントだ.
+
+#+begin_src java :classname MyErrorSample :results code
+import java.lang.Exception;
+public class MyErrorSample {
+	public static void main (String args[]) {
+		try {
+			throw new MyException (5);
+		}
+		catch (MyException e) {
+			e.printStackTrace ();
+			System.out.println ("ErrorCode = " + e.getCode ());
+		}
+	}
+}
+
+class MyException extends Exception {
+	int errorCode;
+		
+	MyException (int errorCode) {
+		this.errorCode = errorCode;
+	}
+
+	int getCode () {
+		return errorCode;
+	}
+}
+#+end_src
+
+#+BEGIN_SRC text
+ErrorCode = 5
+#+END_SRC
+
+*** Eclipse
+   Eclipse では, カスタム例外を作成するための機能がついてる.
+   簡単に作成できる.
+   - [[http://www.atmarkit.co.jp/ait/articles/1112/20/news131.html][【改訂版】 Eclipse ではじめるプログラミング (24):Java の例外処理で知らないと損する 7 つのテクニック (1/3) - ＠ IT]]
+
+** Java の標準的な例外クラス
+   そもそも, この記事を書こうと思ったのは,
+   例外処理をしたいとき, なにを throw すればいいのかわからなかったから.
+
+   Effective Java にも, 標準例外を利用するようにと書いてある.
+   - みんな知っているから
+   - パフォーマンスが軽くなるから
+
+   標準的に利用される Java の例外を以下にまとめてみる. 
+   このくらいならば, 簡単に覚えて使いこなせそうだ.
+
+   | Definition                               | Description            | Example                            |
+   |------------------------------------------+------------------------+------------------------------------|
+   | java.lang.IllegalArgumentException       | 不適切な引数           | パラメータエラー                   |
+   | java.lang.IllegalStateException          | 不正な状態             | 未初期化で呼び出し                 |
+   | java.lang.NullPointerException.          | Null アクセス          |                                    |
+   | java.lang.IndexOutOfBoundsException      | 範囲外                 | 配列の Index オーバ                |
+   | java.util.ConcurrentMdificationException | マルチスレッドアクセス | 平行処理漏れ                       |
+   | java.lang.UnsupportedOperationException  | 未サポート機能         | 未サポートなのにメソッドが呼ばれた | 
+
+  自分で利用しないまでも, よくみかける例外が以下にまとまっている. 
+  デバッグの友.
+   - [[http://docs.oracle.com/javame/config/cdc/ref-impl/cdc1.1.2/jsr218/ja/java/lang/class-use/Exception.html][クラス java.lang.Exception の使用 (Connected Device Configuration (CDC), バージョン 1.1.2)]]
+   - [[http://www.ne.jp/asahi/hishidama/home/tech/java/exception.html][Java 例外メモ (Hishidama's Java Exception Memo)]]  
+
+* おわりに
+  これで明日からも, 例外処理と戦えそうです... はぁ.
+
+* Bookmarks
+  - [[https://moneyforward.com/engineers_blog/2014/08/22/java%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E4%BE%8B%E5%A4%96%E5%87%A6%E7%90%86%E3%81%AE%E3%83%99%E3%82%B9%E3%83%88%E3%83%BB%E3%83%97%E3%83%A9%E3%82%AF%E3%83%86%E3%82%A3%E3%82%B9/][Java における例外処理のベスト・プラクティス | マネーフォワード エンジニアブログ]]
+  - [[http://www.itsenka.com/contents/development/java/exception.html][例外処理 - Java 入門 - IT 専科]]
+  - [[http://www.ohshiro.tuis.ac.jp/~ohshiro/ooprog_b/04/][オブジェクト指向プログラミング b 第 4 回]]
+  - [[http://d.hatena.ne.jp/unageanu/20070830/1188476810][「エラーの原因ごとに例外の型を別ける」のはどうなの? - うなの日記]]
