@@ -69,6 +69,15 @@
 *** environments
     識別子と変数の写像関係を環境という.
 
+   - a collection of (symbol, value) pair.
+   - environment has a parent environment, possible to have multiple children.
+   - a function + an environment = a closure
+
+**** global environments
+     どこからでも参照できる environments.
+
+     top environment, すべての親となる environments.
+
 *** single-assignment store
     単一代入格納域. 
     一度一つの値を束縛したら変更できない変数の集合.定数.
@@ -82,9 +91,14 @@
    Valiable の有効範囲.
    - [[http://ja.wikipedia.org/wiki/%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%97][スコープ - Wikipedia]]
 
+   Scoping Rules - スコープの範囲
+
 *** Lexical Scope: 静的スコープ
     静的スコープ.変数はブロックの内側のみ有効. 
     Static Scoping とも. 字句的スコープともいう.
+
+    free valuables are searched for 
+    in the environment in which the funcition was defined.
 
 **** ブロック構造 (block Structure)
     手続きの仮引数は局所的である.
@@ -100,6 +114,20 @@
     巨大問題を, 扱える部品に分割できる.
 
     SICP p17 より.
+
+**** R example
+     Scope の外への戻り値は, Scope 内部の関数のコピーである.
+
+#+begin_src R :session ex :export both :results code
+# from R Programming coursera.
+make.power <- function (n) {
+    pow <- function (x) { x^n }
+    pow
+}
+
+cube <- make.power (3)
+square <- make.power (2)
+#+end_src
 
 *** Dynamic Scope
     Emacs Lisp は ダイナミックスコープを採用している.

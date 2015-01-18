@@ -1,40 +1,590 @@
 #+OPTIONS: toc:nil
 * R
-  統計のための Ruby ベースの言語.
+  統計のための 言語
   - [[http://www.r-project.org/][The R Project for Statistical Computing]]
+   
+  統計計算とグラフィック出力のための GNU プロジェクト.
+
+  ベースは関数型言語だが, オブジェクト指向にも, 手続き型にもかくことができる
+  - 統計解析部分は AT&T ベル研究所が開発した S 言語を参考にしている
+    -> S は Dinamic Scoping にたいして R は Lexical Scoping
+  - データ処理部分は Scheme の影響を受けている.
 
 * 文法
-** データ
-*** 変数
-#+begin_src R
-x <- 5
+  基本的な構成要素は以下のとおり
+  - 環境 ... オブジェクトとシンボルの pair をもつ集合
+  - オブジェクト ... もの
+    - 関数 ... オブジェクトを操作するもの (関数オブジェクト)
+  - シンボル ... ものにつけられた名前 (識別子)
+
+** Basic 
+*** Immutable
+    R 言語において, 
+    - 代入はオブジェクトのコピー
+    - 高階関数 ... 関数の戻り値は関数オブジェクトのコピー
+
+*** Binding to Symbol
+    関数はシンボルに割り当てることができる.(ここが関数型パラダイム)
+    インタプリタは
+    - global environment からシンボルを探す.
+    - Namespaces (Lexical Scope) からシンボルを探す.
+
+*** Lexical Scoping
+   
+#+begin_src R :session ex :export both :results code
+make.power <- function (n) {
+    pow <- function (x) { x^n }
+    pow
+}
+
+cube <- make.power (3)
+square <- make.power (2)
 #+end_src
 
-*** ベクター
-#+begin_src R
-    myvariable <- c (72, 28, -9, 12, 11)
-#+end_src
+*** print
+**** explicite printing
+     print 関数を利用する. 
 
-*** データフレーム
-   複数のベクトルからなるリスト.
-   - [[http://www.okada.jp.org/RWiki/?%A5%C7%A1%BC%A5%BF%A5%D5%A5%EC%A1%BC%A5%E0Tips%C2%E7%C1%B4][データフレーム Tips 大全 - RjpWiki]]
-   - [[http://qiita.com/14021939/items/3436a153119bb88d49df][Ruby - R のデータフレーム (data.frame) について - Qiita]]
+ #+begin_src R :session ex :export both :results code
+x <- 1
+print (x)
+ #+end_src
 
-**** データの読み込み
-  #+begin_src R :session ex :export both
-  BikeData <- read.csv ("BikeData.csv")
-  #+end_src
+ #+BEGIN_SRC R
+1
+ #+END_SRC
+
+**** auto-printing
+     自動で形式を判別してで出力.
+
+ #+begin_src R :session ex :export both :results code
+x
+ #+end_src
+
+ #+BEGIN_SRC R
+1
+ #+END_SRC
+
+ #+begin_src R :session ex :export both :results code
+msg <- "hello"
+ #+end_src
+
+ #+BEGIN_SRC R
+hello
+ #+END_SRC
+
+ #+begin_src R :session :output raw ex :export both :results code
+x <- 1:5
+ #+end_src
+
+ #+BEGIN_SRC R
+1
+2
+3
+4
+5
+ #+END_SRC
+
+** Functions
+*** 特徴
+   - コマンドラインから interactive に操作できることを重視して設計された.
+
+*** Basics
+    function () 宣言で生成される. 
+    生成されると,関数クラスの R  オブジェクトとして保持される.
+
+ #+begin_src R :session ex :export both :results code
+f <- function (<arguments) {
+  ### 
+}
+ #+end_src
+
+   R の関数は *第一級オブジェクト*.
+   - 他の関数の引数に渡すことができる.
+   - 関数はネストできる.
+   - 戻り値は body の最後に評価された結果.
+
+*** Arguments:
+    引数の照合には以下の順序がある.
+    - 明確な名前指定
+    - 部分一致する名前
+    - 入力順
+
+*** Lagy Evaluation
+    遅延評価をサポートしている.
+
+    以下の例では, a は評価されて b は評価されない.
     
-**** 条件を指定してデータの抽出
-#+begin_src R
+ #+begin_src R :session ex :export both :results code
+f <- function (a, b) {
+    print (a)
+    print (b)
+}
+f (45)
+ #+end_src
+
+*** example
+
+ #+begin_src R :session ex :export both :results code
+add2 <- function (x, y) {
+    x + y
+}
+
+above10 <- function (x) {
+    use <- x > 10
+    x[use]
+}
+
+above <- function (x, n = 10) {
+    use <- x > n
+    x[use]
+}
+x <- 1:20
+above (x, 12)
+ #+end_src
+
+ #+begin_src R :session ex :export both :results code
+clumnmean <- function (y, removeNA = TRUE) {
+    nc <- ncol (y)
+    means <- numeric (c (nc))
+    for (i in 1:nc) {
+        means[i] <- mean (y[, 1], na.rm = removeNA)
+    }
+    means
+}
+ #+end_src
+
+** Control Structures: 制御文
+   制御文は Ruby に似ている.
+
+*** if
+
+#+begin_src R :session ex :export both :results code
+if (x > 3) {
+    y  <- 10
+} else {
+    y <- 0
+}
+
+# cf.) = (condition) ? foo: bar;
+y <- if (x > 3) {
+    10 
+} else {
+    0
+}
+#+end_src
+
+*** For loops
+  
+#+begin_src R :session ex :export both :results code
+for (i in 1:10) {
+    print (i)
+}
+#+end_src
+
+  matrix は以下のように loop させる
+
+#+begin_src R :session ex :export both :results code
+x <- matrix (1:6, 2, 3)
+
+for (i in seq_len (nrow (x))) {
+    for (j in seq_len (ncol (x))) {
+        print (x[i, j])
+    }
+#+end_src
+
+*** while loops
+ 
+#+begin_src R :session ex :export both :results code
+count <- 0
+while (count < 10{)) {
+   print (count)
+   count <- count + 1
+}
+#+end_src
+
+*** repeat / break / next
+    repeat は infinite loop をつくるために利用する.
+    break, next といっしょに利用する.
+
+** オブジェクト (データ)
+*** Atomic Classes of Objects
+   R には 5 つのアトミックなオブジェクトがある.
+   - charactor
+   - numeric (real number)
+   - integer
+   - complex
+   - ligical (true/false)
+
+**** Integer
+     Integer で表現するときは, numeric のあとに L をつける.
+
+**** Nan
+     Undefined valuable.(not a number).
+**** Inf
+     Inf...Infinity number
+
+*** Basic Objects
+**** valuables
+ #+begin_src R
+x <- 5
+ #+end_src
+
+**** vetor
+     c で vector を生成する.
+
+ #+begin_src R :session ex :export both :results code
+  a <- c (0.5, 0.6)    # numeric
+  b <- c (TRUE, FALSE) # logial
+  c <- 0:5             # integer     
+  d <- c ("a", "b", "c") #chalactor
+ #+end_src
+
+    型の混合も許す. tuple のような機能も併せ持つ.
+
+ #+begin_src R :session ex :export both :results code
+a <- (1,7, "a")
+b <- (TRUE, "a")
+ #+end_src
+
+ #+begin_src R :session ex :export both :results code
+x <- 0:6
+class (x)
+ #+end_src
+
+ #+BEGIN_SRC R
+integer
+ #+END_SRC
+
+**** list
+     vector の特殊な形. 異なる型の vector を一つにまとめる.
+
+ #+begin_src R :session ex :export both :results code
+x <- list (1, "a", TRUE, 1 + 4i)
+x
+ #+end_src
+
+ #+BEGIN_SRC R
+1	a	TRUE	1+4i
+ #+END_SRC
+
+**** Matrices
+     次元の性質をもつ vector. matrix 関数で生成.
+
+ #+begin_src R :session ex :export both :results code
+m <- matrix (nrow = 2, ncol = 3)
+m
+ #+end_src
+
+ #+BEGIN_SRC R
+nil	nil	nil
+nil	nil	nil
+ #+END_SRC
+
+ #+begin_src R :session ex :export both :results code
+m <- matrix (1:6, nrow = 2, ncol = 3)
+m
+ #+end_src
+
+ #+BEGIN_SRC R
+1	3	5
+2	4	6
+ #+END_SRC
+
+***** dim
+      dim 関数をつかうと vector に 次元の性質を与えることができる.
+
+ #+begin_src R :session ex :export both :results code
+m <- 1:10
+dim (m) <- c (2,5)
+m
+ #+end_src
+
+ #+BEGIN_SRC R
+1	3	5	7	9
+2	4	6	8	10
+ #+END_SRC
+
+***** cbind-ing and rbind-ing
+      cbind, rbind を利用しても, vector から matrix を生成できる.
+
+      #+begin_src R :session ex :export both :results code
+     x <- 1:3
+     y <- 10:12
+     cbind (x, y)
+      #+end_src
+
+    
+      #+BEGIN_SRC R
+     1	10
+     2	11
+     3	12
+      #+END_SRC
+
+ #+begin_src R :session ex :export both :results code
+rbind (x,y)
+ #+end_src
+
+ #+BEGIN_SRC R
+1	2	3
+10	11	12
+ #+END_SRC
+
+**** Factors
+     vector の特殊なかたち. categorical data を扱う.
+
+     integer vector について, それぞれの integer に label があるようなもの.
+
+     enum 列挙型 ともいえる.factor 関数で作成.
+
+ #+begin_src R :session ex :export both :results code
+x <- factor (c ("yes", "no", "no", "yes", "no"), labels = c ("yes", "no"))
+table (x)
+ #+end_src
+
+ #+BEGIN_SRC R
+yes	3
+no	2
+ #+END_SRC
+
+**** Data Frame
+     複数のベクトルからなるリスト.
+     - [[http://www.okada.jp.org/RWiki/?%A5%C7%A1%BC%A5%BF%A5%D5%A5%EC%A1%BC%A5%E0Tips%C2%E7%C1%B4][データフレーム Tips 大全 - RjpWiki]]
+     - [[http://qiita.com/14021939/items/3436a153119bb88d49df][Ruby - R のデータフレーム (data.frame) について - Qiita]]
+
+     list の特殊なかたち. list の list. 
+
+     - list のなかのすべての list が同じ length をもつ必要がある.
+     - list の中の list は column とみなされる.
+     - list の中の各要素の番号は row とみなされる.
+
+     - 通常は, rad.table (), read.csv によって生成される.
+     - data.matrix (x) によって matrix 型に変換できる.
+
+ #+begin_src R :session ex :export both :results code
+x <- data.frame (foo = 1:4, bar = c (T,T,F,F))
+ #+end_src
+
+ #+BEGIN_SRC R
+1	TRUE
+2	TRUE
+3	FALSE
+4	FALSE
+ #+END_SRC
+
+***** 条件を指定してデータの抽出
+ #+begin_src R
 adaltAnimalData <- animaldata[animaldata$Age.Intake>=1,]
-#+end_src
+ #+end_src
 
-**** フレームからベクターを抽出
-#+begin_src R :session ex :export both
+***** フレームからベクターを抽出
+ #+begin_src R :session ex :export both
 distance <-student$distance
+ #+end_src
+
+**** names
+     オブジェクトには名前をつけることができる. 可読性を向上させる.
+
+ #+begin_src R :session ex :export both :results code
+x <- 1:3
+names (x) <- c ("foo", "bar", "norf")
+ #+end_src
+
+ #+begin_src R :session ex :export both :results code
+x <- 1:3
+names (x) <- c ("foo", "bar", "norf")
+
+m <- matrix (1:4 nrow = 2, ncol = 2)
+dimname (m) <- list (c ("a", "b"), c ("c", "d"))
+ #+end_src
+
+** Reading/Writing  Data
+*** Reading
+   read.csv CSV ファイルから読み込み.
+
+ #+begin_src R :session ex :export both :results code
+data <- read.csv ("foo.csv")
+ #+end_src
+  
+   read.table R が適当に読み込んでくれる.
+
+ #+begin_src R :session ex :export both :results code
+data <- read.table ("foo.txt")
+ #+end_src
+
+ 100 行だけ読み込む.
+
+ #+begin_src R :session ex :export both :results code
+initial <- read.table ("datatable.txt", nrows = 100)
+ #+end_src
+
+*** Writing
+    dput, dump で テキストファイルて出力できる.
+
+ #+begin_src R :session ex :export both :results code
+y <- data.frame (a = 1, b = "a")
+dput (y)
+ #+end_src
+
+ #+BEGIN_SRC R
+1	a
+ #+END_SRC
+
+*** Outside
+    Outsid World とのインタフェース.
+    - file
+    - gzfile
+    - bzfile
+    - url
+
+    Connection を利用してファイルを開くこともできる.
+
+ #+begin_src R :session ex :export both :results code
+con <- file ("hw1_data.csv", "r") 
+data <- read.csv (con)
+close (con)
+ #+end_src
+
+   website からも URL を指定することでデータを取得することができる.
+
+ #+begin_src R :session ex :export both :results code
+con <- url ("http://www.jhsph.edu", "r")
+data <- read.csv (con)
+close (con)
+ #+end_src
+
+** Subsetting: 部分集合
+   サブセット (部分集合).
+*** vector
+
+ #+begin_src R :session ex :export both :results code
+x <- c ("a", "b", "c", "c", "d", "a")
+x[1:4]
+ #+end_src
+
+ #+BEGIN_SRC R
+a
+b
+c
+c
+ #+END_SRC
+
+ 条件を指定して, 部分を抽出することができる.
+
+ #+begin_src R :session ex :export both :results code
+x[x > "a"]
+ #+end_src
+
+ #+BEGIN_SRC R
+b
+c
+c
+d
+ #+END_SRC
+
+*** list
+
+ #+begin_src R :session ex :export both :results code
+x <- list (foo = 1:4, bar = 0.6)
+
+# index で指定
+x[1]
+
+# $で指定
+x$bar
+ #+end_src
+
+*** Marix
+
+ #+begin_src R :session ex :export both :results code
+x <- matrix (1:6, 2, 3)
+ #+end_src
+
+ #+BEGIN_SRC R
+1	3	5
+2	4	6
+ #+END_SRC
+
+ , を利用することで, 行や列だけを vector として抽出.
+
+ #+begin_src R :session ex :export both :results code
+x[1,]
+ #+end_src
+
+ #+BEGIN_SRC R
+1
+3
+5
+ #+END_SRC
+
+*** NA Values を取り除く
+    complete.cases で調べる.
+
+   #+begin_src R :session ex :export both :results code
+   x <- c (1, 2, NA, 4, NA, 5)
+   y <- c ("a", "b", NA, "d", NA, "f")
+   good <- complete.cases (x, y)
+   good
+   #+end_src
+
+   #+BEGIN_SRC R
+,  TRUE
+   TRUE
+   FALSE
+   TRUE
+   FALSE
+   TRUE
+   #+END_SRC
+
+#+begin_src R :session ex :export both :results code
+x[good]
 #+end_src
 
+#+BEGIN_SRC R
+1
+2
+4
+5
+#+END_SRC
+    
+* Operations
+** vector
+#+begin_src R :session ex :export both :results code
+x <- 1:4, y <- 4:9
+x + y
+x * y
+x / y
+#+end_src
+
+** matrix
+
+#+begin_src R :session ex :export both :results code
+x <- matrix (1:4, 2, 2) 
+#+end_src
+
+#+BEGIN_SRC R
+1	3
+2	4
+#+END_SRC
+
+#+begin_src R :session ex :export both :results code
+y <- matrix (rep (10, 4), 2, 2)
+#+end_src
+
+#+BEGIN_SRC R
+10	10
+10	10
+#+END_SRC
+
+#+begin_src R :session ex :export both :results code
+x * y
+#+end_src
+
+#+BEGIN_SRC R
+10	30
+20	40
+#+END_SRC
+    
 ** 計算系
 *** データ数
 #+begin_src R

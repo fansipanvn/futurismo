@@ -291,7 +291,7 @@
 
 #+begin_src emacs-lisp
 # This is useful for printing values
-(message "Hello (%s)" foo)
+(messageg "Hello (%s)" foo)
 
 # but doesn't work so well for data structures. For that, use
 (prin1 list-foo)

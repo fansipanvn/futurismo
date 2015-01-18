@@ -595,6 +595,7 @@ last (_ : xs) = last xs
 ** Links
   - [[http://patternsinfp.wordpress.com/][Patterns in Functional Programming | Exploiting the relationship between data structure and program structure]]
   - [[http://www.slideshare.net/ScottWlaschin/fp-patterns-buildstufflt][Functional Programming Patterns (BuildStuff '14)]]
+  - [[https://www.youtube.com/watch?v=AvgwKjTPMmM][▶ Functional programming patterns for the non-mathematician (cut) - YouTube]]
 
 * Links
   結城浩さんの並列・平行プログラミングのパターン紹介
