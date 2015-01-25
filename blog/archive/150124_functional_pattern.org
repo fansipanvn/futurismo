@@ -1,0 +1,144 @@
+#+BLOG: Futurismo
+#+POSTID: 2946
+#+DATE: [2015-01-25 日 00:23]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: FP, パターン
+#+DESCRIPTION: 関数型デザインパターンの情報をまとめてみた
+#+TITLE: 関数型デザインパターンのプレゼン動画をまとめてみた
+
+* はじめに
+  オブジェクト指向言語の世界では, デザインパターンが人気!
+
+  関数型言語の世界でも, OO の影響を受けて, 
+  きっと誰かがパターンを考えているに違いないと考えて,
+  いろいろとネットで情報収集してみた.
+
+  思ったとおりで, いくつか動画をみつけたのでまとめてみる.
+
+* Functinal programming patterns for the non-mathematician
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="//www.youtube.com/embed/AvgwKjTPMmM?rel=0" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+  15 分くらいに短くまとまっている動画. JavaScript.
+
+  関数に成り立つ法則によってまとめている. 
+  - Composition laws
+  - Lenses laws
+  - Fmap laws
+  - Monad laws
+  - Applicative laws
+  - Monoid laws
+  - Arrow laws
+  
+  SlideShare のプレゼン資料
+  - [[http://www.slideshare.net/drboolean/functional-patterns-for-the-nonmathematician][Functional Patterns for the non-mathematician]]
+
+* Functional Programming Patterns
+  動画はリンク先から.
+  - [[http://www.ndcvideos.com/#/app/video/2311][NDCVideos.com | Norwegian Developers Conference]]
+  
+  プレゼン, 動画ともにとてもボリュームがある. 導入部の説明がとても笑える.
+  
+  SlideShare のプレゼン資料
+  - [[http://www.slideshare.net/ScottWlaschin/fp-patterns-buildstufflt][Functional Programming Patterns (BuildStuff '14)]]   
+
+* Patterns and Functional Programming
+  #+BEGIN_HTML
+<iframe src="//player.vimeo.com/video/66613974?title=0&amp;byline=0&amp;portrait=0" width="500" height="375" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="http://vimeo.com/66613974">Patterns and Functional Programming</a> from <a href="http://vimeo.com/chariotsolutions">Chariot Solutions</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+  #+END_HTML
+
+  この本を書いた人の動画.
+
+  Amazon:
+
+#+BEGIN_HTML
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/Functional-Programming-Patterns-Scala-Clojure-ebook/dp/B00HUEG8KK%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00HUEG8KK' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/51pYM9DXw4L._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/Functional-Programming-Patterns-Scala-Clojure-ebook/dp/B00HUEG8KK%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00HUEG8KK' rel='nofollow' target='_blank'>Functional Programming Patterns in Scala and Clojure: Write Lean Programs for the JVM</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 15.01.25</div><div class='amazlink-detail'>Michael Bevilacqua-Linn<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/Functional-Programming-Patterns-Scala-Clojure-ebook/dp/B00HUEG8KK%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00HUEG8KK' rel='nofollow' target='_blank'>Amazon</a></div></div></div></div></div>
+#+END_HTML
+
+  Pragmatic Bookshelf:
+  - [[https://pragprog.com/book/mbfpp/functional-programming-patterns-in-scala-and-clojure][The Pragmatic Bookshelf | Functional Programming Patterns in Scala and Clojure]]
+
+
+  既存の OO Pattern を FP で置き換える.
+
+  こんな記事もみつけた.
+   - [[http://codezine.jp/article/detail/8300][ラムダ式で Command パターンで書かれたコードをシンプルにする ~ ラムダ式使いへの第一歩 (1/5):CodeZine]]
+   - Haskell での置き換え [[http://blog.ezyang.com/2010/05/design-patterns-in-haskel/][Design Patterns in Haskell : Inside 206-105]]
+
+#+begin_src text
+    Replacing Object Oriented Patterns
+        Introduction
+        Replacing Functional Interface
+        Replacing State Carrying Functional Interface
+        Replacing Command excerpt
+        Replacing Builder For Immutable Object
+        Replacing Iterator
+        Replacing Template Method
+        Replacing Strategy
+        Replacing Null Object
+        Replacing Decorator
+        Replacing Visitor
+        Replacing Dependency Injection
+#+end_src
+
+  FP 独自のパターンも紹介.
+
+#+begin_src text
+    Functional Patterns
+        Introduction
+        Tail Recursion excerpt
+        Mutual Recursion
+        Filter-Map-Reduce
+        Chain of Operations
+        Function Builder
+        Memoization
+        Lazy Sequence
+        Focused Mutability
+        Customized Control Flow
+        Domain-Specific Language
+#+end_src
+
+  これはあとで読みたい.(できれば日本語訳で!!)
+
+* Functional Design Patterns
+  Clojure による,パターンの紹介.
+  - [[http://www.infoq.com/presentations/Clojure-Design-Patterns][Functional Design Patterns]]
+
+  内容をみていないのだけれども, ブックマークだけしておく.
+  - State/Event,
+  - Consequences, 
+  - Accumulator
+  - MapReduce,
+  - Reduce/Combine,
+  - Recursive Expansion,
+  
+* おわりに
+** シンフォニーとミニマルミュージック
+  OO でのパターンと FP のパターンでは, うけるイメージが違った.
+
+  OO のパターンからは, 堅牢な構築物のようなイメージを受ける.
+  それは, クラス図で表現されているからかもしれない.
+
+  それに対して, FP からは, ミニマルな文様なようなイメージを受ける.
+  微細なパターンが組み合わさって, 全体をつくるような.
+  FP で言うところのパターンは小さいので,
+  OO でいうところの idiom のようにもとらえられる.
+
+  それは, 堅牢な交響曲と, 微細なテクノミュージックのような違いを感じる.
+
+** 今年の目標は関数型パターンをみにつけること.
+  去年の目標は, OO のデザインパターンを身につけることが目標だった.
+  - [[http://futurismo.biz/archives/2872][Gof デザインパターンの勉強メモ記事とブックマークまとめ | Futurismo]]
+
+  今年は, FP のパターンを身につけることを目標にしよう.
+
+  それにしても, FP のパターンは Gof のような教科書が見当たらない.
+  
+  動画の内容にも言えることだけれども,
+  いろんなひとがそれぞれの意見を持っているような群雄割拠状態.
+
+  だれでもいいので, 
+  すごい本とか出してこの分野を統一してくれないかなと思ってみたり.

@@ -18,6 +18,11 @@ Trim thumbnail images larger than 200x200 px (200x200 px より大きいサム�
 
 - [[http://qiita.com/magicant/items/882b5142c4d5064933bc][git - 提言: コミットメッセージの一行目には要求仕様を書け - Qiita]]
 
+** インデント
+   Emacs だと, M-x align-regexp
+   - [[http://postd.cc/why-i-vertically-align-my-code-and-you-should-too/#][【翻訳】私がコーディングで垂直方向にそろえるインデントをとる理由 | POSTD]]
+     
+
 * English
 ** Commit Comment
 

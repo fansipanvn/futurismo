@@ -506,6 +506,7 @@ end
 
 ** 関数型言語との関係
    - [[http://codezine.jp/article/detail/8300][ラムダ式で Command パターンで書かれたコードをシンプルにする ~ ラムダ式使いへの第一歩 (1/5):CodeZine]]
+   - Haskell での置き換え [[http://blog.ezyang.com/2010/05/design-patterns-in-haskel/][Design Patterns in Haskell : Inside 206-105]]
 
 ** Links
   概要がかかれたページ
@@ -522,7 +523,6 @@ end
 
   Gang Of Four のインタビュー
   - [[http://www.se-radio.net/2014/11/episode-215-gang-of-four-20-years-later/][Episode 215: Gang of Four – 20 Years Later : Software Engineering Radio]]
-
 
 * Embedded System Programming
   - [[http://www.dre.vanderbilt.edu/~schmidt/patterns-ace.html][Patterns for Distributed Real-time and Embedded Systems]]
@@ -572,30 +572,6 @@ struct FSM {
 
 #+end_src
 
-* Functional Programming
-** recursion
-   list 型のデータ構造を扱うときの手法.
-
-*** tail recursive
-** pattern matching
-   tuple 型のデータ構造を扱うときの手法.
-
-*** overlapping pattern: 重複パターン
-    ボリモーフィズムによってパターンマッチをする方法.
-    - [[http://stackoverflow.com/questions/27678078/meaning-of-overlapping-pattern-in-haskell][Meaning of overlapping pattern in Haskell - Stack Overflow]]
-
-    数学的帰納法によって, 定義される関数.
-
-#+begin_src haskell
-last :: [a] -> a
-last [x] = x
-last (_ : xs) = last xs
-#+end_src
-
-** Links
-  - [[http://patternsinfp.wordpress.com/][Patterns in Functional Programming | Exploiting the relationship between data structure and program structure]]
-  - [[http://www.slideshare.net/ScottWlaschin/fp-patterns-buildstufflt][Functional Programming Patterns (BuildStuff '14)]]
-  - [[https://www.youtube.com/watch?v=AvgwKjTPMmM][▶ Functional programming patterns for the non-mathematician (cut) - YouTube]]
 
 * Links
   結城浩さんの並列・平行プログラミングのパターン紹介

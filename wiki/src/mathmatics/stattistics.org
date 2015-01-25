@@ -27,6 +27,54 @@
       + 連続
       + 離散
 
+*** Sample: 標本
+    母集団の部分集合.
+    この母集団から部分集合を対応させる規則を標本抽出と呼ぶ.
+
+    - 母集団を表現する数値を母数という
+    - 標本を表現する数値を統計量という
+    - 統計量で特に母数を推定するために用いられるものを推定量という
+
+    全体を調べることを census という (個体数調査)
+
+*** Standard Error: 標準誤差
+    母集団からある数の標本を選ぶとき, 
+    選ぶ組み合わせに依って統計量がどの程度ばらつくかを, 
+    全ての組み合わせについての標準偏差で表したもの.
+    - [[http://ja.wikipedia.org/wiki/%E6%A8%99%E6%BA%96%E8%AA%A4%E5%B7%AE][標準誤差 - Wikipedia]]
+
+    N が十分大きい場合は (標準偏差) / sqrt (n) or (標準誤差) / sqrt (n)
+
+*** 中心極限定理:  Central Limit Theorem
+    大数の法則によると, ある母集団から無作為抽出された標本平均は
+    サンプルのサイズを大きくすると真の平均に近づく.
+
+    中心極限定理は標本平均と真の平均との誤差を論ずるものである. 
+    多くの場合, 母集団の分布がどんな分布であっても,   
+    その誤差はサンプルのサイズを大きくしたとき近似的に正規分布に従う.
+    - サンプル数を多くしても, 平均は変化しない
+    - サンプル数を多くすると, 標準偏差, 標準誤差は小さくなる
+
+*** Confidence interval: 信頼区間
+    統計学で母数がどのような数値の範囲にあるかを確率的に示す方法.
+    - [[http://ja.wikipedia.org/wiki/%E4%BF%A1%E9%A0%BC%E5%8C%BA%E9%96%93][信頼区間 - Wikipedia]]
+    
+    U と V を, ある母数θ (観測できない) を含んだ確率分布
+    に従う統計量 であるとし, 
+    「 U はθ より小さく, V はθ より大きい」という確率を, 0 と 1 の間の数値.
+
+    - 分布が正規分布に従う場合, 95%信頼区間は, 約平均± 2 ×標準誤差となる.
+    - 分布が正規分布に従う場合, 99%信頼区間は, 約平均± 3 ×標準誤差となる.
+
+    記述統計学と推定統計学の架け橋.
+    一般的に推測統計学では 95%若しくは 99%の信頼区間を推定
+
+**** 数式
+     - confidence interval = mean (x) +- margin of error
+     - margin of error = Z x σ / sqrt (n)
+
+     95%信頼区間は (* 1.96 (/ σ (sqrt n))
+
 ** 統計量
    Def: 一組のデータに統計学的なアルゴリズムを適用して得られる数値.
    - [[http://ja.wikipedia.org/wiki/%E7%B5%B1%E8%A8%88%E9%87%8F][統計量 - Wikipedia]]
@@ -166,12 +214,18 @@ fivenum (x)
 *** 折れ線グラフ (Dot Plot)
     定量的変数を現す場合に利用される.
 
-* 推定統計学: Inferential Statistics
+* Inferential Statistics: 推定統計学:
   収集できたデータを全体のデータ (母集団) から得られた一部の集団と見なし, 
   その得られたサンプルデータから元の母集団の性質や傾向を推測する分野.
   - [[http://ja.wikipedia.org/wiki/%E6%8E%A8%E8%A8%88%E7%B5%B1%E8%A8%88%E5%AD%A6][推計統計学 - Wikipedia]]
 
+  近代統計学ともいわれる.
+
   小さいサンプルから大きな母集団の性質や傾向を見つけることが目的.
+
+  母数を推測する手法として推定 (estimation) と検定 (test) がある.
+  - 推定は母数がどれほどの値なのかを推測する手法
+  - 検定は母数が実質科学的に意味のある基準値と等しいか等しくないかを○×式で推測する手法
 
   推定統計学は, さらに細かく以下に分けられる.
   - Exploratory Data Analysis
@@ -179,7 +233,14 @@ fivenum (x)
   - Casual Data Analysis
   - Mechanistic Data Analysis
 
-** 検定
+** estimation: 推定
+   普通は点推定で推定しておき, 重要な場合にだけ区間推定を行うのが一般的.
+
+*** 点推定
+*** 区間推定
+
+** Test: 検定
+
 *** Z-Scores: Z 検定
     Z 値, Z スコアとも. 
    - [[http://ja.wikipedia.org/wiki/Z%E6%A4%9C%E5%AE%9A][Z 検定 - Wikipedia]]
@@ -195,6 +256,19 @@ z=(取った得点-平均点)/ 標準偏差
    - -0.5~0.5 は 3 (全体の 38%)
    - 0.5~1.5 は 4 (全体の 24%)
    - 1.5 以上は 5 (全体の 7%)
+
+** Hypothesis Testing: 仮説検定
+   ある仮説が正しいといってよいかどうかを
+   統計学的・確率論的に判断するためのアルゴリズム.
+   - [[http://ja.wikipedia.org/wiki/%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A][仮説検定 - Wikipedia]]
+
+   仮説が正しいと仮定した上で, それに従う母集団から,
+   実際に観察された標本が抽出される確率を求め, その値により判断を行う. 
+   その確率が十分に (予め決めておいた値より) 小さければ,
+   「仮説は成り立ちそうもない」と判断できる.
+
+*** Null Hypothesis: 帰無仮説
+    
 
 ** colleration: 相関
    2 種類のデータの関係, 類似性.
@@ -313,23 +387,23 @@ z=(取った得点-平均点)/ 標準偏差
 *** 回帰線: regression line
     線形回帰直線. 事象と平均の最上二乗法で導出.
 
-* Exploratory Data Analysis: 探索的データ解析
-  未知の関係性を見つけることが目的.
-  - [[http://www.msi.co.jp/splus/products/eda.html][S-PLUS: EDA]]
+** Exploratory Data Analysis: 探索的データ解析
+   未知の関係性を見つけることが目的.
+   - [[http://www.msi.co.jp/splus/products/eda.html][S-PLUS: EDA]]
 
-* Predictive Analysis: 予測解析
-  ある出来事を予測するためにデータを利用することが目的.
-  - [[http://en.wikipedia.org/wiki/Predictive_analytics][Predictive analytics - Wikipedia, the free encyclopedia]]
+** Predictive Analysis: 予測解析
+   ある出来事を予測するためにデータを利用することが目的.
+   - [[http://en.wikipedia.org/wiki/Predictive_analytics][Predictive analytics - Wikipedia, the free encyclopedia]]
 
-  確証的データ解析, 仮説検定とも.
+   確証的データ解析, 仮説検定とも.
   
-* Causal Data Analysis: 因果分析
-  ある変数が変化したとき, 
-  別の変数になにが起きるかを明かにすることが目的.
+** Causal Data Analysis: 因果分析
+   ある変数が変化したとき, 
+   別の変数になにが起きるかを明かにすることが目的.
 
-* Mechanistic Data Analysis: 機構的解析
-  ある出来事の変数に決定的な変化をもたらす別の出来事の変数を
-  理解することが目的.
+** Mechanistic Data Analysis: 機構的解析
+   ある出来事の変数に決定的な変化をもたらす別の出来事の変数を
+   理解することが目的.
 
 * データサイエンス
   データに関する研究を行う学問.  
@@ -441,5 +515,5 @@ z=(取った得点-平均点)/ 標準偏差
   - [[http://www.stat.go.jp/teacher/c2dic.htm][基本用語集|統計学習の指導のために (先生向け)]]
   - [[http://matome.naver.jp/odai/2134521035124482601][次の 10 年で一番熱い学問は統計学! 統計学を勉強する上で参考になるサイト・書籍まとめ - NAVER まとめ]]
 
-* 参考書 (購入候補)
+* 参考書 
   - [[http://www.amazon.co.jp/dp/4320018575/?tag=hatena_st1-22&ascsubtag=d-fylef][Amazon.co.jp: 統計学:R を用いた入門書: Michael J.Crawley, 野間口 謙太郎, 菊池 泰樹: 本]]  

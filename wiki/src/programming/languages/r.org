@@ -183,7 +183,6 @@ for (i in 1:10) {
 #+end_src
 
   matrix は以下のように loop させる
-
 #+begin_src R :session ex :export both :results code
 x <- matrix (1:6, 2, 3)
 
@@ -313,7 +312,6 @@ m
      y <- 10:12
      cbind (x, y)
       #+end_src
-
     
       #+BEGIN_SRC R
      1	10
@@ -346,6 +344,8 @@ table (x)
 yes	3
 no	2
  #+END_SRC
+
+   - [[https://siguniang.wordpress.com/2010/09/30/rnumeric%E3%81%A8factor%E3%81%AE%E7%9B%B8%E4%BA%92%E5%A4%89%E6%8F%9B/][numeric と factor の相互変換 | Siguniang's Blog]]
 
 **** Data Frame
      複数のベクトルからなるリスト.
@@ -397,6 +397,10 @@ names (x) <- c ("foo", "bar", "norf")
 m <- matrix (1:4 nrow = 2, ncol = 2)
 dimname (m) <- list (c ("a", "b"), c ("c", "d"))
  #+end_src
+
+*** split
+    カテゴリごとに DataFrame を分割する.
+    - [[http://itbc-world.com/home/rfm/r%E3%81%AE%E6%A9%9F%E8%83%BD/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E5%9E%8B/][R.4.05. データフレーム型 | R Financial & Marketing Library]]
 
 ** Reading/Writing  Data
 *** Reading
@@ -495,7 +499,7 @@ x$bar
  #+end_src
 
 *** Marix
-
+p
  #+begin_src R :session ex :export both :results code
 x <- matrix (1:6, 2, 3)
  #+end_src
@@ -547,6 +551,80 @@ x[good]
 5
 #+END_SRC
     
+** Loop Functions
+   R では, for 文を利用しないで, apply を利用すのがスマートな方法
+   - 行列タイプのデータを処理する apply
+   - データをグループごとにまとめて処理する tapply
+   - ベクトルやリストに並んだデータを順次処理する lapply と sapply
+   - 複数のベクトルやリストそれぞれからひとつづつデータをとりだして
+     それらをまとめて処理する mapply.
+
+**** Bookmarks
+   - [[http://cse.naro.affrc.go.jp/takezawa/r-tips/r/24.html][R-Source]]
+   - [[http://takenaka-akio.org/doc/r_auto/chapter_07_apply.html][R プログラム (TAKENAKA's Web Page)]]
+
+*** apply (X, MARGIN, Fun, ...)
+    ベクトルや行列, 配列の MARGIN に関数を適用し, 
+    その結果の配列かリストを返す.
+
+    適用する対象は MARGIN で指定する.
+    - MARGIN = 1 ならば行
+    - MARGIN = 2 ならば列
+    - MARGIN = c (1,2) ならば各要素
+
+*** lapply (X, Fun, ...)                  
+    リストに関数を適用し, 結果のリストを返す. 
+
+#+begin_src R :session ex :export both :results code
+x <- list (a = 1:5, b = rnorm (10))
+lapply (x, mean)
+#+end_src
+
+#+RESULTS:
+#+BEGIN_SRC R
+3	0.317047506752886
+#+END_SRC
+
+   無名関数も適用できる.
+
+#+begin_src R :session ex :export both :results code
+x <- list (a = matrix (1:4, 2, 2), b = matrix (1:6, 3, 2))
+lapply (x, function (elt) elt[,1])
+#+end_src
+
+*** sapply (X, Fun, ...)
+    リストに関数を適用し, 以下のいずれかを返す.
+    - names 属性付きのベクトル
+    - names 属性付きの行列
+
+    lapply に名前をつけて返す.
+
+*** tapply (X, INDEX, 関数, ...)
+    グループ化された変数について, グループごとに関数を適用する. 
+    INDEX は X の要素をグループに分ける因子の組み合わせのリスト 
+    (通常は文字列ベクトル) を与え, 
+    各グループに関数を適用した結果をベクトルもしくはリストで返す.  
+
+    #+begin_src R :session ex :export both :results code
+    x <- c (rnorm (10), runif (10), rnorm (10, 1))
+    f <- gl (3,10)
+    tapply (x, f, mean)
+    #+end_src
+
+    #+RESULTS:
+    #+BEGIN_SRC R
+    0.261313462923763
+    0.506306891259737
+    0.949854337382766
+    #+END_SRC
+
+    Excel の vlookup みたいなのを想像すればいい.
+                                        
+***  mapply (Fun F , x, y, z, ... )
+    sapply () の多変量版. 
+    x, y, z, はベクトルや行列などを複数個指定でき, 
+    関数 F (x, y, z, ...) の結果をベクトルのリストで返す.
+
 * Operations
 ** vector
 #+begin_src R :session ex :export both :results code
@@ -711,6 +789,23 @@ logisticFitPrid (time, mv, 12)
 #+begin_src R :session ex :export both :results code
 tripleFit (time, mv)
 #+end_src
+
+** サンプル抽出
+   1000 回の試行のなかで 10 回取り出す.
+
+#+begin_src R :session ex :export both :results code
+xbar10 <-rep (NA, 1000)
+for (i in 1:1000)
+{x <-sample (survey$name_letters, size =10)
+xbar10[i] <- mean (x)}
+#+end_src
+
+* Debug
+** ess-tracebug
+   ess-tracebug を利用する. 
+  - [[http://code.google.com/p/ess-tracebug/][ess-tracebug - Tracing and debugging R code in ESS. - Google Project Hosting]]
+
+  BreakPoint 系 ess-bp-xxx
 
 * ブックマーク
 ** 文法

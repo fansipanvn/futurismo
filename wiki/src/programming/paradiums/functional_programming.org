@@ -100,7 +100,7 @@
     新しく右辺にあるデータを代入する」とも言い換えられます. 
     この仕組みのことを「破壊的代入」という.
 
-** モナド
+** Monad: モナド
    wikipedia, なにいっているかわからない.
    - [[http://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%8A%E3%83%89_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0)][モナド (プログラミング) - Wikipedia]] 
 
@@ -289,10 +289,14 @@ Prelude> filter even [1..10]
    - 戻り値が「もとの関数の残りの引数を取り結果を返す関数」
 
    であるような関数にすること.
-
    - [[http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%AA%E3%83%BC%E5%8C%96][カリー化 - Wikipedia]]
 
    部分適用を容易にすることが可能になるというメリットがある.
+   - [[http://futurismo.biz/archives/2472][Ruby の無名関数についての整理メモ | Futurismo]]
+
+*** example
+  Elisp:
+  - https://gist.github.com/eschulte/6167923
 
 * invariant programming
   不変式プログラミング. 再帰的に呼ばれる度に, 数学的に真になる式.
@@ -416,6 +420,72 @@ end
    
    実行時には, 番号が振られることが覆いが, 
    言語によっては番号はプログラマに見えないこともある.
+
+* Functional Programming Patterns
+  Based on bellows.
+  - [[http://www.slideshare.net/ScottWlaschin/fp-patterns-buildstufflt][Functional Programming Patterns (BuildStuff '14)]]
+  - http://fsharpforfunandprofit.com/fppatterns/
+  - http://www.ndcvideos.com/#/app/video/2311
+
+** recursion
+   list 型のデータ構造を扱うときの手法.
+
+*** tail recursive
+
+** pattern matching
+   tuple 型のデータ構造を扱うときの手法.
+
+*** overlapping pattern: 重複パターン
+    ボリモーフィズムによってパターンマッチをする方法.
+    - [[http://stackoverflow.com/questions/27678078/meaning-of-overlapping-pattern-in-haskell][Meaning of overlapping pattern in Haskell - Stack Overflow]]
+
+    数学的帰納法によって, 定義される関数.
+
+#+begin_src haskell
+last :: [a] -> a
+last [x] = x
+last (_ : xs) = last xs
+#+end_src
+
+** Links
+  - [[http://patternsinfp.wordpress.com/][Patterns in Functional Programming | Exploiting the relationship between data structure and program structure]]
+* Functional Laws
+  Based on Brian Lonsdorf's Great Presentation.
+  - [[https://www.youtube.com/watch?v=AvgwKjTPMmM][▶ Functional programming patterns for the non-mathematician (cut) - YouTube]]
+  - https://github.com/DrBoolean/patterns_talk
+  - http://www.slideshare.net/drboolean/functional-patterns-for-the-nonmathematician
+  - http://vimeo.com/user7981506
+
+** Composition laws
+*** Currying
+    - https://gist.github.com/eschulte/6167923
+
+** Lenses laws
+   A function that acts as both a getter and setter.
+   - http://vimeo.com/104807358
+
+** Fmap laws
+*** Null checking
+*** Error handling
+
+** Monad laws
+*** Future values
+*** Functor
+*** Nesting
+
+** Applicative laws
+
+** Monoid laws
+*** Accumulation
+*** Monoid
+** Arrow laws
+*** Combinators
+*** Arrows
+
+* Functional Design Patterns
+  Based on
+  - [[http://www.infoq.com/presentations/Clojure-Design-Patterns][Functional Design Patterns]]
+
 
 * Bookmarks
   - [[https://docs.google.com/viewer?url=http://www.mew.org/~kazu/material/2010-func.pdf][Haskell 脳と Emacs Lisp 脳]]
