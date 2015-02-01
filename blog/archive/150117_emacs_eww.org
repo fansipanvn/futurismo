@@ -1,7 +1,10 @@
+#+BLOG: Futurismo
+#+POSTID: 2950
+#+DATE: [2015-01-25 日 18:31]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
-#+CATEGORY: 技術メモ
-#+TAGS:
-#+DESCRIPTION:
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: 
+#+DESCRIPTION: Emacs での テキストブラウザ eww を使えるレベルにする
 #+TITLE: Emacs での テキストブラウザ eww を使えるレベルにする
 
 #+BEGIN_HTML
@@ -9,7 +12,7 @@
 #+END_HTML
 
 * はじめに
-  最近よくマックにいくのだけれども, ここがとても電波回線が悪い!
+  最近よくマックにいくのだけれども, ここがとても電波回線が悪い (@_@);
 
   ネットサーフィンをしてても, とてもストレスがたまる.
   このままだと, マックのせいでストレスから立ち直れなくなってしまうので
@@ -21,6 +24,247 @@
 * EWW とは
   Emacs での テキストブラウザ.
   Emacs24.4 からデフォルトで Emacs にはいっている.
+   - http://bzr.savannah.gnu.org/lh/emacs/trunk/annotate/head:/lisp/net/eww.el
+   - [[http://www.gnu.org/software/emacs/manual/html_mono/eww.html#Advanced][Emacs Web Wowser]]
 
-** Environment
-** Special Thanks
+* Basics Config
+** KeyBindings
+   - N (eww-next-url)
+   - P (eww-previous-url) 
+   - l (eww-back-url) 
+   - r (eww-forward-url) 
+   - H (eww-list-histories) 
+   - & (eww-browse-with-external-browser)
+   - b (eww-add-bookmark)
+   - B (eww-list-bookmarks)
+   - q (quit-window)
+
+   見にくいときは, R eww-readable をすると, 
+   余計なリンクやサイドバーが消えて見えやすくなる.
+
+   いくつか自分でも追加.
+
+#+begin_src emacs-lisp
+  (define-key eww-mode-map "r" 'eww-reload)
+  (define-key eww-mode-map "c 0" 'eww-copy-page-url)
+  (define-key eww-mode-map "p" 'scroll-down)
+  (define-key eww-mode-map "n" 'scroll-up)
+#+end_src
+
+** 背景色の設定
+  正直, 以下の記事をみつけなければ, eww は利用していなかった!!
+  - [[http://rubikitch.com/2014/11/19/eww-nocolor/][Emacs24.4 組み込みブラウザ eww で目の疲れを 1/10 にする方法 | るびきち「日刊 Emacs 」]]
+
+  黒背景を利用していると, google の検索結果が白みががかってしまってつか
+  いものにならなかった. 以下の設定をしたら, あらー不思議. いろが消えた.
+
+#+begin_src emacs-lisp
+(defvar eww-disable-colorize t)
+(defun shr-colorize-region--disable (orig start end fg &optional bg &rest _)
+  (unless eww-disable-colorize
+    (funcall orig start end fg)))
+(advice-add 'shr-colorize-region :around 'shr-colorize-region--disable)
+(advice-add 'eww-colorize-region :around 'shr-colorize-region--disable)
+(defun eww-disable-color ()
+  "eww で文字色を反映させない"
+  (interactive)
+  (setq-local eww-disable-colorize t)
+  (eww-reload))
+(defun eww-enable-color ()
+  "eww で文字色を反映させる"
+  (interactive)
+  (setq-local eww-disable-colorize nil)
+  (eww-reload))
+#+end_src
+   
+** default の検索エンジンを Google に変更
+   default では, duckduckgo が設定されている. Google へ.
+
+#+begin_src emacs-lisp
+(setq eww-search-prefix "http://www.google.co.jp/search?q=")
+#+end_src
+
+*** dokudokgo
+    - https://duckduckgo.com/params
+
+    こまかくパラメータ設定
+    - kl=ja-jp 日本語
+    - k1=-1    広告なし
+    - kc=1     自動先読み
+    - kf=-1    サイトアイコンなし
+    - q =      検索文字
+
+    => サイトアイコンなしは動かない.
+
+#+begin_src emacs-lisp
+;; (setq eww-search-prefix "https://duckduckgo.com/html/?kl=jp-jp&k1=-1&kc=1&kf=-1&q=")
+#+end_src
+
+** eww 複数起動する
+   バッファ名を rename すればいい.
+   - http://ergoemacs.org/emacs/emacs_eww_web_browser.html
+
+#+begin_src emacs-lisp
+(defun eww-mode-hook--rename-buffer ()
+  "Rename eww browser's buffer so sites open in new page."
+  (rename-buffer "eww" t))
+(add-hook 'eww-mode-hook 'eww-mode-hook--rename-buffer)
+#+end_src
+
+   - eww-list-buffers (S にキーバインドされている)
+     生成した eww を一覧で表示できる.
+
+** クイック検索
+   サクッと Google 検索をしたいので, 検索機能を強化した.
+   - 検索結果にハイライトをつける.
+
+#+begin_src emacs-lisp
+(defun eww-search (term)
+  (interactive "sSearch terms: ")
+  (setq eww-hl-search-word term)
+  (eww-browse-url (concat eww-search-prefix term)))
+
+(add-hook 'eww-after-render-hook (lambda ()
+				   (highlight-regexp eww-hl-search-word)
+				   (setq eww-hl-search-word nil)))
+
+#+end_src
+
+** 現在の url を 外部ブラウザ で開く (eww-browse-with-external-link)
+   テキストブラウザは地味なので, ときには別のブラウザでも Web ページを閲覧したい.
+   私は普段は conkeror を利用しているので, これで開きたい.
+
+   以下の関数で今見ているページを外部ブラウザで開くことができる.
+   &にキーバインドされている.
+
+   #+begin_src text
+   eww-browse-with-external-link
+   #+end_src
+
+   以下の設定で, ブラウザを conkeror に指定.
+   - http://www.emacswiki.org/emacs/Conkeror
+
+ #+begin_src emacs-lisp
+(setq browse-url-generic-program (executable-find "conkeror"))
+(setq shr-external-browser 'browse-url-generic)
+#+end_src
+
+** 現在の url を eww で開く
+  外部ブラウザで開きたいときもあれば, eww で開きたいときもある.
+
+#+begin_src emacs-lisp
+(defun browse-url-with-eww ()
+  (interactive)
+  (let ((url-region (bounds-of-thing-at-point 'url)))
+    ;; url
+    (if url-region
+      (eww-browse-url (buffer-substring-no-properties (car url-region)
+						      (cdr url-region))))
+    ;; org-link
+    (setq browse-url-browser-function 'eww-browse-url)
+    (org-open-at-point)))
+(global-set-key (kbd "C-c p") 'browse-url-with-eww)
+#+end_src
+
+  - [[http://tototoshi.hatenablog.com/entry/20100630/1277897703][カーソル位置の URL をブラウザで開く - tototoshi の日記]]
+  - [[http://stackoverflow.com/questions/9033050/how-to-setup-emacs-to-folow-links-in-two-ways-depend-on-ctrl-key][browser - How to setup Emacs to folow links in two ways depend on CTRL key - Stack Overflow]]
+  - [[http://ergoemacs.org/emacs/elisp_thing-at-point.html][Emacs Lisp: Using thing-at-point]]
+  - [[http://tech.actindi.net/3498443215][アクトインディ技術部隊報告書]]
+
+** 画像表示
+   画像は遅いので表示させない. 以下の記事のテクをそのまま借りた.
+   -  [[http://rubikitch.com/2014/11/25/eww-image/][Emacs24.4/Emacs25 の eww で画像を非表示にする方法! よりテキストブラウザらしく]]
+
+#+begin_src emacs-lisp
+(defun eww-disable-images ()
+  "eww で画像表示させない"
+  (interactive)
+  (setq-local shr-put-image-function 'shr-put-image-alt)
+  (eww-reload))
+(defun eww-enable-images ()
+  "eww で画像表示させる"
+  (interactive)
+  (setq-local shr-put-image-function 'shr-put-image)
+  (eww-reload))
+(defun shr-put-image-alt (spec alt &optional flags)
+  (insert alt))
+;; はじめから非表示
+(defun eww-mode-hook--disable-image ()
+  (setq-local shr-put-image-function 'shr-put-image-alt))
+(add-hook 'eww-mode-hook 'eww-mode-hook--disable-image)
+#+end_src
+
+** 現在の URL を org-link 形式でクリップボードにコピー
+   eww-copy-page-url (w) で現在の URL をクリップボードにコピー.
+
+   しかし, やりたいことは org-mode のリンクをクリップボードにコピーす
+   ること.この機能かあるかどうかで, 情報収集のスピードが全然違う.
+   
+#+begin_src emacs-lisp
+(defvar eww-org-link-buffer "")
+(defun eww-copy-page-org-link ()
+  (interactive)
+  (setq eww-org-link-buffer
+	(format "[[%s][%s]]" (eww-current-url) (eww-current-title)))
+  (message "stored org-link: %s" eww-org-link-buffer))
+  
+(defun eww-yank-page-org-link ()
+  (interactive)
+  (insert eww-org-link-buffer))
+(define-key eww-mode-map (kbd "@") 'eww-copy-page-org-link)
+(define-key org-mode-map (kbd "C-x @ @") 'eww-yank-page-org-link)
+#+end_src
+
+* External Elisps
+** eww-hatebu
+   モードラインにはてぶ数を表示する.
+    - [[http://d.hatena.ne.jp/syohex/20150116/1421424603][eww ではてなブックマーク数を表示する拡張を書いた - Life is very short]]    
+
+#+begin_src emacs-lisp
+(require' eww-hatebu)
+(eww-hatebu-setup)
+#+end_src
+
+  はてなブックマークを投稿するには, メールからのブックマーク機能を利用する.
+  wl-draft を起動して, コメント書いて送信.
+  - [[http://b.hatena.ne.jp/help/entry/basic][ブックマークを投稿する - はてなブックマークヘルプ]]
+
+** helm-eww-history
+  helm インタフェースで履歴を見る.
+  - [[http://rubikitch.com/2014/11/26/helm-eww/][helm-eww.el – Emacs 組み込み Web ブラウザ eww で URL の履歴を helm する ]]
+
+** helm-eww-bookmarks
+   helm インタフェースでブックマークを見る.
+   - https://github.com/mytoh/helm-eww-bookmark/blob/master/helm-eww-bookmark.el
+
+#+begin_src emacs-lisp
+(require 'helm-eww-bookmark)
+(define-key eww-mode-map "B" 'helm-eww-bookmark)
+#+end_src
+
+** auto-hightlight-symbol で語句をハイライト
+   auto-hightlight-symbol を利用すると, 語句にカーソルを当てるだけで,
+   キーワードがハイライトされる.
+
+   なんかもうメンテナンスされていないようにみえる.
+   - https://github.com/emacsmirror/auto-highlight-symbol   
+   - [[http://qiita.com/aKenjiKato/items/f465993ac8e62db69592][カーソルが乗っているシンボルをすべてハイライトする - Qiita]]
+
+#+begin_src emacs-lisp
+(require ' auto-highlight-symbol)
+(add-hook 'eww-mode-hook 'auto-highlight-symbol-mode)
+(global-auto-highlight-symbol-mode t)
+#+end_src
+
+** ace-link
+   ace インタフェースによるリンクの選択. これは必須!! 
+   conkeror のようなリンク選択ができる.
+   - https://github.com/abo-abo/ace-link
+
+   o をおすと発動.
+  
+#+begin_src emacs-lisp
+(require 'ace-link)
+(eval-after-load 'eww '(define-key eww-mode-map "f" 'ace-link-eww))
+(ace-link-setup-default)
+#+end_src

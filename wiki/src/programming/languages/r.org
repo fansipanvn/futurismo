@@ -700,6 +700,7 @@ myvars <- c ('YearsPro', 'Events', 'BuckOuts')
 cor (bull[,myvars])
 #+end_src
 
+
 ** 検定
 *** zscore: Z 検定
     
@@ -800,12 +801,108 @@ for (i in 1:1000)
 xbar10[i] <- mean (x)}
 #+end_src
 
+** t-testing
+
+#+begin_src R :session ex :export both :results code
+t.test (age, mu=30)
+t.test (age, mu=30, alternative = 'less')
+t.test (age, mu=30, alternative = 'greater')
+#+end_src
+* データクリーニング
+** sort
+    order / sort.list を利用する.
+    - [[http://d.hatena.ne.jp/kkobayashi_a/20070706/p2][R でデータフレームをソートする方法 - XXXannex]]
+
+#+begin_src R :session ex :export both :results code
+    stateData <- stateData[order (stateData[,col]),]
+#+end_src
+
+** 不正な値の削除
+   numeric でなければ NA を挿入する. 
+
+#+begin_src R :session ex :export both :results code
+     data[, 11] <- as.numeric (data[, 11])
+#+end_src
+
+** 重複除去
+   unique を利用する.
+
+#+begin_src R :session ex :export both :results code
+   u <- unique (d)   
+#+end_src
+
+* Simulation
+** Randum Number
+  - dnorm
+  - pnorm
+  - qnorm
+  - rnorm
+
+#+begin_src R :session ex :export both :results code
+dnorm (x, mean=0 sd=1, log=FALSE) 
+pnorm (x, mean=0 sd=1, lower.tail=TRUE, log.p=FALSE) 
+qnorm (x, mean=0 sd=1, lower.tail=TRUE, log.p=FALSE) 
+rnotm (x, mean=0 sd=1)
+#+end_src
+
+-1 ~ 1 の間で 10 のランダム変数を.
+
+#+begin_src R :session ex :export both :results code
+x <- rnorm (10)
+#+end_src
+
+平均と分散を指定.
+
+#+begin_src R :session ex :export both :results code
+x <- rnorm (10, 20, 2)
+#+end_src
+
+set.seed をセットすると, 実行するたびに毎回異なる数を得られる.
+
+*** ex: Linier Models
+    y = b0 + b1*x + e
+   
+ #+begin_src R :session ex :export both :results code
+set.seed (20)
+x <- rnorm (100)
+e <- rnorm (100, 0, 2)
+y <- 0.5 + 2 * x + e
+ #+end_src
+
+** Random Sampling
+   sample function で 母集団のなかからサンプルをランダムに取り出す.
+
+#+begin_src R :session ex :export both :results code
+set.seed (1)   
+sample (1:10, 4)
+sample (letters, 4)
+#+end_src
+
+
 * Debug
 ** ess-tracebug
    ess-tracebug を利用する. 
   - [[http://code.google.com/p/ess-tracebug/][ess-tracebug - Tracing and debugging R code in ESS. - Google Project Hosting]]
 
   BreakPoint 系 ess-bp-xxx
+
+** str
+   コンパクトにオブジェクトの内部の構造を表示する.
+
+#+begin_src R :session ex :export both :results code
+str (str)
+#+end_src
+
+** summary
+   オブジェクトの内容を要約して表示.
+
+** system.time
+   処理にかかった時間を要約して表示してくれる.
+
+** Rprof
+   R の プロファイラ. 
+   - Rprof ()
+   - summaryRpof ()
 
 * ブックマーク
 ** 文法
