@@ -35,6 +35,27 @@
 
    広義の意味では, 
    - 関数に focusing したプログラミング.
+   - [[http://futurismo.biz/archives/2664][数学での関数とプログラミングでの関数 | Futurismo]]
+
+*** 関数型言語の意味は変わりつつある
+  - 昔は, *高階関数* をサポートする言語という緩い定義だった. 
+  - 現代のモダンな言語 (Haskell, Scala など) は, 
+
+  *数学的理論を背景にプログラムを記述する言語*
+
+  以下に数学的概念と関数型言語の対応マップがある.
+  - [[http://modegramming.blogspot.jp/2014/07/2014.html][Modegramming Style: 関数型プログラミング技術マップ 2014]]
+
+** 背景
+   ハードウェアのメニーコア, 大容量メモリ化によって,
+   性能のボトルネックが I/O ではなくて, アプリケーションとなってきた.
+   アルゴリズムが勝負の世界. アプリがボトルネックになってきた.
+   そのため, 言語レベルで平行・並列処理が書きやすい言語が求められるようになった.
+
+   Cloud Computing において, 異常が発生したら全体をとめるのではなくて,
+   一部を停止して運用を継続させる必要がある.従来の例外処理では処理する
+   のが複雑になってきた.そのため, 言語レベルで分散コンピューティングや
+   Fault Tolerant をサポートするような言語が求められるようになった.
 
 ** 計算の考え方
    命令型では, 計算の基本は蓄えられている値を変えること.
@@ -46,12 +67,30 @@
    - 広義の意味では, Scheme, Clojure, ocame, F#, Scala, Smalltalk, Ruby...
 
 ** メリット
-   関数プログラミング実践入門からの引用
    - コード量が少なくなる 
+   - 高階関数を使った技が使える
    - 最適化がしやすい 
    - 並列処理が書きやすい 
-   - バグりにくい
+   - バグりにくい (定理と証明)
    - ドキュメントが少なくなる
+
+** デメリット
+   - 関数実行のオーバヘッドが大きい
+   - メモリ大量消費
+   - スタック使用量が見積もれない (再帰)
+
+*** コンパイル = 証明
+   *コンパイルを通すということは, 正しさを証明すること*
+
+   関数型言語では, コンパイルが通るとバグがほとんどでない.
+   純粋関数の世界でプログラミングをすることによって, 実現できる.
+   背景には数理論理学がある. (Curry-Haward 対応)
+
+   このことがなぜ大事かというと,
+   並列プログラミングのバグとりは大変. 
+   テストですべてのバグをとれたという保証ができない.
+
+   関数型ならば数学をベースにして, *バグがないことを証明することができる*
 
 * Immunity
   副作用を起こさない.
@@ -421,6 +460,85 @@ end
    実行時には, 番号が振られることが覆いが, 
    言語によっては番号はプログラマに見えないこともある.
 
+* Monadic Programming
+  モナドを中心にプログラムを組む方法. 
+  - [[http://c2.com/cgi/wiki?MonadicProgramming][Monadic Programming]]
+  
+  モナドとは,
+  - コンテナ
+  - パイプライン
+  - インタプリタ
+
+  モナドにはいろいろな種類がある.
+  - IO モナド
+  - State モナド
+  - Future モナド
+    ...
+
+  モナドの使い方は難しいのだけれども, 
+  パターンがあるのでなれれば簡単.
+
+* Functinal Reactive Programming
+   ある変化に応じて動作する, イベント駆動のプログラミング方法.
+
+   Reactive Programmig には, 2 つの種類があるように思う.
+   - Actor Model
+   - Monadic Model
+
+  以下の記事がわかりやすい.
+   - [[http://qiita.com/hirokidaichi/items/9c1d862099c2e12f5b0f][2015 年に備えて知っておきたいリアクティブアーキテクチャの潮流 - Qiita]]
+   - [[http://ninjinkun.hatenablog.com/entry/introrxja][【翻訳】あなたが求めていたリアクティブプログラミング入門 - ninjinkun's diary]]
+
+#+begin_quote
+GUI, インフラ, ビッグデータ処理など様々な場面で浸透しつつあります. 今までは複雑すぎて作ることが難しかったアプリケーションが簡単に設計できるようになっていくでしょう.
+#+end_quote
+  
+  リアクティブ宣言なんという, かっこいい文章も存在する.
+  - [[http://www.reactivemanifesto.org/jp][リアクティブ宣言]]
+
+* Object-Functional Programming (OFP)
+  オブジェクト指向のパラダイムと関数型のパラダイムの両方を利用して
+  プログラミングする.
+  - [[http://www.slideshare.net/asami224/ofpooad-20141114][オブジェクト指向開発における Object-Functional Programming]]
+  - [[https://speakerdeck.com/missingfaktor/object-functional-programming-a-beautiful-unification-or-a-kitchen-sink][Object-Functional Programming – A Beautiful Unification or a Kitchen Sink? // Speaker Deck]]
+
+  上流工程では, 今までどおりオブジェクト指向設計で考えることになる.
+  ユースケースで今までどおり要件定義をして, コンポーネント分割までする.
+  そこから, オブジェクトかファンクションのどちらかつかって責務を実現する.
+  なので, OOP と FP は共存関係にある.
+  
+  OFP 新三種の神器.
+  - トレイト
+  - モナド
+  - 型クラス
+
+  OFP を導入することメリットは, 以下.
+  - *高階関数* や *DSL* を書くことで *開発効率* をあげる
+  - *Monadic Programming*  を行うことで並列処理の品質をあげる
+
+** どこに Functional Programming を適用するか?
+   Functinal Programming で書くと, バグが出にくいので,
+   Functonal Programming の割合をできるだけ増やしていくのがベスト.
+
+   システム開発では, OO:FP の割合は 6:4 くらいか??
+
+   FP でつくるのに適した部分は, DSL の部分.
+   OOP で, Framework と呼ばれている部分.
+
+   アプリ開発は Java でもいい. 
+   アプリ開発の基盤にある DSL 部分を 関数型でかく.
+
+** DSL
+   DSL とは,特定のタスク向けに設計されたコンピュータ言語.
+   DSL は一種類のタスクをうまく実行することに集中したもの.
+   - [[http://ja.wikipedia.org/wiki/%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E5%9B%BA%E6%9C%89%E8%A8%80%E8%AA%9E][ドメイン固有言語 - Wikipedia]]
+
+   そして, FP (というよりも Scala) は, DSL を書くことに
+   適している (Scalable language).
+   なぜなら, 簡単に独自の型や制御構造を定義できるので.
+
+
+
 * Functional Programming Patterns
   Based on bellows.
   - [[http://www.slideshare.net/ScottWlaschin/fp-patterns-buildstufflt][Functional Programming Patterns (BuildStuff '14)]]
@@ -448,7 +566,31 @@ last (_ : xs) = last xs
 #+end_src
 
 ** Links
-  - [[http://patternsinfp.wordpress.com/][Patterns in Functional Programming | Exploiting the relationship between data structure and program structure]]
+  - [[http://patternsinfp.wordpress.com/][Patterns in Functional
+    Programming | Exploiting the relationship between data structure
+    and program structure]]
+* 数学的背景
+** 数学対応マップ
+  以下に数学的概念と関数型言語の対応マップがある.
+  - [[http://modegramming.blogspot.jp/2014/07/2014.html][Modegramming Style: 関数型プログラミング技術マップ 2014]]
+
+** ラムダ計算
+** 数理論理学
+*** コンパイル = 証明
+   *コンパイルを通すということは, 正しさを証明すること*
+
+   関数型言語では, コンパイルが通るとバグがほとんどでない.
+   純粋関数の世界でプログラミングをすることによって, 実現できる.
+   背景には数理論理学がある. (Curry-Haward 対応)
+
+   このことがなぜ大事かというと,
+   並列プログラミングのバグとりは大変. 
+   テストですべてのバグをとれたという保証ができない.
+
+   関数型ならば数学をベースにして, *バグがないことを証明することができる*
+
+** 抽象代数学
+
 * Functional Laws
   Based on Brian Lonsdorf's Great Presentation.
   - [[https://www.youtube.com/watch?v=AvgwKjTPMmM][▶ Functional programming patterns for the non-mathematician (cut) - YouTube]]
@@ -485,7 +627,6 @@ last (_ : xs) = last xs
 * Functional Design Patterns
   Based on
   - [[http://www.infoq.com/presentations/Clojure-Design-Patterns][Functional Design Patterns]]
-
 
 * Bookmarks
   - [[https://docs.google.com/viewer?url=http://www.mew.org/~kazu/material/2010-func.pdf][Haskell 脳と Emacs Lisp 脳]]

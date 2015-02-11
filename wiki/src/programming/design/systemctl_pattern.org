@@ -1,0 +1,105 @@
+#+OPTIONS: toc:nil
+#+TITLE: システム制御パターン
+信頼性に関わる設計パターンについてまとめる.
+
+* Fault tolerant
+  フォールトトレラント.
+  - [[http://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A9%E3%83%BC%E3%83%AB%E3%83%88%E3%83%88%E3%83%AC%E3%83%A9%E3%83%B3%E3%83%88%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0][フォールトトレラントシステム - Wikipedia]]
+
+  構成部品の一部が故障しても正常に処理を続行すること.
+
+** Fault tolerant の条件
+   Wikipedia より.
+
+   1 単一障害点がないこと (障害に対して全体の障害とならないよう対策が施されていること))
+   2 単一故障点がないこと (ハードウェア故障についても同様)
+   3 障害部品の隔離ができること (部分縮退)
+   4 障害の伝播を防ぐこと 
+   5 代替モードがあること
+
+** single point of failure
+   単一障害点. 冗長化がされていない部品.
+
+** 冗長化
+   - レプリケーション
+   同じシステムの複製を複数用意し, 
+   それら全部に同じ処理を並列に実行させ, 定足数を満足した結果を正しい結果として採用する.
+
+   - 冗長性
+   同じシステムの複製を複数用意し, 障害が発生したら予備のシステムに切り替える.
+
+   - 多様性
+   同じ仕様の異なる実装のシステムを複数用意し, レプリケーションのようにそれを運用する.
+   この場合, 各システムが同じ障害を発生することがないと考えられる.
+
+*** Master-Slave
+
+* HeartBeating
+  ネットワーク上で, コンピュータやネットワーク機器が自身が
+  正常に稼動していることを外部に知らせるために送る信号. 
+  - [[http://e-words.jp/w/E3838FE383BCE38388E38393E383BCE38388.html][ハートビートとは 【 heartbeat 】 - 意味/ 解説/ 説明/ 定義 : IT 用語辞典]]
+
+** Unicast
+   ユニキャスト.単一の送信相手を指定して, データを送信する.
+   TCP を利用することが多い.
+
+** Multicast
+   決められた複数のネットワーク端末 (ノード) に対して,
+   同時にパケット (データ) を送信する事.
+   - [[http://ja.wikipedia.org/wiki/%E3%83%9E%E3%83%AB%E3%83%81%E3%82%AD%E3%83%A3%E3%82%B9%E3%83%88][マルチキャスト - Wikipedia]]
+
+   マルチキャストは UDP を使用する. 
+   信頼性が求められる情報通信には向かない.
+
+   Tree-Based Multicast と組み合わせることも.
+   最小探索木を作成して, Multicast.
+
+*** Gossip (Epidemic)-Style Multicast
+    Gossip はうわさのこと.
+    人のうわさがあっという間に広まるのには理論的根拠があった.
+
+    Multicast には以下の課題がある
+    - Nodes may crash
+    - Packets may be dropped
+    - 1000's of nodes
+
+    Multicast 通信で, 特定のグループに情報を伝達するためのよい手段.
+    - epidemics とも呼ばれている.
+    - 速く, 信頼性があり, スケーラブル.
+    - Amazon EC2, S3
+    - Cassendra
+    - NNTP
+
+    あるノードが通信を受信すると, 
+    ランダムに選んだ n つのノードにメッセージを送信する.    
+
+    ウワサや伝染病が広まるように, 情報が伝達していく.
+    - [[http://en.wikipedia.org/wiki/Gossip_protocol][Gossip protocol - Wikipedia, the free encyclopedia]]
+   
+** all to all heartbeating
+** gossip-style heartbeating
+   
+** SWIM-style membership
+  
+** Broadcast
+   不特定多数のノードに, 同時にパケットを送信すること.
+   - [[http://ja.wikipedia.org/wiki/%E3%83%96%E3%83%AD%E3%83%BC%E3%83%89%E3%82%AD%E3%83%A3%E3%82%B9%E3%83%88][ブロードキャスト - Wikipedia]]
+
+** BroadCast
+** Gossip Protocol
+  
+* Failure detectors
+* Membership protocols
+* Gossip/epidemic protocols
+* Grid computing
+
+* Bookmarks
+** Fault-tolerant Patterns
+   Fault-tolerant で利用される概念がコンパクトにまとまっている.
+   - http://www.slideshare.net/ufried/no-crash-allowed-fault-tolerance-patterns
+   Fault-tolerant のパターン. POSA と同じ出版社.
+   - [[http://www.amazon.co.jp/Patterns-Fault-Tolerant-Software-Series-ebook/dp/B00DXK33SK][Amazon.co.jp: Patterns for Fault Tolerant Software (Wiley Software Patterns Series) 電子書籍: Robert Hanmer: Kindle ストア]]
+   上の本の書評
+   - [[http://blogs.ethz.ch/copton/2009/06/26/patterns-for-fault-tolerant-systems/][Patterns for Fault Tolerant Systems - copton]]
+   Pattern についてまとまった PDF.
+   - http://www.dcl.hpi.uni-potsdam.de/teaching/depend13/07_ftpatterns.pdf

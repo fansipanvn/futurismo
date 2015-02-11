@@ -1,0 +1,64 @@
+#+BLOG: Futurismo
+#+POSTID: 2965
+#+DATE: [2015-02-02 月 01:08]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: 
+#+DESCRIPTION: helm-google と eww を 組み合わせた
+#+TITLE: helm-google と eww で サクっと キーワード検索が便利
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* はじめに
+  helm-google と eww を組み合わせたらなかなか相性がよかった.
+
+* helm-google
+   helm-google は, google 検索結果を helm で絞り込めるもの.
+   - https://github.com/steckerhalter/helm-google
+
+#+begin_src R :session ex :export both :results code
+(require 'helm-google)
+(setq helm-google-tld "co.jp")
+#+end_src
+
+** eww と組み合わせる
+   ブラウザはデフォルトでは browse-url を呼んでいるので,
+   これを eww を呼ぶように変更してしまう.
+
+#+begin_src emacs-lisp
+;; eww で表示
+(setq helm-source-google
+	`((name . "Google")
+	  (init . (lambda () (require 'google)))
+	  (action ("Browse URL" . eww-browse-url))
+	  (display-to-real . helm-google-display-to-real)
+	  (candidates . helm-google-search)
+	  (requires-pattern)
+	  (nohighlight)
+	  (multiline)
+	  (volatile)))
+#+end_src
+
+** helm-resume と組み合わせる
+   helm-resume と組み合わせると便利.
+   検索語句にキーワードを追加で足して検索したいときは, helm-resume!!
+
+   便利だと感じたのは, 一度キーワードで検索をかけたあとに,
+   追加でキーワードを指定したいと思ったとき.
+
+   helm-resume だと, 
+   前回の検索結果からはじまるので, 追加でキーワードををいれることができる.
+
+** 検索結果の表示を高くする
+   検索結果は, helm の buffer に現れる.
+   画面の 20%にしか表示されないので, すこし小さい. 大きくしてみる.
+
+   最近追加された autoresize 機能で, 動的に高さを調整.
+
+#+begin_src emacs-lisp
+(helm-autoresize-mode 1) ;; 検索結果によってリサイズ. default 40%
+(setq helm-autoresize-max-height 50)
+#+end_src
+

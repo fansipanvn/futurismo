@@ -54,6 +54,7 @@
  #+end_src
 
 ** Scope
+*** lexical scope
    Emacs の標準はダイナミックスコープ.
    
    しかし, Emacs24 からは, ファイルの先頭に以下を書くと,
@@ -62,6 +63,24 @@
 #+begin_src emacs-lisp
 -*- lexical-binding: t -*- 
 #+end_src
+
+*** ローカル関数の定義
+    let + lambda を利用する, 
+    変数に無名関数を bind させることで実現する.
+    
+#+begin_src emacs-lisp
+(let ((p (lambda (a) (message a))))
+    (funcall p "hoge"))
+#+end_src
+
+*** macro を利用
+    - cl-flet 関数再定義
+    - cl-labels ローカル関数
+    - cl-letf 関数の一時置き換え
+    - noflet
+    - [[http://rubikitch.com/2014/10/27/noflet/][emacs noflet.el : 関数内でローカル関数を定義する最強の方法 | るびきち]]
+
+    注意: flet, lables, letf は obsolite らしい
 
 ** Bookmarks
   - [[http://d.hatena.ne.jp/syohex/20121230/1356850677][よくある処理を Emacs Lisp で書く場合 - Life is very short]]

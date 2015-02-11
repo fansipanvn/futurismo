@@ -1,6 +1,0 @@
-#+OPTIONS: toc:nil
-* UML
-* Tools
-** PlantUML
-
-   - http://doc.norang.ca/org-mode.html#PlantUML

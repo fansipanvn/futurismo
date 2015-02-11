@@ -1,24 +1,23 @@
 #+OPTIONS: toc:nil
 * コードリーディング
+  OSS のコードを読み解くためのノウハウをここに集約する.
 
-OSS のコードを読み解くためのノウハウをここに集約する.
+  以下の戦略が考えられる.
 
-以下の戦略が考えられる.
+  - リバースエンジニアリングからせめる
+    設計をツールによって見える化することで, 理解を助ける.
 
- - リバースエンジニアリングからせめる
-   設計をツールによって見える化することで, 理解を助ける.
+  - リーディングツールからせめる
+    ツールによって検索効率をあげて可読性をあげることで, 理解を助ける.
 
- - リーディングツールからせめる
-   ツールによって検索効率をあげて可読性をあげることで, 理解を助ける.
+  - ノウハウ蓄積からせめる
+    内部の構造についてしらべたことを適切にまとめあげて見直すことで, 理解を助ける.
 
- - ノウハウ蓄積からせめる
-   内部の構造についてしらべたことを適切にまとめあげて見直すことで, 理解を助ける.
-
- - 設計パターンからせめる
-   ステレオタイプを当てはめることによって, 理解を助ける.
+  - 設計パターンからせめる
+    ステレオタイプを当てはめることによって, 理解を助ける.
 
 ** Links
-- [[http://www.amazon.co.jp/Code-Reading%E2%80%95%E3%82%AA%E3%83%BC%E3%83%97%E3%83%B3%E3%82%BD%E3%83%BC%E3%82%B9%E3%81%8B%E3%82%89%E5%AD%A6%E3%81%B6%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E6%8A%80%E6%B3%95-%E3%83%88%E3%83%83%E3%83%97%E3%82%B9%E3%82%BF%E3%82%B8%E3%82%AA/dp/4839912653][Amazon.co.jp: Code Reading-オープンソースから学ぶソフトウェア開発技法: トップスタジオ, まつもと ゆきひろ, 平林 俊一, 鵜飼 文敏: 本]]
+   - [[http://www.amazon.co.jp/Code-Reading%E2%80%95%E3%82%AA%E3%83%BC%E3%83%97%E3%83%B3%E3%82%BD%E3%83%BC%E3%82%B9%E3%81%8B%E3%82%89%E5%AD%A6%E3%81%B6%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E6%8A%80%E6%B3%95-%E3%83%88%E3%83%83%E3%83%97%E3%82%B9%E3%82%BF%E3%82%B8%E3%82%AA/dp/4839912653][Amazon.co.jp: Code Reading-オープンソースから学ぶソフトウェア開発技法: トップスタジオ, まつもと ゆきひろ, 平林 俊一, 鵜飼 文敏: 本]]
 
 * リバースエンジニアリング
 ** UML 生成
@@ -40,17 +39,17 @@ OSS のコードを読み解くためのノウハウをここに集約する.
     Eclipse Luna では, ハングしてしまって利用できなかった?!
 
 **** インストール方法
-    see: http://www.objectaid.com/installation
+     see: http://www.objectaid.com/installation
 
-    ツールバー > ヘルプ > 新規ソフトウェアのインストール > 追加 を選択.
-    ダイヤログに以下を入力.
+     ツールバー > ヘルプ > 新規ソフトウェアのインストール > 追加 を選択.
+     ダイヤログに以下を入力.
 
-    - Name: ObjectAid UML Explorer
-    - URL: http://www.objectaid.net/update 
+     - Name: ObjectAid UML Explorer
+     - URL: http://www.objectaid.net/update 
 
-    Class Diagram は無料. その他は有料. 以下の二つをチェックしてインストール.
+     Class Diagram は無料. その他は有料. 以下の二つをチェックしてインストール.
 
-    - ObjectAid Class Diagram
+     - ObjectAid Class Diagram
 
 **** 使い方
      プロジェクト or パッケージを選択して,
@@ -89,7 +88,7 @@ OSS のコードを読み解くためのノウハウをここに集約する.
 * リーディングツール
 ** Eclipse
 ** タグジャンプ
-    必須ツール. Eclipse のような IDE に依存しないならば, これがないと死ねる.
+   必須ツール. Eclipse のような IDE に依存しないならば, これがないと死ねる.
 
 *** GNU Global
 
@@ -97,10 +96,10 @@ OSS のコードを読み解くためのノウハウをここに集約する.
    ソースコード探索における最大の武器は, grep.
 
 ** 参考リンク
-  - [[http://www.codereading.com/codereading/tools/tools.html][コードを読むためのツール]]
-  - [[http://www.itmedia.co.jp/enterprise/articles/0712/26/news015_2.html][まつもとゆきひろのハッカーズライフ:第 10 回  ソースを読もう (2/2) - ITmedia エンタープライズ]]
-  - 楽天技術顧問のよしおかひろたかさんの素晴らしいスライド
-    http://www.slideshare.net/hyoshiok/sourcecode-reading-workshop2010 ... 
+   - [[http://www.codereading.com/codereading/tools/tools.html][コードを読むためのツール]]
+   - [[http://www.itmedia.co.jp/enterprise/articles/0712/26/news015_2.html][まつもとゆきひろのハッカーズライフ:第 10 回  ソースを読もう (2/2) - ITmedia エンタープライズ]]
+   - 楽天技術顧問のよしおかひろたかさんの素晴らしいスライド
+     http://www.slideshare.net/hyoshiok/sourcecode-reading-workshop2010 ... 
 
 * ノウハウ蓄積
 ** Wiki

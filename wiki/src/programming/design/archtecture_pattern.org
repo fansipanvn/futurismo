@@ -1,0 +1,560 @@
+#+OPTIONS: toc:nil
+* Archtecture Patterns
+  アーキテクチャパターン.
+
+* POSA-1
+会社の図書館にあった.
+
+  http://www.amazon.co.jp/exec/obidos/ASIN/4764902834/asakichy-22/
+
+** 混沌から構造へ
+   複雑になりがちなソフトウェアの構造を整理して「分割して統治」するた
+   めのパターン.
+
+*** Layers
+    アプリケーションを複数の"層"に分け, それらを独立したモジュールとし
+    て開発・保守する. 各層はインタフェースを定義しモジュール化されたソ
+    フトウェアであり, テクノロジーの進歩や要求の変化に合わせて各層を個
+    別に置換できる.
+
+    - [[http://ja.wikipedia.org/wiki/%E5%A4%9A%E5%B1%A4%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3][多層アーキテクチャ - Wikipedia]]
+
+    分割が必要な大規模なシステムが前提. 小規模システムではいらない.
+
+    - [[http://www.hakkaku.net/articles/20080630-227][八角研究所 : POSA 本でアーキテクチャパターンを勉強しよう Layers]]
+
+    失敗談) Windows の Desktop Application を MVC でつくってやたらと時間が
+    かかってしまった.
+
+**** 特徴
+     - 隣接しないレイヤへのアクセスを禁止
+     - 片方向のアクセスを許可.
+
+**** メリット
+     1. 変更が局所化されるため保守性が向上する,
+     2. 抽象度の低い下位レイヤは, さまざまなシステムで再利用できる可能性がある
+     3. レイヤ間のやり取りが標準化されている場合, レイヤを交換することが容易になる
+
+*** Pipes and Filters
+*** lackboard
+** 分散システム
+   分散システムを開発する上で有効なパターン.
+
+*** Broker
+** 対話型システム
+   人とコンピュータの対話 (クライアントとシステムの対話) を提供するシ
+   ステムで有効なパターン
+
+*** Model-View-Controller
+    - [[http://kray.jp/blog/think_about_mvc/#][MVC について考える | KRAY Inc]]
+
+*** Presentation-Abstraction-Control
+** 適合型システム
+   環境の変化や機能要求の変化による中核機能への影響を抑えるために有効
+   なパターン.
+
+*** Microkernel
+*** Reflection
+** Links
+   - [[http://d.hatena.ne.jp/asakichy/20090602/1243900715][POSA のアーキテクチャパターン - Strategic Choice]]
+     
+   ここにある図がよい.
+   - [[http://thinkit.co.jp/article/940/1][第 2 回 アーキテクチャーパターンとは何か | Think IT]]
+
+* POSA-2  
+  Doug 先生, 渾身の著作!
+
+  なぞの PDF 群.
+  - [[http://www.dre.vanderbilt.edu/~schmidt/PDF/][Index of /~schmidt/PDF]]
+  
+  とても参考になるリンク. POSA2.
+  [[http://www.dre.vanderbilt.edu/~schmidt/POSA/POSA2/][Pattern-Oriented Software Architecture: Patterns for Concurrent and Networked Objects]]
+
+** Service Access and Configuration Patterns
+*** Wrapper Facade
+   ソケットなどの OS に依存するような 
+   native methods に対してラッパーライブラリを作成すること.
+
+#+begin_src language
+encapsulate low-level functions and data
+structures with object-oriented (OO) class interfaces.
+#+end_src
+
+   以下のメリットがある.
+
+   - Non-OOP 言語が OOP で利用できたり (Type-safe I/F)
+   - OS 依存がなくなったり, (Portable)
+   - コンパイル時にエラーをチェックする機能を作り込んだりして,
+     API error-prone (誤りがちな) を防ぐ.
+
+   Facade や Bridge と異なり, 
+   薄く, Light weight な実装でオーバヘッドがないことが特徴.
+
+   coursera の posa 講義で出てきたパターン. Doug 氏 の論文.
+   - http://www.cs.wustl.edu/~schmidt/PDF/wrapper-facade.pdf
+
+   言語レベルでサポートされていることが多い?
+   Ruby の Socket Library がよい例.
+   bind や listen を TCPServer メソッドで隠している.
+
+#+begin_src ruby
+server = TCPServer.new (4481)
+
+# => 
+server = Socket.new (:INET, :STREAM)
+addr = Socket.pack_sockaddr_in (4481, "0.0.0.0")
+server.bind (addr)
+server.listen (5)
+#+end_src
+
+*** Component Configurator
+*** Interceptor
+*** Extension Interface 
+** Event Handling Patterns
+*** Reactor (Evented)
+    イベント駆動のためのパターン. 同期的なイベント処理.
+
+#+begin_src language
+The reactor design pattern is an event handling pattern 
+for handling service requests delivered concurrently 
+to a service handler by one or more inputs.
+#+end_src
+
+   - [[http://en.wikipedia.org/wiki/Reactor_pattern][Reactor pattern - Wikipedia, the free encyclopedia]]
+
+   Networking で利用される Reactor は, select を使った狭義の Reactor Pattern.
+
+**** 特徴
+     - イベント (入力データ) を,
+       処理や状態を表すハンドラ (メソッド or サブクラス) に
+       ディスパッチ (結びつける) する.
+     - ハンドラごとに責務を分割できるので OOP 向き.
+
+    EventMachine は Reactor パターンの高性能な実装さ.
+    - [[http://keijinsonyaban.blogspot.jp/2010/12/eventmachine.html][見えないチカラ: 【翻訳】 EventMachine 入門]]
+
+    Android は状態ごとにハンドラが呼び出される.
+    - onCreate ()
+    - onResume ()
+    - onDestory ()
+
+    Spring Framework では, GET や POST の HTTP request は, 
+    それぞれ対応するメソッドにコールバックされる.
+
+**** Structure
+     - Resources: 入力データ
+     - Synchronous Event Demultiplexer:入力データを拾うためのイベントループ.
+                   シングルスレッドで loop していることが特徴 (Synchronous).
+     - Dispatcher: ハンドラを管理する. Demultiplexer から通知を受けたら,
+                   Resource を Handler に Dispatch する (select など)
+     - Handler: Resource に関連付けられた処理.
+
+**** Links
+     - [[https://today.java.net/article/2007/02/08/architecture-highly-scalable-nio-based-server][Architecture of a Highly Scalable NIO-Based Server | Java.net]]
+     - [[http://jeewanthad.blogspot.jp/2013/02/reactor-pattern-explained-part-1.html][Tech Stuff: Reactor Pattern Explained - Part 1]]
+     - [[http://blog.genuine.com/2013/07/nio-based-reactor/][NIO-based Reactor | Genuine Blog]]
+     - http://gee.cs.oswego.edu/dl/cpjslides/nio.pdf
+
+*** Proactor
+    非同期なイベント処理.
+    - [[http://en.wikipedia.org/wiki/Proactor_pattern][Proactor pattern - Wikipedia, the free encyclopedia]]
+
+    POSIX の aio を利用して実現する.
+    - [[http://linuxjm.sourceforge.jp/html/LDP_man-pages/man7/aio.7.html][Man page of AIO]]
+
+    非同期に I/O 操作を実施して, 
+    終了時にはコールバックで通知を受け取る. Non-Blocking.
+
+**** Reactor と Proactor の違い
+    ここが もとネタ.
+    - [[http://www.artima.com/articles/io_design_patterns2.html][Comparing Two High-Performance I/O Design Patterns]]
+
+      日本語の解説: [[http://dev.ariel-networks.com/blog/inoue.php?itemid=705][C++ vs. Java vs. C#のネットワークパフォーマンス比較 - 井上]]
+
+     - Reactor パターン 
+     select (2) or poll (2) でソケットの監視をして, non-blocking な
+     recv (2), send (2) で送受信します.
+
+     ソケットが読み書きできるようになるまでカーネルで待機して, 読み書
+     きできるようになるとユーザアプリに制御が来ます. ユーザアプリは
+     recv で読み込んだデータをバッファにコピー (読み込み時) するか, バッ
+     ファにデータを書き込んで send を呼びます. 実際のネットワーク上へ
+     のデータ送受信は, カーネルの仕事です.
+     
+     - Proactor パターン 
+     非同期 IO の API (aio_の prefix の付いた API) で送受信します.
+     ネットワークの送受信が完了した時点で, カーネルからユーザアプリに
+     制御が来ます. 読み込みの場合, バッファに読み込みデータが既に入っ
+     ているので, ユーザアプリはそれを使えます.
+
+     こういう例も: http://subtech.g.hatena.ne.jp/mala/20090920/1253447692
+
+     ファイルディスクリプタにデータを書き込む場合だと
+     - Reactor パターンでは「 writable になるのを待つ, 書き込めるだけ
+       書き込む」というのを全ての書き込みが終わるまで繰り返します.
+     - Proactor パターンでは, カーネルに転送を任せて, 転送が完了した時
+       点でイベントが発生します.
+
+     極端な話, 1byte ずつしかデータを送れないデバイスがあったとして
+
+    - Reactor パターンで 1MB 送ろうとした場合, 100 万回 (100 万 * n)
+      のコンテキストスイッチが発生する.
+    - Proactor パターンの場合は, カーネルに 1MB のデータを送っておいて,
+      と依頼して終わったらユーザーモードに処理が戻る. コンテキストスイッ
+      チは最小限で済みます.
+
+    どちらが優れているか?
+
+    - ユーザーモードとカーネルモードのコンテキストスイッチのコスト.
+    - 加えて: イベント駆動モデルで書いている場合は, 関数呼び出しのコスト.
+    - 加えて: スレッドモデルで書いている場合は, スレッド or 軽量スレッドのコンテキストスイッチのコスト.
+
+    が, 発生することになります.
+    このコストが無視できないほど大きい場合, Proactor パターンの優位性が大きくなる, ということになるでしょう.
+
+    - StackOverflow: [[http://stackoverflow.com/questions/11859332/reactor-vs-proactor][java - reactor vs proactor - Stack Overflow]]
+    - わかりやすい PDF paper: [[http://blog.marc-seeger.de/2010/08/01/event-driven-i-o-paper/][Event-driven I/O paper - Marc's Blog]]
+
+    The main difference between reactor and
+    proactor is the way they do the actual write/read. 
+
+    - the reactor is only being signalled when the socket is ready to
+      write/read and then does.the reading/writing itself in a
+      synchronous manor
+    - the proactor will use an asynchronous I/O call to the operating
+      system and only supply the buffers to read from/write to.read
+      from/write to.
+
+*** Asynchronous Completion Token
+*** Acceptor-Connector
+    通信の初期化処理と実際の処理を分離することで, 構造を整理するパターン.
+
+    Reactor Pattern において, Handler と Reactor の仲介を行う.
+    Handler に Dispatch する前に, 一連の手続きが必要な場合には,
+
+    - Acceptor が Handler に対して手続きを実施してから (Accept)
+    - Reactor から Handler への Dispatch をさせる (Connect)
+
+    Acceptor がサーバ側の仲介者, Connector がクライアント側の仲介者.
+
+    クラス図的には,EventHandler のサブクラスに 
+    Handler や Acceptor, Connector がいる.
+
+    EventHandler
+    - CifsAcceptor
+      - negotiate
+      - session 
+    - CifsHandler
+      - read
+      - write
+    - CifsConnector
+      - negotiate
+      - session 
+
+** Synchronization Patterns
+*** Scoped Locking
+    クラスのコンストラクタて lock して,デコンストラクタで Unlock する.
+    
+*** Strategized Locking
+*** Thread-Safe Interface
+*** Double-checked locking 
+    ロックの取得におけるオーバヘッドを削減するための技法.
+    まずをスレッドセーフでない方法で「ロックヒント」を調べて, 
+    それが成功したら実際のロックを試みる.
+
+** Concurrency Patterns
+*** Active Object (Actor) 
+    メソッドの呼び出しとメソッドの実際の実行を分離することで並行性を導入する.
+    各オブジェクトは利用者からの要求を管理するための
+    メッセージキューとスケジューラを持つ.
+
+    外部の Client スレッドから非同期にメッセージを受け取っても,
+    自分固有の Active Object スレッドで, 
+    自分の都合のいいタイミングで処理を実行させたい場合に利用する.
+    
+    起動 (invocation) と実行 (execution) の分離.
+
+#+begin_src language
+    Active Object defines units of concurrency as service requests
+    on components & runs service requests on a component in a different
+    thread from the requesting client thread.
+#+end_src
+
+**** 他のパターンとの関係
+     - Acceptor-Connector / Reactor
+     Acceptor-Connector Pattern における Handler 部分をスレッド化すればよい.
+     (i.e. Thread per connection) Reactor の Minor Change で実現できる.
+
+     - Half-Sync/Half-Async
+       Active Object はスレッド/ スレッドを分離する.
+       Half-Sync/Half-Async は, 非同期プロセスと同期プロセスを分離する.
+
+**** Sample
+    Java のサンプル
+    - [[http://en.wikipedia.org/wiki/Active_object][Active object - Wikipedia, the free encyclopedia]]
+
+    Ruby のサンプル
+   - [[http://alpha-netzilla.blogspot.jp/2010/11/design-pattern.html][Blog Alpha Networking: マルチスレッド デザインパターン (Active Object パターン) Ruby 編]]
+   - [[http://takuya-1st.hatenablog.jp/entry/20101124/1290573115][Ruby でマルチスレッド 14 #ActiveObject - それマグで!]]
+
+*** Monitor Object
+    排他的に実行しなければならないメソッド群を持つオブジェクトを
+    スレッドセーフに利用できるようにするための機構.
+    Java はこれを言語レベルでサポートしている.
+
+    - [[http://docs.oracle.com/javase/jp/6/api/javax/management/monitor/package-summary.html][javax.management.monitor (Java Platform SE 6)]]
+    - [[http://en.wikipedia.org/wiki/Monitor_(synchronization)][Monitor (synchronization) - Wikipedia, the free encyclopedia]]
+    - [[http://www.narihiro.info/g1gc-impl-book/lock.html][スレッドの排他制御]]
+
+    Half-Sync/Half-Async Pattern と組み合わせて利用することで,
+    busy の制御や暇な時の過度な負荷を避ける.
+
+*** Half-Sync/Half-Async
+    非同期サービスと同期サービスを分離する.
+    非同期レイヤと同期レイヤはキューでつながっている.
+
+    - https://www.dre.vanderbilt.edu/~schmidt/PDF/PLoP-95.pdf
+
+    非同期処理と同期処理を共存させて, 構造をシンプルにできる.
+
+#+begin_src language
+    The Half-Sync/Half-Async pattern decouples async & sync service processing in
+    concurrent systems, to simplify programming without unduly reducing performance.
+#+end_src
+
+**** Example of Networking Programming
+    このパターンは OS や GUI Framework で広く利用されている.
+
+    OS 上で動くネットワーククライアントは,ソケットに read/write する.
+    このとき, ソケットがキューになって, Kernel が物理 NIC とやりとりをする.
+    
+     - User-Level Processes
+       - Sync User Process 1
+       - Sync User Process 2
+       - Sync User Process 3
+     - Socket Layer
+       - Socket Queues
+     - BSD UNIX Kernel
+       - Async Protocol Processing
+       - NIC
+
+**** Netty による実装.
+    - http://netty.io/3.6/guide/#faq.4
+    - https://gist.github.com/tsu-nera/e30e54a668fdf0195e89
+
+*** Leader/Followers
+    -> Preforking or Thread Pool 参照.
+    事前に スレッドを作っておくので, オーバヘッドが小さい.
+    
+*** Thread-specific storage 
+    静的変数・グローバル変数のように扱えるが
+    スレッドごとに異なる内容を格納できるメモリ領域を提供する.
+
+* POSA-3
+* POSA-4
+* POSA-5
+* Concurrently Patterns
+  平行プログラミング
+  - [[http://www.hyuki.com/dp/dp2.html][『増補改訂版 Java 言語で学ぶデザインパターン入門マルチスレッド編』]]  
+  - [[http://takuya-1st.hatenablog.jp/entry/20101124/1290573650][ruby でやってみた. 『増補改訂版 Java 言語で学ぶデザインパターン入門マルチスレッド編』まとめ - それマグで!]]
+
+** Single Threaded Execution - この橋を渡れるのは, たった一人 
+** Immutable - 壊したくとも, 壊せない 
+** Guarded suspension
+   前提条件が満たされるまで待機するための機構.
+   用意できるまで, 待っててね 
+** Balking - 必要なかったら, やめちゃおう 
+   前提条件が満たされていない場合は, (その時点での) 処理の実行をあきらめる.
+
+** Producer-Consumer
+   スレッド間で処理の待ち合わせを行いながら処理を実行できる.
+
+   「生産者」 (producer) スレッド群がデータを生成して「通信路」に追加し,
+   「消費者」 (consumer) スレッド群がそのデータを「通信路」から取り出して処理するという構造.
+
+   必要な同期はすべて「通信路」によって行なわれるため,
+   生産者と消費者のルーチンは同期を意識せずに実装できる.
+   この通信路は同期キューなどで実現される (一部の言語はこれを標準ライブラリで提供している).
+
+   Producer と Consumer の処理スピードが違うとスループットが落ちる.
+   そこで中継地点としてキューをおき, そこにデータを保持させ,
+   処理スピードの違いを吸収させる
+
+   Java では wait, notifyAll を使う.
+
+   - [[http://omiya6048.hatenablog.com/entry/2013/05/29/145253][Java で Producer-Consumer パターンを実践! - omiya6048's blog]]
+   - [[http://en.wikipedia.org/wiki/Producer%E2%80%93consumer_problem][Producer – consumer problem - Wikipedia, the free encyclopedia]]
+   - [[http://d.hatena.ne.jp/asakichy/20090701/1246407927#20090701f1][Publisher-Subscriber - Strategic Choice]]
+
+   POSA の課題では, BlockingQueue を利用した.
+   - [[http://e-class.center.yuge.ac.jp/jdk_docs/ja/api/java/util/concurrent/BlockingQueue.html][BlockingQueue (Java Platform SE 6)]]
+   - [[http://omiya6048.hatenablog.com/entry/2013/05/29/145253][Java で Producer-Consumer パターンを実践! - omiya6048's blog]]
+
+   Ruby の例がある. Ruby では ConditionVariable の wait, broadcast を利用.
+
+   - [[http://alpha-netzilla.blogspot.jp/2010/11/producer-consumer-ruby.html][Blog Alpha Networking: マルチスレッド デザインパターン (Producer-Consumer パターン) Ruby 編]]
+
+** Read-Write Lock - みんなで読むのはいいけれど, 読んでる間は書いちゃだめ 
+   書き込みは排他アクセスが必要だが読み込みは
+   並行に行えるようにしたい場合のためのロック機構.
+   
+   排他制御が必要な共有リソースのために導入する.
+
+** Thread-Per-Message - この仕事, やっといてね 
+** Worker Thread - 仕事が来るまで待ち, 仕事が来たら働く 
+** Future - 引換券を, お先にどうぞ 
+   「処理が完了しているかどうか分からない処理結果」を表すオブジェクトを作成することで同期を実現する.
+   処理が完了していないうちに結果を取得しようとした場合は処理が完了するまでロックされる.
+
+** Two-Phase Termination - 後片付けしてから, おやすみなさい 
+
+** Thread-Specific Storage - スレッドごとのコインロッカー
+** Active Object - 非同期メッセージを受け取る, 能動的なオブジェクト 
+** Lock 
+   リソースに対して 1 つのスレッドが「ロック」をかけて,
+   そのあいだ他のスレッドがそのリソースにアクセスしたり変更を加えたりできないようにする.
+
+   - [[http://www.castle-cadenza.demon.co.uk/lock.htm][Lock Design Pattern]]
+** Scheduler 
+   シングルスレッドで実行される処理 (例えばファイルへの書き込み) の実行を各スレッドに許可するタイミングを明確に制御する.
+** Thread pool
+   多数のスレッドを作成してそれらに多数のタスクを処理させる.
+   典型的な状況ではスレッド数よりもかなり多くのタスクが存在し,
+   各スレッドは, あるタスクの処理が終わると次の処理待ちタスクの実行に取りかかる.
+   一般に, Producer-consumer パターンを使って実現される.
+** Two-phase termination 
+   スレッドを安全に終了させる方法.
+   スレッドは, 終了要求を表すフラグを定期的に確認して, それがセットされたら終了処理を行う.
+
+
+
+* Network Architecture Patterns
+  Working with TCP Sockets から.
+
+** Serial
+   - advantage
+     - Structure is simple.
+     - Resource usage is simple.
+   - disadvantage
+     - No concurrency.
+
+** Process per connection
+   connection ごとに 子プロセスを起動する.
+   connection を accept したあとにプロセスを生成する.
+
+   - advantage
+     - simple
+     - less overhead
+   - disadvantage
+     - Unix system 限定
+     - プロセス数には限界がある
+
+** Thread per connection
+   connection ごとに スレッドを起動する.
+   connection を accept したあとにスレッドを生成する.
+
+   - advantage
+     - process per connection よりも 低 resource, overhead
+   - disadvantage
+     - スレッド数には限界がある
+
+** Preforking
+   connection ごとに 子プロセスを起動する.
+   あらかじめ process を必要数起動しておき, 
+   accept したらそのプロセスに処理を実施させる.
+
+   - advantage
+     - 事前にプロセスを起動しておくので, accept 時の overhead がない.
+     - メモリの排他を意識する必要がない.
+   - disadvantage
+     - スレッドに比べてより多くのメモリを利用する.
+
+** Thread Pool
+   connection ごとに スレッドを起動する.
+   あらかじめ スレッド を必要数起動しておき, 
+   accept したらそのスレッドに処理を実施させる.
+
+** Evented (Reactor)
+*** 特徴
+    - すべての処理をシングルスレッドで実施する.
+    - マルチスレッドを利用しなくても, 非同期処理がかける.
+    - スレッドやプロセス数の制限なしに, クライアントからの要求に答えることができる.
+      
+*** 実装方法
+    - ソケットを select で監視する.
+      読み取り可能, 書き込み可能なソケットのみに対して処理を実施する.
+    - 遅い回線があるときに, その回線に引きずられて Reactor が他の処理をできない.
+      すべての処理が Blocking される.
+      そんなときは, non-blocking write を利用する.
+
+*** sample
+**** synchronized
+#+begin_src ruby
+hosts.each do |host|
+  sock = TCPSocket.new (host, 80)
+  sock.write (request)
+  sock.read
+  sock.close
+end
+#+end_src
+
+**** threads
+#+begin_src ruby
+threads = hosts.map do |host|
+  Thread.new (host) do |h|
+    sock = TCPSocket.new (h, 80)
+    sock.write (request)
+    sock.read
+    sock.close
+  end
+end
+threads.each{|t| t.join}
+#+end_src
+
+**** reactor
+#+begin_src ruby
+write_socks = hosts.map do |host|
+  TCPSocket.new (host, 80)
+end
+read_socks = []
+
+# handler
+write_proc = lambda{|sock|
+  sock.write (request)
+}
+
+# handler
+read_proc = lambda{|sock|
+  sock.read
+  sock.close
+}
+
+# Reactor
+until (write_socks + read_socks).empty?
+
+  # Demultiplexer
+  r_socks, w_socks, e_socks = IO.select (read_socks, write_socks)
+
+  # Dispatcher
+  if ws = w_socks.first
+    write_proc.call (ws)
+    read_socks << ws
+    write_socks.delete (ws)
+  end
+
+  # Dispatcher
+  if rs = r_socks.first
+    read_proc.call (rs)
+    read_socks.delete (rs)
+  end
+end
+#+end_src
+
+*** Links
+   - [[http://gihyo.jp/dev/serial/01/ruby/0030?page=1][第 29 回  Reactor で非同期処理をやってみよう (1):Ruby Freaks Lounge|gihyo.jp … 技術評論社]]
+   - [[http://gihyo.jp/dev/serial/01/ruby/0032][第 32 回  Reactor で非同期処理をやってみよう (2):Ruby Freaks Lounge|gihyo.jp … 技術評論社]]
+
+** Hybrids
+
+   Netty による Thread Pool と Reactor Pattern の実装.
+   - [[https://today.java.net/pub/a/today/2007/02/13/architecture-of-highly-scalable-nio-server.html#][Architecture of a Highly Scalable NIO-Based Server | Java.net]]

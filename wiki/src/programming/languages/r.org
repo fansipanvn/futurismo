@@ -773,7 +773,6 @@ expFit (time, mv)
 expFitPrid (time, mv, 12)
 #+end_src
 
-
 *** ロジスティック回帰曲線
     logisticFit を利用する.
 #+begin_src R :session ex :export both :results code
@@ -808,6 +807,16 @@ t.test (age, mu=30)
 t.test (age, mu=30, alternative = 'less')
 t.test (age, mu=30, alternative = 'greater')
 #+end_src
+
+** aggregate
+   R を用いてグループごとに集計したいという場合に用いる.
+   
+   aggregate (x, by, FUN, ...)
+
+   - データ x を
+   - リスト構造の by のグループごとに,
+   - 関数 FUN で統計量としてまとめる
+
 * データクリーニング
 ** sort
     order / sort.list を利用する.
@@ -877,7 +886,6 @@ set.seed (1)
 sample (1:10, 4)
 sample (letters, 4)
 #+end_src
-
 
 * Debug
 ** ess-tracebug

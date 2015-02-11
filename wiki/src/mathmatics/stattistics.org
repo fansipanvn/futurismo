@@ -346,67 +346,6 @@ fivenum (x)
 *** 区間推定
 
 ** Test: 検定
-   
-*** 科学との関係
-    科学的な結論であるためには,
-    適切な統計手法を用いて適切に「有意な違い」があることを示さなければならない.
-    - [[http://ja.wikipedia.org/wiki/%E7%A7%91%E5%AD%A6%E7%9A%84%E6%96%B9%E6%B3%95#.E9.81.A9.E5.88.87.E3.81.AA.E7.B5.B1.E8.A8.88.E6.89.8B.E6.B3.95.2F.E6.A4.9C.E5.AE.9A.E9.87.8F.E7.B5.B1.E8.A8.88.2F.E6.A4.9C.E5.AE.9A.E6.89.8B.E6.B3.95.E3.81.AE.E6.8E.A1.E7.94.A8][科学的方法 - Wikipedia]]
-
-    従って科学的な方法の対象であるためには, 
-    適切な統計手段が行使し得る対象である必要がある.
-
-    1. 適切なグループ分けの設定
-    2. 適切な方法で実験条件を振る/ キザむこと (所謂「条件出し」の問題)
-    3. 適切な統計手法/ 統計検定量の採用
-    4. 統計的な有意差を得るために必要な実験例数の設定
-    5. 統計的な相関, 差異の適切な解釈
-    6. 実験データを適切な可視化手段にて可視化されること
-
-    逆にいえば, 科学的に正しいことをいうためには,
-    *統計的手法が効果的* ということだ.
-
-*** 優位性検定
-
-*** 科学との関係
-    科学的な結論であるためには,
-    適切な統計手法を用いて適切に「有意な違い」があることを示さなければならない.
-    - [[http://ja.wikipedia.org/wiki/%E7%A7%91%E5%AD%A6%E7%9A%84%E6%96%B9%E6%B3%95#.E9.81.A9.E5.88.87.E3.81.AA.E7.B5.B1.E8.A8.88.E6.89.8B.E6.B3.95.2F.E6.A4.9C.E5.AE.9A.E9.87.8F.E7.B5.B1.E8.A8.88.2F.E6.A4.9C.E5.AE.9A.E6.89.8B.E6.B3.95.E3.81.AE.E6.8E.A1.E7.94.A8][科学的方法 - Wikipedia]]
-
-    従って科学的な方法の対象であるためには, 
-    適切な統計手段が行使し得る対象である必要がある.
-
-    1. 適切なグループ分けの設定
-    2. 適切な方法で実験条件を振る/ キザむこと (所謂「条件出し」の問題)
-    3. 適切な統計手法/ 統計検定量の採用
-    4. 統計的な有意差を得るために必要な実験例数の設定
-    5. 統計的な相関, 差異の適切な解釈
-    6. 実験データを適切な可視化手段にて可視化されること
-
-    逆にいえば, 科学的に正しいことをいうためには,
-    *統計的手法が効果的* ということだ.
-
-*** 優位性検定
-
-*** 科学との関係
-    科学的な結論であるためには,
-    適切な統計手法を用いて適切に「有意な違い」があることを示さなければならない.
-    - [[http://ja.wikipedia.org/wiki/%E7%A7%91%E5%AD%A6%E7%9A%84%E6%96%B9%E6%B3%95#.E9.81.A9.E5.88.87.E3.81.AA.E7.B5.B1.E8.A8.88.E6.89.8B.E6.B3.95.2F.E6.A4.9C.E5.AE.9A.E9.87.8F.E7.B5.B1.E8.A8.88.2F.E6.A4.9C.E5.AE.9A.E6.89.8B.E6.B3.95.E3.81.AE.E6.8E.A1.E7.94.A8][科学的方法 - Wikipedia]]
-
-    従って科学的な方法の対象であるためには, 
-    適切な統計手段が行使し得る対象である必要がある.
-
-    1. 適切なグループ分けの設定
-    2. 適切な方法で実験条件を振る/ キザむこと (所謂「条件出し」の問題)
-    3. 適切な統計手法/ 統計検定量の採用
-    4. 統計的な有意差を得るために必要な実験例数の設定
-    5. 統計的な相関, 差異の適切な解釈
-    6. 実験データを適切な可視化手段にて可視化されること
-
-    逆にいえば, 科学的に正しいことをいうためには,
-    *統計的手法が効果的* ということだ.
-
-*** 優位性検定
-
 *** 科学との関係
     科学的な結論であるためには,
     適切な統計手法を用いて適切に「有意な違い」があることを示さなければならない.
@@ -552,6 +491,9 @@ fivenum (x)
 
      R にノンパラメトリック検定を行う関数がかなり実装されている.
 
+*** 自由度
+    - [[https://www.yodosha.co.jp/jikkenigaku/statistics_pitfall/pitfall_5.html][第 5 回 パラメトリック統計学への登り道② -自由度とは何か|2014 年 9 月号|統計の落とし穴と蜘蛛の糸|羊土社:実験医学 online]]
+      
 *** Z-Scores: Z 検定
     Z 値, Z スコアとも. 母集団の統計量がわかっているときに利用する.
    - [[http://ja.wikipedia.org/wiki/Z%E6%A4%9C%E5%AE%9A][Z 検定 - Wikipedia]]
@@ -605,11 +547,67 @@ z=(取った得点-平均点)/ 標準偏差
        + 男と女
 
      - [[http://kusuri-jouhou.com/statistics/tkentei2.html][二標本 t 検定]]
-     
+
+*** F-Scores: F 検定
+    帰無仮説が正しければ統計量が F 分布に従うような統計学的検定の総称
+    - [[http://ja.wikipedia.org/wiki/F%E6%A4%9C%E5%AE%9A][F 検定 - Wikipedia]]
+     the variation between groups to the variation within groups.
+
+      Sum of Square (SS) = xx 
+
+      Mean Square (MS) = SS/df
+
 **** Bookmarks
-     - [[http://qiita.com/yuba/items/0e7d782126c669ec5673#][そのコード, 本当に速くなった!? Excel でお手軽 t 検定 - Qiita]]
-*** 自由度
-    - [[https://www.yodosha.co.jp/jikkenigaku/statistics_pitfall/pitfall_5.html][第 5 回 パラメトリック統計学への登り道② -自由度とは何か|2014 年 9 月号|統計の落とし穴と蜘蛛の糸|羊土社:実験医学 online]]
+     - [[http://qiita.com/yuba/items/0e7d782126c669ec5673#][そのコード,本当に速くなった!? Excel でお手軽 t 検定 - Qiita]]
+*** Chi-Scores: カイ二乗検定
+    Categorical Data をテストするための方法.
+    - [[http://ja.wikipedia.org/wiki/%E3%82%AB%E3%82%A4%E4%BA%8C%E4%B9%97%E6%A4%9C%E5%AE%9A][カイ二乗検定 - Wikipedia]]
+
+    x^2 = sigma (observed - expected)^2/expected
+    
+**** Test of Independence: 独立性検定
+    カイ二乗検定は, 観測された分割表から, 
+    二つの確率変数が独立かどうかを測る指標にもなる.
+
+    観測されたデータの分布は, 理論値の分布とほぼ同じと見なせるだろうか?
+    
+    df = (row - 1) x (col - 1)
+
+    expected cell value = col x row / total numbers of sample.
+
+*** ANOVA: 分散分析
+    Analisis of Variance.
+    - [[http://ja.wikipedia.org/wiki/%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90][分散分析 - Wikipedia]]
+    - [[http://www.agri.tohoku.ac.jp/iden/toukei7.html][分散分析]]
+
+    観測データにおける変動を誤差変動と各要因およびそれらの交互作用による
+    変動に分解することによって, 要因および交互作用の効果を判定する.
+
+    ANOVA is an appropriate statistical measure when we want to
+    compare the means of three or more populations at once.
+
+    Now ANOVA is a framework of testing, 
+    that can handle multiple situations.
+
+    分散分析は実験計画法に密接に結びついた統計解析であるため, 
+    それが適用されるのは実験データであることがほとんど.
+    分析結果から導かれた結論として因果関係に言及するケースが多い.
+    - [[http://ofmind.net/doc/anova-note][分散分析のノート]]
+
+    xx と xx には関係がある.
+
+**** 事後検定
+     事後比較 (Post hoc comparisons)
+     比較する平均値についての明確な仮説がない場合は,
+     ANOVA で比較対象を決めて, 多重比較を行う.
+     - [[http://www.shiga-med.ac.jp/~koyama/stat/com-ph.html][私のための統計処理  ー多重比較検定]]
+
+*** Tukey's test
+    互いに有意に差がある平均を探索するために分散分析 (ANOVA) と併用される.
+    - [[http://ja.wikipedia.org/wiki/%E3%83%86%E3%83%A5%E3%83%BC%E3%82%AD%E3%83%BC%E3%81%AE%E7%AF%84%E5%9B%B2%E6%A4%9C%E5%AE%9A][テューキーの範囲検定 - Wikipedia]]
+    - [[http://www.shiga-med.ac.jp/~koyama/stat/com-ph.html][私のための統計処理  ー多重比較検定]]
+
+      F 統計量を用いない多重比較.
 
 ** Exploratory Data Analysis: 探索的データ解析
    未知の関係性を見つけることが目的.
@@ -649,11 +647,8 @@ z=(取った得点-平均点)/ 標準偏差
 *** 回帰線: regression line
     線形回帰直線. 事象と平均の最上二乗法で導出.
 
-
-
 * データサイエンス
   データに関する研究を行う学問.  
-
   - [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%BC%E3%82%BF%E3%82%B5%E3%82%A4%E3%82%A8%E3%83%B3%E3%82%B9][データサイエンス - Wikipedia]]
 
 ** データとは
@@ -714,7 +709,6 @@ z=(取った得点-平均点)/ 標準偏差
    - [[http://www.itmedia.co.jp/keywords/ait_datascience.html][「 IT エンジニアのためのデータサイエンティスト養成講座」最新記事一覧 - ITmedia Keywords]]
    - [[http://www.atmarkit.co.jp/ait/articles/1305/07/news003_2.html][IT エンジニアがデータサイエンティストを目指すには? (2/2) - ＠ IT]]
 
-
 ** リスク分析
    意思決定支援.
 
@@ -766,6 +760,74 @@ z=(取った得点-平均点)/ 標準偏差
          出荷品質確保のためにテスト工程で摘出すべきバグ数を求める
 
    - 実験計画法の一元配置実験/ 分散分析.
+
+* Reproducible Research
+  再現可能な研究. 再現可能なデータ分析.
+
+  The ultimate product of academic research is the paper along with
+  the full computational environment used to produce the results in
+  the paper such as the code, data, etc. 
+  - [[http://en.wikipedia.org/wiki/Reproducibility][Reproducibility - Wikipedia, the free encyclopedia]]
+
+  Computational X の X の部分にすべて適用できる考え方
+  - コンピュータ心理学
+  - コンピュータ生理学
+  - コンピュータ生物学 ... etc.
+
+  クラシックの交響曲は様々な楽器かそれぞれのメロディーを奏でて,
+  一つの音楽をつくる. 
+
+  テンポや曲調がまったく同じ音楽を再現することは不可能だ.
+  (Replication:複製は不可能)
+
+  しかし, 楽譜にしたがって演奏することで, 演奏者が違っても,
+  世界中のどこでも, 作曲家の示した音楽を再現させることは可能だ.
+  (Reproducible: 再現)
+
+  音楽における楽譜がデータ解析におけるスクリプトとなる.
+
+** Replication
+   複製.
+   The ultimate standard for strengthening scientific evidence is 
+   replicatoin of findings and conductiong studies with independent
+   - Investigators
+   - Data
+   - Analytical methods
+   - Laboratories
+   - Insttuments
+
+** 背景
+  技術の向上が, Reproducible Research の台頭を支えている.
+  - コンピュータの計算能力が極めて向上し, 洗練された解析が可能になった.
+  - 既存のデータベースが "megadatabeses"にマージ可能となった.
+  - データ収集のスループットが新しい技術によって向上した.
+  - (へんな日本語訳になってしまった)
+
+** 必要な技術
+   - Analytic data are available
+   - Analytic code are available
+   - Documentation of code and data
+   - Standard means of distribution
+
+** files
+   - Data
+     - Raw data: 生データ
+     - Processed data: 前処理がおわったデータ
+   - Figures
+     - Exploratory figures
+       分析の途中でできる図.
+     - Final Figures: 最終結果の図.
+   - R Code
+     - Raw scripts
+     - Final scripts
+   - Text
+     - README.md
+     - R markdown
+
+** bookmarks
+  - coursera: https://class.coursera.org/repdata-011
+  - [[http://www.slideshare.net/sfchaos/rreproducible-research-13569000][R で reproducible research]]
+  - [[http://www.slideshare.net/teramonagi/tokyo-r36-20140222][~knitr+pandoc ではじめる~『 R Markdown で Reproducible Research 』]]
 
 * Bookmark
   - [[http://www.stat.go.jp/teacher/c2dic.htm][基本用語集|統計学習の指導のために (先生向け)]]

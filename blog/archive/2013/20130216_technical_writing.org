@@ -1,0 +1,111 @@
+#+BLOG: Futurismo
+#+POSTID: 1205
+#+DATE: [2013-02-17 月 18:44]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, 資格
+#+TAGS: 
+#+DESCRIPTION: TC 技術検定 3 級 テクニカルライティング試験 (TW) 受験しました
+#+TITLE: TC 技術検定 3 級 テクニカルライティング試験 (TW) 受験しました
+
+* はじめに
+  TC 技術検定 3 級 テクニカルライティング試験を受験した感想です.
+  - [[http://www.jtca.org/certificate_exam/exam_writing_b.html][テクニカルコミュニケーター協会  > TC 技術検定]]
+
+  ここにも合格体験記がたくさんあるみたい.
+  - [[http://www.jtca.org/certificate_exam/voice.html][テクニカルコミュニケーター協会  > TC 技術検定]]
+
+* 動機について
+
+  去年の重点目標の一つは, 日本語を正しく書くこと. 
+
+  産まれた時から日本人をやっているが, まだまだ日本語をうまく使えないため, 
+  なにかテコ入れしておくかなと思ったのが動機だ.
+
+  また, 仕事では, コーディングする時間よりも, ドキュメント作成に割く時間の方が圧倒的に多い. メールや仕様書, 障害報告資料作成などなど, いままで人格を否定されるまでにイジメを受けてきたので, なんとか見返したいと思い立ったのが, 動機だ.
+
+  資格として頑張れば, モチベーションを保てるかと思った.
+
+* 試験対策・勉強法について
+  テクニカルコミュニケーション協会の公式参考書を利用して学習を進める.
+
+#+BEGIN_HTML
+<div class="amazlink-box" style="text-align: left; padding-bottom: 20px; zoom: 1; font-size: small; overflow: hidden;">
+<div class="amazlink-list" style="clear: both;">
+<div class="amazlink-image" style="margin: 0px 12px 1px 0px; float: left;"><a href="http://www.amazon.co.jp/%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%82%AC%E3%82%A4%E3%83%89%E7%AC%AC2%E7%89%88-%E4%B8%80%E8%88%AC%E8%B2%A1%E5%9B%A3%E6%B3%95%E4%BA%BA%E3%83%86%E3%82%AF%E3%83%8B%E3%82%AB%E3%83%AB%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%82%B1%E3%83%BC%E3%82%BF%E3%83%BC%E5%8D%94%E4%BC%9A/dp/4902820064%3FSubscriptionId%3DAKIAJBCXQ4WQGJ7WU3WA%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4902820064" target="_blank" rel="nofollow"><img style="border-style: none;" src="http://ecx.images-amazon.com/images/I/51vQ%2Ba0GA5L._SL160_.jpg" alt="" /></a></div>
+<div class="amazlink-info" style="margin-bottom: 10px;">
+<div class="amazlink-name" style="line-height: 120%; margin-bottom: 10px;"><a href="http://www.amazon.co.jp/%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%82%AC%E3%82%A4%E3%83%89%E7%AC%AC2%E7%89%88-%E4%B8%80%E8%88%AC%E8%B2%A1%E5%9B%A3%E6%B3%95%E4%BA%BA%E3%83%86%E3%82%AF%E3%83%8B%E3%82%AB%E3%83%AB%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%82%B1%E3%83%BC%E3%82%BF%E3%83%BC%E5%8D%94%E4%BC%9A/dp/4902820064%3FSubscriptionId%3DAKIAJBCXQ4WQGJ7WU3WA%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4902820064" target="_blank" rel="nofollow">日本語スタイルガイド第 2 版</a></div>
+<div class="amazlink-powered" style="line-height: 120%; margin-top: 5px; font-size: 80%;">posted with <a title="アマゾンアフィリエイトリンク作成ツール" href="http://amazlink.keizoku.com/" target="_blank">amazlink</a> at 13.02.17</div>
+<div class="amazlink-detail">一般財団法人テクニカルコミュニケーター協会</div>
+<div class="amazlink-sub-info" style="float: left;">
+<div class="amazlink-link" style="margin-top: 5px;"><img src="http://amazlink.fuyu.gs/icon_amazon.png" alt="" width="18" /><a href="http://www.amazon.co.jp/%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%82%AC%E3%82%A4%E3%83%89%E7%AC%AC2%E7%89%88-%E4%B8%80%E8%88%AC%E8%B2%A1%E5%9B%A3%E6%B3%95%E4%BA%BA%E3%83%86%E3%82%AF%E3%83%8B%E3%82%AB%E3%83%AB%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%82%B1%E3%83%BC%E3%82%BF%E3%83%BC%E5%8D%94%E4%BC%9A/dp/4902820064%3FSubscriptionId%3DAKIAJBCXQ4WQGJ7WU3WA%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4902820064" target="_blank" rel="nofollow">Amazon</a></div>
+</div>
+</div>
+</div>
+</div>
+#+END_HTML
+
+  また, 会社の新人研修のときにもらったビジネス文章の書き方みたいな資料も役に立つ.
+  ざっと参考書を眺めると, けっこう当たり前のことも書いてあったりする.
+
+  しかし, 知識としてではなく, 能力として身につけたいのだ!
+  そこで考えた自分の試験対策が, これだ.
+
+  *ブログを書くこと*
+
+  このブログの立ちあげである. 
+
+  このブログは, 自分の勉強したことをわかりやすく表現することを目的として, 去年の 4 月ごろからはじめたのだった.
+
+  この一年, けっこうな量の記事を書いてきた.
+  別に, こんなことを記事にしなくてもいいだろうということも, 書いてきた.
+  アーカイブをご覧されたし (おっと, 古語表現は駄目だったのだった)
+  
+* 当日の感想
+  試験は新宿の工学院大学で実施された.
+
+  東京だけで, 140 人くらい. うん, まだまだマイナーな試験だと思った.
+  試験時間は 1 時間半. 途中退室可.
+
+  全て記号を選ぶ選択形式. マークシートではないところも, なんだかマイナー.
+  ちなみに, 試験申し込みもネットからはできずに,
+  資料請求と郵便振込みなところもマイナーさを感じた.
+
+* リーダブルドキュメントを目指せ!
+  この資格の勉強は, リーダブルコードを読むのと同時進行で進めた.
+
+#+BEGIN_HTML
+<div class="amazlink-box" style="text-align: left; padding-bottom: 20px; zoom: 1; font-size: small; overflow: hidden;">
+<div class="amazlink-list" style="clear: both;">
+<div class="amazlink-image" style="margin: 0px 12px 1px 0px; float: left;"><a href="http://www.amazon.co.jp/%E3%83%AA%E3%83%BC%E3%83%80%E3%83%96%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89-%E2%80%95%E3%82%88%E3%82%8A%E8%89%AF%E3%81%84%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E6%9B%B8%E3%81%8F%E3%81%9F%E3%82%81%E3%81%AE%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E3%81%A7%E5%AE%9F%E8%B7%B5%E7%9A%84%E3%81%AA%E3%83%86%E3%82%AF%E3%83%8B%E3%83%83%E3%82%AF-Theory-practice-Boswell/dp/4873115655%3FSubscriptionId%3DAKIAJBCXQ4WQGJ7WU3WA%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4873115655" target="_blank" rel="nofollow"><img style="border-style: none;" src="http://ecx.images-amazon.com/images/I/51MgH8Jmr3L._SL160_.jpg" alt="" /></a></div>
+<div class="amazlink-info" style="margin-bottom: 10px;">
+<div class="amazlink-name" style="line-height: 120%; margin-bottom: 10px;"><a href="http://www.amazon.co.jp/%E3%83%AA%E3%83%BC%E3%83%80%E3%83%96%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89-%E2%80%95%E3%82%88%E3%82%8A%E8%89%AF%E3%81%84%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E6%9B%B8%E3%81%8F%E3%81%9F%E3%82%81%E3%81%AE%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E3%81%A7%E5%AE%9F%E8%B7%B5%E7%9A%84%E3%81%AA%E3%83%86%E3%82%AF%E3%83%8B%E3%83%83%E3%82%AF-Theory-practice-Boswell/dp/4873115655%3FSubscriptionId%3DAKIAJBCXQ4WQGJ7WU3WA%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4873115655" target="_blank" rel="nofollow">リーダブルコード -より良いコードを書くためのシンプルで実践的なテクニック (Theory in practice)</a></div>
+<div class="amazlink-powered" style="line-height: 120%; margin-top: 5px; font-size: 80%;">posted with <a title="アマゾンアフィリエイトリンク作成ツール" href="http://amazlink.keizoku.com/" target="_blank">amazlink</a> at 13.02.17</div>
+<div class="amazlink-detail">Dustin Boswell</div>
+<div class="amazlink-sub-info" style="float: left;">
+<div class="amazlink-link" style="margin-top: 5px;"><img src="http://amazlink.fuyu.gs/icon_amazon.png" alt="" width="18" /><a href="http://www.amazon.co.jp/%E3%83%AA%E3%83%BC%E3%83%80%E3%83%96%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89-%E2%80%95%E3%82%88%E3%82%8A%E8%89%AF%E3%81%84%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E6%9B%B8%E3%81%8F%E3%81%9F%E3%82%81%E3%81%AE%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E3%81%A7%E5%AE%9F%E8%B7%B5%E7%9A%84%E3%81%AA%E3%83%86%E3%82%AF%E3%83%8B%E3%83%83%E3%82%AF-Theory-practice-Boswell/dp/4873115655%3FSubscriptionId%3DAKIAJBCXQ4WQGJ7WU3WA%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4873115655" target="_blank" rel="nofollow">Amazon</a> <img src="http://amazlink.fuyu.gs/icon_rakuten.gif" alt="" width="18" /><a href="http://hb.afl.rakuten.co.jp/hgc/g00q0724.n763w947.g00q0724.n763x2b4/?pc=http%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F11753651%2F&amp;m=http%3A%2F%2Fm.rakuten.co.jp%2Frms%2Fmsv%2FItem%3Fn%3D11753651%26surl%3Dbook" target="_blank" rel="nofollow">楽天</a></div>
+</div>
+</div>
+</div>
+</div>
+#+END_HTML
+
+  リーダブルコードは, ソースコードを見やすく書くための方法が紹介されている.
+  この点では, テクニカルライティングと, 目指すところは同じだ.
+
+  わかりやすく相手に伝えるということに関しては,
+  コードもドキュメントも, 同じなのだ.
+
+  コードでの if 文の使い方と, 日本語の「もし・・・ならば」使い方で違いはない.
+  and 条件 or 条件をわかりやすく表現することは, 両者に共通している.
+
+  Sphinx はドキュメントをソースコードのようにビルドする.
+  Sphinx をつかってみて, その考えはより一層強まった.
+
+* おわりに
+  これからも, ブログを書くことで, 文章力を向上させていこうと思う.
+  試験問題は知識的な部分も多いか, 大事なのは普段の生活で実践できるかだ.
+
+  別に, 不合格だって, くやしくないもん.
+
+* 追記
+  不合格だった...orz

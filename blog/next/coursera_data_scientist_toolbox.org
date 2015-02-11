@@ -1,22 +1,103 @@
+#+BLOG: Futurismo
+#+POSTID: 2961
+#+DATE: [2015-02-01 日 15:58]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
-#+CATEGORY: 技術メモ
-#+TAGS:
-#+DESCRIPTION:
-#+TITLE: 
+#+CATEGORY: 技術メモ, MOOC
+#+TAGS: R, 統計, cousera
+#+DESCRIPTION: coursera で R 言語の講座をうけた
+#+TITLE: Coursera で R 入門! Data Scientist の講座 2 つ
 
 * はじめに
-  今年の目標はデータ解析力を身につけること.
+  今年の目標はデータサイエンスを学ぶこと.
 
+  coursera でデータサイエンスのシリーズ講座があるので,
+  うけてみることにしました. 
+
+  今回は, その中の 2 つを同時にうけた.
+  - Data Scientist's Toolbox: [[https://www.coursera.org/course/datascitoolbox][The Data Scientist's Toolbox]]
+  - R Programming  [[https://www.coursera.org/course/rprog][R Programming]]
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qOWjpo5dNn0?rel=0" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
   
-
 * Coursera の データサイエンティストシリーズの紹介の講座
+  データサイエンテス関連の講座が去年に公開された.
+  - [[https://www.coursera.org/specialization/jhudatascience/1][Data Science - Specialization | Coursera]]
 
-* データサイエンティストに必要なツールを身につける講座
+  去年はあまり余裕が無かったけれども, 
+  今年はちょっと背伸びをして受けてみる.
+
+  データサイエンスの分野が細かく 9 つに分けられて講座として用意されて
+  いる.
+
+  1. The Data Scientist's Toolbox
+  2. R Programming
+  3. Getting and Cleaning Data
+  4. Exploratory Data Analysis
+  5. Reproducible Research
+  6. Statistical Inference
+  7. Regression Models
+  8. Practical Machine Learning
+  9. Developing Data Products
+
+  ひとつの講座が 1 ヶ月単位. このシリーズの特徴は, 毎月同じ講座が開
+  講されていること. 半年や一年に一回開講される他の講座に比べると, 珍しい.
+  検索をかけると, 一年中トップに検索結果が表示されるので, よく目につく.
+
+  毎月 1 つの講座をうけようとは思うものの, 終わるまで 9 ヶ月かかりそうな...
+
+
+* Data Scientist's Toolbox
+  この講座は, シリーズのはじめにうける必要がある.
+- [[https://www.coursera.org/course/datascitoolbox][The Data Scientist's Toolbox]]
+
+  2 つのトピックを扱う.
+  - データサイエンスの概要と, シリーズの別の講座の詳しいガイダンス.
+  - データサイエンティストに必要なツールを身につける
+
+  以下のツールを利用する.
   - R
   - RStudio
   - git
   - github
 
-** Environment
-** Special Thanks
+  しかし, すべてのツールを利用したことがあったので,
+  なんと 2 時間で 終わってしまった! あっけない.
+
+  この講座は, データサイエンスシリーズのオリエンテーションだった.
+
+* R Programming
+  シリーズを通じて R を利用する用なので, まずは R 言語を学ぶ.
+  
+  - R の基本文法
+  - R の基本データ構造
+  - R の 関数型の性質 (apply 系)
+  - デバッグ方法・プロファイリング方法
+  - Random 生成によるシミュレーション
+
+** 課題
+   課題は, csv ファイルからデータを読み出して, 
+   編集して表示するようなもの. 統計的なはなしはほとんどでてこない.
+   せいぜい平均程度. 
+
+   言語の文法とデータの扱い型の説明に終始している.
+
+** 感想
+   week1,2 は基本文法を次から次へと紹介されるので, 頭が追いつかない.
+   少し忘れた.
+
+   講座では, R の関数型の性質が強く説明されていたように感じた.
+   apply の説明に week3 のほとんどが費やされるなど.
+   - 値は代入では無くて, 束縛.
+   - loop を利用するよりも, apply を利用するとプログラムが短くなる.
+
+   なんとなくだけれども R を身につけた.
+   文法は抑えたので, 
+   あとは R の関数の使い方を覚えていけば大抵のことはできる気がする.
    
+   R を利用すると, 大きな CSV データが簡単に処理できることに驚いた.
+
+   いままで, Excel しか知らなかった人間にとって,
+   *データをプログラムで解析する* という新しい視点を手に入れた. 
+   こういう, 新しい知見を得ることも, MOOC に取り組む一つの目的だ.
