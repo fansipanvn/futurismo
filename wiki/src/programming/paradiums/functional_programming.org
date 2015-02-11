@@ -490,7 +490,9 @@ end
    - [[http://ninjinkun.hatenablog.com/entry/introrxja][【翻訳】あなたが求めていたリアクティブプログラミング入門 - ninjinkun's diary]]
 
 #+begin_quote
-GUI, インフラ, ビッグデータ処理など様々な場面で浸透しつつあります. 今までは複雑すぎて作ることが難しかったアプリケーションが簡単に設計できるようになっていくでしょう.
+GUI, インフラ, ビッグデータ処理など様々な場面で浸透しつつあります. 
+今までは複雑すぎて作ることが難しかったアプリケーションが簡単に
+設計できるようになっていくでしょう.
 #+end_quote
   
   リアクティブ宣言なんという, かっこいい文章も存在する.
@@ -576,6 +578,20 @@ last (_ : xs) = last xs
 
 ** ラムダ計算
 ** 数理論理学
+*** Curry-Howard 同型対応
+    プログラミング言語理論と証明論において,
+    計算機プログラムと証明との間の直接的な対応関係のことである. 
+
+    - 「プログラム=証明」 (proofs-as-programs)
+    - 「型=命題」 (formulae-as-types)
+
+    カリー=ハワード同型 (Curry-Howard isomorphism) は, 
+    数学の一見無関係に思えるふたつの領域, 型理論と構造論理を結びつける実に驚くべき関係
+
+    - [[http://d.hatena.ne.jp/nowokay/20130808#][カリーハワード同型対応についてのまとめ - きしだのはてな]]
+    - [[http://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%AA%E3%83%BC%EF%BC%9D%E3%83%8F%E3%83%AF%E3%83%BC%E3%83%89%E5%90%8C%E5%9E%8B%E5%AF%BE%E5%BF%9C][カリー=ハワード同型対応 - Wikipedia]]
+    - [[http://ja.wikibooks.org/wiki/Haskell/%E3%82%AB%E3%83%AA%E3%83%BC%3D%E3%83%8F%E3%83%AF%E3%83%BC%E3%83%89%E5%90%8C%E5%9E%8B][Haskell/ カリー=ハワード同型 - Wikibooks]]
+
 *** コンパイル = 証明
    *コンパイルを通すということは, 正しさを証明すること*
 
