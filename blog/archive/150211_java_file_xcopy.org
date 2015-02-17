@@ -1,0 +1,81 @@
+#+BLOG: Futurismo
+#+POSTID: 2978
+#+DATE: [2015-02-11 水 11:46]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Java, Windows
+#+DESCRIPTION:Java で windows のコマンドを実行してフォルダコピー
+#+TITLE:  Java で windows のコマンドを実行してフォルダコピー
+
+#+BEGIN_HTML
+<a href="http://futurismo.biz/wp-content/uploads/java.png"><img alt="" src="http://futurismo.biz/wp-content/uploads/java.png" width="256" height="256" /></a>
+#+END_HTML
+
+* はじめに
+  前回の続き.
+  - [[http://futurismo.biz/archives/2976][Java7 の Fiels.nio.file.Files で ファイルのコピーをしてみる | Futurismo]]
+
+  Java を利用した copy だと, 
+  フォルダをコピーすると, 中身をコピーしない.
+
+* xcopy を利用.
+  中身をコピーする方法もあるようだけれども, めんどくさいので,
+  xcopy を利用することにする.
+  - [[http://futurismo.biz/archives/2735][Windows での コマンドラインからコピーするコマンドまとめ (xcopy, robocopy, copy) | Futurismo]]
+  - [[http://www.k-tanaka.net/cmd/xcopy.php][コマンドプロンプト xcopy - ファイルをディレクトリ構造ごとコピーする]]
+  
+  xcopy で ファイルですか, ディレクトリですかと質問されるので, echo F を
+  先頭につけたいところだが, この方法だと, うまくいかない.
+  - [[http://jehupc.exblog.jp/12286010/][xcopy でフォルダコピー時に〓ファイル名ですか, またはディレクトリ名ですか〓と聞いてくる : 3 流プログラマのメモ書き]]
+
+  ファイルならば, copy を利用する. フォルダならば, xcopy /i で OK. 
+
+* Java で windows のコマンドを実行する
+   processBuilder ライブラリを利用する.
+   - [[https://docs.oracle.com/javase/jp/6/api/java/lang/ProcessBuilder.html][ProcessBuilder (Java Platform SE 6)]]
+   - [[http://www.javainthebox.net/laboratory/J2SE1.5/TinyTips/ProcessBuilder/ProcessBuilder.html][J2SE 5.0 Tiger 虎の穴 ProcessBuilder]]
+   - [[http://www.ne.jp/asahi/hishidama/home/tech/java/process.html][Java 外部プロセス起動メモ (Hishidama's Java Process Memo)]]
+
+#+begin_src java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+public class XCopyOperator {
+	public static void main (String args[]) throws IOException, InterruptedException {
+		String source = "foo";
+		String target = "bar";
+
+		// Process Builder 生成
+		// xcopy /e /i source target ディレクトリを再帰的にコピー
+		ProcessBuilder pb = new ProcessBuilder ("xcopy", "/e", "/i", source, target);
+
+        // 標準出力と標準エラーをマージする (Defualt false)
+		pb.redirectErrorStream (true);
+
+		// プロセス開始
+		Process process = pb.start ();
+
+		// プロセス完了待ち合わせ
+		process.waitFor ();
+
+		// 結果の出力
+		InputStream is = process.getInputStream ();
+		printInputStream (is);
+    }
+
+	public static void printInputStream (InputStream is) throws IOException {
+		BufferedReader br = new BufferedReader (new InputStreamReader (is));
+		try {
+			for (;;) {
+				String line = br.readLine ();
+				if (line == null) break;
+				System.out.println (line);
+			}
+		} finally {
+			br.close ();
+		}
+	}
+}
+#+end_src

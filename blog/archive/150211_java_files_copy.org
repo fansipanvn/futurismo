@@ -5,7 +5,11 @@
 #+CATEGORY: 技術メモ
 #+TAGS: Java
 #+DESCRIPTION:Java7 の Fiels.nio.file.Files で ファイルのコピーをしてみる
-#+TITLE: Java7 の Fiels.nio.file.Files で ファイルのコピーをしてみる
+#+TITLE: Java7 の Java.nio.file.Files で ファイルのコピーをしてみる
+
+#+BEGIN_HTML
+<a href="http://futurismo.biz/wp-content/uploads/java.png"><img alt="" src="http://futurismo.biz/wp-content/uploads/java.png" width="256" height="256" /></a>
+#+END_HTML
 
 * はじめに
   会社では Java で SMB プロトコルをごにょごにょしているというお仕事なので, 
@@ -136,3 +140,6 @@ public class FilesSample {
 	}
 }
 #+end_src
+
+* つづき
+  - [[http://futurismo.biz/archives/2978][Java で windows のコマンドを実行してフォルダコピー | Futurismo]]
