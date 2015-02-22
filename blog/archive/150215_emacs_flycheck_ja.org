@@ -1,0 +1,89 @@
+#+BLOG: Futurismo
+#+POSTID: 2992
+#+DATE: [2015-02-15 日 19:22]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: C++, 
+#+DESCRIPTION: Flycheck で g++ の日本語表記のコンパイルエラーがパースできていなかった (C/C++)
+#+TITLE: Flycheck で g++ の日本語表記のコンパイルエラーがパースできていなかった (C/C++)
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* はじめに
+  Emacs の エラーチェッカーで flycheck がある.静的文法チェック. flymake の後継.
+   - [[https://github.com/flycheck/flycheck][flycheck/flycheck]]
+   - [[http://www.flycheck.org/en/latest/][Flycheck - Modern Emacs syntax checking ]]
+  
+  C++ でつかってみると, どうも動かないので調べてみたメモ.
+
+* Build-in
+  マニュアルによると,
+  gcc, clnag, cppcheck が default のチェッカーとして用意されている.
+   - [[https://flycheck.readthedocs.org/en/latest/guide/languages.html#c-c][Supported languages - Flycheck 0.23-cvs]]
+
+* パーサーを見てみると..
+  ソースを除いてみると, たとえば gcc のパーサーは以下.
+
+  #+begin_src emacs-lisp
+(flycheck-define-checker c/c++-gcc
+  "A C/C++ syntax checker using GCC.
+
+Requires GCC 4.8 or newer.  See URL `https://gcc.gnu.org/'."
+  :command ("gcc"
+
+    "長いので途中省略"
+
+  :error-patterns
+  ((error line-start
+          (message "In file included from") " " (file-name) ":" line ":"
+          column ":"
+          line-end)
+   (info line-start (file-name) ":" line ":" column
+         ": note: " (message) line-end)
+   (warning line-start (file-name) ":" line ":" column
+            ": warning: " (message) line-end)
+   (error line-start (file-name) ":" line ":" column
+          ": " (or "fatal error" "error") ": " (message) line-end))
+  :error-filter
+  (lambda (errors)
+    (flycheck-fold-include-levels (flycheck-sanitize-errors errors)
+                                  "In file included from"))
+  :modes (c-mode c++-mode)
+  :next-checkers ((warning . c/c++-cppcheck)))
+  #+end_src
+
+  おかしいなぁと悩むこと 1 時間近く... パーサーの文字が英語だと気づいた...
+
+  自分の環境では, g++ を走らせると,
+  - error -> エラー
+  - Warining -> 警告
+  と表示される.
+
+* 日本語表記で checker を定義
+  しかたがないので, 自分で定義をする. 
+
+#+begin_src emacs-lisp
+(require 'flycheck)
+(add-hook 'c-mode-common-hook 'flycheck-mode)
+
+(defmacro flycheck-define-clike-checker (name command modes)
+  `(flycheck-define-checker ,(intern (format "%s" name))
+     ,(format "A %s checker using %s" name (car command))
+     :command (,@command source-inplace)
+     :error-patterns
+     ((warning line-start (file-name) ":" line ":" column ": 警告:" (message) line-end)
+      (error line-start (file-name) ":" line ":" column ": エラー:" (message) line-end))
+     :modes ',modes))
+(flycheck-define-clike-checker c-gcc-ja
+			       ("gcc" "-fsyntax-only" "-Wall" "-Wextra")
+			       c-mode)
+(add-to-list 'flycheck-checkers 'c-gcc-ja)
+(flycheck-define-clike-checker c++-g++-ja
+			       ("g++" "-fsyntax-only" "-Wall" "-Wextra" "-std=c++11")
+			       c++-mode)
+(add-to-list 'flycheck-checkers 'c++-g++-ja)
+#+end_src
+
+   基本的なところにかなりハマってた...

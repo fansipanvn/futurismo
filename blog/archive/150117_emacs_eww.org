@@ -199,22 +199,10 @@
 
    しかし, やりたいことは org-mode のリンクをクリップボードにコピーす
    ること.この機能かあるかどうかで, 情報収集のスピードが全然違う.
-   
-#+begin_src emacs-lisp
-(defvar eww-org-link-buffer "")
-(defun eww-copy-page-org-link ()
-  (interactive)
-  (setq eww-org-link-buffer
-	(format "[[%s][%s]]" (eww-current-url) (eww-current-title)))
-  (message "stored org-link: %s" eww-org-link-buffer))
-  
-(defun eww-yank-page-org-link ()
-  (interactive)
-  (insert eww-org-link-buffer))
-(define-key eww-mode-map (kbd "@") 'eww-copy-page-org-link)
-(define-key org-mode-map (kbd "C-x @ @") 'eww-yank-page-org-link)
-#+end_src
 
+   別記事にしました.
+   - [[http://futurismo.biz/archives/2989][Emacs で現在のファイルのパスを取得してクリップボードに保存 (org-link も) | Futurismo]]
+   
 * External Elisps
 ** eww-hatebu
    モードラインにはてぶ数を表示する.

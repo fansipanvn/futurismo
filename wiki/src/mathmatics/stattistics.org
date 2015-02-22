@@ -786,6 +786,12 @@ z=(取った得点-平均点)/ 標準偏差
 
   音楽における楽譜がデータ解析におけるスクリプトとなる.
 
+  以下のメリットがある.
+  - Transparency
+  - Data Availability
+  - Software / Methods Availability
+  - Improved Transfer of Knowledge
+
 ** Replication
    複製.
    The ultimate standard for strengthening scientific evidence is 
@@ -823,11 +829,31 @@ z=(取った得点-平均点)/ 標準偏差
    - Text
      - README.md
      - R markdown
+       
+** R markdown
+   R Studio のための 記法.
+   - http://rmarkdown.rstudio.com/
+
+*** knitr
+    HTML や markdown, pdf への export.
+    R と Markdown を利用して文芸的プログラミングをするためのツール.
+    - [[https://github.com/yihui/knitr][yihui/knitr]]
+
+    CRAN から取得可能.
+
+#+begin_src R :session ex :export both :results code
+install.packages ('knitr', dependencies = TRUE)
+#+end_src
+
+** evidence-based data analysis
+   - [[http://simplystatistics.org/2013/08/21/treading-a-new-path-for-reproducible-research-part-1/][Treading a New Path for Reproducible Research: Part 1 | Simply Statistics]]
+   - [[http://simplystatistics.org/2013/08/28/evidence-based-data-analysis-treading-a-new-path-for-reproducible-research-part-2/][Treading a New Path for Reproducible Research (Part 2) | Simply Statistics]]
 
 ** bookmarks
   - coursera: https://class.coursera.org/repdata-011
   - [[http://www.slideshare.net/sfchaos/rreproducible-research-13569000][R で reproducible research]]
-  - [[http://www.slideshare.net/teramonagi/tokyo-r36-20140222][~knitr+pandoc ではじめる~『 R Markdown で Reproducible Research 』]]
+  - [[http://www.slideshare.net/teramonagi/tokyo-r36-20140222][knitr+pandoc ではじめる~『 R Markdown で Reproducible Research 』]]
+  - [[http://nicercode.github.io/guides/reports/][Writing reproducible reports in R with markdown, knitr and pandoc - Nice R Code]]
 
 * Bookmark
   - [[http://www.stat.go.jp/teacher/c2dic.htm][基本用語集|統計学習の指導のために (先生向け)]]

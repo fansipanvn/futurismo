@@ -34,11 +34,8 @@
 
 *** Master-Slave
 
-* HeartBeating
-  ネットワーク上で, コンピュータやネットワーク機器が自身が
-  正常に稼動していることを外部に知らせるために送る信号. 
-  - [[http://e-words.jp/w/E3838FE383BCE38388E38393E383BCE38388.html][ハートビートとは 【 heartbeat 】 - 意味/ 解説/ 説明/ 定義 : IT 用語辞典]]
 
+* Communication Protocol Styles
 ** Unicast
    ユニキャスト.単一の送信相手を指定して, データを送信する.
    TCP を利用することが多い.
@@ -54,7 +51,7 @@
    Tree-Based Multicast と組み合わせることも.
    最小探索木を作成して, Multicast.
 
-*** Gossip (Epidemic)-Style Multicast
+*** Gossip (Epidemic)-Style Multicast (Protocol)
     Gossip はうわさのこと.
     人のうわさがあっという間に広まるのには理論的根拠があった.
 
@@ -76,30 +73,154 @@
     ウワサや伝染病が広まるように, 情報が伝達していく.
     - [[http://en.wikipedia.org/wiki/Gossip_protocol][Gossip protocol - Wikipedia, the free encyclopedia]]
    
-** all to all heartbeating
-** gossip-style heartbeating
-   
-** SWIM-style membership
-  
 ** Broadcast
    不特定多数のノードに, 同時にパケットを送信すること.
    - [[http://ja.wikipedia.org/wiki/%E3%83%96%E3%83%AD%E3%83%BC%E3%83%89%E3%82%AD%E3%83%A3%E3%82%B9%E3%83%88][ブロードキャスト - Wikipedia]]
 
-** BroadCast
-** Gossip Protocol
-  
-* Failure detectors
-* Membership protocols
-* Gossip/epidemic protocols
+* Failure detector
+  分散システムのノードの中で, 異常検出を担うもの.  
+
+  In distributed computing, 
+  a failure detector is an application or a subsystem 
+  that is responsible for detection of node failures 
+  or crashes in a distributed system.
+  - [[http://en.wikipedia.org/wiki/Failure_detector][Failure detector - Wikipedia, the free encyclopedia]]
+
+  以下の論文で提出された概念.
+  - [[http://dl.acm.org/citation.cfm?coll=GUIDE&dl=GUIDE&id=226647][Unreliable failure detectors for reliable distributed systems]]
+  - [[http://en.wikipedia.org/wiki/Chandra%E2%80%93Toueg_consensus_algorithm][Chandra – Toueg consensus algorithm - Wikipedia, the free encyclopedia]]
+
+  Failure Detector の解説を噛み砕いて書いてある.
+  - [[http://www.cs.yale.edu/homes/aspnes/pinewiki/FailureDetectors.html][FailureDetectors]]
+
+  2 種類のパターンがある.
+  - Ack-Ping Protocol
+    + A は B に T 秒ごとに ping を投げる.
+    + B は A に ack を応答する.
+    + A は B からの応答が 2T 秒 以内が帰ってこなければ
+      B を異常と判断. タイムアウトは 2T 以内.
+
+  - Heartbeating Protocol
+    + B -> A へ T 秒ごとに heartbeat を投げる.
+    + A は T 秒ごとに heartbeat を受信する.
+    + A は B からの heartbeat が 3T 秒間なければ,
+      A は B を異常と判断.
+
+  なんか, MOOC と同じ絵が載っているスライド見つけた.
+  - http://www.cse.buffalo.edu/~stevko/courses/cse486/spring13/lectures/07-failure_detectors.pdf
+
+    Alive - Suspected - Failed という 3 つの状態遷移がある.
+
+** Faulure Detector Properties
+
+   |--------------+--------------------------------------------------|   
+   | Completeness | each failure is detected.                        |
+   |--------------+--------------------------------------------------|
+   | Accuracy     | there is no mistaken detection.                  |
+   |--------------+--------------------------------------------------|
+   | Speed        | Time to first detction of a failure.             |
+   |--------------+--------------------------------------------------|
+   | Scale        | Equal Load on each member/ Network Message Load. |
+   |              | (No bottlenecks, single failure point)           |
+   |--------------+--------------------------------------------------|
+
+** HeartBeating
+   ネットワーク上で, コンピュータやネットワーク機器が自身が
+   正常に稼動していることを外部に知らせるために送る信号. 
+   - [[http://e-words.jp/w/E3838FE383BCE38388E38393E383BCE38388.html][ハートビートとは 【 heartbeat 】 - 意味/ 解説/ 説明/ 定義 : IT 用語辞典]]
+
+   Keep-Alive ともいう.
+
+   実施方法は, いろいろ.
+   - Centralized Heartbeating
+     -> scale において x.
+   - Ring Heartbeating
+     -> Accuracy において x
+   - All-to-all Heartbeating
+     -> o
+   - Gossip-Style Heartbeating
+     -> All-to-all よりも効率的.
+
+*** Membership protocols
+    メンバリストを互いに送信しあって, 同期をする方式.
+    - Gossip-style
+    - SWIM
+
+*** Gossip-style Heartbeating
+    Better All-to-all Heartbeating.Probabilistic Failure Detector.
+
+    すべてのノードに heartbeat をするのではなく,
+    ランダムに選出したノードに対して heartbeat を実施する.
+
+    Load (負荷) は N に比例しない
+
+    Gossip はうわさのこと.
+    人のうわさがあっという間に広まるのには理論的根拠があった.
+
+    Multicast には以下の課題がある
+    - Nodes may crash
+    - Packets may be dropped
+    - 1000's of nodes
+
+    Multicast 通信で, 特定のグループに情報を伝達するためのよい手段.
+    - epidemics とも呼ばれている.
+    - 速く, 信頼性があり, スケーラブル.
+    - Amazon EC2, S3
+    - Cassendra
+    - NNTP
+
+    あるノードが通信を受信すると, 
+    ランダムに選んだ n つのノードにメッセージを送信する.    
+
+    ウワサや伝染病が広まるように, 情報が伝達していく.
+    - [[http://en.wikipedia.org/wiki/Gossip_protocol][Gossip protocol - Wikipedia, the free encyclopedia]]
+
+    Amazon EC2/S3 で利用されている.
+
+*** SWIM Membership Protocols
+    SWIM (スケーラブル, 弱一貫性のあるプロセス·グループ·メンバーシップ·プロトコル)
+
+    direct-ping と indirect-ping の両方を利用する.
+
+    ping-ack ベースのプロトコル.
+    - first detection time が 一定.
+    - process load が一定 (Scalable)
+
+    だれかさんの和訳.
+    - https://gist.github.com/masahitojp/8430314
+
 * Grid computing
+  WAN 上にある計算資源
+  (CPU などの計算能力や, ハードディスクなどの情報格納領域) を結びつけ, 
+  ひとつの複合したコンピュータシステムとしてサービスを提供する仕組み.
+  - [[http://ja.wikipedia.org/wiki/%E3%82%B0%E3%83%AA%E3%83%83%E3%83%89%E3%83%BB%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0][グリッド・コンピューティング - Wikipedia]]
+
+  複数のコンピュータをネットワークを介してつないで構成した,
+  高性能な仮想コンピュータ (Workstation)
+
+** Globus
+   グリッドソフトウェアの開発を進める団体.
+   - [[http://ja.wikipedia.org/wiki/Globus][Globus - Wikipedia]]
+
+*** Globus Toolkit 
+    Grid Computing を構成するためのデファクトスタンダードな OSS.
+
+*** クラウドコンピューティングとの比較
+
+*** OpenStack との比較
+    
 
 * Bookmarks
+
 ** Fault-tolerant Patterns
    Fault-tolerant で利用される概念がコンパクトにまとまっている.
    - http://www.slideshare.net/ufried/no-crash-allowed-fault-tolerance-patterns
+
    Fault-tolerant のパターン. POSA と同じ出版社.
    - [[http://www.amazon.co.jp/Patterns-Fault-Tolerant-Software-Series-ebook/dp/B00DXK33SK][Amazon.co.jp: Patterns for Fault Tolerant Software (Wiley Software Patterns Series) 電子書籍: Robert Hanmer: Kindle ストア]]
+
    上の本の書評
    - [[http://blogs.ethz.ch/copton/2009/06/26/patterns-for-fault-tolerant-systems/][Patterns for Fault Tolerant Systems - copton]]
+
    Pattern についてまとまった PDF.
    - http://www.dcl.hpi.uni-potsdam.de/teaching/depend13/07_ftpatterns.pdf

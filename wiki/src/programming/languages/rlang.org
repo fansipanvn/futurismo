@@ -551,13 +551,15 @@ x[good]
 5
 #+END_SRC
     
-** Loop Functions
+** Apply Functions
    R では, for 文を利用しないで, apply を利用すのがスマートな方法
    - 行列タイプのデータを処理する apply
    - データをグループごとにまとめて処理する tapply
    - ベクトルやリストに並んだデータを順次処理する lapply と sapply
    - 複数のベクトルやリストそれぞれからひとつづつデータをとりだして
      それらをまとめて処理する mapply.
+
+   行列計算をするようなものだとイメージしよう.
 
 **** Bookmarks
    - [[http://cse.naro.affrc.go.jp/takezawa/r-tips/r/24.html][R-Source]]
@@ -620,7 +622,7 @@ lapply (x, function (elt) elt[,1])
 
     Excel の vlookup みたいなのを想像すればいい.
                                         
-***  mapply (Fun F , x, y, z, ... )
+*** mapply (Fun F , x, y, z, ... )
     sapply () の多変量版. 
     x, y, z, はベクトルや行列などを複数個指定でき, 
     関数 F (x, y, z, ...) の結果をベクトルのリストで返す.
@@ -817,6 +819,12 @@ t.test (age, mu=30, alternative = 'greater')
    - リスト構造の by のグループごとに,
    - 関数 FUN で統計量としてまとめる
 
+#+begin_src R
+averages <- aggregate (x=list (steps=data$steps),
+                      by=list (interval=data$interval),
+                      FUN=mean)
+#+end_src
+
 * データクリーニング
 ** sort
     order / sort.list を利用する.
@@ -911,6 +919,16 @@ str (str)
    R の プロファイラ. 
    - Rprof ()
    - summaryRpof ()
+
+* Tools
+** CRAN
+   パッケージリポジトリ.
+
+   国内サーバの指定.
+
+#+begin_src R :session ex :export both :results code
+options (repos="http://cran.md.tsukuba.ac.jp") 
+#+end_src
 
 * ブックマーク
 ** 文法

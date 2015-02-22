@@ -1,0 +1,39 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: 分散システムにおける異常検出とスゲぇ Heart Beat (Gossip-Style HeartBeat) について
+
+* はじめに
+  Coursera でとっている Cloud Computing Concepts で
+  Gossip-Style HeartBeat というものが出てきたので詳しく調べてみた.
+  - [[https://www.coursera.org/course/cloudcomputing][Cloud Computing Concepts]]
+
+** 以前の仕事について
+   一年以上前の話になるのだが, 以前のプロジェクトの仕事について書く.
+
+   以前は, ストレージ の 異常検出機能を作っていた.
+   - [[http://storage-system.fujitsu.com/jp/products/diskarray/dx-enterprise/][ストレージ FUJITSU Storage ETERNUS DX8000 S2 series ]]
+
+   信頼性を確保するために, 部品は冗長化されている.
+   最大で, 8 ノードの部品が互いを監視しあうような構成.
+
+   あるの部品が故障した場合に, 
+   別の部品で異常を検出して, その部品を部分的に停止するような機能.
+
+   監視のロジックは単純で, 定期的に相手と通信して, 
+   通信タイムアウトが多発したら異常と判断する. それがすべてと思っていた.
+  
+** 異常検出は奥が深かった
+   今回, 調べてみて驚いたのは, こういう異常検出というのは,
+
+   - Fault-Tolerant という用語で検索すると, たくさん情報がでてくる
+   - 異常検出方法は, 体系的にまとまっている
+   - スケーラブルなハートビートが存在する
+
+   ということ. 以下, 詳しく.
+    
+* Fault-Tolerant について
+  
+  
+* HeartBeat について

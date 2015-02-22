@@ -1,0 +1,73 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: org-mode
+#+DESCRIPTION: Emacs で現在のファイルのパスを取得してクリップボードに保存 (org-link も)
+#+TITLE: Emacs で現在のファイルのパスを取得してクリップボードに保存 (org-link も)
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* はじめに
+  Emacs で現在のパスを取得する方法を調べてみました.
+
+  以下の記事を参考にしました.
+   - [[http://ergoemacs.org/emacs/emacs_copy_file_path.html][Emacs Lisp: Copy File Path of Current Buffer]]
+   - [[http://qiita.com/ShingoFukuyama/items/8f1d3342180d42ad9f78][Emacs - 開いているファイル/ フォルダのパスをクリップボードに保存する - Qiita]]
+
+* 現在のファイルのパスを取得してクリップボードに保存
+  現在開いているファイルのパスを保存. 
+  dired を開いているときはディレクトリパスを保存.
+
+#+begin_src emacs-lisp
+  (defun my/get-curernt-path ()
+    (if (equal major-mode 'dired-mode)
+	default-directory
+	(buffer-file-name)))
+
+(defun my/copy-current-path ()                                                         
+  (interactive)
+  (let ((fPath (my/get-curernt-path)))
+    (when fPath
+      (message "stored path: %s" fPath)
+      (kill-new (file-truename fPath)))))
+
+(global-set-key (kbd "C-c 0") 'my/copy-current-path)
+#+end_src
+
+* org-link 形式で クリップボードに保存
+  org-mode のヘビーユーザなので, url を org-link で扱いたい.
+  org-link に変換した上で保存.
+
+  #+begin_src emacs-lisp
+(defun my/copy-current-org-link-path ()
+  (interactive)
+  (let* ((fPath (my/get-curernt-path))
+	 (fName (file-relative-name fPath)))
+    (my/copy-org-link fPath fName)))
+
+(defun my/copy-org-link (my/current-path my/current-title)
+  (let ((orgPath
+	 (format "[[%s][%s]]" my/current-path my/current-title)))
+    (message "stored org-link: %s" orgPath)
+    (kill-new orgPath)))
+
+(global-set-key (kbd "C-x @ @") 'my/copy-current-org-link-path)
+  #+end_src
+
+** 追記
+   よく考えたら, org-store-link という関数がすでにあったではないか!!
+
+   車輪の再発明をしてしまった.
+
+* eww で現在開いているページを org-link 形式で クリップボードに保存
+  eww-copy-page-url (w) で現在の URL をクリップボードにコピーできる.
+
+#+begin_src emacs-lisp
+(defun eww-copy-page-org-link ()
+  (interactive)
+  (my/copy-org-link (eww-current-url) (eww-current-title)))
+(define-key eww-mode-map (kbd "0") 'eww-copy-page-org-link)
+#+end_src
+
+
