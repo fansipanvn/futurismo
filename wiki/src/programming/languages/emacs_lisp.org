@@ -64,6 +64,14 @@
 -*- lexical-binding: t -*- 
 #+end_src
 
+   高階関数を引数にしようとしたとき, M-x eval-buffer をすると評価できた.
+
+*** 局所変数
+    let, let*, letrec が利用できる.
+    関数型パラダイムで状態をもつ仕組み.
+
+    let*は haskell の do 記法に似ている.
+
 *** ローカル関数の定義
     let + lambda を利用する, 
     変数に無名関数を bind させることで実現する.
@@ -73,6 +81,12 @@
     (funcall p "hoge"))
 #+end_src
 
+   letrec を利用する方が正式か? 
+   - [[http://d.hatena.ne.jp/nomnel/20120712/1342085066][let と letrec が必要なのはなぜか - 飲む, 寝る. ]]
+
+   letrec の rec は  再帰のこと. 
+   let は再帰関数が定義できないが, letrec はできる.
+   
 *** macro を利用
     - cl-flet 関数再定義
     - cl-labels ローカル関数
@@ -366,3 +380,8 @@
    - [[http://nullprogram.com/blog/2013/02/06/][How to Make an Emacs Minor Mode « null program]]
    xxx-mode-map をどう定義するか?
    - [[http://stackoverflow.com/questions/3115104/how-to-create-keybindings-for-a-custom-minor-mode-in-emacs][keyboard shortcuts - How to create keybindings for a custom minor mode in Emacs - Stack Overflow]]
+
+* その他
+** Why you learn Elisp
+   モチベーションをあげる記事のブックマーク.
+   

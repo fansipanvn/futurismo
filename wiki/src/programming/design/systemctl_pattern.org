@@ -1,4 +1,3 @@
-#+OPTIONS: toc:nil
 #+TITLE: システム制御パターン
 信頼性に関わる設計パターンについてまとめる.
 
@@ -17,6 +16,28 @@
    4 障害の伝播を防ぐこと 
    5 代替モードがあること
 
+** dependable system
+   高信頼システム. 以下の要求を満たす.
+   - 可用性 ... システムがすぐに使えるようになるという性質.
+   - 信頼性 ... システムが障害をおこすことなく実行しつづける性質.
+   - 安全性 ... システムが一時的に正常にどうさしない状況でも, 重大な問題が生じないこと
+   - 保守性 ... システムが容易に回復できること.
+
+   システムの状態について
+   - 故障 (fail): システムが予定した行動をとれなくなった場合
+   - エラー (error): 障害を引き起こすかもしれない状態.
+     エラーの要因を障害 (fault) という.
+
+   システム制御とは, 以下をさす.
+   - 障害を防ぐ
+   - 障害を除去する
+   - 障害を予測する
+
+   障害は以下に分類される
+   - 過渡障害 ... 一度だけ発生して消滅するもの
+   - 間欠障害 ... しばしば発生するもの
+   - 永久障害 ... 欠陥が除去されるまで繰り返し存在し続けるもの
+
 ** single point of failure
    単一障害点. 冗長化がされていない部品.
 
@@ -33,7 +54,6 @@
    この場合, 各システムが同じ障害を発生することがないと考えられる.
 
 *** Master-Slave
-
 
 * Communication Protocol Styles
 ** Unicast
@@ -77,6 +97,7 @@
    不特定多数のノードに, 同時にパケットを送信すること.
    - [[http://ja.wikipedia.org/wiki/%E3%83%96%E3%83%AD%E3%83%BC%E3%83%89%E3%82%AD%E3%83%A3%E3%82%B9%E3%83%88][ブロードキャスト - Wikipedia]]
 
+
 * Failure detector
   分散システムのノードの中で, 異常検出を担うもの.  
 
@@ -93,27 +114,34 @@
   Failure Detector の解説を噛み砕いて書いてある.
   - [[http://www.cs.yale.edu/homes/aspnes/pinewiki/FailureDetectors.html][FailureDetectors]]
 
-  2 種類のパターンがある.
-  - Ack-Ping Protocol
+** Failure Detector の異常検出方法
+   2 種類のパターンしかない.
+
+   Alive - Suspected - Failed という 3 つの状態遷移がある.
+   
+   故障したかを確認するのに, タイムアウトの仕組みを使うことが多い
+
+*** Ack-Ping Protocol
+    能動的にプロセスがお互いに"生きてますか"という旨のメッセージを送信しあう. 
+    
     + A は B に T 秒ごとに ping を投げる.
     + B は A に ack を応答する.
     + A は B からの応答が 2T 秒 以内が帰ってこなければ
       B を異常と判断. タイムアウトは 2T 以内.
 
-  - Heartbeating Protocol
+*** Heartbeating Protocol
+    受動的に相手からの通信をまつ.
+
     + B -> A へ T 秒ごとに heartbeat を投げる.
     + A は T 秒ごとに heartbeat を受信する.
     + A は B からの heartbeat が 3T 秒間なければ,
       A は B を異常と判断.
 
-  なんか, MOOC と同じ絵が載っているスライド見つけた.
-  - http://www.cse.buffalo.edu/~stevko/courses/cse486/spring13/lectures/07-failure_detectors.pdf
+** Faulure Detector の特徴
 
-    Alive - Suspected - Failed という 3 つの状態遷移がある.
-
-** Faulure Detector Properties
-
-   |--------------+--------------------------------------------------|   
+   |--------------+--------------------------------------------------|
+   | Property     | Description                                      |
+   |--------------+--------------------------------------------------|
    | Completeness | each failure is detected.                        |
    |--------------+--------------------------------------------------|
    | Accuracy     | there is no mistaken detection.                  |
@@ -123,7 +151,7 @@
    | Scale        | Equal Load on each member/ Network Message Load. |
    |              | (No bottlenecks, single failure point)           |
    |--------------+--------------------------------------------------|
-
+   
 ** HeartBeating
    ネットワーク上で, コンピュータやネットワーク機器が自身が
    正常に稼動していることを外部に知らせるために送る信号. 
@@ -147,35 +175,28 @@
     - SWIM
 
 *** Gossip-style Heartbeating
-    Better All-to-all Heartbeating.Probabilistic Failure Detector.
+   Better All-to-all Heartbeating.Probabilistic Failure Detector.
 
-    すべてのノードに heartbeat をするのではなく,
-    ランダムに選出したノードに対して heartbeat を実施する.
+   Multicast 通信で, 特定のグループに情報を伝達するためのよい手段.
+   - epidemics とも呼ばれている.
+   - 速く, 信頼性があり, スケーラブル.
 
-    Load (負荷) は N に比例しない
+   すべてのノードに heartbeat をするのではなく,
+   ランダムに選出したノードに対して heartbeat を実施する.
 
-    Gossip はうわさのこと.
-    人のうわさがあっという間に広まるのには理論的根拠があった.
+   Load (負荷) は N に比例しないという特徴がある.
+   つまり, いくらでもノードを動的に拡張できるということ.
 
-    Multicast には以下の課題がある
-    - Nodes may crash
-    - Packets may be dropped
-    - 1000's of nodes
+   Gossip はうわさのこと.
+   人のうわさがあっという間に広まるのには理論的根拠があった.
 
-    Multicast 通信で, 特定のグループに情報を伝達するためのよい手段.
-    - epidemics とも呼ばれている.
-    - 速く, 信頼性があり, スケーラブル.
-    - Amazon EC2, S3
-    - Cassendra
-    - NNTP
+   あるノードが通信を受信すると, 
+   ランダムに選んだ n つのノードにメッセージを送信する.    
 
-    あるノードが通信を受信すると, 
-    ランダムに選んだ n つのノードにメッセージを送信する.    
+   ウワサや伝染病が広まるように, 情報が伝達していく.
+   - [[http://en.wikipedia.org/wiki/Gossip_protocol][Gossip protocol - Wikipedia, the free encyclopedia]]
 
-    ウワサや伝染病が広まるように, 情報が伝達していく.
-    - [[http://en.wikipedia.org/wiki/Gossip_protocol][Gossip protocol - Wikipedia, the free encyclopedia]]
-
-    Amazon EC2/S3 で利用されている.
+   Amazon EC2/S3 で利用されている.
 
 *** SWIM Membership Protocols
     SWIM (スケーラブル, 弱一貫性のあるプロセス·グループ·メンバーシップ·プロトコル)
@@ -189,29 +210,11 @@
     だれかさんの和訳.
     - https://gist.github.com/masahitojp/8430314
 
-* Grid computing
-  WAN 上にある計算資源
-  (CPU などの計算能力や, ハードディスクなどの情報格納領域) を結びつけ, 
-  ひとつの複合したコンピュータシステムとしてサービスを提供する仕組み.
-  - [[http://ja.wikipedia.org/wiki/%E3%82%B0%E3%83%AA%E3%83%83%E3%83%89%E3%83%BB%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0][グリッド・コンピューティング - Wikipedia]]
-
-  複数のコンピュータをネットワークを介してつないで構成した,
-  高性能な仮想コンピュータ (Workstation)
-
-** Globus
-   グリッドソフトウェアの開発を進める団体.
-   - [[http://ja.wikipedia.org/wiki/Globus][Globus - Wikipedia]]
-
-*** Globus Toolkit 
-    Grid Computing を構成するためのデファクトスタンダードな OSS.
-
-*** クラウドコンピューティングとの比較
-
-*** OpenStack との比較
-    
-
+** Bookmarks
+  なんか, MOOC と同じ絵が載っているスライド見つけた.
+  - http://www.cse.buffalo.edu/~stevko/courses/cse486/spring13/lectures/07-failure_detectors.pdf
+      
 * Bookmarks
-
 ** Fault-tolerant Patterns
    Fault-tolerant で利用される概念がコンパクトにまとまっている.
    - http://www.slideshare.net/ufried/no-crash-allowed-fault-tolerance-patterns

@@ -1,0 +1,102 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: Emacs Lisp で SICP に挑戦するさいの落とし穴
+
+* はじめに
+  SICP を Emacs Lisp でとくという, やや無謀なことをやっています.
+
+  結構ノウハウがたまってきたところで, 
+  書き溜めた過去のハマりポイントを公開.
+
+* よくある置き換え
+** defun
+   毎回ある置き換え.
+
+#+begin_src emacs-lisp
+;; scheme
+(define (hoge x) x)
+
+;; emacs lisp
+(defun hoge (x) x)
+#+end_src
+
+** cond
+   cond の書き方について, 
+   - scheme は 一番最後に else をつける.
+   - elips は  一番最後に t をつける.
+
+ #+begin_src emacs-lisp
+ (cond ((= 1 1) 1)
+       (else 2))
+
+ (cond ((= 1 1) 1)
+       (t 2))
+ #+end_src
+   
+** 高階関数
+   関数にの頭に 'をつけて別の関数の引数にすると,
+   関数は評価されずに引数に渡すことができる.
+
+   評価するときは, (funcall f) のように funcall を呼ぶ.
+
+** ローカル変数
+   elips は scheme のように, 
+   関数の中に関数をかいても 変数や関数のスコープを限定できない.
+
+   let, let*, letrec が利用をうまくつかって,
+    ローカルな変数や関数をつかう.
+
+** ローカル関数の定義
+   let + lambda を利用する, 
+   変数に無名関数を bind させることで実現する.
+    
+#+begin_src emacs-lisp
+(let ((p (lambda (a) (message a))))
+    (funcall p "hoge"))
+#+end_src
+
+   letrec を利用する方が正式か? 
+   - [[http://d.hatena.ne.jp/nomnel/20120712/1342085066][let と letrec が必要なのはなぜか - 飲む, 寝る. ]]
+
+   letrec の rec は  再帰のこと. 
+   let は再帰関数が定義できないが, letrec はできる.
+  
+* 落とし穴
+** Dynamic Scope
+   Emacs Lisp は Dynamic Scope という方式をとり, 名前空間がない.
+   なので, 安直な a とか sum とかいう関数を名づけてしまうと,
+   うっかり他の関数と競合する.
+
+   できるだけ, 他とかぶらない関数名をつけるほうが無難.
+
+   Emacs24 からは, ファイルの先頭に以下を書くと,
+   setq で宣言した変数は本当の Lexical Scope になる.
+
+#+begin_src emacs-lisp
+-*- lexical-binding: t -*- 
+#+end_src
+   
+** 高階関数で 関数がわたせない
+   無名関数を入力しても, なぜか Symbol value as void となる.
+
+   以下を行頭に買いて, M-x eval-buffer で評価することで, 回避できた.
+
+#+begin_src emacs-lisp
+;; -*- lexical-binding: t -*- 
+#+end_src
+
+** max-lisp-eval-depth 発生
+   Emacs Lisp は 末尾最適化がされないため,
+   深い再帰処理をかくと, よくクラッシュする.
+
+   これによって, 解くのを諦めた問題多数. これが Elisp の限界か.
+
+* その他
+** 先人の知恵を借りる
+   自分一人で行き詰まった時は, 先人の知恵を拝借する.
+   - https://github.com/bixuanzju/sicp-exercises-elisp
+
+** 便利な Elisp   とか
+   lispxmp が便利. 評価

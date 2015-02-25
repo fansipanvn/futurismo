@@ -23,6 +23,7 @@
 ** SICP に挑戦したひとたちの冒険の書
  古典なので, 挑戦した人たちの体験談がたくさんある.
  - [[http://kinokoru.jp/archives/794][『計算機プログラムの構造と解釈』 (SICP) を読み終えて | きのこる庭]]
+ - [[http://d.hatena.ne.jp/higepon/20061027/1161960363][「計算機プログラムの構造と解釈 (SICP) 」を読み終えて - Higepon's blog]]
  - [[http://natu.txt-nifty.com/natsutan/2007/09/sicp_by_a6a2.html][「計算機プログラムの構造と解釈 (SICP) 」を読み終えて by なつたん: なつたん]]
  - [[http://coder.lv9.org/rinks/sicp.html][SICP - 残業プログラマのためのスキルアップリンク集]]
 
@@ -37,4 +38,4 @@
    - [[http://devblog.me/sicp.html][SICP and Me]]
 
 * Bookmarks
-** 
+ - [[http://qiita.com/kaz-yos/items/d1ecd4bfe9989c290e99#lecture-3-mutation-and-the-environment-model][弱 Lisper が MIT で SICP (シクピー) を受講した結果 - Qiita]]
