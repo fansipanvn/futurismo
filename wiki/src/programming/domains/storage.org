@@ -268,10 +268,18 @@
    - [[http://d.hatena.ne.jp/tagomoris/20110419/1303181958#][RAID レベルの話: 1+0 と 6 はどっちが安全か? - tagomoris のメモ置
      き場]]
 
-* Replication
-  レプリケーション. 複製. 
-  
+* データ保証
+** Backup
+** Replication
+   レプリケーション. 複製.
 
+   システム障害時の継続運用が目的となります. 災害時に接続しているシステ
+   ムが壊れてしまったとき, 遠隔地にある複製データを利用し事業継続を実現
+   する DR (ディザスタリカバリ) に有効.
+   - [[http://storage-system.fujitsu.com/jp/lib-f/tech/backup/features/?1503][データ保全手法~バックアップ, レプリケーション, アーカイブの相違点 : 富士通]] 
+
+*** Passive Replicatoin
+    
 
 * イレージャーコーディング
   RAID のような, データ保護技術.誤り訂正, 検出技術.
