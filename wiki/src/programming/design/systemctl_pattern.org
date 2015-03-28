@@ -53,13 +53,7 @@
    同じ仕様の異なる実装のシステムを複数用意し, レプリケーションのようにそれを運用する.
    この場合, 各システムが同じ障害を発生することがないと考えられる.
 
-*** Master-Slave
-
 * Communication Protocol Styles
-** Unicast
-   ユニキャスト.単一の送信相手を指定して, データを送信する.
-   TCP を利用することが多い.
-
 ** Multicast
    決められた複数のネットワーク端末 (ノード) に対して,
    同時にパケット (データ) を送信する事.
@@ -71,15 +65,51 @@
    Tree-Based Multicast と組み合わせることも.
    最小探索木を作成して, Multicast.
 
+*** Ordering
+    順序性を保証するために 3 つの代表的なアルゴリズムがある.
+     - FIFO ordering
+     Multicasts from each sender are received in
+     the order they are sent, at all receivers.
+
+     - casual ordering
+     Multicasts whose send events are
+     causally related, must be received in the
+     same causality-obeying order at all receivers.
+
+     - Total ordering
+
+*** 高信頼クライアントサーバ間通信
+    RPC エラーのリカバリ方法のまとめ. (分散システム p340)
+    - クライアントからサーバの位置か特定できない場合
+    - クライアントからサーバへの要求メッセージが喪失した場合
+    - サーバが要求を受けたあとにクラッシュした場合
+      クライアントはタイムアウトにしかみえない. 対処は 3 つある.
+      * at-least-once semantics 最低一回リトライする
+      * at-most-once semantics リトライせずに異常を通知
+      * なにもしない. 異常を無視.
+      
+    - サーバからクライアントへの要求メッセージが喪失した場合
+    - クライアントで要求メッセージを送信後に障害が起きた場合
+
+*** 高信頼グループ間通信
+    Reliable Multicalsing (分散システム p346).
+
+    Make sure that all of them receive the same updates
+    in the same order as each other.
+    
+
+
+**** 仮想同期 (Virtual Synchrony)
+
 *** Gossip (Epidemic)-Style Multicast (Protocol)
     Gossip はうわさのこと.
     人のうわさがあっという間に広まるのには理論的根拠があった.
-
+    
     Multicast には以下の課題がある
     - Nodes may crash
     - Packets may be dropped
     - 1000's of nodes
-
+      
     Multicast 通信で, 特定のグループに情報を伝達するためのよい手段.
     - epidemics とも呼ばれている.
     - 速く, 信頼性があり, スケーラブル.
@@ -92,11 +122,71 @@
 
     ウワサや伝染病が広まるように, 情報が伝達していく.
     - [[http://en.wikipedia.org/wiki/Gossip_protocol][Gossip protocol - Wikipedia, the free encyclopedia]]
+
+** Unicast
+   ユニキャスト.単一の送信相手を指定して, データを送信する.
+   TCP を利用することが多い.
    
 ** Broadcast
    不特定多数のノードに, 同時にパケットを送信すること.
    - [[http://ja.wikipedia.org/wiki/%E3%83%96%E3%83%AD%E3%83%BC%E3%83%89%E3%82%AD%E3%83%A3%E3%82%B9%E3%83%88][ブロードキャスト - Wikipedia]]
 
+   高コスト.
+
+* Leader Election
+  選任アルゴリズム.
+
+  通常, 分散システムでは, Coordinator が存在する.
+  Coordinator で異常が発生したさい, 
+  次の Coordinator を決定する必要がある.
+
+  また, 異常な Coordinator が復旧したときに 
+  Coordinator を戻す必要がある.
+
+
+  古典的な Coordinator を決定するためのアルゴリズムは以下.
+  - Bully algorithm
+  - Ring algorithm
+    
+
+  実際の実装例.
+  - Google Chubby
+  - Apatch ZooKeeper
+
+** Bully Algorithm
+   Bully (ガキ大将) アルゴリズム. つよいものが勝つというもの.
+   - [[http://www.cs.colostate.edu/~cs551/CourseNotes/Synchronization/BullyExample.html][CS 551: Synchronization, Bully Election Algorithm Example]]
+   - [[http://en.wikipedia.org/wiki/Bully_algorithm][Bully algorithm - Wikipedia, the free encyclopedia]]
+
+   3 種類のメッセージがある.
+   - Election Message: Sent to announce faster election
+   - Answer Message: Respond to the election message
+   - Coordinator message: Sent to announce the identity of the elected process
+
+   手順は以下
+   1) あるノードが Master の異常を検出したとき, Election を開催する.
+      Master が異常状態から復旧したときも, Election を開催する.
+   2) あるノードは自身よりも高い ID をもつノードにたいして,
+      Election Message をおくる. (生存宣言)
+   3) Election Message をうけとったノードは, Answer Message をかえす.
+      そして, 自身よりも高い ID をもつノードにたいして,
+      Election Message をおくる.
+   4) 2, 3 が続いた結果, どのノードからも応答がない, 送信するノードがな
+      い場合に, そのノードが Master となる.
+      Master は Coordinator messag をおくる.
+
+** Ring Algorithm
+   リング上にノードの ID が割り振られる.
+   あるノードは自身のとなりにならぶノードにメッセージを送る.
+
+   となりとなりにメッセージをおくることで, リングを一周したら,
+   リングを構成するノードの生存確認がとれるので,
+   もっとも高い ID をもつノードが Master になる.
+   - [[http://www.cs.colostate.edu/~cs551/CourseNotes/Synchronization/RingElectExample.html][CS 551: Synchronization, Token Ring Election Algorithm Example]]
+
+** Bookmarks 
+  - [[http://www2.cs.uregina.ca/~hamilton/courses/330/notes/distributed/distributed.html][Distributed Algorithms]]
+  - http://www.hpcs.cs.tsukuba.ac.jp/~msato/lecture-note/dsys-2014/lecture-dist-mutex.pdf
 
 * Failure detector
   分散システムのノードの中で, 異常検出を担うもの.  
@@ -105,6 +195,7 @@
   a failure detector is an application or a subsystem 
   that is responsible for detection of node failures 
   or crashes in a distributed system.
+
   - [[http://en.wikipedia.org/wiki/Failure_detector][Failure detector - Wikipedia, the free encyclopedia]]
 
   以下の論文で提出された概念.
@@ -214,6 +305,7 @@
   なんか, MOOC と同じ絵が載っているスライド見つけた.
   - http://www.cse.buffalo.edu/~stevko/courses/cse486/spring13/lectures/07-failure_detectors.pdf
       
+    
 * Bookmarks
 ** Fault-tolerant Patterns
    Fault-tolerant で利用される概念がコンパクトにまとまっている.

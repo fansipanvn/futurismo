@@ -1,0 +1,25 @@
+* Data Base
+** RDB: Relational DataBase
+*** ACID
+
+** KVS: Key-Value Store
+   分散 Key-Value ストア. RDB にかわって台頭してきた考え方.
+
+   Google がブレイクスルーした大きな要因は, KVS を利用した bigtable.
+   - [[http://www.atmarkit.co.jp/ait/articles/0907/02/news101.html][分散 Key-Value ストアの本命「 Bigtable 」 (1):もう 1 つの, DB のかたち, 分散 Key-Value ストアとは (1/3) - ＠ IT]]
+
+*** NoSQL
+    ビッグデータのためのデータベース.
+    - [[http://ja.wikipedia.org/wiki/NoSQL][NoSQL - Wikipedia]]
+
+*** Cassendra
+    オーブンソースの NoSQL.
+    - [[http://ja.wikipedia.org/wiki/Apache_Cassandra][Apache Cassandra - Wikipedia]]
+      
+*** HBase
+    オープンソースの, 列指向, 分散データベース
+    Google の BigTable をモデルとし, Java により書かれている.
+
+    - [[http://ja.wikipedia.org/wiki/Apache_HBase][Apache HBase - Wikipedia]]
+    - [[http://www.atmarkit.co.jp/ait/articles/1202/27/news128.html][ビッグデータ処理の常識を Java で身につける (3):いまさら聞けない KVS の常識を Hbase で身につける]]
+

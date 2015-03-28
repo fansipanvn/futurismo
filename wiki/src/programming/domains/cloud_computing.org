@@ -31,6 +31,19 @@
   - rack
   - servers
 
+** Scale out, Scale up
+   - Scale up 
+   grow your cluster capacity by replacing with more powerful macines.
+     + Traditional approach.
+     + Not cost-effective
+     + you need to replace machiens often.
+   
+   - Scale out
+   incrementally grow your cluster capacity by adding more COTS machines
+     + Cheaper.
+     + Over a long duration, phase in a few newer machine.
+     + Used by most companies who run datacenters and clouds today.
+
 * On-Demmand Access
    オンデマンドアクセス. 以下のような技術背景がある.
    - Computation-Intensive Computing 演算処理の集中
@@ -45,6 +58,7 @@
       アプリがボトルネックになってきた.
 
    -> 関数型言語が重要視されるようになってきた.
+
 
 ** 分類
  - Public cloud
@@ -91,7 +105,7 @@
     - Evernote
     - Google mail
 
-
+      
 * Distributed System
   分散システムとは,そのユーザに対して単一で首尾一貫 (coherent) した
   システムとして見える独立したコンピュータの集合.
@@ -207,8 +221,48 @@
      - Globos は Grid Computing
     
 
+** KVS: Key-Value Store
+   -> DataBase へ
 
-  
+*** CAP 定理
+    ノード間のデータ複製において, 同時に次の 3 つの保証を提供することはできない.
+    - 一貫性 (Consistency)
+      全てのノードにおいて同時に同じデータが見えなければならない.
+    - 可用性 (Availability) 
+      ノード障害により生存ノードの機能性は損なわれない. 
+      つまり, ダウンしていないノードが常に応答を返す. 
+      単一障害点が存在しないことが必要.
+    - 分断耐性 (Partition-tolerance) 
+      システムは任意の通信障害などによるメッセージ損失に対し, 
+      継続して動作を行う. 通信可能なサーバーが複数のグ
+      ループに分断されるケース (ネットワーク分断) を指し, 
+      1 つのハブに全てのサーバーがつながっている場合は, これは発生しない. 
+      ただし, そのような単一障害点のあるネットワーク設計は可用性が成立しない.
+
+   wikipedia: 
+   - [[http://ja.wikipedia.org/wiki/CAP%E5%AE%9A%E7%90%86][CAP 定理 - Wikipedia]]
+
+**** example
+     - consistency & Partition-tolerance: HBase
+     - Availiability & Partition-tolerance: Casandra
+     - Availiability & Consistency: RDBMS
+   
+*** Eventual Consistency
+    厳密な一貫性を要求する考え方ではなく, 
+    結果的に一貫性が保たれればよいという考え方.
+
+    Casandra で利用されている.
+    - [[http://ja.wikipedia.org/wiki/%E7%B5%90%E6%9E%9C%E6%95%B4%E5%90%88%E6%80%A7][結果整合性 - Wikipedia]]
+
+*** Quorum
+    分散トランザクションが処理を実行するために必要な最低限の票の数である.
+    quorum ベースの技術は分散システムにおいて, 
+    処理の整合性をとるために実装される.
+    - [[http://ja.wikipedia.org/wiki/Quorum][Quorum - Wikipedia]]
+
+** Mutual Exceptions
+   相互排他
+
 * MapReduce
   クラスター上での巨大なデータセットに対する
   分散コンピューティングを支援する目的で, 
@@ -249,47 +303,180 @@
    - GFS
    - HDFS
 
+* Clock Syncronization
+  クロック同期. 
+  分散システムにおいて, プロセスが協調して互いに同期しあうことが重要.
+
+** 物理的クロック
+   コンピュータのもつクロックを時間の基準とする考え方.
+
+*** Cristian's algorithm 
+    一般的なアルゴリズム. request,response の平均時間を足す.
+    - [[http://en.wikipedia.org/wiki/Cristian's_algorithm][Cristian's algorithm - Wikipedia, the free encyclopedia]]
+
+    集中アルゴリズム.
+
+*** NTP
+    デファクトスタンダードな 時間同期プロトコル.
+    通信時間による時刻値の誤差を小さくする工夫がなされたプロトコル.
+    - [[http://ja.wikipedia.org/wiki/Network_Time_Protocol][Network Time Protocol - Wikipedia]]
+
+** 論理クロック
+   プロセスの同期は必要だけれども, 
+   それが絶対的な時間でなくてもいいという考え方. 
+   さらに, 時間を同期している必要もなく, イベントの発生順序について合
+   意していればいいという考え方.
+   
+*** Lamport timestamps
+    ほとんどすべての 分散システムで利用されている,
+    論理クロックアルゴリズム. lamport が唱えた.
+    - [[http://en.wikipedia.org/wiki/Lamport_timestamps][Lamport timestamps - Wikipedia, the free encyclopedia]]
+      
+*** Vector Clock
+    ベクトルクロック (Distribute Systems p248)
+    
+    Lamport timestamps に *因果性* を導入.
+
+**** happens-before"(事後) 関係
+     イベントの順番を知るための方法.
+
+     同一プロセス内で発生したイベント A, B において.
+     - A が B より以前に発生した場合, A->B.
+     - A がメッセージを送るイベント, B がそれを受け取るイベントなら, A->B.
+
+     異なるプロセスで発生したイベント X, Y において.
+     - X->Y も Y->X も成り立たない. X, Y は「同時」である.
+
+     イベント A に対して, 全てのプロセスが同意する時刻 C (A)
+     -  A->B の場合, C (A)->C (B) でなくてはならない.
+     -  A がメッセージを送るイベント, B がそれを受け取るイベントなら, C (A)->C (B) である.
+     - 時計の値 C は常に進み続ける. (イベント間では必ず 1 つ進む)
+    
+* Global Snapshot
+  分散システムにおけるそのときの状態.
+
+** liveness & Safety
+   Collectness (正確性) は 2 つの性質からとらえられる
+   - liveness (生存性)
+     guarantee that something good will happen, eventually.
+
+   - Safety (安全性)
+     guarantee that something bad will never happen.
+
+** Snapshot Algorithm
+   Chandy-lamport global snapshot alogrithm ともいう.
+   - [[http://en.wikipedia.org/wiki/Snapshot_algorithm][Snapshot algorithm - Wikipedia, the free encyclopedia]]
+
+* Remote Procedure Call
+  RPC, 遠隔手続き呼び出し.
+
+  異なるアドレス空間のプロセス間で関数が呼ばれる.
+  - [[http://ja.wikipedia.org/wiki/RPC][RPC - Wikipedia]]
+  - [[http://www.atmarkit.co.jp/ait/articles/0206/12/news002_3.html][Windows ネットワークのレイヤ・モデルとファイル共有 (3/3) - ＠ IT]]
+
+  コードは自動生成されることがおおい.(ex.Spring)
+  
+** LPC
+   Local Procedure Call. 
+   同一プロセス内で関数が呼ばれる.
+
+** transaction
+   クライアントからサーバへの一連の RPC.
+   - commits サーバに変更を残す
+   - aborts  サーバになにも影響を与えない
+
+*** ACID 属性
+   トランザクション処理の信頼性を保証するために求められる性質
+    - [[http://ja.wikipedia.org/wiki/ACID_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E7%A7%91%E5%AD%A6)][ACID (コンピュータ科学) - Wikipedia]]
+
+** Concurrency
+*** Pessimistic Concurrency
+    もっとも悪い場合を想定して, オブジェクトにアクセスさせない.
+
+    排他的ロック. lock/unlock,
+    ロックを獲得したものだけアクセスさせる.
+    - write mode
+    - read mode
+
+*** Optimistic Concurrency
+    もっともよい場合を想定して, オブジェクトにアクセスさせる.
+    
+    pessimistic concurrency よりも並列性を向上させる.
+
+* Consensus
+  参加者のグループにおいて単一の結果について合意を得るプロセス
+
+  たとえば以下のようなものに関わりがある.
+
+  - Reliable Multicast
+  Make sure that all of them receive the same updates
+  in the same order as each other
+
+  - Membership/Failure Detection
+  To keep their own local lists where they know about
+  each other, and when anyone leaves or fails, everyone
+  is updated simultaneously
+
+  - Leader Election
+  Elect a leader among them, and let everyone in the
+  Exclusigroup know about it.
+
+  - Mutual Execution
+  To ensure mutually exclusive (one process at a time
+  only) access to a critical resource like a file.
+  
+** Synchronize
+   メッセージが一定時間内にやりとりされるシステム.
+   + 合意をとるアルゴリズムは存在する.
+
+** Asynchronize
+   メッセージが不定な時間にやりとりされるシステム.
+   + 合意をとるアルゴリズムは存在しない.(LFP proof)
+
+*** PAXOS
+   もっとも有名な 合意アルゴリズム.
+    -
+      [[http://ja.wikipedia.org/wiki/Paxos%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0][Paxos アルゴリズム - Wikipedia]]    
+  
+
 * Software Defined Infrastructure
   ソフトウェアを中心としたインフラ構築のビジョン.
 
-#+begin_quote
-Software-defined data center (SDDC) is a vision for IT infrastructure 
-that extends virtualization concepts such as abstraction, pooling, 
-and automation to all of the data center's 
-resources and services to achieve IT as a service (ITaaS)
-#+end_quote
+  #n+begin_quote
+  Software-defined data center (SDDC) is a vision for IT infrastructure
+  that extends virtualization concepts such as abstraction, pooling,
+  and automation to all of the data center's
+  resources and services to achieve IT as a service (ITaaS)
+  #+end_quote
 
-- [[http://en.wikipedia.org/wiki/Software-defined_data_center][Software-defined data center - Wikipedia, the free encyclopedia]]
-- [[http://en.wikipedia.org/wiki/Software_Defined_Infrastructure][Software Defined Infrastructure - Wikipedia, the free encyclopedia]]
+  - [[http://en.wikipedia.org/wiki/Software-defined_data_center][Software-defined data center - Wikipedia, the free encyclopedia]]
+  - [[http://en.wikipedia.org/wiki/Software_Defined_Infrastructure][Software Defined Infrastructure - Wikipedia, the free encyclopedia]]
 
-#+begin_quote
-「 Software Defined 」とは「 (手作業ではなく) ソフトウェアで定義・制御する環境」
-を実現する, または目指すという意味
-#+end_quote
+  #+begin_quote
+  「 Software Defined 」とは「 (手作業ではなく) ソフトウェアで定義・制御する環境」
+  を実現する, または目指すという意味
+  #+end_quote
 
-- [[http://www.ctc-g.co.jp/report/column/it_sdi/index.html][よくわかる IT 新発見  第 1 回  「 Software Defined xx 」の潮流を読み解く!|伊藤忠テクノソリューションズ]]
-- [[http://itpro.nikkeibp.co.jp/article/COLUMN/20131127/521113/][漆原茂の技術インパクト - 第 10 回  Software Defined Everything:ITpro]]
+  - [[http://www.ctc-g.co.jp/report/column/it_sdi/index.html][よくわかる IT 新発見  第 1 回  「 Software Defined xx 」の潮流を読み解く!|伊藤忠テクノソリューションズ]]
+  - [[http://itpro.nikkeibp.co.jp/article/COLUMN/20131127/521113/][漆原茂の技術インパクト - 第 10 回  Software Defined Everything:ITpro]]
 
 ** 各ベンダの動向
 *** Intel - Software Defined Infrastructure (SDI)
-データセンターのサーバー, ネットワーク, ストレージを統合する戦略.
-
-#+BEGIN_HTML
-<blockquote>
+    データセンターのサーバー, ネットワーク, ストレージを統合する戦略.
+    
+#+begin_quote
 SDI の大きな特徴は, コンピュート (CPU, メモリ), ネットワーク, ストレージなど, データセンターを構成するハードウェアをすべて抽象化して, ソフトウェアで自由に設定を変更することができる点
 
 ハードウェアとソフトウェアがタイトに結びつくのではなく, ハードウェアを抽象化し, 必要に応じてソフトウェアから設定を変更するだけで, サーバーのリソース構成をダイナミックに変更できるシステムが必要になってきた
-</blockquote>
-#+END_HTML
+#+end_quote
 
 - [[http://itpro.nikkeibp.co.jp/article/NEWS/20130723/493463/][米インテルが Software Defined Infrastructure を発表, ストレージとネットワークで攻勢:ITpro]]
 - [[http://cloud.watch.impress.co.jp/docs/column/virtual/20130730_609512.html][【仮想化道場】"やわらかいデータセンター"を作る, Intel の Software Defined Infrastructure - クラウド Watch]]
 
 *** Cisco - Software Defined Network (SDN)
     Software-Defined Networking.ネットワークにおける Software defined.
-
-- [[http://gblogs.cisco.com/jp/2014/02/open-source-controller-framework-opendaylight-1/][Cisco Japan Blog » オープンソース コントローラ フレームワーク - OpenDaylight (1)]]
-
+    - [[http://gblogs.cisco.com/jp/2014/02/open-source-controller-framework-opendaylight-1/][Cisco Japan Blog » オープンソース コントローラ フレームワーク - OpenDaylight (1)]]
+      
 *** EMC - Software Defined Storage (SDS)
     EMC のとなえる戦略. ストレージにおける Software Defined.
     [[file:Storage.org::*Software%20Defined%20Storage][Software Defined Storage]]
@@ -348,7 +535,7 @@ SDI の大きな特徴は, コンピュート (CPU, メモリ), ネットワー�
 
 ** BookMarks
   - [[http://www.atmarkit.co.jp/ait/articles/1407/02/news118.html][「 AWS は称賛に値する」:OpenStack は結局, どう使われていくのか - ＠ IT]]
-
+    
 * Software-Defined Networking (SDN)
   -> [[file:networking.org::*SDN][Networking-SDN]]
 

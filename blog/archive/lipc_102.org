@@ -1,0 +1,21 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 日記, Linux, 資格
+#+TAGS: LPIC
+#+DESCRIPTION: LPIC 102 不合格の報告
+#+TITLE: LPIC 102 合格
+ できなかった.. 不合格.
+
+ #+BEGIN_HTML
+<blockquote class="twitter-tweet" lang="ja"><p>本来は楽しい Linux の世界も, LPIC の勉強のせいで嫌いになってしまいそうだよ</p>&mdash; きつね (@tsu_nera) <a href="https://twitter.com/tsu_nera/status/575279460867444737">2015, 3 月 10</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+ #+END_HTML
+
+#+BEGIN_HTML
+<blockquote class="twitter-tweet" lang="ja"><p>LPIC の学習がつまらなすぎて発狂しそうだお</p>&mdash; きつね (@tsu_nera) <a href="https://twitter.com/tsu_nera/status/576538207489110016">2015, 3 月 14</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+#+END_HTML
+
+#+BEGIN_HTML
+<blockquote class="twitter-tweet" lang="ja"><p>LPIC 不合格!&#10;もう絶対こんな試験受けない. &#10;暗記なんかしなくても, &#10;ぼくには arch wiki がついている. </p>&mdash; きつね (@tsu_nera) <a href="https://twitter.com/tsu_nera/status/576575589278089216">2015, 3 月 14</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+#+END_HTML

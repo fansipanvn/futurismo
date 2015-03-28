@@ -1,0 +1,117 @@
+#+BLOG: Futurismo
+#+POSTID: 3054
+#+DATE: [2015-03-19 木 08:18]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: 
+#+DESCRIPTION: Emacs 上でカーソルを移動するための Tips を紹介
+#+TITLE: Emacs で高速快速カーソル移動をするための小技 3 点セット
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* はじめに
+  Emacs 上でカーソルを移動するための Tips を紹介.
+
+  たいした技ではないのだけれども,
+  この設定でかなり改善されてビックリしたので思わず記事にします.
+
+  おまけで, 最近ややビックリした改善もあわせて紹介.
+
+  [toc]
+
+** 背景
+   Emacs で カーソル移動をするときにもっさりしていたので,
+   なんでこんなことになっているのか調べてみました.
+
+* その 1 カーソル移動を速くする
+  Keyboard に入力をしたときに次の入力までの Delay が OS によって強いられる.
+  この Delay 時間を変更することで, 
+  リピートするような入力の入力効率が劇的に上がる.
+  
+  この改善の効果には感動しました!
+
+** Linux
+   ArchLinux の設定.
+
+   - [[https://bbs.archlinux.org/viewtopic.php?id=69759][Keyboard repeat messed up after update to Xorg 1.6 / Applications
+     & Desktop Environments / Arch Linux Forums]]
+
+   以下を.xinitrc 書く
+
+#+begin_src text
+    xset r rate 200 25
+#+end_src
+
+** Windows
+  windows は 設定が簡単.
+  
+  - コントロールパネル > キーボード > 速度を選択.
+  - 表示までの待ち時間, 表示の間隔のバーを右にもっていく.
+
+  参考: 
+  [[http://d.hatena.ne.jp/bigchu/20090224/1235477173][windows でキーボードのカーソル移動速度を上げる. ばびゅーん. - 酒は血液, 呑んだら献血]]
+
+  コントロールパネルからだと, 表示の間隔が 31 までしかさげることができな
+  い.しかし, レジストリをいじると, その限界を越えることができる.
+
+  - [[http://superuser.com/questions/388160/keyboard-repeat-rate-repeat-delay-values-in-win7][windows 7 - Keyboard - Repeat Rate/Repeat Delay values in Win7 - Super User]]
+
+  自分は, レジストリをいじって, 25 に設定した.
+
+** Mac
+   Mac をもっていないので, ブックマークだけ. 
+   Karabiner というフリーソフトをつかうそうな.
+   
+   - [[http://d.hatena.ne.jp/hiroshi128/20100422][emacs のカーソル速度変更 - どうでもいい情報置き場]]
+   - [[http://shigemk2.hatenablog.com/entry/20130420/1366450632][Emacs のカーソル移動の速度を上げる軌跡 - by shigemk2]]
+
+* その 2 スクロールを鮮やかにする 
+  この改善もやや感動. 
+
+  以下の elisp を導入するとスクロールがかっこよくなった.
+   - https://github.com/k-talo/smooth-scroll.el
+
+#+begin_src emacs-lisp
+(require 'smooth-scroll)
+(smooth-scroll-mode t)
+#+end_src
+
+   参考:
+   - [[http://qiita.com/ShingoFukuyama/items/429199542c38625c5554][Emacs のスクロールが滑らかになって気持ちいい! - Qiita]]
+
+  
+* その 3 カーソル移動で小指を守る
+  最近, 小指がいたくなってきて (とくに休日) Emacs の弊害を感じている.
+  たぶん, Emacs じゃなくて, Let's Note のへんな Ctrl の
+  位置だと思うのだけれども.
+  
+  そこで, これは小指をつかわないでカーソル移動をする技.
+  
+  hydra というパッケージを利用することで, これが可能.
+
+  C-z で hydra-move が発動. あとは, 小指を外して移動可能.
+  先ほどの scroll も組み合わせてみた.
+
+#+begin_src emacs-lisp
+(require 'hydra)
+
+(global-set-key
+ (kbd "C-z")
+ (defhydra hydra-move ()
+   "move"
+   ("f" forward-char "right")
+   ("b" backward-char "left")
+   ("n" next-line "down")
+   ("p" previous-line "up")
+   ("SPC" scroll-up-command "down")
+   ("<backspace>" scroll-down-command "up")
+   ("." hydra-repeat "repeat")))
+#+end_src
+
+   hydra は, おもしろい記事をかく abo-abo さんの作品だ.
+   - https://github.com/abo-abo/hydra
+   - [[http://oremacs.com/2015/01/20/introducing-hydra/][Behold The Mighty Hydra! · (or emacs]]
+   - [[http://oremacs.com/2015/02/28/hydra-repeat/][Hydra-repeat · (or emacs]]
+

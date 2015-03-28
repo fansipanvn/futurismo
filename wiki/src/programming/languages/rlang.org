@@ -372,6 +372,12 @@ x <- data.frame (foo = 1:4, bar = c (T,T,F,F))
 4	FALSE
  #+END_SRC
 
+***** ラベルを取得
+
+#+begin_src emacs-lisp
+names (data)
+#+end_src
+
 ***** 条件を指定してデータの抽出
  #+begin_src R
 adaltAnimalData <- animaldata[animaldata$Age.Intake>=1,]
@@ -689,19 +695,31 @@ sd (animaldata$Age.Intake)
 
 # fine number summery
 fivenum (animaldata$Age.Intake)
+
+# 四捨五入
+# 小数点 2 桁まで
+round (data,2)
+
 #+end_src
 
 *** cor: 共分散
+   -  [[http://monge.tec.fukuoka-u.ac.jp/r_analysis/descriptive_statistics22.html][R 言語で統計解析入門: 複数の変数間の相関係数をイチドキに求める  梶山  喜一郎]]
+
 #+begin_src R
 cor (bull$YearsPro, bull$BuckOuts)
 #+end_src
+
+**** categorical data を numeric data へ
+
+     #+begin_src R :session ex :exports both :results code
+     val <- as.numeric (var)
+     #+end_src
 
 *** マトリックスの作成    
 #+begin_src R
 myvars <- c ('YearsPro', 'Events', 'BuckOuts')
 cor (bull[,myvars])
 #+end_src
-
 
 ** 検定
 *** zscore: Z 検定
@@ -741,21 +759,108 @@ prop.table (gtab2)
 | 0.120689655172414 | 0.301724137931034 |
 
 ** 描画系
-*** plot :Scatter Plot を描写
-#+begin_src R
+    描写 のライブラリは 3 つある.
+    - Base: "artist's palette" model
+    - Lattice: Entire plot specified by one function; conditioning
+    - ggplot2: Mixes elements of Base and Lattice
+
+*** Base
+    plot (x, y), hist (x)
+    - [[http://cse.naro.affrc.go.jp/takezawa/r-tips/r/53.html][R-Source]]
+
+**** plot :Scatter Plot を描写
+
+ #+begin_src R
+# plot
 plot (bull$YearsPro, bull$BuckOuts, xlab='Years Pro', ylab='Buckouts', main='Plot of Years Buckouts')
-#+end_src
+# with
+with (airquarity, plot (Ozon, Wind))
+ #+end_src
 
 **** abline: 近似曲線をつける
  #+begin_src R
-abline (lm (bull$BuckOuts~bull$YearsPro))
+ abline (lm (bull$BuckOuts~bull$YearsPro))
  #+end_src
 
-*** hist: ヒストグラム
+**** hist: ヒストグラム
 #+begin_src R
- hist (animaldata$Age.Intake, main="Histgram of Intage Ages",
-      xlab="Age at Intake")
+hist (animaldata$Age.Intake, main="Histgram of Intage Ages",
+       xlab="Age at Intake")
 #+end_src
+
+**** boxplot: 箱ヒゲ図
+    
+#+begin_src R
+boxplot (Ozone ~ Month, airquarity, xlab="Month", ylab="Ozone (ppb)")
+#+end_src
+
+**** parameters
+     - `pch`: the plotting symbol (default is open circle)
+     - `lty`: the line type (default is solid line), can be dashed, dotted, etc.
+     - `lwd`: the line width, specified as an integer multiple
+     - `col`: the plotting color, specified as a number, string, or hex
+     -  code; the `colors ()` function gives you a vector of colors by name
+     - `xlab`: character string for the x-axis label
+     - `ylab`: character string for the y-axis label
+
+
+The `par ()` function is used to specify *global* graphics parameters
+that affect all plots in an R session. These parameters can be
+overridden when specified as arguments to specific plotting functions.
+
+     - `las`: the orientation of the axis labels on the plot
+     - `bg`: the background color
+     - `mar`: the margin size
+     - `oma`: the outer margin size (default is 0 for all sides)
+     - `mfrow`: number of plots per row, column (plots are filled row-wise) 
+     - `mfcol`: number of plots per row, column (plots are filled column-wise)
+
+**** 表
+     xtable library をつかう.
+     - [[http://www.okada.jp.org/RWiki/?LaTeX][LaTeX - RjpWiki]]
+     - [[http://blogs.yahoo.co.jp/igproj_fusion/12735147.html][LaTeX や HTML の表を作る - 迷途覚路夢中行 - Yahoo! ブログ]]
+
+*** Lattice
+    ラテル. 相関関係を視覚化するときに, 役立つライブラリ.
+
+    #+begin_src R :session ex :export both :results code
+    xyplot (y ~ x | f * g, data)
+    #+end_src
+
+**** Lattice Panel Function
+     x/y の相関関係をみるときに役立つ.
+
+     パネルをたくさん並べて傾向をみることもできる.パターンをみつける.
+
+*** ggplot2
+    plot () の改良版. qprot ()
+    
+    qplot を使えば自動でデータセットが分析されていい感じのグラフが作成できる.
+    plot はすべてを自分で指定しないといけない.
+
+    - [[http://id.fnshr.info/2011/10/22/ggplot2/][R のグラフィック作成パッケージ"ggplot2"について|Colorless Green Ideas]]
+
+**** qplot
+    - [[http://d.hatena.ne.jp/mickey24/20110223/ggplot2_qplot][ggplot2 の qplot 関数のまとめ - ぬいぐるみライフ (仮)]]
+    - [[http://rstudio-pubs-static.s3.amazonaws.com/11318_7868ffae37094d97aabaeaca093a6542.html][ggplot2 棒グラフ, 帯グラフメモ]]
+*** Graphics File Devices
+**** vector formats
+     line graphics に適している.
+    - pdf
+    - svg
+    - win.metafie
+    - postscript
+
+**** bitmap format
+     scatter graphics に適している.
+    - png
+    - jpeg
+    - tiff
+    - bmp
+
+*** Bookmarks
+    coursera
+    - https://github.com/DataScienceSpecialization/courses/blob/master/04_ExploratoryAnalysis/PlottingBase/index.md
 
 ** 回帰分析
 *** 線形回帰直線: linFit
@@ -812,18 +917,28 @@ t.test (age, mu=30, alternative = 'greater')
 
 ** aggregate
    R を用いてグループごとに集計したいという場合に用いる.
+   - [[http://entertainment-lab.blogspot.jp/2009/10/aggregate.html][entertainment-lab: aggregate 関数の動作に関する調査]]
+   - [[http://www.statmethods.net/management/aggregate.html][Quick-R: Aggregate]]
+
+   統計量をもとめるときに利用する T (X) where X = (x1,x2,x3,.....)
    
    aggregate (x, by, FUN, ...)
-
    - データ x を
    - リスト構造の by のグループごとに,
    - 関数 FUN で統計量としてまとめる
 
 #+begin_src R
 averages <- aggregate (x=list (steps=data$steps),
-                      by=list (interval=data$interval),
-                      FUN=mean)
+                       by=list (interval=data$interval),
+                       FUN=mean)
 #+end_src
+
+   aggregate (formula, data, FUN)
+   - formula を
+   - data frame (data) から
+   - 関数 FUN で統計量としてまとめる
+
+   参考: fomula [[http://cse.naro.affrc.go.jp/takezawa/r-tips/r/71.html][R-Source]]
 
 * データクリーニング
 ** sort
@@ -924,14 +1039,20 @@ str (str)
 ** CRAN
    パッケージリポジトリ.
 
-   国内サーバの指定.
+   国内サーバの指定. 
 
 #+begin_src R :session ex :export both :results code
 options (repos="http://cran.md.tsukuba.ac.jp") 
 #+end_src
+
+  ~/.Rprofile にかくと毎回読み込まれる.
+  - [[http://www.okada.jp.org/RWiki/?CRAN%E5%9B%BD%E5%86%85%E3%83%9F%E3%83%A9%E3%83%BC%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9][CRAN 国内ミラーの使い方 - RjpWiki]]
 
 * ブックマーク
 ** 文法
   - [[http://cse.naro.affrc.go.jp/takezawa/r-tips/r.html][R-Tips]]
   - [[http://www.okada.jp.org/RWiki/index.php?RjpWiki][RjpWiki - RjpWiki]]
   - [[http://www.is.titech.ac.jp/is-wiki/?maselab%2FR][maselab/R- Dept. of Math. & Comput. Sci.]]
+  - coursera R proglamming:
+    https://github.com/DataScienceSpecialization/courses/tree/master/02_RProgramming
+!

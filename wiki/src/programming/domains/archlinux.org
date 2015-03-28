@@ -270,3 +270,6 @@ pacman だと, /usr/share/eclipse/ にインストールされる.
 
 3. Pleiades スプラッシュ画像を使う場合は
    eclipse.ini の 1, 2 行目の -showsplash org.eclipse.platform を削除.
+
+* Sound
+  - [[https://archlinuxjp.kusakata.com/wiki/Advanced_Linux_Sound_Architecture?rdfrom=https%3A%2F%2Fwiki.archlinux.org%2Findex.php%3Ftitle%3DAdvanced_Linux_Sound_Architecture_%28%25E6%2597%25A5%25E6%259C%25AC%25E8%25AA%259E%29%26redirect%3Dno#.E5.90.8C.E6.99.82.E5.86.8D.E7.94.9F.E5.95.8F.E9.A1.8C][Advanced Linux Sound Architecture - ArchWiki]]

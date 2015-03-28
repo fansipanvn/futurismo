@@ -1,8 +1,15 @@
+#+BLOG: Futurismo
+#+POSTID: 2711
+#+DATE: [2014-11-17 火 23:46]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
 #+CATEGORY: 技術メモ
-#+TAGS: Java, 
+#+TAGS: Java
 #+DESCRIPTION: Java でスレッドプールを実装してみた
 #+TITLE: Java でスレッドプールを実装してみた
+
+#+BEGIN_HTML
+<a href="http://futurismo.biz/wp-content/uploads/java.png"><img alt="" src="http://futurismo.biz/wp-content/uploads/java.png" width="256" height="256" /></a>
+#+END_HTML
 
 * はじめに
   仕事でスレッドプールを利用する機会があるので,
@@ -96,6 +103,75 @@ class SampleThreadPool {
   }
 }	
 #+end_src
+
+* 追記: 割り込み例外をあげる (2015/03/05)
+  割り込み例外をあげるには, 以下のような手順を踏む.
+
+  1. execute () メソッドの代わりに submit () をコール
+  2. future オブジェクトを取得
+  3. future.cancel (true)
+
+  - [[http://java.keicode.com/lang/multithreading-cancel.php][ExecutorService での処理のキャンセル方法 - Java 入門]]
+
+#+begin_src java
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.HashMap;
+import java.lang.Thread;
+
+class ThreadInteraptSample {
+
+	private static class Action implements Runnable {
+		public int id;
+
+		public Action (int id) {
+			this.id = id;
+		}
+
+		@Override
+		public void run () {
+			System.out.println ("id=" + id + " start!!");
+			try {
+				Thread.sleep (2000);
+				System.out.println ("Time out!!");
+			} catch (InterruptedException e){
+				System.out.println ("Interrupted id=" + id);
+			}
+		}
+	}
+
+	// http://java.keicode.com/lang/multithreading-cancel.php
+	public static void main (String[] args) {
+		Future future1, future2, future3;
+
+		// Create Single Thread Pool
+		ExecutorService executor = Executors.newSingleThreadExecutor ();
+
+		// Execute Tasks
+		Action act1 = new Action (1);
+		Action act2 = new Action (2);
+		Action act3 = new Action (3);
+
+		HashMap<Action, Future> map = new HashMap<Action, Future>();
+		map.put (act1, future1 = executor.submit (act1));
+		map.put (act2, future2 = executor.submit (act2));
+		map.put (act3, future3 = executor.submit (act3));
+
+		try {Thread.sleep (3000);} catch (Exception e) {}
+
+		for (Action action: map.keySet ()) {
+			if (action.id == 2) {
+				map.get (action).cancel (true);
+				break;
+			}
+		}
+
+		executor.shutdown ();
+	}
+}
+#+end_src
+
 
 * Bookmarks
   - [[http://java.keicode.com/lang/multithreading-executor.php][ExecutorService の使い方 - Java 入門]]

@@ -317,6 +317,16 @@ fivenum (x)
 
     scatter plot によってまずは視覚化して適用できるかを見極める.
 
+*** 質的データ (Categorical) の相関
+    定量的データと定性的データ はアプローチがことなる.
+    - 性別
+    - 満足度
+    - 地域 ... 
+    
+    ピアソンよりも, ポリコリック相関係数のほうがよい値がでる??
+    - [[http://www.slideshare.net/mitsuoshimohata/ss-24419059][質的変数の相関・因子分析]]
+    - [[http://www.statmethods.net/stats/correlations.html][Quick-R: Correlations]]
+
 * Inferential Statistics: 推定統計学:
   収集できたデータを全体のデータ (母集団) から得られた一部の集団と見なし, 
   その得られたサンプルデータから元の母集団の性質や傾向を推測する分野.
@@ -339,7 +349,7 @@ fivenum (x)
   - Casual Data Analysis
   - Mechanistic Data Analysis
 
-** Estimation: 推定
+** Estiamtion: 推定
    普通は点推定で推定しておき, 重要な場合にだけ区間推定を行うのが一般的.
 
 *** 点推定
@@ -613,6 +623,19 @@ z=(取った得点-平均点)/ 標準偏差
    未知の関係性を見つけることが目的.
    - [[http://www.msi.co.jp/splus/products/eda.html][S-PLUS: EDA]]
 
+   可視化することで関係性を見つける.
+   - To understand data properties
+   - To find patterns in data
+   - To suggest modeling strategies
+   - To "debug" analyses
+
+   基本的な手法
+   - Five-number summary 
+   - Histograms
+   - Density plot (Scatter Plot)
+   - Boxplots (for Numerical Data, ヒゲ)
+   - Barplot (for categorical Data)
+
 ** Predictive Analysis: 予測解析
    ある出来事を予測するためにデータを利用することが目的.
    - [[http://en.wikipedia.org/wiki/Predictive_analytics][Predictive analytics - Wikipedia, the free encyclopedia]]
@@ -627,25 +650,97 @@ z=(取った得点-平均点)/ 標準偏差
    ある出来事の変数に決定的な変化をもたらす別の出来事の変数を
    理解することが目的.
 
-* 多変量解析
-** bivariate data: 二変量データ
-*** Contingency Tables: 分割表
-    2 つ以上の変数 (名義尺度が一般的) の間の関係を記録し分析するためのもの.
-    - [[http://ja.wikipedia.org/wiki/%E5%88%86%E5%89%B2%E8%A1%A8][分割表 - Wikipedia]]
+* データマイニング
+  大量のデータから知識を取り出す技術.
+  - [[http://ja.wikipedia.org/wiki/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%9E%E3%82%A4%E3%83%8B%E3%83%B3%E3%82%B0][データマイニング - Wikipedia]]
 
-    A contingency table or two-way table is used to organize data 
-    from multiple categories of two variables so that 
-    various assessments may be made.
+** 解析方法概要
+  - 頻出パターン抽出
+  データ集合の中から, 高頻度で発生する特徴的なパターンを見つける.
+  - クラス分類
+  クラス分類は与えられたデータに対応するカテゴリを予測する問題.
+  - 回帰分析
+  与えられたデータに対応する実数値を予測する問題
+  - クラスタリング
+  データの集合をクラスタと呼ぶグループに分ける. 
+  クラスタとは, 同じクラスタのデータならば互いに似ていて, 
+  違うクラスタならば似ていないようなデータの集まり.
+
+** クラスタ分析
+*** 階層的クラスタ分析
+    二つの近いものを探す.
+
+#+begin_src R :file 081953.png :width 300 :height 300 :results graphics :session ex
+set.seed (1234)
+par (mar = c (0,0,0,0))
+x <- rnorm (12, mean = rep (1:3, each =4), sd =0.2)
+y <- rnorm (12, mean = rep (c (1,2,1), each =4), sd =0.2)
+plot (x, y, col ="blue", pch =19, cex =2)
+text (x +0.05, y +0.05, labels = as.character (1:12)
+
+dataFrame <- data.frame (x = x, y = y)
+dist (dataFrame)
+
+
+dataFrame <- data.frame (x = x, y = y)
+distxy <- dist (dataFrame)
+hClustering <- hclust (distxy)
+plot (hClustering)
+
+
+#+end_src
+
+**** 近さの定義
+     - ユークリッド距離
+     - 相関係数
+     - マンハッタン距離
+
+*** 非階層クラスタ分析
+**** K-means cluster 分析
+    クラスタの平均を用い, 与えられたクラスタ数 k 個に分類する
+    - [[http://ja.wikipedia.org/wiki/K%E5%B9%B3%E5%9D%87%E6%B3%95][k 平均法 - Wikipedia]]
+    
+** 多変量解析
+*** bivariate data: 二変量データ
+**** Contingency Tables: 分割表
+     2 つ以上の変数 (名義尺度が一般的) の間の関係を記録し分析するためのもの.
+     - [[http://ja.wikipedia.org/wiki/%E5%88%86%E5%89%B2%E8%A1%A8][分割表 - Wikipedia]]
+
+     A contingency table or two-way table is used to organize data 
+     from multiple categories of two variables so that 
+     various assessments may be made.
 
 ** 回帰分析: Regression Analysis
    従属変数 (目的変数) と連続尺度の独立変数 (説明変数) の間に式を当てはめ,
    従属変数が独立変数によってどれくらい説明できるのかを定量的に分析すること
 
-*** 線形回帰
-   - [[http://ja.wikipedia.org/wiki/%E7%B7%9A%E5%BD%A2%E5%9B%9E%E5%B8%B0][線形回帰 - Wikipedia]]
+**** 線形回帰
+    - [[http://ja.wikipedia.org/wiki/%E7%B7%9A%E5%BD%A2%E5%9B%9E%E5%B8%B0][線形回帰 - Wikipedia]]
 
-*** 回帰線: regression line
-    線形回帰直線. 事象と平均の最上二乗法で導出.
+**** 回帰線: regression line
+     線形回帰直線. 事象と平均の最上二乗法で導出.
+
+
+  
+
+* アンケート
+** リッカート法
+   5 段階評価, 7 段階評価のアンケート.
+   - [[http://ja.wikipedia.org/wiki/%E3%83%AA%E3%83%83%E3%82%AB%E3%83%BC%E3%83%88%E5%B0%BA%E5%BA%A6][リッカート尺度 - Wikipedia]]
+
+   ボリクコック相関係数を利用するのがよい.
+   - [[http://norimune.net/673][カテゴリカルデータの相関係数 | Sunny sidfe up!]]
+
+   リッカードの視覚化には帯グラフが適している.
+   - [[https://strengejacke.wordpress.com/2013/07/17/plotting-likert-scales-net-stacked-distributions-with-ggplot-rstats/][Plotting Likert-Scales (net stacked distributions) with ggplot]]
+   - [[http://m884.hateblo.jp/entry/2013/12/02/202815][ggplot2 でなんでもプロット (table 編)  #RAdventJP - はやしのブログ Rev.3]]
+
+   ここにシャレたグラフの R スニペットがある.
+   - [[http://www.r-bloggers.com/correlation-scatter-plot-matrix-for-ordered-categorical-data/][Correlation scatter-plot matrix for ordered-categorical data | R-bloggers]]
+
+*** 対策
+
+    - [[http://www.motmot.com/investigation/analyze.html][分析しましょう - 従業員満足度調査の全てがわかる]]
 
 * データサイエンス
   データに関する研究を行う学問.  
@@ -783,6 +878,7 @@ z=(取った得点-平均点)/ 標準偏差
   しかし, 楽譜にしたがって演奏することで, 演奏者が違っても,
   世界中のどこでも, 作曲家の示した音楽を再現させることは可能だ.
   (Reproducible: 再現)
+  - [[http://ja.wikipedia.org/wiki/%E5%86%8D%E7%8F%BE%E6%80%A7][再現性 - Wikipedia]]
 
   音楽における楽譜がデータ解析におけるスクリプトとなる.
 
@@ -791,6 +887,15 @@ z=(取った得点-平均点)/ 標準偏差
   - Data Availability
   - Software / Methods Availability
   - Improved Transfer of Knowledge
+
+  統計解析は異常値の除去の方法によって, 得られる結果が異なることがある.
+  得られた結果の論拠を強くするために, 論拠となったデータを誰もが分析で
+  きるかたちで共有することが重要となる.また, だれもがデータを分析でき
+  ることで, より議論をタイムリーに生み出しやすくできる.
+
+  coursera のレクチャーでも紹介されたためになる動画.
+  - [[https://www.youtube.com/watch?v=7gYIs7uYbMo][The Importance of Reproducible Research in High-Throughput Biology - YouTube]]
+  - [[https://www.youtube.com/watch?v=CGnt_PWoM5Y][Org-mode for Reproducible Research - YouTube]]
 
 ** Replication
    複製.
@@ -804,10 +909,33 @@ z=(取った得点-平均点)/ 標準偏差
 
 ** 背景
   技術の向上が, Reproducible Research の台頭を支えている.
+
   - コンピュータの計算能力が極めて向上し, 洗練された解析が可能になった.
   - 既存のデータベースが "megadatabeses"にマージ可能となった.
   - データ収集のスループットが新しい技術によって向上した.
   - (へんな日本語訳になってしまった)
+
+** Literate (Statistical) Programming
+   記事は =text= , =code= (chunks) からなる
+   - A documantation Language (human redable)
+   - P programming language (machine readable)
+   
+   文芸プログラムは 
+   - 人間が読みやすいドキュメントに =waved= される.
+   - コンピュータが実行可能なドキュメントに =tangled= される.
+
+*** Research Pipeline
+    1. Mesured Data 
+       - Processing code
+    2. Analytic Data
+       - Analytics code
+    3. Computational Resuluts
+       -> Presentation code
+    4. Presentation Results
+       1. Fugures
+       2. Tables
+       3. Numerical Summaries
+    5. Articles
 
 ** 必要な技術
    - Analytic data are available
@@ -829,7 +957,6 @@ z=(取った得点-平均点)/ 標準偏差
    - Text
      - README.md
      - R markdown
-       
 ** R markdown
    R Studio のための 記法.
    - http://rmarkdown.rstudio.com/
@@ -854,6 +981,8 @@ install.packages ('knitr', dependencies = TRUE)
   - [[http://www.slideshare.net/sfchaos/rreproducible-research-13569000][R で reproducible research]]
   - [[http://www.slideshare.net/teramonagi/tokyo-r36-20140222][knitr+pandoc ではじめる~『 R Markdown で Reproducible Research 』]]
   - [[http://nicercode.github.io/guides/reports/][Writing reproducible reports in R with markdown, knitr and pandoc - Nice R Code]]
+  - [[http://blog.goo.ne.jp/toyodang/e/1316a8dad8d53aef57063e651b0763cb][論文の再現性について - ある医療系大学長のつぼやき]]
+  - [[http://www.huffingtonpost.jp/daiki-horikawa/post_5982_b_4165458.html][再現性の無い研究論文を減らすにはどうすべきか | 堀川大樹]]
 
 * Bookmark
   - [[http://www.stat.go.jp/teacher/c2dic.htm][基本用語集|統計学習の指導のために (先生向け)]]

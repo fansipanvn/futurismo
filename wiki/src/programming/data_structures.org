@@ -281,7 +281,6 @@
     メモリ使用量が多いので乱用はさける.
     - [[http://e-words.jp/w/VariantE59E8B.html][Variant 型とは 〔 バリアント型 〕 - 意味/ 解説/ 説明/ 定義 : IT 用語辞典]]
 
-    
 ** 抽象データ型との比較
    Wikipedia より. 
 
@@ -409,5 +408,8 @@ end
    
 ** Bookmarks
    - 比較的わかりやすい: [[http://www.hitachi.co.jp/Prod/comp/soft1/manual/pc/d645140/W4510070.HTM][抽象データ型]]
+* 特殊なデータ構造
+** Bloom flter
+   Casandra で利用されている.
 
      

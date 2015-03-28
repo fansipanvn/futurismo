@@ -1,0 +1,153 @@
+#+BLOG: Futurismo
+#+POSTID: 3048
+#+DATE: [2015-03-18 水 08:11]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ,  統計
+#+TAGS: R
+#+DESCRIPTION:リッカート法によるアンケートの相関分析を R でする方法
+#+TITLE: リッカート法によるアンケートの相関分析を R でする方法のメモ
+
+#+BEGIN_HTML
+<a href="http://developer.r-project.org/Logo/Rlogo-3.png"><img alt="" src="http://developer.r-project.org/Logo/Rlogo-3.png" /></a>
+#+END_HTML
+
+* はじめに
+  5 段階アンケートで欲利用されるリッカート法と,
+  アンケート結果の相関関係をを調べる方法を紹介します.
+
+  アンケート結果はカテゴリカルデータなため,
+  そのままでは相関係数が求められないので, 一工夫必要.
+
+  [toc]
+
+** 背景
+   職場でアンケートを実施したのだけれども,
+   分析の仕方が分からなかったので, 
+   カテゴリカルデータの相関分析方法を調べてみた.
+      
+* リッカート法の紹介
+  リーカート法は, 5 段階評価, 7 段階評価のアンケート.
+  - [[http://ja.wikipedia.org/wiki/%E3%83%AA%E3%83%83%E3%82%AB%E3%83%BC%E3%83%88%E5%B0%BA%E5%BA%A6][リッカート尺度 - Wikipedia]]
+
+  リッカードの視覚化には帯グラフが適している.
+  - [[https://strengejacke.wordpress.com/2013/07/17/plotting-likert-scales-net-stacked-distributions-with-ggplot-rstats/][Plotting Likert-Scales (net stacked distributions) with ggplot]]
+
+* R で 相関を調べる
+  cor 関数を使う.
+  - http://cse.naro.affrc.go.jp/takezawa/r-tips/r/67.html
+  - [[http://monge.tec.fukuoka-u.ac.jp/r_analysis/descriptive_statistics22.html][R 言語で統計解析入門: 複数の変数間の相関係数をイチドキに求める  梶山  喜一郎]]
+
+  二変数の相関
+  
+#+begin_src R
+cor (bull$YearsPro, bull$BuckOuts)
+#+end_src
+
+  多変数の相関. 配列で渡す.
+
+#+begin_src R
+myvars <- c ('YearsPro', 'Events', 'BuckOuts')
+cor (bull[,myvars])
+#+end_src
+
+* カテゴリカルデータの相関
+** numeric データに変換
+  ここからが本題. カテゴリカルなデータの相関を出すには,
+  カテゴリを数値に変換する必要がある. as.factor, as.numeric を利用する.
+
+  #+begin_src R :session ex :exports both :results code
+  val <- as.numeric (as.factor (var))
+  #+end_src
+
+  - [[https://siguniang.wordpress.com/2010/09/30/rnumeric%E3%81%A8factor%E3%81%AE%E7%9B%B8%E4%BA%92%E5%A4%89%E6%8F%9B/][numeric と factor の相互変換 | Siguniang's Blog]]
+
+** plot で描写
+  相関関係の散布図を一度に生成することは, plot 関数で可能だ.
+  しかし, カテゴリカルデータに対しては, あまりみても情報が得られない.
+   -  [[http://monge.tec.fukuoka-u.ac.jp/r_analysis/descriptive_statistics22.html][R 言語で統計解析入門: 複数の変数間の相関係数をイチドキに求める  梶山  喜一郎]]
+
+  ここにシャレたグラフの R スニペットがある.
+  - [[http://www.r-bloggers.com/correlation-scatter-plot-matrix-for-ordered-categorical-data/][Correlation scatter-plot matrix for ordered-categorical data | R-bloggers]]
+
+** ポリクコック相関係数
+  相関係数はでピアソンを利用するよりも,
+  ボリクコック相関係数を利用するのがよいらしい.
+  - [[http://norimune.net/673][カテゴリカルデータの相関係数 | Sunny sidfe up!]]
+
+  これはまだ試していない.
+   
+* 例
+  以下のようなデータから相関関係を読み取る.
+
+  #+tblname: answer
+  | 向上心 | 好奇心 | 危機感 | 責任感 | 勤続   | 所属 |
+  |--------+--------+--------+--------+----------+------|
+  |      3 |      3 |      4 |      4 |      21- | 長野 |
+  |      3 |      3 |      5 |      5 |    11-20 | 川崎 |
+  |      2 |      3 |      5 |      4 |    11-20 | 川崎 |
+  |      4 |      5 |      4 |      4 |      21- | 長野 |
+  |      4 |      3 |      5 |      4 |      -10 | 川崎 |
+  |      1 |      1 |      5 |      3 |      21- | 川崎 |
+  |      1 |      1 |      4 |      2 |      -10 | 川崎 |
+  |      1 |      1 |      4 |      4 |      21- | 川崎 |
+  |      4 |      2 |      5 |      5 |    11-20 | 長野 |
+  |      1 |      1 |      4 |      1 |      -10 | 川崎 |
+  |      2 |      1 |      5 |      3 |      21- | 長野 |
+  |      4 |      5 |      3 |      4 |      21- | 川崎 |
+  |      4 |      4 |      4 |      4 |      21- | 長野 |
+
+** データ処理
+   カテゴリカルデータを変換.
+
+#+begin_src R :session ex :exports both :results text :var answer=answer :colnames yes
+answerNum <- answer
+answerNum$勤続 <- as.numeric (as.factor (answer$勤続))
+answerNum$所属 <- as.numeric (as.factor (answer$所属))
+print (answerNum)
+#+end_src
+
+#+RESULTS:
+| 向上心 | 好奇心 | 危機感 | 責任感 | 勤続 | 所属 |
+|--------+--------+--------+--------+------+------|
+|      3 |      3 |      4 |      4 |    3 |    2 |
+|      3 |      3 |      5 |      5 |    2 |    1 |
+|      2 |      3 |      5 |      4 |    2 |    1 |
+|      4 |      5 |      4 |      4 |    3 |    2 |
+|      4 |      3 |      5 |      4 |    1 |    1 |
+|      1 |      1 |      5 |      3 |    3 |    1 |
+|      1 |      1 |      4 |      2 |    1 |    1 |
+|      1 |      1 |      4 |      4 |    3 |    1 |
+|      4 |      2 |      5 |      5 |    2 |    2 |
+|      1 |      1 |      4 |      1 |    1 |    1 |
+|      2 |      1 |      5 |      3 |    3 |    2 |
+|      4 |      5 |      3 |      4 |    3 |    1 |
+|      4 |      4 |      4 |      4 |    3 |    2 |
+
+** 相関をもとめる
+
+   #+begin_src R :session ex :exports both :results text :colnames yes :rownames yes
+   factors <- names (answerNum)
+   result <- cor (answerNum[,factors])
+   result <- round (result, 4)
+   #+end_src
+
+   #+RESULTS:
+   |        |  向上心 |  好奇心 |  危機感 | 責任感 |    勤続 |   所属 |
+   |--------+---------+---------+---------+--------+---------+--------|
+   | 向上心 |       1 |   0.822 | -0.1041 | 0.6775 |  0.1867 | 0.4872 |
+   | 好奇心 |   0.822 |       1 | -0.3991 | 0.5277 |  0.3136 | 0.2521 |
+   | 危機感 | -0.1041 | -0.3991 |       1 | 0.2198 | -0.2306 | 0.0195 |
+   | 責任感 |  0.6775 |  0.5277 |  0.2198 |      1 |  0.3947 | 0.2823 |
+   | 勤続   |  0.1867 |  0.3136 | -0.2306 | 0.3947 |       1 | 0.4739 |
+   | 所属   |  0.4872 |  0.2521 |  0.0195 | 0.2823 |  0.4739 |      1 |
+
+** 散布図
+
+#+begin_src R :file 080704.png :width 500 :height 500 :results graphics :session ex
+plot (answerNum)
+#+end_src
+
+[[file:080704.png]]
+
+
+# 080704.png http://futurismo.biz/wp-content/uploads/wpid-080704.png

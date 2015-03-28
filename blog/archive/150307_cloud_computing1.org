@@ -1,0 +1,129 @@
+#+BLOG: Futurismo
+#+POSTID: 3032
+#+DATE: [2015-03-07 土 20:56]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, MOOC
+#+TAGS: coursera, C++
+#+DESCRIPTION:coursera で Cloud Computing Cocepts をうけた
+#+TITLE: システム制御は奥が深い! 井戸の中の蛙な自分.coursera で Cloud Computing Cocepts をうけた
+
+* はじめに
+  coursera で クラウドコンピューティングを学ぶ講座をとりました.
+  - [[https://www.coursera.org/course/cloudcomputing][Cloud Computing Concepts - University of Illinois at Urbana-Champaign | Coursera]]
+  
+  分量が多いので, Cloud Computing Concepts は Part1,2 に分かれている.
+  今回は, Part1 についての記事.
+
+  これは, クラウドコンピューティング 3 シリーズのなかのはじめに位置する講座です.
+  - Distribute Systems
+  - Cloud Application
+  - Cloud Networking.
+
+#+BEGIN_HTML
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/k3rvKQLezoY?rel=0" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+* 内容
+  内容は分散コンピューティングについての古典的な理論から,
+  最新の研究の話題まで, 幅広い.
+  
+  Part1 では, 以下を学んだ.
+
+  - Introduction
+  Clouds, Mapreduce, Key-value stores
+  - Classical Precursors
+  Peer-to-ppeer systems, Grids 
+  - algorithms
+  Gossip, Membership, Paxos
+  - Classical algorithms
+  Time and Ordering, Snapshots, Multicast
+
+  NoSQL や P2P の最前線の話題についても触れる.
+
+  動画がとても早口 (通常速度で x1.3-5 くらい?) あまり英語を聞き取れず.
+  もっぱら以下の本の該当個所を読みながら進めた. 
+
+  #+BEGIN_HTML
+  <div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E5%88%86%E6%95%A3%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0-%E7%AC%AC%E4%BA%8C%E7%89%88-%E3%82%A2%E3%83%B3%E3%83%89%E3%83%AA%E3%83%A5%E3%83%BC%E3%83%BBS%E3%83%BB%E3%82%BF%E3%83%8D%E3%83%B3%E3%83%90%E3%82%A6%E3%83%A0/dp/4894714981%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4894714981' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/51zOfqbGCyL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E5%88%86%E6%95%A3%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0-%E7%AC%AC%E4%BA%8C%E7%89%88-%E3%82%A2%E3%83%B3%E3%83%89%E3%83%AA%E3%83%A5%E3%83%BC%E3%83%BBS%E3%83%BB%E3%82%BF%E3%83%8D%E3%83%B3%E3%83%90%E3%82%A6%E3%83%A0/dp/4894714981%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4894714981' rel='nofollow' target='_blank'>分散システム  第二版</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 15.02.23</div><div class='amazlink-detail'>アンドリュー・ S ・タネンバウム<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E5%88%86%E6%95%A3%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0-%E7%AC%AC%E4%BA%8C%E7%89%88-%E3%82%A2%E3%83%B3%E3%83%89%E3%83%AA%E3%83%A5%E3%83%BC%E3%83%BBS%E3%83%BB%E3%82%BF%E3%83%8D%E3%83%B3%E3%83%90%E3%82%A6%E3%83%A0/dp/4894714981%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4894714981' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00q0724.n763w947.g00q0724.n763x2b4/?pc=http%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F5961785%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Frms%2Fmsv%2FItem%3Fn%3D5961785%26surl%3Dbook' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
+  #+END_HTML
+
+  プロクラミングの課題もある. C++ で実装する.
+  
+* 感想
+** 以前の仕事について
+   この記事とかぶる部分もあるが, もう一度.
+   - [[http://futurismo.biz/archives/3007][分散システムにおける異常検出とスゲぇ HeartBeat についてのまとめ | Futurismo]]
+
+   今働いている会社の部署は, 
+   サーバやストレージ製品の制御ファームをつくっている.
+   クラウドコンピューティングに関わる製品の設計開発だ.
+
+   そして自分はというと, 今でこそ名実ともに窓際族であるので
+   部署の仕事とまったく関係ない遊び人をしているが,
+   かつてはストレージ製品の開発に関わってた.
+
+   自分の担当していた機能は, 異常検出.
+
+   2,4,8 ノードのそれぞれ独立した RAID コントローラが,
+   それぞれを互いに監視しあう. あるコントローラで異常が発生したときは,
+   別のコントローラが異常をすばやく検出して, エラーリカバリを実施する.
+
+   なので, 以今回学んだことは前の仕事にかなり関わってた.
+      
+** あまりに無知だった
+  8 ノードでの異常検出について自分の頭でいろいろ考えた.
+
+  自分の知らないところでは,
+  そのような知識は体系化されて, 理論的な裏付けがされていて,
+  改良されていることなど, 想像だにしなかったことだった.これには, とても驚いた.
+
+  以下, 具体例をあげる.
+
+*** Failure Detector/HeartBeating
+    異常検出については, 以前の記事でまとめた.
+   - [[http://futurismo.biz/archives/3007][分散システムにおける異常検出とスゲぇ HeartBeat についてのまとめ | Futurismo]]
+
+*** Membership List
+    自分の関わってきた製品は, 最大 8 ノードまでだったが, 
+    今後はノードが動的に追加できる, 
+    スケールアウト型ストレージの需要がでてくるかもしれない.
+
+    今までは, 固定の構成で仕様を考えていたが,
+    動的に変更されるような構成で仕様を考えることになるかもしれない.
+
+    スケールアウト型の制御方法で王道的な制御方法として MembershipList
+    による制御があることをしった.
+
+*** Consensus
+    Master-Slave アーキテクチャで制御しているとき,
+    Master であるノードで異常が発生したさいに, 
+    次の Master ノードを決定する必要がある. 
+    
+    また, 複数ノード同時に異常を検出した場合, 被疑個所がノードにあるの
+    か通信経路にあるのかを決定して, たのノードと合意をとる必要がある.
+
+    このような, 複数のノード間で単一の結果について合意を得るプロセス
+    は Consensus 問題と呼ばれていて, それに対して効果的なアルゴリズム
+    の研究がされている.
+
+** システム制御は奥が深い! そして自分は井戸の中の蛙だった
+   自分の所属している部署は, 自称システム制御を得意としているが,
+   それは井戸の中の蛙のような気がしてきた.
+   いったい, なにと比較して得意だといっているのだろうか?
+   年月だけ重ねても, 世の中についていけなければ意味がない.
+   
+   他のクラウド製品が, フォルトトラレント性を確保するために
+   どのようなことをしているのか, まったく無知である.
+   それらは企業秘密ということもあり, 特許で防衛しているところもある.
+
+   しかし, 世の中では, 分散コンピューティングの理論やアルゴリズムが
+   日進月歩で開発されていて, Yahoo, Google, Facebook などの先端企業は
+   そのような技術を取り入れている. 
+
+   新しい技術に対して無知であることは, 世の中からとりのこされるばかりか, 
+   自分たちの仕事すらなくなってしまうおそれのある, 非常に危険なことだ.
+
+   継続して技術動向を追いかけていくような態度が必要だ.
+   それは, 自分にも必要だが, 組織にも必要だ.
+
+   

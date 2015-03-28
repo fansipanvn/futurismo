@@ -1,0 +1,145 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Book
+#+TAGS: SICP, elisp
+#+DESCRIPTION:  SICP Chapter1 のまとめ
+#+TITLE: SICP 手続きによる抽象の構築を読んだ
+
+* はじめに
+  SICP を今年から読んでいます. 第一章を読むのに 2 ヶ月かかった!
+
+  #+BEGIN_HTML
+  <div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E8%A8%88%E7%AE%97%E6%A9%9F%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E6%A7%8B%E9%80%A0%E3%81%A8%E8%A7%A3%E9%87%88-%E7%AC%AC2%E7%89%88-%E3%83%8F%E3%83%AD%E3%83%AB%E3%83%89-%E3%82%A8%E3%82%A4%E3%83%96%E3%83%AB%E3%82%BD%E3%83%B3/dp/4798135984%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798135984' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/511qf4jdYjL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E8%A8%88%E7%AE%97%E6%A9%9F%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E6%A7%8B%E9%80%A0%E3%81%A8%E8%A7%A3%E9%87%88-%E7%AC%AC2%E7%89%88-%E3%83%8F%E3%83%AD%E3%83%AB%E3%83%89-%E3%82%A8%E3%82%A4%E3%83%96%E3%83%AB%E3%82%BD%E3%83%B3/dp/4798135984%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798135984' rel='nofollow' target='_blank'>計算機プログラムの構造と解釈 [第 2 版]</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 15.03.02</div><div class='amazlink-detail'>ハロルド エイブルソン<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E8%A8%88%E7%AE%97%E6%A9%9F%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AE%E6%A7%8B%E9%80%A0%E3%81%A8%E8%A7%A3%E9%87%88-%E7%AC%AC2%E7%89%88-%E3%83%8F%E3%83%AD%E3%83%AB%E3%83%89-%E3%82%A8%E3%82%A4%E3%83%96%E3%83%AB%E3%82%BD%E3%83%B3/dp/4798135984%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4798135984' rel='nofollow' target='_blank'>Amazon</a> <img src='http://amazlink.fuyu.gs/icon_rakuten.gif' width='18'><a href='http://hb.afl.rakuten.co.jp/hgc/g00q0724.n763w947.g00q0724.n763x2b4/?pc=http%3A%2F%2Fbooks.rakuten.co.jp%2Frb%2F12780410%2F&m=http%3A%2F%2Fm.rakuten.co.jp%2Frms%2Fmsv%2FItem%3Fn%3D12780410%26surl%3Dbook' rel='nofollow' target='_blank'>楽天</a></div></div></div></div></div>
+  #+END_HTML
+  
+  こりゃ, 全部読みきるのに 1 年くらいはかかりそうだ... or2.
+  
+  気長に楽しみながら頑張る. 
+  切りがいいので, ここまでの要点をまとめてみる.
+
+* 手続きとは
+  大事な, そしてややこしい用語がでてくるので, 整理する.
+
+** 式 (Expression)
+   計算機の解釈系に渡される前の表現.
+   解釈系に評価されると, 式はプロセスになる.
+
+   以下, wikipedia からの引用も.
+   - [[http://ja.wikipedia.org/wiki/%E5%BC%8F_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0)][式 (プログラミング) - Wikipedia]]
+
+   言語によって定められた優先順位や結びつきの規定に則って評価
+   される値, 変数, 演算子, 関数の組み合わせ.
+   
+** プロセス (Process)
+   プロセスは計算機のなかに潜む抽象的な存在.
+   プロセスはもう一つの抽象的な存在, データを操作する.
+   プロセスの進行は, 規則のパターン, プログラムにしたがう.
+
+** プログラム (Program)
+   プロセスの進行を指示する, 規則のパターン.
+
+   プログラムは二つの要素をもつ.
+   - 手続き: データの処理方法 (能動的) ex.) +, -
+   - データ: 処理したいもの   (受動的) ex.) 1,2,3
+
+* 手続きによる抽象の構築
+  この章のおもしろいところは, はじめは基本的な手続きからはじまり,
+  ひとつずつ抽象度をあげていくところにある.
+
+  章でいうと, 1.1 と 1.3. 1.2 は再帰手続きについてかかれている.
+
+  |                      | procedures     | data      |
+  |----------------------+----------------+-----------|
+  | primitive element    | +, *, <, =     | 23, 1.738 |
+  |----------------------+----------------+-----------|
+  | means of combination | () combination |           |
+  |                      | if             |           |
+  |                      | cond           |           |
+  |----------------------+----------------+-----------|
+  | means of abstraction | defun          |           |
+
+  言語は以下の仕掛けを有している.
+
+** Level0: 基本式 (プリミティブな手続きの構築)
+   もっとも基本的な手続き.
+     - which represent the simplest entities the language is concerned with,
+     - 言語が関わるもっとも単純なものを表す.
+
+  primitive expressions 基本式: 
+  - which represent the simplest entities the language is concerned with,
+  - 言語が関わるもっとも単純なものを表す.
+
+#+begin_src emacs-lisp
+1, +, -
+#+end_src
+
+** Level1: 組合せ法 (組み合わせ手続きによる抽象の構築)
+   複数の手続きを組み合わせて一つにした手続き.
+     - by which compound elements are built from simpler ones.
+     - より単純なものから合成物をつくる.
+
+    Emacs Lisp では 組合せ (combination) は =()= で表現する.
+
+#+begin_src emacs-lisp
+(* 1 1)
+#+end_src
+
+** Level2: 抽象化法 (名前つき値による抽象の構築)
+   オブジェクトを値 (value) とする変数 (variable) を識別するものが名前.
+   名前をつけることで, 値を識別する.
+
+   Emacs Lisp では 名前つけは =defun= で表現する.
+
+#+begin_src emacs-lisp
+(defun size () 2)
+(size)
+#+end_src
+
+** Level3:  手続き定義 (名前つき手続きによる抽象の構築)
+   名前付けは, 値だけでなくて手続きにもできる.
+   - by which compound elements can be named and manipulated as units.
+   - 合成物に名をつけ, 単一のもとして扱う.
+
+   名前のつけられた手続き. これをいわゆる関数と呼ぶ.
+
+#+begin_src emacs-lisp
+(defun square (x) (* x x))
+#+end_src
+
+   手続き定義は, 細部をかくすことができる. いわゆる *手続き抽象* という.
+
+** Level4: 高階手続きによる抽象の構築
+   手続きをあつかう手続きを高階手続きという
+   - 手続きを引数にとる
+   - 手続きを戻り値として返す
+
+   #+begin_src emacs-lisp
+   (square (square (square 2)))
+   #+end_src
+
+** Level5: lambda (名前なし手続き による抽象の構築)
+   高階手続きの引数にいちいち, 
+   defun で定義された手続きをわかすのは煩わしい.
+
+   名前なしの手続きを扱いたい. 
+   プロセスを生み出す特殊形式を lambda という.
+   
+   Emacs Lisp では =lambda= で表現する.
+
+   名前つき手続きは, 以下の糖衣構文となっている. 
+   Lisp インタプリタは実際には以下のように解釈している.
+
+#+begin_src emacs-lisp
+(defun square
+    (lambda (x) (* x x))
+#+end_src
+
+* さいごに
+  さいごに, 感動したセンテンスをぬきだして, 第一章を締めくくる.
+
+#+begin_quote
+われわれはプログラマとして, プログラムの根底にある抽象をみつけ,
+より強力な抽象化ができるように努めてなければならない.
+
+高階手続きの重要さは, それにより抽象をプログラム言語の要素して
+確かに表せ, 他の計算要素として扱えるようになる点にある.
+#+end_quote

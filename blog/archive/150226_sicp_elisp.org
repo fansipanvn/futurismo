@@ -1,14 +1,27 @@
+#+BLOG: Futurismo
+#+POSTID: 3017
+#+DATE: [2015-02-26 木 23:54]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
-#+CATEGORY: 技術メモ
-#+TAGS:
-#+DESCRIPTION:
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: SICP, Elisp
+#+DESCRIPTION: Emacs Lisp で SICP に挑戦するさいの落とし穴
 #+TITLE: Emacs Lisp で SICP に挑戦するさいの落とし穴
 
-* はじめに
-  SICP を Emacs Lisp でとくという, やや無謀なことをやっています.
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
 
-  結構ノウハウがたまってきたところで, 
-  書き溜めた過去のハマりポイントを公開.
+* はじめに
+  SICP を Emacs Lisp でとくという, やや無謀なことに挑戦中.
+  - https://github.com/tsu-nera/sicp-study
+
+  SICP 自体は Scheme をベースにかかれているので,
+  例題や回答を elisp に置き換えながら読んでいく.
+
+  Emacs Lisp は不自由なもので, 結構ハマリポイントがあった.
+
+  第一章がようやく終わったところで, 
+  いったんたまったノウハウをはきだしておこう.
 
 * よくある置き換え
 ** defun
@@ -94,9 +107,5 @@
    これによって, 解くのを諦めた問題多数. これが Elisp の限界か.
 
 * その他
-** 先人の知恵を借りる
-   自分一人で行き詰まった時は, 先人の知恵を拝借する.
-   - https://github.com/bixuanzju/sicp-exercises-elisp
-
-** 便利な Elisp   とか
-   lispxmp が便利. 評価
+  自分一人で行き詰まった時は, 先人の知恵を拝借する.
+  - https://github.com/bixuanzju/sicp-exercises-elisp

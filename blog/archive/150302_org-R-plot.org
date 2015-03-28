@@ -1,0 +1,85 @@
+#+BLOG: Futurismo
+#+POSTID: 3023
+#+DATE: [2015-03-02 月 00:58]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: R, org-mode
+#+DESCRIPTION:org-mode で作成した表を R をつかって折れ線グラフをかく方法を調べました
+#+TITLE: org-table の表で記録した睡眠時間を R で折れ線グラフにして表示する方法
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* はじめに
+  最近, 寝坊がひどいので, 睡眠時間管理をちゃんと使用と思います.
+
+  記録は org-mode で実施しようと思うので, 
+  org-mode で作成した表を R をつかって折れ線グラフをかく方法を調べました.
+
+* やりかた
+  org-table を R 言語の中で利用するには以下が必要.
+  1) table に tblname をつける
+  2) begin_src のオプションで  :var オプションをつける.
+
+* 実例: 睡眠時間の可視化
+** org-table
+  以下のようなテーブルを用意します.
+
+#+begin_src text
+  #+tblname: sleeptime
+   | Date            |  Bed | Wake | Total | fisical |
+   |-----------------+------+------+-------+---------|
+   | <2014-09-01 月> |   25 |  7.5 |   6.5 |      0. |
+   | <2014-09-02 火> |   23 |  5.5 |   6.5 |      0. |
+   | <2014-09-03 木> |   23 |  7.0 |    8. |     1.5 |
+   | <2014-09-04 木> |   23 |  7.0 |    8. |     1.5 |
+   | <2014-09-05 金> |   23 |  7.5 |   8.5 |      2. |
+   | <2014-09-06 土> |   25 |  8.0 |    7. |     0.5 |
+   | <2014-09-07 日> | 28.5 | 11.0 |   6.5 |      0. |
+   | <2014-09-08 月> |   24 |  7.5 |   7.5 |      1. |
+   | <2014-09-09 火> | 22.5 |  5.5 |    7. |     0.5 |
+   | <2014-09-10 水> | 23.5 |  7.5 |    8. |     1.5 |
+   | <2014-09-11 木> |   22 |  7.5 |   9.5 |      3. |
+   | <2014-09-12 金> |   21 |  7.5 |  10.5 |      4. |
+   | <2014-09-13 土> |   20 |  8.0 |   12. |     5.5 |
+   | <2014-09-14 日> | 28.5 |  9.5 |    5. |    -1.5 |
+   | <2014-09-15 月> | 23.5 |  7.5 |    8. |     1.5 |
+   | <2014-09-16 水> | 22.0 |  7.5 |   9.5 |      3. |
+   | <2014-09-17 水> | 23.0 |  5.5 |   6.5 |      0. |
+   | <2014-09-18 木> | 24.0 |  7.5 |   7.5 |      1. |
+   | <2014-09-19 金> | 24.0 |  7.5 |   7.5 |      1. |
+   | <2014-09-20 土> | 24.5 |  8.0 |   7.5 |      1. |
+   | <2014-09-21 日> | 26.0 |  8.0 |    6. |    -0.5 |
+   | <2014-09-22 月> | 23.0 |  7.5 |   8.5 |      2. |
+   | <2014-09-23 火> | 28.5 |  8.5 |    4. |    -6.5 |
+#+end_src
+
+表の先頭に, tblname:をつけるのがポイント
+
+#+begin_src text
+  #+tblname: sleeptime
+#+end_src
+
+** R
+   次に 表を R のデータフレームとして取り込んで処理します.
+
+#+begin_src text
+   #+begin_src R :file sleeptime.png :width 500 :height 500 :results graphics :var sleeptime=sleeptime
+   date <- strptime (sleeptime$Date, "<%Y-%m-%d")
+   plot (date, sleeptime$Total, xlab='date', ylab='Sleeptime', main='Plot of Sleeptime (2014/09)', type='l')
+ # #+end_src
+#+end_src
+
+  :var オプションがポイント.
+
+#+begin_src text
+ :var sleeptime=sleeptime
+#+end_src
+
+評価すると,以下のような折れ線グラフができました.
+
+[[file:./../img/20150302_sleeptime.png]]
+
+
+# ./../img/20150302_sleeptime.png http://futurismo.biz/wp-content/uploads/wpid-20150302_sleeptime.png
