@@ -1,0 +1,98 @@
+#+BLOG: Futurismo
+#+POSTID: 2956
+#+DATE: [2015-01-29 木 21:53]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: SMB, CIFS, Wireshark
+#+DESCRIPTION: WireShark で SMB/CIFS のパケット解析をするときの便利 Tips
+#+TITLE: WireShark で SMB/CIFS のパケット解析をするときの便利 Tips
+
+* はじめに
+  仕事で SMB プロトコルのパケット解析ばかりするようになってきた.
+
+  少し Tips がたまってきたので, 忘れないうちにメモしようと思う. 
+  SMB2 限定.
+
+  かなりニッチな内容だけれども, いつかどこかで誰かの役に立つことを願う.
+
+* 検索を利用する
+  Ctrl + F で検索窓か開くので, キーワードから検索.
+
+* Filter を利用する
+ 素早く情報を検索するには, フィルタが有効.
+
+ - ツールバーからフィルタのパターンを入力
+ - よく利用するものは, save を押すと再利用可能
+ - フィルタの追加, 削除は Edit > Preferences > Filter Expressions から.
+
+ 以下, よく利用するものを列挙
+
+** smb プロトコルをフィルタする
+   これは基本.
+
+#+begin_src text
+smb or smb2
+#+end_src
+
+** IP アドレスでフィルタリング
+   サーバのログをみるとき, たくさんのクライアントからのアクセスがある
+   ので, ログが見づらい. 以下で, 送信元または送信先でフィルタリング.
+   
+#+begin_src text
+ip.addr == 10.0.0.1
+#+end_src
+
+   送信元と先を指定する.
+
+#+begin_src text
+ip.addr == 10.0.0.1 and  ip.addr == 10.0.0.0
+#+end_src
+** NT Status が エラーのものをフィルタリングする
+   エラーを素早くチェックするために.
+
+#+begin_src text
+smb2.nt_status > 0
+#+end_src
+
+** Command Code でフィルタリング
+   コマンドコードで絞込み.  
+
+#+begin_src text
+# create でフィルタ
+smb2.cmd==5
+#+end_src
+
+  コマンドコード一覧
+  - [[https://msdn.microsoft.com/en-us/library/cc246528.aspx][2.2.1.1 SMB2 Packet Header - ASYNC]]
+
+** FileId でフィルタリング
+   create response コマンドにある fileId を追跡する.
+
+#+begin_src text
+smb2.fid==00004001-0000-0000-0000-000000000000
+#+end_src
+
+* tshark を利用する
+  コマンドラインの tshark を利用したほうが, 操作が早いことに気付く.
+  しかし, Detail をしっかりみるためには GUI 版の WireShark がいい.
+
+  smb でフィルタリンクしたものを吐き出し. これでログが軽くなる.
+
+  #+begin_src text
+  tshark -r hoge.pcapng -Y 'smb2' -w foo.pcapng
+  #+end_src
+    
+  -Y でフィルタをかける. サブ画面でちょっとした grep をするのに便利.
+
+  #+begin_src text
+  tshark -r hoge.pcapng -Y 'smb2.cmd==5'
+  #+end_src
+
+  エラーがないかなどを素早くチェックする.
+
+#+begin_src text
+  tshark -r hoge.pcapng -Y 'smb2.nt_status > 0'
+#+end_src
+
+* Special Thanks
+  - [[http://troushoo.blog.fc2.com/blog-entry-150.html][Wireshark を用いた SMB のトラブルシューティングに使える 5 つのテクニック]]

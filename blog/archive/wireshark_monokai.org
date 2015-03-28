@@ -1,0 +1,35 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: WireShark
+#+DESCRIPTION:Coloring Rules で Filter に色付けする方法
+#+TITLE: Coloring Rules で Filter に色付け! カラフルな DarkWireShark でログ解析を加速する方法
+
+* はじめに
+  前回の続きです.
+  - [[http://futurismo.biz/archives/2943][もうダサいなんていわせない! 黒くてクールな DarkWireShark | Futurismo]]
+
+  WireShark の Coloring Rules をいじることで, 
+  表示されるパケットに自由に色をつけることができたので紹介.
+
+* Coloring Rules をいじる
+  Wireshark を開き, 
+  - ツールバーから view > Coloring Rules を選択.
+  - New を選択
+  - Name: で名前をつける. String で絞りこむ条件を入れる.
+
+  この設定をすることで, 起動時から Filter に色をつけておくことができる.
+  たとえば, 以下の記事に書いたフィルタをあらかじめ色付けしておけば,
+  とてもログ解析がやりやすくなる.
+  - [[http://futurismo.biz/archives/2956][WireShark で SMB/CIFS のパケット解析をするときの便利 Tips | Futurismo]]
+
+  以下,  色づけの例.
+
+  | Name        | Fildter          | ForeGround | BackGround |
+  |-------------+------------------+------------+------------|
+  | SMB2        | smb2             | #F8F8F2    | #272822    |
+  | SMB2 ERROR  | smb2.nt_status>0 | #F8F8F2    | #FF5800    |
+  | SMB2 CREATE | smb2.cmd==5      | #F8F8F2    | #225D71    | 
+
+  これだけでも, だいぶカラフルになる.  
+
+  [[file:./../img/SnapCrab_NoName_2015-1-30_13-19-44_No-00.png]]
