@@ -1,0 +1,129 @@
+#+BLOG: Futurismo
+#+POSTID: 3104
+#+DATE: [2015-04-11 土 15:52]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:C 言語, C++
+#+DESCRIPTION: C/C++ における イベントハンドラの書き方について,定石を整理してみた
+#+TITLE: C 言語/C++ における イベントハンドラの定石 (switch/ 関数ポインタ配列/lambda)
+
+* はじめに
+  C/C++ における イベントハンドラの書き方について,定石を整理してみた.
+
+  [toc]
+
+** 前提
+   以下のようなコードがあるとする. 
+
+#+begin_src cpp
+#include <iostream>
+typedef enum {START,  STOP} COMMAND;
+
+void check (COMMAND command) {
+  std::cout << (int) command << " is called" << std::endl;
+}
+
+int main (int argc, char *argv[])
+{
+  check (START);
+  check (STOP);
+  return 0;
+}
+#+end_src
+
+ 出力結果は以下のようになる.
+
+#+begin_src text
+0 is called
+1 is called
+#+end_src
+
+ この出力結果は以下のようにしたい.
+
+#+begin_src text
+start is called
+stop is called
+#+end_src
+
+* 方法
+** switch を使う
+   一番単純な方法は, switch をつかって, 表示を分岐する
+
+#+begin_src cpp
+void onStart () { std::cout << "start is called" << std::endl; }
+void onStop () { std::cout << "stop is called" << std::endl; }  
+
+void check (COMMAND command) {
+switch (command) {
+    case START:
+      onStart ();
+      break;
+    case STOP:
+      onStop ();
+      break;
+    }
+  }
+};
+#+end_src
+
+** 関数ポインタ配列を使う
+   別の定石は, 関数ポインタ配列をつかう.
+
+#+begin_src cpp
+#include <iostream>
+
+typedef enum {START,  STOP} COMMAND;
+
+void onStart () { std::cout << "start is called" << std::endl; }
+void onStop () { std::cout << "stop is called" << std::endl; }
+
+typedef void (*HANDLER) ();
+static HANDLER handle_tbl[2] = {&onStart, &onStop};
+
+void check (COMMAND command) {
+  handle_tbl[command] (); 
+}
+#+end_src
+
+** lambda をつかう
+   関数テーブルに関数を登録するために,
+   関数を作成する必要があるけれども, 一行なので, 関数を作成するのは面倒.
+   
+   そんなときは,c++11 からつかえるようになったラムダ式を利用する.
+
+#+begin_src cpp
+#include <iostream>
+#include <functional>
+
+typedef enum {START,  STOP} COMMAND;
+
+static std::function<void ()> handle_tbl[2] = {
+  [] (){ std::cout << "start is called" << std::endl;}, 
+  [] (){ std::cout << "stop is called" << std::endl;}  
+};
+
+void check (COMMAND command) {
+  handle_tbl[command] ();
+}
+
+int main (int argc, char *argv[])
+{
+  check (START);
+  check (STOP);
+  return 0;
+}
+#+end_src
+
+   やっぱり, これからは関数型の時代だよね!
+   
+* Special Thanks
+  この記事によると, 
+  switch 型と関数テーブル型では, スピードは変わらないとか.
+  - [[http://dixq.net/forum/viewtopic.php?f=3&t=13875][関数ポインタテーブルと switch 文 • C 言語交流フォーラム  ~ mixC++ ~]]
+
+  委譲をつかう方法もある (Strategy Pattern)
+  - [[http://www7b.biglobe.ne.jp/~robe/pf/pf016.html][プログラマの友 第十六報:イベントハンドリングとデリゲート]]
+
+  C++11 の方法.
+  - [[http://qiita.com/shiro_naga/items/5967f6cd1710e7b78677][C++ - メンバー関数ポインタと配列を使って, メンバー関数を番号で指定して呼び出す方法 - Qiita]]
+  - [[http://kaworu.jpn.org/cpp/std::function][std::function - C++ 入門]]

@@ -1,0 +1,138 @@
+#+BLOG: Futurismo
+#+POSTID: 3099
+#+DATE: [2015-04-10 日 22:19]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Linux
+#+TAGS: wayland, weston
+#+DESCRIPTION: Wayland/weston を ArchLinux で動かした
+#+TITLE: Wayland/weston を ArchLinux で動かして遊んでみた
+
+* はじめに
+  仕事で, GUI プログラミングに関わることになりそうです.
+
+  そこで, 次世代 ウィンドウシステム wayland/weston を 
+  Arch Linux にいれて遊んでみました.
+
+  [toc]
+ 
+** Environmet
+
+#+begin_src bash
+$ sudo pacman -Qe weston linux
+weston 1.7.0-2
+linux 3.19.2-1
+#+end_src
+
+* インストール
+  以下のコマンドでインストール.
+
+#+begin_src bash
+sudo pacman -S wayland weston
+#+end_src
+
+** wayland
+   x window にかわる, 次世代ウィンドウマネージャー.
+   - [[http://ja.wikipedia.org/wiki/Wayland][Wayland - Wikipedia]]
+
+   Arch Wiki が詳しい.
+   - [[https://archlinuxjp.kusakata.com/wiki/Wayland?rdfrom=https%3A%2F%2Fwiki.archlinux.org%2Findex.php%3Ftitle%3DWayland_%28%25E6%2597%25A5%25E6%259C%25AC%25E8%25AA%259E%29%26redirect%3Dno][Wayland - ArchWiki]]
+
+   x window にくらべて, 高速で, 実装がシンプルらしい.
+
+   以下の比較動画をみると, 
+   xorg と wayland/weston の違いが歴然としていおもしろい.
+   
+#+BEGIN_HTML
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Ux-WCpNvRFM?rel=0" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+** Weston
+   Wayland はただのライブラリなので, それだけでは使い物になりません. 
+   X サーバーを置き換えるには, (Weston などの) コンポジタが必要.
+
+* 遊んでみる
+  weston 起動.
+  
+#+begin_src bash
+$ weston
+#+end_src
+
+  左上のターミナルアイコンをクリックすると, weston-terminal が起動する.
+
+  [[file:./../img/2015-04-10-205933_1030x640_scrot.png]]
+
+  いろいろなデモが用意されている.
+  - weston-flower
+  - weston-smoke
+  - weston-editor
+
+  レンダリングが鮮やかな気がする.
+
+  [[file:./../img/2015-04-10-210800_1020x642_scrot.png]]
+
+  以下で, デモが見られる.
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Q0euI8FIXV0?rel=0" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+* x window アプリを wayland で動作させる
+  Wayland は, 描画に OpenGL ES を用いていている.
+  一方, Linux のデスクトップアプリは, X クライアント.
+
+  xorg-server-xwayland をインストールすれば,
+  従来の Linux アプリを wayland で動かす方法がある. 
+
+  .config/weston.ini に以下を書くと, weston-terminal からアプリを立ち上
+  げたときに, weston 内でアプリが起動する.
+
+#+begin_src text
+[core]
+modules=xwayland.so,desktop-shell.so
+#+end_src
+
+  weston.ini の マニュアルは以下.
+  - [[https://www.mankier.com/5/weston.ini][weston.ini - man page]]
+
+#+begin_src bash
+# xorg アプリを動作させる
+[core]
+modules=xwayland.so
+
+# 日本語設定
+[keyboard]
+keymap_layout=jp
+
+# ターミナルアイコン
+[launcher]
+icon=/usr/share/icons/gnome/24x24/apps/utilities-terminal.png
+path=/usr/bin/weston-terminal
+
+# firefox アイコン
+[launcher]
+icon=/usr/share/icons/hicolor/24x24/apps/firefox.png
+path=/usr/bin/firefox
+
+# フルスクリーン
+[output]
+name=X1
+mode=1600x900
+#+end_src
+
+  パフォーマンスについての考察.
+  - [[http://cpplover.blogspot.jp/2013/07/xwayland.html][本の虫: XWayland のパフォーマンス]]
+
+* Bookmarks
+ - [[http://d.hatena.ne.jp/devm33/20140414/1397473785][Wayland/Weston について - devm33 の備忘録]]
+ - [[http://qiita.com/TNaruto/items/7eef814e7673fd42e681][weston (wayland) の screenshot の取り方 - Qiita]]
+ - [[http://mlny.info/2014/10/wayland/][Wayland を試してみる]]
+ - [[https://tim.siosm.fr/blog/2012/09/21/try-weston-arch-linux/][Give Wayland/Weston a try on Arch Linux - Siosm's blog]]
+
+ Linux conf 2013 におけるプレゼン.
+
+#+BEGIN_HTML
+<iframe width="420" height="315" src="https://www.youtube.com/embed/cQoQE_HDG8g?rel=0" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+# ./../img/2015-04-10-205933_1030x640_scrot.png http://futurismo.biz/wp-content/uploads/wpid-2015-04-10-205933_1030x640_scrot1.png
+# ./../img/2015-04-10-210800_1020x642_scrot.png http://futurismo.biz/wp-content/uploads/wpid-2015-04-10-210800_1020x642_scrot1.png

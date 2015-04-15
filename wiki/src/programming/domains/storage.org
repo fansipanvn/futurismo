@@ -30,6 +30,8 @@
 * Object-Based Storage
   オブジェクトストレージ.
 
+  クラウドストレージ (分散ストレージ) とは似ているが, 異なる.
+
 ** 特徴
   - HTTPS 上の REST (Representational State Transfer) を利用
   - OS やファイルシステムに依存することなく, 
@@ -41,46 +43,230 @@
   - RAID やファイルシステムに必要な, ボリューム設計や複雑な運用管理,
     スペアディスクの設定が不要
 
-** RAS 技術
-*** Replication 
-    データ複製.オブジェクトをコピーし, ノード間で複製を保持することで
-    冗長性を高める手法.
+** 分散 KVS
+   分散 Key-Value ストア. スケールアウト技術の基幹技術.
+   - [[http://www.shudo.net/article/201002-Software-Design-KVS/#][key-value ストアの基礎知識]]
 
-*** Erasure Coding 
-    Erasure Coding はオジェクトを分割して消失訂正符号を付加し, 物理的
-    に異なるノードに分散して格納することで, その分割したデータのいくつ
-    かが消失した場合でも, 元のオブジェクトを復元することができる手法.
+   同じデータを複数のコンピューターに複製して保存し, 
+   それぞれのコンピューター上のデータに変更が起きていないかどうかを
+   随時チェックすることによって整合性を確保. リアルタイム性はない.
 
-    RAID5 のようなことを, ノード間で実施する.
+   Key で担当サーバを分ける. 
+
+   たいていはいくつかのサーバ上に複製 (replica) を作成することによって
+   耐故障性を高めている.
+
+** Replication 
+  レプリケーション. 複製.
+   
+  データ複製.オブジェクトをコピーし, ノード間で複製を保持することで
+  冗長性を高める手法.
+
+  システム障害時の継続運用が目的となります. 災害時に接続しているシステ
+  ムが壊れてしまったとき, 遠隔地にある複製データを利用し事業継続を実現
+  する DR (ディザスタリカバリ) に有効.
+  - [[http://storage-system.fujitsu.com/jp/lib-f/tech/backup/features/?1503][データ保全手法~バックアップ, レプリケーション, アーカイブの相違点 : 富士通]] 
+
+  コンテンツ配信する方法は二つある.
+  - Passive Replicatoin .. Master Replica だけを更新
+  - Active Replicatoin .. id ごとにすべてを更新.
+
+*** 2 相コミット
+   分散システム内の全ノードがトランザクションの
+   コミットに合意するための分散アルゴリズム.
+   - [[http://ja.wikipedia.org/wiki/2%E7%9B%B8%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88][2 相コミット - Wikipedia]]
+
+   これがわかりやすい. Ready? Action!!
+   - [[http://www.publickey1.jp/blog/13/-2nii_open_house_2013.html][分散ストレージの整合性をいかに解決するか. プライマリ-バックアップ方式と分散コミット Publickey]]
+
+** Erasure Coding 
+   イレージャーコーディング
+   RAID のような, データ保護技術.誤り訂正, 検出技術.
+
+   QR コードと同じ, リード・ソロモン符号アルゴリズムを利用している.
+
+   - [[http://news.livedoor.com/article/detail/9145853/#][大容量データ保護の福音イレージャーコーディングで「 RAID は不要になる」 - ライブドアニュース]]
+   - [[http://www.ctc-g.co.jp/~ctcsp//sp/ostf_02.html][新たな潮流, オブジェクトストレージとは?  『オブジェクトストレージが求められる背景』]]
+   - [[http://raven.air-nifty.com/night/2011/01/erasure-coding.html][Erasure coding: 私家版 IT プロフェッショナルの仕事術]]
+   - [[http://www.jdsf.gr.jp/backup/stm/201007.html][JDSF | データ・ストレージに関する総合情報サイト | Japan Data Storage Forum]]
+
+   Erasure Coding はオジェクトを分割して消失訂正符号を付加し, 物理的
+   に異なるノードに分散して格納することで, その分割したデータのいくつ
+   かが消失した場合でも, 元のオブジェクトを復元することができる手法.
+
+   RAID5 のようなことを, ノード間で実施する.
 
 ** Links
    - [[http://www.reqtc.com/column/object-storage.html][いま話題のオブジェクトストレージとは!? ]]
    - [[http://www.ctc-g.co.jp/~ctcsp//sp/ostf_02.html][新たな潮流, オブジェクトストレージとは?  『オブジェクトストレージが求められる背景』]]
 
-* Cloud Storage
-  クラウドストレージ.
-  
+* 分散ファイルシステム
+  分散ファイルシステムの目的は, ユーザから
+  ファイルかリモートにあるかローカルにあるか意識しなくていいよう
+  にすること.
+
+  2 つのアクセスモデルがある.
+  - 遠隔アクセスモデル ... リモートサーバにあるファイルを読み書き
+  - アップロードダウンロードモデル ... 一旦ローカルにダウンロードして
+    編集してからアップロード.
+
+  ローカルファイルにアクセスするときは, file discripter を指定する.
+  file discripter には, read/write に必要な pointer が保持されているので,
+  ユーザは, offset を指定しない.
+
+  リモートファイルにアクセスするときは file id と offset を指定する.
+
+  クライアント・サーバ間の通信には RPC が利用される.
+  NFSv4 では, 複合手続き (compound procedure) をサポートする.
+
+** NFS
+   Unix 系の分散ファイルファイルシステム.
+
+*** AFS
+    
+
+*** Coda
+    AFS の後継
+    - [[http://ja.wikipedia.org/wiki/Coda][Coda - Wikipedia]]
+
+   - RPC2
+     UDP プロトコルを利用. 
+     呼び出しがあるたびに新しいスレッドを起動する.
+     そのスレッドは, サーバに大して呼び出し要求を送信し, 
+     その応答があるまでブロックする.
+
+     処理の要求には完了するのに任意の時間がかかることから,
+     通常サーバはクライアントにまだ動作していることを知らせる
+     メッセージを返答する.
+
+** CIFS
+*** 概要
+    SMB プロトコルを正式にドキュメント化して仕様を公開することで,
+    Windows 以外のオペレーティングシステム (OS) やインターネット上を介して
+    ファイル共有サービス等を利用できるように拡張したものが CIFS.
+
+   - [[http://ja.wikipedia.org/wiki/Server_Message_Block][Server Message Block - Wikipedia]]
+
+**** 主な特徴
+    - CIFS はインターネットで標準的に利用される TCP/IP を基盤としている.
+    - CIFS を使用するアプリケーションとして Samba が知られている.
+    - CIFS を実装したファイル共有ソフトウェアは Windows に内蔵されている
+    - UNIX 系 OS では, Samba を利用する.
+      Windows のファイル共有機能を使ってアクセスできるようになっている.
+    - CIFS は, NetBIOS インターフェイスを経由せず,
+      ただ 1 つの TCP のポート (445 番) だけでサービスできるように改良されたプロトコル.
+      使用するポートが 1 つだけでよいので, ファイアウォールなどでの管理も容易.
+    - CIFS defines a series of commands used to pass information between networked computers.
+
+*** CIFS が WAN で遅い理由.
+   - 1 つの Ack に対し, 最大で 1514 バイト× 2 (=3K バイト) のデータしか送信できない.
+   - CIFS の通信では, 送信したデータに対する Ack が返ってくるまで, 送信側は次のデータを送信しない.
+
+   - [[http://itpro.nikkeibp.co.jp/article/COLUMN/20070606/273782/][ネット設計を激変させる WAN 高速化装置]]
+
+   ファイル共有のスループットは同様には計算できない. 
+   なぜなら, Windows ファイル共有が SMB のブロックサイズを使用して通信しているから
+
+   - エクスプローラ: コアモードという転送方式で, 使用されるブロックサイズが 4KB
+   - コマンドプロンプト: Raw モードという転送方式で, 使用されるブロックサイズが 60~64KB
+
+   - 引用元: [[http://www.itmedia.co.jp/enterprise/articles/0706/12/news004.html][最適化から始まる, WAN 高速化への道:「アプリケーションが遅い」をなくす仕組み (2) (1/3) - ITmedia エンタープライズ]]
+
+*** Links
+    Microsoft CIFS ドキュメント
+   - [[http://msdn.microsoft.com/en-us/library/ee442092.aspx][Common Internet File System (CIFS) Protocol]]
+    
+   Microsoft SMB ドキュメント
+   - [[http://msdn.microsoft.com/en-us/library/cc246482.aspx][Server Message Block (SMB) Protocol Versions 2 and 3]]
+    
+   これがとてもよい入門記事
+   - [[http://www.atmarkit.co.jp/ait/articles/0410/29/news103.html][基礎から学ぶ Windows ネットワーク: ファイル共有プロトコル SMB/CIFS - ＠ IT]]
+
+   SNIA の出しているリファレンス
+   - https://www.thursby.com/sites/default/files/files/CIFS-TR-1p00_FINAL.pdf
+
+   CIFS のパケットキャプチャについて
+   - [[http://www.slideshare.net/hebikuzure/smb-packet][パケット キャプチャで学ぶSMB (CIFS) の基本]]
+
+   この本の SMB の章が大変わかりやすい
+   - [[http://www.amazon.co.jp/%E7%8F%BE%E5%A0%B4%E3%81%A7%E4%BD%BF%E3%81%88%E3%82%8B%E3%83%91%E3%82%B1%E3%83%83%E3%83%88%E8%A7%A3%E6%9E%90%E3%83%86%E3%82%AF%E3%83%8B%E3%83%83%E3%82%AF-NETWORK-MAGAZINE-BOOKS/dp/4756150187][Amazon.co.jp: 現場で使えるパケット解析テクニック (NETWORK MAGAZINE BOOKS) (NETWORK MAGAZINE BOOKS): 大羽 康仁: 本]]
+
+   唯一の? CIFS の本. Web で読める. C 言語での実装例が掲載されている.
+   - [[http://ubiqx.org/cifs/][Implementing CIFS]]
+
+*** SMB
+    Server Message Block (SMB) は, 主に Windows で使用されている
+    OSI 参照モデル第 7 層アプリケーション層部分の独自通信プロトコルの総称.
+
+    - [[http://ja.wikipedia.org/wiki/Server_Message_Block][Server Message Block - Wikipedia]]
+
+    SMB は Microsoft 社独自のプロトコルで仕様も正式には公開されていなかった.
+
+*** SAMBA
+    マイクロソフトの Windows ネットワークを実装したフリーソフトウェア.
+    Linux, Solaris, BSD, Mac OS X などの Unix 系 OS を用いて,
+    Windows のファイルサーバやプリントサービス, ドメインコントローラ機能,
+    ドメイン参加機能を提供する.
+
+    - [[http://ja.wikipedia.org/wiki/Samba][Samba - Wikipedia]]
+
+**** smbTorture
+     smbtorture は Samba サーバが想定されたように動作しているかを確かめる, 
+     テスト用クライアントツール.
+     - [[https://users.miraclelinux.com/technet/samba30/torture.html][Samba 国際化プロジェクト:ミラクル・リナックス]]
+     - [[http://samba.2283325.n4.nabble.com/SMBTorture-tests-td2516754.html][Samba - cifs-protocol - SMBTorture tests]]
+
+**** Links
+    - [[http://futurismo.biz/archives/1390][CentOS 上で SAMBA サーバを立ちあげて Windows からアクセスするためのメモ]]
+
+*** Storage との関係
+**** CIFS 対応の Storage 製品
+***** NAS (ETERNUS NR)
+      NAS では, 装置内にファイルシステムを持っており, 
+      サーバは NFS あるいは CIFS プロトコルにより, ファイルとしてアクセスする.
+
+     - [[http://storage-system.fujitsu.com/jp/lib-f/tech/beginner/nas/][ストレージ ETERNUS ストレージ技術解説 NAS (ナス) とは  : 富士通]]
+     - [[http://storage-system.fujitsu.com/jp/products/nwdiskarray/nr1000f/][ストレージ FUJITSU Storage ETERNUS NR1000F series ネットワークディスクアレイ : 富士通]]
+
+***** Unified Storage (ETERNUS DX S3)
+      ユニファイドストレージとは, 1 台で SAN と NAS の両方に対応するストレージ製品.
+      NAS は, ネットワークに直接接続するストレージです. LAN (Ethernet) に接続し,
+      NFS や CIFS などのプロトコルを介してファイル単位でのアクセスを行う.
+
+      - [[http://storage-system.fujitsu.com/jp/products/diskarray/feature/unified/][ストレージ FUJITSU Storage ETERNUS SAN/NAS 統合ストレージ環境のサポート ユニファイド対応 ETERNUS DX S3 : 富士通]]
+
+***** Software-Defined Storage (???)
+      決められたポリシーに従って動的にストレージサービスを構築する製品.
+      仮想 NAS がポリシーによって生成されて,
+      NFS や CIFS などのプロトコルを介して生成されたファイルサービスにアクセスする.
+      (のではないか?)
+
+      - [[http://chucksblog.typepad.com/chucks_blog/2014/04/building-an-sds-conceptual-model-part-1.html][Building A SDS Conceptual Model - Part 1 - Chuck's Blog]]
+
+**** SNIA は CIFS に関する情報がたくさんある
+     - SNIA はそもそも Storage Networking Industory Association.
+       というくらいなので, ストレージネットワーキングの促進団体だったことが判明!
+
+     - SDC の資料が公開されていて, そのなかに CIFS の資料がたくさんあった.
+     [[http://www.snia.org/events/storage-developer/archive][Storage Developer Conference Archives | Storage Networking Industry Association]]
+
 * Software Defined Storage
   EMC のとなえる戦略. ストレージにおける Software Defined.
 
-  #+BEGIN_HTML
-  <blockquote>
-  Software-defined storage (SDS) is a term 
-  for computer data storage technologies which separate storage hardware 
-  from the software that manages the storage infrastructure
-  </blockquote>
-  #+END_HTML
+#+begin_quote
+Software-defined storage (SDS) is a term 
+for computer data storage technologies which separate storage hardware 
+from the software that manages the storage infrastructure
+#+end_quote
 
-  [[http://en.wikipedia.org/wiki/Software-defined_storage][Software-defined storage - Wikipedia, the free encyclopedia]] 
+  - [[http://en.wikipedia.org/wiki/Software-defined_storage][Software-defined storage - Wikipedia, the free encyclopedia]] 
 
   SDN は OpenFlow という共通技術によって浸透したが,
   ストレージ分野では共通技術となるようなものがないとか.
-
-  [[http://www.publickey1.jp/blog/14/software-defined_storage.html][Software-Defined Storage, これからのストレージ技術が実現する世界とはどのようなものか? - Publickey]]
+  - [[http://www.publickey1.jp/blog/14/software-defined_storage.html][Software-Defined Storage, これからのストレージ技術が実現する世界とはどのようなものか? - Publickey]]
 
 ** Chuck's blog
    Chuck 氏の連載が熱い.
-
    - [[http://chucksblog.typepad.com/chucks_blog/software-defined-storage-series.html][Software-Defined Storage Series - Chuck's Blog]]
   
 *** Software-Defined Storage: Choices 
@@ -214,10 +400,9 @@
     Or is our goal to re-invent the model of how things get done?
 
 ** 製品
-*** EMC ViPR
-   - [[http://www.atmarkit.co.jp/ait/articles/1408/18/news006.html][単なる運用管理ツールではない! Software-Defined Storage を使う意味とメリットとは? - ＠ IT]]
-
-*** IBM Elastic Storage
+   - EMC ViPR
+   [[http://www.atmarkit.co.jp/ait/articles/1408/18/news006.html][単なる運用管理ツールではない! Software-Defined Storage を使う意味とメリットとは? - ＠ IT]]
+   - IBM Elastic Storage
 
 * SMI-S
   ストレージ"管理"のための API.
@@ -268,28 +453,6 @@
    - [[http://d.hatena.ne.jp/tagomoris/20110419/1303181958#][RAID レベルの話: 1+0 と 6 はどっちが安全か? - tagomoris のメモ置
      き場]]
 
-* データ保証
-** Backup
-** Replication
-   レプリケーション. 複製.
-
-   システム障害時の継続運用が目的となります. 災害時に接続しているシステ
-   ムが壊れてしまったとき, 遠隔地にある複製データを利用し事業継続を実現
-   する DR (ディザスタリカバリ) に有効.
-   - [[http://storage-system.fujitsu.com/jp/lib-f/tech/backup/features/?1503][データ保全手法~バックアップ, レプリケーション, アーカイブの相違点 : 富士通]] 
-
-*** Passive Replicatoin
-    
-
-* イレージャーコーディング
-  RAID のような, データ保護技術.誤り訂正, 検出技術.
-
-  QR コードと同じ, リード・ソロモン符号アルゴリズムを利用している.
-
- - [[http://news.livedoor.com/article/detail/9145853/#][大容量データ保護の福音イレージャーコーディングで「 RAID は不要になる」 - ライブドアニュース]]
- - [[http://www.ctc-g.co.jp/~ctcsp//sp/ostf_02.html][新たな潮流, オブジェクトストレージとは?  『オブジェクトストレージが求められる背景』]]
- - [[http://raven.air-nifty.com/night/2011/01/erasure-coding.html][Erasure coding: 私家版 IT プロフェッショナルの仕事術]]
- - [[http://www.jdsf.gr.jp/backup/stm/201007.html][JDSF | データ・ストレージに関する総合情報サイト | Japan Data Storage Forum]]
 
 * 用語
 ** アドバンスド・コピー
@@ -297,7 +460,6 @@
    (筺体内) で高速にコピーを作成する機能.
 
    - [[http://storage-system.fujitsu.com/jp/products/diskarray/feature/c02/][オンライン中の高速バックアップ アドバンスト・コピー機能 (EC, OPC) : 富士通]]
-
 
 * Links
   ストレージ開発者が今すぐ登録すべき RSS まとめ

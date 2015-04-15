@@ -1,0 +1,350 @@
+#+BLOG: Futurismo
+#+POSTID: 3071
+#+DATE: [2015-03-29 日 08:47]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: C 言語, C++
+#+DESCRIPTION: Emacs で C/C++ の開発環境を構築
+#+TITLE: Emacs で C/C++ の開発環境をめちゃガチャパワーアップしたまとめ
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* はじめに
+  次の業務が C/C++ をつかいそうなので,
+  Emacs で C/C++ 開発環境を構築してみました. 
+
+  題名は, なぜかけっこうアクセス数のあった Ruby 編にあやかった.
+  - [[http://futurismo.biz/archives/2213][Emacs で Ruby の開発環境をさらにめちゃガチャパワーアップしたまとめ | Futurismo]]
+
+  [toc]
+
+** IDE が備えるべき機能
+   優れた IDE が備えるべき機能と Emacs での代表的な実現方法は以下.
+   - シンタックスハイライト/ インデント
+     - major-mode
+   - 検索・置換
+     - たくさんあるよ.
+   - タグジャンプ
+     - gtags
+     - ggtags
+   - コード補間
+     - auto-complete
+     - company
+   - エラーチェック
+     - flymake
+     - flycheck
+   - リファクタリング
+     - emacs-refactor
+   - インタープリタ・デバッカ
+     - emacs-dbgr
+   - プロジェクト管理
+     - projectile
+   - ドキュメント参照
+     - eldoc
+
+   最近, 以下の記事を見つけたので, 刺激をうけてまとめた.
+   - [[http://www.wilfred.me.uk/blog/2015/03/19/adding-a-new-language-to-emacs/][Adding A New Language to Emacs | Wilfred Hughes Blog]]
+   
+** Eclipse よりも Emacs が好き
+   かつて, Eclipse に洗脳されていた若き日の自分は,
+   Eclipse における C/C++ の開発環境を徹底的に調べた.
+   - [[http://futurismo.biz/eclipsecdt4cpp][全 C/C++ プログラマに捧ぐ!Eclipse CDT を使う時のオススメ機能/ プラグインまとめ | Futurismo]]
+
+   Emacs と Eclipse どちらが優れているか?
+
+   機能的には, 優劣つけがたい. あとは好き嫌いだと思う.
+   - ゴテゴテの Eclipse の UI が嫌い
+   - Emacs のテキスト操作における圧倒的優位性
+
+   を考慮すると, 今は Emacs のほうが好きだ.
+
+   ただ, Emacs は 以下に書くように *設定が大変* なので, 
+   - 導入が面倒なひと
+   - 初心者
+   - サラリーマン
+
+  は Eclipse CDT でよいのでは??
+  
+** 実際の設定
+   github の dotfiles のリンクをはっておきます.
+   - https://github.com/tsu-nera/dotfiles/blob/master/.emacs.d/inits/30_programming.org
+   - https://github.com/tsu-nera/dotfiles/blob/master/.emacs.d/inits/31_c_cpp.org
+* major-mode
+  C 言語・ C++ のためのモード.
+
+** cc-mode
+   C, C++, Objc, Java などなどをいっぺんに設定するモード
+   - [[http://cc-mode.sourceforge.net/][CC Mode]]
+
+   マニュアル.
+   - [[http://cc-mode.sourceforge.net/html-manual/index.html][CC Mode Manual]]
+
+   c-mode-common-hook は java にも適用されてしまうようだ.
+   - [[http://www.gnu.org/software/emacs/manual/html_node/ccmode/CC-Hooks.html][CC Hooks - CC Mode Manual]]
+
+#+begin_src emacs-lisp
+(require 'cc-mode)
+
+;; c-mode-common-hook は C/C++ の設定
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (setq c-default-style "k&r") ;; カーニハン・リッチースタイル
+            (setq indent-tabs-mode nil)  ;; タブは利用しない
+            (setq c-basic-offset 2)      ;; indent は 2 スペース
+            ))
+#+end_src
+
+** c++-mode
+   C++ 言語固有設定.
+   - [[http://www.emacswiki.org/emacs/CPlusPlusMode][EmacsWiki: C Plus Plus Mode]]
+
+  以下の記述でヘッダファイルが c++ として認識される.
+
+#+begin_src emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+#+end_src
+
+* Error Check
+  今は, flymake よりも, flycheck でしょう.
+
+** flycheck
+   gcc, clnag, cppcheck が default のチェッカーとして用意されている.
+   - [[https://flycheck.readthedocs.org/en/latest/guide/languages.html#c-c][Supported languages - Flycheck 0.23-cvs]]
+
+   参考: 今は自分で定義しなくても build-in されているよう.
+   - https://github.com/jedrz/.emacs.d/blob/master/setup-flycheck.el
+   - [[http://qiita.com/akisute3@github/items/6fb94c30f92dae2a24ee][Emacs - flycheck で C/C++ のエラーチェック定義を追加する - Qiita]]
+
+#+begin_src emacs-lisp
+
+(add-hook 'c-mode-common-hook 'flycheck-mode)
+#+end_src
+
+   - checker の変更は M-x flycheck-select-checker
+   - helm-flycheck で helm i/f から エラーを選択.
+
+*** gcc
+   gcc だとなにも検出してくれない.なんでだろう.
+   -> 結果が日本語表示だったから
+
+   - [[http://futurismo.biz/archives/2992][Flycheck で g++ の日本語表記のコンパイルエラーがパースできていなかった (C/C++) | Futurismo]]
+
+#+begin_src emacs-lisp
+(defmacro flycheck-define-clike-checker (name command modes)
+  `(flycheck-define-checker ,(intern (format "%s" name))
+     ,(format "A %s checker using %s" name (car command))
+     :command (,@command source-inplace)
+     :error-patterns
+     ((warning line-start (file-name) ":" line ":" column ": 警告:" (message) line-end)
+      (error line-start (file-name) ":" line ":" column ": エラー:" (message) line-end))
+     :modes ',modes))
+(flycheck-define-clike-checker c-gcc-ja
+			       ("gcc" "-fsyntax-only" "-Wall" "-Wextra")
+			       c-mode)
+(add-to-list 'flycheck-checkers 'c-gcc-ja)
+(flycheck-define-clike-checker c++-g++-ja
+			       ("g++" "-fsyntax-only" "-Wall" "-Wextra" "-std=c++11")
+			       c++-mode)
+(add-to-list 'flycheck-checkers 'c++-g++-ja)
+#+end_src
+
+* Refactoring
+** semantic-refactoring
+   Semantic Refactor is a refactoring tool for C/C++.
+   - https://github.com/tuhdo/semantic-refactor
+
+   ついに見つけた, extract method.
+   menu で番号を選択するとバグっているので, Enter で選択.(そのうちなおるかと)
+
+#+begin_src emacs-lisp
+(require 'srefactor)
+(define-key c-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
+(define-key c++-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
+#+end_src
+
+* Completion 
+** auto-complete-c-headers
+   ヘッダの情報源
+   - https://github.com/mooz/auto-complete-c-headers
+
+#+begin_src emacs-lisp
+(require 'auto-complete-c-headers)
+(add-hook 'c++-mode-hook '(setq ac-sources (append ac-sources '(ac-source-c-headers))))
+(add-hook 'c-mode-hook '(setq ac-sources (append ac-sources '(ac-source-c-headers))))
+#+end_src
+
+** clang-complete-async
+   clang を利用した 補完. 構造体とかもばっちり!
+   - https://github.com/Golevka/emacs-clang-complete-async
+
+#+begin_src emacs-lisp
+(require 'auto-complete-clang-async)
+
+(defun ac-cc-mode-setup ()
+  (setq ac-clang-complete-executable "~/.emacs.d/el-get/repo/clang-complete-async/clang-complete")
+  (setq ac-sources (append ac-sources '(ac-source-clang-async)))
+  (ac-clang-launch-completion-process))
+
+(defun my-ac-config ()
+  (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+  (add-hook 'auto-complete-mode-hook 'ac-common-setup)
+  (global-auto-complete-mode t))
+  (my-ac-config)
+#+end_src
+
+** function-args
+   C/C++ 用の 補完.  CEDET のモダンな置き換え.
+   - https://github.com/abo-abo/function-args
+
+   moo-complete で構造体やクラス変数が置換できるのがうれしい.
+
+   - M-o moo-complete semantic な補完
+   - M-i  fa-show 関数ヒントをポップアップ
+   - M-j  fa-jump-maybe ポップアップ状態でオスとジャンプ
+   - moo-propose-overide オーバーライドを suggest
+   - moo-propose-variable 変数を suggest
+
+#+begin_src emacs-lisp
+(require 'function-args)
+(fa-config-default)
+
+(define-key function-args-mode-map (kbd "M-o") nil)
+(define-key c-mode-map (kbd "C-M-:") 'moo-complete)
+(define-key c++-mode-map (kbd "C-M-:") 'moo-complete)
+  
+(custom-set-faces
+ '(fa-face-hint ((t (:background "#3f3f3f" :foreground "#ffffff"))))
+ '(fa-face-hint-bold ((t (:background "#3f3f3f" :weight bold))))
+ '(fa-face-semi ((t (:background "#3f3f3f" :foreground "#ffffff" :weight bold))))
+ '(fa-face-type ((t (:inherit (quote font-lock-type-face) :background "#3f3f3f"))))
+ '(fa-face-type-bold ((t (:inherit (quote font-lock-type-face) :background "#999999" :bold t)))))
+#+end_src
+
+** rtags
+   clang をつかった便利機能詰め合わせ.
+   - https://github.com/Andersbakken/rtags
+
+   設定が大変そうだな..  これは今回は挫折.
+
+   fixit って, 自動エラー修正? スゴそう.
+
+* Document
+** ggtags
+   ggtags も c 言語ように eldoc 機能を提供している. ggtags は後述.
+
+** c-eldoc
+   C 言語用 eldoc 機能.
+   - https://github.com/mooz/c-eldoc
+   - [[http://d.hatena.ne.jp/mooz/20100421/p1][c-eldoc.el で C 言語プログラミング革命 - mooz deceives you]]
+
+#+begin_src emacs-lisp
+(require 'c-eldoc)
+(add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
+(add-hook 'c++-mode-hook 'c-turn-on-eldoc-mode)
+(setq c-eldoc-buffer-regenerate-time 60)
+#+end_src
+
+* Debugger
+** gdb
+   M-x gdb 標準搭載.
+
+** emacs-dbgr
+   デバッグ用 統一 I/F M-x realgud:gdb
+   - https://github.com/rocky/emacs-dbgr
+
+  gdb との違いはよくわからない.
+
+#+begin_src emacs-lisp
+(require 'realgud)
+#+end_src
+
+* その他
+** タグジャンプ
+*** ggtags
+  タグジャンプ用のツール. GNU Global を利用.
+   - https://github.com/leoliu/ggtags
+
+#+begin_src emacs-lisp
+(require 'ggtags)
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
+              (ggtags-mode 1))))
+
+;; use helm
+(setq ggtags-completing-read-function nil)
+
+;; use eldoc
+(setq-local eldoc-documentation-function #'ggtags-eldoc-function)
+
+;; imenu
+(setq-local imenu-create-index-function #'ggtags-build-imenu-index)
+
+(define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
+(define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
+(define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
+(define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
+(define-key ggtags-mode-map (kbd "C-c g c") 'ggtags-create-tags)
+(define-key ggtags-mode-map (kbd "C-c g u") 'ggtags-update-tags)
+
+(define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
+#+end_src
+
+*** helm-gtags
+    helm I/F を利用した gtags 操作. 自分は ggtags をつかってる.
+    - [[https://github.com/syohex/emacs-helm-gtags][syohex/emacs-helm-gtags]]
+
+** projectile
+   プロジェクト管理用の デファクトスタンダード.
+   - https://github.com/bbatsov/projectile
+   
+   自動でプロジェクトのルートディレクトリを探して, 
+   それ以下のファイルを見つけたり色々できる.
+   - [[http://blog.en30.net/2014/10/20/development-environment.html][最近の開発環境: mjolnir, projectile, peco - blog.en30.net]]
+
+   .projectile ファイルをマニュアルで作成することで,
+   そのフォルダを Route Folder と認識出来る.(要 Emacs 再起動)
+
+#+begin_src emacs-lisp
+(require  'projectile)
+(projectile-global-mode)
+
+;; windows indexing 高速化のおまじない.
+(setq projectile-indexing-method 'alien)
+
+  ;; 大きいプロジェクトだと劇的に速度が改善するらしい.
+(setq projectile-enable-caching t)
+#+end_src
+
+GNU Global と組み合わせるには, ggtags が必要.(gtags ではないので注意)
+
+以下で GTAGS を作成.
+- projectile-regenerate-tags
+
+#+begin_src emacs-lisp
+(when (executable-find "gtags")
+   (setq projectile-tags-file-name "GTAGS")
+   (setq projectile-tags-command "gtags")))
+#+end_src
+
+** helm-make
+   C 言語といったら make でしょう. make 用 helm I/F.
+   - https://github.com/abo-abo/helm-make
+
+#+begin_src emacs-lisp
+(require 'helm-make)
+
+(eval-after-load 'makefile-mode
+  '(define-key makefile-mode-map (kbd "M-\"") 'helm-make-projectile))
+(define-key c-mode-map (kbd "M-\"") 'helm-make-projectile)
+(define-key c++-mode-map (kbd "M-\"") 'helm-make-projectile)
+#+end_src
+
+* Special Thanks
+  - [[http://www.slideshare.net/masahirosano14/emacs-14847487][うわ…私の Emacs 力, 低すぎ...?]]
+  - [[http://truongtx.me/2013/03/10/emacs-setting-up-perfect-environment-for-cc-programming/][Emacs - Setting up perfect environment for C/C++ Programming - Part 1]]
+  - [[http://tuhdo.github.io/c-ide.html#sec-2][C/C++ Development Environment for Emacs]]
+  - [[http://at-aka.blogspot.jp/2006/12/emacs-c.html][clmemo@aka: Emacs で C 言語プログラミングを始める人へのイントロダクション]]
+  - [[http://sakito.jp/emacs/emacsobjectivec.html][Emacs で iPhone アプリ開発を快適にするための設定 : 紹介マニア]]

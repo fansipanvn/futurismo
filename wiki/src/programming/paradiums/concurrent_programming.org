@@ -293,6 +293,20 @@ end
 
     python や haskell は言語で実装されている.
     
+* Stream Processing
+  並列処理を実現するプログラミング手法の一つ.
+  - [[http://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BC%E3%83%A0%E3%83%BB%E3%83%97%E3%83%AD%E3%82%BB%E3%83%83%E3%82%B7%E3%83%B3%E3%82%B0][ストリーム・プロセッシング - Wikipedia]]
+
+  大規模なデータをリアルタイムに処理したいときに利用する.
+  Batch Processing では, ダメ. 完了まで, 待たなければいけない.
+
+  センサー情報をリアルタイムで機械学習で処理するような使い方.
+
+** Apache Storm
+   Twitter 社がオープンソースにした分散リアルタイム解析ソフト.
+   - http://www.slideshare.net/AdvancedTechNight/twitterstorm
+   - http://www.slideshare.net/takanorig/storm-31157560?next_slideshow=1
+    
 * Books
 ** Archtecture Patterns
    Archtecture Patterns のページも参照のこと.

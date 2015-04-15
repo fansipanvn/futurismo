@@ -1,0 +1,27 @@
+#+OPTIONS: toc:nil
+#+TITLE: OS
+  OS. オペレーティングシステム.
+
+* Process
+** FIFO
+   First-in First-Out. 到着したタスクから順番に実行する.
+   
+** STF
+   Shortest Task First.
+   実行時間か短いものから順に実行する.
+
+** ラウンドロビン
+   一定時間ごとに実行するタスクを切り替える.
+
+   インタラクティブな処理や,
+   すぐにレスポンスが欲しいときにつかう.
+
+** Hadoop
+*** Hadoop Capacity Scheduler
+    FIFO Queue を複数もつスケジューラー.
+
+*** Hadoop Fair Scheduler
+    すべてのタスクが等しいリソースの使用率を含むように
+    スケジューリングする.
+   
+

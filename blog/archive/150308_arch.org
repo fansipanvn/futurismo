@@ -1,0 +1,65 @@
+#+BLOG: Futurismo
+#+POSTID: 3095
+#+DATE: [2015-04-08 水 22:39]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 日記
+#+TAGS: 
+#+DESCRIPTION:
+#+TITLE: ミライの スマートカーの エンジニアになる
+
+* はじめに
+  日記です. 
+
+  昨日会社で席替えをして, 新しい部署に移動した.
+  しかし, 所属はいまのまま変わらずに席だけ移動した.
+  
+  4/21 から, 新しい仕事が始まる.
+
+* ミライの IT 自動車のお仕事
+  今度の仕事は, 自動車関連だ. 
+
+  現在, 自動車の IT 化が急速に進んでいる. 
+  その波にうまくのろうというお仕事.
+
+  しかし, 困ったことに, 自分はまったく車に興味がないということだ!! 
+  これはイタい.
+
+  興味があるとすれば,
+  Back to the future ででてきたようなデロリアンを開発すること.
+  空飛ぶ車は映画では 2015 年にあるはずなのに, おかしいなぁ.
+
+  あと, レースクィーンに興味がある.
+
+* 外にでていく勇気
+  移動した部署は, 社外活動が活発な部署だ. 
+  たくさんのひとが気軽に展示会に足を運ぶ.
+  そこが内気でなかなか外にでていけない自分には不安だ.
+
+  オープンソースのコミュニティに関わる機会もあるみたいだけれども,
+  果たして自分に一体なにができるのだろうかと, 不安になる.
+
+  しかし, 逆に考えれば, 
+  これは今までの自分から変わるための転機ともとらえられる.
+
+  社交性や社会性のなさはいつも自覚しているのだが, 
+  そんな自分を変えたいといつも思う.
+  弱い自分の声に負けないように, いつも気を強くもとう.
+
+* 車載関連の情報収集
+  電子自動車の雑誌 "日経 Automotive"
+  - [[http://techon.nikkeibp.co.jp/AT/magazine/?rt=nocnt][日経 Automotive - 日経テクノロジーオンライン]]
+
+  これがもっともおもしろい論評.
+  - [[http://www.huffingtonpost.jp/seaskywind/car_b_6686150.html#][日本の自動車会社に迫る危機は並大抵ではない | 風観羽]]
+
+  テレマティクス
+  - [[http://www.jama.or.jp/lib/jamagazine/200308/01.html][JAMA -JAMAGAZINE-]]
+  - [[http://response.jp/article/2013/08/28/205099.html][日産が取り組んできたクルマの知能化…「日本車の強みは IT にあり」 | レスポンス]]
+
+  グーグルとアップルについて
+  - [[http://college.nikkei.co.jp/article/31935409.html][自動車産業の主役が IT 企業になる日|日経カレッジカフェ]]
+  - [[http://www.at-weblog.com/2014/05/Future-of-IT-technology-Apple.Google.Microsoft-and-the-automotive-industry.html][アップル, グーグル, マイクロソフト... 自動車業界と IT 技術の今後 | Web@]]
+  - [[http://www.nikkei.com/article/DGXLASGM05H0O_X00C15A2NNE000/][米アップル, 自動運転技術の開発に着手    :日本経済新聞]]
+
+  Automotive Grade Linux
+  - [[http://wired.jp/2012/09/25/linux-open-source-car/][オープンソースな自動車へ:Linux 「 AGL 」発足 « WIRED.jp]]

@@ -587,8 +587,8 @@ last (_ : xs) = last xs
     and program structure]]
 * 数学的背景
 ** 数学対応マップ
-  以下に数学的概念と関数型言語の対応マップがある.
-  - [[http://modegramming.blogspot.jp/2014/07/2014.html][Modegramming Style: 関数型プログラミング技術マップ 2014]]
+   以下に数学的概念と関数型言語の対応マップがある.
+   - [[http://modegramming.blogspot.jp/2014/07/2014.html][Modegramming Style: 関数型プログラミング技術マップ 2014]]
 
 ** ラムダ計算
 ** 数理論理学

@@ -1,4 +1,17 @@
 * Data Base
+* Prinsiple
+** CRUD
+  ほとんど全てのコンピュータソフトウェアが持つ, 
+  永続性の 4 つの基本機能のイニシャルを並べた用語.
+  - [[http://ja.wikipedia.org/wiki/CRUD][CRUD - Wikipedia]]
+
+  以下の概念.
+  - create
+  - read
+  - update
+  - delete
+
+* Type
 ** RDB: Relational DataBase
 *** ACID
 

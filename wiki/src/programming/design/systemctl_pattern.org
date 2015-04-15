@@ -305,7 +305,14 @@
   なんか, MOOC と同じ絵が載っているスライド見つけた.
   - http://www.cse.buffalo.edu/~stevko/courses/cse486/spring13/lectures/07-failure_detectors.pdf
       
-    
+* Outage (停電)    
+  以下の要因で停電にある. 70%は人間のミスで発生する.
+  - Power outage
+  - Over-heating
+  - Human error
+  - Fire
+  - DOS Attack
+
 * Bookmarks
 ** Fault-tolerant Patterns
    Fault-tolerant で利用される概念がコンパクトにまとまっている.

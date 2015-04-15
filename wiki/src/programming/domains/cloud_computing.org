@@ -254,11 +254,14 @@
     Casandra で利用されている.
     - [[http://ja.wikipedia.org/wiki/%E7%B5%90%E6%9E%9C%E6%95%B4%E5%90%88%E6%80%A7][結果整合性 - Wikipedia]]
 
-*** Quorum
+*** Quorum (consistency level)
     分散トランザクションが処理を実行するために必要な最低限の票の数である.
     quorum ベースの技術は分散システムにおいて, 
     処理の整合性をとるために実装される.
     - [[http://ja.wikipedia.org/wiki/Quorum][Quorum - Wikipedia]]
+
+    多数決の原理. 
+    最低 2 ノードからの応答によって通信が成功/ 失敗したかどうかを判断する.
 
 ** Mutual Exceptions
    相互排他
