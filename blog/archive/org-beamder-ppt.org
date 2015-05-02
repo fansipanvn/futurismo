@@ -1,0 +1,25 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: EmacsでWordやPowerPoint資料を作成してみる(beamer編)
+
+* org-mode形式 -> beamer形式 -> PDF形式 -> ODP形式 -> PPT形式
+  ox-beamerパッケージを利用する. これは、org-modeにデフォルトで入っているので、
+  以下のようにrequireする.
+    
+#+begin_src emacs-lisp
+(require 'ox-beamer)
+#+end_src
+
+  実行のためには、 =pdflatex= コマンドに環境変数PATHが通っている必要があった.
+  自分の場合は、cygwinからダウンロードしたコマンドにパスを通した.
+  - [[http://did2memo.net/2014/03/06/easy-latex-install-windows-8-2014-03/][簡単LaTeXインストールWindows編（2014年7月版）]]
+
+  M-x org-odt-export-to-odt を実行すれば、odt形式のファイルが作成される.
+   
+* 考察
+
+** Special Thanks
+   - [[http://smallbusiness.chron.com/convert-odp-file-ppt-50324.html][How to Convert an ODP File to a PPT | Chron.com]]
+

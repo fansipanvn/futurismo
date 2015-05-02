@@ -1,0 +1,131 @@
+% Created 2015-05-02 土 16:38
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\date{\today}
+\title{EmacsでWordやPowerPoint資料を作成してみる}
+\hypersetup{
+ pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 25.0.50.1 (Org mode 8.3beta)}}
+\begin{document}
+
+\maketitle
+
+\section*{方針}
+\label{sec-1}
+\begin{itemize}
+\item org-mode形式 -> ODT形式 -> ODP形式 -> PPT形式
+\begin{itemize}
+\item \href{https://lists.gnu.org/archive/html/emacs-orgmode/2013-03/msg01712.html}{Re: export presentations: org to ppt or odp}
+\item \href{http://smallbusiness.chron.com/convert-pdf-ppt-open-source-48940.html}{How to Convert a PDF to a PPT with Open Source | Chron.com}
+\end{itemize}
+
+\item org-mode形式 -> beamer形式 -> PDF形式 -> ODP形式 -> PPT形式
+\begin{itemize}
+\item \href{http://www2.hyo-med.ac.jp/~tanimura/LaTeX/pdf2odp.html}{pdf2odp}
+\end{itemize}
+\end{itemize}
+
+\subsection*{環境}
+\label{sec-1-1}
+\begin{itemize}
+\item Windows 8.1
+\item PowerPoint 2013
+\end{itemize}
+
+実は、PowerPointを自宅に持っていないので、評価版を利用しました.
+\begin{itemize}
+\item \url{http://www.microsoft.com/ja-jp/office/2013/trial/default.aspx}
+\end{itemize}
+
+\section*{org-mode形式 -> ODT形式 -> ODP形式 -> PPT形式}
+\label{sec-2}
+\subsection*{org-mode から ODT形式に変換}
+\label{sec-2-1}
+ox-odtパッケージを利用する. 
+\begin{itemize}
+\item \url{https://github.com/emacsmirror/org/blob/master/lisp/ox-odt.el}
+\end{itemize}
+
+これは、org-modeにデフォルトで入っているので、
+以下のようにrequireする.
+
+\begin{verbatim}
+(require 'ox-odt)
+\end{verbatim}
+
+実行のためには、
+
+\begin{itemize}
+\item zip
+\item unzip
+\end{itemize}
+
+コマンドに環境変数PATHが通っている必要があった.
+自分の場合は、cygwinからダウンロードしたコマンドにパスを通した.
+
+M-x org-odt-export-to-odt を実行すれば、odt形式のファイルが作成される.
+
+\subsection*{ODT形式から PPT形式に変換}
+\label{sec-2-2}
+LibreOffice Writer からODTファイルを開く.
+
+ファイル -> 送る -> プレゼンテーションに自動抽出
+
+を選択.ODP形式でパワーポイントに出力される. それを PPTとして保存.
+\begin{itemize}
+\item \href{http://www.libreoffice.org/}{Home | LibreOffice - Free Office Suite - Fun Project - Fantastic People}
+\end{itemize}
+
+これでいけた！と思いきや\ldots{} アウトラインしか出力されず、中身空っぽ..
+これでは使えない(\#ﾟДﾟ)y-\textasciitilde{}~
+
+\section*{org-mode形式 -> beamer形式 -> PDF形式 -> ODP形式 -> PPT形式}
+\label{sec-3}
+ox-beamerパッケージを利用する. これは、org-modeにデフォルトで入っているので、
+以下のようにrequireする.
+
+\begin{verbatim}
+(require 'ox-beamer)
+\end{verbatim}
+
+実行のためには、 \texttt{pdflatex} コマンドに環境変数PATHが通っている必要があった.
+自分の場合は、cygwinからダウンロードしたコマンドにパスを通した.
+\begin{itemize}
+\item \href{http://did2memo.net/2014/03/06/easy-latex-install-windows-8-2014-03/}{簡単\LaTeX{}インストールWindows編（2014年7月版）}
+\end{itemize}
+
+M-x org-odt-export-to-odt を実行すれば、odt形式のファイルが作成される.
+
+\section*{考察}
+\label{sec-4}
+
+\subsection*{Special Thanks}
+\label{sec-4-1}
+\begin{itemize}
+\item \href{https://lists.gnu.org/archive/html/emacs-orgmode/2013-03/msg01705.html}{export presentations: org to ppt or odp}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://orgmode.org/manual/Extending-ODT-export.html}{Extending ODT export - The Org Manual}
+\item \href{http://orgmode.org/manual/Configuring-a-document-converter.html#Configuring-a-document-converter}{Configuring a document converter - The Org Manual}
+\item \href{http://smallbusiness.chron.com/convert-odp-file-ppt-50324.html}{How to Convert an ODP File to a PPT | Chron.com}
+\end{itemize}
+% Emacs 25.0.50.1 (Org mode 8.3beta)
+\end{document}

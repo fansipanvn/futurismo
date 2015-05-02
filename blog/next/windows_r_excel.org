@@ -1,0 +1,80 @@
+#+BLOG: Futurismo
+#+POSTID: 3045
+#+DATE: [2015-03-15 日 11:38]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Windows
+#+TAGS: R, Excel
+#+DESCRIPTION:  R で Excel のデータを読み込む方法のメモ (Windows)
+#+TITLE: R で Excel のデータを読み込む方法のメモ (Windows)
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/Windows_7_Vertical_Logo_Web.jpg"/>
+#+END_HTML
+
+* はじめに
+  Windows 環境に R をインストールします.
+  また, Excel データを R から読み込んでみます.
+
+  [toc]
+
+** Environment
+   - windows 8.1
+   - R version 3.1.3
+
+* R のインストール
+  以下から最新版をインストール.
+  - http://cran.r-project.org/bin/windows/base/
+
+  インストール後, パスを通す.
+
+#+begin_src text
+C:\Program Files\R\R-3.1.3\bin\x64
+#+end_src
+
+   コマンドプロンプトをを開いて =R= と打ち込んで R プログラムが立ち上がれば OK.
+
+   文字化けする場合はコンソールで =chcp 65001= と入力で UTF-8 になる.
+
+* Excel 用のパッケージ取得
+  xlsx パッケージを利用することで, 
+  Excel ファイルを R から読みこむことができる.
+  - [[http://cran.r-project.org/web/packages/xlsx/][CRAN - Package xlsx]]
+
+  CRAN からインストール.R コンソール上で, 
+
+  #+begin_src bash
+  install.packages ("xlsx", dependencies = TRUE)
+  #+end_src
+  
+   使い方マニュアル.
+   - [[https://docs.google.com/viewer?url=http://cran.r-project.org/web/packages/xlsx/xlsx.pdf][xlsx.pdf]]
+
+** 読み込みテスト
+   以下のサイトからサンプルデータ習得して読み込んでみる.
+   - [[http://www.lanlan.co.jp/mtuinfo/exceldata.html][Excel データサンプル]]
+
+#+begin_src R :session *R* :export both :results code
+require (xlsx)
+
+# read excelsample.xls sheet1
+data <- read.xlsx ("C:\\Users\\tsu-nera\\Downloads\\excelsample.xls", 2)
+head (data)
+#+end_src
+
+*** result
+
+#+BEGIN_SRC text
+仮設工事           	1	1	401350	320888	401350	79.953	100	401350	320888	401350	33.83	0
+基礎工事及び土工事	1	1	7861394	6296746	7854794	80.098	99.917	7861394	6296746	7854794	0	0
+屋外付帯工事		1	1	435800	348640	435800	80	100	435800	348640	435800	0	0
+木工事			1	1	515720	412576	515720	80	100	515720	412576	515720	0	0
+外壁工事		1	1	3239500	2575650	3207600	79.508	99.016	3239500	2575650	3207600	0	0
+屋根及び板金工事	1	1	402400	321920	402400	80	100	402400	321920	402400	0	0
+#+END_SRC
+
+* その他
+  =RExcel= を利用すると R へ Excel データを読み込まずとも, 
+  Excel 上から R を呼び出すことも可能.
+  - [[http://www.okada.jp.org/RWiki/?RExcel][RExcel - RjpWiki]]
+  - [[http://cdn-ak.f.st-hatena.com/images/fotolife/R/Rion778/20091013/20091013004617.png][Excel 上で R を動かす RExcel - もうカツ丼でいいよな]]
+  - [[http://shimana7.seesaa.net/article/372267775.html][RExcel のインストール方法が変わった: Memories of the Past by Takashi NAGAI]]
