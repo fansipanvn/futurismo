@@ -1,0 +1,49 @@
+#+BLOG: Futurismo
+#+POSTID: 4494
+#+DATE: [2015-08-02 日 19:25]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Emacs
+#+TAGS:
+#+DESCRIPTION: elscreenでeshellを開く小技
+#+TITLE: elscreenでeshellを開く小技
+
+elscreenでeshellを開く小技を思いついた.
+
+* やりたいこと
+  elscreenで別タブを開いて、そこに新規にeshellを立ち上げたい.
+
+  elscreen-diredやelscreen-wlはあるのに、eshellはなかった.
+  
+* 必要なもの
+  - elsreen
+  - multi-eshell
+    + https://github.com/emacsmirror/multi-eshell
+
+  別のシェルを新規に起動するために、multi-eshellを利用する.
+
+* 設定
+  これで、 C-c t bで やりたいことが実現できる.
+  
+#+begin_src emacs-lisp
+(require 'multi-eshell)
+(setq multi-eshell-shell-function '(eshell))
+(setq multi-eshell-name "*eshell*")
+
+(defun elscreen-esh ()
+  (interactive)
+  (elscreen-create)
+  (multi-eshell 1))
+(global-set-key (kbd "C-c t b") 'elscreen-esh)
+#+end_src
+
+* おわりに
+  最近 eshellをほとんど常用中.
+
+  eshell-zがでてきて最近ますます便利になった.
+  - https://github.com/travisjeffery/eshell-z.el
+
+  zshよりもeshellだよね！
+   
+   #+BEGIN_HTML
+   <p style="font-size:32px">以上、Happy Hacking!!</p>
+   #+END_HTML

@@ -1,0 +1,94 @@
+#+BLOG: Futurismo
+#+POSTID: 3804
+#+DATE: [2015-05-14 木 21:51]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: セミナー
+#+TAGS: 車
+#+DESCRIPTION: 自動運転技術の動画ブックマーク
+#+TITLE: 近い未来のリアルな技術！自動運転技術の動画ブックマーク
+
+本日は東京ビッグサイトにて、一年に一回のイベント、ESEC へ.
+車の自動運転に関するセミナーを受講しました.
+
+車の技術に疎い自分には、
+きくことみることとても刺激的で楽しい時間を過ごせました.
+
+車の運転技術、今や成熟の時です。*2020 年には市街で自動運転が実現する* そうです.
+
+こういう技術は以下のように呼ばれているらしい
+- [[http://ja.wikipedia.org/wiki/%E3%83%AD%E3%83%9C%E3%83%83%E3%83%88%E3%82%AB%E3%83%BC][ロボットカー - Wikipedia]]
+- autonomomous car
+
+ここだけの話、車に乗ることが怖いペーパードライバーの自分にも、
+ビュンビュン車をかっ飛ばすことができるんだという夢を抱きつつ、
+今日は、自動車技術の話題や動画を収集してみました.
+
+* Google(Google Car)
+  Google がデモ動画を発表したことによって、
+  自動運転が世間からに注目されるようになりました.
+
+  - https://plus.google.com/+GoogleSelfDrivingCars/videos
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="https://www.youtube.com/embed/cdeXlrq-tNw?rel=0" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+  TED でのプレゼン
+
+#+BEGIN_HTML
+<iframe src="https://embed-ssl.ted.com/talks/sebastian_thrun_google_s_driverless_car.html" width="640" height="360" frameborder="0" scrolling="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+#+END_HTML
+
+  ニューヨークでは、デモ車が街中を走っているとか.
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="https://www.youtube.com/embed/QfICqoKrghw?rel=0" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+* Apple(iCar)
+  iPhone の次は、iCar を製造するとか.
+  - [[http://itpro.nikkeibp.co.jp/atcl/news/15/022300639/][ニュース - Apple の電気自動車、2020 年の生産開始目指す、海外メディア報道：ITpro]]
+  - [[http://monoist.atmarkit.co.jp/mn/articles/1504/21/news008.html][「iCar」が現実に？：アップルやグーグルは本当にクルマを作るのか (1/4) - MONOist（モノイスト）]]
+
+* BMW
+  世界初、ドリフト走行ができる自動運転.
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IL_enMPWT7s?rel=0" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+  ウェアラブルな装置とも連携するものをかんがえているよう.
+  - [[http://gigazine.net/news/20150107-bmw-360-degree-collision-avoidance-car/][スマートウォッチと連携する BMW の全自動運転カーは衝突回避・自動駐車が可能 - GIGAZINE]]
+
+* トヨタ
+  時速 100km の自動運転に成功. 高速道路の自動運転はもう目前?!
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fnne4XLPxTU?rel=0" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+  自動運転技術が成熟する 2020 年、トヨタと Google の戦いが幕を切る.
+  - [[http://toyokeizai.net/articles/-/57672][5 年後､トヨタ最大の敵はグーグルになる | 企業戦略 | 東洋経済オンライン | 新世代リーダーのためのビジネスサイト]]
+  - [[http://www.huffingtonpost.jp/seaskywind/car_b_6686150.html][日本の自動車会社に迫る危機は並大抵ではない | 風観羽]]
+
+* その他
+  安部首相が自動運転自動車にのって日本の技術に驚いている.
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xDq_8qzLjQQ?rel=0" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+  つい先日、DeNA が自動車業界に決死の覚悟で飛び込み.
+  - [[http://dena.com/jp/press/2015/05/12/1/][DeNA と ZMP、自動運転技術を活用したロボットタクシー事業の実現に向けた合弁会社を設立 | 株式会社ディー・エヌ・エー【 DeNA 】]]
+  - [[http://headlines.yahoo.co.jp/hl?a=20150513-00010000-newspicks-bus_all][DeNA 守安功「“失敗したら死ぬ”覚悟で自動車事業に参入します」 （NewsPicks） - Yahoo!ニュース]]
+
+* おわりに
+  自分が知らないうちに、
+  自動運転がここまで実現可能になっていることにまず驚いた.
+  そして、近い将来に、世の中の車も変わっていくことにワクワクする.
+
+  きっと、未来の人は、*車を自分で運転していたなんて時代もあったんだよ*
+  なんといって、驚く時代もくるのだろう.
+
+  車業界の競争は、とてつもなく厳しいものになりそうだ.
+  自分はこの波に、どういう形で巻き込まれていくのだろうか？

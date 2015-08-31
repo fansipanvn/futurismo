@@ -35,18 +35,13 @@
 - Small size and weight
 
 * MicroController
-マイクロコントローラー. いわゆる, マイコン.
+  マイクロコントローラー. いわゆる, マイコン.
+  - [[http://ja.wikipedia.org/wiki/%E3%83%9E%E3%82%A4%E3%82%AF%E3%83%AD%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF][マイクロコンピュータ - Wikipedia]]
 
-- [[http://ja.wikipedia.org/wiki/%E3%83%9E%E3%82%A4%E3%82%AF%E3%83%AD%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF][マイクロコンピュータ - Wikipedia]]
-
-#+BEGIN_HTML
-<blockquote>
-Microcontrollers, which are microcomputers incorporating the processor, 
-RAM, ROM and I/O ports into a single package, 
-are often employed in an embedded system because of their low cost, 
-small size, and low power requirements.
-</blockquote>
-#+END_HTML
+  Microcontrollers, which are microcomputers incorporating the processor, 
+  RAM, ROM and I/O ports into a single package, 
+  are often employed in an embedded system because of their low cost, 
+  small size, and low power requirements.
 
 ** I/O Port
    Input Port/Output Port の略.
@@ -68,7 +63,7 @@ small size, and low power requirements.
 
     ソフトウェアの指示によって任意の入力あるいは出力に利用することができる.
     複数の端子が GPIO に割り当てられている場合には,
-    これを一つのグループとして一括して制御することができ「 GPIO ポート」などと呼ばれる
+    これを一つのグループとして一括して制御することができ「GPIO ポート」などと呼ばれる
 
     [[http://e-words.jp/w/GPIO.html][GPIO とは 【 General Purpose Input/Output 】 - 意味/ 解説/ 説明/ 定義 : IT 用語辞典]]
 
@@ -96,7 +91,6 @@ small size, and low power requirements.
 ls /proc/ioports
 #+end_src
 
-
 ** Register
    コンピュータのプロセッサなどが内蔵する記憶回路で,
    制御装置や演算装置や実行ユニットに直結した,
@@ -110,6 +104,9 @@ ls /proc/ioports
    [[http://ja.wikipedia.org/wiki/%E3%83%AC%E3%82%B8%E3%82%B9%E3%82%BF_(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF)][レジスタ (コンピュータ) - Wikipedia]]
 
    Registers are high-speed storage inside the processor.
+
+   データを記憶したり取り出したりすることができる順序回路.
+   out (t) = out (t-1) を実現する.
 
 *** Register のプログラムでの扱い
     Pin を操作するためのレジスタには,
@@ -219,6 +216,86 @@ void FlashSOS (void){
 }
 #+end_src
 
+
+
+* HDL
+  Hardware Description Language
+  - [[http://ja.wikipedia.org/wiki/%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2%E8%A8%98%E8%BF%B0%E8%A8%80%E8%AA%9E][ハードウェア記述言語 - Wikipedia]]
+
+** VHDL
+   - [[http://www.iis.ee.ethz.ch/~zimmi/emacs/vhdl-mode.html][Emacs VHDL Mode]]
+
+** Verilog
+
+** VHDL と Verilog の違い.
+   - VHDL は「ada」というプログラム言語をもとに開発された「使用記述言語」
+   - Verilog は「C 言語」をもとに開発された「シミュレーション専用言語」
+ 
+  参考
+   - [[http://www.din.or.jp/~yagiyagi/HTML/KNOWLEDGE/gengo.htm][言語?]]
+   - [[http://oshiete.goo.ne.jp/qa/392042.html][VHDL と Verilog の違い
+     について - その他 (プログラミング) | 教えて!goo]]
+
+* 電子回路 (ゲート)
+** 論理ゲート
+   ブール関数を実現するための物理デバイス.
+
+   ゲートをまとめたものを回路, チップという.
+
+*** トランジスタ
+    2 値のデータ表現を電気で実現する物理デバイス. スイッチング技術.
+    - [[http://ja.wikipedia.org/wiki/%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B8%E3%82%B9%E3%82%BF][トランジスタ - Wikipedia]]
+
+    電気であることが一つのポイント. 
+    別の物理性質を用いてゲートを作成することもできる.
+
+*** NAND
+    もっとも基礎的な論理ゲート.
+
+*** ブール論理
+    すべてのブール関数は NAND NOT をつかって表現できる.
+    (AND, OR, NOT ) を含む.
+
+    - NOT (x) = (x NAND x)
+    - AND (x, y) = NOT (x NAND y)
+    - OR (x,y) = NOT (NOT (x) AND NOT (y))
+  
+    NAND を実現した物理デバイスが自由に利用できれば,
+    どのようなブール関数もハードウェアとして作成できる.
+
+*** マルチプレクサ   
+    ふたつ以上の入力をひとつの信号として出力する機構.
+    - [[http://ja.wikipedia.org/wiki/%E3%83%9E%E3%83%AB%E3%83%81%E3%83%97%E3%83%AC%E3%82%AF%E3%82%B5][マルチプレクサ - Wikipedia]]
+
+    マルチプレクサによって、ハード的に if 文を表現することができる.
+
+** 算術ゲート
+   - [[http://ednjapan.com/edn/articles/1308/09/news002.html][マイコン入門!! 必携用語集 (6):CPU の中枢「ALU」を作ってみよう (1/4) - EDN Japan]]
+
+** 順序回路
+   ひとつ以上のフリップフロップ回路が組み込まれているもの. 
+
+   以下のような機能をもつ.
+   - 状態を保つ
+   - 状態を操作する
+    
+   状態がかわるのは, クロックが次の周期に移行したとき.
+   (c.f. 組み合わせ回路は即時)
+
+*** (D) フリップフロップ回路
+    順序回路の中でもっともプリミティブなもの.
+    NAND とともに, もっともプリミティブなものとして考えられる.
+
+    フリップフロップ回路の実装方法はいろいろある. 
+    NAND から構築する方法もある.
+    - [[http://home.a00.itscom.net/hatada/dc2/chap09/dff.html][D フリップフロップ]]
+
+*** プログラムカウンタ
+
+** 論理算術ゲート (ALU)
+   論理ゲートと算術ゲートをあわせてひとつにしたもの.CPU の中核.
+
+    
 * Memory/Cache
   -> コンピュータ・アーキテクチャに移動
 
@@ -530,3 +607,38 @@ analog to digital converter (ADC).
 
 ** Sensor
 
+* Nand To Tetris
+** week0
+** week1: ゲートへ
+***  論理ゲート
+   - And 
+   - Or
+   - Xor
+   - Not
+   - Not16, And16, Or16, Mux16 ... 16 進数の 論理ゲート
+
+*** マルチプレクサ
+   - Mux ... マルチプレクサ
+   - DMux ... デマルチプレクサ
+   - Mux8Way16, DMux8Way, DMux4Way .. 16 進数のマルチプレクサ
+
+** week2:  CPU へ
+*** 算術ゲート
+   - HalfAdder ... 半加算器
+   - FullAdder ... 全加算器
+
+   - Add16 ... 16 進加算
+   - Inc16 ... 16 進インクリメンタ
+
+*** ALU
+   - ALU ... 論理算術ゲート
+
+** week3: Memory へ
+*** Memory
+   - Bit, Register ... レジスタ
+   - RAM8, RAM16, RAM64, RAM512, RAM4K, RAM16K ... RAM
+
+*** Counter
+   - PC ... プログラムカウンタ
+
+** week4:  機械語へ

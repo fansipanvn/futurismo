@@ -1,0 +1,77 @@
+#+BLOG: Futurismo
+#+POSTID: 4541
+#+DATE: [2015-08-08 土 16:45]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Emacs
+#+TAGS: org-mode
+#+DESCRIPTION: org-clockでのタイムトラッキングを絶対に忘れない方法
+#+TITLE: org-clockでのタイムトラッキングを絶対に忘れない方法
+
+Emacs org-modeの org-clocking機能は、
+とても便利なタイムトラッキングツールで気に入っている.
+
+しかし、よく時間をはかるのを忘れる。なんとかできないかと考えたお話.
+
+* 時間をはかっていないとgntpでデスクトップ通知
+  時間計測中かどうかは、org-cloking-pという関数で分かる. 
+  この真偽を5秒ごとに監視して、時間計測をしていなかったらデスクトップ
+  通知をウザったく出すことにした.
+
+  EmacsでGrowlデスクトップ通知をするには、以下のライブラリが使える.
+  - https://github.com/tekai/gntp.el
+
+  以下のように設定を書いた. What are you doing??
+
+#+begin_src emacs-lisp
+(defun org-clocking-alart ()
+  (unless (org-clocking-p)
+    (gntp-notify 'alert "What are you doing!!"
+                 "You should start clocking ('･_･`)"
+                 "localhost")))
+(run-at-time t 5 'org-clocking-alart)
+#+end_src
+
+[[file:./../img/2015-08-08-164217_288x228_scrot.png]]
+
+ これはウザい....('･_･`)
+
+* clock-in / out でも通知
+ ついでに、clockin,out時にも通知がでるようにした. これはいい.
+
+#+begin_src emacs-lisp
+(add-hook 'org-clock-in-hook
+          (lambda ()
+            (gntp-notify 'alert "Clock In"
+                         "Happy Hacking! (^o^)/"
+                         "localhost")))
+
+(add-hook 'org-clock-out-hook
+          (lambda ()
+            (gntp-notify 'alert "Clock Out"
+                         "Good Job!"
+                         "localhost")))
+#+end_src
+
+* clockin で 時間見積り
+  ついでについでに、clock-inするときに、時間見積りを必ずするようにした.
+
+#+begin_src emacs-lisp
+(add-hook 'org-clock-in-prepare-hook
+          'my/org-mode-ask-effort)
+
+(defun my/org-mode-ask-effort ()
+  "Ask for an effort estimate when clocking in."
+  (unless (org-entry-get (point) "Effort")
+    (let ((effort
+           (completing-read
+            "Effort: "
+            (org-entry-get-multivalued-property (point) "Effort"))))
+      (unless (equal effort "")
+        (org-set-property "Effort" effort)))))
+#+end_src
+   
+   #+BEGIN_HTML
+   <p style="font-size:32px">以上、Happy Hacking!!</p>
+   #+END_HTML
+
+# ./../img/2015-08-08-164217_288x228_scrot.png http://futurismo.biz/wp-content/uploads/wpid-2015-08-08-164217_288x228_scrot.png

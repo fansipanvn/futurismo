@@ -1,0 +1,101 @@
+#+BLOG: Futurismo
+#+POSTID: 4395
+#+DATE: [2015-07-20 月 08:58]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Python
+#+TAGS:
+#+DESCRIPTION: Pythonのユニットテストツールである unittestをいじって見たのでご紹介.
+#+TITLE: Pythonのユニットテストツール unittestを使ってみたメモ
+
+Pythonのユニットテストツールである unittestをいじって見たのでご紹介.
+
+* 最も簡単な例
+以下に、シンプルなテスト実行手順を書く.
+
+- unittestライブラリをインポート
+- unittest.TestCaseを継承したクラスを作成
+- test_のプレフィクスをもつメソッドを作成
+- self.assertEqualでテストアサーションを宣言
+- 末尾に unittest.main()を書く
+
+** コード: test_hello.py
+  
+#+begin_src python
+import unittest
+
+class TestHelloUnitTest(unittest.TestCase):
+
+    def test_add(self):
+        actual = 1 + 1
+        expected = 2
+        self.assertEqual(expected, actual)
+
+if __name__ == '__main__':
+    unittest.main()
+#+end_src
+
+** 実行結果
+
+#+begin_src text
+$ python test_hello.py
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+#+end_src
+
+* 詳しい説明
+** アサーション
+  アサーション関数は以下が用意されている. 
+  どれもassertXXXXという形をしているが、Equalさえしっていれば大抵はOK.
+
+  - assertEqual(a, b)
+  - assertNotEqual(a, b)
+  - assertTrue(x)
+  - assertFalse(x)
+  - assertIs(a, b)
+  - assertIsNot(a, b)
+  - assertIsNone(x)
+  - assertIsNotNone(x)
+  - assertIn(a, b)
+  - assertNotIn(a, b)
+  - assertIsInstance(a, b)
+  - assertNotIsInstance(a, b)
+
+** 前処理と後処理
+  各テストの前処理でしたいことがあるときは、setUpメソッドに処理を書く.
+
+  各テストの後処理でしたいことがあるときは、tearDownメソッドに処理を書く.
+ 
+#+begin_src python
+class TestHelloUnitTest(unittest.TestCase):
+   def setUp(self):
+        pass
+
+   def tearDown(self):
+        pass
+#+end_src
+
+** テストケース、メソッド指定でのテスト
+   テストケース（クラス）を指定して、実行したいときは、以下ののようにして書く.
+
+#+begin_src text
+$ python -m unittest スクリプト名.テストケース名
+#+end_src
+
+  メソッドを指定したいときは、以下.
+
+#+begin_src text
+$ python -m unittest スクリプト名.テストケース名.メソッド名
+#+end_src
+
+** Emacsならメソッド指定でテストできるよ！   
+   Emacs を利用すれば、メソッド単位で簡単テスト実行可能.
+   - https://github.com/emacs-pe/python-test.el
+
+   実行したいテストケースの上で M-x  python-test-function .
+
+    #+BEGIN_HTML
+    <p style="font-size:32px">以上、Happy Hacking!!</p>
+    #+END_HTML

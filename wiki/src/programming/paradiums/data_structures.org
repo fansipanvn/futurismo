@@ -311,22 +311,21 @@
   段階的詳細化法 (stepwise refinement) をもたらしたが,
   データ構造の変更を行うと変更部分がソースコード中に散在してしまうという弱点があった.
   データ抽象の概念はその欠点を補完するものであった
-  
   - [[http://ja.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E3%83%87%E3%83%BC%E3%82%BF%E5%9E%8B][抽象データ型 - Wikipedia]]
-
+    
   An ADT consists of a set of values and a set of operations.
-    - Integer 型
-    - Value:1,2,3
-    - Operation:+
-    - Stack 型
-    - Value: elemtent
-    - Operation: push, pop, ...
+  - Integer 型
+  - Value:1,2,3
+  - Operation:+
+  - Stack 型
+  - Value: elemtent
+  - Operation: push, pop, ...
 
-    Value と Operation それ自体は State を持たない.
-    CTM, p433
+  Value と Operation それ自体は State を持たない.
+  CTM, p433
 
   バンドルされていないデータ抽象.
-
+  
 ** ラッパー
    ADT に アクセスするための key (キー) を導入することで,
    安全にアクセスすることができる.

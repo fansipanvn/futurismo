@@ -70,6 +70,10 @@
    - [[http://d.hatena.ne.jp/sc3onlinux/20100206/1265449076][SuperCollider 基礎文法最速マスター - sc3onlinux の日記]]
    - [[http://yoppa.org/blog/4042.html][SuperCollider 自主練 – 基本編 | yoppa org]]
 
+   田所さんというひとが, 積極的に情報を公開している.
+   - [[http://yoppa.org/geidai_music13/5014.html][SuperCollider 入門 | yoppa org]]
+   - [[http://www.slideshare.net/tado/interactive-music-ii-supercollider][Interactive Music II - SuperCollider 入門]]
+
 ** ChucK
    C - like な言語.
    - [[http://chuck.cs.princeton.edu/release/][ChucK : ]]

@@ -405,7 +405,7 @@ int main (void) {
      switch 文は流動的要素なので, その部分をクラスに分離してカプセル化する.
 
      クラスに分離する際は, 継承をさけて集約を多用する.
-
+     
 **** Effective Java から
      p101 戦略を表現するために関数オブジェクトを使用する
      
@@ -455,6 +455,7 @@ end
     オブジェクト要素の処理を変更するため, Visitor クラスを用意する.
     - [[http://ja.wikipedia.org/wiki/Visitor_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Visitor パターン - Wikipedia]]
     - [[http://futurismo.biz/archives/2689][Java で Visitor Pattern を実装してみた | Futurismo]]
+
 
 ** カプセル化の視点で整理
    カプセル化がデータ隠蔽というのは狭義の定義.
@@ -507,6 +508,12 @@ end
 ** 関数型言語との関係
    - [[http://codezine.jp/article/detail/8300][ラムダ式で Command パターンで書かれたコードをシンプルにする ~ ラムダ式使いへの第一歩 (1/5):CodeZine]]
    - Haskell での置き換え [[http://blog.ezyang.com/2010/05/design-patterns-in-haskel/][Design Patterns in Haskell : Inside 206-105]]
+
+     | Pattern  |    | Desc           |
+     |---------+----+---------------- |
+     | Strategy | ○ | 高階関数を渡す |
+     | State    | × | 状態をもたない |
+     | Momento  | × | 状態を持たない |
 
 ** Links
   概要がかかれたページ

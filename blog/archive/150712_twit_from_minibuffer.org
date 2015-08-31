@@ -1,0 +1,71 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Emacs
+#+TAGS: twitter
+#+DESCRIPTION: Emacsのミニバッファから twitterにメッセージを投稿する小技
+#+TITLE: Emacsのミニバッファから twitterにメッセージを投稿する小技
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+Emacsのミニバッファから twitterにメッセージを投稿する小技.
+
+* はじめに
+  最近は、非公開のtwitter個人アカウントに独り言をすることが多い.
+  
+  Emacsから twittering-modeを利用してつぶやいている.
+  - http://emacswiki.org/emacs/TwitteringMode-ja
+
+  しかし、たまには？表の公開アカウントでつぶやきたくなるときもある.
+
+  そんなとき、Emacsからでなければいけいなということにストレスを
+  感じたのでミニバッファからツイートする方法を考えた.
+
+  ちなみに、Linux環境のための記事です.
+
+* コマンドラインからツイートする
+  ruby の twitter ライブラリを利用してスクリプトを書けば、
+  コマンドラインからツイートできる.
+  - https://github.com/sferik/twitter
+
+  以下のようなスクリプトを用意.
+    
+#+begin_src ruby
+#!/usr/bin/ruby
+require 'twitter'
+client = Twitter::REST::Client.new do |config|
+  config.consumer_key        = "YOUR_CONSUMER_KEY"
+  config.consumer_secret     = "YOUR_CONSUMER_SECRET"
+  config.access_token        = "YOUR_ACCESS_TOKEN"
+  config.access_token_secret = "YOUR_ACCESS_SECRET"
+end
+client.update ARGV[0]
+#+end_src
+
+  これを実行可能にして、パスの通ったところにおくとツイートできる.
+
+#+begin_src emacs-lisp
+$ chmod +x twitter
+$ twitter "テスト投稿"
+#+end_src
+
+* Emacsのミニバッファから投稿
+  本題。以下の関数を定義した。
+
+#+begin_src emacs-lisp
+(defun twit-from-minibuffer (x)
+  "Tweet message from minibuffer"
+  (interactive "sEnter twitter message: ")
+  (let ((tweet-message (concat "twitter " x)))
+    (shell-command tweet-message)))
+(global-set-key (kbd "C-c C-x t") 'twit-from-minibuffer)
+#+end_src
+
+  これで、ショートカットからツイートできるようになった.
+
+* 最後に
+  Emacsからツイートできないとストレスを感じることが異常かもしれない.
+
+   #+BEGIN_HTML
+   <p style="font-size:32px">以上、Happy Hacking!!</p>
+   #+END_HTML

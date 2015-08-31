@@ -1,0 +1,56 @@
+#+BLOG: Futurismo
+#+POSTID: 4242
+#+DATE: [2015-06-28 日 14:49]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 仕事
+#+TAGS:
+#+DESCRIPTION: サーバ監視のお仕事にかわりました
+#+TITLE: サーバ監視のお仕事にかわりました
+
+仕事がまた変わった. 
+
+新しい仕事についてはや2ヶ月、以下のような記事を書いたりしてはりきってた.
+
+- [[http://futurismo.biz/archives/3095][ミライの スマートカーの エンジニアになる | Futurismo]]
+- [[http://futurismo.biz/archives/4046][Linux のサミットに参加して思ったこと | Futurismo]]
+
+なにもやっていないうちに別の仕事になってしまった...
+
+* なにもやらないという辛さ
+  開発がスタートしていないうちに、チームに配属されたので、
+  正直やることがなにもなかった. コーヒーばかり飲んでいた気がした.
+
+#+BEGIN_HTML
+<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">ここ2ヶ月、会社でプログラムを1行も書いてなくて、おいちゃんはかなしいよ。</p>&mdash; きつね (@tsu_nera) <a href="https://twitter.com/tsu_nera/status/612960297263869954">2015, 6月 22</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+#+END_HTML
+
+  忙しい辛さは知っていた。
+  しかし、ヒマ過ぎる辛さというのをはじめて知った.
+  忙しい辛さと暇な辛さは、暇な辛さの方が実は辛い.
+
+  いや、一応やることはあったんだ. 開発に入る前の調査フェーズなので.
+  しかし、調査というものは辛かった. 答えがないから. 
+
+  漠然と、調べ物をしていてもまったく分からなかったので、
+  毎日途方にくれていた.自分は、研究者にはなれないなと思った.
+
+* 派遣ギリ！
+  そんな日々を過ごしつつ、開発が始まるはずだったのだが、
+  不幸にも、予定していた仕事がなくなってしまった.
+
+  2ヶ月間開発が始まるのを待ち望んでいたのだが、これで自分はお役ご免.
+  
+* サーバ監視のお仕事
+  新しい仕事が待っていた. 次の仕事は、サーバ監視のお仕事.
+  以下の製品のエンハンス.
+  - [[http://software.fujitsu.com/jp/serverviewism/][FUJITSU Software ServerView Infrastructure Manager : 富士通]]
+
+  Zabbixというサーバ監視のOSSを改造する仕事で、言語はPythonだ.
+  機能がたくさんあるので、激務になりそうな匂いがプンプンするのだが..
+
+  席の引越しをするときに、お世話になった上司にこんなことをいわれた.
+
+  *二ヶ月間開発できなかったストレスを存分に発散してくだいさい*
+
+  はい、そうします！

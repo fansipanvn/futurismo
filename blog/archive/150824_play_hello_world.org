@@ -1,0 +1,127 @@
+#+BLOG: Futurismo
+#+POSTID: 4663
+#+DATE: [2015-08-24 月 22:27]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Java
+#+TAGS: Play
+#+DESCRIPTION: Play frameworkでHello World (Java)
+#+TITLE: Play frameworkでHello World (Java)
+
+Javaで有名な Webフレームワーク、Playで Hello Worldをしてみました. (=^ー゜)ノ
+
+* Install
+  参考: [[https://www.playframework.com/documentation/ja/1.2.x/install][install]]
+
+  最新版のactivator バイナリを以下から取得.
+  - https://www.playframework.com/download
+    
+  ダウンロードした圧縮ファイルを解凍し、任意のディレクトリに配置.
+  Playの実行ファイルactivator へ環境変数PATHを設定.
+
+  以下を実行し、しばらくまつ(結構時間かかる). ツールのダウンロードが走る.
+
+#+begin_src bash
+$ activator ui
+#+end_src
+
+  http://localhost:8888 にアクセスしてドキュメントが見えればインストール完了.
+
+* Hello Play !!
+  Hello worldをしてみる.以下の手順にしたがいます.
+  - https://www.playframework.com/documentation/ja/1.2.x/firstapp
+
+  まずは、プロジェクト作成 (=^ー゜)ノ
+
+#+begin_src bash
+$ activator new my-first-app play-java
+#+end_src
+
+ activatorを起動して、いろいろダウンロード. 
+
+#+begin_src bash
+$ cd my-first-app
+$ activator run
+#+end_src
+
+ これで http://localhost:9000 にアクセスすると、Welcome ページが見える.
+
+** view で hello world
+   app/view/index.scala.htmlをひらき、Hello Worldを追記.
+
+#+begin_src html
+@(message: String)
+
+Hello, Play!!
+#+end_src
+
+  再度 Webにアクセスすると、 Hello, Playの文字が (*´∇｀*)
+
+** controllers で hello world
+   次に、 app/controllers/Application.javaを開き printlnを追記.
+   
+#+begin_src java
+package controllers;
+
+import play.*;
+import play.mvc.*;
+
+import views.html.*;
+
+public class Application extends Controller {
+
+    public Result index() {
+        System.out.println("Hello, Play!!");
+
+        return ok(index.render("Your new application is ready."));
+    }
+
+}
+#+end_src
+
+  再度, http://localhost:9000 にアクセスしてみると、
+  コンソール画面に. Hello, Playの文字が (*´∇｀*)
+
+  ここでの感動ポイントは、*リコンパイル不要* ということ. 
+  Javaだろ？！ 動的言語かよ!! (=^ー゜)ノ 
+
+* オリジナルのエントリポイント
+  オリジナルのエントリポイントをつくってみる. conf/routesを編集する.
+  ここでエントリポイントを定義する.
+
+  以下の行を追加. 記法は、Scalaのようだ.
+
+#+begin_src text
+# My Sample
+GET     /test/:number               controllers.MySample.index(number: String)
+#+end_src
+
+  つづいて、オリジナルの controllerを作成. app/controllers/MySample.java
+
+#+begin_src java
+package controllers;
+
+import play.*;
+import play.mvc.*;
+
+public class MySample extends Controller {
+
+    public Result index(String number) {
+		System.out.println("number is " + number);
+		return ok();
+    }
+}
+#+end_src
+
+これで、たとえば、http://localhost:9000/test/200 にアクセスすると、
+"number is 200" という文字がコンソールに出力される.
+  
+* おわりに
+** Special Thanks
+   - [[https://www.playframework.com/documentation/ja/2.3.x/NewApplication][NewApplication]]
+   - [[http://hidemium.hatenablog.com/entry/2014/11/24/175303][Play Framework(Java)の開発環境を構築する - hidemium's blog]]
+   - [[http://hirahiro56.hatenablog.com/entry/2015/01/03/023902][Play Framework で「Hello World!!」 - hirahiro56のブログ]]
+   - [[http://qiita.com/yu_naka0607/items/c48f01c4bd7e605bdfbf][PlayFramework - Play framework開発セットアップ（Java） - Qiita]]
+   
+   #+BEGIN_HTML
+   <p style="font-size:32px">以上、Happy Hacking!!</p>
+   #+END_HTML

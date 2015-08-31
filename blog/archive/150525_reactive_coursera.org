@@ -1,0 +1,111 @@
+#+BLOG: Futurismo
+#+POSTID: 3975
+#+DATE: [2015-05-25 月 20:29]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: MOOC, Scala
+#+TAGS:  coursera
+#+DESCRIPTION:coursera で Principles of Reactive Programming を受けた
+#+TITLE: リアクティブプログラミングの世界観を垣間見！coursera で Principles of Reactive Programming を受けた
+
+[[file:./../img/2015-05-25-214310_448x216_scrot.png]]
+
+最近流行りの *リアクティブプログラミング* の講座が
+coursera で開講されたため、 ちょっと背伸びをして受講してみました。
+
+- [[https://www.coursera.org/course/reactive][Principles of Reactive Programming | Coursera]]
+
+結果から言うと、Scala の知識が足りずに途中で挫折しました。
+
+一応感想を簡単に書いとくか。。〆(･ω･* )
+
+* 内容
+** スーパースター講師勢ぞろい
+   まず、この講座の講師陣がすごい. 
+
+   - Martin Odersky ... Scala 生みの親
+   - Erik Meijer    ... へんなおじさん
+   - Roland Kuhn    ... Akka チームリーダ
+ 
+  いずれも各分野におけるプロフェッショナル. 
+
+ #+BEGIN_HTML
+ <iframe width="560" height="315" src="https://www.youtube.com/embed/kZpLmcgq82k?rel=0" frameborder="0" allowfullscreen></iframe>
+ #+END_HTML
+
+  ちなみに、Oderskey さん、Erik Meijer さんの 講座は以前受けたことがあります.
+  - [[http://futurismo.biz/archives/2510][Scala 作者直伝の講座！Functional Programming Principles in Scala を受けた | Futurismo]]
+  - [[http://futurismo.biz/archives/2862][Haskell で 関数型言語入門! edX の Introduction to Functinal Programming を受けた. | Futurismo]]
+
+** Functional Reactive Programmig(FPP)
+  week1,2 で、Odersky さんが Functional Reactive Programming に関する
+  話題を説明します. よくネット上で話題になるのも、この辺の話.
+
+** RxScala
+  week3,4 で、Meijer さんが RxScala の話をします.
+
+  Meijer 氏いわく、以下の４つが 代表的な副作用なのだと.
+  この 4 つの概念を順番に説明していくという内容.p
+
+|--------+------------|
+| Try    | Emumerable |
+|--------+------------|
+| Future | Ovserver   |
+
+  以下の動画でも、同じ話題が話されている.
+
+#+BEGIN_HTML
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sTSQlYX5DU0?rel=0" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+** Akka  
+   最後に、week 5,6,7 で Roland Kuhn 氏が、Akka を通じて 
+   Actor モデルの説明をする. 
+
+   また、その延長で 分散システムにおける 
+   フォールトトラレントなプログラミング手法に関しての話題がある.
+   
+* 感想
+** 途中で挫折...
+  自分は、Scala の文法がよくわからないまま受講していたので、
+  途中で Assignment ができなくなって、挫折してしまった...
+
+  うーむ、基礎体力が足りなかった. とても悔しいので、もう一度この講座が
+  開講された時には、再び受講したいと思った.
+
+** リアクティブな世界を覗き見た
+   リアクティブプログラミングについて、概念的な話は知っていたが、
+   コードを通じてその世界をかいま見ることができた.
+
+   ネットで記事を読んでいると、
+   - Monadic Programming はすごい！
+   - Actor モデルは便利! 
+
+   という話題をたまに見かけるのだけれども、ほんの入り口を体験した.
+   - [[http://futurismo.biz/archives/3645][Scala の例外処理について調べたメモ(try-catch, Try) | Futurismo]]
+   - [[http://futurismo.biz/archives/3842][Actor モデル初体験! Akka で Hello World してみる | Futurismo]]
+
+** 分散システムとリアクティブ
+   *分散システムのシステム制御* は、これからも自分の仕事では関わり続けていく領域
+   なので、week6,7 で出てきた話題は、もう少し知りたいと思った.
+
+   今回は理解できなかったので、いつか理解しようと思って、書籍を購入.
+   なんと、以下の書籍はこの講座を受講すると半額で購入できるとのことだったので、
+   衝動買いした。
+   - [[http://manning.com/kuhn/][Manning: Reactive Design Patterns]]
+
+#+BEGIN_HTML
+<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">半額だったので、ついつい買ってしまった。リアクティブデザインパターン。Manning: Reactive Design Patterns <a href="http://t.co/DzCThRN1LF">http://t.co/DzCThRN1LF</a></p>&mdash; きつね (@tsu_nera) <a href="https://twitter.com/tsu_nera/status/595482133214302208">2015, 5 月 5</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+#+END_HTML
+  
+   また、この分散プログラミングで出てきた話題は、
+   つい先日まで受講していた 講座ともかぶる部分があった. 
+   概念をコードから覗くことができた.
+
+   - [[http://futurismo.biz/archives/3109][仕事に関わる知識を MOOC で! Coursera で Cloud Computing Concepts Part2 を受けた | Futurismo]]
+
+   Akka や Erlang は 言語として フォールトトラレントな制御をサポート
+   しているので、自力で分散システムのための仕組みをプログラミングした
+   としても、それは車輪の再発明なんだなと思った.
+   世の中に転がっている OSS を理解し、自分の開発に取り入れねばと思った.
+
+# ./../img/2015-05-25-214310_448x216_scrot.png http://futurismo.biz/wp-content/uploads/wpid-2015-05-25-214310_448x216_scrot.png

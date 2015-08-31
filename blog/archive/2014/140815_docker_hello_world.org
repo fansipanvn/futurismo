@@ -2,7 +2,7 @@
 #+POSTID: 2545
 #+DATE: [2014-08-15 金 21:33]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
-#+CATEGORY: 技術メモ, Linux
+#+CATEGORY: Linux
 #+TAGS: Hello_World, Docker
 #+DESCRIPTION: Docker で WordPress を入れてみる
 #+TITLE: WordPress ローカル環境が 5 分で構築できるか? Docker の都市伝説を検証してみた
@@ -274,7 +274,7 @@ $ ssh root@172.17.42.1 -p 49157
    - [[https://github.com/CenturyLinkLabs][CenturyLink Labs]]
    - [[http://blog.wnotes.net/blog/article/tried-panamax-with-wordpress][Docker コンテナを GUI で管理する「 Panamax 」を使って WordPress をセットアップしてみた話 | ブログ :: Web notes.log]]
 
-* 終わりに
+* おわりに
   本当に, あっという間に WordPress の環境が手に入った.
   しかし, この記事を書くのに, 2 時間かかった!
 

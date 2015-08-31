@@ -1,0 +1,77 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: 手続き型と関数型, 2 つのパラダイムでリアクティブプログラミング!
+
+#+BEGIN_HTML
+<a href="https://picasaweb.google.com/lh/photo/Tu2VEkVYqYsV04cIb3i5qTyD6hjDXGH6XyE6iLrzolo?feat=embedwebsite"><img alt="" src="https://lh3.googleusercontent.com/-Zf4rF4KLaKQ/UvpByiJqSvI/AAAAAAAABCA/lvJgohfEmdo/s800/ruby1.png" width="256" height="256" /></a>
+#+END_HTML
+
+* はじめに
+  coursera で, Reactive Programming の講座を受講しています.
+  
+#+BEGIN_HTML
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kZpLmcgq82k?rel=0" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+  - https://www.coursera.org/course/reactive
+  
+  リアクティブプログラミングには, 以下の二つの方法があるらしい.
+  - Observer Pattern
+  - Functional Reactive Pattern
+
+  というわけで, これらの概念を慣れ親しんだ Ruby で咀嚼してみました.
+
+* リアクティブについて
+  変数 a, b について, 以下のように情報を更新したとき,
+  1. a = 3
+  2. b = 2 + a
+  3. a = 1
+
+  最終的には, a = 1, b = 3 になるようにする.
+  手順 3 で, a の更新に対して b も更新されるところがリアクティブ.
+
+* 概念
+** Observer Pattern とは
+   古典的なイベントハンドリングのための方法.  
+   - [[http://ja.wikipedia.org/wiki/Observer_%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3][Observer パターン - Wikipedia]]
+
+   別名, publish/subscribe Pattern, MVC Pattern.
+
+   Model での変化を View に通知する方法.
+   View は Model でおこる変化を通知してもらうように
+   あらかじめ登録 (subscribe) しておく.
+   
+   Model で変化があったときに, 
+   事前に通知登録をしていた View に通知する.(publish)
+     
+** Functional Reactive Pattern とは
+   関数型パラダイムにおけるイベントハンドリング.
+
+   シグナルとは, 時間とともに変化する値. 
+   このシグナルを扱ってイベントを処理する方法.
+
+   シグナルには以下の面倒をみる責務がある.
+   - 現在の値
+   - 現在の値に対応する評価
+   - その値に依存する他のシグナル (Observers)
+
+** 2 つの比較
+
+  |     | パラダイム | 更新処理   |
+  |-----+------------+------------|
+  | OP  | 手続き型   | プログラマ |
+  |-----+------------+------------|
+  | FRP | 関数型     | システム   |
+ 
+
+
+
+* 実装
+
+** Observer Pattern 
+** Functional Reactive Pattern
+
+* Bookmarks
+  

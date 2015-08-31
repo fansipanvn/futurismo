@@ -44,13 +44,12 @@ Java のインターフェースみたいなもの
 ** class
 
 * Pattern Matching
-条件分岐のための記法.
+  条件分岐のための記法.
+  もう, 「条件分岐は match 式, if 文は三項演算子」くらいの勢い.
 
-もう, 「条件分岐は match 式, if 文は三項演算子」くらいの勢い.
+  Java:
 
-Java:
-
-#+begin_src java
+#+begin_src text
 switch ( <セレクター式> ){ 
   case 場合 : 処理
   ...
@@ -59,7 +58,7 @@ switch ( <セレクター式> ){
 
 Scala の match 式:
 
-#+begin_src scala
+#+begin_src text
 <セレクター式> match { 
   case パターン => 処理
   ...
@@ -71,6 +70,61 @@ Scala の match 式:
 * Lists
 * Collections
 
+* Monad
+  モナドとは, 関数型言語で, 
+  参照透明性を保持しながら手続き型的な記述をするための枠組み.
+
+  モナドが理解できた時, 悟りがひらける.
+  - [[http://itpro.nikkeibp.co.jp/article/COLUMN/20091023/339329/][刺激を求める技術者に捧げる Scala 講座 - 第 14 回 関数脳のつくり方
+    Second Season  ~モナドで悟りをひらく~:ITpro]]
+
+* Rx
+  Reactive Programming のための Scala ライブラリ.
+
+  |        | 単数      | 複数          |
+  |--------+-----------+---------------|
+  | 同期   | Try[T]    | Iterable[T]   |
+  |--------+-----------+---------------|
+  | 非同期 | Future[T] | Observable[T] |
+  
+** Try
+   例外をあつかうためのモナド. A monad that handles exceptions.
+   
+
+   Option 型の派生. Scala には例外処理の書き方としては、
+   - try, catch,finally
+   - Option 型 Try
+   の２つがある.
+
+   - [[http://qiita.com/yharada/items/15f88e5bbf44833b5ed7][scala.util.Try を使いこなそう - Qiita]]
+   - [[http://yuroyoro.hatenablog.com/entry/20100719/1279519961][Scala での例外処理 - Either,Option,util.control.Exception - ( ꒪⌓꒪) ゆるよろ日記]]
+   - [[http://www.slideshare.net/TakashiKawachi/scala-16023052][Scala での例外処理]]
+
+** Future
+   例外と遅延扱うモナド. A monad that handles exceptions and latency.
+
+   Future は、ある時点において利用可能となる可能性のある値を保持する
+   オブジェクトだ。 この値は、なんらかの計算結果であることが多い。
+   
+   その計算が例外とともに失敗する可能性があるため、
+   Future は計算が例外を投げる場合を想定して例外を保持することもできる。
+   ある Future が値もしくは例外を持つとき、Future は完了したという。
+   Future が値とともに完了した場合、Future はその値とともに成功したと
+   いう。Future が例外とともに完了した場合、Future はその例外とともに
+   失敗したという。
+
+   - [[http://docs.scala-lang.org/ja/overviews/core/futures.html][Future と Promise - Scala Documentation]]
+   - [[http://qiita.com/reki2000/items/13f94745c6db80a586a8][Scala - 言語によってちょっと違う Future/Promise をまとめてみた(3) - Qiita]]
+   - [[http://tbpgr.hatenablog.com/entry/20130622/1371917891][Ruby で Future パターンを実装する - Tbpgr Blog]]
+   - [[http://ja.wikipedia.org/wiki/Future][future - Wikipedia]]
+
+*** promise
+    メールボックスのようなもの.
+
+** Iterable
+** Observable
+
+* Akka
 * Document
 - CheetSheet: http://docs.scala-lang.org/cheatsheets/    
 

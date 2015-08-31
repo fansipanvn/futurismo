@@ -1,0 +1,90 @@
+#+BLOG: Futurismo
+#+POSTID: 3998
+#+DATE: [2015-05-28 木 10:36]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 書評, Ruby
+#+TAGS: シストレ
+#+DESCRIPTION: Ruby ではじめるシステムトレード を読んだ
+#+TITLE: Ruby でシストレの世界を体験! Ruby ではじめるシステムトレード を読んだ
+
+システムトレードのプログラムを自分で組んでみたいと思った.
+
+coursera で講座をとったので、なにかこれに続く学習をしたいと思った.
+- [[http://futurismo.biz/archives/2678][システムトレードで億万長者になるぞ! coursera で Computational Investing Part I を受けた | Futurismo]]
+
+なにか、手頃な入門書はないだろうか？
+
+探して見たところ、以下の本が良さそうなので、読んでみた.
+
+#+BEGIN_HTML
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/Ruby%E3%81%A7%E3%81%AF%E3%81%98%E3%82%81%E3%82%8B%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%83%88%E3%83%AC%E3%83%BC%E3%83%89-%E7%8F%BE%E4%BB%A3%E3%81%AE%E9%8C%AC%E9%87%91%E8%A1%93%E5%B8%AB%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA-%E5%9D%82%E6%9C%AC%E3%82%BF%E3%82%AF%E3%83%9E/dp/4775991280%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4775991280' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/51k8mFR0UBL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/Ruby%E3%81%A7%E3%81%AF%E3%81%98%E3%82%81%E3%82%8B%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%83%88%E3%83%AC%E3%83%BC%E3%83%89-%E7%8F%BE%E4%BB%A3%E3%81%AE%E9%8C%AC%E9%87%91%E8%A1%93%E5%B8%AB%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA-%E5%9D%82%E6%9C%AC%E3%82%BF%E3%82%AF%E3%83%9E/dp/4775991280%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4775991280' rel='nofollow' target='_blank'>Ruby ではじめるシステムトレード (現代の錬金術師シリーズ)</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 15.05.28</div><div class='amazlink-detail'>坂本タクマ<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/Ruby%E3%81%A7%E3%81%AF%E3%81%98%E3%82%81%E3%82%8B%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%83%88%E3%83%AC%E3%83%BC%E3%83%89-%E7%8F%BE%E4%BB%A3%E3%81%AE%E9%8C%AC%E9%87%91%E8%A1%93%E5%B8%AB%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA-%E5%9D%82%E6%9C%AC%E3%82%BF%E3%82%AF%E3%83%9E/dp/4775991280%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4775991280' rel='nofollow' target='_blank'>Amazon</a></div></div></div></div></div>
+#+END_HTML
+
+* Ruby でシステムトレードのプログラムを組む本
+  Ruby を用いてシステムトレードのプログラムを組む本.
+
+  内容は、筆者が作ったプログラムを順に解説していくもの.
+  シストレの知識がまとまっているわけではない.
+
+  この本は、Ruby 初心者、いやプログラミング初心者でも読めるように書いてある. 
+
+  各章において、やりたいことのコードが載っていて、
+  その手前でそのコードで利用している文法が解説されている.
+
+  以下から、ソースコードがダウンロードできる.
+  - [[http://www.panrolling.com/books/gr/gr121.html][Pan; Ruby ではじめるシステムトレード]]
+
+* Yahoo ファイナンスのスクレイビングとシミュレーション
+  内容は 2 つに分かれている. 
+
+  - データ取得
+  - シミュレーション
+
+** データ取得  
+  前半は、株データを収集するために、
+  Yahoo ファイナンスをスクレイビングするコードが解説される.
+
+  やってみましたよ的な内容で、
+  スクレイビングについてまとまった知識を得られるものではない.
+
+  open-url ライブラリを利用して HTML ページを落としてきて、
+  正規表現でパースするというもの.
+                                                              
+  執筆時と Web の構造が変わっていたので、サンプルコードそのままでは動かない!
+
+  修正コードが以下にあった.
+  - [[http://www.panrolling.com/books/gr/gr121.html][Pan; Ruby ではじめるシステムトレード]]
+   
+** シミュレーション
+   後半は、売買のシミュレーションを実施するプログラムを作成する.
+
+   自分は、トレード自体は初心者なので、
+   いろいろなトレード基本用語が理解できないで困った.(テクニカル指標とか)
+
+   プログラミング初心者を対象にしているが、トレードの初心者は対象にしていない.
+
+* プログラミング書籍としては悪書
+  プログラミング書籍としては、ひどい内容だ.
+
+  - 秩序も順番もなく、文法が述べられる
+  - くだらないギャグやユーモアがちりばめられている
+  - 初心者むきの本であるにも関わらずトリッキーな書き方ばかりがでてくるところ.
+  
+  どうだ、こんなに短くかけるのだ、すごいだろ！
+
+  という叫びが随所にちりばめられている. 
+  初心者向きの本ならば、ダサくても可読性がある書き方のほうがいい気がする.
+  プログラミング初心者にこの本を読ませるのは、かなりきついだろう.
+
+  しかし、まずやりたいことがあって、そのための文法が解説されていたほうが、
+  淡白な文法書を読むよりも、取っ掛かりはしやすいのかもしれない. 
+  
+* 雰囲気を味わう
+  シストレの本としては、よくわからなかった. 
+  Ruby と同じで、必要なときに必要な知識が出てくる。知識がまとまっていない.
+
+  いろいろなことが知っているものとして話がすすんでいるような気がして、
+  後半のほうはちんぷんかんぷん.
+
+  この本は、雰囲気を味わう本なのだろうと思った.
+  実際に、動くプログラムを動かすことで、なんとなくシストレを体験する本.

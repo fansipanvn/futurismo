@@ -1,0 +1,90 @@
+#+BLOG: Futurismo
+#+POSTID: 3583
+#+DATE: [2015-05-02 土 20:19]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 日記, 
+#+TAGS: ブログ, Wordpress
+#+DESCRIPTION: ブログテーマを更新しました
+#+TITLE: ブログテーマを更新しました
+
+[[file:./../img/wordpress-589121_640.jpg]]
+
+ゴールデンウィークなので, やりたかったことをば.
+
+このブログのデザインを変更してみました.
+
+#+BEGIN_HTML
+<blockquote class="twitter-tweet" lang="ja"><p lang="ja" dir="ltr">GW でブログの改造してる. &#10;&#10;組み込みエンジニアらしからぬ, &#10;Web デザイナーと見紛うほどの, &#10;ナウでヤングなサイトにしたい. </p>&mdash; きつね (@tsu_nera) <a href="https://twitter.com/tsu_nera/status/594139690380365825">2015, 5 月 1</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+#+END_HTML
+
+上記のとおり, オシャレでイケイケなサイトを目指そうと思ったのだけれども,い
+つもの自分らしく途中で諦めて, 
+
+*結局このザマですよ*. (_'Д`)
+
+* 見やすさを意識した今回の改造
+  以下の点にこだわった.
+  - 背景を明るくする
+  - テーマ色を赤めにする
+  - シングルカラムにする
+  - 文字を大きくする
+
+  今までは小さな文字でチマチマと細かく文章を書いていたのだが,
+  思い切ってシングルのカラムにして, スペースを広くつかうようにした.
+
+  いろいろなサイトを参考にしてみたが, 
+  Web デザイナー系のサイトは,シングルカラムが多いように見えた.
+
+  このブログの色を赤に決めた. 統一感を出したかったから.
+  その裏には, *挑戦* , *情熱* といった意味を込めた.
+  
+* サイトのテーマを github で管理
+  自分の修正を github で公開するようにした.
+
+#+BEGIN_HTML
+<div data-theme="default" data-height="155" data-width="500" data-github="tsu-nera/futurismo_themes" class="github-card"></div>
+<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+#+END_HTML
+
+ このリポジトリに以下を貯めていくことで, 知識を集約する.
+    - コードスニペット
+    - 開発ノウハウ
+    - プラグイン覚書
+
+ 公開する理由は,
+ Emacs のように設定ファイルを管理して public に公開したかったから.
+
+ Futurismo は 有料の Wordpress テンプレート 賢威 を利用している.
+
+ そのため, テンプレートは自分で手を入れた部分のみをモジュール化して, 
+ 公開することにする.
+ 
+ くれぐれも, 賢威の部分は公開しないようにする.
+
+* ハッカー未来派宣言の署名ボタンを設置
+  ハッカー未来派宣言.
+
+  - [[http://futurismo.biz/sample-page][ハッカ-未来派宣言 | Futurismo]]
+
+  このブログの立ち上げ時に執筆してから 3 年が経った.
+  いまだ隠しページのような存在だ. 
+
+  この宣言文はこのブログの本質にある思想なので, 
+  これをもっとアピールするために,シェアボタンをつけた. 
+  
+  なんか, アジャイル宣言やリアクティブ宣言のようじゃないか?
+  
+* これから
+  実は, 5 月は病院に入院するので, 
+  その間にもう一度サイトの修正をしてみようと思う.
+  
+  *モダンイケイケの本質はなにか?*
+
+  それは, _動きのあるサイト_ な気がする.
+
+  つまり, JQuery を利用したサイトが,自分にとって, カッコいいと感じる. 
+
+  そのため, 次は JQuery を導入してみようと思う.
+    
+
+# ./../img/wordpress-589121_640.jpg http://futurismo.biz/wp-content/uploads/wpid-wordpress-589121_6401.jpg wpid-wordpress-589121_6401-300x198.jpg

@@ -1,0 +1,133 @@
+#+BLOG: Futurismo
+#+POSTID: 3127
+#+DATE: [2015-04-19 日 07:37]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: Clojure で楽器を演奏しよう! Overtone をインストールしてみた
+
+* はじめに
+  以前, Live Coding について記事を書きました.
+  - [[http://futurismo.biz/archives/2692][プログラミングでイケイケミュージックライブ?! Live Coding について調べたまとめ | Futurismo]]
+  
+  これがまた, めちゃくちゃカッコいいんだ. 憧れは行動を突き動かす!
+
+#+BEGIN_HTML
+<iframe src="https://player.vimeo.com/video/22798433" width="500" height="331" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/22798433">Quick Intro to Live Programming with Overtone</a> from <a href="https://vimeo.com/user568137">Sam Aaron</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+#+END_HTML 
+
+  というわけで, 今回は実際に Overtone を使って, Clojure で音楽をならしてみます.
+
+  [toc]
+
+* Overtone
+  Overtone は, Clojure 製の音楽環境の OSS. Clojure で 音楽を演奏できる.
+
+#+BEGIN_HTML
+<div data-theme="default" data-height="155" data-width="500" data-github="overtone/overtone" class="github-card"></div>
+<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+#+END_HTML
+
+  - [[http://overtone.github.io/][Overtone - Collaborative Programmable Music]]
+  - https://github.com/overtone/overtone
+
+  Clojure の導入は以下を参照.
+  - [[http://futurismo.biz/archives/3131][Clojure で Hello, World | Futurismo]]
+
+** Overtone Install
+   - https://github.com/overtone/overtone/wiki/Installing-overtone
+
+   leiningen でインストールする.実験用ディレクトリ作成.
+
+#+begin_src bash
+$ lein new insane-noises
+#+end_src
+
+insane-noises/project.clj [overtone "0.9.1"] の依存関係を追記.
+
+#+begin_src clojure
+(defproject insane-noises "0.1.0-SNAPSHOT"
+  :description "FIXME: write description"
+  :url "http://example.com/FIXME"
+  :license {:name "Eclipse Public License"
+            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :dependencies [[org.clojure/clojure "1.6.0"]
+                 [overtone "0.9.1"]) ;; ここ
+#+end_src
+
+ overtone をインストール.
+
+#+begin_src bash
+$ cd insane-noises
+$ lein deps
+#+end_src
+
+** Jack のインストール (Linux Only)
+  音を鳴らすためのサーバにつなぐためには, 
+  Linux ではさらに外部ツール (Jack) のインストールが必要
+   - https://github.com/overtone/overtone/wiki/Installing-and-starting-jack
+   - [[https://archlinuxjp.kusakata.com/wiki/JACK_Audio_Connection_Kit?rdfrom=https%3A%2F%2Fwiki.archlinux.org%2Findex.php%3Ftitle%3DJACK_Audio_Connection_Kit_%28%25E6%2597%25A5%25E6%259C%25AC%25E8%25AA%259E%29%26redirect%3Dno][JACK Audio Connection Kit - ArchWiki]]
+
+#+begin_src bash
+# Ubuntu
+$ sudo apt-get install jack-tools ant openjdk-6-jdk fftw3 qjackctl
+#+end_src
+
+#+begin_src bash
+# ArchLinux
+$ sudo pacman -S jack2 qjackctl supercollider
+#+end_src
+
+Jack サーバを起動. qjackctl は GUI なのでわかりやすい. 
+これを立ち上げて,再生を押して起動.
+(設定から インタフェースの選択をしないと再生できなかった)
+
+*** pulseaudio が起動している場合
+    鬼門だった. pulseaudio と jack は両立できない.
+
+    - [[http://askubuntu.com/questions/224151/jack-server-could-not-be-started-when-using-qjackctl/232163#232163][dbus - "JACK server could not be started" when using Qjackctl - Ask Ubuntu]]
+    - https://github.com/overtone/overtone/wiki/Installing-and-starting-jack
+
+    いろいろ方法はある. 自分は, pulseaudio を停止する方法をつかった.
+
+#+begin_src bash
+pulseaudio --kill
+#+end_src
+
+** SuperCollider との接続
+   - https://github.com/overtone/overtone/wiki/Connecting-scsynth
+  
+   overtone から supercollider サーバに接続する.
+   
+   repl のほうでポートに接続.
+
+#+begin_src bash
+# External server 起動
+$ user=> (use 'overtone.core)
+$ user=> (boot-external-server)
+#+end_src
+
+音がでるか確認. ピーっと音が出れば OK.
+
+#+begin_src bash
+user=> (demo (sin-osc))
+#+end_src
+
+以下を打ち込むと, ドレミファソラシドが流れる.
+
+#+begin_src bash
+user=> (use 'overtone.inst.piano)
+user=>(map #(do 
+         (Thread/sleep 500) 
+         (piano %)) (scale :c4 :major)) 
+#+end_src
+
+* Special Thanks
+  - [[http://dev.classmethod.jp/client-side/language-client-side/overton/][Clojure で音楽を奏でる | Developers.IO]]
+  - [[http://deltam.blogspot.jp/2011/12/overtone-clojure.html][Overtone: Clojure で音楽を書こう : サルノオボエガキ]]
+  - [[http://qiita.com/nobkz/items/aea2c70a5fb03003f375][Clojure で音楽組織プログラミングについて - Qiita]]
+  - [[http://atsuya046.hatenablog.com/entry/2015/02/11/224601][Overtone を使って Clojure で音楽を coding - のぶ Lab.]]
+  - [[http://d.hatena.ne.jp/killingout_n-bita/20141229/1419855536][Overtone オボエガキ - オボエガキ用]]
+
+

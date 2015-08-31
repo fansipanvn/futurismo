@@ -1,0 +1,73 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: ブログをロリポップから LAMP ローカル開発環境へクローンした
+
+* はじめに
+  今年のゴールデンウィークで, ブログデザインを変更しようと思います.
+
+  そのため, このブログをそっくりそのまま, 
+  ローカルの ArchLinux へ移行してみましたので, 作業メモを残しました.
+
+* ArchLinux の環境構築
+** LAMP
+  LAMP とは, 以下の頭文字をとったもの.
+  - Linux
+  - MySQL
+  - Apatch
+  - PHP
+
+  今回は, ArchLinux の上に環境を構築する.
+
+*** Apatch
+
+  以下でインストール.
+
+#+begin_src bash
+pacman -S apache
+#+end_src
+
+/etc/httpd/conf/httpd.conf を開き, 以下のコメントアウトを外して apatch 再起動.
+
+#+begin_src bash
+#LoadModule unique_id_module modules/mod_unique_id.so
+sudo systemctl restart httpd
+#+end_src
+
+http://localhost にアクセスしてフォルダがみえれば OK.
+
+*** MySQL
+
+#+begin_src bash
+$ sudo pacman -S mysql
+$ sudo systemctl start mysqld
+$ sudo mysql_secure_installation
+#+end_src
+
+** Wordpress
+   手動で, wordpress をインストールする.
+
+#+begin_src bash
+sudo mkdir -p /srv/http/futurismo
+cd /srv/http/futurismo
+sudo wget https://wordpress.org/latest.tar.gz
+sudo tar xvzf latest.tar.gz
+#+end_src
+
+* ロリポップからのデータ移動
+  以下の 3 つを移行する必要あり
+  - プラグイン
+  - テーマ
+  - データベース
+
+  データベースのデータをロリポップからダウンロードする.
+
+* Special Thanks
+  - [[https://archlinuxjp.kusakata.com/wiki/Wordpress][Wordpress - ArchWiki]]
+  - [[https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-on-arch-linux][How To Install Wordpress on Arch Linux | DigitalOcean]]
+  - [[https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-arch-linux][How To Install Linux, Apache, MySQL, PHP (LAMP) stack on Arch Linux | DigitalOcean]]
+  - [[http://pothibo.com/2013/5/clean-slate-wordpress-install-on-arch-linux][Clean Slate: Install wordpress on nginx. Arch linux style]]
+  - [[http://note.kurodigi.com/archlinux-lamp/][Arch Linux に LAMP 環境を導入する方法]]
+
+  - [[http://futurismo.biz/archives/23][web サーバーからロ-カル環境への移行まとめ | Futurismo]]

@@ -1,0 +1,152 @@
+#+BLOG: Futurismo
+#+POSTID: 3121
+#+DATE: [2015-04-18 土 17:59]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: Java, Scala
+#+DESCRIPTION:ScalaCheck をつかって Java の性質テスト
+#+TITLE: ScalaCheck をつかって Java の性質テスト (Property-based Testing) をしてみる
+
+#+BEGIN_HTML
+<a href="http://futurismo.biz/wp-content/uploads/java.png"><img alt="" src="http://futurismo.biz/wp-content/uploads/java.png" width="256" height="256" /></a>
+#+END_HTML
+
+* はじめに
+  Property-based Testing というものを知ったので, Java でできるか試してみました.
+  
+  [toc]
+
+* Property-based Testing とは
+  うまい日本語訳がないのだが, この記事では性質テストとする.
+
+  ある集合のなかにある要素から取り出した値をつかって,
+  総当たりテストをして, 条件式がなりたつことを確認するテスト.
+
+  よく数学の問題で, *任意の x について hogehoge がなりたつことを証明せよ*
+  みたいなのがあるが, hogehoge が 性質にあたるもの.
+
+  上手く説明できないので, 大量の参照リンクをはっておく.
+  - [[http://mogproject.blogspot.jp/2014/10/scala-property-based-testing-with.html][mog project: Scala: Property-Based Testing with ScalaTest and ScalaCheck]]
+  - [[http://blog.livedoor.jp/prjmng/archives/52322897.html][ソフトウェアの品質を学びまくる:Property-based Testing, そして Example-based testing, とは]]
+  - [[http://arata.hatenadiary.com/entry/2015/02/12/000747][Scala の Test ツール ScalaTest を使ってみた. - 日頃の行い]]
+
+  英語:
+  - [[http://blog.jessitron.com/2013/04/property-based-testing-what-is-it.html][Abstractivate: Property-based testing: what is it?]]
+  - [[http://natpryce.com/articles/000802.html][Mistaeks I Hav Made: Property Based TDD at SPA 2013]]
+
+* ScalaCheck
+  Scala の 性質テスト用ツールで, ScalaCheck というものがある.
+  - http://scalacheck.org/
+
+  Scala なので, Java にもつかえるか試す.(私は, 現在 java プログラマなので)
+
+** target 
+   以下のコードをテスト.
+
+#+begin_src java
+package example;
+
+public class MyArithmetic {
+	public static int add (int a, int b) { return a + b; }
+	public static int del (int a, int b) { return a - b; }
+
+	public static void main (String[] args) {
+		System.out.println (add (1, 2));
+	}
+}
+#+end_src
+
+* Java で sbt をつかう
+  scala のテストツールなので, 
+  scala の ビルドツール sbt をつかうのが楽.
+  - http://www.scala-sbt.org/
+
+  src/main/java 配下に ソースをおいて,
+  root で sbt を起動すると  なんと Java コードが sbt で使えてしまう.
+
+  これはこれで, 手軽さに驚いた. Java のビルドツールとして使えそう.
+
+#+begin_src bash
+# コンパイル
+> compile
+
+# main 関数を自動で検索して実行
+> run
+#+end_src
+
+* ScalaCheck をつかう
+  以下のようなファイルを作成して, src/test/scala 配下におく.
+
+#+begin_src scala
+import org.scalacheck.Properties
+import org.scalacheck.Prop.forAll
+
+import example._
+
+object MyArithmeticSpecification extends Properties ("MyArithmetic") {
+
+  property ("add") = forAll { (a : Int, b : Int) =>
+    val aa = a % 100 
+    val bb = b % 100
+    val c = MyArithmetic.add (aa*aa, bb*bb)
+    c >= aa*aa && c >= bb*bb
+  }
+
+  property ("add2") = forAll { (a : Int) =>
+    val aa = a % 100
+    aa * aa >= aa
+  }
+
+  property ("del") = forAll { (a : Int, b : Int) =>
+    val aa = a g% 100 
+    val bb = b % 100
+
+    val c = MyArithmetic.del (aa*aa, bb*bb)
+
+    c <= aa*aa || c <= bb*bb
+  }
+}
+#+end_src
+
+root ディレクトリの build.sbt に以下を書く.
+
+#+begin_src bash
+libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.12.2" % "test"
+#+end_src
+
+ファイル構成はいかのようなかんじ
+
+#+begin_src bash
+--- build.sbt
+    src
+       main
+           java
+               MyArithmetic.java
+    test
+           scala
+               MyArithmeticSpecification.scala
+#+end_src
+
+テスト実行
+
+#+begin_src bash
+$ sbt test
+[info] + MyArithmetic.add: OK, passed 100 tests.
+[info] + MyArithmetic.add2: OK, passed 100 tests.
+[info] + MyArithmetic.del: OK, passed 100 tests.
+[info] Passed: Total 3, Failed 0, Errors 0, Passed 3
+[success] Total time: 1 s, completed 2015/04/18 17:54:54
+#+end_src
+
+* おわりに
+  むかしむかし, CUnit のことを課長にはなしたことがあったのだが,
+  (うたぐり深い) 課長は, 
+  xUnit のようなものでは品質がとれないと突っかかってきた.
+
+  *全部網羅したテストじゃないと, 完全にバグがないなんて言いきれない*
+
+  自分はこれに対して反論ができなかった.
+
+  いまならば, 反論できる.Property-based Testing はどうだろう? 
+  乱数による総当たりテストならば, 信じてくれるのではないだろうか? 
+

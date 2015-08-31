@@ -445,12 +445,12 @@
 * Software Defined Infrastructure
   ソフトウェアを中心としたインフラ構築のビジョン.
 
-  #n+begin_quote
+#+begin_quote
   Software-defined data center (SDDC) is a vision for IT infrastructure
   that extends virtualization concepts such as abstraction, pooling,
   and automation to all of the data center's
   resources and services to achieve IT as a service (ITaaS)
-  #+end_quote
+#+end_quote
 
   - [[http://en.wikipedia.org/wiki/Software-defined_data_center][Software-defined data center - Wikipedia, the free encyclopedia]]
   - [[http://en.wikipedia.org/wiki/Software_Defined_Infrastructure][Software Defined Infrastructure - Wikipedia, the free encyclopedia]]
@@ -483,24 +483,6 @@ SDI の大きな特徴は, コンピュート (CPU, メモリ), ネットワー�
 *** EMC - Software Defined Storage (SDS)
     EMC のとなえる戦略. ストレージにおける Software Defined.
     [[file:Storage.org::*Software%20Defined%20Storage][Software Defined Storage]]
-
-** 実現するための Archtecture
-*** Software Defined Infrastructe
-
-    このページで紹介されているアーキテクチャがわかりやすい.
-    - [[http://www.ctc-g.co.jp/report/column/it_sdi/index.html][よくわかる IT 新発見  第 1 回  「 Software Defined xx 」の潮流を読み解く!|伊藤忠テクノソリューションズ]]
-
-    以下, 引用.
-    - Orchestration ・・・ 下位の機能レイヤの API を通じて全体のプロビジョニングを実施.
-    - Controller ・・・ 上位レイヤからの API を介した指示にしたがって, Device の設定変更を実施.
-    - Device ・・・ 上位レイヤの API を介した指示にしたがって, 必要な IT リソースを提供.
-
-*** Rack Scale Architecture (RSA)
-    Intel が提唱するアーキテクチャ.
-
-    - [[http://news.mynavi.jp/news/2013/04/12/141/][ラックはサーバ集積からモジュール構造へ, Intel | マイナビニュース]] 
-
-    これはよくわかならいな.
 
 ** 実現するための技術・ OSS
 *** OpenStack
@@ -539,6 +521,25 @@ SDI の大きな特徴は, コンピュート (CPU, メモリ), ネットワー�
 ** BookMarks
   - [[http://www.atmarkit.co.jp/ait/articles/1407/02/news118.html][「 AWS は称賛に値する」:OpenStack は結局, どう使われていくのか - ＠ IT]]
     
+* Software Defined Archtecture
+  サービスをorchestrationしたりprovisioningしたりするメカニズム.
+
+** Software Defined Infrastructe
+   このページで紹介されているアーキテクチャがわかりやすい.
+   - [[http://www.ctc-g.co.jp/report/column/it_sdi/index.html][よくわかる IT 新発見  第 1 回  「 Software Defined xx 」の潮流を読み解く!|伊藤忠テクノソリューションズ]]
+
+   以下, 引用.
+   - Orchestration ・・・ 下位の機能レイヤの API を通じて全体のプロビジョニングを実施.
+   - Controller ・・・ 上位レイヤからの API を介した指示にしたがって, Device の設定変更を実施.
+   - Device ・・・ 上位レイヤの API を介した指示にしたがって, 必要な IT リソースを提供.
+
+** Rack Scale Architecture (RSA)
+   Intel が提唱するアーキテクチャ.
+
+   - [[http://news.mynavi.jp/news/2013/04/12/141/][ラックはサーバ集積からモジュール構造へ, Intel | マイナビニュース]] 
+
+   これはよくわかならいな.
+
 * Software-Defined Networking (SDN)
   -> [[file:networking.org::*SDN][Networking-SDN]]
 

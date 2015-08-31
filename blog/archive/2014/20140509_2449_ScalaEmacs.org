@@ -4,19 +4,19 @@
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
 #+CATEGORY: Emacs, 技術メモ
 #+TAGS: Scala
-#+DESCRIPTION: EmacsでScala開発環境を構築したメモ(Ensime)
-#+TITLE: EmacsでScala開発環境を構築(Ensime)
+#+DESCRIPTION: Emacs で Scala 開発環境を構築したメモ (Ensime)
+#+TITLE: Emacs で Scala 開発環境を構築 (Ensime)
 
 #+BEGIN_HTML
 <img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
 #+END_HTML
 
 * はじめに
-edXで受けた[[http://futurismo.biz/archives/2427][プログラミングパラダイム]] の講義のなかで、
+edX で受けた [[http://futurismo.biz/archives/2427][プログラミングパラダイム]] の講義のなかで,
 
-" これからは、Scalaと Erlangだ！C++とJavaはレガシーになりつつある!”
+" これからは, Scala と Erlang だ!C++ と Java はレガシーになりつつある!"
 
-とのことだったので、ちょっとscalaをいじってみようと思います。
+とのことだったので, ちょっと scala をいじってみようと思います.
 
 - [[http://www.scala-lang.org/][The Scala Programming Language]]
 
@@ -28,33 +28,33 @@ edXで受けた[[http://futurismo.biz/archives/2427][プログラミングパラ
 
 * Installing Scalas
 ** Installing the JDK
-ScalaはJVM上で動作する。まずはJDKをインストール。
+Scala は JVM 上で動作する. まずは JDK をインストール.
 
 #+begin_src sh
 sudo apt-get install openjdk-7-jdk
 #+end_src
 
 ** Installing sbt
-Scalaのビルドツールであるsbtを入れる。以下からDownloadして、解凍。
-なかにあるbinディレクトリにパスを通す。
+Scala のビルドツールである sbt を入れる. 以下から Download して, 解凍.
+なかにある bin ディレクトリにパスを通す.
 
-- [[http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html][Setup — sbt Documentation]]
+- [[http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html][Setup - sbt Documentation]]
 
-日本語のドキュメントがあった。
+日本語のドキュメントがあった.
 
 - [[http://scalajp.github.io/sbt-getting-started-guide-ja/][始める sbt - ようこそ]]
-- [[http://www.scala-sbt.org/][sbt — sbt Documentation]]
+- [[http://www.scala-sbt.org/][sbt - sbt Documentation]]
 
 ** Installing Scala
 #+begin_src sh
 sudo apt-get install scala
 #+end_src
 
-以下から最新版をダウンロードしてもよい。
+以下から最新版をダウンロードしてもよい.
 
 - [[http://www.scala-lang.org/download/][Download | The Scala Programming Language]]
 
-ダウンロードしたらbin ディレクトリにパスを通す。
+ダウンロードしたら bin ディレクトリにパスを通す.
 
 #+begin_src sh
 # Scala 
@@ -63,15 +63,15 @@ export PATH=$HOME/app/scala/bin:$PATH
 #+end_src
 
 ** Hello Scala
-それでは、お決まりの儀式から。
+それでは, お決まりの儀式から.
 
 #+begin_src scala
 object Hello extends App {
-  println("Hello, Scala!")
+  println ("Hello, Scala!")
 }
 #+end_src
 
-以下で実行。
+以下で実行.
 
 #+begin_src sh
 % scalac Hello.scala
@@ -80,80 +80,80 @@ Hello, Scala!
 #+end_src
 
 * Installing Emacs
-Emacs自体のインストール方法は省略。
+Emacs 自体のインストール方法は省略.
 
 ** Installing scala-mode
-scala-modeとscala-mode2がある。2を入れた。
+scala-mode と scala-mode2 がある. 2 を入れた.
 
 - [[https://github.com/hvesalai/scala-mode2][hvesalai/scala-mode2]]
 
 ** Installing Ensime
-Scala用の統合開発環境。インストールははgithubにしたがえばよい。
+Scala 用の統合開発環境. インストールはは github にしたがえばよい.
 
 - [[https://github.com/ensime/ensime-src][ensime/ensime-src]]
 
-Ensime Serverをダウンロードしてロードパスの通った場所におく。
+Ensime Server をダウンロードしてロードパスの通った場所におく.
 
 - [[https://www.dropbox.com/sh/ryd981hq08swyqr/V9o9rDvxkS/ENSIME%20Releases][Dropbox - ENSIME Releases]]
 
-(ハマリメモ。githubから落としてきたやつではなくて、
-Dropboxから落としたReliese番でないとダメなんだね。めちゃくちゃハマった）
+(ハマリメモ. github から落としてきたやつではなくて,
+Dropbox から落とした Reliese 番でないとダメなんだね. めちゃくちゃハマった)
 
-*** .ensimeを作成
-ensimeを利用するには、.ensimeという設定ファイルが必要。
+*** .ensime を作成
+ensime を利用するには, .ensime という設定ファイルが必要.
 
-- [[http://d.hatena.ne.jp/masaaki1001/20121226/1356539103][ensimeの設定方法 - masaaki1001の日記]]
-- [[http://d.hatena.ne.jp/lranran123/20130409/1365515128][EmacsでのScala開発にはEnsimeというプラグインらしい -q 趣味プログラマがまれになんかしたことの記録]]
+- [[http://d.hatena.ne.jp/masaaki1001/20121226/1356539103][ensime の設定方法 - masaaki1001 の日記]]
+- [[http://d.hatena.ne.jp/lranran123/20130409/1365515128][Emacs での Scala 開発には Ensime というプラグインらしい -q 趣味プログラマがまれになんかしたことの記録]]
 - https://github.com/ensime/ensime-sbt-cmd
 
-上記を参考に~/.sbt/plugins/plugins.sbtを作成し、以下を記入。
-VERSIONは環境にあわせて変更。ここでは、0.1.1
+上記を参考に~/.sbt/plugins/plugins.sbt を作成し, 以下を記入.
 
 #+begin_src language
-addSbtPlugin("org.ensime" % "ensime-sbt-cmd" % "0.1.1")
+resolvers += Resolver.sonatypeRepo ("snapshots")
+
+addSbtPlugin ("org.ensime" % "ensime-sbt" % "0.1.5-SNAPSHOT")
 #+end_src
 
 M-x ensime-config-gen 
-というコマンドでも対話的に設定ファイルが作成できるらしい。
+というコマンドでも対話的に設定ファイルが作成できるらしい.
 
-Hello.scalaを開いたディレクトリで以下を実行。
+Hello.scala を開いたディレクトリで以下を実行.
 
 #+begin_src language
 sbt "ensime generate"
 #+end_src
 
-*** emsime実行
-これで、.ensimeが生成される。
+*** emsime 実行
+これで, .ensime が生成される.
 
-Emacs上で M-x ensimeを実行。先ほど生成した.ensimeの場所を教える。
+Emacs 上で M-x ensime を実行. 先ほど生成した.ensime の場所を教える.
 
-今日はこんなところで。逐次、追記予定。
+今日はこんなところで. 逐次, 追記予定.
 
 * Special Thanks
 - [[https://hirooka.pro/?p=1611][Scala 2.10.1 | hirooka.pro]]
-- [[http://tototoshi.hatenablog.com/entry/20100925/1285420294][EmacsでつくるScala開発環境 前編(scala-mode) - tototoshi の日記]]
-- [[http://tototoshi.hatenablog.com/entry/20100927/1285595939][EmacsでつくるScala開発環境 後編(ENSIME) - tototoshi の日記]]
+- [[http://tototoshi.hatenablog.com/entry/20100925/1285420294][Emacs でつくる Scala 開発環境 前編 (scala-mode) - tototoshi の日記]]
+- [[http://tototoshi.hatenablog.com/entry/20100927/1285595939][Emacs でつくる Scala 開発環境 後編 (ENSIME) - tototoshi の日記]]
 - [[http://tototoshi.hatenablog.com/entry/20101101/1288623548][Scala + Emacs + ctags - tototoshi の日記]]
-- [[http://sleepboy-zzz.blogspot.jp/2013/10/emacsscala.html][memo: EmacsでのScala用の設定を公開してみる]]
-- [[http://d.hatena.ne.jp/lranran123/20130409/1365515128][EmacsでのScala開発にはEnsimeというプラグインらしい - 趣味プログラマがまれになんかしたことの記録]]
-- [[http://d.hatena.ne.jp/papamitra/20100817/ensime][ensimeで補完生活 - papamitra]]
+- [[http://sleepboy-zzz.blogspot.jp/2013/10/emacsscala.html][memo: Emacs での Scala 用の設定を公開してみる]]
+- [[http://d.hatena.ne.jp/lranran123/20130409/1365515128][Emacs での Scala 開発には Ensime というプラグインらしい - 趣味プログラマがまれになんかしたことの記録]]
+- [[http://d.hatena.ne.jp/papamitra/20100817/ensime][ensime で補完生活 - papamitra]]
 
 Emacs Scala Youtube Video Tutorials
 - [[http://jglobal.com/emacs-power-for-scala-development-setting-up/][Emacs Power for Scala Development: Setting Up - JGlobal Limited]]
 - [[https://www.youtube.com/channel/UCPNbOY0HKvilrk6XucqiwYw][Michael Nash - YouTube]]
 
-
 * 追記 2014-06-21
-sbt-modeというものもある。
+sbt-mode というものもある.
 
 - https://github.com/hvesalai/sbt-mode
 
-機能的にはensimeとおなじようなことができるし、
-ensimeファイルを作成しなくてもいいので導入が楽。
+機能的には ensime とおなじようなことができるし,
+ensime ファイルを作成しなくてもいいので導入が楽.
 
-ensimeよりよいところは、M-x sbt-send-regionで 
-Scala REPLにリージョンを送信することができるところ。これは便利そう。
+ensime よりよいところは, M-x sbt-send-region で 
+Scala REPL にリージョンを送信することができるところ. これは便利そう.
 
-また、replをautoloadする方法もあるようだ。
+また, repl を autoload する方法もあるようだ.
 
 - [[https://github.com/ensime/ensime-src/issues/149][Auto reload classes in the Scala REPL on recompilation · Issue #149 · ensime/ensime-src]]

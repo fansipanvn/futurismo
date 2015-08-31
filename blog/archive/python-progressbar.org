@@ -1,0 +1,81 @@
+#+BLOG: Futurismo
+#+POSTID: 4384
+#+DATE: [2015-07-18 土 20:30]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Python
+#+TAGS:
+#+DESCRIPTION: Python3で進捗表示するライブラリ progress2
+#+TITLE: Python3で進捗表示するライブラリ progressbar2
+
+アプリをつくりながらPythonを勉強中. 
+
+今日は、Queueから一つずつオブジェクトを取り出して処理するときに、
+進捗表示ができたらいいなと思い、そういうライブラリを探してみた。
+
+progressbarというライブラリができそうなのだが、python3では動かなかった.
+
+困っていたら、以下を見つけた. Python3で動作することを確認.
+- https://github.com/WoLpH/python-progressbar
+- http://pythonhosted.org/progressbar2/
+
+* インストール
+  pipでインストール.
+
+#+begin_src bash
+$ sudo pip install progressbar2
+#+end_src
+
+* 使い方
+  Exampleページを参考にいくつか試す.
+   - http://pythonhosted.org/progressbar2/examples.html
+
+** 基本の使い方
+
+#+begin_src python
+from progressbar import ProgressBar 
+import time
+
+p = ProgressBar(100)
+
+for i in range(100):
+    p.update(i+1)
+    time.sleep(0.01)
+#+end_src
+
+#+begin_src text
+100% (100 of 100) |###############################| Elapsed Time: 0:00:01 ETA:  0:00::0 
+#+end_src
+
+** Queueサイズ分の進捗表示
+
+#+begin_src python
+from progressbar import ProgressBar
+import queue
+
+q = queue.Queue()
+
+for i in range(12345):
+    q.put(i)
+
+p = ProgressBar(q.qsize()).start()
+
+for i in range(q.qsize()):
+    q.get()
+    p.update(i)
+
+p.finish()
+#+end_src
+
+#+begin_src text
+100% (12345 of 12345) |###########################| Elapsed Time: 0:00:00 Time: 0:00:00
+#+end_src
+
+* おわりに
+  自分で車輪の再発明をする前に、
+  ネットでOSSが転がっていないか探すことが大事だと実感. 
+
+  ほしいものは、大抵おちてる、それがオープンソースの世界.
+   
+   #+BEGIN_HTML
+   <p style="font-size:32px">以上、Happy Hacking!!</p>
+   #+END_HTML

@@ -1,0 +1,8 @@
+* 学習メモ
+** Replacing Functinal Interface
+   関数インタフェースの置き換え.無名関数を利用する.
+   とくに、Javaだと無名クラスで書いていた Runnable, Comparatorを置き換え.
+   
+** Replacing State-Carrying Functional Interface
+   状態をもつ関数インタフェースの置き換え.クロージャーを利用する.
+   

@@ -1,0 +1,115 @@
+#+BLOG: Futurismo
+#+POSTID: 4287
+#+DATE: [2015-07-06 月 22:23]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: つくってみた
+#+TAGS:
+#+DESCRIPTION: 夢の寝室環境システムを自作しました!!
+#+TITLE: 夢の寝室環境システムを自作しました!!
+
+以前、このブログとは別のブログを持っていたのだが、久しぶりに見たら消滅していた。。
+
+どうしても救済したい内容があったので、このブログに記事を転載しておく.
+
+以下、転載. 約3年前のお話なので、今はまったく存在しません...
+
+* 転載内容: 夢の寝室環境システム
+
+今日は自分の作った現段階での寝室環境システムを紹介します。
+
+#+BEGIN_HTML
+<iframe width="420" height="315" src="https://www.youtube.com/embed/1niPaxkuOiA?rel=0" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+ 
+* 就寝編
+  以下のような流れで眠りにつきます。
+ 
+-  光目覚ましをSleepモードで消す
+-  アロマディフューザーでラベンダーの香りをスリープモードでかける
+-  究極の眠れるCDを流す
+-  間接照明で青く部屋をライトアップ
+-  30分後に、電気を消す
+-  1時間後に音楽停止して、パソコンをスリープモードにする
+
+** 光目覚ましをSleepモードで消す
+   まずは、光目覚ましを使って次第に部屋を暗くしていきます。
+
+** アロマディフューザーでラベンダーの香りをスリープモードでかける
+   心地良い睡眠のためにはアロマは欠かせません。
+   睡眠タイマー機能付きのアロマディフューザーを使います。
+   無印のアロマディフューザーがコストパフォーマンスがよいと思います。
+
+   ラベンダーが好きなので、ラベンダーの匂いを使います。
+
+** 究極の眠れるCDを流す
+   睡眠用の癒しの音楽を聞きながら寝ます。
+   睡眠用の音楽はいろいろと試しましたが、これが一番好きです。
+
+#+BEGIN_HTML
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E7%A9%B6%E6%A5%B5%E3%81%AE%E7%9C%A0%E3%82%8C%E3%82%8BCD-%E3%83%A1%E3%83%B3%E3%82%BF%E3%83%AB%E3%83%BB%E3%83%95%E3%82%A3%E3%82%B8%E3%83%83%E3%82%AF%E3%83%BB%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/dp/B00006AM09%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00006AM09' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/51Whx38xaLL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:158; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E7%A9%B6%E6%A5%B5%E3%81%AE%E7%9C%A0%E3%82%8C%E3%82%8BCD-%E3%83%A1%E3%83%B3%E3%82%BF%E3%83%AB%E3%83%BB%E3%83%95%E3%82%A3%E3%82%B8%E3%83%83%E3%82%AF%E3%83%BB%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/dp/B00006AM09%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00006AM09' rel='nofollow' target='_blank'>究極の眠れるCD</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 15.07.06</div><div class='amazlink-detail'>Della<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E7%A9%B6%E6%A5%B5%E3%81%AE%E7%9C%A0%E3%82%8C%E3%82%8BCD-%E3%83%A1%E3%83%B3%E3%82%BF%E3%83%AB%E3%83%BB%E3%83%95%E3%82%A3%E3%82%B8%E3%83%83%E3%82%AF%E3%83%BB%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/dp/B00006AM09%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00006AM09' rel='nofollow' target='_blank'>Amazon</a></div></div></div></div></div>
+#+END_HTML
+
+** 間接照明で青く部屋をライトアップ
+
+   光目覚ましとは別に、間接照明を利用して青く部屋を照らします。
+   いろんな色に光るLED間接照明を利用します。
+
+   間接照明と合わせると、太陽が沈んでいくような雰囲気となり気に入っています。
+
+** 30分後に電気を消す
+   ここまでは単体の快眠グッズを利用しているだけで、
+   システムっぽくないですが、ここからシステムっぽくなります。
+
+   リモコン操作できる間接照明を利用して, 
+   指定時刻になったら間接照明を完全に落とします。
+
+   リモコンを自由に制御できる機械『iRemocon』を利用します。
+
+#+BEGIN_HTML
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/iRemocon-WiFi-%E3%82%A2%E3%82%A4%E3%83%AA%E3%83%A2%E3%82%B3%E3%83%B3%E3%83%AF%E3%82%A4%E3%83%95%E3%82%A1%E3%82%A4-%E3%80%90%E5%A4%96%E5%87%BA%E5%85%88%E3%81%8B%E3%82%89%E3%80%81%E8%87%AA%E5%AE%85%E3%81%AE%E5%AE%B6%E9%9B%BB%E3%82%92%E6%93%8D%E4%BD%9C%EF%BC%81%E5%BF%AB%E9%81%A9%E3%82%BB%E3%83%B3%E3%82%B5%E3%83%BC%E3%81%A7%E3%81%8A%E9%83%A8%E5%B1%8B%E3%81%AE%E7%8A%B6%E6%B3%81%E3%82%82%E7%A2%BA%E8%AA%8D%E3%81%A7%E3%81%8D%E3%82%8B%E5%AD%A6%E7%BF%92%E3%83%AA%E3%83%A2%E3%82%B3%E3%83%B3%E3%81%AE%E6%B1%BA%E5%AE%9A%E7%89%88-IRM-03WLA/dp/B00PQF5D6U%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00PQF5D6U' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/31Jlw-zZPBL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:111; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/iRemocon-WiFi-%E3%82%A2%E3%82%A4%E3%83%AA%E3%83%A2%E3%82%B3%E3%83%B3%E3%83%AF%E3%82%A4%E3%83%95%E3%82%A1%E3%82%A4-%E3%80%90%E5%A4%96%E5%87%BA%E5%85%88%E3%81%8B%E3%82%89%E3%80%81%E8%87%AA%E5%AE%85%E3%81%AE%E5%AE%B6%E9%9B%BB%E3%82%92%E6%93%8D%E4%BD%9C%EF%BC%81%E5%BF%AB%E9%81%A9%E3%82%BB%E3%83%B3%E3%82%B5%E3%83%BC%E3%81%A7%E3%81%8A%E9%83%A8%E5%B1%8B%E3%81%AE%E7%8A%B6%E6%B3%81%E3%82%82%E7%A2%BA%E8%AA%8D%E3%81%A7%E3%81%8D%E3%82%8B%E5%AD%A6%E7%BF%92%E3%83%AA%E3%83%A2%E3%82%B3%E3%83%B3%E3%81%AE%E6%B1%BA%E5%AE%9A%E7%89%88-IRM-03WLA/dp/B00PQF5D6U%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00PQF5D6U' rel='nofollow' target='_blank'>iRemocon WiFi(アイリモコンワイファイ) 【外出先から、自宅の家電を操作！快適センサーでお部屋の状況も確認できる学習リモコンの決定版! 】 IRM-03WLA</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 15.07.06</div><div class='amazlink-detail'>Glamo<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/iRemocon-WiFi-%E3%82%A2%E3%82%A4%E3%83%AA%E3%83%A2%E3%82%B3%E3%83%B3%E3%83%AF%E3%82%A4%E3%83%95%E3%82%A1%E3%82%A4-%E3%80%90%E5%A4%96%E5%87%BA%E5%85%88%E3%81%8B%E3%82%89%E3%80%81%E8%87%AA%E5%AE%85%E3%81%AE%E5%AE%B6%E9%9B%BB%E3%82%92%E6%93%8D%E4%BD%9C%EF%BC%81%E5%BF%AB%E9%81%A9%E3%82%BB%E3%83%B3%E3%82%B5%E3%83%BC%E3%81%A7%E3%81%8A%E9%83%A8%E5%B1%8B%E3%81%AE%E7%8A%B6%E6%B3%81%E3%82%82%E7%A2%BA%E8%AA%8D%E3%81%A7%E3%81%8D%E3%82%8B%E5%AD%A6%E7%BF%92%E3%83%AA%E3%83%A2%E3%82%B3%E3%83%B3%E3%81%AE%E6%B1%BA%E5%AE%9A%E7%89%88-IRM-03WLA/dp/B00PQF5D6U%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00PQF5D6U' rel='nofollow' target='_blank'>Amazon</a></div></div></div></div></div>
+#+END_HTML
+
+   間接照明に対して、パソコンで時間を計測していて30分たったところで、
+   パソコンからiRemoconに間接照明を消すように信号を送り、iRemoconから消します。
+
+** 1時間後に音楽停止して、パソコンをスリープモードにする
+   最後に、パソコンをスリープモードにします。
+   利用するのは、フリーソフトの『WakeMeUp!!』です。
+
+   - [[http://www.vector.co.jp/soft/winnt/personal/se369250.html][WakeMeUp!!の詳細情報 : Vector ソフトを探す！]]
+
+* 起床編
+  起床編は、就寝編の逆の手順で目覚めていきます。以下のような流れです。
+
+  -  起床15分前に、エアコンとアロマ起動
+  -  光目覚ましで少しずつ明るくなる
+  -  起床時間になると、電気がつき、音楽が流れる。
+
+** 起床15分前に、エアコンとアロマ起動
+   iRemoconを利用することで、エアコンとアロマを事前に起動しておきます。
+
+   アロマディフューザーはリモコン制御できるちょっと高めのやつを使っています。
+   起床用と就寝用でアロマディフューザーを分けて使ってます。
+ 
+** 光目覚ましで少しずつ明るくなる
+   寝る前に仕掛けた光目覚ましによって、部屋が次第に明るくなっていきます。
+   起床時間になると、電気がつき、音楽が流れる
+   
+   パソコンのWakeMeUp!!によって、起床時間になると起床用のプログラムが実行されます。
+   - [[http://www.vector.co.jp/soft/winnt/personal/se369250.html][WakeMeUp!!の詳細情報 : Vector ソフトを探す！]]
+
+   これによって、部屋の天井灯がつき、Youtubeから音楽が流れます。
+   音楽は次第にボリュームを上げていって、最後にはボリュームマックスでうるさくなります。
+
+* まとめ
+  自動化したからといって、全く寝坊がなくなったわけではないです。（汗）
+  
+  心地良い睡眠を得るには、心理的な部分もおおく働いているとおもいます。
+  
+  睡眠グッズはお金さえ払えば頑張らなくても効果があるという点がいいですね。
+  
+  メンタル面との合わせ技で頑張っていこうと思います。
+   
+   #+BEGIN_HTML
+   <p style="font-size:32px">以上、Happy Hacking!!</p>
+   #+END_HTML

@@ -1,0 +1,85 @@
+#+BLOG: Futurismo
+#+POSTID: 3116
+#+DATE: [2015-04-16 木 01:20]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS:
+#+DESCRIPTION: wakatime の紹介.
+#+TITLE: Emacs で自動ライフログできる! プログラマのためのタイムトラッキング WEB サービス Wakatime がスゴい
+
+#+BEGIN_HTML
+<img alt="" src="http://futurismo.biz/wp-content/uploads/emacs_logo.jpg"/>
+#+END_HTML
+
+* はじめに
+  最近, ほとんどの時間を Emacs の中で過ごす.
+  Emacs で実施している作業を, Wakatime をつかうと自動で記録することができる.
+  
+  これを, つかって一日の行動を自動でライフログしたお話.
+
+  [toc]
+
+* Wakatime とは
+  Wakatime とは, プログラマのためのタイムトラッキング Web サービス.
+  - https://wakatime.com/
+  
+  エディタ上での作業を自動で記録, 分析して, おしゃれに可視化してくれる.
+  
+  さまざまなエディタのプラグインが用意されている.
+
+* Emacs 連携
+  Emacs のための Elisp はこちら.
+  - https://wakatime.com/help/plugins/emacs
+  - https://github.com/wakatime/wakatime-mode
+ 
+  基本設定.
+
+#+begin_src emacs-lisp
+(require 'wakatime-mode)
+  (global-wakatime-mode)
+
+(defun browse-wakatime ()
+  (interactive)
+  (browse-url "https://wakatime.com/dashboard"))
+#+end_src
+
+* スナップショット
+  ダッシュポード. 
+
+   [[file:./../img/2015-04-16-011133_1160x627_scrot.png]]
+
+  自分がどのプロジェクトに関わっていたかが, リポジトリごとに表示される.
+  私は, あらゆるテキストファイルをなるべく git で管理しようと心がけてい
+  るので, Emacs で作業するいろいろなものが各プロジェクトごとに記録され
+  る.
+
+  file:./../img/2015-04-16-011145_1131x453_scrot.png
+
+  一日のタイムライン. 自分が何時になにををしていたかが,
+  分かってしまう.
+
+  [[file:./../img/2015-04-16-011538_656x354_scrot.png]]
+
+* org-clock と併用することにする
+  今まで, タイムトラッキングには幾度と挑戦してきた. 
+  org-clock や  toggl を試したが, 結局挫折してしまった. 
+
+  その理由は, *計測し忘れ* にあった.
+
+  この wakatime が気に入った点は, 自分では計測を意識しないということだ.
+  自動で, 記録してくれるところがありがたい.
+
+  ただし, 最大の欠点は, 無料版は昨日制限されているところ.
+  優良だと 1 ヶ月 1000 円程度かかるので, さすがにこんなお金は出せない.
+
+  そこで, org-clock での時間トラッキングと併用しようと考えた.
+  計測し忘れがないかどうかを一日の終わりに, wakatime をつかってチェックする.
+
+  このことによって, 一日の成果を確認するともに, 計測しわすれをチェックできる.
+  
+
+  
+
+# ./../img/2015-04-16-011133_1160x627_scrot.png http://futurismo.biz/wp-content/uploads/wpid-2015-04-16-011133_1160x627_scrot.png
+# ./../img/2015-04-16-011145_1131x453_scrot.png http://futurismo.biz/wp-content/uploads/wpid-2015-04-16-011145_1131x453_scrot.png
+# ./../img/2015-04-16-011538_656x354_scrot.png http://futurismo.biz/wp-content/uploads/wpid-2015-04-16-011538_656x354_scrot.png

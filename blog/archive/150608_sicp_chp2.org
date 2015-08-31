@@ -1,0 +1,115 @@
+#+BLOG: Futurismo
+#+POSTID: 4097
+#+DATE: [2015-06-08 月 22:06]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Elisp, 日記
+#+TAGS: SICP
+#+DESCRIPTION: SICP 第 2 章 データによる抽象の構築を読んだ
+#+TITLE: SICP 第 2 章 データによる抽象の構築を読んだ
+
+SICP 第 2 章を読み終わった?のでなんか書きます.
+
+* 感想
+  第 1 章を読み終わってから 3 ヶ月が経っていた...
+  - [[http://futurismo.biz/archives/3026][SICP 手続きによる抽象の構築を読んだ | Futurismo]]
+
+  実は一旦挫折した. 問題が難しくて解けないからだ.
+  しかし、ある時発想を変えて、とにかく写経しながら進めようと思った.
+
+  問題は解けないけれども、分からないわけではないので、理解できる範囲で頑張ろうと思った.
+  すると、一旦は折れた心も再び立ち上がることができて、先に進めるようになった.
+
+  あと、ところどころ本流に関係なさそうな部分は飛ばしながら読んだ. ズル読み.
+
+  あと、Emacs lisp で問題をといていたが、途中で Scheme に変更した.
+  ときどき、動かないプログラムがでてくるので.
+
+* 要点
+** データ抽象・抽象の壁
+   constructor(構成子), selector(選択子) によって、どう使うかに関するプログラムの
+   *抽象の壁* を構築し、抽象レイヤを構築する.
+
+   これを、Data Abstruction(データ抽象) という.
+
+   データオブジェクトをどう表現するかに関するプログラムの部分を、
+   データオブジェクトをどう使うかに関するプログラムから隔離する.
+
+   データによるレイヤー構造を構築することで, 
+   複雑なシステムをうまく構築することができる.
+
+   - ある場所での変更を局所的なレイヤの変更に封じこめることができる
+   - 実装方法（どう表現するか）を自由に入れ替えることができる.
+
+*** 例
+    有理数の構成子 make-rat と 選択子 numer, denum を利用することで、
+    有理数の演算を定義できる.
+
+ #+begin_src emacs-lisp
+;; --------------------------------------
+(defun cons (x y) ...)
+(defun car (x) ...)
+(defun cdr (x) ...)
+;; --------------------------------------
+(defun make-rat (n d) (cons n d))
+(defun numer (x) (car x))
+(defun denum (x) (cdr x))
+;; --------------------------------------
+;; このレイヤは car cdr cons は意識しなくていい
+;; numer,denum がどう実装されていても気にしない.
+(defun add-rat (x y)
+  (make-rat (+ (* (numer x) (denom y)
+                  (numer y) (denom x)))
+            (* (denum x) (denum y))))
+;; --------------------------------------
+ #+end_src
+
+*** 所感
+   カプセル化との違いが分からない. 状態を持たないということだろうか？
+ 
+   - [[http://d.hatena.ne.jp/thata/20050114/p4][抽象データ型とカプセル化と情報隠蔽と - ちくわプログラマにっき]]
+   - [[http://bleis-tift.hatenablog.com/entry/20090201/1233426011][カプセル化、情報隠蔽、データ隠蔽 - ぐるぐる～]]
+   - [[http://futurismo.biz/archives/2730][データ抽象と抽象データ型 (ADT) について調べたまとめ (Java) | Futurismo]]
+
+** 公認インタフェース　
+   並びを操作するための手続き. 
+   - map
+   - filter
+   - accumulate
+   - flatmap
+
+   公認インタフェースを組み合わせることで、リストを自由に操作できる.
+
+   いろいろなブログをみると、ここで Lisp に目覚めるひとがおおいとか?!
+
+*** 所感
+    unix のパイプラインと似ている. 
+    部品を組み合わせることことよって、データを処理する.
+
+    こういう処理を自由自在にかけるようになりたい!
+    
+#+begin_src text
+cat file.txt | sort | cut ....
+#+end_src
+
+*** 実装例
+
+ #+begin_src emacs-lisp
+(defun accumulate (op initial sequence)
+  (if (null sequence)
+      initial
+      (funcall op (car sequence)
+               (accumulate op initial (cdr sequence)))))
+
+(defun map (p seq)
+  (accumulate (lambda (x y) (cons (funcall p x) y))
+              nil
+              seq))
+
+(defun filter (predicate sequence)
+  (cond ((null sequence) nil)
+        ((funcall predicate (car sequence))
+         (cons (car sequence)
+               (filter predicate (cdr sequence))))
+        (t (filter predicate  (cdr sequence)))))
+ #+end_src
+

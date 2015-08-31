@@ -143,13 +143,13 @@
    wikipedia, なにいっているかわからない.
    - [[http://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%8A%E3%83%89_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0)][モナド (プログラミング) - Wikipedia]] 
 
-   以下のような問題は, という概念で説明できるらしいが, 結局よくわからない.
+   以下のような問題は, モナドという概念で説明できるらしい.
    - 入出力等をもたらすプログラム
    - 例外を返すプログラム
    - 引数に対して値を返さない (停止しない) プログラム
    - 同じ引数でも返り値が異なる可能性のあるプログラム
 
-   値およびその値を使う計算の並びという観点からいえば, 計算を構造化 する方法
+   値およびその値を使う計算の並びという観点からいえば, 計算を構造化 する方法.
    - [[http://www.sampou.org/haskell/a-a-monads/html/introduction.html][Introduction]]
 
    -> 詳細は Haskell の章に移動.
@@ -495,12 +495,12 @@ end
 * Functinal Reactive Programming
    ある変化に応じて動作する, イベント駆動のプログラミング方法.
 
-   Reactive Programmig には, 2 つの種類があるように思う.
+   Reactive Programmig には, 2 つの種類があるそうだ.(浅海さんのプレゼンから)
    - Actor Model
    - Monadic Model
 
   以下の記事がわかりやすい.
-   - [[http://qiita.com/hirokidaichi/items/9c1d862099c2e12f5b0f][2015 年に備えて知っておきたいリアクティブアーキテクチャの潮流 - Qiita]]
+   - [[http://postd.cc/what-is-functional-reactive-programming/][Q. (関数型) リアクティブプログラミングとは何ですか? | POSTD]]
    - [[http://ninjinkun.hatenablog.com/entry/introrxja][【翻訳】あなたが求めていたリアクティブプログラミング入門 - ninjinkun's diary]]
 
 #+begin_quote
@@ -508,9 +508,51 @@ GUI, インフラ, ビッグデータ処理など様々な場面で浸透しつ�
 今までは複雑すぎて作ることが難しかったアプリケーションが簡単に
 設計できるようになっていくでしょう.
 #+end_quote
+
+  時間とともに変化する"値を表すデータ型.
+
+  FRP は非同期データストリームを用いるプログラミングである 
+  ( FRP is programming with asynchronous data streams)
+
+  coursera のコース
+  - [[https://www.coursera.org/course/reactive][Principles of Reactive Programming | Coursera]]
+
+** シグナル
+   シグナルとは, 時間とともに変化する値. 
+   このシグナルを扱ってイベントを処理する方法.
+
+   シグナルには以下の面倒をみる責務がある.
+   - 現在の値
+   - 現在の値に対応する評価
+   - その値に依存する他のシグナル (Observers)
   
+** リアクティブ性
+  [[http://qiita.com/hirokidaichi/items/9c1d862099c2e12f5b0f][2015 年に備えて知っておきたいリアクティブアーキテクチャの潮流 - Qiita]]
+
+  リアクティブと一言で言った時に, 現状では 2 つの含意があります.
+  - アーキテクチャの各要素をメッセージ駆動でつなげ, 
+    反応的に変化させること.
+  - メッセージの送受信を隠蔽し値同士の関係 (data-flow) を
+    宣言的 (関数型的) に記述するプログラミングパラダイム
+
+  変数 a, b について, 以下のように情報を更新したとき,
+  1. a = 3
+  2. b = 2 + a
+  3. a = 1
+
+  最終的には, a = 1, b = 3 になるようにする.
+  手順 3 で, a の更新に対して b も更新されるところがリアクティブ.
+
+*** リアクティブ宣言
   リアクティブ宣言なんという, かっこいい文章も存在する.
   - [[http://www.reactivemanifesto.org/jp][リアクティブ宣言]]
+  - [[http://kimitok.hateblo.jp/entry/2014/01/20/220438][The Reactive Manifesto 日本語訳 - 自由課題]]
+
+  4 つの原則がある
+  - Responsive:即時応答する
+  - Elastic:伸縮自在である
+  - Message Driven:メッセージ駆動である
+  - Resilient:回復力がある
 
 * Object-Functional Programming (OFP)
   オブジェクト指向のパラダイムと関数型のパラダイムの両方を利用して
@@ -644,7 +686,6 @@ last (_ : xs) = last xs
 *** Future values
 *** Functor
 *** Nesting
-
 ** Applicative laws
 
 ** Monoid laws
