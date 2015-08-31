@@ -1,0 +1,80 @@
+#+BLOG: Futurismo
+#+POSTID: 3441
+#+DATE: [2015-04-23 木 13:17]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: 
+#+DESCRIPTION:mps-youtube でコマンドラインから Youtube の音楽を聴く
+#+TITLE:  コッソリ音楽を楽しむならこれ! mps-youtube でコマンドラインから Youtube の音楽を聴く
+
+[[file:./../img/SnapCrab_Cwindowssystem32cmdexe - mpsyt_2015-4-23_13-13-30_No-00.png]]
+
+* はじめに
+  音楽をききながら作業をすると, 生産性が上がる.
+
+  しかし, 職場で Youtube をどうどうと見ながら仕事をするは気が引ける.
+
+  そんなときに, コマンドラインから Youtube の聞くことができる
+  =mps-youtube= をつかうと便利だ.
+
+  #+BEGIN_HTML
+  <div data-theme="default" data-height="155" data-width="500" data-github="np1/mps-youtube" class="github-card"></div>
+  <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+  #+END_HTML
+
+  [toc]
+  
+* メリット
+  以下の点かいい.
+
+  - コマンドラインツール.
+  - python でかかれているため, Windows, Mac, Linux どこでも動く.
+  - 広告なしで聞ける.
+  - repeat 再生が簡単 (repeat keyword 指定)
+  - 複数の音楽をまとめてきくのが簡単 (数字指定)
+  - かくれながらこっそり利用できる.
+
+  広告をみなくていいところが素晴らしい.
+
+* つかいかた
+** Install (Windows)
+  Windows 環境へインストールする. 
+
+  python のツール pip を利用してインストール.
+
+  python がない場合は, 以下からインストール.
+  - https://www.python.org/downloads/windows/
+    
+  ここでは, Python 3.4 をインストール. C:\Python34 にインストールされる.
+  インストールしたら, C:\Python34\Scripts に環境変数パスを通す.
+
+  以下を実行すると, C:\Python34\Scripts\mpsyt.exe がインストールされる.
+
+  #+begin_src bash
+  $ pip install mps-youtube
+  #+end_src
+
+** 使い方
+  コマンドプロンプトから, =mpsyt= をたたいて起動.
+
+  =/ (keyword)= で キーワード検索する. 検索結果がリストされるので, 
+  番号を指定して音楽を指定
+
+  [[file:./../img/SnapCrab_Cwindowssystem32cmdexe - mpsyt_2015-4-23_13-3-10_No-00.png]]
+
+** 文字コード指定
+  日本語の検索結果を表示しようとすると, エラーする.
+  コマンドプロンプトの文字コードを UTF-8 にする.
+
+  #+begin_src bash
+  chcp 65001
+  #+end_src
+
+以上, Happy Listening!!.  
+
+# ./../img/SnapCrab_Cwindowssystem32cmdexe -
+# mpsyt_2015-4-23_13-13-30_No-00.png
+# http://futurismo.biz/wp-content/uploads/wpid-SnapCrab_Cwindowssystem32cmdexe-mpsyt_2015-4-23_13-13-30_No-00.png
+# ./../img/SnapCrab_Cwindowssystem32cmdexe - mpsyt_2015-4-23_13-3-10_No-00.png http://futurismo.biz/wp-content/uploads/wpid-SnapCrab_Cwindowssystem32cmdexe-mpsyt_2015-4-23_13-3-10_No-00.png
+
+# ./../img/SnapCrab_Cwindowssystem32cmdexe - mpsyt_2015-4-23_13-13-30_No-00.png http://futurismo.biz/wp-content/uploads/wpid-SnapCrab_Cwindowssystem32cmdexe-mpsyt_2015-4-23_13-13-30_No-001.png
