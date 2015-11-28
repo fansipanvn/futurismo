@@ -1,0 +1,91 @@
+#+BLOG: Futurismo
+#+POSTID: 4010
+#+DATE: [2015-05-28 木 08:23]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Language
+#+TAGS:  MQL, Hello World
+#+DESCRIPTION:
+#+TITLE: MQL4で Hello World
+
+システムトレードに興味を持ったので、
+シミュレーションをするための言語MQLを触ってみました.
+
+* MQL4とは
+  MQLとは、MetaTrader上で プログラミングをするための専用言語. 
+  文法は，C言語に近いという.
+  
+  - 公式: [[http://docs.mql4.com/index][MQL4 Reference - MQL4 Documentation]]
+  - 日本語:  [[http://www.metasys-seeker.net/MQL4_Reference_ver1/MQL4_Reference_Contents.html][MQL言語リファレンス日本語翻訳マニュアル｜メタトレーダーMQLプログラミング自動売買システム作成サイト メタシス・シーカー]]
+
+* 環境の準備
+  利用するためには、MetaTraderをインストールする必要がある.
+  例えば以下を参考にインストール. 検索すると、たくさんのアフィリサイトが引っかかりる.
+  
+  - [[http://zai.diamond.jp/articles/-/125971][１章�隠押〆�すぐＭＴ４をインストールしてみよう！｜ザイFX！が作ったメタトレーダー（MT4）入門 - ザイFX！×メタトレーダー（MT4）]]
+
+  windows 8.1にインストール(Linuxへのインストールは文字化けしたので諦め)
+
+* Hello World
+  以下のページそのままなのだけれども、Hello Wolldをやってみる.
+  - [[http://autofx100.com/2014/07/21/152907/][MQL4プログラミングの扉を開けよう | FX自動売買システム開発部]]
+
+  新規作成 > エキストパートアドバイザ  あとは、ナビにしたがってコードを生成.
+
+  OnTick() 関数のなかに以下を追加.
+
+#+BEGIN_SRC c
+Print("Hello, World");
+#+END_SRC
+
+  全体のコードは以下.
+   
+#+begin_src c   Print("Hello, World");
+//+------------------------------------------------------------------+
+//|                                                  Hello World.mq4 |
+//|                        Copyright 2015, MetaQuotes Software Corp. |
+//|                                             https://www.mql5.com |
+//+------------------------------------------------------------------+
+#property copyright "Copyright 2015, MetaQuotes Software Corp."
+#property link      "https://www.mql5.com"
+#property version   "1.00"
+#property strict
+//+------------------------------------------------------------------+
+//| Expert initialization function                                   |
+//+------------------------------------------------------------------+
+int OnInit()
+  {
+//---
+   
+//---
+   return(INIT_SUCCEEDED);
+  }
+//+------------------------------------------------------------------+
+//| Expert deinitialization function                                 |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+  {
+//---
+   
+  }
+//+------------------------------------------------------------------+
+//| Expert tick function                                             |
+//+------------------------------------------------------------------+
+void OnTick()
+  {
+//---
+   Print("Hello, World");
+   
+  }
+//+------------------------------------------------------------------+
+#+end_src
+
+コンパイルボタンをおして、再生ボタンを押すと、
+Hello, Worldとかかれたポップアップがでてくる.
+
+* おわりに
+この記事に触発されました...
+ - [[http://uxlayman.hatenablog.com/entry/2014/09/04/071120][プログラミングでマネタイズしたいならシステムトレードどうよ？ - UXエンジニアになりたい人のブログ]]
+
+これから頑張ります. 新しい趣味になればいいな. 今回の記事で終わりになりませんように.
+
+

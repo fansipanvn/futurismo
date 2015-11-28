@@ -1,0 +1,63 @@
+#+BLOG: Futurismo
+#+POSTID: 3605
+#+DATE: [2015-05-02 土 19:29]
+#+OPTIONS: toc:nil num:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: org-mode
+#+DESCRIPTION: Emacs org-mode でPowerPoint資料を作成してみる(beamer)
+#+TITLE: Emacs org-mode でPowerPoint資料を作成してみる(beamer)(失敗)
+
+[[file:./../img/document-428332_640.jpg]]
+
+前回の続きです.
+- [[http://futurismo.biz/archives/3601][Emacs org-mode でPowerPoint資料を作成してみる(ODT経由)(失敗) | Futurismo]]
+
+前回は、ODT経由でPowerPoint資料をつくろうとして、失敗しました.
+今回は、Beamer(Latex)経由で作成してみます.
+
+結論から書くと、beamerの方法も挫折しましたが、
+もう _PowerPointに変換しなくてもbeamerでいいじゃん_ とおもってきました.
+
+* org-mode形式 -> beamer形式 -> PDF形式 -> ODP形式 -> PPT形式
+  ox-beamerパッケージを利用する. これは、org-modeにデフォルトで入っているので、
+  以下のようにrequireする.
+    
+#+begin_src emacs-lisp
+(require 'ox-beamer)
+#+end_src
+
+  実行のためには、 =pdflatex= コマンドが必要.
+  Latex環境をまるまるインストールしてしましった.
+  - [[http://did2memo.net/2014/03/06/easy-latex-install-windows-8-2014-03/][簡単LaTeXインストールWindows編（2014年7月版）]]
+
+  M-x org-beamer-export-to-pdf を実行すると、
+  beamerをPDFに変換したものを出力できる.
+
+** 文字化けについて
+   UTF-8でないと変換できなかった. 
+   また、 pdflatexコマンドだと失敗するので、
+   実行のためのコマンドをpdfplatexコマンドに変更した.
+
+#+begin_src emacs-lisp
+(setq org-latex-pdf-process
+  '("pdfplatex %f"
+    "pdfplatex %f"
+    "pdfplatex %f"))
+#+end_src
+
+* PPTへの変換
+  PDFから PPTへうまい方法が見つからない..
+
+  以下の方法がみつかったが、どうもうまくいかない.
+   - [[http://www2.hyo-med.ac.jp/~tanimura/LaTeX/pdf2odp.html][pdf2odp]]
+   - [[http://superuser.com/questions/268244/how-to-convert-pdf-to-ppt-or-odp][microsoft powerpoint - How to convert PDF to PPT or ODP? - Super User]]
+  
+* Special Thanks
+   この動画に惹かれた.
+
+#+BEGIN_HTML
+<iframe width="420" height="315" src="https://www.youtube.com/embed/Ho6nMWGtepY" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
+
+
+# ./../img/document-428332_640.jpg http://futurismo.biz/wp-content/uploads/wpid-document-428332_6401.jpg
