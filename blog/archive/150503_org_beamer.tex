@@ -1,0 +1,59 @@
+% Created 2015-05-02 土 19:07
+\documentclass[presentation]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\usetheme{default}
+\author{}
+\date{\today}
+\title{EmacsでWordやPowerPoint資料を作成してみる(beamer編)}
+\begin{document}
+
+\maketitle
+前回の続きです.
+\begin{itemize}
+\item \href{http://futurismo.biz/archives/3601}{Emacs org-mode でPowerPoint資料を作成してみる(ODT経由)(失敗) | Futurismo}
+\end{itemize}
+
+前回は、ODT経由でPowerPoint資料をつくろうとして、失敗しました.
+
+今回は、Beamer(Latex)経由で作成してみます.
+
+\begin{frame}[fragile,label=sec-1]{org-mode形式 -> beamer形式 -> PDF形式 -> ODP形式 -> PPT形式}
+ ox-beamerパッケージを利用する. これは、org-modeにデフォルトで入っているので、
+以下のようにrequireする.
+
+\begin{verbatim}
+(require 'ox-beamer)
+\end{verbatim}
+
+実行のためには、 \texttt{pdflatex} コマンドが必要.
+Latex環境をまるまるインストールしてしましった.
+\begin{itemize}
+\item \href{http://did2memo.net/2014/03/06/easy-latex-install-windows-8-2014-03/}{簡単\LaTeX{}インストールWindows編（2014年7月版）}
+\end{itemize}
+
+M-x org-beamer-export-to-pdf を実行すると、
+beamerをPDFに変換したものを出力できる.
+
+
+
+\begin{block}{Special Thanks}
+この動画に惹かれた.
+\end{block}
+\end{frame}
+% Emacs 25.0.50.1 (Org mode 8.3beta)
+\end{document}

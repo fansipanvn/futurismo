@@ -1,0 +1,116 @@
+#+BLOG: Futurismo
+#+POSTID: 4472
+#+DATE: [2015-07-31 金 15:19]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: SDN
+#+DESCRIPTION: SDNについて調べたまとめ
+#+TITLE: SDNについて調べたまとめ
+
+SDNについてしらべてみましたので、記事にまとめました.
+
+* Software Defined Network(SDN)とは
+  - Data Planeと Control Planeを分離したネットワーキングアーキテクチャ
+    + Data Plane: programmable switch
+    + Control Plane: controllers
+
+  - ネットワークの構成、機能、性能を一つの高レベルの
+    ソフトウェアでコントロールすること
+
+* SDN登場の背景
+  3つのテクノロジーによって進化が起こった！
+
+  - Central Network Control
+  - Programmable Networking
+  - Network Virturization
+
+** Central Network Controlの研究(1980~)
+    大規模な分散するルータを管理するために, 
+   「データ転送（Data Plane）」と「経路制御（Control Plane）」
+   の機能を分離するという技術、考え方が必要となった.
+
+   -> Control Planeと Data Planeの分離の考え方へ.
+
+** ネットワークのProgrammable化の登場(1990~)
+    ネットワーク研究のプロトタイプ作成のために、
+    容易に機能追加できるための柔軟で拡張性のある仕組みが必要となった.
+    - ヘッダ解析
+    - アクセスコントロール
+    - フォワーディング
+    - バッファリング、マーキング...
+
+    -> ソフトとハードの両面からアプローチが進む.
+    ソフトで実現するとパフォーマンスが遅いので、
+    いろんなプロトコルに素早く対応可能なハードウェアが必要となった.
+   
+** Network仮想化(1990~)
+     一つの物理インフラの上に論理的なネットワークトポロジを作ること。
+     このことにより、物理インフラを共有することが可能になった.
+     また、仮想化することでカスタマイズしやすくなった.
+     
+     -> サービスをインフラストラクチャから分離するという考え方へ.
+
+* SDN のメリット
+  - ネットワークデバイスの振る舞い(ポリシー)を調整しやすい.
+  - 変化に素早く対応できる.
+  - ベンダー非依存.マルチベンダを一元管理.
+  - ネットワーク機器のコモディティ化.
+  - ネットワーク機器のソフトウェア化.
+
+* SDNのアーキテクチャ
+  Control と Data Planeの分離.
+  - Control Plane(経路制御)
+    フォワーディングの振る舞いを制御するロジック
+  - Data Plane(データ転送)
+    Control Planeのロジックにしたがってデータを転送するもの
+
+  両者の分離によって...
+  -> 独立した進化と開発が可能
+  -> ソフトウェアから高次の制御が可能となる.
+
+  - NorthBound API
+    アプリケーションやオーケストレーションシステムが
+    ネットワークをプログラムするためのインタフェース
+    + ベンダー依存がなくなる
+    + Python, Rubyなどの簡単な言語が利用できる.
+
+  - SouthBound API
+    + ハードを制御する抽象インタファース
+
+#+begin_src text
+                        ---
+Controller Applications  |
+======================   |
+   NorthBound API        | Control Plane
+======================   |  
+  Controller Platform   ---
+======================   |  
+   SouthBound API        | Data Plane
+======================   |
+  OpenFlow Switches      |  
+                        ---
+#+end_src
+
+** OpenFlow
+   SDNを実現するための代表的なOSS.
+   - OpenFlow コントローラ ... 経路制御を司る
+   - OpenFlow スイッチ ... データ転送機能を司る
+   - OpenFlow プロトコル ... NorthBound API. 
+   
+** OpenStack(Neutron)
+   - ネットワークのマルチテナントを実現する.
+   - テナントごとにボリシーを適用.
+   
+* 参考リンク
+  以上の内容は、以下の講座からの抜粋です.
+  - coursera: Softwre Defined Networking
+  https://www.coursera.org/course/sdn1
+
+  Software-Defined Network（SDN）とは何か?
+  - http://www.atmarkit.co.jp/ait/articles/1304/08/news098.html
+  5分で絶対に分かるSDN
+  - http://www.atmarkit.co.jp/ait/articles/1308/02/news006.html
+  5分で絶対にわかるOpenFlow
+  - http://www.atmarkit.co.jp/ait/articles/1112/12/news117.html
+  OpenStack Neutronとは何か？
+  - http://www.atmarkit.co.jp/ait/articles/1412/08/news009.html

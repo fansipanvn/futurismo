@@ -1,0 +1,38 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: EmacsでWordやPowerPoint資料を作成してみる(beamer編)
+
+[[file:./../img/document-428332_640.jpg]]
+
+前回の続きです.
+- [[http://futurismo.biz/archives/3601][Emacs org-mode でPowerPoint資料を作成してみる(ODT経由)(失敗) | Futurismo]]
+
+前回は、ODT経由でPowerPoint資料をつくろうとして、失敗しました.
+
+今回は、Beamer(Latex)経由で作成してみます.
+
+* org-mode形式 -> beamer形式 -> PDF形式 -> ODP形式 -> PPT形式
+  ox-beamerパッケージを利用する. これは、org-modeにデフォルトで入っているので、
+  以下のようにrequireする.
+    
+#+begin_src emacs-lisp
+(require 'ox-beamer)
+#+end_src
+
+  実行のためには、 =pdflatex= コマンドが必要.
+  Latex環境をまるまるインストールしてしましった.
+  - [[http://did2memo.net/2014/03/06/easy-latex-install-windows-8-2014-03/][簡単LaTeXインストールWindows編（2014年7月版）]]
+
+  M-x org-beamer-export-to-pdf を実行すると、
+  beamerをPDFに変換したものを出力できる.
+
+  
+  
+** Special Thanks
+   この動画に惹かれた.
+
+#+BEGIN_HTML
+<iframe width="420" height="315" src="https://www.youtube.com/embed/Ho6nMWGtepY" frameborder="0" allowfullscreen></iframe>
+#+END_HTML
