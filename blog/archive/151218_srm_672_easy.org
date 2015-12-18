@@ -1,0 +1,38 @@
+#+BLOG: Futurismo
+#+POSTID: 5508
+#+DATE: [2015-12-18 金 10:46]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: アルゴリズム
+#+TAGS: TopCoder
+#+DESCRIPTION: TopCoder SRM672 Div2 Easy
+#+TITLE: TopCoder SRM672 Div2 Easy SetPartialOrder
+
+* 問題
+  Intの配列AとBが与えられる。
+
+  - 等しいなら"EQUAL"、
+  - AがBのサブセットなら"LESS"、
+  - BがAのサブセットなら"GREATER"、
+  - それ以外なら"INCOMPARABLE"と返す。
+
+* 方針
+  setを使う. サブセットは < で比較するのを始めて知った. 
+  issubset というメソッドもあるらしい.
+
+* 回答
+
+#+begin_src python
+class SetPartialOrder:
+    def compareSets(self, a, b):
+        a = set(a)
+        b = set(b)
+
+        if a == b:
+            return "EQUAL"
+        elif a < b:
+            return "LESS"
+        elif a > b:
+            return "GREATER"
+        else:
+            return "INCOMPARABLE"
+#+end_src

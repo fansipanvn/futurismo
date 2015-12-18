@@ -1,0 +1,89 @@
+#+BLOG: Futurismo
+#+POSTID: 5481
+#+DATE: [2015-12-16 水 16:12]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Python
+#+TAGS:
+#+DESCRIPTION: テーブル駆動方式
+#+TITLE: テーブル駆動方式をつかってif文やswitch文をシンプルにする
+
+Code Complete を読んでいて、テーブル駆動方式というものを知った.
+
+*条件分岐のロジックを配列やテーブルにデータをもたせ、そこからデータ取得することで処理を行う方式*
+
+入力されたキーで分岐して何か処理させたいとき、
+普通はif文やswitch文を利用するのだけれども、
+テーブル（配列)を利用すると、処理が短くかけるというテクニック.
+
+- キーが数値のときは配列をつかう
+- キーが文字のときは連想配列をつかう
+
+テーブルには値を入れてもいいし、オブジェクトや無名関数をいれてもいい.
+
+前回取り組んだ TopCoder SRM 675 Div2 Easy問題に適用してみた.
+
+* 問題
+  異なる長さの単位の変換を考える.
+  - 1 ft = 12 in
+  - 1 yd = 3 ft
+  - 1 mi = 1760 yd
+   
+  amount と fromUnit と toUnit が与えられるので、
+  toUnit の単位の amountを計算せよ！
+  
+* 普通の解き方
+  条件を全てif文で分岐して解く.
+
+#+begin_src python
+class LengthUnitCalculator:
+    def calc(self, amount, fromUnit, toUnit):
+        if fromUnit == toUnit:
+            return amount
+
+        if fromUnit == "in":
+            if toUnit == "ft":
+                return amount / 12
+            elif toUnit == "yd":
+                return amount / (12 * 3)
+            elif toUnit == "mi":
+                return amount / (12 * 3 * 1760)
+        if fromUnit == "ft":
+            if toUnit == "in":
+                return amount * 12
+            elif toUnit == "yd":
+                return amount / 3
+            elif toUnit == "mi":
+                return amount / (3 * 1760)
+        if fromUnit == "yd":
+            if toUnit == "in":
+                return amount * 3 * 12
+            elif toUnit == "ft":
+                return amount * 3
+            elif toUnit == "mi":
+                return amount / 1760
+        if fromUnit == "mi":
+            if toUnit == "in":
+                return amount * 12 * 3 * 1760
+            elif toUnit == "ft":
+                return amount * 3 * 1760
+            elif toUnit == "yd":
+                return amount * 1760
+        return 0.0
+#+end_src
+
+* テーブル駆動方式
+  連想配列をつかって、キーと値を対応づける.
+  
+#+begin_src python
+class LengthUnitCalculator:
+    def calc(self, amount, fromUnit, toUnit):
+        units = {
+            'in': 1,
+            'ft': 12,
+            'yd': 36,
+            'mi': 63360
+        }
+        return float(amount) * units[fromUnit] / units[toUnit]
+#+end_src
+
+  うーん、鮮やか！！
