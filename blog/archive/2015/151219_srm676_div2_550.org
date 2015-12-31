@@ -1,0 +1,103 @@
+#+BLOG: Futurismo
+#+POSTID: 5537
+#+DATE: [2015-12-19 土 13:57]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: アルゴリズム
+#+TAGS: TopCoder
+#+DESCRIPTION: TopCoder SRM 676 Div2 550 BoardEscapeDiv2(参加)
+#+TITLE: TopCoder SRM 676 Div2 550 BoardEscapeDiv2(参加)
+
+* 問題
+  - https://community.topcoder.com/stat?c=problem_statement&pm=13299
+
+アリスとボブは、r行およびc列のグリッドに分割された矩形ボードを持っています。
+グリッドは、String []型sで記述されています。
+Sの各文字は、一つのセルを表します。cellには4つのタイプがあります。
+
+- 'E'は終了を表しています。任意の数の終了、おそらくゼロがあるかもしれません。
+- 'T'は正方形は単一のトークンが含まれていることを意味します。最初はボード全体に正確に一つのトークンが存在することになります。
+- '＃'は、障害物を表します。
+- '。'空のセルを表します。
+
+アリスとボブはこのボード上のゲームをプレイします。
+ゲームはintkによってパラメータ化されます。トークンは、最初にその上に数kを持っています。
+プレイヤーはアリスから始まる、ターンを交互にかかります。プレイヤーのターンは、以下のステップで構成されています。
+
++ プレイヤーは、下、左、または右のトークン1平方を上に移動します。トークンは、ボードの端に行くことができない、それが障害物をcellに入力することはできません。
++ このトークンが出口にある場合、それはボードから消えます。
++ それ以外の場合は、トークンの数から1を引きます。トークンの数がゼロの場合、ボードから取り外します。
+
+行動を起こすことができない最初のプレーヤーがゲームを失います。 （すでにボードを去ったとき、トークンにもこだわっているときに発生します。）
+
+アリスとボブの両方を最適にプレイすると仮定すると、あなたはString[]型のを与えられ、intkは、ゲームの勝者を計算します。
+当選者の名前を返します：「アリス」または「ボブ」のいずれか。戻り値は、大文字と小文字が区別されることに注意してください。
+
+* 方針
+  プレイヤーが2人いて、お互いに最適な戦略を取ったとき勝つのはどちらか、
+  みたいな問題は、WL-Algorithmsというものを利用して解くらしい.
+
+#+begin_src cpp
+boolean isWinning(State pos){
+  State[] nextStates = { posから到達できる全ての次の状態 };
+  for(State s : nextStates){
+    if(!isWinning(s)) return true;
+  }
+  return false;
+}
+#+end_src
+
+  - 相手を必ず負けさせるような手が存在するなら現在の位置では勝ち決定。
+  - そのような手がないないのであれば負け。
+
+ 参考リンクをはっておく. あとで勉強しよう.
+ - [[http://d.hatena.ne.jp/nanikaka/20120524/1337797626][grundy数を習得したかった - nanikakaのAOJ航海日誌]]
+ - https://www.topcoder.com/community/data-science/data-science-tutorials/algorithm-games/
+
+ 今回は、このアルゴリズムにメモ化再帰を適用した.
+
+* 解答
+
+#+begin_src python
+MAXN = 200
+
+vx = [1, -1, 0, 0]
+vy = [0, 0, 1, -1]
+memo = [[[-1 for i in range(MAXN)] for j in range(MAXN)] for k in range(MAXN)]
+
+class BoardEscapeDiv2:
+    def isWinning(self, s, x, y, move):
+        n = len(s)
+        m = len(s[0])
+
+        if move == 0: return False
+        if s[x][y] == 'E': return False
+        if memo[x][y][move] != -1: return memo[x][y][move]
+
+        for i in range(4):
+            nx = x + vx[i]
+            ny = y + vy[i]
+            if nx < 0 or ny < 0 or nx >= n or ny >= m or s[nx][ny] == '#':
+                continue
+            if not self.isWinning(s, nx, ny, move - 1):
+                memo[x][y][move] = True
+                return True
+
+        memo[x][y][move] = False
+        return False
+
+    def findWinner(self, s, k):
+        n = len(s)
+        m = len(s[0])
+
+        for i in range(n):
+            for j in range(m):
+                if s[i][j] == 'T':
+                    x = i
+                    y = j
+
+        return "Alice" if self.isWinning(s, x, y, k) else "Bob"
+#+end_src
+
+* おわりに
+  本番では解けなかった. こういう問題をさらりととけないと 
+  Div1には上がれないのか... 道は遠いな. 

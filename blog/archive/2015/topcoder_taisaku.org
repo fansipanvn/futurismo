@@ -1,0 +1,128 @@
+#+BLOG: Futurismo
+#+POSTID: 5552
+#+DATE: [2015-12-20 日 17:16]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 日記, アルゴリズム
+#+TAGS:
+#+DESCRIPTION: プロコンをはじめた
+#+TITLE: プロコンをはじめたので今後の対策方法について考えた
+
+ひまですることもないし、プログラミングにも興味がなくなってしまったので、
+競技プログラミングの勉強をはじめた. 対策についてまとめる.
+
+以前、モチベーションについてはまとめた.
+- [[http://futurismo.biz/archives/5312][プログラミングコンテストのモチベーションをあげる良記事まとめ | Futurismo]]
+
+* プロコンの動機について
+理由は、以下の通りだ.
+
+- 素早くコーディングする技術を身につけることができる.
+- プログラミングの基礎体力を身につけることができる.
+- TOEIC のように点数があるので自分の成長を実感できる.
+- 転職活動に利用できる.
+- プロダクトのクソコードから離れて自分の美学を貫いたコードがかける.
+
+それから、Python でプログラミングをしている.
+理由は、美しくコードがかけるからだ. 
+C++という選択肢は捨てがたいが、C++は汚い.
+しかし、Python でプロコンをするのはまだ少数派のため、解答例を見つけるのが難しい,
+
+TopCoder を中心に学習を進めていくつもりだ.
+最終目標は TopCoder でイエローコーダになること。
+そのためには、まず Div1 に上がること.
+
+* プロコンの対策について
+  プロコンの対策について、
+  こうすればよいというネット上のリソースをいろいろと検索したものの、よいものが見つからない.
+  TOEIC などはみつかるのに。以下、検索結果を列挙.
+  
+  - [[http://d.hatena.ne.jp/cou929_la/20091005/1254725798][Introduction To TopCoder, 今日からはじめる TopCoder - フリーフォーム フリークアウト]]
+  - [[http://purple-jwl.hatenablog.com/entry/2014/12/19/182721][【 TopCoder 】１つ上の色のコーダーになるために - ぱーぽーの競プロ記]]
+  - [[http://d.hatena.ne.jp/miracjp/20110129/1296281752][ICPC の練習方法 - miracle cafeteria]]
+  - [[http://eatthepery.hatenablog.com/entry/2015/05/30/222808][競プロアドバイス集 - 競技プログラミング w.蟻本]]
+
+  現在、以下の本をもっている. 以下、簡単に所感を述べる.
+
+  - 最強最速アルゴリズマー養成講座.（チーター本）
+  TopCoder の過去問を中心に演習問題が並んでいる.TopCoder 専用問題集.
+
+  - プログラミングコンテストチャレンジブック.（蟻本）
+  北京オンラインジャッジの過去問を中心に演習問題が並んでいる.
+  解答例が C++なので、Python で読むには苦痛が伴うところが難点.
+  プロコンで必要なアルゴリズムが網羅されている. 有名な対策本.
+
+  - プログラミングコンテスト攻略のためのアルゴリズムとデータ構造.(ALDS)
+  アルゴリズムの基礎が、会津オンラインジャンジを利用して学習できる.
+  タイトルに反して、どちらかというと基礎がための要素が強く、
+  プロコン向けではない気がしている.
+  
+  Web 上のリソースには以下がある. 
+
+  最強最速アルゴリズマー養成講座
+  - http://www.itmedia.co.jp/keywords/algorithmer.html
+     
+  実践・最強最速のアルゴリズム勉強会:
+   - http://www.slideshare.net/chokudai/wap-atcoder1
+   - http://www.slideshare.net/chokudai/wap-atcoder2
+   - http://www.slideshare.net/chokudai/wap-atcoder3
+   - http://www.slideshare.net/chokudai/wap-atcoder4
+   - http://www.slideshare.net/chokudai/wap-atcoder5
+
+  TopCoder のページにある対策記事(英語)
+  - https://www.topcoder.com/community/data-science/data-science-tutorials/
+
+  Python の対策には以下がよい.
+  - [[http://qiita.com/lethe2211/items/b91cc9e2b355ad32f1e6][Python で競技プログラミングする時に知っておきたい tips - Qiita]]
+  - [[http://nagoyacoder.web.fc2.com/topcoder/topcoder_python.html][TopCoder の傾向と対策（Ｐｙｔｈｏｎ編）]]
+
+  効率のよい学習方法は、典型問題の暗記だと思っている.
+  受験数学をどうすれば解けるようになるか、考えてみると、典型問題を暗記することが
+  効率がよかったという、高校生のときの体験がある. 
+  数学は暗記だ. 解法パターンを暗記してしまおう.
+  - [[http://manaviism.com/analysis/reference_book/sugaku-ankida/][数学は暗記だ！の効果的な使い方 | 難関私大合格メソッド | マナビズム]]
+
+* 今後の学習計画について
+  どう進めればよいものか、なやんでいる. 心にもやもやしているものを書き出してみる.
+  - 蟻本
+    蟻本を読むのが王道な気がするが、Python で取り組むには解答例に乏しい.
+
+  - AOJ
+    会津オンラインジャッジは素晴らしいシステムだ。Python による解答例も見つかるので、
+    自分のコードと比較することで勉強にもなる.
+    しかし、解答に対する解説がない問題は、学習の投資に対する効果が薄い.
+  
+  - TopCoder 過去問
+    TopCoder には、Editorial という過去問に対する解説がある.
+    http://apps.topcoder.com/wiki/display/tc/Algorithm+Problem+Set+Analysis
+
+    しかし、英語なので、困る. 日本語でないと、
+    理解するのに時間がかかるのだ.余計な労力をつかいたくない.
+
+  - プログラミングコンテスト参加
+    TopCoder, Codeforce, AtCoder...たくさんのコンテストがある。
+    コンテストに参加すると、モチベーションが高まるのでよいが、
+    自分のペースで学習することができない点がデメリット.
+    また、体系的に学習できない.
+
+* Conclusion
+  コツコツと続けられて、成果を振り返って確認できるものがよい.
+  そうすると、とにかく無作為に数をこなすよりも、書籍による学習がよいと考えた.
+  ここ数週間のメニューは以下の通りとする.
+
+  + 蟻本を Python で解いで、基礎知識を身につける.
+  + TopCoder の過去問を解いて、問題にとにかくなれる.（１日１題目標）
+  + 可能な限りプロゴラミングコンテストに参加する。そして、復習する.
+
+** 追記
+   蟻本、挫折した.ムズかしい. もっと簡単なもので対策をしなければ.
+   難易度順に問題が並んでいるサイトをみつけた. ICPC-AOJ というサイト.
+   - http://ichyo.jp/aoj-icpc/
+
+   AOJ による採点ができる & 難易度順に問題がならんでいる
+   ということで、これを順に解いていくことにするよ..
+
+   TopCoder の練習方法についてかかれた記事. 
+   - [[https://www.quora.com/How-should-I-practice-so-that-I-will-be-at-a-level-where-I-can-approach-TopCoders-Div1-500-problems-with-confidence][How should I practice so that I will be at a level where I can approach TopCoder's Div1-500 problems with confidence? - Quora]]
+
+   TopCoder のチュートリアルがいいらしい.
+   - https://www.topcoder.com/community/data-science/data-science-tutorials/

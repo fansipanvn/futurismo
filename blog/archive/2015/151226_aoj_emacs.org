@@ -1,0 +1,44 @@
+#+BLOG: Futurismo
+#+POSTID: 5658
+#+DATE: [2015-12-26 土 20:25]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: AOJ
+#+DESCRIPTION: AOJ へ Emacs から投稿するスクリプトをみつけた
+#+TITLE: AOJ へ Emacs から投稿するスクリプトをみつけた
+
+AOJ の問題を最近解いているのだが、
+Emacs から投稿するスクリプトがないかなと探していたら、見つけた.
+
+- https://github.com/ottati/aoj-submit-el
+
+aoj-submit をうつと、web に投稿してくれる。これは便利だ..
+
+ここからが Hack. できれば、ローカルでテストケースを実行したい.
+
+そのためのスクリプトを見つけた.
+
+  - https://github.com/nodchip/OnlineJudgeHelper
+   
+たとえば、問題番号 1147 のテストをしたいとき、
+以下を実行すると、テストケースをダウンロードしてきてローカルで実行してくれる.
+
+#+begin_src text
+oj.py --aoj -i 1147.py 1147
+#+end_src
+
+ソースを読むと、html をスクレイピングしてるようなトリッキーなことをしていた.
+
+これを Emacs から叩けるように、メソッドを追加してみた.
+
+#+begin_src emacs-lisp
+(defcustom aoj-ojpy-path nil "Your oj.py path")
+
+(defun aoj-test ()
+  (interactive)
+  (shell-command (concat aoj-ojpy-path " --aoj -i "
+                         (file-name-nondirectory (buffer-file-name)) " " (aoj--problemNO))))
+#+end_src
+
+これで、Emacs からテスト実行 -> 提出ができるようになった. 
+

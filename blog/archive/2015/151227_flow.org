@@ -1,0 +1,74 @@
+#+BLOG: Futurismo
+#+POSTID: 5665
+#+DATE: [2015-12-27 日 15:22]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION: プログラミングでフロー状態に入る方法
+#+TITLE: プログラミングでフロー状態に入るための習慣について
+
+プログラミングの勉強をしていると、
+フロー状態に入っていい感じに集中できることがある。
+
+どういうときに、そうなれるのか、最近の自分の習慣についてまとめてみた.
+
+* 姿勢を正す
+  正しい姿勢で作業をすると、集中できる. 
+
+  私は、BagJoy というものを常に持ち歩いている.
+  カフェでも職場でも、これをしいて座ることで背筋を伸ばして作業している.
+
+  大変おすすめ.
+
+#+HTML:<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E3%83%90%E3%83%83%E3%82%AF%E3%82%B8%E3%83%A7%E3%82%A4-%E3%83%AA%E3%83%AA%E3%83%BC%E3%83%95%E3%82%AF%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3-BackJoy-Cushion-%E8%85%B0%E3%81%AE%E8%B2%A0%E6%8B%85%E6%B8%9B%E5%B0%91%E3%81%AB%E3%80%90%E4%B8%A6%E8%A1%8C%E8%BC%B8%E5%85%A5%E5%93%81%E3%80%91/dp/B003LFTXAE%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB003LFTXAE' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/31SJ14zqDxL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:98; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E3%83%90%E3%83%83%E3%82%AF%E3%82%B8%E3%83%A7%E3%82%A4-%E3%83%AA%E3%83%AA%E3%83%BC%E3%83%95%E3%82%AF%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3-BackJoy-Cushion-%E8%85%B0%E3%81%AE%E8%B2%A0%E6%8B%85%E6%B8%9B%E5%B0%91%E3%81%AB%E3%80%90%E4%B8%A6%E8%A1%8C%E8%BC%B8%E5%85%A5%E5%93%81%E3%80%91/dp/B003LFTXAE%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB003LFTXAE' rel='nofollow' target='_blank'>バックジョイ リリーフクッション  BackJoy Relief Cushion 腰の負担減少に【並行輸入品】</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 15.12.27</div><div class='amazlink-detail'>BackJoy<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E3%83%90%E3%83%83%E3%82%AF%E3%82%B8%E3%83%A7%E3%82%A4-%E3%83%AA%E3%83%AA%E3%83%BC%E3%83%95%E3%82%AF%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3-BackJoy-Cushion-%E8%85%B0%E3%81%AE%E8%B2%A0%E6%8B%85%E6%B8%9B%E5%B0%91%E3%81%AB%E3%80%90%E4%B8%A6%E8%A1%8C%E8%BC%B8%E5%85%A5%E5%93%81%E3%80%91/dp/B003LFTXAE%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB003LFTXAE' rel='nofollow' target='_blank'>Amazon</a></div></div></div></div></div>
+
+* テクノを聴く
+  テクノミュージックを聴くと、集中できる.
+
+  ミニマルな、単調なリズムの繰り返しによって、
+  脳がズンズンと深い集中状態に導かれる. 
+
+  Jazz やクラシックも大好きでよく聴くのだけれども、
+  結局はやはりテクノミュージックが一番よい. 
+  
+  プログラミングという作業とテクノミュージックは相性がよいのかも.
+
+  Digitally Imported という無料でテクノを聴けるサイトで聴いている.
+  チャンネルは、Tech House だ.
+  - http://www.di.fm/techhouse
+    
+* カフェインをとる
+  カフェインをとると脳が集中できる.レッドブルもよい. 
+  カフェインの錠剤も、多用している.
+
+#+HTML:<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='http://www.amazon.co.jp/%E3%82%A8%E3%82%B9%E3%82%A8%E3%82%B9%E8%A3%BD%E8%96%AC-%E3%80%90%E7%AC%AC3%E9%A1%9E%E5%8C%BB%E8%96%AC%E5%93%81%E3%80%91%E3%82%A8%E3%82%B9%E3%82%BF%E3%83%AD%E3%83%B3%E3%83%A2%E3%82%AB%E9%8C%A0-24%E9%8C%A0-x/dp/B000FQUK7W%3Fpsc%3D1%26SubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB000FQUK7W' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/51%2BlhXUhAIL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:127; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='http://www.amazon.co.jp/%E3%82%A8%E3%82%B9%E3%82%A8%E3%82%B9%E8%A3%BD%E8%96%AC-%E3%80%90%E7%AC%AC3%E9%A1%9E%E5%8C%BB%E8%96%AC%E5%93%81%E3%80%91%E3%82%A8%E3%82%B9%E3%82%BF%E3%83%AD%E3%83%B3%E3%83%A2%E3%82%AB%E9%8C%A0-24%E9%8C%A0-x/dp/B000FQUK7W%3Fpsc%3D1%26SubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB000FQUK7W' rel='nofollow' target='_blank'>【第 3 類医薬品】エスタロンモカ錠 24 錠</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 15.12.27</div><div class='amazlink-detail'>エスエス製薬<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='http://www.amazon.co.jp/%E3%82%A8%E3%82%B9%E3%82%A8%E3%82%B9%E8%A3%BD%E8%96%AC-%E3%80%90%E7%AC%AC3%E9%A1%9E%E5%8C%BB%E8%96%AC%E5%93%81%E3%80%91%E3%82%A8%E3%82%B9%E3%82%BF%E3%83%AD%E3%83%B3%E3%83%A2%E3%82%AB%E9%8C%A0-24%E9%8C%A0-x/dp/B000FQUK7W%3Fpsc%3D1%26SubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB000FQUK7W' rel='nofollow' target='_blank'>Amazon</a></div></div></div></div></div>  
+
+  でも、カフェインの効力はせいぜい 1 時間だ. 
+  継続的なフローをキープするためには、カフェインの手段に頼ってはいけない.
+
+* プチ瞑想する
+  プチ瞑想をすると、集中力が上がる.瞑想については、以下の記事に書いた.
+  - [[http://futurismo.biz/archives/5158][mindwave moblie で 瞑想力を鍛える！瞑想の効果と可視化について | Futurismo]]
+
+  呼吸に意識を集中して、心のなかでマントラを唱える(おーなんすばーはー)
+  そうすると、雑念が消えて集中状態に入れる.
+
+  瞑想のトレーニングをすることは、フローに入るためのよい訓練方法だ.
+  日々、雑念を捨てる訓練をすることで、瞬間的に無の状態へいつでもなれる.
+
+* マウスを利用しない
+  マウスを利用せずに、キーボードだけで作業をしていると、
+  集中することができる. 
+
+  極端なはなし、Emacs の中にこもっていると作業に集中することができる.
+  ときには、ブラウザを利用したくなることもある. 
+  Emacs ライクに操作できる conkeror というマイナなブラウザを利用している.
+  - http://conkeror.org/
+
+  また、タイル型ウィンドウマネージャーを利用することで、
+  ウィンドウ配置をキーボードだけで完結させることができる.
+  - [[http://futurismo.biz/archives/2165][タイル型ウィンドウマネージャという新たな世界観に衝撃を受けた！Xmonad をつかってワクワク CUI 生活 | Futurismo]]
+
+* まとめ・睡眠
+  いろいろとまとめてみたが、一番よいのは十分な睡眠をとる事なきがしている.
+  睡眠を十分にとった後は、なぜか集中力が上がる.寝不足だと集中できない. 

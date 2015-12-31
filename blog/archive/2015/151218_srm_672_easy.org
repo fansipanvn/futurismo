@@ -7,6 +7,10 @@
 #+DESCRIPTION: TopCoder SRM672 Div2 Easy
 #+TITLE: TopCoder SRM672 Div2 Easy SetPartialOrder
 
+#+BEGIN_HTML
+<img alt="TopCoder" src="http://futurismo.biz/wp-content/uploads/topcoder.png"/>
+#+END_HTML
+
 * 問題
   Intの配列AとBが与えられる。
 

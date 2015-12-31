@@ -1,0 +1,38 @@
+#+BLOG: Futurismo
+#+POSTID: 5524
+#+DATE: [2015-12-18 金 19:31]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: アルゴリズム
+#+TAGS: TopCoder
+#+DESCRIPTION: TopCoder SRM 575 2 250 TheSwapsDivTwo (練習)
+#+TITLE: TopCoder SRM 575 Div2 250 TheSwapsDivTwo (練習)
+
+#+BEGIN_HTML
+<img alt="TopCoder" src="http://futurismo.biz/wp-content/uploads/topcoder.png"/>
+#+END_HTML
+
+* 問題
+  - https://community.topcoder.com/stat?c=problem_statement&pm=12499
+
+  int型配列が与えられる。
+  ２個の数値の位置を入れ替える場合、得られるユニークな数列が何通りあるか.
+
+* 方針
+  全通り swapしてみて、ユニークな数列の数を数える.
+
+* 回答
+
+#+begin_src python
+class TheSwapsDivTwo:
+    def find(self, sequence):
+        s = set()
+        n = len(sequence)
+        
+        for i in range(n - 1):
+            for j in range(i + 1, n):
+                l = list(sequence)
+                l[i], l[j] = l[j], l[i]
+                s.add(tuple(l))
+                
+        return len(s)
+#+end_src

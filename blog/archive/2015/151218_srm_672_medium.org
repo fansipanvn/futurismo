@@ -1,0 +1,47 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: アルゴリズム
+#+TAGS: TopCoder
+#+DESCRIPTION: TopCoder SRM 672 Div2 500 SubstitutionCipher
+#+TITLE: TopCoder SRM 672 Div2 500 SubstitutionCipher
+
+* 問題
+  可換暗号の問題. 暗号化のために可換テーブルを利用する。
+
+  ところが、この可換テーブルがなくなってしまった。
+
+  a,b, y が与えられるので a -> b の変換を手がかりにして、
+  暗号化されたy から 復号化された文字列xを求めよ。
+  
+* 方針
+  可換テーブルを b->aの複合ルールから求めてそれを y に適用する.
+  
+  文字が25文字のとき、全てのアルファベットの中で利用されていない
+  文字を調べてテーブルに追加する必要がある.
+
+* 回答
+
+#+begin_src python
+allchar = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+class SubstitutionCipher:
+    def notIn(self, s):
+        return "A"
+
+    def decode(self, a, b, y):
+        cipher = {}
+
+        for i in range(len(a)):
+            cipher[b[i]] = a[i]
+
+        if len(cipher) == 25:
+            remain_a = list(set(allchar) - set(a))[0]
+            remain_b = list(set(allchar) - set(b))[0]
+            cipher[remain_b] = remain_a
+
+        x = ""
+        for i in range(len(y)):
+            if y[i] not in cipher:
+                return ""
+            x += cipher[y[i]]
+
+        return x
+#+end_src

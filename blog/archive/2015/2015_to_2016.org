@@ -1,0 +1,119 @@
+#+BLOG: Futurismo
+#+POSTID: 5558
+#+DATE: [2015-12-21 月 01:17]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 日記
+#+TAGS:
+#+DESCRIPTION: 2015年の過去記事振り返りと 2016年の目標
+#+TITLE: 2015年の過去記事振り返りと 2016年の目標
+
+今年も終わりなので、2015年の振り返りと2016年の目標を立てる.
+
+* 2015年の振り返り
+  たいして成長を実感できない、一年となってしまった.
+  - [[http://futurismo.biz/archives/2885][2014 年の過去記事振り返りと 2015 年の目標 | Futurismo]]
+
+  まず、2015年の目標はどうだったかというと、以下の2つを目標にあげた.
+  - 統計解析
+  - 関数型言語
+
+** 統計解析
+  結論からいうと、身につかなかった. モチベーションも続かなかった.
+  今の仕事が組み込みソフトの開発なので、統計の知識なんて使う余地がない.
+  そう思うと、途端にやる気が失せた. 
+
+  一応, MOOCで統計の講座を取った. R言語をちょい頑張ったのだが、結局身につかず.
+  - [[http://futurismo.biz/archives/3019][Coursera で Reproducible Research をうけた | Futurismo]]
+  - [[http://futurismo.biz/archives/2968][統計解析の基礎を学ぶ! edX の Foundations of Data Analysis をうけた | Futurismo]]
+  - [[http://futurismo.biz/archives/2961][Coursera で R 入門! Data Scientist の講座 2 つ | Futurismo]]
+  - [[http://futurismo.biz/archives/3069][鮮やかにデータを可視化する! coursera で Exploratory Data Analysis を受けた | Futurismo]]
+  - [[http://futurismo.biz/archives/3106][Gacco で 社会人のためのデータサイエンス入門をうけた | Futurismo]]
+
+** 関数型言語
+   関数型言語も中途半端な頑張りに終わってしまった.
+   SICPを読んでいたのだが、結局難しくて、途中で挫折してしまった.
+
+   それから、Scala, Haskell, CommonLisp, Clojureと関数型言語を
+   つまみぐいしたけれども、結局どれも中途半端。残るものはない.
+
+   しかし、いろいろな言語に触れることで、
+   関数型言語の初歩はなんとなくわかったような気がする.
+
+** その他小さい話題について
+*** MOOCについて
+    今年の前半まで、MOOCを頑張っていた.
+    - [[http://futurismo.biz/archives/3032][システム制御は奥が深い! 井戸の中の蛙な自分.coursera で Cloud Computing Cocepts をうけた | Futurismo]]
+    - [[http://futurismo.biz/archives/3109][仕事に関わる知識を MOOC で! Coursera で Cloud Computing Concepts Part2 を受けた | Futurismo]]
+    - [[http://futurismo.biz/archives/3950][ハードウェアの仕組みを学ぶ！coursera で From Nand To Tetris Part1 を受けた | Futurismo]]
+    - [[http://futurismo.biz/archives/3975][リアクティブプログラミングの世界観を垣間見！coursera で Principles of Reactive Programming を受けた | Futurismo]]
+
+    しかし、ある日突然、MOOCに対して興味を失ってしまう...
+    - [[http://futurismo.biz/archives/4140][MOOC をはじめてから 2 年たち、そろそろ飽きてきた | Futurismo]]
+
+*** 楽しかったFX
+    今年一番楽しかったのは、FXシステムトレードのプログラムをPythonで書いたことだ.
+    - [[http://futurismo.biz/archives/4455][FXシストレプログラム AWSでサーバ借りてデビュー | Futurismo]]
+    - [[http://futurismo.biz/archives/4392][夏休みの自由研究 は OANDA APIを利用して FX システムトレード | Futurismo]]
+
+    儲からなかったけれども、作り上げる喜びを感じた.
+
+*** 仕事で干される
+    1月から4月までの仕事は充実していた. 成長を実感できた.
+
+    しかし、そこから半年間会社でプログラミングをさせてもらえないという、
+    干された状態が続いた. すごくストレスがたまった. 
+
+*** Emacsにあきる
+    2015年の前半は、Emacsが好きだった。なにかElispで作品を書きたいと思っていた.
+    だが、結局アイデアが浮かばずに、なにも作れなかった.
+
+    そして、Emacs自体にも飽きてしまった. 普段の開発ではEclipseをつかってるからね.
+
+** そして迷走する
+   2015年の下期、とにかく自分がなにをすればいいか分からなくなってしまった.
+   詳しい経緯は、以下の記事にまとめた.
+   - [[http://futurismo.biz/archives/3944][自分はプログラミングが好きなのだろうか？ | Futurismo]]
+   - [[http://futurismo.biz/archives/5439][プログラミングに興味がなくなってしまった | Futurismo]]
+   
+   いったい、自分はなにをすればいいのかわからない.
+   こんな状態で、来年度の目標をどう立てればいいのやら....
+
+* 2016年の目標
+  前にも書いた通り、今はプログラミングに対するモチベーションが下がっている.
+
+  目標はないよりもあったほうがよい.暫定の目標だ. 
+
+  熱中できるようなおもしろいなにかが見つかったら、そっちに注力することにする.
+
+** TOEIC
+   プログラミングに飽きてしまったが、その空いた時間を利用して TOEIC の勉強をしている.
+
+   とにもかくにも、英語ができないとMOOCもできないし、洋書も読めない.
+
+   英語力を向上させる一年としたい. 目指せ、860点！！
+
+** プロコン
+   やることがなくなってしまったので、
+   とりあえずの目標. この目標は変えるかもしれない.
+   
+   TopCoderで Div1にあがることが目標. 具体的な対策は以下に書いた.
+   - [[http://futurismo.biz/archives/5552][プロコンをはじめたので今後の対策方法について考えた | Futurismo]]
+   
+** Clojure
+   関数型言語を引き続き勉強したい. そのための手段としてClojureを選ぶ.
+
+   Scalaをやったほうが仕事で生かすチャンスはありそうなものだが、
+   なぜかわからないが、Clojureに惹かれるのだ. 
+   - [[http://futurismo.biz/archives/4649][シンプルさが前に進む力となる Clojure | Futurismo]]
+
+   今、まともに利用できる言語は、C, Java, Rubyの3つくらい. 
+   これに、来年はClojure を加えたい. 
+
+** 書評
+   文章力がとても落ちた気がする. 日本語の言語能力が、昔に比べて落ちた.
+   なんとかしないと、いけない. ブログに長文を書いて、文章力を取り戻す努力をしよう.
+
+   まだ、具体的になにをするべきか、施策が思いつかないけれども、
+   このまま自分の能力の劣化をほうっておくわけにはいかない. 
+
+   本を読もう. そして、感想を書くことで、文章力を磨こう.

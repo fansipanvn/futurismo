@@ -1,0 +1,60 @@
+#+BLOG: Futurismo
+#+POSTID: 5532
+#+DATE: [2015-12-19 土 02:52]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: アルゴリズム
+#+TAGS: TopCoder
+#+DESCRIPTION: TopCoder SRM 676 Div2 250 FarmvilleDiv2(参加)
+#+TITLE: TopCoder SRM 676 Div2 250 FarmvilleDiv2(参加)
+
+* 問題
+  n個の植物がある. それぞれ time[i]秒成長するのにかかる.
+  
+  cost[i]をbudgetのなかから支払うと、1秒成長を早めることができる.
+
+  time, cost, budgetが与えられる.
+  植物を育てることのできる時間の最小値をかえせ.
+
+* 方針
+  costを昇順にソーティング. 
+  costの低い順に時間を計算
+  - budgetがまだあるときは、total時間は加算しない.
+  - budgetがないときは、time分 total時間を加算する.
+
+* 解答
+  timeとcostをインデックスをそろえながらソーティングするよい方法が思い
+  つかなかったので、自力でソーティングアルゴリズムを実装した。
+
+  なにかよい方法はないものか。他の人の解答をみて研究することにする.
+
+#+begin_src python
+class FarmvilleDiv2:
+    def insertion_sort(self, time, cost, N):
+        for i in range(1, N):
+            v1 = time[i]
+            v2 = cost[i]
+            j = i - 1
+            while j >= 0 and cost[j] > v2:
+                time[j + 1] = time[j]
+                cost[j + 1] = cost[j]
+                j -= 1
+            time[j + 1] = v1
+            cost[j + 1] = v2
+        return time, cost
+
+    def minTime(self, time, cost, budget):
+        time = list(time)
+        cost = list(cost)
+        time, cost = self.insertion_sort(time, cost, len(cost))
+
+        ret = 0
+
+        for t, c in zip(time, cost):
+            for i in range(t):
+                if budget - c >= 0:
+                    budget -= c
+                else:
+                    ret += 1
+
+        return ret
+#+end_src
