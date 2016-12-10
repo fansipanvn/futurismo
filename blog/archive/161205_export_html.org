@@ -1,0 +1,29 @@
+#+BLOG: Futurismo
+#+POSTID: 5847
+#+DATE: [2016-12-06 火 15:46]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: org-mode
+#+DESCRIPTION:org2blog で BEGIN_HTML が動かない場合の対処方法
+#+TITLE: org2blog で BEGIN_HTML が動かない場合の対処方法
+
+いつも、このブログは org2blog を利用して、Emacs から書いているのだが、
+
+#+begin_src text
+#+BEGIN_HTML
+
+#+END_HTML
+#+end_src
+
+を書いても、HTML を記事の中に埋め込むことができなくなった。
+
+* 解決方法
+いろいろと試行錯誤してみたところ、以下の書き方だとうまくいった。
+
+#+begin_src text
+#+begin_export html
+
+#+end_export
+#+end_src
+
+誰かの参考になればとおもいメモ。

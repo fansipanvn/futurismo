@@ -1,0 +1,222 @@
+#+BLOG: Futurismo
+#+POSTID: 5921
+#+DATE: [2016-12-09 金 01:38]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ,OSS, 
+#+TAGS: Conkeror
+#+DESCRIPTION: Emacs ライクな Web ブラウザ Conkeror の紹介
+#+TITLE: マウスをつかわずウェブ閲覧！Emacs ライクな Web ブラウザ Conkeror
+
+[[file:./../img/Green_copyright.svg.png]]
+
+Conkeror というとてもいいブラウザがあるのだが、日本語情報がすくないので紹介することにした
+
+今回は Ubuntu16.02 の環境にインストールするが、Windows でも Mac でも Conkeror は動くよ。
+
+* Conkeror とは
+  - [[http://conkeror.org/][FrontPage - Conkeror.org]]
+
+  　 Conkeror はキーボード−主体、高カスタマイズ可能、拡張可能なウェブブラウザ。
+
+  Conkeror is a keyboard-oriented, highly-customizable, highly-extensible web browser based on Mozilla XULRunner, written mainly in JavaScript, and inspired by exceptional software such as Emacs and vi. Conkeror features a sophisticated keyboard system, allowing users to run commands and interact with content in powerful and novel ways. It is self-documenting, featuring a powerful interactive help system. 
+
+**  メリット
+   私が感じている conkeror のいいところは、
+  - Emacs キーバインドなところ（ここ大事!）
+  - ほとんどマウスを利用せずにウェブブラウジングができるところ
+  - 自由にカスタマイズ可能なところ
+
+** デメリット
+  - Chrome や Firefox のようなプラグインが入れられない。
+  - PDF をみるとき、いちいちダウンロードして開かないといけない。(PDF プラグインないので)
+  - Chrome や Firefox に比べると遅い気がする。
+    
+* conkeror の取得
+  git で取得して make
+
+#+begin_src bash
+git clone git://repo.or.cz/conkeror.git
+cd conkeror
+make
+make install
+#+end_src
+
+これで OK. 
+
+公式の wiki には xulrunnner をインストールするようにかかれているけれども、インストールしなくても conkeror は使えた。xulrunnner いらないのかな？？よくわからない。
+
+* キーバインド
+  Emacs と同じ！！まずは、C-h t を押してチュートリアルを読もう。
+
+  その後で、C-h i を押して、細かいキーバインドを見よう。Emacs 使いならば、もうすでにほとんど使いこなせるはず！！！
+
+  とくによい機能は f を押すとリンクが 数字でラベリングされる。数字を指定することで、
+  
+* デスクトップアイコン を用意する(Ubuntu)
+  以下の記事を参考に、デスクトップアイコンを作成した。
+  - [[http://qiita.com/NoriakiOshita/items/303b57a5f82e779a4ec9][Linux でアイコンを作成する方法 - Qiita]]
+
+~/.local/share/applications/　に移動
+
+conkeror.desktop というファイルを新規作成して、以下の内容を記述。
+
+#+begin_src bash
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=conkeror
+Comment=conkeror
+Exec=/home/tsu-nera/opt/conkeror/conkeror
+Icon=/home/tsu-nera/opt/conkeror/Green_copyright.svg.png
+#+end_src
+
+アイコンは以下の URL から拝借した。著作権は Public Domain なので多分大丈夫。
+　- [[http://webbrowser.wikia.com/wiki/File:Green_copyright.svg.png][Image - Green copyright.svg.png | Web Browser Wiki | Fandom powered by Wikia]]
+
+これで、アプリケーションとして認識されるので、
+"コンピュータを検索"を実行するとアイコンが現れる。ランチャーにも登録。
+
+* Emacs のデフォルトブラウザを Conkeror に設定
+
+#+begin_src emacs-lisp
+(setq browse-url-generic-program (executable-find "conkeror"))
+#+end_src
+
+* カスタマイズ
+  Conkeror のいいところは、柔軟なカスタマイズができるところ。
+
+  $HOME/.conkerorrc に設定ファイルを置くと読み込んでくれる。
+
+  .zshrc のように、自分だけの .conkeorrc をつくろう。
+
+  以下は、自分の設定です。
+  - https://raw.githubusercontent.com/tsu-nera/dotfiles/master/.conkerorrc/init.js
+
+  Tips はここにかかれている。http://conkeror.org/Tips
+
+**  モードラインにアイコン表示
+
+#+begin_src js
+///////////////////////////////////////////////////////////////
+//  Mode-line
+//  http://conkeror.org/ModeLine?highlight=%28mode-line%29
+///////////////////////////////////////////////////////////////
+// funky icons in the modeline
+require("mode-line.js");
+
+load_paths.unshift("chrome://conkeror-contrib/content/");
+require("mode-line-buttons.js");
+mode_line_add_buttons(standard_mode_line_buttons, true);
+#+end_src
+
+** ホームページ
+
+#+begin_src js
+homepage = "http://www.google.co.jp";
+#+end_src
+
+** リンクの数字を大きくする
+
+#+begin_src js
+//////////////////////////////////////////
+// Big Hint Number
+//////////////////////////////////////////
+register_user_stylesheet(
+    "data:text/css," +
+        escape(
+            "@namespace url(\"http://www.w3.org/1999/xhtml\");\n" +
+            "span.__conkeror_hint {\n"+
+            "  font-size: 18px !important;\n"+
+            "  line-height: 18px !important;\n"+
+            "}"));
+#+end_src
+
+** ショートカット指定
+
+#+begin_src js
+//////////////////////////////////////////
+// shortcut
+//////////////////////////////////////////
+interactive("open-google", "Go to google.co.jp", "follow",
+    $browser_object = "http://www.google.co.jp/");
+interactive("open-gmail", "Go to gmail", "follow",
+    $browser_object = "http://gmail.com/");
+interactive("open-calendar", "Go to calendar.google.com", "follow",
+    $browser_object = "http://calendar.google.com/");
+interactive("futurismo", "Open Futurismo", "follow",
+    $browser_object = "http://futurismo.biz");
+
+interactive("futurismo_wiki", "Open Futurismo", "follow",
+    $browser_object = "http://futurismo.biz/dokuwiki");
+interactive("youtube", "Open Youtube", "follow",
+    $browser_object = "http://www.youtube.com");
+interactive("feedly", "Open Feedly", "follow",
+    $browser_object = "http://feedly.com");
+interactive("tomatoes", "Open Tomatoes", "follow",
+    $browser_object = "http://tomato.es/");
+interactive("github", "Open Github", "follow",
+            $browser_object = "https://github.com/tsu-nera");
+interactive("youtube-dl", "download youtube video",
+            function (I) {
+                shell_command_blind("youtube-dl " + I.buffer.display_uri_string);
+            });
+
+// open url with new buffer
+define_key(content_buffer_normal_keymap, "d", "follow-new-buffer");
+define_key(content_buffer_normal_keymap, "f1", "open-google");
+define_key(content_buffer_normal_keymap, "f2", "open-gmail");
+define_key(content_buffer_normal_keymap, "f3d", "open-calendar");
+define_key(content_buffer_normal_keymap, "f4", "youtube");
+define_key(content_buffer_normal_keymap, "f5", "feedly");
+define_key(content_buffer_normal_keymap, "f6", "futurismo");
+define_key(content_buffer_normal_keymap, "f7", "futurismo_wiki");
+define_key(content_buffer_normal_keymap, "f8", "github");
+#+end_src
+
+** ショートカットからいろいろな機能を呼び出し
+
+#+begin_src js
+
+//////////////////////////////////////////
+// webjump
+//////////////////////////////////////////
+// evernote
+define_webjump("clip","javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title);}})();");
+
+// hatenabookmark
+// http://b.hatena.ne.jp/register
+define_webjump("hatena","javascript:(function(){var%20d=(new%20Date);var%20s=document.createElement('script');s.charset='UTF-8';s.src='http://b.hatena.ne.jp/js/Hatena/Bookmark/let.js?'+d.getFullYear()+d.getMonth()+d.getDate();(document.getElementsByTagName('head')[0]||document.body).appendChild(s);})();");
+
+// twitter
+define_webjump("twitter","javascript:(function()%7Bwindow.twttr=window.twttr%7C%7C%7B%7D;var%20D=550,A=450,C=screen.height,B=screen.width,H=Math.round((B/2)-(D/2)),G=0,F=document,E;if(C%3EA)%7BG=Math.round((C/2)-(A/2))%7Dwindow.twttr.shareWin=window.open(%27http://twitter.com/share%27,%27%27,%27left=%27+H+%27,top=%27+G+%27,width=%27+D+%27,height=%27+A+%27,personalbar=0,toolbar=0,scrollbars=1,resizable=1%27);E=F.createElement(%27script%27);E.src=%27http://platform.twitter.com/bookmarklets/share.js?v=1%27;F.getElementsByTagName(%27head%27)%5B0%5D.appendChild(E)%7D());");
+
+// readability
+define_webjump("readability","javascript:(%0A%28function%28%29%7Bwindow.baseUrl%3D%27//www.readability.com%27%3Bwindow.readabilityToken%3D%27DsMgYF6muHA9dzMgEGyLPuMVRYGxf5DFBRVtx9kf%27%3Bvar%20s%3Ddocument.createElement%28%27script%27%29%3Bs.setAttribute%28%27type%27%2C%27text/javascript%27%29%3Bs.setAttribute%28%27charset%27%2C%27UTF-8%27%29%3Bs.setAttribute%28%27src%27%2CbaseUrl%2B%27/bookmarklet/save.js%27%29%3Bdocument.documentElement.appendChild%28s%29%3B%7D%29%28%29);");
+#+end_src
+
+** Google 日本語検索
+
+#+begin_src js
+define_webjump("g", "http://www.google.co.jp/search?q=%s", $alternative = "http://www.google.co.jp/");
+#+end_src
+
+** org-link を得る
+
+#+begin_src js
+define_webjump("@","javascript:(function(){prompt('Copy to Clipboard','['+'['+location.href+']'+'['+document.title.replace(/([\[\]])/g,'\\$1')+']'+']');})();");
+#+end_src
+
+** Emacs との連携
+  入力フォームで C-i を押す。emacs-daemon が立ち上がっている状態ならば、
+  Emacs が起動してきて、テキストを入力することができる。
+
+  以下の設定が必要.
+
+#+begin_src js
+editor_shell_command = "emacsclient -c";
+#+end_src
+
+
+他にもたくさん拡張があるけれども、キリがないのでこの辺で。
+
+# ./../img/Green_copyright.svg.png http://futurismo.biz/wp-content/uploads/Green_copyright.svg_.png

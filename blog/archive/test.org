@@ -1,0 +1,12 @@
+#+BLOG: Futurismo
+#+POSTID: 5905
+#+DATE: [2016-12-08 木 16:50]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: test
+
+#+begin_src python :syntaxhl
+print "test"
+#+end_src

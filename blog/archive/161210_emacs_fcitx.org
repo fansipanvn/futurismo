@@ -1,0 +1,26 @@
+#+BLOG: Futurismo
+#+POSTID: 5934
+#+DATE: [2016-12-10 土 04:32]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS:
+#+DESCRIPTION:Emacsで fcitx-anthy（Nicola)の調子が悪いときに試すこと
+#+TITLE: Emacsで fcitx-anthy（Nicola)の調子が悪いときに試すこと
+
+私は、Emacsで 日本語入力(親指シフト)をしていると、調子がわるいときがある。
+- 入力結果の出力がやたらと遅い
+- 打鍵しても、期待しない文字が入力される
+
+なんとか解決方法はないかと、3時間頑張って探して、ようやく見つけた。
+
+** 環境
+   - Ubuntu 16.04
+   - fcitx-anthy 4.2.9
+
+* 解決方法
+  一旦別のアプリ（ターミナル、ブラウザ）で打鍵をしてから、Emacsに戻ってくる。
+  
+  これで、解決できた。なにかのバグかな？これが判明するまでに、試行錯誤て3時間かかった。
+
+  こんなことで悩んでいるのは自分だけかもしれないけれども
+
