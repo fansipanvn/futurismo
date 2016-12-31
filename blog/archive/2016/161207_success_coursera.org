@@ -1,3 +1,6 @@
+#+BLOG: Futurismo
+#+POSTID: 5997
+#+DATE: [2016-12-19 月 12:14]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
 #+CATEGORY: MOOC
 #+TAGS: coursera
@@ -17,15 +20,38 @@ Success という講座を coursera で受講しました。
   - Definition of success(成功とはなにか？)
   - Plan for Achieving Success（どのようにして成功するか？）
 
-* 講義メモ
+** 関連記事
+   - [[http://futurismo.biz/archives/5849][成功とはなにかを定義した | Futurismo]]
+   - [[http://futurismo.biz/archives/5875][ウォートン・スクールの本当の成功の授業を読んだ | Futurismo]]
+
+* ウォートン・スクールの本当の成功の授業
   講義の内容は、以下の本を抜粋して説明されている。なので、英語が苦手な自分は日本語の本を参照しながら、講義に取り組んだ。
 
-　 video のなかで、引用されるエピソードはほとんどすべて本の中に載っている。本がないと、自分の英語力では、自分は内容を理解できなかった。
+  video のなかで、引用されるエピソードはほとんどすべて本の中に載っている。本がないと、自分の英語力では、自分は内容を理解できなかった。
 
 #+begin_export html
 <div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='https://www.amazon.co.jp/%E3%82%A6%E3%82%A9%E3%83%BC%E3%83%88%E3%83%B3%E3%83%BB%E3%82%B9%E3%82%AF%E3%83%BC%E3%83%AB%E3%81%AE%E6%9C%AC%E5%BD%93%E3%81%AE%E6%88%90%E5%8A%9F%E3%81%AE%E6%8E%88%E6%A5%AD-%E3%83%AA%E3%83%81%E3%83%A3%E3%83%BC%E3%83%89%E3%83%BB%E3%82%B7%E3%82%A7%E3%83%AB/dp/4799316303%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dfox10225fox-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4799316303' target='_blank' rel='nofollow'><img src='http://ecx.images-amazon.com/images/I/51sD-tMhsXL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='https://www.amazon.co.jp/%E3%82%A6%E3%82%A9%E3%83%BC%E3%83%88%E3%83%B3%E3%83%BB%E3%82%B9%E3%82%AF%E3%83%BC%E3%83%AB%E3%81%AE%E6%9C%AC%E5%BD%93%E3%81%AE%E6%88%90%E5%8A%9F%E3%81%AE%E6%8E%88%E6%A5%AD-%E3%83%AA%E3%83%81%E3%83%A3%E3%83%BC%E3%83%89%E3%83%BB%E3%82%B7%E3%82%A7%E3%83%AB/dp/4799316303%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dfox10225fox-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4799316303' rel='nofollow' target='_blank'>ウォートン・スクールの本当の成功の授業</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 16.12.07</div><div class='amazlink-detail'>リチャード・シェル<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='https://www.amazon.co.jp/%E3%82%A6%E3%82%A9%E3%83%BC%E3%83%88%E3%83%B3%E3%83%BB%E3%82%B9%E3%82%AF%E3%83%BC%E3%83%AB%E3%81%AE%E6%9C%AC%E5%BD%93%E3%81%AE%E6%88%90%E5%8A%9F%E3%81%AE%E6%8E%88%E6%A5%AD-%E3%83%AA%E3%83%81%E3%83%A3%E3%83%BC%E3%83%89%E3%83%BB%E3%82%B7%E3%82%A7%E3%83%AB/dp/4799316303%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dfox10225fox-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4799316303' rel='nofollow' target='_blank'>Amazon</a></div></div></div></div></div>
 #+end_export
 
+* 感想
+  英語わかんねー。この一年英語に力を入れてきたので、問題ないかなと思っていたけれども、
+  半分くらいしかききとれなかったよ。本がなければ、挫折してた。
+  プログラミング系の講義はなんとなくわかるけど、人文系はまだまだついていくのがつらいことがわかった。
+
+  でも、この講義、受けてよかった。
+
+  現在、うつ病で会社を一年間休職している。
+  将来がまったく見えず、この先どうすればいいのか分からなかった。
+  強い言葉をつかうと、絶望的だった。毎日落胆し、落ち込んでいた。
+
+  そんなとき、一筋の光が見えた気がした。
+  安心感が芽生え、それと同時に自分への自信と将来に対する前向きな見通しが手に入った。
+  今は、とても清々しい気分だ。
+
+  成功の定義は決めた。計画は立てた。この先１０年の見通しはたった。
+  あとは、実行するのみだ。人生がわくわくしてきた。よし、やるぞ！！
+
+* 講義メモ
 ** week1
    簡単なガイダンスのあと、「６つの人生」の演習というものが課される。
 
@@ -108,13 +134,14 @@ The unexamined life is not worth living. PLATO
 #+end_quote
 - [[http://oshiete.goo.ne.jp/qa/4408719.html][The unexamined life is not worth living.とは？ - TOEFL ・ TOEIC ・英語検定 解決済 | 教えて！goo]]
 
-* Final  Assignment 
-  以下に対する自分の考えを500-700wordのエッセイとして、提出することになっている。
+* Final Assignment 
+  以下に対する自分の考えを 500-700word のエッセイとして、提出することになっている。
   - Definition of success(成功とはなにか？)
   - Plan for Achieving Success（どのようにして成功するか？）
 
   自分は以下のような回答を提出した。
 
+#+begin_src text
 My definition of success is below.
   - Earn money by using mathematics and programming, 
     contribute to the development of the technologies.
@@ -153,8 +180,6 @@ So After I will get TOEIC 900, I shift my study plan to output my thinking in En
 And also, my definition is using mathematics and programming, machine learning is 
 suitable for my dream. I plan to study machine learning by using MOOC.
 And my goal is to change the Career that use machine learning skill.
-My current job is very boring. So I really want to change my career.
-Maybe it takes a few years.But I don't give up.
 
 And after change my career, I contribute to the development of the technologies.
 And do some interesting and exciting things by using learned knowledges.
@@ -187,4 +212,4 @@ All I should do is to ride on the train that will go to the success.
 Now I don't have any anxiety. I do my best. I have a confidence.
 
 Thank you for the great MOOC course.
-
+#+end_src

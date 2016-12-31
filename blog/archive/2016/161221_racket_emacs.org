@@ -1,0 +1,120 @@
+#+BLOG: Futurismo
+#+POSTID: 6009
+#+DATE: [2016-12-21 水 22:27]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: Emacs
+#+TAGS: racket
+#+DESCRIPTION: Emacs で Racket 開発環境を構築
+#+TITLE: Emacs で Racket 開発環境を構築
+
+coursera で Programming Languages , PartB を受講し始めた。
+
+- [[https://www.coursera.org/learn/programming-languages-part-b][Programming Languages, Part B - University of Washington | Coursera]]
+
+開発環境で DrRacket(Racket をインストールするとついてくる開発環境)が指定される
+のだけれども、Emacs Love な自分はどうしても Emacs からやりたかったので、
+Emacs で Racket 開発環境を構築した。
+
+** 環境
+   - Ubuntu 16.04 LTS
+   - Racket v6.3
+
+* Racket のインストール
+
+#+begin_src bash
+sudo apt-get install racket
+#+end_src
+
+これで /usr/bin/配下に racket がインストールされる。
+
+* 優れた IDE の条件
+     優れた IDE が備えるべき機能は以下.
+   - シンタックスハイライト/ インデント
+     - racket-mode, aggressive-indent
+   - 検索・置換
+     iedit, multiple-cursors, helm-ag, helm-swoop
+   - タグジャンプ
+     racket-visit-definition
+   - コード補間
+     - auto-complete
+     - tab で complete
+   - エラーチェック
+     - flycheck
+   - インタープリタ・デバッカ
+     racket-repl
+
+** racket-mode
+   Racket の開発環境は、[[https://docs.racket-lang.org/guide/Emacs.html][24.2 Emacs]] によると
+   - racket-mode
+   - Quack
+   - Geiser
+
+   などがある。
+
+   今回は、新しめの racket-mode を利用することにした。
+   インストールは M-x el-get-install でした。
+
+ #+begin_src emacs-lisp
+(require 'racket-mode)
+;; tab で補間
+(setq tab-always-indent 'complete)
+ #+end_src
+
+** aggressive-indent
+   賢い indent-mode
+    - https://github.com/Malabarba/aggressive-indent-mode
+
+    names package に依存しているので, 
+    require 'names してからインストールしないとおかしくなる.
+
+ #+begin_src emacs-lisp
+(add-hook 'racket-mode-hook #'aggressive-indent-mode)
+ #+end_src
+
+** smartparens
+    smart + parens カッコ移動を楽々。
+    - https://github.com/Fuco1/smartparens
+
+ #+begin_src emacs-lisp
+(require 'smartparens-config)
+ #+end_src
+
+** auto-complete-mode
+   補間
+   - https://github.com/auto-complete/auto-complete
+  #+begin_src emacs-lisp
+(require 'auto-complete)
+(add-to-list 'ac-modes 'racket-mode)
+ #+end_src
+
+** RainbowDelimiters
+    かっこの深さに応じて色付けしてくれる.
+    - https://github.com/Fanael/rainbow-delimiters
+
+ #+begin_src emacs-lisp
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+ #+end_src
+
+** flycheck
+   エラーチェック
+    - [[https://github.com/flycheck/flycheck][flycheck/flycheck]]
+ #+begin_src emacs-lisp
+(require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+ #+end_src
+
+** quickrun
+   ファイルを実行できる。
+   - https://github.com/syohex/emacs-quickrun
+
+   quickrun は最近 Racket に対応したようだ。
+   - https://github.com/syohex/emacs-quickrun/commit/cd9052132dbde7c8526309a0c21fc5a60c709a46
+
+ #+begin_src emacs-lisp
+(require 'quickrun)
+ #+end_src
+
+* 参考 URL
+ - [[http://tuhdo.github.io/emacs-for-proglang.html][Emacs for Programming Languages course on Coursera]]
+ - [[http://uents.hatenablog.com/entry/sicp/010-prog-env.md][SICP 読書ノート#10 - SICP のためのプログラミング環境構築 - @uents blog]]
+ - [[https://www.reddit.com/r/Racket/comments/3ng6n3/question_about_emacs_tooling/][Question about Emacs tooling : Racket]]

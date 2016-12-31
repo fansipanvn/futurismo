@@ -1,0 +1,21 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: 
+
+* 事前準備
+** Ruby のインストール
+
+#+begin_src bash
+sudo apt-get install ruby
+#+end_src
+
+** aws-sdk のインストール
+
+#+begin_src bash
+sudo gem install aws-sdk
+#+end_src
+
+** AWS Credentials の設定
+  - [[http://docs.aws.amazon.com/sdk-for-ruby/v2/developer-guide/setup-config.html][Configuring the AWS SDK for Ruby — Developer Guide]]

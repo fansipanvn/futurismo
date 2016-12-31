@@ -1,3 +1,5 @@
+#+BLOG: Futurismo
+#+POSTID: 5995
 #+DATE: [2016-12-19 月 10:11]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
 #+CATEGORY: Emacs
@@ -49,7 +51,7 @@ Error: No word lists can be found for the language "ja_JP".
 
 * flyspell-mode
   自動で英文チェックしてくれるパッケージ。M-x flyspell-mode で有効にする。
-
+  
   または、以下のように自動で有効にしてもよい。
 
 #+begin_src emacs-lisp
@@ -61,7 +63,6 @@ Error: No word lists can be found for the language "ja_JP".
     wl-draft-mode-hook
     twittering-edit-mode))
 #+end_src
-
 
 * 参考
  - [[https://www.emacswiki.org/emacs/AspellWindows][Aspell Windows]]

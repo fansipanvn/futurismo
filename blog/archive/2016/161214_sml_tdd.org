@@ -1,0 +1,67 @@
+#+BLOG: Futurismo
+#+POSTID: 5959
+#+DATE: [2016-12-14 水 17:56]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Emacs
+#+TAGS: TDD, SML
+#+DESCRIPTION: Emacs から SML のテストを実行する
+#+TITLE: Emacs から SML のテストを実行する
+
+元ネタは、ここです。
+- [[https://coderwall.com/p/o-izkw/basic-tdd-with-sml#comment_28385][Basic TDD with SML (Example) || Coderwall]]
+
+coursera で [[https://www.coursera.org/learn/programming-languages][Programming Languages]] のコースを受講している。
+
+Assignment でテストファイルが与えられるのだが、これをうまく実行する方法についてのメモ。
+
+* Preparation
+
+- hw1.sml ... 提出用ファイル
+
+#+begin_src text
+fun is_older(date1: int*int*int, date2: int*int*int) =
+  (* implementation *)
+#+end_src
+
+- hw1.sml ... テストファイル
+
+#+begin_src text
+(* Test is_older *)
+val test_is_older_1 = is_older((2012,1,1), (2012,1,1)) = false
+val test_is_older_2 = is_older((2012,1,1), (2013,1,1)) = true
+val test_is_older_3 = is_older((2013,1,1), (2013,2,1)) = true
+val test_is_older_4 = is_older((2013,1,1), (2013,1,2)) = true
+#+end_src
+
+* Execute
+
+以下のコマンドで実行できる。
+
+#+begin_src bash
+$ cat hw1.sml hw1_test.sml | sml
+Standard ML of New Jersey v110.74 [built: Fri Dec  7 10:09:50 2012]
+...
+val is_older = fn : (int * int * int) * (int * int * int) -> bool
+...
+val test_is_older_1 = true : bool
+val test_is_older_2 = true : bool
+val test_is_older_3 = true : bool
+val test_is_older_4 = true : bool
+#+end_src
+
+Emacs を私はつかっているので、=M-!= (shell-command)で、Emacs の中から実行。
+
+* grep
+
+結果を以下のように grep するとなおよい。
+
+#+begin_src bash
+$ cat hw1.sml hw1_test.sml | sml | grep false
+#+end_src
+
+* まとめ
+Lecture では、use "hw1.sml"; を利用して、ファイルを読み込むことを推奨しているけれども、
+こっちのやり方のほうがフィードバックが素早く得られるのでよい。
+
+いわゆる TDD ができる。
+

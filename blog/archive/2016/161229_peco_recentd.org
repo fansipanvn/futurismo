@@ -1,0 +1,77 @@
+#+BLOG: Futurismo
+#+POSTID: 6024
+#+DATE: [2016-12-29 木 13:06]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: fish
+#+DESCRIPTION: fish で 最近訪れたディレクトリに peco で選択して移動する
+#+TITLE: fish で 最近訪れたディレクトリに peco で選択して移動する
+
+fish シェルを使っていて、最近訪れたディレクトリに peco で選択して移動する方法を紹介します。
+
+* zsh のときは
+  最近訪れたディレクトリをどうやって覚えるかが最大の課題だった。
+  zsh のときは、zsh の組み込み関数があったので以下のように対応していた。
+
+#+begin_src bash
+# ------------------------------------------------------------------------
+# Name     : cdr
+# Function : 最近訪れたフォルダへ移動
+# ------------------------------------------------------------------------
+autoload -Uz is-at-least
+if is-at-least 4.3.11
+then
+  autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+  add-zsh-hook chpwd chpwd_recent_dirs
+  zstyle ':chpwd:*' recent-dirs-max 5000
+  zstyle ':chpwd:*' recent-dirs-default yes
+  zstyle ':completion:*' recent-dirs-insert both
+fi
+# ------------------------------------------------------------------------
+# peco-recentd
+# 最近訪れたディレクトリに移動
+# ------------------------------------------------------------------------
+function peco-recentd () {
+    local selected_dir=$(cdr -l | awk '{ print $2 }' | peco)
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-recentd
+#+end_src
+
+* fish 版 z の導入
+  fish で、最近訪れたディレクトリをどう管理するか？
+  z という fish 用のライブラリがあり、これが利用できそうだ。
+  - https://github.com/fisherman/z
+
+以下のコマンドで最近訪れたディレクトリの一覧を取得できる。
+
+#+begin_src bash
+$ z -l 
+#+end_src
+
+* peco と組み合わせる
+
+以下のような関数を用意した。これを config.fish に書くか、
+.config/fish/functions ディレクトリ配下に peco_recentd.fish ファイルを作成して書けばよい。
+
+#+begin_src bash
+function peco_recentd
+        z -l | peco | awk '{ print $2 }' | read recentd
+        cd $recentd
+end
+#+end_src
+
+キーバインドを以下のように設定する。.config/fish/config.fish に以下を記述。
+
+#+begin_src bash
+function fish_user_key_bindings
+        # 最近見たディレクトリに移動
+        bind \cx\cr peco_recentd
+end
+#+end_src
+
+これで、zsh でできていた、選択的ディレクトリ移動が fish でもできるようになった。

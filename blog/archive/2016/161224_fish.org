@@ -1,0 +1,381 @@
+#+BLOG: Futurismo
+#+POSTID: 6016
+#+DATE: [2016-12-24 土 17:18]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: fish, zsh
+#+DESCRIPTION: zsh から fish に乗り換えた
+#+TITLE: デフォルト設定で強力に便利！zsh から fish に乗り換えたまとめ
+
+3 年間くらいずっと zsh を使ってきたけれども、fish という新しいシェルに移行しました。
+
+     [toc]
+
+** 環境
+   - Ubuntu 16.04 LTS
+   - fish 2.4.0
+
+* fish とは
+  賢くて、ユーザーフレンドリーなコマンドラインシェル。
+  - [[https://fishshell.com/][fish shell]]
+
+   Fish の由来は、Finally, shell らしい。
+
+* なぜ fish に乗り換えようとしたか？
+  [[https://twitter.com/rubikitch?lang=ja][るびきち(@rubikitch)さん]] の書いた記事に煽られたからです。
+
+  - [[http://fish.rubikitch.com/][fish シェル普及計画]]
+  - [[http://emacs.rubikitch.com/fish/][fish シェル専門サイト fish.rubikitch.com 設立！]]
+  - [[http://emacs.rubikitch.com/fish-mode/][fish-mode.el : 【 Unix シェル】若者よ、騙されたと思って fish 使ってみろ！bash や zsh なんか捨ててしまえ]]
+  - [[http://fish.rubikitch.com/tutorial/][fish shell チュートリアル]]
+  - [[http://emacs.rubikitch.com/zsh-fish-emacs-eshell/][あなたが zsh/bash/eshell から fish に乗り換えるべき 17 の理由]]
+
+  そんなにすごいものなのか？るびきちさんは、
+  Emacs の先駆者としてとても尊敬しているので、
+  そんな彼が進めるのならば、いいものなのではないか？
+
+  新しいものが好きなので、早速試してみました。
+
+  ちなみに、Google トレンドによると、だんだん上昇しています。
+
+#+begin_export html
+  <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/863_RC25/embed_loader.js"></script>
+  <script type="text/javascript">
+    trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"fish shell","geo":"","time":"all"},{"keyword":"zsh","geo":"","time":"all"},{"keyword":"/m/0nrms","geo":"","time":"all"},{"keyword":"csh","geo":"","time":"all"}],"category":0,"property":""}, {"exploreQuery":"date=all&q=fish%20shell,zsh,%2Fm%2F0nrms,csh","guestPath":"https://www.google.co.jp:443/trends/embed/"});
+  </script>
+#+end_export
+
+* fish のインストール
+  各ディストリビューションによって異なる。Ubuntu の場合は、
+
+#+begin_src bash
+sudo apt-add-repository ppa:fish-shell/release-2
+sudo apt-get update
+sudo apt-get install fish
+#+end_src
+
+* いよいよデフォルトのシェルを zsh から fish に乗り換え
+  以下のコマンドで乗り換える。心の準備はいいかい？
+  
+#+begin_src bash
+chsh -s `which fish`
+#+end_src
+
+* 設定ﾌｧｲﾙの移行 .zshrc -> config.fish
+  現状の.zshrc はこんな感じ。
+  - https://github.com/tsu-nera/dotfiles/blob/master/.zshrc
+
+  これを config.fish に移行しなければいけない。。621 行の移行。これは大変だぞ！
+
+  どこから手をつけようか？ と、その前に fish-mode.el の導入。
+
+  Emacs major mode for fish shell scripts.
+   - https://github.com/wwwjfy/emacs-fish
+
+#+begin_src emacs-lisp
+(require 'fish-mode)
+#+end_src
+
+これで、作業が楽になる。
+
+** まずはコピペから
+   .zshrc を config.fish にコピペする
+
+#+begin_src bash
+cp $HOME/.zshrc $HOME/.config/fish/config.fish
+#+end_src
+
+   そのままだとエラーが多発するので、とりあえず、全部コメントアウト。
+
+** zsh 関係の設定は全武消す
+   ここは、思い切って消してしまう。fish の魅力を信じる。
+
+** alias の移行
+   以下の形式でかけるので、zsh と変わらない。zsh らしさをなくすために=を除去する。
+
+#+begin_src text
+alias NAME DEFINITION
+alias NAME=DEFINITION
+#+end_src
+
+   ~/.config/fish/alias.fish に alias と関数をまとめていく。
+   そのためには、config.fish 冒頭に以下を追記。
+
+#+begin_src emacs-lisp
+. ~/.config/fish/aliases.fish
+#+end_src
+
+   alias は関数を簡単に書いたものらしい。
+   - [[http://stackoverflow.com/questions/2762994/how-to-define-an-alias-in-fish-shell][linux - How to define an alias in fish shell? - Stack Overflow]]
+
+*** file / directory の存在確認
+   - [[https://codeyarns.com/2014/02/27/how-to-test-for-file-or-directory-in-fish/][How to test for file or directory in Fish – Code Yarns]]
+
+   以下でできる。
+
+file:
+
+#+begin_src bash
+if test -e ~/.foobar
+    echo "File exists"
+end
+#+end_src
+
+directory:
+
+#+begin_src bash
+if test -d ~/.hello
+    echo "Dir exists"
+end
+#+end_src
+
+*** プログラムの存在確認
+
+#+begin_src bash
+if test -x "emacs"
+   function fish_title; end
+end
+#+end_src
+
+** 関数の移行
+   関数は以下の function - end で挟み込む。
+
+#+begin_src bash
+function dual
+        xrandr --output eDP1 --primary --left-of HDMI1 --output HDMI1 --mode 1280x720
+end
+#+end_src
+
+*** Emacs の関数たち
+
+#+begin_src bash
+# Emacs で dired をひらく
+function dired 
+        emacsclient -e "(dired \"$PWD\")"
+end
+#+end_src
+
+cde が移植できませんでした。
+- [[https://masutaka.net/chalow/2011-09-28-1.html][ターミナルの zsh と Emacs を風のように駆け抜ける！ / マスタカの ChangeLog メモ]]
+
+** PATH の移行
+   環境変数は .config/fish/env.fish にまとめることにする。以下を config.fish にかく。
+
+#+begin_src bash
+if status --is-login
+    . ~/.config/fish/env.fish
+end
+#+end_src
+
+  PATH は以下の形式で設定する。set -U がポイント。
+
+#+begin_src bash
+set -U fish_user_paths /usr/local/bin $fish_user_paths
+#+end_src
+
+* プラグイン
+** oh-my-fish
+   - fish shell をさらに魅力的にしてくれるツール
+
+ #+begin_src bash
+curl -L http://get.oh-my.fish | fish
+ #+end_src
+
+ インストールすると、画面がカラフルになる。さまざまなフレームワークを含んでいるらしい。
+
+ 詳しくは README.md で！
+  - https://github.com/oh-my-fish/oh-my-fish
+
+ #+begin_src bash
+function fish_user_key_bindings
+        # ghq を選択
+        bind \cl peco_select_ghq_repository
+        # コマンド履歴を見る
+        bind \cr peco_select_history
+        # プロセスをキルする
+        bind \cx\ck peco_kill        
+end
+ #+end_src
+
+*** テーマの設定
+    ここから好きなテーマが選べる。
+    - https://github.com/oh-my-fish/oh-my-fish/blob/master/docs/Themes.md
+
+    迷うからデフォルトで
+
+ #+begin_src bash
+omf theme default
+ #+end_src
+ 
+** powerline
+   かっこいいパワーラインを入れてみる。
+   - https://github.com/banga/powerline-shell
+
+   と思ったけれども、かっこ悪いので封印。
+** z 
+   訪れたフォルダにジャンプ。
+   - https://github.com/fisherman/z
+
+* 完成した設定ファイル
+  - https://github.com/tsu-nera/dotfiles/tree/master/.config/fish
+
+    拍子ぬけするほどあっさりしてしまった。100 行もないのではないか？
+
+** config.fish
+
+#+begin_src bash
+# alias & function 読み込み
+. ~/.config/fish/aliases.fish
+
+# 環境変数読み込み
+if status --is-login
+    . ~/.config/fish/env.fish
+end
+#+end_src
+
+** env.fish
+
+#+begin_src bash
+export LANG=ja_JP.UTF-8
+export LD_LIBRARY_PATH=/usr/local/lib
+export LIBRARY_PATH=/usr/local/lib
+export CPATH=/usr/local/include
+
+if test -d ~/script
+        set fish_user_paths ~/script/sh $fish_user_paths
+        set fish_user_paths ~/script/ruby $fish_user_paths
+        set fish_user_paths ~/script/scala $fish_user_paths        
+end
+
+set -x EDITOR emacs
+set -x VISUAL "emacsclient -nw"
+
+# for ruby
+if test -x "`which ruby`"
+        set fish_user_paths $HOME/.gem/ruby/2.1.0/bin $fish_user_paths
+end
+
+# for go
+if test -x go
+        set -x GOPATH $HOME/go
+        set fish_user_paths $GOROOT/bin $fish_user_paths 
+        set fish_user_paths $GOPATH/bin $fish_user_paths 
+end
+
+# my bin
+set fish_user_paths $HOME/bin $fish_user_paths
+#+end_src
+
+** aliases.fish
+
+
+alias o 'xdg-open'
+alias c 'cygstart'
+alias forced_git_local_destroy 'git fetch origin;git reset --hard origin/master'
+alias xmap 'xmodmap ~/.Xmodmap'
+
+# Emacs 関連
+alias m 'emacsclient -nw'
+alias kill_emacs "emacsclient -e \"(kill-emacs)\""
+alias boot_emacs "emacs --daemon"
+
+function reboot_emacs
+	 kill_emacs;boot_emacs
+end
+
+# 画面ロック
+alias lock 'gnome-screensaver-command -l'
+
+# シャットダウン
+alias fault 'sudo shutdown -P now'
+
+# Power Line
+# function fish_prompt
+#     ~/powerline-shell.py $status --shell bare ^/dev/null
+# end
+
+#######################################
+## peco
+######################################
+function peco
+  command peco --layout=bottom-up $argv
+end
+
+function fish_user_key_bindings
+        # ghq を選択
+        bind \cl peco_select_ghq_repository
+        # コマンド履歴を見る
+        bind \cr peco_select_history
+        # プロセスをキルする
+        bind \cx\ck peco_kill        
+end
+
+#######################################################
+# multi-display
+#######################################################
+# set dual monitors
+function dual
+        xrandr --output eDP1 --primary --left-of HDMI1 --output HDMI1 --mode 1280x720
+end
+        
+function dual2
+        xrandr --output eDP1 --primary --left-of HDMI1 --output HDMI1 --auto
+end
+
+# set single monitor
+function single
+    xrandr --output HDMI1 --off
+end
+
+############
+## Emacs
+###########
+function dired 
+        emacsclient -e "(dired \"$PWD\")"
+end
+
+## Chdir to the ``default-directory'' of currently opened in Emacs buffer.
+function cde
+end
+#+end_src
+
+* 使ってみた感想など
+** メリット
+  - 軽い
+
+    体感だけれども、zsh よりも、サクサク動作する気がする。
+
+  - 色鮮やか
+
+    デフォルトでも十分色鮮やかだ。黒背景にカラフルな色が好きな自分にとってはうれしい。
+  
+  - 設定がとても簡単
+
+    驚くほどに簡単だ。zsh の職人技じみた設定はなんだったのだろうか？
+
+    デフォルトで強力な機能が備わっている。
+
+    設定ファイルをみても、zsh では 600 行あったものが 100 行程度に収まっている。
+
+  - 補完がつよい
+
+    困った時は、タブを押す。
+    すると、補完がきいて助けてくれる。この機能が一番気に入っている。
+
+** デメリット
+   - ドキュメントやブログ記事が少ない。
+   - 利用者がまだまだ少ない。
+
+     このことによって、他人の設定を参考にすることができない。
+
+   - zsh でできたことが fish でできなかったりする
+
+     zsh では、いろいろと自作関数をつくって便利にしたのだけれども、
+     fish では同じ機能が実現できなかった。たとえば Emacs との連携など。
+     時間をかければできるかもしれない。暇な時にハックしよう。
+
+* 参考
+  - [[http://qiita.com/susieyy/items/ac2133e249f252dc9a34][詳解 fish でモダンなシェル環境の構築(fish,tmux,powerline,peco,z,ghq,dracula) - Qiita]]
+  - https://github.com/nvie/dotfiles/tree/master/.config/fish
+  - [[https://wiki.archlinuxjp.org/index.php/Fish][fish - ArchWiki]]
+  - [[http://www.makeuseof.com/tag/x-reasons-install-fish-shell/][7 Reasons Why You Should Install The Fish Shell]]

@@ -1,0 +1,112 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: coursera で Programming Languages を受けた
+
+coursera で Programming Languages を受けたので、その感想をまとめます。
+
+#+begin_export html
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LTDmMI4VSCM" frameborder="0" allowfullscreen></iframe>
+#+end_export
+
+* 概要
+  - SML
+  - Racket
+  - Ruby
+
+  を通じて、プログラム言語のエッセンスを学ぶというコース。
+  
+* 感想
+  Emacs をエディタとして推奨しているところもいい。
+  
+* Part A
+  言語は Standard-ML を使う。
+  なぜなら、文法がシンプルで、初学者に使いやすいからとのこと。
+
+  SML を利用して、関数型ブログラミングのエッセンスを学んでいく。
+
+** week1
+   week1 では、プログラミングはしない。
+   コースの説明と、環境設定(Emacs や SML のインストール)まで。
+
+** week2
+   SML の基本文法を学ぶ。
+   - 変数宣言
+   - 関数宣言
+   - if - then - else
+   - 変数のスコープと内部変数(let)
+   
+  基本データ型についても学ぶ
+  - Pair
+  - List
+  - Tuple
+  - Option(これが特殊)
+
+** week3
+   - データ型(Datatypes)
+   - パターンマッチ
+   - 例外
+   - 末尾再帰
+
+** week4
+   - 第一級関数
+   - 高階関数
+   - 関数クロージャ
+   - 無名関数
+   - map,filter
+   - レキシカルスコープ
+
+** week5
+   - type interface(型推論, ポリモーフィズム)
+   - Mutual Recursion
+   - modules
+   - equivalence
+
+* Part B
+  - 言語は Racket を使う  http://racket-lang.org 
+  - 開発環境は、DrRacket. https://racket-lang.org/download/
+
+    が、指定されているのだが、Emacs でやりたいので、
+    Emacs で環境構築をすることにした。
+    - [[http://futurismo.biz/archives/6009][Emacs で Racket 開発環境を構築 | Futurismo]]
+
+  Lisp 系の言語はいろいろ経験がある（Common Lisp ,Scheme, Emacs Lisp,Clojure)
+  ので、それほど苦戦することはないだろうと思っていたが、とても苦戦した。
+
+  なにが苦戦したかというと、
+
+** week1
+   - Racket の文法（cons, car , cdr ... etc)
+   - 遅延評価
+   - ストリーム
+   - メモ化再帰
+   - マクロ(Optional)
+
+  Assignment でやたらとストリームが出てくる。手強かった。
+
+** week2
+   - struct
+   - インタープリタとコンパイラ
+   - インタプリタの実装方法
+
+  Assignment は、MUPL という独自言語のインタプリタを Racket で書くこと。
+  意味が分からなすぎて泣きそうになった。
+
+  Honor Code とかもうどうでもいい（どうでもよくはないが・・）
+
+  github にある他人のソースコードを読んで理解するのがやっとだった。（理解すらできない！）
+  
+** week3
+* Part C
+** week1
+   - Ruby の文法
+   - Duck Typing
+   - Arrays, Hashs
+   - block, proc
+   - SubClass
+   - Overriding, Dynamic Dispatch
+
+  Ruby は業務で使ったことがあるので、文法は問題なし。
+
+  
