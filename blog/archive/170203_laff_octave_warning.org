@@ -1,0 +1,32 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: MOOC
+#+TAGS: Octave, MATLAB
+#+DESCRIPTION: MATLAB のコードを Octave で実行するときの Warning を消す方法
+#+TITLE: MATLAB のコードを Octave で実行するときの Warning を消す方法
+
+LAFF を受けている. 
+- [[https://www.edx.org/course/linear-algebra-foundations-frontiers-utaustinx-ut-5-05x][Linear Algebra - Foundations to Frontiers | edX]]
+
+MATLAB Online を利用することが推奨されているのだが、
+期間限定なのでできれば無料の Octave を利用したい。
+
+Discussion を見ると、Octave でも課題はできるよと書いてある。
+
+でも、テストスクリプトを実行すると以下のような Warning がたくさん出る。
+
+#+begin_src bash
+warning: Matlab-style short-circuit operation performed for operator &
+#+end_src
+
+これを消したい。
+
+* 消す方法
+  /usr/share/octave/site/m/startup/octaverc に以下の行を追加する。
+
+#+begin_src bash
+warning('off', 'Octave:possible-matlab-short-circuit-operator');
+#+end_src
+
+参考: [[http://stackoverflow.com/questions/11384359/how-to-suppress-warnings-in-gnu-octave][linux - How to suppress warnings in gnu octave - Stack Overflow]]
+
+これで Warning はひとまずでなくなる。

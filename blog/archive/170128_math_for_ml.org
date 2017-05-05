@@ -1,0 +1,128 @@
+#+DATE: [2017-01-28 土 12:19]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 機械学習, 数学
+#+TAGS:
+#+DESCRIPTION:機械学習に必要な数学について調べた
+#+TITLE: 結局、機械学習に必要な数学ってなに？
+
+機械学習を勉強するにあたって、
+ベースとなる数学を勉強したいというモチベーションが高まってきた。
+
+最近の以下の記事にも影響を受けた。
+- [[http://kinokoru.jp/archives/1289][機械学習に本気で取り組むためにやった数学周り 前半戦結果 | きのこる庭]]
+
+そこで、機械学習のために必要な数学を調べてみたのだが・・・どのサイトをみてもこれはというものがみつからないのだ。
+- [[http://learning.ikeay.net/entry/2016/05/10/224608][機械学習の基礎知識としての数学 - learning.ikeay.net]]
+- [[https://mayonez.jp/1814][機械学習に必要な数学知識・教材：「微分」「線形代数」｜#mayone]]
+- [[https://kikagaku.net/blog/math/reference_3][機械学習の初心者が独学で失敗する理由と最初に読むべき参考書３選 | キカガク Online]]
+- [[http://s0sem0y.hatenablog.com/entry/2016/09/29/041421][機械学習を学ぶ上で抑えておきたい数学 - "機械学習","信号解析","ディープラーニング"の勉強]]
+- [[http://s0sem0y.hatenablog.com/entry/2016/11/03/025428][機械学習を学ぶ上で抑えておきたい数学２ - "機械学習","信号解析","ディープラーニング"の勉強]]
+
+Quora での Q & A も参考になる。
+- [[https://www.quora.com/How-do-I-learn-mathematics-for-machine-learning][How do I learn mathematics for machine learning? - Quora]]
+
+* 調べた結果
+  メインは、線形代数と確率・統計。サブで微分積分、ベイズ統計、最適化理論がある。
+
+  - メイン
+    + 線形代数
+    + 確率・統計
+  - サブ
+    + 解析学
+    + ベイズ統計
+    + 最適化理論（凸最適化）
+
+** 線形代数
+   プログラミングのための線形代数がやたらと紹介されている。
+   この本は、実は探したら持っていた。学生時代に買った。
+
+#+begin_export html
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='https://www.amazon.co.jp/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E7%B7%9A%E5%BD%A2%E4%BB%A3%E6%95%B0-%E5%B9%B3%E5%B2%A1-%E5%92%8C%E5%B9%B8/dp/4274065782%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4274065782' target='_blank' rel='nofollow'><img src='https://images-fe.ssl-images-amazon.com/images/I/51QTY7RSFRL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='https://www.amazon.co.jp/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E7%B7%9A%E5%BD%A2%E4%BB%A3%E6%95%B0-%E5%B9%B3%E5%B2%A1-%E5%92%8C%E5%B9%B8/dp/4274065782%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4274065782' rel='nofollow' target='_blank'>プログラミングのための線形代数</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 17.01.28</div><div class='amazlink-detail'>平岡 和幸<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='https://www.amazon.co.jp/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E7%B7%9A%E5%BD%A2%E4%BB%A3%E6%95%B0-%E5%B9%B3%E5%B2%A1-%E5%92%8C%E5%B9%B8/dp/4274065782%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4274065782' rel='nofollow' target='_blank'>Amazon</a></div></div></div></div></div>
+#+end_export
+
+** 確率・統計
+   通称赤本と呼ばれる、統計学入門(東京大学出版会)がよく引用されていた。
+
+#+begin_export html
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='https://www.amazon.co.jp/%E7%B5%B1%E8%A8%88%E5%AD%A6%E5%85%A5%E9%96%80-%E5%9F%BA%E7%A4%8E%E7%B5%B1%E8%A8%88%E5%AD%A6-%E6%9D%B1%E4%BA%AC%E5%A4%A7%E5%AD%A6%E6%95%99%E9%A4%8A%E5%AD%A6%E9%83%A8%E7%B5%B1%E8%A8%88%E5%AD%A6%E6%95%99%E5%AE%A4/dp/4130420658%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4130420658' target='_blank' rel='nofollow'><img src='https://images-fe.ssl-images-amazon.com/images/I/512H1E9ARDL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='https://www.amazon.co.jp/%E7%B5%B1%E8%A8%88%E5%AD%A6%E5%85%A5%E9%96%80-%E5%9F%BA%E7%A4%8E%E7%B5%B1%E8%A8%88%E5%AD%A6-%E6%9D%B1%E4%BA%AC%E5%A4%A7%E5%AD%A6%E6%95%99%E9%A4%8A%E5%AD%A6%E9%83%A8%E7%B5%B1%E8%A8%88%E5%AD%A6%E6%95%99%E5%AE%A4/dp/4130420658%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4130420658' rel='nofollow' target='_blank'>統計学入門 (基礎統計学)</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 17.01.28</div><div class='amazlink-detail'></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='https://www.amazon.co.jp/%E7%B5%B1%E8%A8%88%E5%AD%A6%E5%85%A5%E9%96%80-%E5%9F%BA%E7%A4%8E%E7%B5%B1%E8%A8%88%E5%AD%A6-%E6%9D%B1%E4%BA%AC%E5%A4%A7%E5%AD%A6%E6%95%99%E9%A4%8A%E5%AD%A6%E9%83%A8%E7%B5%B1%E8%A8%88%E5%AD%A6%E6%95%99%E5%AE%A4/dp/4130420658%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4130420658' rel='nofollow' target='_blank'>Amazon</a></div></div></div></div></div>
+#+end_export
+
+** PRML
+   パターン認識と機械学習(通称 PRML) どの記事でも紹介されているので、本記事でも引用しておく。
+   つまるところ、この本を読むことができる数学力が必要ということだ。
+
+#+begin_export html
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='https://www.amazon.co.jp/%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E8%AA%8D%E8%AD%98%E3%81%A8%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92-%E4%B8%8A-C-M-%E3%83%93%E3%82%B7%E3%83%A7%E3%83%83%E3%83%97/dp/4621061224%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4621061224' target='_blank' rel='nofollow'><img src='https://images-fe.ssl-images-amazon.com/images/I/41O0QFyTHJL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='https://www.amazon.co.jp/%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E8%AA%8D%E8%AD%98%E3%81%A8%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92-%E4%B8%8A-C-M-%E3%83%93%E3%82%B7%E3%83%A7%E3%83%83%E3%83%97/dp/4621061224%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4621061224' rel='nofollow' target='_blank'>パターン認識と機械学習 上</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 17.01.28</div><div class='amazlink-detail'>C.M. ビショップ<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='https://www.amazon.co.jp/%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E8%AA%8D%E8%AD%98%E3%81%A8%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92-%E4%B8%8A-C-M-%E3%83%93%E3%82%B7%E3%83%A7%E3%83%83%E3%83%97/dp/4621061224%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4621061224' rel='nofollow' target='_blank'>Amazon</a></div></div></div></div><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='https://www.amazon.co.jp/%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E8%AA%8D%E8%AD%98%E3%81%A8%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92-%E4%B8%8B-%E3%83%99%E3%82%A4%E3%82%BA%E7%90%86%E8%AB%96%E3%81%AB%E3%82%88%E3%82%8B%E7%B5%B1%E8%A8%88%E7%9A%84%E4%BA%88%E6%B8%AC-C-M-%E3%83%93%E3%82%B7%E3%83%A7%E3%83%83%E3%83%97/dp/4621061240%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4621061240' target='_blank' rel='nofollow'><img src='https://images-fe.ssl-images-amazon.com/images/I/418MuoJetFL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='https://www.amazon.co.jp/%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E8%AA%8D%E8%AD%98%E3%81%A8%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92-%E4%B8%8B-%E3%83%99%E3%82%A4%E3%82%BA%E7%90%86%E8%AB%96%E3%81%AB%E3%82%88%E3%82%8B%E7%B5%B1%E8%A8%88%E7%9A%84%E4%BA%88%E6%B8%AC-C-M-%E3%83%93%E3%82%B7%E3%83%A7%E3%83%83%E3%83%97/dp/4621061240%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4621061240' rel='nofollow' target='_blank'>パターン認識と機械学習 下 (ベイズ理論による統計的予測)</a></div><div class='amazlink-detail'>C.M. ビショップ<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='https://www.amazon.co.jp/%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E8%AA%8D%E8%AD%98%E3%81%A8%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92-%E4%B8%8B-%E3%83%99%E3%82%A4%E3%82%BA%E7%90%86%E8%AB%96%E3%81%AB%E3%82%88%E3%82%8B%E7%B5%B1%E8%A8%88%E7%9A%84%E4%BA%88%E6%B8%AC-C-M-%E3%83%93%E3%82%B7%E3%83%A7%E3%83%83%E3%83%97/dp/4621061240%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4621061240' rel='nofollow' target='_blank'>Amazon</a></div></div></div></div></div>
+#+end_export
+
+   この本は、難しいので攻略本？のようなものも出ている。
+  
+#+begin_export html
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='https://www.amazon.co.jp/%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E8%AA%8D%E8%AD%98%E3%81%A8%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%81%AE%E5%AD%A6%E7%BF%92%E2%80%95%E3%83%99%E3%82%A4%E3%82%BA%E7%90%86%E8%AB%96%E3%81%AB%E6%8C%AB%E6%8A%98%E3%81%97%E3%81%AA%E3%81%84%E3%81%9F%E3%82%81%E3%81%AE%E6%95%B0%E5%AD%A6-%E5%85%89%E6%88%90-%E6%BB%8B%E7%94%9F/dp/4873101662%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4873101662' target='_blank' rel='nofollow'><img src='https://images-fe.ssl-images-amazon.com/images/I/610Q-As0auL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='https://www.amazon.co.jp/%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E8%AA%8D%E8%AD%98%E3%81%A8%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%81%AE%E5%AD%A6%E7%BF%92%E2%80%95%E3%83%99%E3%82%A4%E3%82%BA%E7%90%86%E8%AB%96%E3%81%AB%E6%8C%AB%E6%8A%98%E3%81%97%E3%81%AA%E3%81%84%E3%81%9F%E3%82%81%E3%81%AE%E6%95%B0%E5%AD%A6-%E5%85%89%E6%88%90-%E6%BB%8B%E7%94%9F/dp/4873101662%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4873101662' rel='nofollow' target='_blank'>パターン認識と機械学習の学習―ベイズ理論に挫折しないための数学</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 17.01.28</div><div class='amazlink-detail'>光成 滋生<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='https://www.amazon.co.jp/%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3%E8%AA%8D%E8%AD%98%E3%81%A8%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E3%81%AE%E5%AD%A6%E7%BF%92%E2%80%95%E3%83%99%E3%82%A4%E3%82%BA%E7%90%86%E8%AB%96%E3%81%AB%E6%8C%AB%E6%8A%98%E3%81%97%E3%81%AA%E3%81%84%E3%81%9F%E3%82%81%E3%81%AE%E6%95%B0%E5%AD%A6-%E5%85%89%E6%88%90-%E6%BB%8B%E7%94%9F/dp/4873101662%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4873101662' rel='nofollow' target='_blank'>Amazon</a></div></div></div></div></div>
+#+end_export
+
+  この本の目次が、学ぶべき項目としてよくまとまっている。
+  -[[http://prml.in/][【 PRML 同人誌】パターン認識と機械学習の学習－ベイズ理論に挫折しないための数学（光成 滋生 著）]]
+
+  つまり、これらの用語を理解できればよいということがわかった。(結論)
+
+* 勉強プラン（仮）
+  重視することは以下
+  - MOOC で学習できること ... MOOC が好きなので、それで学習できれば嬉しい
+  - 電子書籍で学習できること ... 紙だと検索できなかったり、重かったり、すぐに参照できないから
+  - プログラミングできること ... プログラマなので、手を動かしながら学びたい。
+
+** 線形代数
+   - 手持ちのプログラミングのための線形代数ををもう一度読む。
+   - edX の LAFF を 受講する。MATLAB で線形代数を勉強できる。
+     + [[https://www.edx.org/course/linear-algebra-foundations-frontiers-utaustinx-ut-5-05x][Linear Algebra - Foundations to Frontiers | edX]]
+
+** 確率・統計
+   - 学生時代に使っていた本 [[https://www.amazon.co.jp/%E5%85%A5%E9%96%80%E3%83%BB%E6%BC%94%E7%BF%92-%E6%95%B0%E7%90%86%E7%B5%B1%E8%A8%88-%E9%87%8E%E7%94%B0-%E4%B8%80%E9%9B%84/dp/4320014359][入門・演習 数理統計]]を読む。
+   - [[https://www.oreilly.co.jp/books/9784873117355/][Think Stats]] を読む。これは、Python を利用しながら統計を学べるという本。
+   - Udacity の [[https://www.udacity.com/course/intro-to-statistics--st101][Intro to Statistics]] を受講する。Udacity の創立者 Sebastian Thrun さんの講義だ。
+   - 統計検定 2 級を受験する。2 級は大学 1、2 年レベルの統計学の知識が問われる。実力試しとも目標にぴったりだ。
+
+** エンジニアのための機械学習理論入門
+
+ここまで勉強したところで、一旦数学の勉強は中止して、以下の本を読む。
+
+#+begin_export html
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='https://www.amazon.co.jp/IT%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E7%90%86%E8%AB%96%E5%85%A5%E9%96%80-%E4%B8%AD%E4%BA%95-%E6%82%A6%E5%8F%B8/dp/4774176982%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774176982' target='_blank' rel='nofollow'><img src='https://images-fe.ssl-images-amazon.com/images/I/51FEHQur4iL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='https://www.amazon.co.jp/IT%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E7%90%86%E8%AB%96%E5%85%A5%E9%96%80-%E4%B8%AD%E4%BA%95-%E6%82%A6%E5%8F%B8/dp/4774176982%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774176982' rel='nofollow' target='_blank'>IT エンジニアのための機械学習理論入門</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 17.01.28</div><div class='amazlink-detail'>中井 悦司<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='https://www.amazon.co.jp/IT%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E7%90%86%E8%AB%96%E5%85%A5%E9%96%80-%E4%B8%AD%E4%BA%95-%E6%82%A6%E5%8F%B8/dp/4774176982%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4774176982' rel='nofollow' target='_blank'>Amazon</a></div></div></div></div></div>
+#+end_export
+ 
+  このエンジニアのための機械学習理論入門という本は、
+  統計学をベースとした機械学習の方法が、
+  数式を省略せずに丁寧に解説されている。この本を読み通すことを一つの目標にする。
+
+** 解析学
+   Kindle で読めるということで、以下の本を読む。学生時代に読んでいた本は捨ててしまった（オロオロ）
+
+#+begin_export html
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='https://www.amazon.co.jp/%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89%E5%AD%A6%E3%81%B6%E5%BE%AE%E5%88%86%E7%A9%8D%E5%88%86-KS%E8%87%AA%E7%84%B6%E7%A7%91%E5%AD%A6%E6%9B%B8%E3%83%94-%E3%82%B9-%E5%B0%8F%E5%B3%B6-%E5%AF%9B%E4%B9%8B/dp/406154652X%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D406154652X' target='_blank' rel='nofollow'><img src='https://images-fe.ssl-images-amazon.com/images/I/51Y1WB1A9RL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='https://www.amazon.co.jp/%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89%E5%AD%A6%E3%81%B6%E5%BE%AE%E5%88%86%E7%A9%8D%E5%88%86-KS%E8%87%AA%E7%84%B6%E7%A7%91%E5%AD%A6%E6%9B%B8%E3%83%94-%E3%82%B9-%E5%B0%8F%E5%B3%B6-%E5%AF%9B%E4%B9%8B/dp/406154652X%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D406154652X' rel='nofollow' target='_blank'>ゼロから学ぶ微分積分 (KS 自然科学書ピ-ス)</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 17.01.28</div><div class='amazlink-detail'>小島 寛之<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='https://www.amazon.co.jp/%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89%E5%AD%A6%E3%81%B6%E5%BE%AE%E5%88%86%E7%A9%8D%E5%88%86-KS%E8%87%AA%E7%84%B6%E7%A7%91%E5%AD%A6%E6%9B%B8%E3%83%94-%E3%82%B9-%E5%B0%8F%E5%B3%B6-%E5%AF%9B%E4%B9%8B/dp/406154652X%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D406154652X' rel='nofollow' target='_blank'>Amazon</a></div></div></div></div></div>
+#+end_export
+
+   また、coursera の Calculs One をやってみる。
+   - [[https://www.coursera.org/learn/calculus1][Calculus One - The Ohio State University | Coursera]]
+
+** ベイズ統計学
+  Think Bayes を読む。
+
+#+begin_export html
+<div class='amazlink-box' style='text-align:left;padding-bottom:20px;font-size:small;/zoom: 1;overflow: hidden;'><div class='amazlink-list' style='clear: both;'><div class='amazlink-image' style='float:left;margin:0px 12px 1px 0px;'><a href='https://www.amazon.co.jp/Think-Bayes-%E2%80%95%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9E%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E3%83%99%E3%82%A4%E3%82%BA%E7%B5%B1%E8%A8%88%E5%85%A5%E9%96%80-Allen-Downey/dp/4873116945%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4873116945' target='_blank' rel='nofollow'><img src='https://images-fe.ssl-images-amazon.com/images/I/51YfEsP8dCL._SL160_.jpg' style='border: none;' /></a></div><div class='amazlink-info' style='height:160; margin-bottom: 10px'><div class='amazlink-name' style='margin-bottom:10px;line-height:120%'><a href='https://www.amazon.co.jp/Think-Bayes-%E2%80%95%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9E%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E3%83%99%E3%82%A4%E3%82%BA%E7%B5%B1%E8%A8%88%E5%85%A5%E9%96%80-Allen-Downey/dp/4873116945%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4873116945' rel='nofollow' target='_blank'>Think Bayes ―プログラマのためのベイズ統計入門</a></div><div class='amazlink-powered' style='font-size:80%;margin-top:5px;line-height:120%'>posted with <a href='http://amazlink.keizoku.com/' title='アマゾンアフィリエイトリンク作成ツール' target='_blank'>amazlink</a> at 17.01.28</div><div class='amazlink-detail'>Allen B. Downey<br /></div><div class='amazlink-sub-info' style='float: left;'><div class='amazlink-link' style='margin-top: 5px'><img src='http://amazlink.fuyu.gs/icon_amazon.png' width='18'><a href='https://www.amazon.co.jp/Think-Bayes-%E2%80%95%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9E%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E3%83%99%E3%82%A4%E3%82%BA%E7%B5%B1%E8%A8%88%E5%85%A5%E9%96%80-Allen-Downey/dp/4873116945%3FSubscriptionId%3DAKIAJDINZW45GEGLXQQQ%26tag%3Dsleephacker-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4873116945' rel='nofollow' target='_blank'>Amazon</a></div></div></div></div></div>
+#+end_export
+
+  ベイズ統計は PRML でのキモになるので、もう一冊くらい勉強したいところ。なにがいいかは選定中。
+
+* おわりに
+  とにかく数学の勉強を始めることが大事だと思う。
+
+  まずは、動く。そのことによって、また違う世界ややりたいことが見えてくる。
+
+  ここに立てたプランは仮のプランで、PDCA を回しながら、PRML 目指して進んでいく。
+
+  また、数学を勉強しながら機械学習の勉強を平行で実施していく。
+
+  機械学習のための数学なので、あまり範囲から外れた勉強はしたくない。
+
+  機械学習の勉強をすることで、なにが大事でなにがいらない知識なのかも見えてくると思う。

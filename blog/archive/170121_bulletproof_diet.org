@@ -1,0 +1,129 @@
+#+BLOG: Futurismo
+#+POSTID: 6102
+#+DATE: [2017-01-21 土 07:49]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: ライフハック
+#+TAGS:
+#+DESCRIPTION: 完全無欠ダイエットを開始します
+#+TITLE: 完全無欠ダイエットを開始します
+
+体重が、ヤバい。この半年間で 20kg 太ってしまった。現在、83kg, 半年前は 63kg...
+
+[[file:./../img/IMG_1292.PNG]]
+
+
+そのため、完全無欠ダイエットを開始します！！
+
+* どうして太ってしまったか？
+  シュークリームの食べ過ぎ。
+  一日に 3 個〜 9 個を半年間たべつづけたら、太ってしまっだ。
+
+  昨日ショックなことがあって、久しぶりにスーツのズボンを履こうとしたら履けなかった。
+
+  そのため、*葬式にいくことができない* !!
+
+  これは大変なことだ。今、手持ちの服ではけるズボンは 2 着しかない。とても困る。
+
+* 完全無欠ダイエットとは？
+  これは、シリコンバレー式 自分を変える最強の食事で紹介されているダイエット方法だ。
+
+#+begin_export html
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=fox10225fox-22&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=B015S5545W&linkId=6a83f7be49d5011f0d929d304724e326"></iframe>
+#+end_export
+
+  キーとなるのは、完全無欠コーヒー。これを飲むと頭が冴え渡り、空腹感がなくなる。
+
+  実際、私はこのダイエット方法を試して、3 ヶ月で 9 kg の減量に成功した体験がある。
+
+#+begin_export html
+<blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">ついに目標達成！！<br>体重が 65kg を下回り、3 ヶ月で 9kg の減量に成功。<br>ありがとう、完全無欠コーヒー。 <a href="https://t.co/iAVouzTy3k">pic.twitter.com/iAVouzTy3k</a></p>&mdash; tsu-nera (@tsu_nera) <a href="https://twitter.com/tsu_nera/status/736908023570915328">2016 年 5 月 29 日</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+#+end_export
+
+  しかし、その後ストレスのため、シュークリームを乱食して、20kg 太ってしまった。
+
+  なので、適切に完全無欠ダイエットを実行すれば、体重は減っていくという確信はあるのだ。
+
+* 目標設定
+  1 ヶ月 3kg, 半年で 18kg やせることを目指します！
+
+  主に食事制限によって、ダイエットをしようと思う。
+
+  暖かくなってきたら、ジョギングも取り入れようと思う。（今は真冬なので寒い）
+
+* 食事プラン
+** 朝食: 完全無欠コーヒー
+   完全無欠コーヒーを飲みます。
+   - インスタントコーヒー大さじ 2 杯
+   - MTC オイル 大さじ 2 杯
+   - 水、コーヒー 2 杯分 500ml
+   - グラスフェドバター 10g
+
+[[file:./../img/IMG_1282.PNG]]
+
+** 昼食: 完全無欠サーモンアボカドサラダ
+   完全無欠サーモンアボカドサラダを食べます。以下の記事を参考にしました。
+   - [[http://callofventure.hatenablog.com/entry/2015/12/31/123520][仕事が捗る「シリコンバレー式・最強の食事」を 3 ヶ月やってみた。僕なりのベストプラクティス。]]
+
+   今までは、松屋、吉野家、すた丼でお昼を済ましていたけれども、
+   これからはお弁当を毎朝つくって、持っていくことにする。
+
+   - アボカド 1 個
+   - スモークサーモン 1 パック
+   - オリーブオイル
+   - リンゴ酢
+   - 塩
+   - サラダ菜かレタス
+
+** 夕食: 納豆卵ごはん
+   ご飯 1/4 合に、納豆と卵をかけて食べます。
+
+   夕食時に炭水化物をとることがよいことは、本でも紹介されている。
+
+   - 米 1/4 合
+   - 納豆一パック
+   - 卵１つ
+
+   [[file:./../img/IMG_1281.PNG]]
+
+** 就寝前: 完全無欠はちみつミルク
+   はちみつと MTC オイルの組み合わせが安眠を誘うことも本で紹介されているので、これを実践。
+
+   - はちみつ 大さじ 1 杯
+   - MTC オイル 大さじ 2 杯
+   - 牛乳 300ml
+
+[[file:./../img/IMG_1293.JPG]]
+
+* レコーディングダイエット
+  ダイエット用のツイッターアカウントを作成しました。
+
+  https://twitter.com/tsu_nera_d
+
+  これに、
+  - 食べた食事
+  - 毎日の体重
+
+  をツイートして、ログとして残すようにする。
+
+  以下の iPhone アプリがツイッター連携していて使える。
+  - [[https://itunes.apple.com/jp/app/shinpuru-daietto-ji-lusurudake!kantan/id418785500?mt=8][シンプル・ダイエット 〜 記録するだけ！かんたん体重管理 〜を App Store で]]
+  - [[https://itunes.apple.com/jp/app/shinpuru-daietto-*-foto-shibetamonowo/id581015673?mt=8][シンプル・ダイエット ＊ フォト ー 食べたものを記録する！かんたん写真日記を App Store で]]
+
+  日々の体重の変化記録することで、ダイエットのモチベーションを保つ。
+
+* PDCA サイクルを回す
+  以上が、計画である。しかし、計画は往々にして失敗するものだ。
+
+  どうも体重が減っていかない場合は、起動修正をしていく。
+
+  ダイエットは、PDCA を回すのによい教材だとい本を読んだ。
+
+  #+begin_export html
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=fox10225fox-22&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=B01AXWOMW6&linkId=5cc213e708798f53ef4e0fd9f3824c78"></iframe>
+  #+end_export
+
+# ./../img/IMG_1292.PNG http://futurismo.biz/wp-content/uploads/IMG_1292.png
+# ./../img/IMG_1282.PNG http://futurismo.biz/wp-content/uploads/IMG_1282.png
+# ./../img/IMG_1281.PNG http://futurismo.biz/wp-content/uploads/IMG_1281.png
+# ./../img/IMG_1293.JPG http://futurismo.biz/wp-content/uploads/IMG_1293.jpg

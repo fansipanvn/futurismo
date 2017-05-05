@@ -1,0 +1,166 @@
+#+BLOG: Futurismo
+#+POSTID: 6087
+#+DATE: [2017-01-14 土 00:18]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: fish
+#+DESCRIPTION: fish ユーザなら入れておきたいプラグイン選集
+#+TITLE: fish ユーザなら入れておきたいプラグイン 13 選
+
+fish ユーザなら、fisherman を使って、簡単にプラグインを入れることができます。
+
+fish のいいところは、fisherman というプラグイン監理マネージャーがあるところです。
+
+今日は、自分が入れているおすすめプラグインを紹介します。
+
+* oh-my-fish
+** oh-my-fish/plugin-balias
+   - https://github.com/oh-my-fish/plugin-balias
+
+  alias の代わりに balias と書くことで、alias を補間してくれる。
+
+#+begin_src bash
+fisher oh-my-fish/plugin-balias
+#+end_src
+
+** oh-my-fish/plugin-expand
+   - https://github.com/oh-my-fish/plugin-expand   
+
+   cd を冒頭につけなくてもディレクトリ移動できる。zsh でもこんな機能あった。
+
+#+begin_src bash
+fisher oh-my-fish/plugin-expand
+#+end_src
+
+** oh-my-fish/plugin-peco
+   - https://github.com/oh-my-fish/plugin-peco
+
+  2 つの機能を提供してくれる. 
+  - peco_kill ... プロセスキル
+  - peco_select_history ... コマンド履歴
+
+  peco i/f で どちらも選択して、アクションをする。
+
+#+begin_src bash
+fisher oh-my-fish/plugin-peco
+#+end_src
+
+** oh-my-fish/extract
+   - https://github.com/oh-my-fish/plugin-extract
+
+   どんな圧縮ファイルも解凍してくれる extract コマンド
+
+#+begin_src bash
+fisher oh-my-fish/plugin-extract
+#+end_src
+
+* fisherman
+** fisherman/fzf
+  - https://github.com/fisherman/fzf
+
+  ファイル検索や実行コマンド検索ができます。fzf のインストールが必要。
+  以下から fzf のバイナリが手に入る。
+  - https://github.com/junegunn/fzf-bin/releases
+
+#+begin_src bash
+fisher fzf
+#+end_src
+
+** fisherman/gitignore
+   - https://github.com/fisherman/gitignore
+
+   .gitignore を作成します。
+
+#+begin_src bash
+fisher gitignore
+#+end_src
+
+** fisherman/spin
+   - https://github.com/fisherman/spin
+
+   時間がかかる処理のときクルクル回るアイコンを表示してくれる。
+
+#+begin_src bash
+fisher spin
+#+end_src
+
+** fisherman/z
+   - https://github.com/fisherman/z
+
+   z (フォルダ名)で フォルダに移動できる超べんりコマンド
+
+#+begin_src bash
+fisher z
+#+end_src
+
+* その他
+** edc/bass
+   - https://github.com/edc/bass
+
+   Bash の文法を fish シェルでも使えるようにしてくれる。
+
+#+begin_src bash
+fisher edc/bass
+#+end_src
+
+** 0rax/fish-bd
+   - https://github.com/0rax/fish-bd
+
+   ディレクトリを遡ることができる。back directory.
+
+#+begin_src bash
+fisher 0rax/fish-bd
+#+end_src
+
+** oshiori/fish-peco_select_ghq_repository
+   - https://github.com/yoshiori/fish-peco_select_ghq_repository
+   ghq コマンドと peco の連携。ghq リポジトリ群を peco で選択して移動できる。
+
+#+begin_src bash
+fisher oshiori/fish-peco_select_ghq_repository
+#+end_src
+
+** tsu-nera/fish-peco_open_gh_repository
+   - https://github.com/tsu-nera/fish-peco_open_gh_repository
+   拙作。ghq コマンドと peco の連携。
+   ghq リポジトリ群を peco で選択して gh-open コマンドで開くことができる。
+
+#+begin_src bash
+fisher tsu-nera/fish-peco_open_gh_repository
+#+end_src
+
+** tsu-nera/fish-peco_recentd
+   拙作。z コマンドで頻繁に訪れるディレクトリを peco で選択して移動する。
+
+#+begin_src bash
+fisher tsu-nera/fish-peco_recentd
+#+end_src
+
+* 終わりに
+  私のキーバインドは以下のようになっています。
+
+#+begin_src bash
+function fish_user_key_bindings
+        # ghq を選択
+        bind \cl peco_select_ghq_repository
+        # gh-open
+        bind \cx\cl peco_open_gh_repository
+        # コマンド履歴を見る
+        bind \cr peco_select_history
+        # プロセスをキルする
+        bind \cx\ck peco_kill
+        # 最近見たディレクトリに移動
+        bind \cx\cr peco_recentd
+
+        # fzf
+        bind \cx\cf '__fzf_find_file'
+        bind \ctr '__fzf_reverse_isearch'
+        bind \ex '__fzf_find_and_execute'
+        bind \ed '__fzf_cd'
+        bind \eD '__fzf_cd_with_hidden'
+end
+#+end_src
+
+  私の fishfile は以下です。日々進化しています。
+  - https://github.com/tsu-nera/dotfiles/blob/master/.config/fish/fishfile
+

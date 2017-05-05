@@ -1,0 +1,76 @@
+#+BLOG: Futurismo
+#+POSTID: 6359
+#+DATE: [2017-05-03 水 15:20]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ, Wordpress
+#+TAGS: Jupyter 
+#+DESCRIPTION: WordPress に Jupyter Notebook で書いた ipynb を表示する方法
+#+TITLE: Jupyter Notebook で書いた ipynb を Wordpress の記事にするには jupy2wp が便利
+
+Jupyter Notebook で実行した結果や、matplotlib や seaborn で生成した図を、
+そのまま WordPress に表示して、記事にしたいとする。
+
+調べてみると、以下の やり方があるようだ。
+1. gist に アップロードして公開したものを Wordpress に 埋め込む。
+2. Jupyter Notebook を html 形式で、ダウンロードする。
+3. .ipynb ファイルを nbconvert で html ファイルにして Wordpress に入力する。
+4. jupy2wp を使う。
+
+* gist を埋め込む
+  Jupyter Notebook には、Gist-it という extentions がある。
+  extentions の有効方法については、以下の README を参照。
+  - [[https://github.com/ipython-contrib/jupyter_contrib_nbextensions][ipython-contrib/jupyter_contrib_nbextensions:]]
+  
+  これを有効にすると、ツールバーに gist のマークが現れる。
+  ポチルだけで、gist に ipynb がアップロードされて、公開される。
+
+  注意点は、gist-it の設定画面から Github personal access token を入力することだ。
+  そうしないと、anonymous として gist が公開される。
+
+  しかし、この方法は自分は好まない。なぜなら、gist を WordPress に 埋め込んだとき、
+  コードの高さが固定されてスクロールバーが出てきてしまうからだ。この回避方法がわからなかった。
+  もし、この問題が回避できれば、gist はいいかもしれない。
+
+  どういう仕組みかわからないけれども、図表も表示される。
+
+* HTML 形式でダウンロードする
+  Jupyter Notebook の notebook を開いて、
+  File > Download as > HTML から html 形式でダウンロードする。
+
+  出来た html ファイルを Wordpress のテキスト画面に貼り込む
+
+  この作戦も、自分は好まない。なぜなら、Jupyter Themes を使っているのだけれども、
+  Themes が反映された状態で HTML がダウンロードされるからだ。
+
+  黒背景を使っているので、真っ黒な画面になった、よくない。
+
+* nbconvert をつかう
+  以下のサイトで紹介されている方法。
+  - [[http://qiita.com/AmbientData/items/47a341b5d4e030909dac][Jupyter Notebook のドキュメントを Wordpress に貼り込む - Qiita]]
+  - [[http://www.mianchen.com/wordpress-blogging-with-jupyter-notebook-in-five-simple-steps/][WordPress Blogging with Jupyter Notebook in Five Simple Steps | Mian Chen]]
+
+  1.Jupyter Notebook でコンテンツを作り、Save する
+  2.nbconvert で html ファイルに変換する
+
+#+begin_src sh
+$ jupyter nbconvert --to html --template basic 出来たファイル.ipynb
+#+end_src
+  
+  3.出来た html ファイルを Wordpress のテキスト画面に貼り込む
+  4.Wordpress の CSS ファイルに最後に示した CSS を追加する。
+
+  これはいいかもしれない。しかし、もっといい方法を見つけた。
+
+* jupy2wp を使う
+  jupy2wp というツールを使う。
+  - [[https://github.com/Pybonacci/jupy2wp][Pybonacci/jupy2wp: Publish a Jupyter notebook on a wordpress site using xmlrpc]]
+
+  インストール方法は README 参照。ちょっとコマンドオプションが長いけれども、以下のように使う。
+
+#+begin_src bash
+python -m jupy2wp.jupy2wp --xmlrpc-url http://futurismo.biz/xmlrpc.php --user username --password hogehoge --nb titanic-cnn.ipynb --title "Kaggle: Titanic 問題データ分析" --categories [Python, 統計] --tags keras
+#+end_src
+
+  こうすると、下書きの状態で、ipynb で表示されていた内容がそのまま記事として投稿される。
+
+  さらに、画像は、/upload フォルダ配下に自動でアップロードされて保存される。これはいい。

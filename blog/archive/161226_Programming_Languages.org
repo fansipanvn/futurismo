@@ -199,4 +199,4 @@ coursera で Programming Languages を受けた。
   取得した cartification は以下。
   - PartA: https://www.coursera.org/account/accomplishments/certificate/KB24LCCEPQL6
   - PartB; https://www.coursera.org/account/accomplishments/certificate/ZQJJNSZT74H2
-  - PartC: これから取得予定
+  - PartC: https://www.coursera.org/account/accomplishments/certificate/CTXKUYXKDVC7

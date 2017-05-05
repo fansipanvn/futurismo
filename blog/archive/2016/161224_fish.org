@@ -175,7 +175,10 @@ set -U fish_user_paths /usr/local/bin $fish_user_paths
 
 * プラグイン
 ** oh-my-fish
-   - fish shell をさらに魅力的にしてくれるツール
+   - fish shell をさらに魅力的にしてくれるツール.
+
+   17@112:追記 : fisherman を使った方がよい。
+   - [[http://futurismo.biz/archives/6079][oh-my-fish は古い！fisherman で置き換えられる。 | Futurismo]]
 
  #+begin_src bash
 curl -L http://get.oh-my.fish | fish

@@ -1,0 +1,31 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: 
+
+* Latex のインストール
+
+以下の記事を参考にして、パッケージをインストール。
+- [[https://elementztechblog.wordpress.com/2014/07/24/installing-latex-and-beamer-in-ubuntu/][Installing LateX and Beamer in Ubuntu | Random Codes - Elementz Tech Blog]]
+- [[http://qiita.com/seki0913/items/fe9a50ea11c716d76514][Ubuntu 16.04LTS に LaTeX をインストール - Qiita]]
+
+#+begin_src bash
+# リポジトリの登録
+sudo apt-add-repository ppa:texlive-backports/ppa
+
+# TexLive のインストール
+sudo apt-get install texlive-full
+sudo apt-get install impressive
+#+end_src
+
+* beamer を org-mode から吐き出す
+
+以下のおまじないを require する。
+
+#+begin_src emacs-lisp
+(require 'ox-beamer)
+#+end_src
+
+C-c C-e org-export を実行すると、Beamer の export menu があらわれる。
+

@@ -1,0 +1,78 @@
+#+BLOG: Futurismo
+#+POSTID: 6274
+#+DATE: [2017-04-19 水 20:22]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 機械学習, 書評
+#+TAGS: DeepLearning, TensorFlow, Kaggle
+#+DESCRIPTION: TensorFlow で学ぶディープラーニング入門を読んだ
+#+TITLE: TensorFlow で学ぶディープラーニング入門を読んだ。Kaggle で実践してみた。
+
+TensorFlow で学ぶディープラーニング入門～畳み込みニューラルネットワーク徹底解説を読みました。
+
+#+begin_export html
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=fox10225fox-22&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=B01MAWJJOW&linkId=19d8511428ee2c27ef94333e1932cc44"></iframe>
+#+end_export
+
+* 概要と感想
+  この本は、 手書き文字の認識処理を MNIST データを利用してすることが目的。
+
+  また、Tensorflow で 畳み込みニューラルネットワーク(CNN)を実装することが目的。
+
+  章をおうごとにソースコードがパワーアップしていき、認識精度が上がっていくところが面白い。
+  - 2 章: Softmax をつかった多項分類器
+  - 3 章: 
+    + 2.単層ニューラルネットワーク
+    + 3.多層ニューラルネットワーク
+  - 4 章: 単層 CNN
+  - 5 章: 多層 CNN
+
+  本のはじめににも書いてあるけれども、この本は TensorFlow の公式 Web サイトのチュートリアルで
+  「Deep MNIST for Experts」として紹介されているものをほぼそのまま採用しているそうだ。
+
+  私は、公式サイトは読んでいないから差分がどうこういうことはできないけれども、
+  数式を交えて丁寧に解説されていて、わかりやすいと感じた。
+
+  なお、Jupyter Notebook が提供されていて、
+  自分の環境で動かしながら勉強できるところがとても気に入った。
+  - https://github.com/enakai00/jupyter_tfbook
+
+  この本で提示されている「機械学習の 3 ステップ」が心に残ったので、引用したい。
+
+#+begin_src text
+①与えられたデータを元にして、未知のデータを予測する数式を考える
+②数式に含まれるパラメーターの良し悪しを判断する誤差関数を用意する
+③誤差関数を最小にするようにパラメーターの値を決定する
+#+end_src
+
+  TensorFlow について、この本ででてくるコードは毎回似たようなことをしているので、
+  はじめは困惑したのだけれども、繰り返し見ているうちにすらすら意味がわかるようになった。
+  入門レベルとしては、十分力がついたと思う。
+
+* 環境構築は Anaconda をつかった
+  この本には、Docker をつかって環境構築をするように書いてあったのだけれども、
+  自分は、Anaconda を利用して読みめてみた。
+
+  ツールのバージョンも以下で読んだ。
+  - Anaconda 4.3.16
+  - Python 3.6
+  - TensorFlow 1.0.1
+
+  ところどころ元のソースコードに修正が必要になったけれども、全て問題なく動作した。
+
+  自分がした修正は以下のリポジトリにあります。
+  - https://github.com/tsu-nera/jupyter_tfbook/tree/master/
+
+* Kaggle で実力試しをした
+  2017 年現在、Kaggle で MNIST をりようしたコンペが主催されている。
+
+  私は、各章を読み終わるたびに、理解度を深めるために Kaggle の MNIST のコンペに挑戦した。
+  - 2 章: Softmax をつかった多項分類器 [[https://github.com/tsu-nera/kaggle/blob/master/digit-recognizer/multiclass-classification.ipynb][kaggle/multiclass-classification.ipynb]]
+  - 3 章: 
+    + 2.単層ニューラルネットワーク [[https://github.com/tsu-nera/kaggle/blob/master/digit-recognizer/single-layer-network.ipynb][kaggle/single-layer-network.ipynb]]
+    + 3.多層ニューラルネットワーク [[https://github.com/tsu-nera/kaggle/blob/master/digit-recognizer/multi-layer-network.ipynb][kaggle/multi-layer-network.ipynb]]
+  - 4 章: 単層 CNN [[https://github.com/tsu-nera/kaggle/blob/master/digit-recognizer/single-cnn.ipynb][kaggle/single-cnn.ipynb]]
+  - 5 章: 多層 CNN [[https://github.com/tsu-nera/kaggle/blob/master/digit-recognizer/double-layer-cnn.ipynb][kaggle/double-layer-cnn.ipynb]]
+
+  これはとてもよい、また楽しい復習方法なので、ぜひオススメしたい。
+
+  ただし、この本を参考に実装した結果は、1150 位で 上位 1000 位以内にも入れないけれどもね。

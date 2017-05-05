@@ -1,0 +1,65 @@
+#+BLOG: Futurismo
+#+POSTID: 6312
+#+DATE: [2017-05-02 火 18:38]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: MOOC, 機械学習
+#+TAGS: Udemy
+#+DESCRIPTION:Udemy 悪くないかもしれない
+#+TITLE: Udemy 悪くないかもしれない、機械学習系の講座が充実。セールで大人買いしよう！
+
+[[file:./../img/2017-05-02-183736_572x189_scrot.png]]
+
+Udemy で実践データサイエンスを受けてる。これが悪くない。
+- [[https://www.udemy.com/python-jp/][【世界で 5 万人が受講】実践 Python データサイエンス | Udemy]]
+
+* 初 Udemy です
+  初 Udemy の講座。今まで、Udemy はべらぼうな価格設定のため舐めてました。
+
+  通常の講座が 15000 円とか 25000 円とかなので、
+  こんな値段で購入する人いないでしょと思っていたけれども、
+  Udemy は 頻繁にセールをすることで有名らしい。年中セールをやっているとか。
+
+  通常の値段で購入する人は滅多にいないだろう。
+  私は、1200 円で購入しました。GW は 教師の日??とかいうキャンペーンをやってる。
+
+#+begin_export html
+<blockquote class="twitter-tweet" data-lang="ja"><p lang="en" dir="ltr">Teacher Appreciation Week Sale<br>Discount: All new and existing users see $10<br>Promo Code: UDEMAY104<a href="https://t.co/ZJdrTB71cl">https://t.co/ZJdrTB71cl</a><a href="https://twitter.com/hashtag/udemy?src=hash">#udemy</a> <a href="https://twitter.com/hashtag/coupon?src=hash">#coupon</a></p>&mdash; Udemy Free Coupons (@udemycodecoupon) <a href="https://twitter.com/udemycodecoupon/status/858906092205522944">2017 年 5 月 1 日</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+#+end_export
+
+  4 月の頭にも、新生活応援キャンペーンを実施していた。
+
+* Udemy 悪くないかも
+  Udemy は 思っていたよりも悪くないと思う。Udemy については、
+  アフィリエイトのせいか、coursera や edX や Udacity に比べて宣伝のサイトがわんさかあるので、
+  Udemy がなにかを知りたいひとは、そのサイトへ。ベネッセがバックにいるらしい。
+
+  自分が高評価したのは、コンテンツがバラエティに富んでいるからだ。
+  日本語のコンテンツで探してはダメ、英語のコンテンツで検索すること。
+
+  coursera や Edx, Udacity は大学や大企業がバックについているけれども、
+  Udemy は個人が講座を開いているので、バラエティに富んでいる。
+
+  ここが高評価のポイント。日本語コンテンツがあるのもうれしいね。
+
+* 自分が購入したもの、全部 10 ＄だよ
+  私は、以下の Machine Learning & Deep Learning の講座を全部 10 ドル 1200 円で大人買いした。
+  - [[https://deeplearningcourses.com/course_order][Deep Learning Courses]]
+
+  他にも、いろいろと 機械学習系の講座を購入。
+  - [[https://www.udemy.com/machinelearning/][Machine Learning A-Z ™: Hands-On Python & R In Data Science | Udemy]]
+  - [[https://www.udemy.com/deeplearning/][Deep Learning A-Z ™: Hands-On Artificial Neural Networks | Udemy]]
+  - [[https://www.udemy.com/decision-trees-and-random-forests/][Byte-Sized-Chunks: Decision Trees and Random Forests | Udemy]]
+  - [[https://www.udemy.com/keras-deep-learning-in-python/][Keras: Deep Learning in Python | Udemy]]
+  - [[https://www.udemy.com/python-jp/][【世界で 5 万人が受講】実践 Python データサイエンス | Udemy]]
+  - [[https://www.udemy.com/python-scikit-learn/][Python で機械学習：scikit-learn で学ぶ識別入門 | Udemy]]
+  
+  その他、システムトレードに興味があるので、以下の講座を購入。
+  - [[https://www.udemy.com/quant-trading-using-machine-learning/][Quant Trading using Machine Learning | Udemy]]
+  - [[https://www.udemy.com/python-algo-trading-fx-trading-with-oanda/][Python Algo Trading: FX Trading with Oanda | Udemy]]
+
+  すべて１０ドル。15 万以上割引で購入したと思う。もともとの価格設定が狂ってるけど。
+
+  購入した講座、全てやり切れないと思うけれども、セールに煽られて散財してしまった yo。
+
+# ./../img/2017-05-02-183736_572x189_scrot.png http://futurismo.biz/wp-content/uploads/2017-05-02-183736_572x189_scrot.png

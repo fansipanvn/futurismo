@@ -1,0 +1,34 @@
+#+BLOG: Futurismo
+#+POSTID: 6082
+#+DATE: [2017-01-13 金 00:23]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: fish, peco
+#+DESCRIPTION:ghq で管理しているリポジトリを peco で選択して、gh-open で開く fish プラグイン
+#+TITLE: ghq で管理しているリポジトリを peco で選択して、gh-open で開く fish プラグイン
+
+peco, ghq, gh-open の組み合わせが便利。
+
+ghq で管理しているリポジトリを peco で選択して、gh-open で開く。
+
+- [[http://webtech-walker.com/archive/2014/06/peco-ghq-gh-open.html][peco、ghq、gh-open の組み合わせが捗る - Webtech Walker]]
+- [[http://qiita.com/JugnautOnishi/items/f55058c2f6669a18076a][nyagos で ghq と gh-open を peco ってつかいたかった - Qiita]]
+
+これを、fish に移植した。リポジトリは以下。
+
+#+begin_export html
+<div class="github-card" data-github="tsu-nera/fish-peco_open_gh_repository" data-width="400" data-height="" data-theme="default"></div>
+<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+#+end_export
+
+- https://github.com/tsu-nera/fish-peco_open_gh_repository
+
+あらかじめ、
+- https://github.com/motemen/ghq
+- https://github.com/typester/gh-open
+
+をインストールしておいて, 以下でインストールできる。
+
+#+begin_src bash
+fisher tsu-nera/fish-peco_open_gh_repository
+#+end_src

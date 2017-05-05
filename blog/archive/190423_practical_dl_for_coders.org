@@ -1,0 +1,147 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 機械学習, MOOC
+#+TAGS: DeepLearning, fastAI
+#+DESCRIPTION: Practical Deep Learning for Coders を受けた
+#+TITLE: [fast.ai] Practical Deep Learning for Coders を受けた
+
+fast.ai が提供する MOOC, "Practical Deep Learning for Coders Part1" を受けた。
+- [[http://course.fast.ai/][Practical Deep Learning For Coders — 18 hours of lessons for free]]
+
+* 特徴
+** 実践的プログラミング
+   この講座は、プログラマのためにある。素晴らしい理念の序文を引用したい。
+
+#+begin_quote
+The purpose of this course is to make deep learning accessible to those individuals 
+who may or may not possess a strong background in machine learning or mathematics.
+
+We strongly believe that deep learning will be transformative in any application; 
+as such, this course is designed for individuals who possess a background in computer programming 
+and would like to apply these techniques to their domain of expertise. 
+#+end_quote
+
+  Deep Learning は、機械学習や数学に深い造詣がないといけないというまやかしを、
+  吹き飛ばそうという野心を感じる。そして、機械学習も数学もできない自分にはピッタリの講座だ。
+
+** Practical~実践の意味、Kaggler になれ！
+   講師を努めるのは、Kaggle のかつての President, Jeremy Howard. TED の動画もある。
+
+#+begin_export html
+<iframe src="https://embed.ted.com/talks/lang/ja/jeremy_howard_the_wonderful_and_terrifying_implications_of_computers_that_can_learn" width="640" height="360" frameborder="0" scrolling="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+#+end_export   
+
+  そして毎週の課題は、Kaggle に挑戦すること。
+  そのうち、トップ 50% に入ることが基準として課される。
+   
+  トップ 50% に入るのは、正直とてもたいへんだ。
+  しかし、この手法を使えば入れるという種明かしを授業のなかでしてくれる。
+
+  ここでタイトルの実践の意味がわかる。つまり、kaggle のデータを使って、
+  実際にデータ解析をすることで、実力をつけようという意図があるのだ。
+
+** GPU つかうから AWS は自分で借りてね
+   GPU をつかうから AWS を借りてねと言われる。1 時間 90 セントだから安いよと言われる。
+   - http://wiki.fast.ai/index.php/AWS_install
+
+   p2 タイプというのが GPU 対応らしいのでそのインスタンスを借りる。
+
+   AWS の EC2 の自動セットアップスクリプトが提供されるのだけれども、
+   このスクリプトがアメリカとヨーロッパしか対応してなくて、アジアがない。
+
+   しかたがないので、アメリカの EC2 のインスタンスを使う。
+   操作すると、距離のせいか、レスポンスが遅いが、なんとか頑張る。
+
+   floydhub が使えるという情報を見つけた。
+   - [[http://forum.floydhub.com/t/running-fast-ai-lesson-1-on-floyd/40][Running Fast.ai Lesson 1 on Floyd - How To - FloydHub Forum]]
+
+** 全 7 週間で、最低８時間は自習しましょう
+   講義は全 7 週間ある。勉強時間は平均的に 8-15 時間が一般的らしい。
+   なかには、15-30 時間勉強する人もいるとか。
+
+   ハードだ。でも、他の MOOC と違い、自分のペースで進めることが出来るので、
+   時間に追い詰められることはなく、自分が納得できるまで努力することができる。
+
+   この MOOC は自習が重んじられているように感じた。
+
+* 内容
+** week1: Image Recognition
+   week1 の動画はうれしいことに日本語字幕がついている。
+   
+   前半で、AWS の環境構築をする。全てセットアップスクリプトが面倒見てくれるので、
+   問題なくセットアップできた。
+
+   それから、VGG16 という imagenet のモデルを ファインチューニングして、
+   [[https://www.kaggle.com/c/dogs-vs-cats-redux-kernels-edition][Dogs vs. Cats Redux| Kaggle]] 用にモデルをつくる。
+
+   fine-tuning については、この記事が詳しい。この fine-tuning は転移学習ともいうらしい。
+   - [[http://aidiary.hatenablog.com/entry/20170104/1483535144][Keras で VGG16 を使う - 人工知能に関する断創録]]
+   - [[http://aidiary.hatenablog.com/entry/20170108/1483876657][VGG16 の Fine-tuning による犬猫認識 (1) - 人工知能に関する断創録]]
+   - [[http://aidiary.hatenablog.com/entry/20170110/1484057655][VGG16 の Fine-tuning による犬猫認識 (2) - 人工知能に関する断創録]]
+
+   課題は、上記 kaggle のコンペティション（競技会）に参加してみること。
+   自分が参加したときは、もう既にこのコンペが終了していた。
+   提出はできたので、スコアを眺めてみたけれども、どうもあまり成績はよくなかった。
+   
+   week1 では、理論的な話はでてこないので、説明された通りに進めていけば OK.
+
+** week2: CNNs
+   前半は、week1 の課題の説明。Dogs or Cats コンペで 上位に入るための種明かしがされる。
+
+   後半は、CNN について。CNN の説明はガイダンスでしたよね？といわれ、
+   CNN の理論は飛ばされて線形問題を SGD で解くことをやる。
+   そのあと、Keras をつかって、線形問題を解く。
+
+   その後、Keras をつかって、スクラッチから Dogs vs Cats をかいて
+   どうやれば精度が向上するかを実験する。
+
+   課題は、コンペで 50%以内に入る種明かしを元に、再度 kaggle に挑戦してみること。
+   また、vgg16 の fine-tuning による方法はいろんな 
+   kaggle のコンペに適用可能なので、犬猫以外のコンペに参加してみること。
+
+   また、課題図書で 以下を読むこと。こんなに読めないよ！！と思ったので、読まなかったけど。
+    - [[http://cs231n.github.io/][CS231n Convolutional Neural Networks for Visual Recognition]] - The following from module 1:
+      - Optimization: Stochastic Gradient Descent
+      - Backpropagation, Intuitions
+      - Neural Networks Part 1: Setting up the Architecture
+    - [[http://neuralnetworksanddeeplearning.com/chap1.html][Neural networks and deep learning]] - chapters 1, 2, & 3
+
+   てか、普通にこれだけ勉強するなんて、アメリカの学生勉強しすぎでしょ、偉いよ。
+
+** week3: Overfitting
+   前半は、CNN の復習。
+   サブ講師のレイチェルさんがちょくちょく質問をして、講義を遮る。
+
+   後半は、Overfitting と Underfitting について。以下の手法が紹介される。
+   - Data Augmentation
+   - Dropout
+   - Bach Normalization
+
+   そして、これらのテクニックをつかって MMIST の認識を試み、
+   精度 97%まで達することを示す。
+
+   課題は、今までの復習(CNN はここまで)を各自でやるようにとのこと。
+   それから、[[https://www.kaggle.com/c/state-farm-distracted-driver-detection][State Farm]] のコンペで上位 50% に入ることが課せられるのだが、
+   これができなかった。。
+
+** week4: Embedding
+   前半は、CNN を Excel で表現していろいろ動かしてみるデモ。
+   それから、いくつかの最適化手法が紹介される。
+   - Momentam
+   - Adagrad
+   - RMSProp
+   - Adam
+   - Eve
+   これは、[[http://postd.cc/optimizing-gradient-descent/][勾配降下法の最適化アルゴリズムを概観する| POSTD]] が詳しいのでここで復習。
+
+   それから、[[https://www.kaggle.com/c/state-farm-distracted-driver-detection][State Farm]] のコンペの攻略法について 30 分ほど話がある。
+   今週も頑張ってねとのこと。
+   これが終わったら、[[https://www.kaggle.com/c/the-nature-conservancy-fisheries-monitoring][Fisheries Monitoring]] のコンペが紹介される。
+   どのコンペも、もう終了しているものばかりなのが残念。
+   もう少し早くこの MOOC を知ればよかった。
+
+   最後に協調フィルタリングの紹介。Excel のソルバーを使ってデモをしていたけれども、
+   自分は Excel を持っていないので、試すことができない。
+
+** week5: NLP
+** week6: RNNs
+** week7: CNN Architectures

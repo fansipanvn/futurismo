@@ -1,0 +1,30 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 機械学習
+#+TAGS:
+#+DESCRIPTION: 機械学習とはなにかについて調べてみた
+#+TITLE: 機械学習とはなにかについて調べてみた
+
+coursera の Machine Learning をようやく修了した。
+- [[https://www.coursera.org/learn/machine-learning][Machine Learning - Stanford University | Coursera]]
+
+このコースはいろいろなトピックを扱っているけれども、
+果たしてこれで機械学習を理解したのだろうか？
+
+そもそも、機械学習って、なんだろう。自分は機械学習をどこまで学習したのだろうか？
+
+ネット上には記事がたくさんあるので、調べてみた。まずは、機械学習の分野について分解してみた。
+
+大きく分けると以下の３つに分けられるようだ。
+ - 教師あり学習
+ - 教師なし学習
+ - 強化学習
+
+* 教師あり学習(Supervised Learning)
+  事前に与えられたデータをいわば「例題（＝先生からの助言）」とみなして、
+  それをガイドに学習（＝データへの何らかのフィッティング）を行う.
+
+  
+
+* 教師なし学習
+* 強化学習
+

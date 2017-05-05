@@ -1,0 +1,56 @@
+#+BLOG: Futurismo
+#+POSTID: 6079
+#+DATE: [2017-01-12 木 22:13]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS: fish
+#+DESCRIPTION: oh-my-fish から fisherman への移行
+#+TITLE: oh-my-fish は古い！fisherman で置き換えられる。
+
+今まで、oh-my-fish を fish のパッケージ管理として利用してました。
+- [[http://futurismo.biz/archives/6016][デフォルト設定で強力に便利！zsh から fish に乗り換えたまとめ | Futurismo]]
+
+しかし、fisherman を利用すれば、oh-my-fish で利用してきた機能を置き換えることができることを知りました。
+
+ということで、oh-my-fish は捨てて、これからは fisherman 一本で管理していくことにします。
+
+* 置き換え例
+  たとえば、
+  - omf で hoge というプラグインを利用していた場合、fisherman で omf/hoge に置き換え可能.
+  - omf で fuga というテーマを利用していた場合、fisherman で omf/theme-fuga に置き換え可能.
+
+* 移行手順
+  以下のチケットにまとまっていました。
+  - [[https://github.com/fisherman/fisherman/issues/223][📌📚📕 Migration instructions from oh-my-fish to fisherman? · Issue #223 · fisherman/fisherman]]
+
+1. fisherman のインストール
+
+#+begin_src bash
+curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisherman
+#+end_src
+
+2. omf plugin を ~/.config/fish/fishfile に加えて fisher コマンドを叩く
+加えるルールは以下のとおり
+
+- plugin xxxx を使っている場合は、oh-my-fish/plugin-xxxx
+- theme xxxx を使っている場合は、oh-my-fish/theme-xxxx
+
+#+begin_src bash
+oh-my-fish/plugin-xxxx
+oh-my-fish/theme-xxxx
+#+end_src
+
+そして、fisher コマンドを実行。
+
+3. oh-my-fish のアンインストール
+
+#+begin_src bash
+omf destroy
+#+end_src
+
+* トラブルシューティング
+  oh-my-fihs/theme-default をインストールしたら、git_is_repo という関数がないよと Warning がでた。
+  
+  fiserman で、git_util をインストールしたら、warning はでなくなった。
+  - https://github.com/fisherman/git_util
+

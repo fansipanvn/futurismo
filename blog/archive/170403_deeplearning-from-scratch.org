@@ -1,0 +1,112 @@
+#+BLOG: Futurismo
+#+POSTID: 6219
+#+DATE: [2017-04-04 火 15:25]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 書評, 機械学習
+#+TAGS: DeepLearning
+#+DESCRIPTION: ゼロから作る Deep Learning を読んだ
+#+TITLE: ゼロから作る Deep Learning を読んだ
+
+  Deep Learning の初歩（ニューラルネットワーク）を学ぶために,
+  遅ればせながら、ゼロから作る Deep Learning を読んだ.
+
+  #+begin_export html
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=fox10225fox-22&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4873117585&linkId=95eb49ff9d208d1d06ff5b51d97b6ca4"></iframe>
+  #+end_export
+
+* 読んだ理由
+  なぜ読んだかというと、この本がバカ売れしていて、すこぶる評判がよいから。
+  
+  今現在（2017.4)、オライリー 5.5 万部売れているらしい。
+  エンジニアの人口が 90 万人と推定すると、5,6%の人が 20 人に 1 人が読んでいる。
+  - [[http://www.petitmonte.com/politics_economy_life/it_engineer_population.html][IT エンジニアの人口推移と予測]]
+
+  みんな読んでいるので自分も読んでおこうというのが動機。
+  coursera の Machine Learning の講座で 
+  ニューラルネットワークが出てきて追い詰められていたという理由もある。
+
+* 内容
+** 誰におすすめか
+  なぜこんなに売れているのかというと、
+  高校生程度の数学の知識でもニューラルネットワークが理解でき、
+  さらには Python でニューラルネットのコードが書けるからだ。
+
+  - Python 初心者だ
+  - numpy つかったことない
+  - 数学苦手
+
+  そんな君も大丈夫！すごくわかりやすく初歩の初歩からかかれている。
+
+  また、ゼロから自分で作るからこそ、知識を深く吸収することができる（と著者がいっている）。
+  
+** ディープラーニング（深層学習）に入門
+  ディープラーニングのニュースが毎日世間を騒がし、
+  最近の風潮としてエンジニアならとりあえず機械学習かじっとけみたいなのもある。
+
+  この波にのっからないわけにはいかない。しかし、どっから取りかかればいいのだろう。
+  そう迷っているひとが五万といるからこそ、この本がとても売れているのではないかと思う。
+
+  ディープラーニング（深層学習）の入門書としては、この本が今のところ一番。
+
+** 目次
+  目次は以下の通り。
+  
+#+begin_src text
+１． Python 入門
+２．パーセプトロン
+３．ニューラルネットワーク
+４．ニューラルネットワークの学習
+５．誤差逆伝搬法
+６．学習に関するテクニック
+７．畳み込みニューラルネットワーク
+８．ディープラーニング
+#+end_src
+
+  本書は、pyhton と numpy ライブラリのみをつかって、
+  ニューラルネットワークと畳み込みニューラルネットワーク(CNN)をゼロから実装していく。
+
+  逆にいえば、CNN 以上のことは、RNN, LSTM, DCGAN, DQN などはかかれていない。
+
+  5 章までニューラルネットワークが続く。
+  6 章では、パラメータ更新の最適化法、バッチ正規化、正則化などハイパーパラメータ関連のことがかかれている。
+  7 章では、畳み込みニューラルネットワーク(CNN)を豊富な図と、丁寧な説明で紹介される。
+  8 章では、ディープラーニングの最新動向が説明される。
+
+  私は、coursera Machine Learning のバックプロパゲーションを理解するために 5 章までを 2 回読んだ。
+  そのあと読むのを止め、時間に余裕ができてから 6,7,8 章を読んだ。
+
+* 感想
+  わかりやすいわかりやすいと書きつつ、実は理解できないところもあった。
+
+  計算グラフによる誤差逆伝搬法は、2 度読んでようやくなんとなくわかった。
+  が、誤差逆伝搬法はこっちの本で数式からのアプローチですんなりふに落ちた。
+  - [[http://futurismo.biz/archives/6216][ディープラーニングがわかる数学入門を読んだ | Futurismo]]
+
+  ちなみに、筆者が強く影響を受けている計算グラフによる説明動画は以下。
+  見てみたけど、英語なのでよくわからない。
+  日本語で、ニューラルネットワークに関してまとまっている本書はありがたい。
+
+#+begin_export html
+<iframe width="560" height="315" src="https://www.youtube.com/embed/i94OvYb6noo" frameborder="0" allowfullscreen></iframe>
+#+end_export
+
+  また、CNN の実装も理解できなかった。ライブラリに依存しないということだが、
+  im2col という謎のユーティリティが出てきて、これが理解できなかった。
+  もう一度、CNN の章については読み返す必要あり。
+
+   6 章や 8 章で、最新の手法が紹介されているところもよいと思った。
+   また、このディープラーニングという分野は変化が激しいのだなと感じた。
+
+* これからどうするか
+  ニューラルネットワークについてはだいたい理解できた。
+  いろんな教材であれこれ品を替えて触れているので、さすがに理解できてきた。
+
+  今後の目標は、CNN を理解すること。次は、この本を読もうと思っている。
+  
+#+begin_export html
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=fox10225fox-22&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4839960887&linkId=b49a21c42b37b5bb84a35bdb1766d77a"></iframe>
+#+end_export
+
+  TensorFlow を使って CNN を理解する本だ。
+  CNN の実装の箇所を読みながら、難しいところは自作するよりもライブラリを使ったほうがいいなと感じた。
+  引き続き、Deep Learning の知識を深めていきます。

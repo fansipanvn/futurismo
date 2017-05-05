@@ -1,0 +1,13 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: MOOC, Python
+#+TAGS: Udemy
+#+DESCRIPTION:Udemy で実践データサイエンスを受けた
+#+TITLE: Udemy で実践データサイエンスを受けた
+
+Udemy の人気講座、 実践データサイエンスを受けたを受けました。
+- [[https://www.udemy.com/python-jp/][【世界で 5 万人が受講】実践 Python データサイエンス | Udemy]]
+
+* 概要
+  
+
+* 感想

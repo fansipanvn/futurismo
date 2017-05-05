@@ -1,0 +1,95 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: Tensorflow で regression
+
+TensorFlow で回帰曲線を描く方法を学んだので、忘れないようにメモします。
+
+似たような記事は、いくつかネット上にあるので、そちらを参考にするのもいいかも。
+- [[http://qiita.com/TomokIshii/items/f355d8e87d23ee8e0c7a][初めての TensorFlow - イントロダクションとしての線形回帰 - Qiita]]
+- [[http://qiita.com/jkkch/items/70fc223f2871ca5e691c][TensorFlow を試す（線形回帰） - Qiita]]
+
+** 環境
+   - TensorFlow 1.0.1
+   - Python 3.6.0
+
+* やること
+  sign 曲線上に広がるデータから sign 曲線を線形回帰で求めます。
+
+  以下のようにデータが散らばっている。
+
+#+begin_src python :results file :session ex
+import os
+import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.colors as colors
+import matplotlib.cm as cmx
+plt.style.use('ggplot')
+
+n_observations = 1000
+
+xs = np.linspace(-3, 3, n_observations)
+ys = np.sin(xs) + np.random.uniform(-0.5, 0.5, n_observations)
+plt.scatter(xs, ys, alpha=0.15, marker='+')
+
+plt.savefig('../img/170412-1.png')
+'../img/170412-1.png'
+#+end_src
+
+#+RESULTS:
+[[file:../img/170412-1.png]]
+
+* 線形回帰
+
+#+begin_src python :session ex
+# Praceholder として、X, Y を定義
+X = tf.placeholder(tf.float32, name='X')
+Y = tf.placeholder(tf.float32, name='Y')
+
+# 変数として W, b を定義
+W = tf.Variable(tf.random_normal([1], dtype=tf.float32, stddev=0.1), name='weight')
+B = tf.Variable(tf.constant([0], dtype=tf.float32), name='bias')
+
+Y_pred = X * W + B
+#+end_src
+
+#+begin_src python :session ex
+cost = tf.reduce_mean(tf.abs(Y_pred - Y))
+#+end_src
+
+#+begin_src python :session ex
+optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01).minimize(cost)
+#+end_src
+
+#+begin_src python :session ex :results file
+n_iterations = 500
+
+# Plot the true data distribution
+fig, ax = plt.subplots(1, 1)
+ax.scatter(xs, ys, alpha=0.15, marker='+')
+
+
+n_iterations = 500
+with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())
+    
+    prev_training_cost = 0.0
+    for it_i in range(n_iterations):
+        sess.run(optimizer, feed_dict={X: xs, Y: ys})
+        training_cost = sess.run(cost, feed_dict={X: xs, Y: ys})
+        if it_i % 10 == 0:
+            print(training_cost)
+        if np.abs(prev_training_cost - training_cost) < 0.000001:
+            break
+        prev_training_cost = training_cost
+    ys_pred = Y_pred.eval(feed_dict={X: xs}, session=sess)
+    ax.plot(xs, ys_pred, 'k')
+    plt.savefig('../img/170412-2.png')
+    '../img/170412-2.png'
+#+end_src
+
+#+RESULTS:
+[[file:../img/170412-2.png]]
+

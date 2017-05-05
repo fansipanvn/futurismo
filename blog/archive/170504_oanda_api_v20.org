@@ -1,0 +1,57 @@
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+CATEGORY: 技術メモ
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: Oanda API v20 をつかって Python で 為替(FX)レートを取得してみた
+
+以前 FX システムトレードの記事は古い！
+- [[http://futurismo.biz/archives/4266][OANDA API をつかって Python で 為替レートを取得してみた | Futurismo]]
+
+Oanda API が v20 に更新されたので、Oanda API の記事も v20 に対応して書き直した。
+
+* 前準備
+  今回は、無料で即日利用できるデモ口座を開設して試す. 
+
+** 口座を開設
+   右上のデモ口座開設をクリックして、手順にしたがって口座開設.
+   http://www.oanda.jp/
+   
+   デモ口座にログインして、API アクセスの管理を選択し、Personal Access Token を発行.
+
+   以下の情報をどこかにメモしておく。
+   - アカウント ID
+   - Personal Access Token
+
+   The OANDA v20 REST API provides programmatic access to OANDA ’ s next generation v20 trading engine. 
+   To use this API you must have a v20 trading account, which is available to all divisions except Japan.
+
+** 為替レートを取得
+   REST-V20 API のドキュメントは以下にある.
+   - [[http://developer.oanda.com/rest-live-v20/introduction/][Introduction]]
+
+   しかし、API 仕様をみてもよくわからない。
+   Oanda REST-V20 には、Python のラッパーライブラリが存在するので、今回はそれを利用する。
+   - [[https://github.com/hootnot/oanda-api-v20][hootnot/oanda-api-v20: OANDA REST-V20 API wrapper]]
+
+* oanda-rest-v20
+  ドキュメントは以下。
+  - [[http://oanda-api-v20.readthedocs.io/en/latest/][The oandapyV20 REST-V20 API wrapper documentation — OANDA REST V20 API Wrapper 0.2.3 documentation]]
+
+** インストール
+  - [[http://oanda-api-v20.readthedocs.io/en/latest/installation.html][Introduction — OANDA REST V20 API Wrapper 0.2.3 documentation]]
+
+まずは、pip でインストール。
+
+#+begin_src bash
+pip install oandapyV20
+#+end_src
+
+** 為替レート取得
+
+* その他情報
+  サンプルコードが以下にある。
+  - [[https://github.com/hootnot/oandapyV20-examples][hootnot/oandapyV20-examples: Examples demonstrating the use of oandapyV20 (oanda-api-v20)]]
+  - [[https://github.com/oanda/v20-python-samples][oanda/v20-python-samples: Sample python code that uses the v20 python library]]
+
+  また、Udemy にも、Oanda を利用した FX システムトレードの講座がある。私はセールの時に 1200 円で購入した。
+  - [[https://www.udemy.com/python-algo-trading-fx-trading-with-oanda/learn/v4/content][Python Algo Trading: FX Trading with Oanda | Udemy]]
